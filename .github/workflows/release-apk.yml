@@ -1,0 +1,245 @@
+name: Release APK
+
+# Compila el APK release firmado y lo publica como (pre-)release en GitHub Releases.
+# Se lanza a mano (Actions -> Release APK -> Run workflow) o empujando un tag v*.
+# Convención de versiones y secretos: docs/releases/README.md
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Rama o commit a compilar'
+        required: false
+        default: main
+        type: string
+      fase:
+        description: 'Fase (p. ej. "0 — Cimientos"). Si se deja vacío se toma del encabezado de las notas'
+        required: false
+        type: string
+      version:
+        description: 'Versión / tag (p. ej. v0.0.1). Debe existir docs/releases/<version>.md'
+        required: true
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-apk-${{ inputs.version || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Compilar y publicar APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # En push de tag, ref_name es el tag; en dispatch, el input (default main).
+          ref: ${{ inputs.ref || github.ref_name }}
+
+      - name: Resolver versión y fase
+        id: meta
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_FASE: ${{ inputs.fase }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "push" ]; then
+            version="$REF_NAME"
+          else
+            version="$INPUT_VERSION"
+          fi
+          if ! [[ "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::La versión '$version' no tiene el formato vN.N.N (p. ej. v0.0.1)."
+            exit 1
+          fi
+
+          notes="docs/releases/${version}.md"
+          if [ ! -f "$notes" ]; then
+            echo "::error::Faltan las notas del release: $notes. Créalas (primera línea '# Fase N — Nombre') y vuelve a lanzar."
+            exit 1
+          fi
+
+          fase="$INPUT_FASE"
+          if [ -z "$fase" ]; then
+            # Primera línea de las notas: "# Fase 0 — Cimientos"
+            primera="$(head -n 1 "$notes" | tr -d '\r')"
+            if [[ "$primera" != "# Fase "* ]]; then
+              echo "::error::No se pudo determinar la fase. Usa el input 'fase' o pon '# Fase N — Nombre' como primera línea de $notes."
+              exit 1
+            fi
+            fase="${primera#\# Fase }"
+          fi
+
+          major="${version#v}"; major="${major%%.*}"
+          if [ "$major" -ge 1 ]; then prerelease=false; else prerelease=true; fi
+
+          {
+            echo "version=$version"
+            echo "version_name=${version#v}"
+            echo "fase=$fase"
+            echo "notes=$notes"
+            echo "prerelease=$prerelease"
+            echo "apk_name=app-parejas-${version}.apk"
+          } >> "$GITHUB_OUTPUT"
+          echo "Versión: $version | Fase: $fase | Pre-release: $prerelease"
+
+      - name: Validar secretos requeridos
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          faltan=()
+          for nombre in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS \
+            ANDROID_KEY_PASSWORD EXPO_PUBLIC_SUPABASE_URL EXPO_PUBLIC_SUPABASE_ANON_KEY; do
+            if [ -z "${!nombre:-}" ]; then faltan+=("$nombre"); fi
+          done
+          if [ "${#faltan[@]}" -gt 0 ]; then
+            echo "::error::Faltan secretos de GitHub (Settings -> Secrets and variables -> Actions): ${faltan[*]}"
+            exit 1
+          fi
+          echo "Secretos requeridos presentes."
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test -- --ci
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # El SDK de Android ya viene en ubuntu-latest (ANDROID_HOME); no hace falta setup-android.
+
+      - name: Preparar keystore y archivos opcionales
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        run: |
+          set -euo pipefail
+          umask 077
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.keystore"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/release.keystore" >> "$GITHUB_ENV"
+
+          # Opcionales (fases futuras): si no existen, se sigue sin ellos.
+          if [ -n "${GOOGLE_SERVICES_JSON_BASE64:-}" ]; then
+            echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -d > google-services.json
+            echo "google-services.json decodificado."
+          else
+            echo "GOOGLE_SERVICES_JSON_BASE64 no definido (opcional); se omite."
+          fi
+          if [ -n "${GOOGLE_MAPS_API_KEY:-}" ]; then
+            echo "::add-mask::$GOOGLE_MAPS_API_KEY"
+            echo "GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY" >> "$GITHUB_ENV"
+          else
+            echo "GOOGLE_MAPS_API_KEY no definido (opcional); se omite."
+          fi
+
+      - name: Expo prebuild (Android)
+        env:
+          APP_VERSION: ${{ steps.meta.outputs.version_name }}
+          APP_VERSION_CODE: ${{ github.run_number }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+        run: npx expo prebuild -p android --clean --no-install
+
+      - name: Gradle (caché)
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Compilar APK release
+        working-directory: android
+        env:
+          APP_VERSION: ${{ steps.meta.outputs.version_name }}
+          APP_VERSION_CODE: ${{ github.run_number }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Verificar firma y renombrar APK
+        id: apk
+        env:
+          APK_NAME: ${{ steps.meta.outputs.apk_name }}
+        run: |
+          set -euo pipefail
+          src="android/app/build/outputs/apk/release/app-release.apk"
+          test -f "$src" || { echo "::error::No se generó $src"; exit 1; }
+
+          apksigner="$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -n 1)"
+          certs="$("$apksigner" verify --print-certs "$src")"
+          echo "$certs"
+          if echo "$certs" | grep -qi "Android Debug"; then
+            echo "::error::El APK quedó firmado con la clave de debug; la firma release no se aplicó."
+            exit 1
+          fi
+
+          mkdir -p dist
+          mv "$src" "dist/$APK_NAME"
+          echo "path=dist/$APK_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Subir APK como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.apk_name }}
+          path: ${{ steps.apk.outputs.path }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publicar release en GitHub
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+          FASE: ${{ steps.meta.outputs.fase }}
+          NOTES: ${{ steps.meta.outputs.notes }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
+          APK_PATH: ${{ steps.apk.outputs.path }}
+        run: |
+          set -euo pipefail
+          titulo="Fase ${FASE} — ${VERSION}"
+          sha="$(git rev-parse HEAD)"
+
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            # Reintento: se reemplaza el APK y se actualizan título/notas.
+            gh release upload "$VERSION" "$APK_PATH" --clobber
+            gh release edit "$VERSION" --title "$titulo" --notes-file "$NOTES" --prerelease="$PRERELEASE"
+          else
+            # Si el tag no existe, gh lo crea sobre el commit compilado.
+            gh release create "$VERSION" "$APK_PATH" \
+              --title "$titulo" \
+              --notes-file "$NOTES" \
+              --target "$sha" \
+              --prerelease="$PRERELEASE"
+          fi
+          echo "Release publicado: $(gh release view "$VERSION" --json url -q .url)"
