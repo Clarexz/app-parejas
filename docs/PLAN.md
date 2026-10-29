@@ -135,7 +135,7 @@ reseñas y análisis de UX de terceros.
 | RNF-02 | Privacidad: **Row Level Security** en todo; solo los 2 miembros acceden a sus datos. Buckets de Storage privados con URLs firmadas. |
 | RNF-03 | Tiempo real: mood/respuestas/comentarios visibles en < 2 s con la app abierta. |
 | RNF-04 | Imágenes comprimidas en el cliente (máx. ~1600 px, JPEG ~0.7) para cuidar disco y datos móviles. |
-| RNF-05 | UI en español de México, modo claro/oscuro, estética romántica coherente. |
+| RNF-05 | UI en español de México, modo claro/oscuro, **diseño propio, bonito y llamativo** según `docs/DISENO.md` (nada genérico ni "AI slop", ver §8.5). |
 | RNF-06 | TypeScript estricto, lint y tests unitarios de la lógica (racha, fechas, asignación de pregunta, distancia). |
 | RNF-07 | Instalación directa en nuestros celulares Android vía **APK**, sin Play Store. |
 | RNF-08 | Lectura razonable sin conexión (caché persistente de consultas). |
@@ -315,7 +315,7 @@ Hay **dos tipos de sesión**:
 
 - Rama por fase (la que asigne el entorno o `fase-N-<nombre>`) y PR contra `main`; tú haces
   *merge* después de probar el APK.
-- Al empezar: leer `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONS.md` y `docs/SERVIDOR.md`.
+- Al empezar: leer `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONS.md`, `docs/SERVIDOR.md` y `docs/DISENO.md`.
 - **Idioma:** UI, notificaciones y contenido en **español de México**; convención de código y
   commits definida en Fase 0.
 - Las sesiones de fase no tienen celular ni acceso al VPS: validan con lint, typecheck, tests,
@@ -393,6 +393,66 @@ copiar):
   si la fase lo indica) + smoke test.
 - **S-restore — Restaurar respaldo** (documentado en `docs/SERVIDOR.md`, por si acaso).
 
+### 8.4 Orquestación con agentes (optimizar tokens)
+
+La sesión principal de cada fase corre en **Opus** y actúa como **orquestador**: entiende la fase,
+la divide en tareas, delega, revisa y cierra. **No implementa todo ella misma.**
+
+**Agentes del proyecto** (definidos en Fase 0 en `.claude/agents/*.md`, con `model` en el
+frontmatter, para que todas las sesiones deleguen igual):
+
+| Agente | Modelo | Para qué |
+|---|---|---|
+| `explorador` | Haiku 5.5 | Búsquedas de solo lectura en el repo: "¿dónde está X?", "¿qué hooks existen para Y?". Devuelve rutas y conclusiones, no volcados de archivos. |
+| `mecanico` | Haiku 5.5 | Trabajo mecánico y acotado: arreglar errores de lint/tipos triviales, renombres, formateo, actualizar docs/§10/DECISIONS.md, notas de release, validar/convertir JSON de contenido, boilerplate repetitivo. |
+| `implementador` | Sonnet 5.5 | Implementar una tarea concreta de una feature: pantallas, hooks, componentes, migraciones SQL, funciones Edge, workflows de CI, tests. |
+| `disenador-ui` | Sonnet 5.5 | Maquetar pantallas y componentes siguiendo `docs/DISENO.md` al pie de la letra, animaciones, estados vacíos/carga/error; QA visual con capturas (ver §8.5). |
+| `contenido` | Sonnet 5.5 | Escribir preguntas, ítems de juegos, ideas de citas, textos de UI y notificaciones en español de México siguiendo `docs/CONTENT.md`. |
+
+**Qué se queda el orquestador (Opus):** plan de la fase y orden de tareas; decisiones de
+arquitectura; diseño de RLS/RPC y **revisión de seguridad** de toda migración; dirección de arte
+y crítica de diseño; redactar los **prompts para el servidor**; integrar, revisar los diffs de los
+agentes, correr la verificación final y cerrar la fase (§8.2); hablar contigo.
+
+**Reglas de delegación:**
+1. Elegir el modelo más barato que pueda hacer bien la tarea: Haiku para lo mecánico, Sonnet para
+   construir, Opus solo para decidir/revisar. Ante la duda entre Haiku y Sonnet, Sonnet.
+2. Cada encargo es **autocontenido**: objetivo, archivos involucrados, contrato (tipos, props,
+   tablas), criterios de aceptación y comandos para verificar. Los agentes no heredan el contexto.
+3. **Paralelizar** tareas independientes (p. ej. migración + pantalla + tests) en el mismo turno;
+   usar `isolation: "worktree"` cuando dos agentes editarían los mismos archivos.
+4. Los agentes responden con un **resumen corto** (qué cambió, archivos, resultado de los checks,
+   dudas), no con el código completo; el orquestador revisa con `git diff` enfocado, no releyendo
+   todo el repo.
+5. El orquestador **no repite** trabajo de un agente: si algo está mal, devuelve el encargo con la
+   corrección concreta al mismo agente (SendMessage) en vez de rehacerlo.
+6. Contenido masivo (Fase 10): varios agentes `contenido` en paralelo, uno por categoría/lote, y un
+   `mecanico` que valida y deduplica.
+7. Registrar en el PR un mini resumen de la delegación (qué agente hizo qué), para ajustar las
+   reglas si algo sale caro o mal.
+
+### 8.5 Diseño: reglas para todas las fases
+
+- **`docs/DISENO.md` es ley** (se crea en la Fase 0.5): concepto, tokens, tipografía, iconografía,
+  ilustración, motion, componentes y la lista de "prohibido". Toda pantalla nueva lo sigue; si una
+  fase necesita algo que no existe, se extiende el sistema primero (componente/tokens), no se
+  improvisa en la pantalla.
+- **Anti "AI slop" / genérico — prohibido:** degradados morado-azul, *glassmorphism* por todos
+  lados, tarjetas blancas idénticas con sombra suave en una cuadrícula, Inter/Roboto en todo,
+  emojis usados como iconos del sistema, ilustraciones 3D genéricas de stock, corazones
+  rosa chicle como única idea, layouts de "dashboard SaaS", textos tipo "¡Bienvenido a tu
+  experiencia!". Nada de pantallas que parezcan plantilla.
+- **Sí:** un concepto con personalidad propia y consistente (p. ej. *diario/scrapbook* de pareja:
+  papel, polaroids, cinta, garabatos a mano, stickers, tinta), jerarquía tipográfica con una
+  display con carácter + una sans legible, paleta propia con nombre de cada color, micro-
+  interacciones con significado (la racha "se enciende", el mood "late"), estados vacíos
+  ilustrados y con humor, copy cálido y mexicano.
+- **QA visual en cada fase:** la app tiene un target **web solo para desarrollo** (react-native-web)
+  y un script `npm run shots` que, con Playwright y Chromium (preinstalado en las sesiones),
+  renderiza las pantallas nuevas en viewport de celular (claro y oscuro) y guarda capturas. El
+  `disenador-ui` las revisa contra `docs/DISENO.md`, el orquestador hace la crítica final, y las
+  capturas van en el PR. (Widgets, Skia y mapas se revisan en el APK.)
+
 ---
 
 ## 9. Fases
@@ -400,7 +460,8 @@ copiar):
 | Fase | Nombre | Resultado visible | Depende de |
 |---|---|---|---|
 | 0 | Cimientos | APK `v0.0.x` que se conecta al Supabase del VPS; CI y releases funcionando | — |
-| 1 | Auth, emparejamiento y perfil | Ambos se registran y se vinculan | 0 |
+| 0.5 | Dirección de arte y sistema de diseño | 3 conceptos para elegir, `docs/DISENO.md`, app con identidad propia | 0 |
+| 1 | Auth, emparejamiento y perfil | Ambos se registran y se vinculan | 0.5 |
 | 2 | Inicio, contador y mood | Inicio con días juntos y mood en tiempo real | 1 |
 | 3 | Preguntas diarias, racha y comentarios | Núcleo de Couple Joy | 2 |
 | 4 | Notificaciones push | Avisos de respuestas, mood, toques, recordatorio | 3 |
@@ -427,8 +488,13 @@ backend Supabase levantado en el VPS de Hostinger.
    Configuración **solo Android**, `package` = `com.appparejas.app` (provisional), nombre
    centralizado en `APP_NAME`.
 2. ESLint, Prettier, Jest + RNTL; scripts `lint`, `typecheck`, `test`, `format`.
-3. Tema base (tokens claro/oscuro, tipografía, espaciado) y primitivos (`Screen`, `Text`,
-   `Button`, `Card`, `Avatar`, `Input`).
+3. Tema base **mínimo y provisional** (tokens claro/oscuro, estructura de `theme/` lista para
+   que la Fase 0.5 defina la identidad) y primitivos sin estilo final. Target **web solo para
+   desarrollo** (react-native-web) y script `npm run shots` (Playwright, viewport de celular,
+   claro/oscuro) para QA visual (§8.5).
+3b. **Agentes del proyecto** en `.claude/agents/` (`explorador` y `mecanico` con Haiku 5.5;
+   `implementador`, `disenador-ui` y `contenido` con Sonnet 5.5) según §8.4, y sección de
+   orquestación en `CLAUDE.md`.
 4. Cliente Supabase (`src/lib/supabase.ts`) con sesión persistente; provider de TanStack Query;
    pantalla temporal con **estado de conexión al servidor** (health check de Auth/REST) y versión
    de la app.
@@ -459,12 +525,15 @@ servidor; credenciales guardadas en `/opt/app-parejas/secrets/`; respaldo diario
 
 **Prompt de arranque:**
 ```
-Lee docs/PLAN.md completo (sobre todo §5–§8). Vamos a ejecutar la **Fase 0 — Cimientos**.
+Lee docs/PLAN.md completo (sobre todo §5–§8). Actúa como orquestador según §8.4: planea, delega
+en agentes Sonnet/Haiku y revisa. Vamos a ejecutar la **Fase 0 — Cimientos**.
 Crea el proyecto Expo (SDK estable más reciente, TypeScript estricto, expo-router) en la raíz del
 repo con la estructura de §7.2, configurado SOLO para Android (package provisional
 com.appparejas.app, nombre "App Parejas" centralizado en APP_NAME). Configura
 ESLint/Prettier/Jest/RNTL y los scripts lint, typecheck, test. Crea el tema base (claro/oscuro,
-estética romántica), componentes primitivos, cliente Supabase + TanStack Query y una pantalla
+provisional; la identidad llega en la Fase 0.5), componentes primitivos, target web solo para
+desarrollo con `npm run shots` (Playwright), los agentes de .claude/agents/ de §8.4, cliente
+Supabase + TanStack Query y una pantalla
 temporal que muestre la versión y el estado de conexión con el servidor. Crea supabase/ con la
 primera migración (profiles con trigger al registrarse, couples, couple_members, helper
 is_couple_member, RLS). Crea los workflows ci.yml (incluyendo validación de migraciones contra
@@ -476,6 +545,53 @@ servidor según §8.3: dame el prompt S0 (solo lectura) para la sesión de Claud
 Hostinger, espera su reporte, decide self-hosted vs. plan B, dame el prompt S1 adaptado, espera su
 reporte y dime exactamente qué secretos cargar en GitHub. Finalmente cierra la fase con el
 protocolo de §8.2 publicando el release v0.0.x.
+```
+
+---
+
+### Fase 0.5 — Dirección de arte y sistema de diseño
+
+**Objetivo:** que la app tenga una identidad visual propia, bonita y llamativa **antes** de
+construir pantallas, y que todas las fases la sigan.
+
+**Tareas:**
+1. Investigación rápida de referencias (apps de pareja, diarios/scrapbooks, editorial, papelería)
+   y de qué hace genérica a una app; resumen de hallazgos.
+2. Proponer **3 conceptos de dirección de arte** distintos (nombre, idea, paleta con nombres,
+   tipografías, textura, estilo de iconos/ilustración, motion, ejemplo de copy). Uno puede ser el
+   de *diario/scrapbook*; los otros dos deben ser realmente diferentes.
+3. Presentarlos como **prototipo visual HTML** (un artifact/página con las 3 propuestas aplicadas
+   a 3 pantallas clave: Inicio, Pregunta del día, Memorias, en claro y oscuro) para que elijas
+   uno (o una mezcla).
+4. Con el concepto elegido: `docs/DISENO.md` completo (principios, tokens de color/espaciado/
+   radios/sombras/tipografía, iconografía, ilustraciones y texturas, motion y haptics, voz y tono
+   del copy, componentes con variantes y estados, patrones de pantallas, lista de "prohibido" de
+   §8.5, checklist de revisión).
+5. Implementar el sistema en código: tokens de tema (claro/oscuro), fuentes (expo-font,
+   licencias libres p. ej. Google Fonts), set de iconos (uno con estilo propio o custom SVG),
+   assets/texturas, y los componentes base rediseñados (`Screen`, `Text`, `Button`, `Card`,
+   `Avatar`, `Input`, `Chip`, `Sheet`, `EmptyState`, `Toast`, `Sticker`, `Polaroid`/equivalentes
+   según el concepto).
+6. Pantalla oculta **"Catálogo de diseño"** dentro de la app con todos los componentes y tokens,
+   y capturas con `npm run shots`.
+7. Ícono de la app y splash provisionales coherentes con el concepto.
+
+**Entregable APK (`v0.0.x`, parche siguiente):** la app ya con la nueva identidad (splash, ícono,
+pantalla de conexión rediseñada) + "Catálogo de diseño" para revisar componentes en tu celular.
+
+**Prompt de arranque:**
+```
+Lee CLAUDE.md, docs/PLAN.md (sobre todo §8.4 y §8.5) y docs/DECISIONS.md. Actúa como orquestador
+según §8.4. Ejecuta la **Fase 0.5 — Dirección de arte y sistema de diseño**. Quiero una app
+bonita, llamativa y linda, con personalidad: nada de estilos genéricos ni "AI slop". Investiga
+referencias, propón 3 conceptos de dirección de arte realmente distintos y preséntalos en un
+prototipo visual HTML (Inicio, Pregunta del día y Memorias, en claro y oscuro) para que yo elija.
+Con el concepto elegido escribe docs/DISENO.md completo (tokens, tipografía, iconografía,
+ilustración/texturas, motion/haptics, voz del copy en español de México, componentes y estados,
+patrones, lista de prohibidos y checklist), impleméntalo en código (tema claro/oscuro, fuentes,
+iconos, assets y componentes base), crea la pantalla "Catálogo de diseño", ícono y splash
+provisionales y el script `npm run shots` de capturas con Playwright. Verifica lint, typecheck,
+test y expo export, y cierra con el protocolo de §8.2 (APK con la nueva identidad).
 ```
 
 ---
@@ -501,7 +617,7 @@ otra pareja.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 1 — Autenticación,
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 1 — Autenticación,
 emparejamiento y perfil** (RF-01, RF-02, RF-03). Implementa auth con email/contraseña de Supabase,
 guardas de navegación (auth → onboarding → tabs), onboarding de perfil con avatar (bucket privado,
 imagen comprimida), crear pareja con código de invitación de 6 caracteres compartible o unirse con
@@ -530,7 +646,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 2 — Inicio, contador y mood**
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 2 — Inicio, contador y mood**
 (RF-04, RF-05). Crea las 5 tabs de §7.3, el Inicio con avatares, días juntos con desglose y
 próximos hitos (incluyendo cumplemeses), selector de mood al tocar el avatar (tabla moods + RLS +
 Realtime para ver el mood de tu pareja al instante) y tarjetas placeholder para pregunta del día,
@@ -570,7 +686,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 3 — Preguntas diarias, racha y
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 3 — Preguntas diarias, racha y
 comentarios** (RF-06 a RF-12, RF-23). Crea tablas y RLS de §7.1 para categorías, preguntas,
 asignaciones diarias, respuestas, comentarios y nudges. Define el formato de contenido en
 content/questions/*.json, un script scripts/build-seed.ts que genere SQL idempotente (upsert por
@@ -610,7 +726,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 4 — Notificaciones push**
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 4 — Notificaciones push**
 (RF-13). Registra tokens con expo-notifications en push_tokens/notification_prefs, crea la Edge
 Function `notify` que envía por FCM HTTP v1 al otro miembro respetando preferencias, limpiando
 tokens inválidos y soportando push de datos (para refrescar widgets después), y conéctala con
@@ -642,7 +758,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 5 — Widgets Android** (RF-14).
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 5 — Widgets Android** (RF-14).
 Con react-native-android-widget implementa el snapshot compartido y su actualización (al abrir la
 app, al cambiar datos, periódicamente y al recibir push de datos mediante headless task que vuelve a
 leer de Supabase). Crea los widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico y
@@ -672,7 +788,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 6 — Stories** (RF-16). Crear
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 6 — Stories** (RF-16). Crear
 stories con foto (cámara/galería, comprimida), texto con fondo y dibujo con
 @shopify/react-native-skia (pinceles, colores, deshacer) y stickers básicos; caducidad de 24 h con
 pg_cron que limpia media (decide y documenta qué pasa con el archivo); visor con progreso, vistos,
@@ -698,7 +814,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 7 — Memorias y mapa** (RF-17).
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 7 — Memorias y mapa** (RF-17).
 Tablas memories y memory_photos con RLS y Storage privado; crear/editar memoria con título, fecha,
 texto y 1–10 fotos comprimidas con progreso de subida, reordenables con drag & drop; timeline
 agrupada por mes, detalle con carrusel, borrar y descargar; ubicación opcional (EXIF o elegir en
@@ -727,7 +843,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 8 — Cuentas regresivas, listas
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 8 — Cuentas regresivas, listas
 compartidas y distancia** (RF-18, RF-19, RF-20). Eventos con recurrencia anual y automáticos
 (aniversario, cumplemeses, cumpleaños, hitos), evento destacado "la próxima vez que nos vemos" (es
 relación a distancia), próxima cuenta regresiva en Inicio y widget; listas compartidas con ítems,
@@ -757,7 +873,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 9 — Juegos** (RF-21). Amplía los
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 9 — Juegos** (RF-21). Amplía los
 tipos de pregunta (wyr, nhie, most_likely, agree) usando el formato de content/ con ~50 ítems
 ORIGINALES por juego en español de México (con variante picante opt-in), crea un motor genérico de
 rondas (ambos contestan de forma asíncrona, resultados con % de coincidencia) y las pantallas de
@@ -807,7 +923,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/CONTENT.md. Ejecuta la **Fase 10 — Banco de
+Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/CONTENT.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 10 — Banco de
 contenido completo**. Define la taxonomía final (categoría × intensidad × tipo) con metas por celda
 y genera contenido ORIGINAL en español de México, por lotes en content/, hasta llegar a al menos
 3,000 ítems (≥ 2,000 preguntas diarias open/choice y ≥ 1,000 ítems de juegos), incluyendo una
@@ -843,7 +959,7 @@ Extras confirmados (todos se hacen). Son 7, así que la fase se divide en dos se
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 11 — Extras más allá de Couple
 Joy**, sesión **11A**: "Pienso en ti", Cápsula del tiempo, Cupones de amor y Ruleta de citas
 (incluye un banco original de ideas de citas presenciales y a distancia en content/). Cada uno con su tabla y
 RLS, pantalla dentro de la tab Más (o donde tenga más sentido), push cuando aplique, contenido
@@ -854,7 +970,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque (11B):**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 11 — Extras más allá de Couple
 Joy**, sesión **11B**: Test de lenguajes del amor (quiz propio, resultados de cada quien y
 comparados), Calendario de visitas (registrar cada vez que se ven, días juntos en persona vs.
 separados, ligado a la cuenta regresiva "la próxima vez que nos vemos" de la Fase 8) y Estadísticas
@@ -887,7 +1003,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/SERVIDOR.md. Ejecuta la **Fase 12 — Pulido,
+Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/SERVIDOR.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 12 — Pulido,
 rendimiento y entrega**. Haz una revisión de diseño de toda la app (consistencia, haptics,
 animaciones, modo oscuro), icono y splash propios [y aplica el nombre definitivo: NOMBRE si ya lo
 tengo]; agrega respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico
@@ -905,6 +1021,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | Fase | Estado | PR | Notas |
 |---|---|---|---|
 | 0 Cimientos | ⏳ Pendiente | | |
+| 0.5 Diseño | ⏳ Pendiente | | |
 | 1 Auth y emparejamiento | ⏳ Pendiente | | |
 | 2 Inicio y mood | ⏳ Pendiente | | |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
@@ -937,6 +1054,8 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | D11 | **Cada fase entrega un APK release firmado en GitHub Releases** (GitHub Actions + Gradle, sin EAS). | 2026-10-29 |
 | D12 | **Backend: Supabase self-hosted en el VPS de Hostinger** (Docker), coordinado con prompts para la sesión de Claude Code del servidor; credenciales en `/opt/app-parejas/secrets/`. Plan B: Supabase Cloud Free. | 2026-10-29 |
 | D13 | Push directo con **FCM HTTP v1** desde la Edge Function (sin Expo Push). | 2026-10-29 |
+| D14 | **Diseño propio y llamativo, anti "AI slop"**: Fase 0.5 de dirección de arte (3 conceptos a elegir) y `docs/DISENO.md` obligatorio + QA visual con capturas. | 2026-10-29 |
+| D15 | **Opus orquesta, Sonnet 5.5 / Haiku 5.5 ejecutan** mediante agentes del proyecto (§8.4). | 2026-10-29 |
 | D10 | Extras confirmados: Pienso en ti, Cápsula del tiempo, Cupones, Ruleta de citas, Lenguajes del amor, Calendario de visitas, Estadísticas. Sin cartas "Ábrela cuando…". | 2026-10-29 |
 
 Pendiente: nombre definitivo, icono/paleta y **subdominio** para la API (p. ej. `parejas-api.<tu-dominio>`); recursos del VPS (los mide S0).
