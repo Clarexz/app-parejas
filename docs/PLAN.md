@@ -312,7 +312,7 @@ CLAUDE.md
 | 8 | Cuentas regresivas, listas y distancia | Eventos, listas, distancia (+ widgets) | 2, 5 |
 | 9 | Juegos | Qué prefieres, Yo nunca, Quién es más probable, dibujo | 3 |
 | 10 | Banco de contenido completo | 3,000+ preguntas e ítems de juegos | 3, 9 |
-| 11 | Extras más allá de Couple Joy | Funciones nuevas elegidas por nosotros | 2 |
+| 11 | Extras más allá de Couple Joy (11A y 11B) | Pienso en ti, cápsula, cupones, ruleta de citas, lenguajes del amor, visitas, estadísticas | 2, 8, 9 |
 | 12 | Pulido, rendimiento y entrega | Diseño final, audio, APK definitivo | todas |
 
 Las fases 7, 8, 9 y 11 son bastante independientes y se pueden reordenar.
@@ -635,7 +635,7 @@ expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
   - El grueso **generado por Claude** en lotes con la guía de `docs/CONTENT.md`.
 - **Importador**: si tenemos una baraja física, capturas o una lista de preguntas que nos gusten,
   se meten con `scripts/import-questions.ts` (CSV/JSON → `content/imported/`) o desde la app
-  ("Agregar pregunta" / pack propio). El repo debe ser **privado**.
+  ("Agregar pregunta"). El repo debe ser **privado**.
 - Deduplicación automática y feedback 👍/👎 desde la app.
 
 **Tareas:**
@@ -651,8 +651,8 @@ expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 5. Feedback desde la app: 👍/👎 por pregunta (tabla `question_feedback`), que el asignador use
    para evitar preguntas descartadas.
 6. **Importar contenido propio**: `scripts/import-questions.ts` (CSV/JSON con columnas
-   texto, categoría, tipo, intensidad, opciones) y pantalla "Agregar pregunta / crear pack" en la
-   app (preguntas creadas por nosotros entran al rotador diario).
+   texto, categoría, tipo, intensidad, opciones) y pantalla "Agregar pregunta" en la app (preguntas
+   sueltas creadas por nosotros entran al rotador diario; sin packs propios).
 
 **Prompt de arranque:**
 ```
@@ -665,7 +665,8 @@ distancia, fechas especiales, dinero, familia, deseo/picante opt-in, etc.) y cl�
 popular de "¿Qué prefieres?", "Yo nunca" y "¿Quién es más probable?". No transcribas barajas
 comerciales completas. Crea scripts/check-content.ts que valide esquema, duplicados y
 casi-duplicados, y genera el seed. Crea scripts/import-questions.ts (CSV/JSON → content/imported/)
-y la pantalla "Agregar pregunta / crear pack" en la app. Agrega feedback 👍/👎 por pregunta (tabla
+y la pantalla "Agregar pregunta" en la app (preguntas sueltas que entran al rotador diario; NO
+hay creación de packs propios). Agrega feedback 👍/👎 por pregunta (tabla
 question_feedback) y haz que el asignador diario evite las descartadas. Verifica lint, typecheck,
 test y el script de contenido. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
@@ -674,26 +675,38 @@ test y el script de contenido. Actualiza §10 y DECISIONS.md, commit, push y PR.
 
 ### Fase 11 — Extras más allá de Couple Joy
 
-Propuestas (elegir antes de arrancar la fase; cada una es chica):
+Extras confirmados (todos se hacen). Son 7, así que la fase se divide en dos sesiones: **11A** y **11B**.
 
-| Extra | Descripción |
-|---|---|
-| **"Pienso en ti"** | Botón de un toque que le manda a tu pareja una vibración/notificación con un corazón (y contador diario). |
-| **Cartas "Ábrela cuando…"** | Cartas escritas con antelación que se desbloquean por fecha o por situación ("ábrela cuando me extrañes", "cuando estés triste"). |
-| **Cápsula del tiempo** | Mensaje/foto que se abre en una fecha futura (p. ej. en el próximo aniversario). |
-| **Cupones de amor** | Cupones canjeables ("un masaje", "yo elijo la peli") con estado canjeado/pendiente. |
-| **Ruleta de citas** | Ideas de citas (presenciales y **a distancia**: ver una peli sincronizados, cocinar lo mismo por videollamada) con filtro y "girar". |
-| **Test de lenguajes del amor** | Quiz propio para conocer el lenguaje de cada quien y mostrar resultados comparados. |
-| **Calendario de visitas** | Historial de veces que se han visto, días juntos en persona vs. separados, estadísticas. |
-| **Estadísticas de la relación** | Preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes. |
+| Sesión | Extra | Descripción |
+|---|---|---|
+| 11A | **"Pienso en ti"** | Botón de un toque que le manda a tu pareja una vibración/notificación con un corazón (y contador diario). |
+| 11A | **Cápsula del tiempo** | Mensaje/foto que se abre en una fecha futura (p. ej. en el próximo aniversario). |
+| 11A | **Cupones de amor** | Cupones canjeables ("un masaje", "yo elijo la peli") con estado canjeado/pendiente. |
+| 11A | **Ruleta de citas** | Ideas de citas (presenciales y **a distancia**: ver una peli sincronizados, cocinar lo mismo por videollamada) con filtro y "girar". |
+| 11B | **Test de lenguajes del amor** | Quiz propio para conocer el lenguaje de cada quien y mostrar resultados comparados. |
+| 11B | **Calendario de visitas** | Historial de veces que se han visto, días juntos en persona vs. separados, estadísticas. |
+| 11B | **Estadísticas de la relación** | Preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes. |
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
-Joy**. Implementa estos extras de la tabla de la Fase 11: [LISTA ELEGIDA]. Cada uno con su tabla y
+Joy**, sesión **11A**: "Pienso en ti", Cápsula del tiempo, Cupones de amor y Ruleta de citas
+(incluye un banco original de ideas de citas presenciales y a distancia en content/). Cada uno con su tabla y
 RLS, pantalla dentro de la tab Más (o donde tenga más sentido), push cuando aplique, contenido
 original en español de México y tests de la lógica. Verifica lint, typecheck, test y expo export.
 Actualiza §10 y DECISIONS.md, commit, push y PR.
+```
+
+**Prompt de arranque (11B):**
+```
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
+Joy**, sesión **11B**: Test de lenguajes del amor (quiz propio, resultados de cada quien y
+comparados), Calendario de visitas (registrar cada vez que se ven, días juntos en persona vs.
+separados, ligado a la cuenta regresiva "la próxima vez que nos vemos" de la Fase 8) y Estadísticas
+de la relación (preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes,
+visitas). Cada uno con su tabla/vistas y RLS, pantallas en la tab Más, contenido original en
+español de México y tests de la lógica. Verifica lint, typecheck, test y expo export. Actualiza §10
+y DECISIONS.md, commit, push y PR.
 ```
 
 ---
@@ -741,7 +754,8 @@ y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
 | 9 Juegos | ⏳ Pendiente | | |
 | 10 Banco de contenido | ⏳ Pendiente | | |
-| 11 Extras | ⏳ Pendiente | | |
+| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏳ Pendiente | | |
+| 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente | | |
 | 12 Pulido y entrega | ⏳ Pendiente | | |
 
 ---
@@ -758,8 +772,10 @@ y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 | D6 | **Sin chat general**: solo comentarios por pregunta y respuestas a stories. | 2026-10-29 |
 | D7 | UI y contenido en **español de México**. | 2026-10-29 |
 | D8 | Uso privado (regalo de aniversario): contenido generado + Aron 36 + clásicos populares, más **importador** para meter preguntas de fuentes propias; repo privado. | 2026-10-29 |
+| D9 | Sin packs de preguntas propios (solo "Agregar pregunta" suelta + importador CSV/JSON). | 2026-10-29 |
+| D10 | Extras confirmados: Pienso en ti, Cápsula del tiempo, Cupones, Ruleta de citas, Lenguajes del amor, Calendario de visitas, Estadísticas. Sin cartas "Ábrela cuando…". | 2026-10-29 |
 
-Pendiente: nombre definitivo, icono/paleta, y qué extras de la Fase 11 se hacen.
+Pendiente: nombre definitivo e icono/paleta.
 
 ## 12. Riesgos
 
