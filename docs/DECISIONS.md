@@ -28,6 +28,7 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D21 | **Self-hosted confirmado** (S0: 4 vCPU, 15 GiB RAM, ~10 GiB disponibles, sin swap). API en `https://parejas-api.srv1574981.hstgr.cloud` detrás del **Traefik compartido** (labels en el gateway + red externa `n8n_default`); solo se exponen `/auth|rest|realtime|storage|functions/v1`. Subred propia `10.77.0.0/24`, límites de memoria (~2.75 GB en total; uso real ~800 MiB). Compose oficial fijado en `b7d1044d`. | Cabe sin afectar a los otros 7 proyectos del VPS. | 2026-10-29 |
 | D22 | El proyecto vive en `/opt/app-parejas` aunque los demás del VPS usan `/docker/<nombre>`. | Lo indica el plan; los scripts aceptan `APP_ROOT`. | 2026-10-29 |
 | D23 | El primer APK se lanza tras mergear la Fase 0 a `main`: `workflow_dispatch` solo funciona con el workflow en la rama por defecto y la sesión no puede empujar tags. Desde ahí, cada fase lanza `release-apk.yml` sobre su rama. | Restricciones de GitHub y del entorno de las sesiones. | 2026-10-29 |
+| D24 | Las fases siguientes **no esperan** a cerrar la prueba P1 (llave anon del APK, ver PLAN §10.1): siguen con código, CI y releases; la prueba en el celular queda pendiente hasta que el usuario corrija el secreto. | El usuario no puede probar por ahora; no frenar el avance. | 2026-10-29 |
 
 ## Pendientes
 
