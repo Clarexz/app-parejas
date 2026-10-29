@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ToastProvider } from '@/components/Toast';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 
@@ -50,7 +51,9 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <ThemeProvider>
         <QueryProvider>
-          <ThemedStack />
+          <ToastProvider>
+            <ThemedStack />
+          </ToastProvider>
         </QueryProvider>
       </ThemeProvider>
     </SafeAreaProvider>
