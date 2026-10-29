@@ -39,10 +39,10 @@ export default function ConnectionScreen() {
             : 'verificando…';
   const color =
     status === 'connected'
-      ? colors.success
+      ? colors.nopal
       : status === 'degraded' || status === 'offline'
-        ? colors.danger
-        : colors.textMuted;
+        ? colors.chile
+        : colors.inkMuted;
   const host = serverHost(supabaseUrl);
 
   return (
@@ -53,7 +53,9 @@ export default function ConnectionScreen() {
           <Text variant="caption">Versión {appVersion()}</Text>
         </View>
         <Card>
-          <Text style={{ color, fontWeight: '600' }}>Servidor: {label}</Text>
+          <Text variant="bodyStrong" style={{ color }}>
+            Servidor: {label}
+          </Text>
           {host ? <Text variant="caption">{host}</Text> : null}
           {data?.latencyMs != null ? (
             <Text variant="caption">Latencia: {data.latencyMs} ms</Text>

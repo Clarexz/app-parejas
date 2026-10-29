@@ -3,17 +3,19 @@ import { View } from 'react-native';
 
 import { useTheme } from '@/theme';
 
+// Versión mínima sobre los tokens nuevos; se rediseña en otro encargo.
 export function Card({ children }: { children: ReactNode }) {
-  const { colors, spacing, radius } = useTheme();
+  const { colors, spacing, radius, shadows } = useTheme();
   return (
     <View
       style={{
-        backgroundColor: colors.surface,
-        borderColor: colors.border,
-        borderWidth: 1,
-        borderRadius: radius.lg,
-        padding: spacing.md,
+        backgroundColor: colors.paperRaised,
+        borderTopColor: colors.margin,
+        borderTopWidth: 2,
+        borderRadius: radius.none,
+        padding: spacing.lg,
         gap: spacing.sm,
+        boxShadow: shadows.object,
       }}
     >
       {children}

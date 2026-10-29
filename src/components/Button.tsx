@@ -16,7 +16,7 @@ export function Button({ title, onPress, variant = 'primary', disabled, loading 
   const { colors, spacing, radius } = useTheme();
   const primary = variant === 'primary';
   const inactive = disabled || loading;
-  const fg = primary ? colors.onPrimary : colors.primary;
+  const fg = primary ? colors.onJamaica : colors.jamaica;
   return (
     <Pressable
       accessibilityRole="button"
@@ -26,10 +26,10 @@ export function Button({ title, onPress, variant = 'primary', disabled, loading 
       style={({ pressed }) => [
         styles.base,
         {
-          backgroundColor: primary ? colors.primary : 'transparent',
-          borderColor: primary ? colors.primary : colors.border,
-          borderRadius: radius.md,
-          paddingVertical: spacing.sm + 4,
+          backgroundColor: primary ? colors.jamaica : 'transparent',
+          borderColor: primary ? colors.jamaica : colors.ink,
+          borderRadius: radius.sm,
+          paddingVertical: spacing.md,
           paddingHorizontal: spacing.lg,
           opacity: inactive ? 0.5 : pressed ? 0.8 : 1,
         },
@@ -38,7 +38,9 @@ export function Button({ title, onPress, variant = 'primary', disabled, loading 
       {loading ? (
         <ActivityIndicator color={fg} />
       ) : (
-        <Text style={{ color: fg, fontWeight: '600' }}>{title}</Text>
+        <Text variant="bodyStrong" style={{ color: fg }}>
+          {title}
+        </Text>
       )}
     </Pressable>
   );
