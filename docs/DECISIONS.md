@@ -1,0 +1,33 @@
+# Registro de decisiones
+
+Decisiones del proyecto con fecha y motivo. Las D1–D15 vienen de la planeación (`docs/PLAN.md` §11);
+de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que decida.
+
+| # | Decisión | Motivo | Fecha |
+|---|---|---|---|
+| D1 | Solo **Android**; APK sin Play Store. | Ambos usamos Android; sin costo de Apple. | 2026-10-29 |
+| D2 | Hay Mac disponible para compilar local como respaldo del CI. | | 2026-10-29 |
+| D3 | Nombre provisional **"App Parejas"**, centralizado en `APP_NAME`. | Cambiarlo fácil. | 2026-10-29 |
+| D4 | Relación a distancia → distancia, "próxima vez que nos vemos" y categoría "A distancia" con prioridad. | | 2026-10-29 |
+| D5 | Contenido picante opt-in; meta: todo lo de Couple Joy y más. | | 2026-10-29 |
+| D6 | Sin chat general (solo comentarios por pregunta y respuestas a stories). | Usamos WhatsApp. | 2026-10-29 |
+| D7 | UI y contenido en español de México. | | 2026-10-29 |
+| D8 | Contenido generado + Aron 36 + clásicos populares + importador; repo privado. | Uso privado. | 2026-10-29 |
+| D9 | Sin packs propios (solo "Agregar pregunta" e importador). | | 2026-10-29 |
+| D10 | Extras: Pienso en ti, Cápsula, Cupones, Ruleta de citas, Lenguajes del amor, Visitas, Estadísticas. | | 2026-10-29 |
+| D11 | Cada fase entrega un APK firmado en GitHub Releases (Actions + Gradle, sin EAS). | Gratis y sin dependencias externas. | 2026-10-29 |
+| D12 | Backend Supabase self-hosted en el VPS de Hostinger; plan B Supabase Cloud Free. | Infra existente. | 2026-10-29 |
+| D13 | Push directo con FCM HTTP v1 desde la Edge Function. | Sin depender de Expo Push. | 2026-10-29 |
+| D14 | Diseño propio anti "AI slop": Fase 0.5 + `docs/DISENO.md` + QA visual. | | 2026-10-29 |
+| D15 | Opus orquesta; Sonnet/Haiku ejecutan con agentes de `.claude/agents/`. | Optimizar tokens. | 2026-10-29 |
+| D16 | **Expo SDK 58** (RN 0.88, React 19.3, TS 6) con rutas en **`src/app/`** en lugar de `app/` en la raíz. | Es la convención de la plantilla oficial del SDK 58; todo el código vive bajo `src/`. | 2026-10-29 |
+| D17 | **NativeWind se pospone a la Fase 0.5**: en Fase 0 el tema son tokens en TS + `StyleSheet`. La 0.5 decide si se adopta según el sistema de diseño. | Evitar configurar Tailwind/Babel antes de tener identidad visual; menos fragilidad en el build. | 2026-10-29 |
+| D18 | Convención de idioma: identificadores y nombres de archivo en inglés; comentarios, docs, commits, UI y contenido en español de México. | | 2026-10-29 |
+| D19 | El target web se exporta como SPA (`web.output: 'single'`) y solo sirve para QA visual (`npm run shots`). | Capturas estáticas sin servidor SSR. | 2026-10-29 |
+| D20 | Migraciones aplicadas por `scripts/apply-migrations.sh` (mismo script en CI y en el VPS), registradas en `supabase_migrations.schema_migrations`; tipos con `supabase gen types` en CI. | Una sola forma de migrar; el CI prueba exactamente lo que se aplica en el servidor. | 2026-10-29 |
+
+## Pendientes
+
+- Self-hosted vs. plan B: se decide con el reporte del prompt **S0** (recursos reales del VPS).
+- Subdominio de la API (p. ej. `parejas-api.<dominio>`), reverse proxy del VPS.
+- Nombre definitivo, icono y paleta (Fase 0.5 / 12).
