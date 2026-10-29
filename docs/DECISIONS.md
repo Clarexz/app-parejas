@@ -28,7 +28,14 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D21 | **Self-hosted confirmado** (S0: 4 vCPU, 15 GiB RAM, ~10 GiB disponibles, sin swap). API en `https://parejas-api.srv1574981.hstgr.cloud` detrás del **Traefik compartido** (labels en el gateway + red externa `n8n_default`); solo se exponen `/auth|rest|realtime|storage|functions/v1`. Subred propia `10.77.0.0/24`, límites de memoria (~2.75 GB en total; uso real ~800 MiB). Compose oficial fijado en `b7d1044d`. | Cabe sin afectar a los otros 7 proyectos del VPS. | 2026-10-29 |
 | D22 | El proyecto vive en `/opt/app-parejas` aunque los demás del VPS usan `/docker/<nombre>`. | Lo indica el plan; los scripts aceptan `APP_ROOT`. | 2026-10-29 |
 | D23 | El primer APK se lanza tras mergear la Fase 0 a `main`: `workflow_dispatch` solo funciona con el workflow en la rama por defecto y la sesión no puede empujar tags. Desde ahí, cada fase lanza `release-apk.yml` sobre su rama. | Restricciones de GitHub y del entorno de las sesiones. | 2026-10-29 |
+| D24 | **Dirección de arte "Bitácora"** (cuaderno de cuadro chico, polaroids, cinta washi, post-its, sellos), elegida entre tres conceptos (Bitácora, Lotería, Cianotipo; prototipo en `docs/design/conceptos.html`). `docs/DISENO.md` es la referencia obligatoria. | Elección del usuario: el más cálido y personal para un regalo de aniversario. | 2026-10-29 |
+| D25 | **Sin NativeWind** (cierra D17): el tema son tokens en TS (`src/theme/tokens.ts`) + `StyleSheet`/estilos en línea vía `useTheme()`; sombras con la prop `boxShadow` de RN. | El sistema es de objetos con inclinaciones, sombras y SVG; las clases utilitarias no aportan y suman fragilidad al build. | 2026-10-29 |
+| D26 | Tipografías **Gochi Hand** (a mano), **Figtree** (lectura) y **Courier Prime** (sellos), de Google Fonts (OFL) con `@expo-google-fonts/*` y `useFonts`; el splash espera a que carguen. | Licencias libres y funcionan igual en Android y en web (capturas). | 2026-10-29 |
+| D27 | Iconos **propios** dibujados "a pluma" (paths con temblor) sobre `react-native-svg`; sin librerías de iconos. Háptica con `expo-haptics` solo en momentos clave (`src/lib/haptics.ts`). | Anti "AI slop": los iconos genéricos delatan una plantilla. | 2026-10-29 |
+| D28 | El **Catálogo de diseño** vive en `/catalogo`, oculto: se abre con pulsación larga sobre el título de la pantalla principal. `npm run shots` lo captura completo. | Revisar el sistema en el celular sin agregar navegación visible. | 2026-10-29 |
+| D29 | Ícono, ícono adaptativo y splash se generan de SVG en `assets/brand/` con `npm run brand` (Playwright); los PNG resultantes sí se commitean. | Assets reproducibles y editables sin herramientas de diseño. | 2026-10-29 |
+| D30 | La Fase 0.5 publica el APK **v0.0.2** (siguiente parche de la Fase 0, como indica `docs/releases/README.md`). | La 0.5 no tiene número propio. | 2026-10-29 |
 
 ## Pendientes
 
-- Nombre definitivo, icono y paleta (Fase 0.5 / 12).
+- Nombre definitivo (Fase 12). Ícono definitivo (el de la Fase 0.5 es provisional).
