@@ -1,0 +1,121 @@
+# App Parejas - override del docker-compose.yml OFICIAL de Supabase self-hosted.
+# Se copia junto al compose oficial (/opt/app-parejas/stack) y se usa así:
+#   docker compose -p app-parejas -f docker-compose.yml -f docker-compose.override.yml ...
+# (scripts/server/lib.sh ya lo hace: usa la función `compose`).
+#
+# Qué cambia respecto al oficial (pensado para un VPS COMPARTIDO con otros proyectos):
+#   1. Proyecto/red propios: nombre `app-parejas`, red `app-parejas-net`.
+#   2. Contenedores con prefijo `app-parejas-` (el oficial usa `supabase-*`, que chocaría
+#      con cualquier otro Supabase del VPS).
+#   3. Postgres NO se publica (el oficial lo publica vía Supavisor en 5432/6543 en 0.0.0.0).
+#      Supavisor queda apagado por defecto (perfil `pooler`); si se enciende, solo en 127.0.0.1.
+#   4. El gateway (servicio `api-gw`: Envoy por defecto, Kong si se activa) se publica SOLO
+#      en 127.0.0.1:${KONG_HTTP_PORT}; el reverse proxy del VPS lo alcanza por ahí.
+#   5. Studio solo en 127.0.0.1:${STUDIO_HOST_PORT} (acceso por túnel SSH).
+#   6. Límites de memoria y rotación de logs de Docker (para no llenar el disco ni la RAM).
+#   7. Variables extra para las Edge Functions desde secrets/functions.env (opcional).
+#
+# Analytics (Logflare) y Vector NO están en el compose base: viven en
+# docker-compose.logs.yml (oficial) y por defecto NO se cargan (ahorra ~1 GB de RAM).
+# Ver STACK_LOGS en .env.example y server/README.md. Sus ajustes están en
+# docker-compose.logs.override.yml (solo se carga junto con el oficial de logs).
+#
+# Requiere Docker Compose >= 2.24.4 (etiquetas !override / !reset), igual que el oficial.
+
+name: app-parejas
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: '10m'
+    max-file: '3'
+
+networks:
+  default:
+    name: app-parejas-net
+
+services:
+  studio:
+    container_name: app-parejas-studio
+    # Solo loopback: se entra con `ssh -L 3000:127.0.0.1:${STUDIO_HOST_PORT} usuario@vps`.
+    ports:
+      - '127.0.0.1:${STUDIO_HOST_PORT:-13000}:3000/tcp'
+    mem_limit: ${MEM_STUDIO:-512m}
+    logging: *logging
+
+  api-gw:
+    container_name: app-parejas-gateway
+    # !override reemplaza la lista de puertos del base (y la de Kong, si se activa).
+    # Solo loopback; el reverse proxy del VPS apunta a http://127.0.0.1:${KONG_HTTP_PORT}.
+    ports: !override
+      - '127.0.0.1:${KONG_HTTP_PORT:-18000}:8000/tcp'
+    mem_limit: ${MEM_GATEWAY:-256m}
+    logging: *logging
+
+  auth:
+    container_name: app-parejas-auth
+    mem_limit: ${MEM_AUTH:-256m}
+    logging: *logging
+
+  rest:
+    container_name: app-parejas-rest
+    mem_limit: ${MEM_REST:-256m}
+    logging: *logging
+
+  realtime:
+    # El gateway oficial enruta a `realtime-dev.supabase-realtime:4000` y Realtime deduce el
+    # tenant ("realtime-dev") del subdominio. Por eso se conserva ese nombre como ALIAS DE RED
+    # (solo existe dentro de app-parejas-net, no choca con otro Supabase) y el contenedor se
+    # llama distinto.
+    container_name: realtime-dev.app-parejas-realtime
+    networks:
+      default:
+        aliases:
+          - realtime-dev.supabase-realtime
+    mem_limit: ${MEM_REALTIME:-512m}
+    logging: *logging
+
+  storage:
+    container_name: app-parejas-storage
+    mem_limit: ${MEM_STORAGE:-384m}
+    logging: *logging
+
+  imgproxy:
+    container_name: app-parejas-imgproxy
+    mem_limit: ${MEM_IMGPROXY:-256m}
+    logging: *logging
+
+  meta:
+    container_name: app-parejas-meta
+    mem_limit: ${MEM_META:-256m}
+    logging: *logging
+
+  functions:
+    container_name: app-parejas-functions
+    mem_limit: ${MEM_FUNCTIONS:-384m}
+    logging: *logging
+    # Secretos de nuestras Edge Functions (p. ej. credenciales de FCM). Opcional: si el
+    # archivo no existe no pasa nada. Se crea en el VPS con chmod 600; nunca va al repo.
+    env_file:
+      - path: ${FUNCTIONS_ENV_FILE:-/opt/app-parejas/secrets/functions.env}
+        required: false
+
+  db:
+    container_name: app-parejas-db
+    # Sin `ports:`: Postgres solo es alcanzable dentro de app-parejas-net y con
+    # `docker exec -i app-parejas-db psql -U postgres` (así lo usan los scripts).
+    mem_limit: ${MEM_DB:-1g}
+    logging: *logging
+
+  supavisor:
+    container_name: app-parejas-pooler
+    # APAGADO por defecto: la app usa PostgREST/Auth/Realtime, no conexiones directas a
+    # Postgres. Para encenderlo: `docker compose ... --profile pooler up -d supavisor`
+    # (o STACK_POOLER=true en .env para que lib.sh lo incluya). Si se enciende,
+    # solo escucha en loopback y en puertos poco comunes (no choca con otros Postgres del VPS).
+    profiles: ['pooler']
+    ports: !override
+      - '127.0.0.1:${POOLER_HOST_PORT_SESSION:-15432}:5432/tcp'
+      - '127.0.0.1:${POOLER_HOST_PORT_TRANSACTION:-16543}:6543/tcp'
+    mem_limit: ${MEM_POOLER:-384m}
+    logging: *logging

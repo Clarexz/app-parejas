@@ -1,0 +1,21 @@
+# Ejemplo para Caddy - App Parejas
+# Agregar este bloque al Caddyfile existente y recargar:  caddy reload --config /etc/caddy/Caddyfile
+# Caddy obtiene y renueva el certificado solo; el WebSocket (Realtime) funciona sin más.
+# Si Caddy corre en un CONTENEDOR, 127.0.0.1 es el propio contenedor: usa
+# host.docker.internal:18000 (con extra_hosts host-gateway) o la IP del bridge.
+
+parejas-api.TU-DOMINIO.com {
+	# Solo las rutas del API; Studio y /pg (meta) no salen a Internet.
+	@api path /auth/v1/* /rest/v1/* /realtime/v1/* /storage/v1/* /functions/v1/*
+	handle @api {
+		request_body {
+			max_size 55MB
+		}
+		reverse_proxy 127.0.0.1:18000 {   # <- KONG_HTTP_PORT
+			flush_interval -1
+		}
+	}
+	handle {
+		respond "no encontrado" 404
+	}
+}
