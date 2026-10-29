@@ -26,7 +26,11 @@ export function Sticker({ label, icon, emoji, tone = 'postit', tilt = 3, style }
   const animated = useStickIn(tilt);
   const bg = colors[tone];
   const fg =
-    tone === 'postit' ? colors.onPostit : tone === 'jamaica' ? colors.onJamaica : colors.onPolaroid;
+    tone === 'postit'
+      ? colors.onPostit
+      : tone === 'jamaica' || tone === 'nopal'
+        ? colors.onJamaica
+        : colors.onPolaroid;
   return (
     <Animated.View
       style={[

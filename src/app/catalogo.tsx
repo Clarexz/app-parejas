@@ -1,0 +1,402 @@
+import { useRouter } from 'expo-router';
+import { useState, type ReactNode } from 'react';
+import { View } from 'react-native';
+
+import {
+  Avatar,
+  Button,
+  Card,
+  Chip,
+  CloudOff,
+  Divider,
+  Doodle,
+  EmptyPolaroid,
+  EmptyState,
+  FoldedNote,
+  Icon,
+  IconButton,
+  ICON_NAMES,
+  Input,
+  Note,
+  PencilNote,
+  Polaroid,
+  Screen,
+  Sheet,
+  Stamp,
+  Sticker,
+  Tape,
+  Text,
+  useToast,
+} from '@/components';
+import { formatStampDate } from '@/lib/stampDate';
+import { useTheme, type Colors, type TypeVariant } from '@/theme';
+
+// Catálogo de diseño (DISENO §7): ruta oculta, solo para revisar el sistema en claro y oscuro.
+
+const SWATCHES: { token: keyof Colors; name: string }[] = [
+  { token: 'paper', name: 'Cuaderno' },
+  { token: 'paperRaised', name: 'Ficha' },
+  { token: 'ink', name: 'Tinta BIC' },
+  { token: 'inkMuted', name: 'Tinta seca' },
+  { token: 'inkFaint', name: 'Lápiz' },
+  { token: 'grid', name: 'Cuadrícula' },
+  { token: 'margin', name: 'Margen' },
+  { token: 'ruled', name: 'Renglón' },
+  { token: 'jamaica', name: 'Jamaica' },
+  { token: 'cempasuchil', name: 'Cempasúchil' },
+  { token: 'nopal', name: 'Nopal' },
+  { token: 'chile', name: 'Chile' },
+  { token: 'postit', name: 'Post-it' },
+  { token: 'polaroid', name: 'Polaroid' },
+  { token: 'tapeYellow', name: 'Cinta canario' },
+  { token: 'tapeMint', name: 'Cinta menta' },
+  { token: 'tapePink', name: 'Cinta rosa' },
+  { token: 'shadow', name: 'Sombra' },
+  { token: 'scrim', name: 'Velo' },
+];
+
+const TYPE_SAMPLES: { variant: TypeVariant; sample: string }[] = [
+  { variant: 'hero', sample: '1,284' },
+  { variant: 'display', sample: 'Nuestra libreta' },
+  { variant: 'title', sample: '¿Qué te hizo reír hoy?' },
+  { variant: 'hand', sample: 'Te toca, Ale' },
+  { variant: 'handSmall', sample: 'cena de viernes' },
+  { variant: 'heading', sample: 'Ajustes de ustedes' },
+  { variant: 'body', sample: 'Sam y Ale llevan 23 días seguidos contestando.' },
+  { variant: 'bodyStrong', sample: 'Ale ya escribió y la dobló.' },
+  { variant: 'small', sample: 'Hace 5 minutos' },
+  { variant: 'caption', sample: 'Solo lo ven ustedes dos' },
+  { variant: 'stamp', sample: 'NUEVO' },
+  { variant: 'mono', sample: 'pág. 1,284' },
+];
+
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  const { spacing } = useTheme();
+  return (
+    <View style={{ gap: spacing.md, marginTop: spacing.xl }}>
+      <View style={{ gap: spacing.xs }}>
+        <Text variant="title" accessibilityRole="header">
+          {title}
+        </Text>
+        <Divider />
+      </View>
+      {children}
+    </View>
+  );
+}
+
+function Row({ children }: { children: ReactNode }) {
+  const { spacing } = useTheme();
+  return (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.md }}>
+      {children}
+    </View>
+  );
+}
+
+function Label({ children }: { children: string }) {
+  return (
+    <Text variant="mono" muted>
+      {children}
+    </Text>
+  );
+}
+
+export default function CatalogScreen() {
+  const router = useRouter();
+  const toast = useToast();
+  const { colors, spacing, radius, isDark } = useTheme();
+  const [folded, setFolded] = useState(false);
+  const [sheet, setSheet] = useState(false);
+  const [selected, setSelected] = useState('Cena');
+
+  return (
+    <Screen scroll>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+        <IconButton
+          name="back"
+          accessibilityLabel="Volver"
+          onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+        />
+        <Stamp>{formatStampDate(new Date())}</Stamp>
+      </View>
+      <Text variant="display" accessibilityRole="header">
+        Catálogo de diseño
+      </Text>
+      <Text variant="body" muted>
+        Todo el sistema Bitácora de {isDark ? 'noche' : 'día'}, en una sola hoja.
+      </Text>
+
+      <Section title="Colores">
+        <View style={{ gap: spacing.sm }}>
+          {SWATCHES.map(({ token, name }) => (
+            <View
+              key={token}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
+            >
+              <View
+                style={{
+                  width: 44,
+                  height: 32,
+                  backgroundColor: colors[token],
+                  borderWidth: 1,
+                  borderColor: colors.ruled,
+                  borderRadius: radius.xs,
+                }}
+              />
+              <View style={{ flex: 1 }}>
+                <Text variant="bodyStrong">{name}</Text>
+                <Label>{token}</Label>
+              </View>
+            </View>
+          ))}
+        </View>
+      </Section>
+
+      <Section title="Tipografía">
+        <View style={{ gap: spacing.md }}>
+          {TYPE_SAMPLES.map(({ variant, sample }) => (
+            <View key={variant}>
+              <Label>{variant}</Label>
+              <Text variant={variant}>{sample}</Text>
+            </View>
+          ))}
+        </View>
+      </Section>
+
+      <Section title="Iconos">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', rowGap: spacing.md }}>
+          {ICON_NAMES.map((name) => (
+            <View key={name} style={{ width: '25%', alignItems: 'center', gap: spacing.xs }}>
+              <Icon name={name} />
+              <Text variant="caption" muted numberOfLines={1}>
+                {name}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </Section>
+
+      <Section title="Botones">
+        <Row>
+          <Button title="Pegar mi respuesta" />
+          <Button title="Deshabilitado" disabled />
+          <Button title="Guardando" loading />
+        </Row>
+        <Row>
+          <Button title="Reintentar" variant="secondary" />
+          <Button title="Deshabilitado" variant="secondary" disabled />
+          <Button title="Guardando" variant="secondary" loading />
+        </Row>
+        <Row>
+          <Button title="Ahora no" variant="ghost" />
+          <Button title="Deshabilitado" variant="ghost" disabled />
+          <Button title="Guardando" variant="ghost" loading />
+        </Row>
+        <Row>
+          <IconButton name="settings" accessibilityLabel="Ajustes" />
+          <IconButton name="settings" accessibilityLabel="Ajustes (deshabilitado)" disabled />
+          <IconButton name="plus" variant="sticker" accessibilityLabel="Agregar" />
+          <IconButton
+            name="plus"
+            variant="sticker"
+            accessibilityLabel="Agregar (deshabilitado)"
+            disabled
+          />
+        </Row>
+      </Section>
+
+      <Section title="Fichas">
+        <Card>
+          <Text variant="bodyStrong">Ficha lisa</Text>
+          <Text variant="small" muted>
+            Para datos sueltos, como la distancia entre ustedes.
+          </Text>
+        </Card>
+        <Card variant="ruled" tilt={1}>
+          <Text variant="bodyStrong">Ficha de renglones</Text>
+          <Text variant="small" muted>
+            Para lo que se escribe largo.
+          </Text>
+        </Card>
+        <Card tilt={-1} onPress={() => toast.show({ message: 'Ficha tocada', tone: 'info' })}>
+          <Text variant="bodyStrong">Ficha tocable</Text>
+          <Text variant="small" muted>
+            Presiónala y se levanta.
+          </Text>
+        </Card>
+      </Section>
+
+      <Section title="Objetos">
+        <Note id="catalogo-nota">
+          <Text variant="hand" style={{ color: colors.onPostit }}>
+            No olvides la cena del viernes
+          </Text>
+        </Note>
+        <Note id="catalogo-sin-cinta" tape={false}>
+          <Text variant="hand" style={{ color: colors.onPostit }}>
+            Post-it sin cinta
+          </Text>
+        </Note>
+        <Row>
+          <Polaroid size="S" id="s" caption="Playa" tape="yellow">
+            <EmptyPolaroid width={90} height={70} />
+          </Polaroid>
+          <Polaroid size="M" id="m" caption="Sam y Ale" date="29 OCT" tape="mint">
+            <EmptyPolaroid width={130} height={100} />
+          </Polaroid>
+        </Row>
+        <Polaroid size="L" id="l" caption="Primer viaje juntos" date="12 MAR" tape="pink">
+          <EmptyPolaroid width={200} height={150} />
+        </Polaroid>
+        <Row>
+          <Polaroid
+            size="M"
+            id="cargando"
+            caption="Foto que no carga"
+            source="https://invalido.invalid/foto.jpg"
+          />
+          <Polaroid size="M" id="error" caption="Sin foto" />
+        </Row>
+        <Row>
+          <Tape color="yellow" />
+          <Tape color="mint" />
+          <Tape color="pink" />
+        </Row>
+        <Row>
+          <Stamp tone="jamaica">NUEVO</Stamp>
+          <Stamp tone="ink">{formatStampDate(new Date())}</Stamp>
+          <Stamp tone="nopal">YA CONTESTÓ</Stamp>
+        </Row>
+        <Row>
+          <Sticker label="Sam" tone="jamaica" />
+          <Sticker icon="flame" tone="cempasuchil" />
+          <Sticker emoji="😴" tone="postit" />
+          <Sticker label="Ale" icon="check" tone="nopal" />
+        </Row>
+      </Section>
+
+      <Section title="Avatares">
+        <Row>
+          <Avatar name="Sam" variant="polaroid" size={72} />
+          <Avatar name="Ale" variant="polaroid" size={72} mood="😴" />
+          <Avatar name="Sam" variant="round" size={72} />
+          <Avatar name="Ale" variant="round" size={72} mood="😴" />
+        </Row>
+      </Section>
+
+      <Section title="Chips">
+        <Row>
+          <Chip
+            label="Cena"
+            color="yellow"
+            selected={selected === 'Cena'}
+            onPress={() => setSelected('Cena')}
+          />
+          <Chip
+            label="Viaje"
+            color="mint"
+            selected={selected === 'Viaje'}
+            onPress={() => setSelected('Viaje')}
+          />
+          <Chip label="Cita" color="pink" onPress={() => setSelected('Cita')} />
+          <Chip label="Pasado" color="pink" disabled />
+        </Row>
+      </Section>
+
+      <Section title="Inputs">
+        <Input label="Tu apodo" placeholder="Escribe algo" />
+        <Input label="Tu respuesta" variant="multiline" placeholder="Cuéntale a Ale" />
+        <Input label="Correo" defaultValue="sam@ejemplo" error="Ese correo no parece completo." />
+        <Input label="Código de pareja" defaultValue="ALE-2910" disabled />
+      </Section>
+
+      <Section title="Nota doblada">
+        <FoldedNote open={false} lockedLabel="Primero contesta tú">
+          <Text variant="body">Nunca se ve</Text>
+        </FoldedNote>
+        <FoldedNote open={folded} onPress={() => setFolded((v) => !v)}>
+          <Text variant="body">Me hizo reír que te quedaras dormido en el cine.</Text>
+        </FoldedNote>
+        <Row>
+          <Button
+            title={folded ? 'Doblar' : 'Desdoblar'}
+            variant="secondary"
+            onPress={() => setFolded((v) => !v)}
+          />
+        </Row>
+      </Section>
+
+      <Section title="Hoja (Sheet)">
+        <Row>
+          <Button title="Abrir hoja" variant="secondary" onPress={() => setSheet(true)} />
+        </Row>
+      </Section>
+
+      <Section title="Avisos (Toast)">
+        <Row>
+          <Button
+            title="Info"
+            variant="secondary"
+            onPress={() => toast.show({ message: 'Ale ya escribió. Te toca.', tone: 'info' })}
+          />
+          <Button
+            title="Éxito"
+            variant="secondary"
+            onPress={() => toast.show({ message: 'Respuesta pegada', tone: 'success' })}
+          />
+          <Button
+            title="Error"
+            variant="secondary"
+            onPress={() =>
+              toast.show({ message: 'No hay señal. Vuelve a intentar.', tone: 'error' })
+            }
+          />
+        </Row>
+      </Section>
+
+      <Section title="Estados vacíos">
+        <EmptyState
+          illustration={<EmptyPolaroid />}
+          title="Hoja en blanco"
+          body="Todavía no pegan ninguna foto. La primera siempre sale chueca, y está bien."
+          actionLabel="Pegar la primera"
+          onAction={() => undefined}
+        />
+        <EmptyState
+          illustration={<PencilNote />}
+          title="Nada escrito"
+          body="Hoy no han contestado la pregunta."
+        />
+        <EmptyState
+          illustration={<CloudOff />}
+          title="Sin señal"
+          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
+          actionLabel="Reintentar"
+          onAction={() => undefined}
+        />
+      </Section>
+
+      <Section title="Garabatos y divisores">
+        <Row>
+          <View style={{ gap: spacing.xs }}>
+            <Text variant="hand">23 días</Text>
+            <Doodle kind="underline" width={90} />
+          </View>
+          <Doodle kind="circle" width={90} />
+          <Doodle kind="arrow" width={90} />
+          <Doodle kind="star" width={28} />
+        </Row>
+        <Divider />
+        <Divider variant="solid" />
+      </Section>
+
+      <Sheet visible={sheet} onClose={() => setSheet(false)} title="Hoja de ejemplo">
+        <Text variant="body">
+          Así se ve una hoja que sube desde abajo. Aquí van los ajustes o las opciones.
+        </Text>
+        <Button title="Listo" onPress={() => setSheet(false)} />
+      </Sheet>
+    </Screen>
+  );
+}

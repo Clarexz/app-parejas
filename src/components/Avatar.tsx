@@ -93,7 +93,7 @@ export function Avatar({ variant = 'round', name, source, size = 56, mood }: Pro
         face
       )}
       {mood ? (
-        <View style={{ position: 'absolute', right: -spacing.sm, bottom: -spacing.xs }}>
+        <View style={{ position: 'absolute', right: -Math.round(size * 0.3), bottom: -spacing.sm }}>
           <Sticker label={mood} tilt={4} />
         </View>
       ) : null}

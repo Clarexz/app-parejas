@@ -93,7 +93,7 @@ export function Polaroid({
       style={{
         width: inner,
         height: inner,
-        backgroundColor: colors.paperRaised,
+        backgroundColor: colors.paper,
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
@@ -119,7 +119,7 @@ export function Polaroid({
               position: 'absolute',
               width: inner,
               height: inner,
-              backgroundColor: colors.paperRaised,
+              backgroundColor: colors.paper,
             },
             pulseStyle,
           ]}
