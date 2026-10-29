@@ -19,8 +19,10 @@ Principios:
    que RLS da gratis.
 3. **Todo desbloqueado.** Lo que en Couple Joy es premium (preguntas ilimitadas, todos los widgets,
    reparar racha) aquí es gratis.
-4. **Contenido propio.** No se copian textos/preguntas/assets de Couple Joy ni de juegos de cartas
-   comerciales; se genera un banco original (ver §9, Fase 10).
+4. **Contenido.** Uso privado (regalo de aniversario, 2 personas). El banco base lo genera Claude
+   (preguntas originales + clásicos de dominio popular + las 36 preguntas de Aron). Además la app
+   y el repo permiten **importar preguntas propias** (CSV/JSON o desde la app), para que podamos
+   meter las de cualquier baraja o fuente que tengamos. El repo debe ser **privado**. Ver §9, Fase 10.
 5. **Nombre provisional:** **"App Parejas"** (se cambia cuando haya nombre definitivo; debe vivir en
    un solo lugar: `app.config.ts` + constante `APP_NAME`).
 6. **Idioma:** toda la UI y el contenido en **español de México** (tuteo, "celular", "ustedes",
@@ -621,18 +623,20 @@ expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 
 ### Fase 10 — Banco de contenido completo
 
-**Sobre de dónde sacar las preguntas:**
-- **No hay una base de datos abierta y confiable** de preguntas para parejas en español. Los juegos
-  de cartas comerciales (We're Not Really Strangers, Gottman Card Decks, BestSelf Intimacy Deck,
-  etc.) y los de Couple Joy tienen derechos de autor: **se usan como inspiración de mecánicas y
-  temas, no se copian textos**.
-- Sí se puede usar como base material de investigación pública, adaptado y traducido con nuestras
-  palabras: las **36 preguntas de Arthur Aron** (estudio de 1997 sobre cercanía interpersonal),
-  temas de los **"Love Maps"** de Gottman (conocer el mundo de tu pareja) y los **5 lenguajes del
-  amor** (como temas, no copiando el libro).
-- El grueso se **genera original** con Claude por lotes, siguiendo la guía de estilo de
-  `docs/CONTENT.md`, con deduplicación automática (similitud de texto) y revisión humana opcional
-  (marcar favoritas / descartar desde la app con un botón "no me gustó esta pregunta").
+**Sobre de dónde sacar las preguntas (uso privado, regalo de aniversario):**
+- **Las preguntas de Couple Joy no son públicas** (viven en su backend), así que no hay forma
+  confiable de obtenerlas; tampoco hay una base de datos abierta buena en español.
+- Claude **no transcribe barajas comerciales completas** (We're Not Really Strangers, Gottman,
+  BestSelf, etc.) — además de derechos de autor, de memoria saldrían inexactas. En su lugar:
+  - **36 preguntas de Arthur Aron** (estudio académico de 1997, ampliamente difundido) como pack especial.
+  - **Clásicos de dominio popular** ("¿Qué prefieres…?", "Yo nunca…", "¿Quién es más probable…?")
+    y temas inspirados en las mecánicas de esas barajas (niveles de profundidad, Love Maps,
+    lenguajes del amor).
+  - El grueso **generado por Claude** en lotes con la guía de `docs/CONTENT.md`.
+- **Importador**: si tenemos una baraja física, capturas o una lista de preguntas que nos gusten,
+  se meten con `scripts/import-questions.ts` (CSV/JSON → `content/imported/`) o desde la app
+  ("Agregar pregunta" / pack propio). El repo debe ser **privado**.
+- Deduplicación automática y feedback 👍/👎 desde la app.
 
 **Tareas:**
 1. Taxonomía final: categorías × intensidad (ligera / profunda / picante) × tipo, con metas de
@@ -646,6 +650,9 @@ expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
    juntos", "Sexualidad y deseo", "Dinero", "Hijos y familia") que se pueden jugar como quiz.
 5. Feedback desde la app: 👍/👎 por pregunta (tabla `question_feedback`), que el asignador use
    para evitar preguntas descartadas.
+6. **Importar contenido propio**: `scripts/import-questions.ts` (CSV/JSON con columnas
+   texto, categoría, tipo, intensidad, opciones) y pantalla "Agregar pregunta / crear pack" en la
+   app (preguntas creadas por nosotros entran al rotador diario).
 
 **Prompt de arranque:**
 ```
@@ -654,9 +661,11 @@ contenido completo**. Define la taxonomía final (categoría × intensidad × ti
 y genera contenido ORIGINAL en español de México, por lotes en content/, hasta llegar a al menos
 3,000 ítems (≥ 2,000 preguntas diarias open/choice y ≥ 1,000 ítems de juegos), incluyendo una
 adaptación propia de las 36 preguntas de Arthur Aron como pack especial y packs temáticos (a
-distancia, fechas especiales, dinero, familia, deseo/picante opt-in, etc.). No copies textos de
-Couple Joy ni de juegos de cartas comerciales. Crea scripts/check-content.ts que valide esquema,
-duplicados y casi-duplicados, y genera el seed. Agrega feedback 👍/👎 por pregunta (tabla
+distancia, fechas especiales, dinero, familia, deseo/picante opt-in, etc.) y clásicos de dominio
+popular de "¿Qué prefieres?", "Yo nunca" y "¿Quién es más probable?". No transcribas barajas
+comerciales completas. Crea scripts/check-content.ts que valide esquema, duplicados y
+casi-duplicados, y genera el seed. Crea scripts/import-questions.ts (CSV/JSON → content/imported/)
+y la pantalla "Agregar pregunta / crear pack" en la app. Agrega feedback 👍/👎 por pregunta (tabla
 question_feedback) y haz que el asignador diario evite las descartadas. Verifica lint, typecheck,
 test y el script de contenido. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
@@ -748,6 +757,7 @@ y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 | D5 | Contenido **picante** incluido como opt-in; meta de **todo lo de Couple Joy y más** (3,000+ preguntas, extras de la Fase 11). | 2026-10-29 |
 | D6 | **Sin chat general**: solo comentarios por pregunta y respuestas a stories. | 2026-10-29 |
 | D7 | UI y contenido en **español de México**. | 2026-10-29 |
+| D8 | Uso privado (regalo de aniversario): contenido generado + Aron 36 + clásicos populares, más **importador** para meter preguntas de fuentes propias; repo privado. | 2026-10-29 |
 
 Pendiente: nombre definitivo, icono/paleta, y qué extras de la Fase 11 se hacen.
 
