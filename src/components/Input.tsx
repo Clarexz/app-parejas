@@ -5,7 +5,6 @@ import { useTheme } from '@/theme';
 
 import { Text } from './Text';
 
-const RULE_STEP = 22;
 const MIN_LINES = 4;
 
 type Props = Omit<TextInputProps, 'style'> & {
@@ -27,8 +26,9 @@ export function Input({
   ...rest
 }: Props) {
   const { colors, spacing, radius, type } = useTheme();
+  const ruleStep = type.body.lineHeight;
   const [focused, setFocused] = useState(false);
-  const [height, setHeight] = useState(RULE_STEP * MIN_LINES);
+  const [height, setHeight] = useState(ruleStep * MIN_LINES);
   const multiline = variant === 'multiline';
 
   const lineColor = error ? colors.chile : focused ? colors.jamaica : colors.ink;
@@ -57,9 +57,9 @@ export function Input({
           color: disabled ? colors.inkFaint : colors.ink,
           paddingHorizontal: multiline ? spacing.md : 0,
           paddingVertical: multiline ? 0 : spacing.sm,
-          minHeight: multiline ? RULE_STEP * MIN_LINES : 44,
+          minHeight: multiline ? ruleStep * MIN_LINES : 44,
         },
-        multiline && { lineHeight: RULE_STEP, textAlignVertical: 'top' },
+        multiline && { lineHeight: ruleStep, textAlignVertical: 'top' },
       ]}
     />
   );
@@ -85,7 +85,7 @@ export function Input({
           }}
         >
           {Array.from(
-            { length: Math.max(MIN_LINES, Math.floor(height / RULE_STEP)) - 1 },
+            { length: Math.max(MIN_LINES, Math.floor(height / ruleStep)) - 1 },
             (_, i) => (
               <View
                 key={i}
@@ -94,7 +94,7 @@ export function Input({
                   position: 'absolute',
                   left: 0,
                   right: 0,
-                  top: RULE_STEP * (i + 1),
+                  top: ruleStep * (i + 1) - 4,
                   height: 1,
                   backgroundColor: colors.ruled,
                 }}

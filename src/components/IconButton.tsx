@@ -32,7 +32,13 @@ export function IconButton({
   const press = useSharedValue(0);
   const animated = useAnimatedStyle(() => ({ transform: [{ scale: 1 - 0.08 * press.value }] }));
   const sticker = variant === 'sticker';
-  const iconColor = disabled ? colors.inkFaint : sticker ? colors.onJamaica : colors.ink;
+  const iconColor = sticker
+    ? disabled
+      ? colors.paperRaised
+      : colors.onJamaica
+    : disabled
+      ? colors.inkFaint
+      : colors.ink;
   const set = (v: number) => {
     press.value = reduced ? v : withTiming(v, { duration: motion.duration.fast });
   };

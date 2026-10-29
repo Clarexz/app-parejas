@@ -79,7 +79,14 @@ export function FoldedNote({
           <Animated.View style={fade}>{children}</Animated.View>
         ) : (
           <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-            <View style={{ gap: spacing.md, paddingRight: FOLD }}>
+            <View
+              style={{
+                gap: spacing.sm,
+                paddingRight: FOLD,
+                minHeight: 64,
+                justifyContent: 'center',
+              }}
+            >
               {SCRIBBLE_WIDTHS.map((w) => (
                 <View
                   key={w}
@@ -91,20 +98,32 @@ export function FoldedNote({
         )}
         {!open ? (
           <View
+            pointerEvents="none"
             style={{
               position: 'absolute',
+              top: 0,
+              bottom: 0,
               left: spacing.lg,
               right: spacing.lg,
-              bottom: spacing.md,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: spacing.sm,
+              alignItems: 'flex-start',
+              justifyContent: 'center',
             }}
           >
-            <Icon name="lock" size={20} color={colors.jamaica} />
-            <Text variant="handSmall" tone="jamaica" style={{ flexShrink: 1 }}>
-              {lockedLabel}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: spacing.sm,
+                backgroundColor: colors.paperRaised,
+                paddingHorizontal: spacing.sm,
+                paddingVertical: spacing.xs,
+              }}
+            >
+              <Icon name="lock" size={20} color={colors.jamaica} />
+              <Text variant="hand" tone="jamaica" style={{ flexShrink: 1 }}>
+                {lockedLabel}
+              </Text>
+            </View>
           </View>
         ) : null}
         {!open ? (

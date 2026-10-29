@@ -68,6 +68,7 @@ Cada color tiene nombre propio. Columna "Noche" = modo oscuro ("Lámpara de bur�
 | `onPostit` | — | `#3B2F12` | `#2A2208` | Texto sobre post-it |
 | `polaroid` | Polaroid | `#FFFEFA` | `#DDD4C2` | Marco de fotos y avatares |
 | `onPolaroid` | — | `#1E3270` | `#2A2620` | Pie de foto |
+| `photoEmpty` | — | `#E6E0D0` | `#4A443A` | Área de foto vacía, cargando o con error |
 | `tapeYellow` | Cinta canario | `rgba(242,169,59,0.60)` | `rgba(242,169,59,0.50)` | Cinta washi |
 | `tapeMint` | Cinta menta | `rgba(110,190,165,0.60)` | `rgba(110,190,165,0.45)` | Cinta washi |
 | `tapePink` | Cinta rosa | `rgba(194,59,107,0.45)` | `rgba(232,105,143,0.45)` | Cinta washi |

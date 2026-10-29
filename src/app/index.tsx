@@ -8,6 +8,8 @@ import {
   Card,
   CloudOff,
   Icon,
+  Polaroid,
+  Scene,
   Screen,
   Stamp,
   Sticker,
@@ -16,6 +18,7 @@ import {
 } from '@/components';
 import { APP_NAME } from '@/constants/app';
 import type { ServerStatus } from '@/lib/health';
+import { tiltFor } from '@/lib/tilt';
 import { formatStampDate } from '@/lib/stampDate';
 import { supabaseUrl } from '@/lib/supabase';
 import { useServerHealth } from '@/lib/useServerHealth';
@@ -72,8 +75,8 @@ export default function ConnectionScreen() {
   const host = serverHost(supabaseUrl);
 
   return (
-    <Screen>
-      <View style={{ flex: 1, justifyContent: 'center', gap: spacing.xl }}>
+    <Screen scroll>
+      <View style={{ gap: spacing.xl }}>
         <View style={{ gap: spacing.xs, alignItems: 'flex-start' }}>
           <Stamp>{formatStampDate(new Date())}</Stamp>
           <Pressable
@@ -86,6 +89,17 @@ export default function ConnectionScreen() {
           <Text variant="mono" muted>
             {appVersion()}
           </Text>
+        </View>
+
+        <View style={{ gap: spacing.lg }}>
+          <Text variant="hand" muted>
+            Aquí empieza su libreta.
+          </Text>
+          <View style={{ paddingLeft: spacing.sm }}>
+            <Polaroid size="M" tilt={tiltFor('pagina-1')} tape="yellow" caption="Página 1">
+              <Scene kind="hill" />
+            </Polaroid>
+          </View>
         </View>
 
         {status === 'offline' ? (

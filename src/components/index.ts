@@ -1,7 +1,7 @@
 export { Button } from './Button';
 export { Card } from './Card';
 export { Icon, ICON_NAMES, type IconName } from './Icon';
-export { CloudOff, EmptyPolaroid, PencilNote } from './illustrations';
+export { CloudOff, EmptyPolaroid, PencilNote, Scene, type SceneKind } from './illustrations';
 export { Paper, type PaperVariant } from './Paper';
 export { Screen } from './Screen';
 export { Text, type TextTone } from './Text';

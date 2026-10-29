@@ -20,6 +20,7 @@ import {
   Note,
   PencilNote,
   Polaroid,
+  Scene,
   Screen,
   Sheet,
   Stamp,
@@ -215,7 +216,7 @@ export default function CatalogScreen() {
         </Card>
         <Card variant="ruled" tilt={1}>
           <Text variant="bodyStrong">Ficha de renglones</Text>
-          <Text variant="small" muted>
+          <Text variant="body" muted>
             Para lo que se escribe largo.
           </Text>
         </Card>
@@ -240,15 +241,20 @@ export default function CatalogScreen() {
         </Note>
         <Row>
           <Polaroid size="S" id="s" caption="Playa" tape="yellow">
-            <EmptyPolaroid width={90} height={70} />
+            <Scene kind="hill" />
           </Polaroid>
           <Polaroid size="M" id="m" caption="Sam y Ale" date="29 OCT" tape="mint">
-            <EmptyPolaroid width={130} height={100} />
+            <Scene kind="sea" />
           </Polaroid>
         </Row>
-        <Polaroid size="L" id="l" caption="Primer viaje juntos" date="12 MAR" tape="pink">
-          <EmptyPolaroid width={200} height={150} />
-        </Polaroid>
+        <Row>
+          <Polaroid size="L" id="l" caption="Primer viaje juntos" date="12 MAR" tape="pink">
+            <Scene kind="city" />
+          </Polaroid>
+          <Polaroid size="S" id="t" caption="Tacos" tape="mint">
+            <Scene kind="tacos" />
+          </Polaroid>
+        </Row>
         <Row>
           <Polaroid
             size="M"

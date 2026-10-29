@@ -36,7 +36,6 @@ export function EmptyPolaroid({ width = 160, height = 120 }: { width?: number; h
           strokeLinejoin="round"
         />
       </G>
-      <Path d="M18 100 L22 92 M22 100 L18 92" {...line} stroke={colors.jamaica} />
     </Svg>
   );
 }

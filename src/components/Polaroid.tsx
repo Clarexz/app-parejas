@@ -93,7 +93,7 @@ export function Polaroid({
       style={{
         width: inner,
         height: inner,
-        backgroundColor: colors.paper,
+        backgroundColor: colors.photoEmpty,
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
@@ -119,7 +119,7 @@ export function Polaroid({
               position: 'absolute',
               width: inner,
               height: inner,
-              backgroundColor: colors.paper,
+              backgroundColor: colors.photoEmpty,
             },
             pulseStyle,
           ]}
@@ -171,7 +171,18 @@ export function Polaroid({
           </Text>
         ) : null}
       </Pressable>
-      {date ? <Stamp style={{ position: 'absolute', right: -6, bottom: 22 }}>{date}</Stamp> : null}
+      {date ? (
+        <Stamp
+          style={{
+            position: 'absolute',
+            right: -6,
+            bottom: 22,
+            backgroundColor: colors.polaroid,
+          }}
+        >
+          {date}
+        </Stamp>
+      ) : null}
       {tape ? (
         <View
           pointerEvents="none"

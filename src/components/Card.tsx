@@ -15,8 +15,6 @@ import Animated, {
 
 import { useTheme } from '@/theme';
 
-const RULE_STEP = 22;
-
 type Props = {
   children: ReactNode;
   variant?: 'plain' | 'ruled';
@@ -37,7 +35,8 @@ export function Card({
   accessibilityLabel,
   style,
 }: Props) {
-  const { colors, spacing, radius, shadows, motion } = useTheme();
+  const { colors, spacing, radius, shadows, motion, type } = useTheme();
+  const ruleStep = type.body.lineHeight;
   const reduced = useReducedMotion();
   const press = useSharedValue(0);
   const [lifted, setLifted] = useState(false);
@@ -49,7 +48,7 @@ export function Card({
     press.value = reduced ? v : withTiming(v, { duration: motion.duration.fast });
   };
 
-  const rules = variant === 'ruled' ? Math.floor(height / RULE_STEP) : 0;
+  const rules = variant === 'ruled' ? Math.floor((height - spacing.lg) / ruleStep) : 0;
   const body = (
     <View
       onLayout={(e: LayoutChangeEvent) => setHeight(e.nativeEvent.layout.height)}
@@ -60,7 +59,7 @@ export function Card({
           borderTopWidth: 2,
           borderRadius: radius.none,
           padding: spacing.lg,
-          gap: spacing.sm,
+          gap: variant === 'ruled' ? 0 : spacing.sm,
           boxShadow: lifted ? shadows.lifted : shadows.object,
         },
         style,
@@ -74,7 +73,8 @@ export function Card({
             position: 'absolute',
             left: 0,
             right: 0,
-            top: RULE_STEP * (i + 1),
+            // El renglón queda ~4 dp bajo la línea base del texto, para que se "apoye" en él.
+            top: spacing.lg + ruleStep * (i + 1) - 4,
             height: 1,
             backgroundColor: colors.ruled,
           }}
