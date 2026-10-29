@@ -1,24 +1,102 @@
-import type { ReactNode } from 'react';
-import { View } from 'react-native';
+import { useState, type ReactNode } from 'react';
+import {
+  Pressable,
+  View,
+  type LayoutChangeEvent,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { useTheme } from '@/theme';
 
-// Versión mínima sobre los tokens nuevos; se rediseña en otro encargo.
-export function Card({ children }: { children: ReactNode }) {
-  const { colors, spacing, radius, shadows } = useTheme();
-  return (
+const RULE_STEP = 22;
+
+type Props = {
+  children: ReactNode;
+  variant?: 'plain' | 'ruled';
+  /** Inclinación en grados (fichas ±1, DISENO §2.6). */
+  tilt?: number;
+  /** Si se pasa, la ficha es tocable y se "levanta" al presionar. */
+  onPress?: () => void;
+  accessibilityLabel?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+/** Ficha bibliográfica: papel recto, borde superior de margen y sombra de objeto (DISENO §7). */
+export function Card({
+  children,
+  variant = 'plain',
+  tilt = 0,
+  onPress,
+  accessibilityLabel,
+  style,
+}: Props) {
+  const { colors, spacing, radius, shadows, motion } = useTheme();
+  const reduced = useReducedMotion();
+  const press = useSharedValue(0);
+  const [lifted, setLifted] = useState(false);
+  const [height, setHeight] = useState(0);
+
+  const animated = useAnimatedStyle(() => ({ transform: [{ scale: 1 - 0.03 * press.value }] }));
+  const set = (v: number) => {
+    setLifted(v === 1);
+    press.value = reduced ? v : withTiming(v, { duration: motion.duration.fast });
+  };
+
+  const rules = variant === 'ruled' ? Math.floor(height / RULE_STEP) : 0;
+  const body = (
     <View
-      style={{
-        backgroundColor: colors.paperRaised,
-        borderTopColor: colors.margin,
-        borderTopWidth: 2,
-        borderRadius: radius.none,
-        padding: spacing.lg,
-        gap: spacing.sm,
-        boxShadow: shadows.object,
-      }}
+      onLayout={(e: LayoutChangeEvent) => setHeight(e.nativeEvent.layout.height)}
+      style={[
+        {
+          backgroundColor: colors.paperRaised,
+          borderTopColor: colors.margin,
+          borderTopWidth: 2,
+          borderRadius: radius.none,
+          padding: spacing.lg,
+          gap: spacing.sm,
+          boxShadow: lifted ? shadows.lifted : shadows.object,
+        },
+        style,
+      ]}
     >
+      {Array.from({ length: rules }, (_, i) => (
+        <View
+          key={i}
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: RULE_STEP * (i + 1),
+            height: 1,
+            backgroundColor: colors.ruled,
+          }}
+        />
+      ))}
       {children}
+    </View>
+  );
+
+  const tiltStyle = { transform: [{ rotate: `${tilt}deg` }] };
+  if (!onPress) return <View style={tiltStyle}>{body}</View>;
+  return (
+    <View style={tiltStyle}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+        onPress={onPress}
+        onPressIn={() => set(1)}
+        onPressOut={() => set(0)}
+      >
+        <Animated.View style={animated}>{body}</Animated.View>
+      </Pressable>
     </View>
   );
 }

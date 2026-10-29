@@ -7,3 +7,8 @@ export { Screen } from './Screen';
 export { Text, type TextTone } from './Text';
 export { Stamp, type StampTone } from './Stamp';
 export { Tape, type TapeColor } from './Tape';
+export { Chip, type ChipColor } from './Chip';
+export { Divider } from './Divider';
+export { Doodle } from './Doodle';
+export { IconButton } from './IconButton';
+export { Input } from './Input';
