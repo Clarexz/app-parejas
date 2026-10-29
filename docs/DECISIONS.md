@@ -25,9 +25,10 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D18 | Convención de idioma: identificadores y nombres de archivo en inglés; comentarios, docs, commits, UI y contenido en español de México. | | 2026-10-29 |
 | D19 | El target web se exporta como SPA (`web.output: 'single'`) y solo sirve para QA visual (`npm run shots`). | Capturas estáticas sin servidor SSR. | 2026-10-29 |
 | D20 | Migraciones aplicadas por `scripts/apply-migrations.sh` (mismo script en CI y en el VPS), registradas en `supabase_migrations.schema_migrations`; tipos con `supabase gen types` en CI. | Una sola forma de migrar; el CI prueba exactamente lo que se aplica en el servidor. | 2026-10-29 |
+| D21 | **Self-hosted confirmado** (S0: 4 vCPU, 15 GiB RAM, ~10 GiB disponibles, sin swap). API en `https://parejas-api.srv1574981.hstgr.cloud` detrás del **Traefik compartido** (labels en el gateway + red externa `n8n_default`); solo se exponen `/auth|rest|realtime|storage|functions/v1`. Subred propia `10.77.0.0/24`, límites de memoria (~2.75 GB en total; uso real ~800 MiB). Compose oficial fijado en `b7d1044d`. | Cabe sin afectar a los otros 7 proyectos del VPS. | 2026-10-29 |
+| D22 | El proyecto vive en `/opt/app-parejas` aunque los demás del VPS usan `/docker/<nombre>`. | Lo indica el plan; los scripts aceptan `APP_ROOT`. | 2026-10-29 |
+| D23 | El primer APK se lanza tras mergear la Fase 0 a `main`: `workflow_dispatch` solo funciona con el workflow en la rama por defecto y la sesión no puede empujar tags. Desde ahí, cada fase lanza `release-apk.yml` sobre su rama. | Restricciones de GitHub y del entorno de las sesiones. | 2026-10-29 |
 
 ## Pendientes
 
-- Self-hosted vs. plan B: se decide con el reporte del prompt **S0** (recursos reales del VPS).
-- Subdominio de la API (p. ej. `parejas-api.<dominio>`), reverse proxy del VPS.
 - Nombre definitivo, icono y paleta (Fase 0.5 / 12).

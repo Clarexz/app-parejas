@@ -1020,7 +1020,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 
 | Fase | Estado | PR | Notas |
 |---|---|---|---|
-| 0 Cimientos | ⏳ Pendiente | | |
+| 0 Cimientos | 🧪 En prueba (APK v0.0.1) | Fase 0 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`) |
 | 0.5 Diseño | ⏳ Pendiente | | |
 | 1 Auth y emparejamiento | ⏳ Pendiente | | |
 | 2 Inicio y mood | ⏳ Pendiente | | |
