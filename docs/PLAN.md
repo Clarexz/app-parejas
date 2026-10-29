@@ -1020,7 +1020,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 
 | Fase | Estado | PR | Notas |
 |---|---|---|---|
-| 0 Cimientos | 🧪 En prueba (APK v0.0.1) | Fase 0 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`) |
+| 0 Cimientos | 🟡 Hecha, con prueba pendiente (APK v0.0.2) | #1, #2 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). Falta "Servidor: conectado ✅" (ver §10.1). |
 | 0.5 Diseño | ⏳ Pendiente | | |
 | 1 Auth y emparejamiento | ⏳ Pendiente | | |
 | 2 Inicio y mood | ⏳ Pendiente | | |
@@ -1035,6 +1035,21 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏳ Pendiente | | |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente | | |
 | 12 Pulido y entrega | ⏳ Pendiente | | |
+
+### 10.1 Pruebas pendientes (no bloquean las siguientes fases)
+
+> **Regla temporal (2026-10-29):** las fases siguientes **continúan normalmente**, con su código,
+> CI, prompts de servidor y releases de APK, aunque estas pruebas sigan pendientes. Cuando el usuario
+> haga la corrección, la sesión que esté activa verifica, actualiza esta sección y quita la regla.
+
+| # | Qué falta | Diagnóstico | Cómo resolverlo |
+|---|---|---|---|
+| P1 | El APK (v0.0.2 y el de la 0.5) muestra **"El servidor responde a medias"** en lugar de "conectado". | El servidor responde (~130 ms), pero `/auth/v1/health` devuelve **401**: casi seguro el secreto `EXPO_PUBLIC_SUPABASE_ANON_KEY` de GitHub no coincide con `ANON_KEY` del servidor (comillas, espacios, salto de línea o valor incompleto). Sin llave válida el gateway responde 401 a todo; la app cuenta el 401 de REST como "vivo" y el de Auth como error, por eso dice "a medias". | 1) En el VPS: `ANON=$(grep '^ANON_KEY=' /opt/app-parejas/secrets/.env \| cut -d= -f2- \| tr -d '"'"'"' \r')` y probar `curl -H "apikey: $ANON" -H "Authorization: Bearer $ANON" https://parejas-api.srv1574981.hstgr.cloud/auth/v1/health` (debe dar 200). 2) Si da 200, volver a crear el secreto en GitHub pegando solo el valor. 3) Relanzar `release-apk.yml` y confirmar "conectado ✅". Si no da 200 ni con la llave del servidor, revisar el gateway (prompt de servidor). |
+| P2 | Prueba manual de la Fase 0 en el celular: tema claro/oscuro y "conectado". | Depende de P1. | Tras P1, marcar la Fase 0 como ✅. |
+
+Mientras P1 siga abierto, **las funciones que llaman al backend (auth, datos) fallarán en el APK**. Las
+sesiones de fase deben validar su lógica con tests y CI (que no dependen de esa llave), publicar su
+release igual y anotar en las notas del release que la prueba en el celular depende de P1.
 
 ---
 
