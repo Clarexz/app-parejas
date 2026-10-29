@@ -9,10 +9,12 @@
 #      con cualquier otro Supabase del VPS).
 #   3. Postgres NO se publica (el oficial lo publica vía Supavisor en 5432/6543 en 0.0.0.0).
 #      Supavisor queda apagado por defecto (perfil `pooler`); si se enciende, solo en 127.0.0.1.
-#   4. El gateway (servicio `api-gw`: Envoy por defecto, Kong si se activa) se publica SOLO
-#      en 127.0.0.1:${KONG_HTTP_PORT}; el reverse proxy del VPS lo alcanza por ahí.
+#   4. El gateway (servicio `api-gw`: Envoy por defecto, Kong si se activa) NO publica puertos
+#      en el host. Traefik (contenedor del VPS) lo alcanza por la red externa ${TRAEFIK_NETWORK}
+#      a la que el propio api-gw se une (no hace falta `docker network connect` manual) y
+#      las labels exponen SOLO /auth|rest|realtime|storage|functions/v1 (la raíz = Studio da 404).
 #   5. Studio solo en 127.0.0.1:${STUDIO_HOST_PORT} (acceso por túnel SSH).
-#   6. Límites de memoria y rotación de logs de Docker (para no llenar el disco ni la RAM).
+#   6. Límites de memoria (suma de defaults ~2.75 GB; sin swap, memswap_limit = mem_limit) y rotación de logs de Docker (para no llenar el disco ni la RAM).
 #   7. Variables extra para las Edge Functions desde secrets/functions.env (opcional).
 #
 # Analytics (Logflare) y Vector NO están en el compose base: viven en
@@ -33,6 +35,14 @@ x-logging: &logging
 networks:
   default:
     name: app-parejas-net
+    ipam:
+      config:
+        # Subred explícita, fuera de 172.x (que ya usan otros stacks del VPS).
+        - subnet: ${APP_PAREJAS_SUBNET:-10.77.0.0/24}
+  # Red del reverse proxy (Traefik). Ya existe (la creó otro stack): external.
+  traefik:
+    name: ${TRAEFIK_NETWORK:-n8n_default}
+    external: true
 
 services:
   studio:
@@ -40,26 +50,42 @@ services:
     # Solo loopback: se entra con `ssh -L 3000:127.0.0.1:${STUDIO_HOST_PORT} usuario@vps`.
     ports:
       - '127.0.0.1:${STUDIO_HOST_PORT:-13000}:3000/tcp'
-    mem_limit: ${MEM_STUDIO:-512m}
+    mem_limit: ${MEM_STUDIO:-384m}
+    memswap_limit: ${MEM_STUDIO:-384m}
     logging: *logging
 
   api-gw:
     container_name: app-parejas-gateway
-    # !override reemplaza la lista de puertos del base (y la de Kong, si se activa).
-    # Solo loopback; el reverse proxy del VPS apunta a http://127.0.0.1:${KONG_HTTP_PORT}.
-    ports: !override
-      - '127.0.0.1:${KONG_HTTP_PORT:-18000}:8000/tcp'
-    mem_limit: ${MEM_GATEWAY:-256m}
+    # Sin puertos en el host (también quita los de Kong si se activa).
+    ports: !reset []
+    # Se une a la red de Traefik además de la propia (los demás servicios solo a app-parejas-net).
+    # Los alias envoy/kong del compose oficial se conservan en `default`.
+    networks:
+      default: {}
+      traefik: {}
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-n8n_default}
+      - traefik.http.routers.parejas-api.rule=Host(`${PAREJAS_API_HOST}`) && (PathPrefix(`/auth/v1`) || PathPrefix(`/rest/v1`) || PathPrefix(`/realtime/v1`) || PathPrefix(`/storage/v1`) || PathPrefix(`/functions/v1`))
+      - traefik.http.routers.parejas-api.entrypoints=web,websecure
+      - traefik.http.routers.parejas-api.tls=true
+      - traefik.http.routers.parejas-api.tls.certresolver=${TRAEFIK_CERTRESOLVER:-mytlschallenge}
+      - traefik.http.routers.parejas-api.service=parejas-api
+      - traefik.http.services.parejas-api.loadbalancer.server.port=8000
+    mem_limit: ${MEM_GATEWAY:-128m}
+    memswap_limit: ${MEM_GATEWAY:-128m}
     logging: *logging
 
   auth:
     container_name: app-parejas-auth
-    mem_limit: ${MEM_AUTH:-256m}
+    mem_limit: ${MEM_AUTH:-192m}
+    memswap_limit: ${MEM_AUTH:-192m}
     logging: *logging
 
   rest:
     container_name: app-parejas-rest
-    mem_limit: ${MEM_REST:-256m}
+    mem_limit: ${MEM_REST:-192m}
+    memswap_limit: ${MEM_REST:-192m}
     logging: *logging
 
   realtime:
@@ -72,27 +98,32 @@ services:
       default:
         aliases:
           - realtime-dev.supabase-realtime
-    mem_limit: ${MEM_REALTIME:-512m}
+    mem_limit: ${MEM_REALTIME:-384m}
+    memswap_limit: ${MEM_REALTIME:-384m}
     logging: *logging
 
   storage:
     container_name: app-parejas-storage
-    mem_limit: ${MEM_STORAGE:-384m}
+    mem_limit: ${MEM_STORAGE:-256m}
+    memswap_limit: ${MEM_STORAGE:-256m}
     logging: *logging
 
   imgproxy:
     container_name: app-parejas-imgproxy
-    mem_limit: ${MEM_IMGPROXY:-256m}
+    mem_limit: ${MEM_IMGPROXY:-128m}
+    memswap_limit: ${MEM_IMGPROXY:-128m}
     logging: *logging
 
   meta:
     container_name: app-parejas-meta
-    mem_limit: ${MEM_META:-256m}
+    mem_limit: ${MEM_META:-128m}
+    memswap_limit: ${MEM_META:-128m}
     logging: *logging
 
   functions:
     container_name: app-parejas-functions
-    mem_limit: ${MEM_FUNCTIONS:-384m}
+    mem_limit: ${MEM_FUNCTIONS:-256m}
+    memswap_limit: ${MEM_FUNCTIONS:-256m}
     logging: *logging
     # Secretos de nuestras Edge Functions (p. ej. credenciales de FCM). Opcional: si el
     # archivo no existe no pasa nada. Se crea en el VPS con chmod 600; nunca va al repo.
@@ -104,7 +135,8 @@ services:
     container_name: app-parejas-db
     # Sin `ports:`: Postgres solo es alcanzable dentro de app-parejas-net y con
     # `docker exec -i app-parejas-db psql -U postgres` (así lo usan los scripts).
-    mem_limit: ${MEM_DB:-1g}
+    mem_limit: ${MEM_DB:-768m}
+    memswap_limit: ${MEM_DB:-768m}
     logging: *logging
 
   supavisor:
@@ -118,4 +150,5 @@ services:
       - '127.0.0.1:${POOLER_HOST_PORT_SESSION:-15432}:5432/tcp'
       - '127.0.0.1:${POOLER_HOST_PORT_TRANSACTION:-16543}:6543/tcp'
     mem_limit: ${MEM_POOLER:-384m}
+    memswap_limit: ${MEM_POOLER:-384m}
     logging: *logging
