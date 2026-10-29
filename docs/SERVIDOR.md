@@ -5,32 +5,39 @@ Todo lo de `server/` y `scripts/server/` está en el repo; los secretos **no**.
 
 ## 1. Arquitectura en el VPS
 
+Datos del VPS real: Ubuntu 24.04, 15 GiB de RAM (~6 libres), **sin swap**, Docker 29.x / Compose v5, se
+administra como root. Ya corren 4 stacks de Supabase, n8n y otros; el reverse proxy es **Traefik en un
+contenedor** (`n8n-traefik-1`, provider Docker, `exposedbydefault=false`, entrypoints `web`/`websecure`,
+certresolver `mytlschallenge`). En el host no hay `pg_dump`: siempre se usa el del contenedor.
+
 ```
 Internet
-   │ 443 (HTTPS, certificado Let's Encrypt)
+   │ 443 (HTTPS, Let's Encrypt vía TLS-ALPN)      parejas-api.srv1574981.hstgr.cloud
    ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ Reverse proxy EXISTENTE del VPS (nginx / Traefik / Caddy / NPM)              │
-│   parejas-api.<dominio>  ──►  solo /auth|rest|realtime|storage|functions/v1/ │
-│   (cualquier otra ruta, incluida la raíz = Studio, devuelve 404)             │
-└───────────────┬──────────────────────────────────────────────────────────────┘
-                │ http://127.0.0.1:${KONG_HTTP_PORT}   (default 18000, solo loopback)
-┌───────────────▼──────── red Docker "app-parejas-net" (proyecto app-parejas) ──┐
-│ app-parejas-gateway (api-gw: Envoy; o Kong con STACK_GATEWAY=kong)            │
+┌─ Traefik (contenedor n8n-traefik-1) ─────────────────────────────────────────┐
+│  router parejas-api (labels del api-gw): Host + SOLO /auth|rest|realtime|     │
+│  storage|functions /v1 ; la raíz (Studio) no coincide → 404                   │
+└───────────────┬───────────────────────────────────── red externa n8n_default ┘
+                │ (api-gw está en n8n_default Y en app-parejas-net, por compose)
+┌───────────────▼──────── red Docker "app-parejas-net" (10.77.0.0/24) ──────────┐
+│ app-parejas-gateway (api-gw: Envoy; o Kong con STACK_GATEWAY=kong) — SIN      │
+│                      puertos publicados en el host                            │
 │   ├─► app-parejas-auth (GoTrue)        ├─► app-parejas-rest (PostgREST)       │
 │   ├─► realtime-dev.app-parejas-realtime ├─► app-parejas-storage + imgproxy    │
 │   ├─► app-parejas-functions (edge-runtime: `notify` ─► FCM)                   │
-│   └─► app-parejas-studio / app-parejas-meta  (Studio: ver §7)                 │
-│ app-parejas-db (Postgres 17, volumen stack/volumes/db/data)                   │
-│        ▲ SIN puertos publicados: solo `docker exec` y la red interna          │
+│   └─► app-parejas-studio / app-parejas-meta                                   │
+│ app-parejas-db (Postgres 17, volumen stack/volumes/db/data) — sin puertos     │
 └────────────────────────────────────────────────────────────────────────────────┘
  En 127.0.0.1 (solo por túnel SSH):  Studio 13000 ·  [opcional] pooler 15432/16543
  Apagados por defecto:  analytics (Logflare) · vector · supavisor
 ```
 
-Servicios y RAM aproximada (límites en `docker-compose.override.yml`): db ≤1 GB, realtime ≤512 MB,
-studio ≤512 MB, storage ≤384 MB, functions ≤384 MB, auth/rest/meta/imgproxy/gateway ≤256 MB cada
-uno. En reposo el conjunto suele rondar 1.5 a 2 GB. Con `STACK_LOGS=true` suma ~1 GB más.
+Memoria: los límites por defecto suman **2816 MB (~2.75 GB)**, con `memswap_limit` igual a `mem_limit`
+(sin swap, un contenedor que se pasa muere por OOM en vez de arrastrar al VPS):
+db 768m, realtime 384m, studio 384m, storage 256m, functions 256m, auth 192m, rest 192m,
+meta 128m, imgproxy 128m, gateway 128m. Son techos ajustados: si `docker inspect -f '{{.State.OOMKilled}}'`
+da `true` en alguno, súbelo con `MEM_*` en `.env`. Con `STACK_LOGS=true` suma ~1 GB más (no recomendado:
+solo hay ~6 GB libres).
 
 ## 2. Rutas
 
@@ -41,20 +48,23 @@ uno. En reposo el conjunto suele rondar 1.5 a 2 GB. Con `STACK_LOGS=true` suma ~
 | `/opt/app-parejas/secrets` (700) | `.env`, `CREDENCIALES.md`, `functions.env` (secretos de Edge Functions), keystore Android, `firebase-service-account.json` (Fase 4). Archivos 600. |
 | `/opt/app-parejas/backups` | `db/` (dumps `.dump`), `storage/` (`.tar.gz`), `backup.log`. |
 
+Los otros proyectos del VPS viven en `/docker/<nombre>`; este usa `/opt/app-parejas` por decisión tomada.
 `APP_ROOT` se puede sobrescribir (`APP_ROOT=/otra/ruta ./deploy.sh`).
 
 ## 3. Cómo se aisló de los otros proyectos del VPS
 
 - Proyecto compose propio `-p app-parejas` (y `name: app-parejas` en el override).
-- Red propia `app-parejas-net`; volúmenes con prefijo `app-parejas_`; contenedores `app-parejas-*`
+- Red propia `app-parejas-net` con subred explícita `10.77.0.0/24` (`APP_PAREJAS_SUBNET`, fuera de las 172.x de otros stacks); volúmenes con prefijo `app-parejas_`; contenedores `app-parejas-*`
   (el oficial usa `supabase-*`, que chocaría con otro Supabase).
 - Postgres **sin** puerto publicado. Supavisor (que en el oficial publicaba 5432/6543 en todas las
   interfaces) queda apagado, y si se enciende solo escucha en 127.0.0.1 y en puertos poco comunes.
-- Gateway y Studio solo en 127.0.0.1 con puertos poco comunes (18000, 13000).
+- El gateway no publica puertos en el host: Traefik lo alcanza por la red externa `n8n_default`, a la que el propio
+  `api-gw` se une desde el compose (sin `docker network connect` manual, sobrevive a recreaciones). Es el único
+  servicio en esa red. Studio solo en `127.0.0.1:13000`.
 - Vector no corre (leería el socket de Docker, es decir, los logs de **todos** los contenedores).
 - Límites de memoria por contenedor y rotación de logs (10 MB x 3) para no dejar sin RAM/disco al resto.
 - Los scripts solo tocan el proyecto `app-parejas`: nada de `docker system prune`, ni redes/volúmenes ajenos.
-- El único punto de contacto con el exterior es el reverse proxy, con una lista blanca de rutas.
+- El único punto de contacto con el exterior es Traefik, con una lista blanca de prefijos en la regla del router.
 
 ## 4. Instalación (prompt S1, resumen)
 
@@ -73,8 +83,9 @@ uno. En reposo el conjunto suele rondar 1.5 a 2 GB. Con `STACK_LOGS=true` suma ~
    `sh utils/generate-keys.sh --update-env` del stack oficial, ver comentarios del `.env.example`),
    fijar dominio en `SUPABASE_PUBLIC_URL` / `API_EXTERNAL_URL` / `SITE_URL`, y `ln -s ../secrets/.env stack/.env`.
 6. `source scripts/server/lib.sh && compose config >/dev/null && compose up -d --wait`.
-7. Configurar el reverse proxy con `server/proxy/*` y obtener el certificado.
-8. `./scripts/server/deploy.sh --local` (aplica migraciones, crea buckets) y luego `./scripts/server/smoke-test.sh`.
+7. Traefik: no hay nada que configurar a mano; el `api-gw` trae las labels y se une a `n8n_default`
+   (ver `server/proxy/traefik.md`). El certificado lo emite Traefik al primer acceso.
+8. `./scripts/server/deploy.sh --local` (--local prueba contra la IP del contenedor del gateway, sin Traefik; aplica migraciones, crea buckets) y luego `./scripts/server/smoke-test.sh`.
 9. Instalar el cron de §6 y guardar todo en `secrets/CREDENCIALES.md` (600).
 
 ## 5. Desplegar una fase (prompt S-deploy)
@@ -114,7 +125,7 @@ se inyectan al contenedor `functions` con `compose up -d functions`.
 
 ## 7. Studio por túnel SSH
 
-Studio solo escucha en `127.0.0.1:${STUDIO_HOST_PORT}` (13000) y el proxy no lo publica.
+Studio solo escucha en `127.0.0.1:${STUDIO_HOST_PORT}` (13000) y Traefik no tiene router para él.
 Desde tu computadora:
 
 ```bash
@@ -122,8 +133,7 @@ ssh -L 3000:127.0.0.1:13000 usuario@IP-DEL-VPS
 # y abre http://localhost:3000   (Studio directo, sin pasar por el proxy)
 ```
 
-Alternativa por el gateway (pide usuario/contraseña `DASHBOARD_*`):
-`ssh -L 18000:127.0.0.1:18000 usuario@IP-DEL-VPS` y abre `http://localhost:18000`.
+El gateway ya no publica puerto en el host, así que Studio solo se alcanza por este túnel.
 
 ## 8. Restaurar (prompt S-restore)
 
@@ -192,10 +202,12 @@ directorio aparte, comparar con `diff -ru` contra `stack/`, hacer backup, aplica
 | Síntoma | Qué mirar |
 |---|---|
 | `smoke-test` ❌ contenedor `unhealthy` | `compose logs --tail=100 <servicio>`; `db` primero: casi todo depende de ella. |
-| 502/504 desde el dominio | El proxy no alcanza `127.0.0.1:${KONG_HTTP_PORT}` (¿puerto distinto? ¿proxy en contenedor? ver `server/proxy/`). Probar `curl -i http://127.0.0.1:18000/auth/v1/health -H "apikey: $ANON_KEY"`. |
+| 404 de Traefik en un prefijo del API | Labels no aplicadas (`docker inspect app-parejas-gateway`), `PAREJAS_API_HOST` distinto al dominio, o el api-gw no está en `n8n_default` (`smoke-test.sh` lo revisa). |
+| 502/504/gateway timeout desde el dominio | Traefik no llega al api-gw: red equivocada (`traefik.docker.network` debe ser `n8n_default`) o contenedor caído. Probar sin Traefik: `./scripts/server/smoke-test.sh --local`. |
+| `compose up` dice que la red `n8n_default` no existe | Se llama distinto en este VPS: ajustar `TRAEFIK_NETWORK` en `.env` (`docker network ls`). |
 | 401 `No API key found` | Falta el header `apikey` (la app debe usar la ANON_KEY). |
 | Realtime no conecta / `tenant not found` | Proxy sin cabeceras `Upgrade`/`Connection`; o el alias de red `realtime-dev.supabase-realtime` no existe (`docker inspect app-parejas-gateway`/realtime). |
-| `docker exec ... psql` pide contraseña o falla auth | Usar `-U supabase_admin` (el contenedor trae `PGPASSWORD`); verificar `DB_USER`/`DB_DUMP_USER` en `lib.sh`. |
+| `docker exec ... psql` (el host no tiene pg_dump/psql) pide contraseña o falla auth | Usar `-U supabase_admin` (el contenedor trae `PGPASSWORD`); verificar `DB_USER`/`DB_DUMP_USER` en `lib.sh`. |
 | `deploy.sh`: "cambios locales" | `git -C /opt/app-parejas/repo status`; descartar con `git checkout -- .` solo si es seguro. |
 | Migración falla a medias | Cada una es transaccional: no queda registrada ni aplicada. Corregir en el repo, `deploy.sh`. El dump previo está en `backups/db/`. |
 | Edge Function no aparece | `ls stack/volumes/functions`, `compose logs functions`; recordar que `main/` es del oficial. |

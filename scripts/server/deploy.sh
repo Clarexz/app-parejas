@@ -8,7 +8,7 @@
 #   --skip-backup   no hace el dump previo (NO recomendado)
 #   --dry-run       no cambia nada: muestra qué haría (migraciones pendientes, rsync -n,
 #                   buckets por crear)
-#   --local         el smoke test final usa http://127.0.0.1:$KONG_HTTP_PORT (sin HTTPS)
+#   --local         el smoke test final usa la IP del gateway en app-parejas-net (sin Traefik ni HTTPS)
 #
 # Pasos: (1) repo limpio + git fetch/checkout/pull  (2) backup.sh --pre-deploy
 #        (3) scripts/apply-migrations.sh  (4) sincroniza supabase/functions -> stack/volumes/functions

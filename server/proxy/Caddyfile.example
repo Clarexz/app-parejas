@@ -1,3 +1,5 @@
+# ALTERNATIVA: en el VPS actual se usa Traefik (ver traefik.md); este ejemplo es para otro servidor.
+# Requeriría que el gateway publique un puerto en 127.0.0.1 (el override actual NO lo hace).
 # Ejemplo para Caddy - App Parejas
 # Agregar este bloque al Caddyfile existente y recargar:  caddy reload --config /etc/caddy/Caddyfile
 # Caddy obtiene y renueva el certificado solo; el WebSocket (Realtime) funciona sin más.

@@ -1,3 +1,5 @@
+# ALTERNATIVA: en el VPS actual se usa Traefik (ver traefik.md); este ejemplo es para otro servidor.
+# Requeriría que el gateway publique un puerto en 127.0.0.1 (el override actual NO lo hace).
 # Ejemplo para nginx (host o contenedor) - App Parejas
 # Copiar a /etc/nginx/conf.d/parejas-api.conf (o sites-available), reemplazar el dominio y el
 # puerto (KONG_HTTP_PORT), y recargar:  nginx -t && systemctl reload nginx

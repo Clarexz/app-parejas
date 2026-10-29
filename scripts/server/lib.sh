@@ -86,7 +86,7 @@ cargar_env() {
 validar_env() {
   local k v malas=()
   for k in POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY SUPABASE_PUBLIC_URL \
-           KONG_HTTP_PORT DASHBOARD_PASSWORD; do
+           PAREJAS_API_HOST DASHBOARD_PASSWORD; do
     v="${!k:-}"
     if [[ -z "$v" || "$v" == *CAMBIAR* ]]; then malas+=("$k"); fi
   done
@@ -180,10 +180,21 @@ api_request() {
   [[ -n "$HTTP_CODE" ]] || HTTP_CODE="000"
 }
 
-# URL base del API (sin barra final). Con --local (LOCAL=1) va directo al gateway en loopback.
+# IP del gateway dentro de app-parejas-net (el gateway no publica puertos en el host; como
+# root en el VPS se llega directo a la IP del contenedor).
+gateway_ip() {
+  docker inspect -f '{{with index .NetworkSettings.Networks "app-parejas-net"}}{{.IPAddress}}{{end}}' \
+    app-parejas-gateway 2>/dev/null || true
+}
+
+# URL base del API (sin barra final). Con --local (LOCAL=1) va directo al contenedor del
+# gateway por la red del stack (sin Traefik ni HTTPS).
 url_base() {
   if [[ "${LOCAL:-0}" == "1" ]]; then
-    printf 'http://127.0.0.1:%s' "$KONG_HTTP_PORT"
+    local ip
+    ip="$(gateway_ip)"
+    [[ -n "$ip" ]] || die "No encuentro la IP de app-parejas-gateway en app-parejas-net (¿está corriendo?)."
+    printf 'http://%s:8000' "$ip"
   else
     printf '%s' "${SUPABASE_PUBLIC_URL%/}"
   fi

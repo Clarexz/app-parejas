@@ -1,50 +1,48 @@
-# Traefik - App Parejas
+# Traefik - camino REAL en este VPS
 
-El gateway solo escucha en `127.0.0.1` del host. Si Traefik corre como binario/servicio en el
-host, usa la opción A. Si corre en un contenedor (lo más común) no alcanza ese loopback: usa la
-opción B (red Docker compartida). En ambas se limita a las rutas del API (Studio y `/pg` no deben salir a Internet) y el
-WebSocket de Realtime funciona sin configuración extra.
+En este VPS el reverse proxy es Traefik en un contenedor (`n8n-traefik-1`): provider Docker con
+`exposedbydefault=false`, entrypoints `web` y `websecure`, redirección HTTP a HTTPS y certresolver
+`mytlschallenge` (TLS-ALPN). Los demás ejemplos de esta carpeta (nginx, Caddy, NPM) son solo
+alternativas para otro servidor y **no aplican aquí**.
 
-Ajusta `TU-DOMINIO`, el nombre del entrypoint (`websecure`) y del resolver (`letsencrypt`) a
-los que ya use tu Traefik. `18000` = `KONG_HTTP_PORT`.
+## Cómo queda conectado (ya está en `server/docker-compose.override.yml`)
 
-## Opción A: file provider (Traefik en el host)
+Traefik solo alcanza contenedores que estén en una red a la que él está conectado. En vez de un
+`docker network connect` manual (frágil: se pierde al recrear), el servicio `api-gw` se declara en
+dos redes: la propia `app-parejas-net` y la externa `${TRAEFIK_NETWORK:-n8n_default}`
+(`external: true`). Los demás servicios (Postgres incluido) quedan solo en `app-parejas-net`.
+El gateway no publica puertos en el host.
 
-`/etc/traefik/dynamic/parejas-api.yml`:
-
-```yaml
-http:
-  routers:
-    parejas-api:
-      rule: "Host(`parejas-api.TU-DOMINIO.com`) && PathRegexp(`^/(auth|rest|realtime|storage|functions)/v1/`)"
-      entryPoints: [websecure]
-      tls:
-        certResolver: letsencrypt
-      service: parejas-api
-  services:
-    parejas-api:
-      loadBalancer:
-        servers:
-          - url: "http://127.0.0.1:18000"
-```
-
-## Opción B: labels sobre el gateway (Traefik en contenedor)
-
-Conectar Traefik a la red `app-parejas-net` (`docker network connect app-parejas-net traefik`)
-y añadir en `docker-compose.override.yml` (servicio `api-gw`):
+Labels del `api-gw`:
 
 ```yaml
-  api-gw:
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=app-parejas-net
-      - traefik.http.routers.parejas-api.rule=Host(`parejas-api.TU-DOMINIO.com`) && PathRegexp(`^/(auth|rest|realtime|storage|functions)/v1/`)
-      - traefik.http.routers.parejas-api.entrypoints=websecure
-      - traefik.http.routers.parejas-api.tls.certresolver=letsencrypt
-      - traefik.http.services.parejas-api.loadbalancer.server.port=8000
+- traefik.enable=true
+- traefik.docker.network=${TRAEFIK_NETWORK:-n8n_default}   # red por la que Traefik debe llegar
+- traefik.http.routers.parejas-api.rule=Host(`${PAREJAS_API_HOST}`) && (PathPrefix(`/auth/v1`) || PathPrefix(`/rest/v1`) || PathPrefix(`/realtime/v1`) || PathPrefix(`/storage/v1`) || PathPrefix(`/functions/v1`))
+- traefik.http.routers.parejas-api.entrypoints=web,websecure
+- traefik.http.routers.parejas-api.tls=true
+- traefik.http.routers.parejas-api.tls.certresolver=${TRAEFIK_CERTRESOLVER:-mytlschallenge}
+- traefik.http.routers.parejas-api.service=parejas-api
+- traefik.http.services.parejas-api.loadbalancer.server.port=8000
 ```
 
-Aquí Traefik llega por la red interna (puerto 8000 del contenedor), sin usar el puerto publicado.
-Nota: conectar Traefik a `app-parejas-net` lo deja en la misma red que Postgres (sin puertos
-publicados); es el único contacto con otros proyectos, así que hazlo solo si no hay otra salida.
-Con Traefik < 3 usa `PathPrefix` en lugar de `PathRegexp` (varias reglas unidas con `||`).
+- Solo se exponen los prefijos del API. La raíz del gateway sirve Studio (con basic auth); como no
+  coincide con la regla, Traefik responde **404** y Studio no sale a Internet.
+- WebSocket (Realtime) funciona sin configuración extra en Traefik.
+- Studio no tiene router: se usa por túnel SSH a `127.0.0.1:${STUDIO_HOST_PORT}`.
+- Variables (en `secrets/.env`): `PAREJAS_API_HOST=parejas-api.srv1574981.hstgr.cloud`,
+  `TRAEFIK_NETWORK=n8n_default`, `TRAEFIK_CERTRESOLVER=mytlschallenge`.
+
+## Verificar
+
+```bash
+docker network inspect n8n_default --format '{{range .Containers}}{{.Name}} {{end}}' | tr ' ' '\n' | grep app-parejas-gateway
+curl -i https://parejas-api.srv1574981.hstgr.cloud/auth/v1/health -H "apikey: $ANON_KEY"   # 200
+curl -i https://parejas-api.srv1574981.hstgr.cloud/                                         # 404
+```
+`./scripts/server/smoke-test.sh` hace estas comprobaciones.
+
+## Otro Traefik (referencia)
+
+Con Traefik en el host (no en contenedor) bastaría un file provider apuntando a la IP del
+contenedor; con Traefik < 3 hay que revisar la sintaxis de las reglas. No hace falta en este VPS.

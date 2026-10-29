@@ -3,7 +3,7 @@
 # smoke-test.sh - comprobaciones rápidas del stack de App Parejas (se ejecuta EN el VPS).
 #
 #   smoke-test.sh            prueba contra la URL pública (SUPABASE_PUBLIC_URL, con HTTPS)
-#   smoke-test.sh --local    prueba contra http://127.0.0.1:$KONG_HTTP_PORT (sin HTTPS)
+#   smoke-test.sh --local    prueba contra la IP del gateway en app-parejas-net (sin Traefik/HTTPS)
 #
 # Comprueba: (a) contenedores sanos, (b) Auth health, (c) PostgREST, (d) Storage,
 # (e) tablas/RLS/migraciones en la BD, (f) que Postgres y el gateway NO estén expuestos,
@@ -123,27 +123,33 @@ else
   falla "Contenedores de $COMPOSE_PROJECT con puertos públicos: $EXPUESTOS"
 fi
 
-# f2) Listeners del host: el gateway solo en loopback; 5432/6543 no deben ser nuestros.
+# f2) El gateway no publica puertos en el host y está conectado a la red de Traefik.
+PUB_GW="$(docker port app-parejas-gateway 2>/dev/null || true)"
+if [[ -z "$PUB_GW" ]]; then
+  ok "El gateway no publica puertos en el host"
+else
+  falla "El gateway publica puertos en el host: $PUB_GW"
+fi
+RED_TRAEFIK="${TRAEFIK_NETWORK:-n8n_default}"
+if docker inspect -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}' app-parejas-gateway 2>/dev/null \
+     | tr ' ' '\n' | grep -qxF "$RED_TRAEFIK"; then
+  ok "El gateway está conectado a la red de Traefik ($RED_TRAEFIK)"
+else
+  falla "El gateway NO está conectado a la red $RED_TRAEFIK (Traefik no lo alcanza)"
+fi
+
+# f3) Listeners del host: 5432/6543 no deben escuchar fuera de loopback por culpa nuestra.
 es_loopback() { [[ "$1" == 127.* || "$1" == "[::1]" ]]; }
 if command -v ss >/dev/null 2>&1; then
   mapfile -t ESCUCHAS < <(ss -H -ltn | awk '{print $4}')
-  ofensores_gw=""
   ofensores_pg=""
   for dir in "${ESCUCHAS[@]}"; do
     puerto="${dir##*:}"
     addr="${dir%:*}"
-    if [[ "$puerto" == "$KONG_HTTP_PORT" ]] && ! es_loopback "$addr"; then
-      ofensores_gw+=" $dir"
-    fi
     if [[ "$puerto" == "5432" || "$puerto" == "6543" ]] && ! es_loopback "$addr"; then
       ofensores_pg+=" $dir"
     fi
   done
-  if [[ -z "$ofensores_gw" ]]; then
-    ok "Gateway (puerto $KONG_HTTP_PORT) solo escucha en 127.0.0.1"
-  else
-    falla "Gateway escucha fuera de loopback:$ofensores_gw"
-  fi
   if [[ -z "$ofensores_pg" ]]; then
     ok "Nada escucha en 5432/6543 fuera de 127.0.0.1"
   elif [[ -z "$EXPUESTOS" ]]; then
@@ -183,7 +189,7 @@ else
     if [[ "$HTTP_CODE" == "404" ]]; then
       ok "La raíz $BASE/ no está expuesta (404): Studio no sale a Internet"
     else
-      falla "La raíz $BASE/ responde $HTTP_CODE (esperado 404). Limita el proxy a /auth|rest|realtime|storage|functions/v1/"
+      falla "La raíz $BASE/ responde $HTTP_CODE (esperado 404). Revisa las labels de Traefik / limita el proxy a /auth|rest|realtime|storage|functions/v1/"
     fi
   fi
 fi

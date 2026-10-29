@@ -1,3 +1,6 @@
+> **ALTERNATIVA:** en este VPS se usa Traefik (ver `traefik.md`). Este documento es para otro
+> servidor. Aplicaría la opción de conectar NPM a `app-parejas-net` y apuntar a `app-parejas-gateway:8000`.
+
 # Nginx Proxy Manager (NPM) - App Parejas
 
 1. **Hosts > Proxy Hosts > Add Proxy Host**

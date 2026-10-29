@@ -6,16 +6,18 @@ respaldos, restauración, túnel a Studio, plan B) está en [`docs/SERVIDOR.md`]
 
 | Archivo | Para qué |
 |---|---|
-| `docker-compose.override.yml` | Ajustes sobre el `docker-compose.yml` **oficial** de Supabase: proyecto/red `app-parejas`, contenedores `app-parejas-*`, Postgres sin publicar, gateway solo en `127.0.0.1:${KONG_HTTP_PORT}`, Studio solo en `127.0.0.1:${STUDIO_HOST_PORT}`, pooler apagado, límites de RAM, logs rotados, `env_file` opcional para las Edge Functions. |
+| `docker-compose.override.yml` | Ajustes sobre el `docker-compose.yml` **oficial** de Supabase: proyecto/red `app-parejas`, contenedores `app-parejas-*`, Postgres sin publicar, gateway sin puertos en el host (se une a la red de Traefik y lleva sus labels; solo expone `/auth|rest|realtime|storage|functions/v1`), red con subred propia (`APP_PAREJAS_SUBNET`), Studio solo en `127.0.0.1:${STUDIO_HOST_PORT}`, pooler apagado, límites de RAM (~2.75 GB en total, sin swap), logs rotados, `env_file` opcional para las Edge Functions. |
 | `docker-compose.logs.override.yml` | Solo se carga si `STACK_LOGS=true` (Analytics/Logflare + Vector). |
-| `.env.example` | Plantilla de las variables del stack (mismas claves que el `.env.example` oficial) con instrucciones para generar cada secreto. Se copia a `/opt/app-parejas/secrets/.env`. |
+| `.env.example` | Plantilla de las variables del stack (mismas claves que el `.env.example` oficial) con instrucciones para generar cada secreto. Se copia a `/opt/app-parejas/secrets/.env`. Incluye `PAREJAS_API_HOST`, `TRAEFIK_NETWORK`, `TRAEFIK_CERTRESOLVER`, `APP_PAREJAS_SUBNET`. |
 | `buckets.json` | Buckets de Storage que `deploy.sh` crea/sincroniza (idempotente). Formato: `[{"id":"avatars","public":false}]`; opcionales `name`, `file_size_limit`, `allowed_mime_types`. |
-| `proxy/` | Ejemplos para el reverse proxy existente: `nginx.conf.example`, `Caddyfile.example`, `traefik.md`, `nginx-proxy-manager.md`. Todos exponen **solo** `/auth|rest|realtime|storage|functions/v1/` y dejan pasar WebSocket. |
+| `proxy/` | Ejemplos para el reverse proxy existente: `nginx.conf.example`, `Caddyfile.example`, `traefik.md`, `nginx-proxy-manager.md`. **En este VPS se usa Traefik (`traefik.md`)**; nginx, Caddy y NPM son solo alternativas para otro servidor. |
 
 Los scripts que se ejecutan en el VPS están en [`scripts/server/`](../scripts/server/):
 `lib.sh` (helpers), `deploy.sh`, `backup.sh`, `smoke-test.sh`, `restore.sh`.
 
 ## Disposición en el VPS (`APP_ROOT=/opt/app-parejas`)
+
+Nota: los otros proyectos del VPS viven en `/docker/<nombre>`; este usa `/opt/app-parejas` por decisión tomada.
 
 ```
 /opt/app-parejas/
