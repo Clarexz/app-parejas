@@ -14,7 +14,8 @@ mantener.
 
 Principios:
 
-1. **Cero servidores propios.** Backend administrado (Supabase, plan gratuito).
+1. **Infraestructura que ya tenemos.** Backend Supabase *self-hosted* en Docker en nuestro VPS de
+   Hostinger, aislado de los demás proyectos; nada de servicios de pago.
 2. **Simple > escalable.** Pensado para 1 pareja; nada de complejidad multi-tenant más allá de lo
    que RLS da gratis.
 3. **Todo desbloqueado.** Lo que en Couple Joy es premium (preguntas ilimitadas, todos los widgets,
@@ -130,10 +131,10 @@ reseñas y análisis de UX de terceros.
 
 | ID | Requisito |
 |---|---|
-| RNF-01 | Costo mensual **$0** (planes gratuitos de Supabase, Expo/EAS y Firebase para FCM). |
+| RNF-01 | Costo adicional **$0**: VPS existente, GitHub Actions (minutos incluidos) y Firebase gratis solo para FCM. |
 | RNF-02 | Privacidad: **Row Level Security** en todo; solo los 2 miembros acceden a sus datos. Buckets de Storage privados con URLs firmadas. |
 | RNF-03 | Tiempo real: mood/respuestas/comentarios visibles en < 2 s con la app abierta. |
-| RNF-04 | Imágenes comprimidas en el cliente (máx. ~1600 px, JPEG ~0.7) para no pasar 1 GB de Storage. |
+| RNF-04 | Imágenes comprimidas en el cliente (máx. ~1600 px, JPEG ~0.7) para cuidar disco y datos móviles. |
 | RNF-05 | UI en español de México, modo claro/oscuro, estética romántica coherente. |
 | RNF-06 | TypeScript estricto, lint y tests unitarios de la lógica (racha, fechas, asignación de pregunta, distancia). |
 | RNF-07 | Instalación directa en nuestros celulares Android vía **APK**, sin Play Store. |
@@ -146,41 +147,52 @@ reseñas y análisis de UX de terceros.
 
 | Capa | Elección | Por qué |
 |---|---|---|
-| App | **React Native + Expo (SDK estable más reciente) + TypeScript** | Desarrollo rápido, builds Android en la nube (EAS), módulos nativos vía *config plugins*. |
+| App | **React Native + Expo (SDK estable más reciente) + TypeScript** | Desarrollo rápido, módulos nativos vía *config plugins*, `expo prebuild` genera el proyecto Android que se compila en CI. |
 | Navegación | **expo-router** (tabs + stacks) | Estándar actual de Expo. |
 | UI | **NativeWind** (Tailwind) + tokens de tema propios; **react-native-reanimated**; **expo-image**; **expo-haptics** | Iteración rápida y buen rendimiento. |
 | Datos | **TanStack Query** (caché + persistencia offline) + **Zustand** para estado local mínimo | Separar estado de servidor y de UI. |
 | Formularios | **react-hook-form + zod** | Tipado y validación. |
-| Backend | **Supabase** (plan Free): Postgres, Auth, Realtime, Storage, Edge Functions, pg_cron, pg_net | Todo administrado; sin servidores. |
-| Tipos BD | `supabase gen types typescript` | Tipos de punta a punta. |
-| Push | **expo-notifications** + **Expo Push Service** (FCM por debajo; proyecto Firebase gratis solo para credenciales) disparado por *trigger → Edge Function* | Sin manejar FCM a mano. |
+| Backend | **Supabase self-hosted** (Docker Compose oficial) en **nuestro VPS de Hostinger**: Postgres, Auth (GoTrue), PostgREST, Realtime, Storage, Edge Functions (edge-runtime), pg_cron, pg_net; detrás del reverse proxy existente con **HTTPS** | Usamos la infraestructura que ya tenemos, sin límites del plan gratis y con los mismos APIs que Supabase Cloud (si el VPS no da, el plan B es Supabase Cloud Free sin cambiar código). |
+| Tipos BD | `supabase gen types typescript --db-url` (en CI contra un Postgres efímero con las migraciones) | Tipos de punta a punta sin acceso al servidor desde las sesiones. |
+| Push | **expo-notifications** (token FCM del dispositivo) + **FCM HTTP v1** llamado directo desde la Edge Function `notify` (cuenta de servicio de Firebase guardada en el servidor) | Sin depender de servicios de Expo; Firebase solo se usa para FCM (gratis). |
 | Notificaciones locales | expo-notifications (recordatorio diario) | Sin backend. |
 | Widgets | **react-native-android-widget** | Widgets renderizados desde JS, actualización periódica y tarea *headless*. |
 | Ubicación / mapa | **expo-location** + **expo-task-manager** (segundo plano), **react-native-maps** (Google Maps, API key gratuita) | Distancia y mapa de memorias. |
 | Dibujo | **@shopify/react-native-skia** | Stories con dibujo y reto de dibujo. |
 | Media | expo-image-picker, expo-camera, expo-image-manipulator, expo-audio, expo-media-library | Captura, compresión, audio, descargar. |
 | Seguridad local | expo-secure-store, expo-local-authentication (bloqueo opcional) | |
-| Calidad | ESLint + Prettier, **Jest + @testing-library/react-native**, `tsc --noEmit` | Validaciones que corren en sesiones en la nube. |
-| Builds | **EAS Build** (gratis) → **APK**; *development build* (no Expo Go: widgets y push lo requieren); **EAS Update** para OTA | Instalación directa y actualizaciones sin reinstalar. |
+| Calidad | ESLint + Prettier, **Jest + @testing-library/react-native**, `tsc --noEmit` | Validaciones que corren en sesiones en la nube y en CI. |
+| CI / Builds | **GitHub Actions**: `ci.yml` (lint, typecheck, tests, validación de migraciones) y `release-apk.yml` (`expo prebuild` + Gradle `assembleRelease`, APK **firmado** publicado en **GitHub Releases**) | Cada fase entrega un APK descargable; gratis (minutos de Actions incluidos), sin EAS. |
 
 **Alternativas descartadas:** PWA (sin widgets), Kotlin nativo (más lento de iterar desde sesiones
-en la nube), Firebase como BD (SQL + RLS simplifica racha/preguntas).
+en la nube), Firebase como BD (SQL + RLS simplifica racha/preguntas), PocketBase (más ligero, pero
+sin Postgres/RLS/RPC; queda como plan C si el VPS anda muy justo de RAM).
 
 ---
 
-## 6. Distribución / instalación (solo Android)
+## 6. Distribución: un APK probable por fase (GitHub Releases)
 
-1. `eas build -p android --profile development` → APK de desarrollo para probar con
-   `npx expo start --dev-client` (tu laptop/Mac y el celular en la misma red, o túnel).
-2. `eas build -p android --profile preview` → **APK "de uso diario"** que se instala en ambos
-   celulares (permitir "instalar apps desconocidas").
-3. Cambios solo de JS → **EAS Update** (`eas update --branch preview`), sin reinstalar.
-   Cambios nativos (nuevas librerías nativas, widgets) → nueva build.
-4. Alternativa sin EAS: `npx expo run:android --variant release` desde tu Mac (requiere Android
-   Studio/SDK). Útil si se acaban las builds gratis del mes.
-
-**Supabase Free:** se pausa tras ~7 días sin actividad (con uso diario no pasa). Límites: 500 MB
-BD, 1 GB Storage.
+- **Cada fase termina con un APK release firmado** publicado en GitHub Releases del repo (privado),
+  como *pre-release* con nombre `Fase N — <nombre>` y tag `v0.N.P` (P = parche dentro de la fase).
+  Las notas del release dicen **qué probar** y cualquier paso previo (p. ej. "aplicar migraciones
+  en el servidor").
+- **Firma:** un único keystore (generado en la Fase 0, guardado en el servidor con las demás
+  credenciales y como secretos de GitHub). Misma firma ⇒ cada APK **se instala encima del
+  anterior** conservando la sesión; los datos viven en el servidor.
+- **versionCode** = número de ejecución del workflow; **versionName** = tag.
+- **Cómo se dispara:** la sesión de la fase, cuando todo está verde y el servidor ya tiene los
+  cambios, lanza el workflow `release-apk.yml` (`workflow_dispatch` con la rama de la fase y el
+  número de fase, usando las herramientas de GitHub) o empuja el tag. También lo puedes lanzar tú
+  desde la pestaña *Actions* → *Release APK* → *Run workflow*. El workflow vuelve a correr
+  lint/typecheck/tests antes de compilar.
+- **Instalar:** desde el celular, abrir el release en GitHub (app de GitHub o navegador con sesión
+  iniciada), descargar el `.apk` y abrirlo (permitir "instalar apps desconocidas" la primera vez).
+- **Builds de desarrollo (opcional):** con la Mac se puede correr `npx expo run:android` para
+  iterar rápido; no es necesario para probar las fases.
+- **Secretos de GitHub** (los cargas tú en *Settings → Secrets and variables → Actions*):
+  `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
+  `ANDROID_KEY_PASSWORD`, `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, y en fases
+  posteriores `GOOGLE_SERVICES_JSON_BASE64` (Fase 4) y `GOOGLE_MAPS_API_KEY` (Fase 7).
 
 ---
 
@@ -194,14 +206,19 @@ BD, 1 GB Storage.
 │  Widgets ◄── snapshot en almacenamiento compartido │
 │  Headless task ◄── push de datos (FCM)             │
 └────────┼───────────────────────────────────────────┘
+         │ HTTPS  (https://<subdominio>, p. ej. parejas-api.<dominio>)
          ▼
-┌──────────────── Supabase ─────────────────────────┐
-│ Postgres + RLS ─ RPC (funciones SQL)               │
-│ Realtime (postgres_changes en tablas de la pareja) │
-│ Storage (buckets privados: avatars, media)         │
-│ Triggers + pg_net ─► Edge Function `notify`        │
-│                      └─► Expo Push API ─► FCM      │
-│ pg_cron: limpieza de stories caducadas             │
+┌────────── VPS Hostinger (Docker) ─────────────────┐
+│ Reverse proxy existente (nginx/Traefik/Caddy/NPM)  │
+│   └─► Kong (gateway de Supabase)                   │
+│        ├─ Auth (GoTrue)      ├─ PostgREST          │
+│        ├─ Realtime           ├─ Storage (+imgproxy)│
+│        └─ Edge Functions: `notify` ─► FCM HTTP v1  │
+│ Postgres (supabase/postgres: RLS, RPC, pg_cron,    │
+│           pg_net) ─ volumen persistente            │
+│ Studio (solo vía túnel SSH o con auth básica)      │
+│ Cron del host: pg_dump diario + rotación           │
+│ /opt/app-parejas/  (repo, .env, credenciales)      │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -214,12 +231,18 @@ BD, 1 GB Storage.
   calcula con ella. Si viven en zonas distintas, manda la de la pareja (configurable).
 - **Widgets**: la app escribe un *snapshot* (días juntos, mood de la pareja, próximo evento,
   distancia, story) y pide redibujar. Con la app cerrada: actualización periódica del widget +
-  push de datos que despierta una *headless task* que vuelve a leer de Supabase.
+  push de datos que despierta una *headless task* que vuelve a leer del backend.
 - **Push**: tabla `push_tokens`; triggers en `answers`, `answer_comments`, `moods`, `stories`,
-  `story_replies`, `memories`, `nudges` → Edge Function `notify` → Expo Push API al otro miembro,
+  `story_replies`, `memories`, `nudges` → Edge Function `notify` → FCM al otro miembro,
   respetando `notification_prefs`.
 - **Contenido como datos versionados**: el banco de preguntas vive en `content/*.json` en el repo
   y un script lo convierte en migración/seed SQL idempotente (upsert por `slug`).
+- **El repo es la fuente de verdad del backend**: migraciones en `supabase/migrations/`, funciones
+  en `supabase/functions/`, y un script `scripts/server/deploy.sh` que el servidor ejecuta
+  (`git pull` → aplicar migraciones pendientes → sincronizar funciones → reiniciar el contenedor
+  de funciones → *smoke test*). Nadie modifica la BD "a mano".
+- **Aislamiento en el VPS**: stack propio (`docker compose -p app-parejas`), red Docker propia,
+  sin publicar puertos de Postgres al exterior, sin tocar los contenedores/BD de otros proyectos.
 
 ### 7.1 Modelo de datos (borrador)
 
@@ -230,7 +253,7 @@ couple_members(couple_id, user_id unique, spicy_opt_in bool, joined_at)      -- 
 moods(id, couple_id, user_id, emoji, note, created_at)                        -- el último = actual
 question_categories(id, slug, name, emoji, intensity[ligera|profunda|picante])
 questions(id, slug unique, category_id, type[open|choice|wyr|nhie|most_likely|agree],
-          text, options jsonb, intensity, is_active)
+          text, options jsonb, intensity, is_active, created_by null)
 daily_questions(couple_id, day date, question_id, pk(couple_id, day))
 answers(id, couple_id, question_id, user_id, day date null, text, choice, audio_path, created_at,
         unique(couple_id, question_id, user_id))
@@ -259,10 +282,13 @@ src/
   components/  features/<feature>/{api,hooks,components}  lib/ (supabase, dates, streak, geo)  theme/
   widgets/           # react-native-android-widget
 content/             # banco de preguntas/juegos en JSON (fuente de verdad del contenido)
-scripts/             # generar seed SQL desde content/, validar duplicados
+scripts/             # generar seed SQL desde content/, validar duplicados, importar CSV
+  server/            # deploy.sh, backup.sh, smoke-test.sh (se ejecutan EN el VPS)
 supabase/
   migrations/  functions/notify/  seed/
-docs/PLAN.md  docs/DECISIONS.md  docs/SETUP.md  docs/CONTENT.md
+server/              # docker-compose override, .env.example del stack, config del proxy (sin secretos)
+.github/workflows/   # ci.yml, release-apk.yml
+docs/PLAN.md  docs/DECISIONS.md  docs/SETUP.md  docs/SERVIDOR.md  docs/CONTENT.md
 CLAUDE.md
 ```
 
@@ -276,24 +302,96 @@ CLAUDE.md
 
 ---
 
-## 8. Cómo trabajan las sesiones (instrucciones comunes)
+## 8. Cómo trabajan las sesiones
 
-- Cada fase = **una sesión de Claude Code** sobre este repo.
-- Rama por fase (la que asigne el entorno o `fase-N-<nombre>`) y PR contra `main`; el usuario hace
-  *merge* antes de la siguiente fase.
-- Al empezar: leer `CLAUDE.md`, `docs/PLAN.md` y `docs/DECISIONS.md`.
-- Al terminar: `npm run lint && npm run typecheck && npm test` en verde; actualizar §10 y
-  `docs/DECISIONS.md`; en el PR explicar **cómo probarlo en el celular**.
-- **Idioma:** textos de UI, notificaciones y contenido en **español de México**. Código,
-  nombres de variables y commits pueden ir en inglés o español, pero consistentes (definir en Fase 0).
-- **Limitación de sesiones en la nube:** no hay emulador ni celular. Se valida con typecheck, lint,
-  tests, `npx expo export -p android` y `npx expo prebuild -p android --clean`. La prueba en el
-  dispositivo la hace el usuario. Las migraciones van en `supabase/migrations/` y se aplican con
-  `supabase db push` (el usuario, o la sesión si el entorno tiene los secretos
-  `SUPABASE_ACCESS_TOKEN` y `SUPABASE_PROJECT_REF`).
-- Nada de secretos en git: `.env` en `.gitignore`; solo `EXPO_PUBLIC_SUPABASE_URL` y
-  `EXPO_PUBLIC_SUPABASE_ANON_KEY` (públicas por diseño). `google-services.json` fuera del repo
-  (se sube a EAS como archivo secreto).
+Hay **dos tipos de sesión**:
+
+| Sesión | Dónde | Qué hace |
+|---|---|---|
+| **Sesión de fase** | Claude Code (app de escritorio / nube) sobre este repo | Escribe código, migraciones, funciones, tests, CI; coordina; **redacta los prompts para el servidor**; publica el APK. No tiene acceso al VPS. |
+| **Sesión de servidor** | Claude Code en la terminal del VPS de Hostinger | Levanta/actualiza el stack Docker, aplica migraciones, despliega funciones, guarda credenciales, configura respaldos. Solo hace lo que dice el prompt que le pegas. |
+
+### 8.1 Reglas generales
+
+- Rama por fase (la que asigne el entorno o `fase-N-<nombre>`) y PR contra `main`; tú haces
+  *merge* después de probar el APK.
+- Al empezar: leer `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONS.md` y `docs/SERVIDOR.md`.
+- **Idioma:** UI, notificaciones y contenido en **español de México**; convención de código y
+  commits definida en Fase 0.
+- Las sesiones de fase no tienen celular ni acceso al VPS: validan con lint, typecheck, tests,
+  `npx expo export -p android`, `npx expo prebuild -p android --clean` y el CI (que además aplica
+  todas las migraciones contra un Postgres efímero de `supabase/postgres` y regenera los tipos).
+- **Nada de secretos en git.** En el repo solo van `.env.example` y plantillas. Los valores reales
+  viven en el VPS (`/opt/app-parejas/secrets/`) y en los secretos de GitHub.
+
+### 8.2 Definición de terminado de cada fase (protocolo de cierre)
+
+1. Código + tests; `lint`, `typecheck`, `test`, `expo export` (y `prebuild` si hubo cambios
+   nativos) en verde; CI verde en la rama.
+2. **Si la fase toca el backend** (migraciones, funciones, buckets, secretos, cron): la sesión
+   escribe en el chat un **"Prompt para el servidor"** (formato §8.3), te lo da para pegarlo en la
+   sesión del VPS y **espera tu confirmación** con el resultado (salida del smoke test). Si algo
+   falla, corrige y genera un nuevo prompt.
+3. Si la fase necesita **secretos nuevos en GitHub**, te dice exactamente cuáles y de dónde salen
+   (normalmente del archivo de credenciales del servidor).
+4. La sesión lanza **`release-apk.yml`** sobre la rama de la fase, revisa que el job termine bien
+   (y lo arregla si falla) y te pasa el **link del release** con la lista "Qué probar".
+5. Actualiza §10 de este plan y `docs/DECISIONS.md`, hace commit/push y abre el PR con: resumen,
+   cambios en backend, link al APK y checklist de pruebas manuales.
+6. Tú pruebas en tu celular (y en el de tu novia si aplica) y haces *merge*. Si encuentras
+   errores, se los dices a la misma sesión → nuevo parche `v0.N.(P+1)`.
+
+### 8.3 Coordinación con el servidor
+
+**Formato de todo "Prompt para el servidor"** (la sesión de fase lo genera completo, listo para
+copiar):
+
+```
+[Contexto] Proyecto App Parejas, stack en /opt/app-parejas. Fase N.
+[Objetivo] ...
+[Pasos] 1) cd /opt/app-parejas/repo && git fetch && git checkout <rama> && git pull
+        2) ./scripts/server/deploy.sh   (o pasos específicos)
+        3) ...
+[Restricciones] No toques contenedores, redes, volúmenes ni BD de otros proyectos. No publiques
+        puertos de Postgres. No borres datos. Si algo no cuadra con lo esperado, detente y
+        repórtalo en lugar de improvisar.
+[Credenciales] Si generas o cambias alguna, actualiza /opt/app-parejas/secrets/CREDENCIALES.md
+        (chmod 600) y dime cuáles debo copiar a GitHub Secrets.
+[Verificación] Corre ./scripts/server/smoke-test.sh y muéstrame la salida completa.
+[Reporte] Termina con un resumen corto que yo pueda pegar de vuelta en la sesión de la fase.
+```
+
+**Guardado de credenciales en el VPS** (lo hace la sesión de servidor desde S1):
+- `/opt/app-parejas/secrets/` con permisos `700` (archivos `600`), dueño tu usuario.
+- `.env` del stack (JWT secret, `ANON_KEY`, `SERVICE_ROLE_KEY`, contraseña de Postgres, contraseña
+  del dashboard, SMTP si aplica).
+- `CREDENCIALES.md`: inventario legible de todo (URLs, usuarios, contraseñas, llaves, para qué
+  sirve cada una, fecha de creación, dónde más está copiada).
+- `android-release.keystore` + contraseñas; `firebase-service-account.json` (Fase 4).
+- Recomendación: además guardar una copia en tu gestor de contraseñas; el respaldo diario **no**
+  debe incluir los secretos en el mismo lugar que el dump si se copia fuera del VPS.
+
+**Prompts de servidor base** (la Fase 0 los entrega adaptados; aquí queda el esqueleto):
+
+- **S0 — Reconocimiento (solo lectura).** Inventario del VPS: SO, CPU/RAM/disco libres, versión de
+  Docker/Compose, contenedores y redes existentes, puertos en uso, qué reverse proxy hay y cómo se
+  configuran los hosts/certificados, dominios/subdominios disponibles, si existe `git` y acceso al
+  repo (deploy key de solo lectura o token), firewall. **No cambia nada.** Su reporte decide:
+  Supabase self-hosted (si hay ≥ ~2 GB RAM libres; se apagan servicios no usados como analytics/
+  vector si hace falta) o plan B (Supabase Cloud Free).
+- **S1 — Instalación del stack.** Clonar el repo en `/opt/app-parejas/repo`; preparar el
+  `docker-compose` oficial de Supabase self-hosted con nuestro override (`server/`), nombre de
+  proyecto `app-parejas`, red propia, volúmenes persistentes; generar secretos fuertes (JWT,
+  anon/service keys firmadas con ese JWT, contraseñas) y guardarlos (ver arriba); conectar Kong al
+  reverse proxy con HTTPS en el subdominio elegido; Studio solo accesible por túnel SSH o con
+  auth básica; configurar Auth (registro por email, `SITE_URL`, sin confirmación de email o con
+  SMTP si se configura); generar el **keystore de Android**; instalar `scripts/server/backup.sh`
+  en cron (pg_dump diario comprimido, retención 14 días + Storage semanal); correr el smoke test.
+- **S-deploy — Aplicar cambios de una fase.** `git pull` de la rama + `scripts/server/deploy.sh`
+  (migraciones pendientes con registro en `supabase_migrations.schema_migrations`, sincronizar
+  `supabase/functions` al volumen del edge-runtime y reiniciarlo, crear buckets/secretos nuevos
+  si la fase lo indica) + smoke test.
+- **S-restore — Restaurar respaldo** (documentado en `docs/SERVIDOR.md`, por si acaso).
 
 ---
 
@@ -301,7 +399,7 @@ CLAUDE.md
 
 | Fase | Nombre | Resultado visible | Depende de |
 |---|---|---|---|
-| 0 | Cimientos | Proyecto Expo + Supabase, dev build instalado | — |
+| 0 | Cimientos | APK `v0.0.x` que se conecta al Supabase del VPS; CI y releases funcionando | — |
 | 1 | Auth, emparejamiento y perfil | Ambos se registran y se vinculan | 0 |
 | 2 | Inicio, contador y mood | Inicio con días juntos y mood en tiempo real | 1 |
 | 3 | Preguntas diarias, racha y comentarios | Núcleo de Couple Joy | 2 |
@@ -319,43 +417,65 @@ Las fases 7, 8, 9 y 11 son bastante independientes y se pueden reordenar.
 
 ---
 
-### Fase 0 — Cimientos
+### Fase 0 — Cimientos (app + CI/APK + servidor)
 
-**Objetivo:** esqueleto del proyecto, herramientas y backend listos; *development build* en el celular.
+**Objetivo:** esqueleto del proyecto, pipeline que publica APKs firmados en GitHub Releases y
+backend Supabase levantado en el VPS de Hostinger.
 
-**Tareas:**
+**Tareas (sesión de fase):**
 1. `create-expo-app` con TypeScript y expo-router; estructura de §7.2; alias `@/`.
-   Configuración **solo Android** (`platforms: ["android"]`), `package` = `com.appparejas.app`
-   (provisional), nombre centralizado en `APP_NAME`.
+   Configuración **solo Android**, `package` = `com.appparejas.app` (provisional), nombre
+   centralizado en `APP_NAME`.
 2. ESLint, Prettier, Jest + RNTL; scripts `lint`, `typecheck`, `test`, `format`.
 3. Tema base (tokens claro/oscuro, tipografía, espaciado) y primitivos (`Screen`, `Text`,
    `Button`, `Card`, `Avatar`, `Input`).
-4. Cliente Supabase (`src/lib/supabase.ts`) con sesión persistente; provider de TanStack Query.
-5. `supabase init`; primera migración: `profiles` + trigger al registrarse, `couples`,
+4. Cliente Supabase (`src/lib/supabase.ts`) con sesión persistente; provider de TanStack Query;
+   pantalla temporal con **estado de conexión al servidor** (health check de Auth/REST) y versión
+   de la app.
+5. `supabase/` con la primera migración: `profiles` + trigger al registrarse, `couples`,
    `couple_members`, helper `is_couple_member`, RLS activada.
-6. `eas.json` con perfiles `development` y `preview` (ambos APK); `app.config.ts` leyendo `EXPO_PUBLIC_*`.
-7. `CLAUDE.md` (convenciones, comandos, estructura, idioma es-MX), `docs/DECISIONS.md`,
-   `docs/SETUP.md` (pasos manuales: crear proyecto Supabase, aplicar migraciones, `eas login`,
-   generar e instalar el APK de desarrollo, correr `expo start --dev-client`).
-8. GitHub Actions mínima: lint + typecheck + test en PR.
+6. **CI:** `.github/workflows/ci.yml` (lint, typecheck, test; job `db` que levanta
+   `supabase/postgres` como *service*, aplica todas las migraciones y regenera tipos, fallando si
+   difieren de los commiteados).
+7. **Release:** `.github/workflows/release-apk.yml` (`workflow_dispatch` con inputs `ref` y
+   `fase`, y en push de tags `v*`): instala deps, corre checks, `expo prebuild -p android`,
+   inyecta keystore y variables desde secretos, `./gradlew assembleRelease`, publica *pre-release*
+   con el APK `app-parejas-v0.N.P.apk` y notas desde `docs/releases/v0.N.P.md`. Config de firma vía
+   config plugin (sin commitear `android/`).
+8. `server/`: override de docker-compose y `.env.example` del stack (sin secretos), notas para
+   el reverse proxy. `scripts/server/deploy.sh`, `backup.sh`, `smoke-test.sh`.
+9. `CLAUDE.md`, `docs/DECISIONS.md`, `docs/SETUP.md` (secretos de GitHub, instalar el APK),
+   `docs/SERVIDOR.md` (arquitectura en el VPS, rutas, cómo desplegar, respaldar y restaurar).
+10. **Coordinación con el servidor:** generar el prompt **S0**, esperar el reporte, decidir
+    (y registrar en DECISIONS.md) self-hosted vs. plan B, generar el prompt **S1** adaptado al
+    reverse proxy y recursos reales, esperar el reporte, y decirte qué secretos cargar en GitHub.
+11. Publicar el primer release **`v0.0.x`**.
 
-**Criterios:** lint/typecheck/test en verde; `npx expo export -p android` compila; con
-`docs/SETUP.md` el usuario puede instalar el dev build y ver la app.
+**Entregable APK:** app que abre, muestra "App Parejas", tema claro/oscuro y
+**"Servidor: conectado ✅"** contra el backend del VPS.
+
+**Criterios:** CI verde; release publicado con APK instalable; el APK conecta por HTTPS al
+servidor; credenciales guardadas en `/opt/app-parejas/secrets/`; respaldo diario programado.
 
 **Prompt de arranque:**
 ```
-Lee docs/PLAN.md completo. Vamos a ejecutar la **Fase 0 — Cimientos**.
+Lee docs/PLAN.md completo (sobre todo §5–§8). Vamos a ejecutar la **Fase 0 — Cimientos**.
 Crea el proyecto Expo (SDK estable más reciente, TypeScript estricto, expo-router) en la raíz del
 repo con la estructura de §7.2, configurado SOLO para Android (package provisional
-com.appparejas.app, nombre "App Parejas" centralizado en una constante APP_NAME). Configura
+com.appparejas.app, nombre "App Parejas" centralizado en APP_NAME). Configura
 ESLint/Prettier/Jest/RNTL y los scripts lint, typecheck, test. Crea el tema base (claro/oscuro,
-estética romántica) y componentes primitivos. Configura el cliente Supabase y TanStack Query,
-inicializa supabase/ con la primera migración (profiles con trigger al registrarse, couples,
-couple_members, helper is_couple_member, RLS activada). Crea eas.json (development y preview, ambos
-APK), app.config.ts con variables EXPO_PUBLIC_*, .env.example, CLAUDE.md (convenciones, comandos,
-estructura, UI en español de México), docs/DECISIONS.md, docs/SETUP.md con los pasos manuales que
-debo hacer yo y un workflow de GitHub Actions con lint/typecheck/test. Verifica lint, typecheck,
-test y `npx expo export -p android`. Actualiza §10 de docs/PLAN.md, commit, push y abre un PR.
+estética romántica), componentes primitivos, cliente Supabase + TanStack Query y una pantalla
+temporal que muestre la versión y el estado de conexión con el servidor. Crea supabase/ con la
+primera migración (profiles con trigger al registrarse, couples, couple_members, helper
+is_couple_member, RLS). Crea los workflows ci.yml (incluyendo validación de migraciones contra
+supabase/postgres efímero y generación de tipos) y release-apk.yml (prebuild + Gradle
+assembleRelease firmado con secretos, pre-release en GitHub Releases con notas de
+docs/releases/), los archivos de server/ y scripts/server/ (deploy.sh, backup.sh, smoke-test.sh),
+CLAUDE.md, docs/DECISIONS.md, docs/SETUP.md y docs/SERVIDOR.md. Después coordina conmigo el
+servidor según §8.3: dame el prompt S0 (solo lectura) para la sesión de Claude Code de mi VPS de
+Hostinger, espera su reporte, decide self-hosted vs. plan B, dame el prompt S1 adaptado, espera su
+reporte y dime exactamente qué secretos cargar en GitHub. Finalmente cierra la fase con el
+protocolo de §8.2 publicando el release v0.0.x.
 ```
 
 ---
@@ -377,6 +497,8 @@ test y `npx expo export -p android`. Actualiza §10 de docs/PLAN.md, commit, pus
 **Criterios:** dos cuentas quedan vinculadas; un tercero no puede unirse; nadie lee datos de
 otra pareja.
 
+**Entregable APK (`v0.1.x`):** registro/inicio de sesión, crear pareja o unirse con código, perfil con foto. Prueban los dos celulares.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 1 — Autenticación,
@@ -387,7 +509,8 @@ código (RPC security definer create_couple/join_couple con límite de 2 miembro
 aniversario y zona horaria, pantalla de espera con Realtime y ajustes de perfil/pareja. Migraciones
 con RLS estrictas y tipos regenerados. Tests de la lógica. Todos los textos en español de México.
 Verifica lint, typecheck, test y expo export. En el PR explica cómo probarlo con dos cuentas;
-actualiza §10 y DECISIONS.md, commit, push y PR.
+cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -403,6 +526,8 @@ actualiza §10 y DECISIONS.md, commit, push y PR.
 5. `src/lib/dates.ts` con funciones puras y tests (bisiestos, zonas horarias, horario de verano).
 6. Pull-to-refresh, estados vacíos y de carga cuidados.
 
+**Entregable APK (`v0.2.x`):** Inicio con días juntos, desglose e hitos; cambiar mood y verlo aparecer en el otro celular.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 2 — Inicio, contador y mood**
@@ -412,7 +537,8 @@ Realtime para ver el mood de tu pareja al instante) y tarjetas placeholder para 
 racha, cuenta regresiva y distancia. Implementa src/lib/dates.ts con funciones puras y tests
 exhaustivos (bisiestos, zonas horarias, DST). Cuida el diseño (tema romántico, animaciones sutiles
 con reanimated, haptics, estados vacíos). Textos en español de México. Verifica lint, typecheck,
-test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+test y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -440,6 +566,8 @@ test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
    respuestas, botón **"recuérdale a tu pareja"**, ajuste para activar picantes (requiere ambos).
 8. Animación de celebración al completar el día y al subir la racha.
 
+**Entregable APK (`v0.3.x`):** pregunta del día con respuestas ocultas, comentarios en tiempo real, racha y reparación, historial y búsqueda.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 3 — Preguntas diarias, racha y
@@ -455,7 +583,8 @@ get_streak y reparación de racha hasta 7 días; replica la lógica de racha en 
 UI: tarjeta de pregunta del día con sus 3 estados, pantalla de pregunta con comentarios en tiempo
 real y reacciones, historial con búsqueda/filtros, preguntas extra por categoría, borrar respuestas,
 botón para recordarle a tu pareja, ajuste de picantes y celebración al completar. Verifica lint,
-typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+typecheck, test y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -465,27 +594,33 @@ typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 **Tareas:**
 1. Registro de token con `expo-notifications` (pedir permiso en el momento adecuado), tablas
    `push_tokens` y `notification_prefs` (por tipo + hora del recordatorio diario).
-2. Edge Function `notify` (Deno): resuelve al otro miembro, respeta preferencias, envía vía Expo
-   Push API, limpia tokens inválidos; soporta mensajes visibles y **de datos** (para widgets).
+2. Edge Function `notify` (Deno): resuelve al otro miembro, respeta preferencias, envía con
+   **FCM HTTP v1** (OAuth con la cuenta de servicio de Firebase guardada en el servidor), limpia
+   tokens inválidos; soporta mensajes visibles y **de datos** (para widgets).
 3. Triggers con `pg_net` en `answers`, `answer_comments`, `moods`, `nudges` (mecanismo genérico
    listo para `stories`, `story_replies`, `memories`).
 4. Recordatorio diario **local** a la hora elegida si no has contestado.
 5. Deep links: tocar la notificación abre la pantalla correcta.
 6. Pantalla de ajustes de notificaciones; textos de notificación con personalidad (es-MX).
-7. `docs/SETUP.md`: crear proyecto Firebase (gratis), subir credenciales FCM a EAS,
-   `supabase functions deploy notify`, secretos.
+7. `docs/SETUP.md`: crear proyecto Firebase (gratis) y app Android; `google-services.json` →
+   secreto `GOOGLE_SERVICES_JSON_BASE64` (lo inyecta `release-apk.yml`); cuenta de servicio →
+   prompt de servidor para guardarla en `/opt/app-parejas/secrets/` y exponerla a edge-runtime.
+
+**Entregable APK (`v0.4.x`):** notificaciones reales entre ambos celulares (respuesta, comentario, mood, toque) y recordatorio diario.
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 4 — Notificaciones push**
 (RF-13). Registra tokens con expo-notifications en push_tokens/notification_prefs, crea la Edge
-Function `notify` que envía por Expo Push API al otro miembro respetando preferencias, limpiando
+Function `notify` que envía por FCM HTTP v1 al otro miembro respetando preferencias, limpiando
 tokens inválidos y soportando push de datos (para refrescar widgets después), y conéctala con
 triggers pg_net en answers, answer_comments, moods y nudges (mecanismo genérico reutilizable para
 stories, story_replies y memories). Agrega recordatorio diario local configurable, deep links desde
-la notificación y pantalla de ajustes. Documenta en docs/SETUP.md Firebase/FCM vía EAS y el deploy
-de la función. Separa la lógica de la función en un módulo puro con tests. Textos en español de
-México. Verifica lint, typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+la notificación y pantalla de ajustes. Documenta en docs/SETUP.md cómo crear Firebase, el secreto
+GOOGLE_SERVICES_JSON_BASE64 y dame el prompt de servidor para guardar la cuenta de servicio y
+desplegar la función. Separa la lógica de la función en un módulo puro con tests. Textos en español de
+México. Verifica lint, typecheck, test y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -503,6 +638,8 @@ México. Verifica lint, typecheck, test y expo export. Actualiza §10 y DECISION
    widget abre la sección correspondiente.
 4. Diseño visual coherente; pantalla "Cómo agregar widgets" en Más.
 
+**Entregable APK (`v0.5.x`):** widgets de Días juntos, Mood de mi pareja y Cuenta regresiva en la pantalla de inicio.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 5 — Widgets Android** (RF-14).
@@ -513,7 +650,8 @@ mediano), con tap que abre la pantalla correspondiente, dejando la infraestructu
 widgets de distancia y story. Agrega la pantalla "Cómo agregar widgets". Como no puedes usar un
 celular, valida con `npx expo prebuild -p android --clean` sin errores, lint, typecheck, test y
 expo export, y deja en el PR instrucciones precisas para probar en el dispositivo (requiere nueva
-build). Actualiza §10 y DECISIONS.md, commit, push y PR.
+build). Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -530,6 +668,8 @@ build). Actualiza §10 y DECISIONS.md, commit, push y PR.
 4. Archivo personal de stories; descargar a galería.
 5. Fila de stories en Inicio y **widget de story de mi pareja**.
 
+**Entregable APK (`v0.6.x`):** crear/ver stories de foto, texto y dibujo; reacciones/respuestas; widget de story.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 6 — Stories** (RF-16). Crear
@@ -538,8 +678,8 @@ stories con foto (cámara/galería, comprimida), texto con fondo y dibujo con
 pg_cron que limpia media (decide y documenta qué pasa con el archivo); visor con progreso, vistos,
 reacciones y respuestas (tabla story_replies, NO hay chat general) con push; archivo personal y
 descarga a galería; fila de stories en Inicio y widget "Story de mi pareja" reutilizando la
-infraestructura de la Fase 5. Verifica lint, typecheck, test, prebuild y expo export. Actualiza §10
-y DECISIONS.md, commit, push y PR.
+infraestructura de la Fase 5. Verifica lint, typecheck, test, prebuild y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -554,6 +694,8 @@ y DECISIONS.md, commit, push y PR.
 4. **Mapa** (`react-native-maps`, Google Maps API key gratuita) con marcadores agrupados.
 5. "Un día como hoy" en Inicio. Push cuando tu pareja agrega una memoria.
 
+**Entregable APK (`v0.7.x`):** memorias con fotos, timeline, mapa y "Un día como hoy".
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 7 — Memorias y mapa** (RF-17).
@@ -561,8 +703,9 @@ Tablas memories y memory_photos con RLS y Storage privado; crear/editar memoria 
 texto y 1–10 fotos comprimidas con progreso de subida, reordenables con drag & drop; timeline
 agrupada por mes, detalle con carrusel, borrar y descargar; ubicación opcional (EXIF o elegir en
 mapa) y vista de mapa con react-native-maps y clusters (documenta en SETUP.md la API key de Google
-Maps); tarjeta "Un día como hoy" en Inicio y push al agregar memoria. Verifica lint, typecheck,
-test, prebuild y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+Maps como secreto GOOGLE_MAPS_API_KEY inyectado por release-apk.yml); tarjeta "Un día como hoy" en Inicio y push al agregar memoria. Verifica lint, typecheck,
+test, prebuild y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -580,6 +723,8 @@ test, prebuild y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
    quien, **widget de distancia**; actualización en segundo plano de baja frecuencia con
    `expo-task-manager` (o *significant changes*), documentando el consumo de batería.
 
+**Entregable APK (`v0.8.x`):** cuentas regresivas, listas compartidas y distancia (con sus widgets).
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 8 — Cuentas regresivas, listas
@@ -590,7 +735,8 @@ check, reordenación y Realtime; distancia opt-in con expo-location de baja prec
 locations (solo última posición, redondeada), haversine con tests, tarjeta en Inicio con la ciudad
 de cada quien y widget de distancia, con actualización en segundo plano de baja frecuencia vía
 expo-task-manager (documenta batería y permisos). Verifica lint, typecheck, test, prebuild y expo
-export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -607,6 +753,8 @@ export. Actualiza §10 y DECISIONS.md, commit, push y PR.
    Realtime y push.
 5. Decidir si los juegos cuentan para la racha (documentar).
 
+**Entregable APK (`v0.9.x`):** los 5 juegos jugables entre los dos con resultados de coincidencia.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 9 — Juegos** (RF-21). Amplía los
@@ -616,7 +764,8 @@ rondas (ambos contestan de forma asíncrona, resultados con % de coincidencia) y
 ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo/En desacuerdo dentro de la tab
 Preguntas. Agrega el reto de dibujo (dibujar con Skia, tu pareja adivina, asíncrono con Realtime y
 push). Decide y documenta si los juegos cuentan para la racha. Verifica lint, typecheck, test y
-expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -654,6 +803,8 @@ expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
    texto, categoría, tipo, intensidad, opciones) y pantalla "Agregar pregunta" en la app (preguntas
    sueltas creadas por nosotros entran al rotador diario; sin packs propios).
 
+**Entregable APK (`v0.10.x`):** banco completo de 3,000+ preguntas, packs temáticos, "Agregar pregunta" y 👍/👎.
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/CONTENT.md. Ejecuta la **Fase 10 — Banco de
@@ -668,7 +819,8 @@ casi-duplicados, y genera el seed. Crea scripts/import-questions.ts (CSV/JSON �
 y la pantalla "Agregar pregunta" en la app (preguntas sueltas que entran al rotador diario; NO
 hay creación de packs propios). Agrega feedback 👍/👎 por pregunta (tabla
 question_feedback) y haz que el asignador diario evite las descartadas. Verifica lint, typecheck,
-test y el script de contenido. Actualiza §10 y DECISIONS.md, commit, push y PR.
+test y el script de contenido. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -687,6 +839,8 @@ Extras confirmados (todos se hacen). Son 7, así que la fase se divide en dos se
 | 11B | **Calendario de visitas** | Historial de veces que se han visto, días juntos en persona vs. separados, estadísticas. |
 | 11B | **Estadísticas de la relación** | Preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes. |
 
+**Entregable APK (`v0.11.x`):** 11A → Pienso en ti, cápsula, cupones y ruleta; 11B → lenguajes del amor, visitas y estadísticas (11B continúa la numeración de parches de 11A).
+
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
@@ -694,7 +848,8 @@ Joy**, sesión **11A**: "Pienso en ti", Cápsula del tiempo, Cupones de amor y R
 (incluye un banco original de ideas de citas presenciales y a distancia en content/). Cada uno con su tabla y
 RLS, pantalla dentro de la tab Más (o donde tenga más sentido), push cuando aplique, contenido
 original en español de México y tests de la lógica. Verifica lint, typecheck, test y expo export.
-Actualiza §10 y DECISIONS.md, commit, push y PR.
+Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 **Prompt de arranque (11B):**
@@ -705,8 +860,8 @@ comparados), Calendario de visitas (registrar cada vez que se ven, días juntos 
 separados, ligado a la cuenta regresiva "la próxima vez que nos vemos" de la Fase 8) y Estadísticas
 de la relación (preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes,
 visitas). Cada uno con su tabla/vistas y RLS, pantallas en la tab Más, contenido original en
-español de México y tests de la lógica. Verifica lint, typecheck, test y expo export. Actualiza §10
-y DECISIONS.md, commit, push y PR.
+español de México y tests de la lógica. Verifica lint, typecheck, test y expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
+APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
 
 ---
@@ -722,19 +877,25 @@ y DECISIONS.md, commit, push y PR.
    TanStack Query.
 4. Robustez: manejo de errores y reintentos, *error boundary*, auditoría de todas las políticas
    RLS y RPC, limpieza de Storage huérfano.
-5. **EAS Update** configurado; APK `preview` final en ambos celulares; `docs/SETUP.md` final
-   (instalar, actualizar, respaldos de la BD con `pg_dump`).
+5. Aviso de actualización en la app: compara su versión con un endpoint/tabla `app_versions`
+   del backend y muestra "hay una versión nueva" con el link al release.
+6. Servidor: verificar respaldos (prueba de restauración en una BD temporal con S-restore),
+   revisar recursos/logs, endurecer (rate limits de Auth, Studio cerrado).
+7. Release final **`v1.0.0`** (no pre-release) y `docs/SETUP.md` / `docs/SERVIDOR.md` finales.
+
+**Entregable APK:** `v1.0.0`, la versión de regalo de aniversario 🎁.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 12 — Pulido, rendimiento y
-entrega**. Haz una revisión de diseño de toda la app (consistencia, haptics, animaciones, modo
-oscuro), icono y splash propios [y aplica el nombre definitivo: NOMBRE si ya lo tengo]; agrega
-respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico opcional; mejora
-rendimiento (FlashList, caché de imágenes) y modo offline de lectura; agrega error boundaries y
-reintentos; audita todas las políticas RLS y RPC; configura EAS Update para OTA y completa
-docs/SETUP.md con instalación, actualización y respaldos. Verifica lint, typecheck, test, prebuild
-y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/SERVIDOR.md. Ejecuta la **Fase 12 — Pulido,
+rendimiento y entrega**. Haz una revisión de diseño de toda la app (consistencia, haptics,
+animaciones, modo oscuro), icono y splash propios [y aplica el nombre definitivo: NOMBRE si ya lo
+tengo]; agrega respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico
+opcional; mejora rendimiento (FlashList, caché de imágenes) y modo offline de lectura; agrega error
+boundaries y reintentos; audita todas las políticas RLS y RPC; agrega el aviso de versión nueva
+(tabla app_versions). Dame el prompt de servidor para aplicar cambios, probar la restauración de
+un respaldo en una BD temporal y endurecer Auth/Studio. Cierra con el protocolo de §8.2, pero esta
+vez publica el release v1.0.0 como release normal (no pre-release).
 ```
 
 ---
@@ -765,7 +926,7 @@ y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 | # | Decisión | Fecha |
 |---|---|---|
 | D1 | Ambos usamos **Android** → solo Android, APK sin Play Store, sin costo de Apple. | 2026-10-29 |
-| D2 | Hay **Mac** disponible → se puede compilar localmente como alternativa a EAS. | 2026-10-29 |
+| D2 | Hay **Mac** disponible → se puede compilar localmente como respaldo del CI. | 2026-10-29 |
 | D3 | Nombre provisional **"App Parejas"** (centralizado para cambiarlo fácil). | 2026-10-29 |
 | D4 | **Relación a distancia** → distancia, "próxima vez que nos vemos" y categoría "A distancia" con prioridad alta. | 2026-10-29 |
 | D5 | Contenido **picante** incluido como opt-in; meta de **todo lo de Couple Joy y más** (3,000+ preguntas, extras de la Fase 11). | 2026-10-29 |
@@ -773,19 +934,24 @@ y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 | D7 | UI y contenido en **español de México**. | 2026-10-29 |
 | D8 | Uso privado (regalo de aniversario): contenido generado + Aron 36 + clásicos populares, más **importador** para meter preguntas de fuentes propias; repo privado. | 2026-10-29 |
 | D9 | Sin packs de preguntas propios (solo "Agregar pregunta" suelta + importador CSV/JSON). | 2026-10-29 |
+| D11 | **Cada fase entrega un APK release firmado en GitHub Releases** (GitHub Actions + Gradle, sin EAS). | 2026-10-29 |
+| D12 | **Backend: Supabase self-hosted en el VPS de Hostinger** (Docker), coordinado con prompts para la sesión de Claude Code del servidor; credenciales en `/opt/app-parejas/secrets/`. Plan B: Supabase Cloud Free. | 2026-10-29 |
+| D13 | Push directo con **FCM HTTP v1** desde la Edge Function (sin Expo Push). | 2026-10-29 |
 | D10 | Extras confirmados: Pienso en ti, Cápsula del tiempo, Cupones, Ruleta de citas, Lenguajes del amor, Calendario de visitas, Estadísticas. Sin cartas "Ábrela cuando…". | 2026-10-29 |
 
-Pendiente: nombre definitivo e icono/paleta.
+Pendiente: nombre definitivo, icono/paleta y **subdominio** para la API (p. ej. `parejas-api.<tu-dominio>`); recursos del VPS (los mide S0).
 
 ## 12. Riesgos
 
 | Riesgo | Mitigación |
 |---|---|
+| El VPS no tiene RAM suficiente para todo Supabase | S0 lo mide; apagar servicios no usados (analytics, vector); plan B Supabase Cloud Free sin cambiar código. |
+| Afectar otros proyectos del VPS | Stack con nombre y red propios, sin puertos de BD públicos, prompts de servidor con restricciones explícitas. |
+| Migración rompe la BD en producción | CI aplica todas las migraciones en un Postgres efímero antes; respaldo diario; `deploy.sh` hace dump previo a migrar. |
+| Perder el keystore (no se podría actualizar el APK encima) | Guardado en el VPS + secretos de GitHub + copia en tu gestor de contraseñas. |
+| Build de Android falla en CI | La sesión revisa el job y lo corrige antes de cerrar la fase; Mac como respaldo para compilar local. |
 | Widgets dependen de una librería de terceros | Aislados en su fase; prebuild verificado; snapshot simple en JSON. |
-| Las sesiones en la nube no pueden probar en el celular | Lógica en funciones puras con tests; PR con pasos de prueba manual; dev build desde la Fase 0. |
-| Builds EAS gratis limitadas al mes | EAS Update (OTA) para cambios solo-JS; build local en la Mac como respaldo. |
+| Las sesiones en la nube no pueden probar en el celular | Lógica en funciones puras con tests; APK por fase con checklist de pruebas. |
 | Ubicación en segundo plano gasta batería / Android la restringe | Baja frecuencia, precisión reducida, opt-in, actualizar también al abrir la app. |
 | Calidad/repetición del contenido generado | Guía de estilo, validación de casi-duplicados, feedback 👍/👎. |
-| Pausa de Supabase por inactividad | Uso diario; reactivar desde el panel si pasa. |
-| Storage 1 GB | Compresión en cliente; limpieza de stories caducadas. |
-| Pérdida de datos | `pg_dump` periódico documentado (Fase 12). |
+| Pérdida de datos | `pg_dump` diario con retención + prueba de restauración en Fase 12. |
