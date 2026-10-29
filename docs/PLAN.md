@@ -1,94 +1,96 @@
-# Plan de implementación — App de parejas (réplica personal de Couple Joy)
+# Plan de implementación — App Parejas (réplica personal de Couple Joy)
 
 > Documento vivo. Cada sesión de fase **lee este archivo primero** y, al terminar,
-> actualiza la sección [Estado del proyecto](#10-estado-del-proyecto) y el registro de decisiones.
+> actualiza la sección [Estado del proyecto](#10-estado-del-proyecto) y `docs/DECISIONS.md`.
 
 ---
 
 ## 1. Contexto y objetivo
 
-Replicar, para uso **exclusivamente personal (2 usuarios: yo y mi novia)**, la experiencia de
-la app **Couple Joy – Relationship App** (HEARTBIT S.R.L., iOS/Android). No se publica en
-tiendas, no hay monetización, no hay paywall, no hay analítica ni infraestructura propia que
+Replicar, para uso **exclusivamente personal (2 usuarios: mi novia y yo, ambos con Android)**, la
+experiencia de **Couple Joy – Relationship App** (HEARTBIT S.R.L.) y agregarle cosas extra. No se
+publica en tiendas, no hay monetización, ni paywall, ni analítica, ni infraestructura propia que
 mantener.
 
 Principios:
 
-1. **Cero servidores propios.** Backend gestionado (Supabase, plan gratuito).
-2. **Simple > escalable.** Diseñado para 1 pareja; nada de multi-tenant complejo más allá de lo
+1. **Cero servidores propios.** Backend administrado (Supabase, plan gratuito).
+2. **Simple > escalable.** Pensado para 1 pareja; nada de complejidad multi-tenant más allá de lo
    que RLS da gratis.
-3. **Todo desbloqueado.** Lo que en Couple Joy es premium (preguntas ilimitadas, todos los
-   widgets, reparar racha) aquí es gratis.
-4. **Contenido propio.** No se copian textos/preguntas/assets de Couple Joy; se generan
-   preguntas originales en español con la misma mecánica.
-5. **Nombre propio.** La app tendrá su propio nombre e icono (placeholder: **"Nosotros"**).
+3. **Todo desbloqueado.** Lo que en Couple Joy es premium (preguntas ilimitadas, todos los widgets,
+   reparar racha) aquí es gratis.
+4. **Contenido propio.** No se copian textos/preguntas/assets de Couple Joy ni de juegos de cartas
+   comerciales; se genera un banco original (ver §9, Fase 10).
+5. **Nombre provisional:** **"App Parejas"** (se cambia cuando haya nombre definitivo; debe vivir en
+   un solo lugar: `app.config.ts` + constante `APP_NAME`).
+6. **Idioma:** toda la UI y el contenido en **español de México** (tuteo, "celular", "ustedes",
+   expresiones naturales mexicanas, nada de "vosotros").
+7. **Solo Android.** Nada de código/configuración específica de iOS.
 
 ---
 
 ## 2. Investigación: qué hace Couple Joy
 
-Fuentes: ficha de App Store (descripción + historial de versiones 4.10 → 4.29), reseñas y
-análisis de UX de terceros.
+Fuentes: ficha de App Store / Google Play (descripción + historial de versiones 4.10 → 4.29),
+reseñas y análisis de UX de terceros.
 
-| Área | Funcionalidad en Couple Joy |
-|---|---|
-| **Emparejamiento** | Cada uno crea cuenta y se conectan como pareja al inicio del onboarding. |
-| **Dashboard** | Foto de ambos, días juntos, mood (se cambia tocando la foto de perfil), accesos a quizzes/memorias. |
-| **Mood** | Compartir estado de ánimo; el de la pareja se ve en tiempo real (y en widget). |
-| **Contador de relación** | Días/meses/años juntos. |
-| **Distancia** | Distancia entre ambos (widget de pantalla de inicio y de bloqueo). |
-| **Preguntas diarias** | Una pregunta al día por pareja; +3.000 preguntas; respuesta de la pareja visible al responder ambos; chat en tiempo real sobre cada respuesta; respuestas por audio; búsqueda de quizzes; temas personalizados; recordar a la pareja que conteste; borrar respuestas de un quiz. |
-| **Tipos de quiz** | Pregunta abierta, opción múltiple / "¿quién es más probable?", "Yo nunca" (Never Have I Ever), "¿Qué prefieres?" (Would You Rather), modo de acuerdo/desacuerdo; resultados con coincidencias. |
-| **Racha (streak)** | Racha diaria al responder ambos; reparar racha hasta 7 días perdidos; reparar la racha de la pareja. |
-| **Juegos** | Los quizzes anteriores + reto de dibujo (drawing challenge). |
-| **Stories** | Foto/vídeo/texto/dibujo/stickers que desaparecen a las 24 h; aparecen en el widget de la pareja; respuestas, reacciones emoji, "visto", archivo de stories, descargar foto. |
-| **Chat** | Mensajes con reacciones, responder deslizando, indicador "escribiendo…", animaciones. |
-| **Memorias** | Diario/timeline compartido de fotos + texto; reordenar fotos; descargar. |
-| **Mapa de pareja** | Memorias vinculadas a lugares reales en un mapa. |
-| **Cuentas atrás** | Cumpleaños, aniversarios, próxima visita, planes; widget de cuenta atrás. |
-| **Notas compartidas** | Listas para viajes, compras, bucket list. |
-| **Widgets** | Días juntos, distancia, mood, story propia + de la pareja, cuenta atrás, último mensaje; pantalla de inicio y bloqueo. |
-| **Notificaciones** | Tipos configurables; recordatorios de quiz. |
-| **Compartir** | Compartir racha/respuestas/días juntos en redes (imagen). |
-| **Monetización** | Premium (~30 USD/año) y compras de reparación de racha. → **Se elimina.** |
+| Área | Funcionalidad en Couple Joy | ¿En App Parejas? |
+|---|---|---|
+| **Emparejamiento** | Cada quien crea cuenta y se conectan como pareja al inicio. | Sí (código de invitación) |
+| **Dashboard** | Fotos de ambos, días juntos, mood (se cambia tocando tu foto), accesos rápidos. | Sí |
+| **Mood** | Compartir estado de ánimo; el de tu pareja se ve en tiempo real (y en widget). | Sí |
+| **Contador** | Días/meses/años juntos. | Sí |
+| **Distancia** | Distancia entre ambos (widget). | Sí |
+| **Preguntas diarias** | Una al día; +3,000 preguntas; la respuesta de tu pareja se revela al contestar ambos; chat en tiempo real sobre cada respuesta; respuestas en audio; búsqueda; temas personalizados; recordarle a tu pareja; borrar respuestas. | Sí, todo |
+| **Tipos de quiz** | Abierta, opción múltiple, "¿Quién es más probable?", "Yo nunca", "¿Qué prefieres?", de acuerdo/desacuerdo; resultados con coincidencias. | Sí |
+| **Racha** | Racha diaria al responder ambos; reparar hasta 7 días perdidos; reparar la de tu pareja. | Sí (gratis) |
+| **Juegos** | Los anteriores + reto de dibujo. | Sí |
+| **Stories** | Foto/video/texto/dibujo/stickers que desaparecen en 24 h; salen en el widget de tu pareja; respuestas, reacciones, "visto", archivo, descargar. | Sí (sin video al inicio) |
+| **Chat general** | Mensajes con reacciones, responder, "escribiendo…". | **No** (decisión: solo chat por pregunta) |
+| **Memorias** | Diario/timeline compartido de fotos + texto; reordenar fotos. | Sí |
+| **Mapa de pareja** | Memorias ligadas a lugares en un mapa. | Sí |
+| **Cuentas regresivas** | Cumpleaños, aniversarios, próxima visita, planes; widget. | Sí |
+| **Notas compartidas** | Listas para viajes, súper, bucket list. | Sí |
+| **Widgets** | Días juntos, distancia, mood, stories, cuenta regresiva; pantalla de inicio y bloqueo. | Sí (Android) |
+| **Notificaciones** | Tipos configurables; recordatorios. | Sí |
+| **Compartir** | Imagen de racha/respuestas/días juntos para redes. | Sí |
+| **Monetización** | Premium (~30 USD/año) y compra de reparación de racha. | **Eliminado** |
 
 ---
 
 ## 3. Alcance
 
-### 3.1 Dentro del alcance (MVP → completo)
+### 3.1 Dentro del alcance
 
-**Imprescindible (MVP, fases 0–5):**
+**MVP (fases 0–5):**
 - Registro/inicio de sesión (email + contraseña) y **emparejamiento por código de invitación**.
 - Perfil: nombre, foto, cumpleaños. Pareja: fecha de inicio de la relación, foto de pareja.
-- Home: días juntos, mood de ambos, pregunta del día, racha, próxima cuenta atrás.
+- Inicio: días juntos, mood de ambos, pregunta del día, racha, próxima cuenta regresiva, distancia.
 - **Mood** compartido en tiempo real.
-- **Pregunta diaria** + respuestas ocultas hasta que ambos respondan + **chat por pregunta**.
+- **Pregunta diaria** + respuestas ocultas hasta que ambos contesten + **chat por pregunta**.
 - **Racha** con reparación (gratis, hasta 7 días).
-- **Banco de preguntas** propio en español (≥ 400 al inicio), por categorías.
-- **Notificaciones push** (la pareja respondió, mensaje nuevo, cambió el mood, recordatorio diario).
-- **Widgets** (Android y/o iOS): días juntos, mood de la pareja, cuenta atrás, distancia.
+- **Banco inicial** de ~300 preguntas en español mexicano (se amplía a 3,000+ en la Fase 10).
+- **Notificaciones push** (tu pareja contestó, comentario nuevo, cambió su mood, "toque", recordatorio).
+- **Widgets Android**: días juntos, mood de tu pareja, cuenta regresiva, distancia.
 
-**Completo (fases 6–9):**
-- **Chat general** de pareja (texto, foto, reacciones, responder, "escribiendo…", "visto").
+**Completo (fases 6–12):**
 - **Stories** de 24 h (foto, texto, dibujo) + widget de story + reacciones/respuestas + archivo.
-- **Memorias** (timeline de fotos + texto) con ubicación opcional y **mapa**.
-- **Cuentas atrás / eventos** (aniversarios automáticos, cumpleaños, visitas, planes).
-- **Notas/listas compartidas** (viajes, compras, bucket list) con checkboxes.
-- **Distancia** entre ambos.
+- **Memorias** (timeline de fotos + texto) con ubicación y **mapa**.
+- **Cuentas regresivas / eventos** (aniversario y cumpleaños automáticos, visitas, planes).
+- **Listas compartidas** (viajes, súper, bucket list, pelis) con checkboxes.
+- **Distancia** entre ambos (relación a distancia → prioridad alta).
 - **Juegos**: ¿Qué prefieres?, Yo nunca, ¿Quién es más probable?, De acuerdo/desacuerdo, reto de dibujo.
-- Respuestas por **audio** (opcional, fase de pulido).
-- Compartir tarjeta (imagen) de racha/días juntos.
-- Bloqueo con biometría/PIN (opcional).
+- **Banco de contenido completo**: 3,000+ preguntas e ítems de juegos, con categoría picante opt-in.
+- **Extras más allá de Couple Joy** (Fase 11, ver lista).
+- Respuestas en **audio**, tarjeta compartible, bloqueo biométrico (Fase 12).
 
 ### 3.2 Fuera del alcance
 
-- Publicación en App Store / Google Play, ASO, legal (privacidad pública, términos).
-- Pagos, suscripciones, paywall, anuncios, analítica, A/B tests.
-- Soporte multi-idioma (solo español), accesibilidad avanzada, tablets.
-- Múltiples parejas por usuario, desemparejar/re-emparejar sofisticado.
-- Vídeo en stories (se puede añadir luego), Liquid Glass, chat con los fundadores, onboarding de 12 pasos.
-- Backend propio, CI/CD complejo, entornos staging/prod separados.
+- Publicación en Play Store, iOS en general, ASO, términos legales públicos.
+- Pagos, suscripciones, anuncios, analítica, A/B tests.
+- **Chat general** (se usa WhatsApp; solo hay chat por pregunta y respuestas a stories).
+- Multi-idioma, tablets, múltiples parejas por usuario.
+- Video en stories (posible extra futuro), backend propio, CI/CD complejo, ambientes staging/prod.
 
 ---
 
@@ -98,41 +100,43 @@ análisis de UX de terceros.
 
 | ID | Requisito |
 |---|---|
-| RF-01 | El usuario puede registrarse e iniciar sesión con email y contraseña; la sesión persiste. |
-| RF-02 | Un usuario crea una pareja y obtiene un **código de 6 caracteres**; el otro lo introduce y quedan vinculados. Una pareja tiene máximo 2 miembros. |
-| RF-03 | Cada usuario edita su perfil (nombre, apodo, foto, cumpleaños). La pareja tiene fecha de aniversario y foto. |
-| RF-04 | La Home muestra días juntos (y desglose años/meses/días), mood de ambos, pregunta del día, racha y próxima cuenta atrás. |
-| RF-05 | El usuario elige su mood (emoji + texto corto opcional); la pareja lo ve en tiempo real y recibe push. |
+| RF-01 | Registro e inicio de sesión con email y contraseña; la sesión persiste. |
+| RF-02 | Un usuario crea la pareja y obtiene un **código de 6 caracteres**; el otro lo ingresa y quedan vinculados. Máximo 2 miembros. |
+| RF-03 | Cada quien edita su perfil (nombre, apodo, foto, cumpleaños). La pareja tiene fecha de aniversario y foto. |
+| RF-04 | El Inicio muestra días juntos (y desglose años/meses/días), mood de ambos, pregunta del día, racha, próxima cuenta regresiva y distancia. |
+| RF-05 | El usuario elige su mood (emoji + nota corta opcional); su pareja lo ve en tiempo real y recibe push. |
 | RF-06 | Cada día (zona horaria de la pareja) se asigna **la misma pregunta** a ambos, sin repetir hasta agotar el banco. |
-| RF-07 | La respuesta de la pareja permanece **oculta** hasta que el usuario responde. Al responder ambos, se notifica. |
-| RF-08 | Cada pregunta respondida tiene un **hilo de chat** en tiempo real. |
-| RF-09 | La **racha** sube cuando ambos responden la pregunta del día; se rompe si un día queda incompleto. |
-| RF-10 | Se puede **reparar la racha** respondiendo las preguntas de los días perdidos (máx. 7 días atrás). |
-| RF-11 | Historial de preguntas respondidas, con búsqueda por texto y filtro por categoría. Se puede responder preguntas extra (no diarias) por categoría. |
-| RF-12 | Se puede enviar un **recordatorio** ("toque") a la pareja para que conteste. |
-| RF-13 | Notificaciones push por: respuesta de la pareja, mensaje nuevo, mood, story nueva, recordatorio; recordatorio local diario a hora configurable; cada tipo activable/desactivable. |
-| RF-14 | **Widgets** en pantalla de inicio: días juntos, mood de la pareja, cuenta atrás, distancia, story de la pareja. Se actualizan al abrir la app y periódicamente. |
-| RF-15 | **Chat** general: texto, imagen, reacción emoji, responder a un mensaje, "escribiendo…", "visto". |
-| RF-16 | **Stories**: foto (cámara/galería), texto o dibujo a mano; caducan a las 24 h; la pareja puede ver, reaccionar y responder (la respuesta va al chat); archivo personal de stories. |
-| RF-17 | **Memorias**: entrada con título, fecha, texto, 1–10 fotos (reordenables) y ubicación opcional; vista timeline y vista mapa. |
-| RF-18 | **Cuentas atrás**: eventos con fecha, emoji y recurrencia anual opcional; aniversario y cumpleaños generados automáticamente. |
-| RF-19 | **Listas compartidas**: crear listas, ítems con check, sincronización en tiempo real. |
-| RF-20 | **Distancia**: cada usuario comparte (opt-in) su ubicación aproximada; se muestra la distancia en km. |
-| RF-21 | **Juegos**: ¿Qué prefieres?, Yo nunca, ¿Quién es más probable?, De acuerdo/desacuerdo — ambos responden y se muestran coincidencias; reto de dibujo (uno dibuja una palabra, el otro adivina). |
+| RF-07 | La respuesta de tu pareja queda **oculta** hasta que tú contestas. Cuando ambos contestan, se notifica. |
+| RF-08 | Cada pregunta contestada tiene un **hilo de comentarios** en tiempo real (el "chat" de la app). |
+| RF-09 | La **racha** sube cuando ambos contestan la pregunta del día; se rompe si un día queda incompleto. |
+| RF-10 | Se puede **reparar la racha** contestando las preguntas de los días perdidos (máx. 7 días atrás). |
+| RF-11 | Historial de preguntas contestadas con búsqueda y filtro por categoría; preguntas extra (no diarias) por categoría/tema. |
+| RF-12 | Mandar un **"toque"/recordatorio** a tu pareja para que conteste. |
+| RF-13 | Push por: respuesta de tu pareja, comentario nuevo, mood, story nueva, memoria nueva, toque; recordatorio local diario a hora configurable; cada tipo activable/desactivable. |
+| RF-14 | **Widgets Android**: días juntos, mood de tu pareja, cuenta regresiva, distancia, story de tu pareja. Se actualizan al abrir la app, periódicamente y al llegar un push de datos. |
+| RF-15 | *(eliminado: chat general)* |
+| RF-16 | **Stories**: foto (cámara/galería), texto o dibujo; caducan a las 24 h; tu pareja puede verla, reaccionar y responder (respuesta privada ligada a la story); archivo personal de stories. |
+| RF-17 | **Memorias**: título, fecha, texto, 1–10 fotos (reordenables) y ubicación opcional; vista timeline y vista mapa. |
+| RF-18 | **Cuentas regresivas**: eventos con fecha, emoji y recurrencia anual; aniversario y cumpleaños automáticos. |
+| RF-19 | **Listas compartidas**: listas con ítems con check, sincronización en tiempo real. |
+| RF-20 | **Distancia**: cada quien comparte (opt-in) su ubicación aproximada; se muestra la distancia en km, también en widget. |
+| RF-21 | **Juegos**: ¿Qué prefieres?, Yo nunca, ¿Quién es más probable?, De acuerdo/desacuerdo — ambos contestan y se muestran coincidencias; reto de dibujo (uno dibuja, el otro adivina). |
 | RF-22 | Compartir una tarjeta-imagen con racha / días juntos. |
+| RF-23 | Categorías de contenido con **nivel de intensidad** (ligera, profunda, picante); la picante es opt-in y ambos deben activarla. |
 
 ### 4.2 Requisitos no funcionales
 
 | ID | Requisito |
 |---|---|
-| RNF-01 | Coste mensual **0 €** (planes gratuitos). Único coste opcional: Apple Developer (99 USD/año) si hay iPhone — ver §6. |
-| RNF-02 | Privacidad: todos los datos protegidos con **Row Level Security**; solo los 2 miembros de la pareja acceden a sus datos. Buckets de Storage privados con URLs firmadas. |
-| RNF-03 | Tiempo real: cambios de mood/respuestas/chat visibles en < 2 s con la app abierta. |
-| RNF-04 | Imágenes comprimidas en cliente (máx. ~1600 px, JPEG ~0.7) para no superar 1 GB de Storage. |
-| RNF-05 | UI en español, modo claro/oscuro, estética "romántica" coherente (paleta, tipografía, iconos). |
-| RNF-06 | Código TypeScript estricto, lint y tests unitarios de la lógica (racha, fechas, asignación de pregunta). |
-| RNF-07 | Instalación directa en nuestros móviles (APK / build interno), sin tiendas. |
-| RNF-08 | Funcionamiento razonable sin conexión para lectura (caché de consultas). |
+| RNF-01 | Costo mensual **$0** (planes gratuitos de Supabase, Expo/EAS y Firebase para FCM). |
+| RNF-02 | Privacidad: **Row Level Security** en todo; solo los 2 miembros acceden a sus datos. Buckets de Storage privados con URLs firmadas. |
+| RNF-03 | Tiempo real: mood/respuestas/comentarios visibles en < 2 s con la app abierta. |
+| RNF-04 | Imágenes comprimidas en el cliente (máx. ~1600 px, JPEG ~0.7) para no pasar 1 GB de Storage. |
+| RNF-05 | UI en español de México, modo claro/oscuro, estética romántica coherente. |
+| RNF-06 | TypeScript estricto, lint y tests unitarios de la lógica (racha, fechas, asignación de pregunta, distancia). |
+| RNF-07 | Instalación directa en nuestros celulares Android vía **APK**, sin Play Store. |
+| RNF-08 | Lectura razonable sin conexión (caché persistente de consultas). |
+| RNF-09 | Consumo de batería bajo: ubicación en segundo plano solo con baja frecuencia y precisión reducida. |
 
 ---
 
@@ -140,428 +144,398 @@ análisis de UX de terceros.
 
 | Capa | Elección | Por qué |
 |---|---|---|
-| App | **React Native + Expo (SDK más reciente estable) + TypeScript** | Un solo código para iOS y Android, builds sin Mac (EAS), soporte de módulos nativos (widgets) vía *config plugins*. |
-| Navegación | **expo-router** (tabs + stacks) | Estándar actual en Expo. |
-| UI | **NativeWind** (Tailwind) o StyleSheet + tokens de tema propios; **react-native-reanimated** para animaciones; **expo-image** | Rápido de iterar, buen rendimiento. |
-| Estado / datos | **TanStack Query** (caché + offline) + **Zustand** para estado local mínimo | Separar estado de servidor y de UI. |
-| Formularios / validación | **react-hook-form + zod** | Tipado y validación. |
-| Backend | **Supabase** (plan Free): Postgres, Auth, Realtime, Storage, Edge Functions, pg_cron | Todo gestionado; sin servidores. |
-| Tipos BD | `supabase gen types typescript` | Tipos end-to-end. |
-| Push | **expo-notifications** + **Expo Push Service**; disparadas por *Database Webhooks/trigger → Edge Function* | Sin gestionar FCM/APNs a mano (solo credenciales). |
-| Notificaciones locales | expo-notifications (recordatorio diario programado) | No requiere backend. |
-| Widgets Android | **react-native-android-widget** | Widgets renderizados desde JS, actualización periódica y por tarea *headless*. |
-| Widgets iOS | **@bacons/apple-targets** (target WidgetKit en SwiftUI) + **App Group** compartido | Única vía fiable con Expo *prebuild*; datos compartidos vía `UserDefaults(suiteName:)`. |
-| Ubicación / mapa | **expo-location**, **react-native-maps** | Distancia y mapa de memorias. |
+| App | **React Native + Expo (SDK estable más reciente) + TypeScript** | Desarrollo rápido, builds Android en la nube (EAS), módulos nativos vía *config plugins*. |
+| Navegación | **expo-router** (tabs + stacks) | Estándar actual de Expo. |
+| UI | **NativeWind** (Tailwind) + tokens de tema propios; **react-native-reanimated**; **expo-image**; **expo-haptics** | Iteración rápida y buen rendimiento. |
+| Datos | **TanStack Query** (caché + persistencia offline) + **Zustand** para estado local mínimo | Separar estado de servidor y de UI. |
+| Formularios | **react-hook-form + zod** | Tipado y validación. |
+| Backend | **Supabase** (plan Free): Postgres, Auth, Realtime, Storage, Edge Functions, pg_cron, pg_net | Todo administrado; sin servidores. |
+| Tipos BD | `supabase gen types typescript` | Tipos de punta a punta. |
+| Push | **expo-notifications** + **Expo Push Service** (FCM por debajo; proyecto Firebase gratis solo para credenciales) disparado por *trigger → Edge Function* | Sin manejar FCM a mano. |
+| Notificaciones locales | expo-notifications (recordatorio diario) | Sin backend. |
+| Widgets | **react-native-android-widget** | Widgets renderizados desde JS, actualización periódica y tarea *headless*. |
+| Ubicación / mapa | **expo-location** + **expo-task-manager** (segundo plano), **react-native-maps** (Google Maps, API key gratuita) | Distancia y mapa de memorias. |
 | Dibujo | **@shopify/react-native-skia** | Stories con dibujo y reto de dibujo. |
-| Media | expo-image-picker, expo-camera, expo-image-manipulator, expo-av/expo-audio (audio) | Captura y compresión. |
-| Seguridad local | expo-secure-store (sesión), expo-local-authentication (bloqueo opcional) | |
-| Calidad | ESLint + Prettier, **Jest + @testing-library/react-native**, `tsc --noEmit` | Comprobaciones que pueden correr en sesiones en la nube. |
-| Builds | **EAS Build** (plan gratuito) → APK Android / build interno iOS; **development build** (no Expo Go, porque widgets y push lo requieren) | Instalación directa. |
+| Media | expo-image-picker, expo-camera, expo-image-manipulator, expo-audio, expo-media-library | Captura, compresión, audio, descargar. |
+| Seguridad local | expo-secure-store, expo-local-authentication (bloqueo opcional) | |
+| Calidad | ESLint + Prettier, **Jest + @testing-library/react-native**, `tsc --noEmit` | Validaciones que corren en sesiones en la nube. |
+| Builds | **EAS Build** (gratis) → **APK**; *development build* (no Expo Go: widgets y push lo requieren); **EAS Update** para OTA | Instalación directa y actualizaciones sin reinstalar. |
 
-**Alternativas descartadas:**
-- *PWA*: sin widgets nativos y push limitado en iOS → pierde el núcleo de la experiencia.
-- *Flutter*: válido, pero widgets también requieren código nativo y el ecosistema Expo/EAS simplifica builds sin Mac.
-- *Firebase*: válido, pero Postgres + RLS + SQL simplifica lógica de racha/preguntas y el modelo relacional.
+**Alternativas descartadas:** PWA (sin widgets), Kotlin nativo (más lento de iterar desde sesiones
+en la nube), Firebase como BD (SQL + RLS simplifica racha/preguntas).
 
 ---
 
-## 6. Distribución / instalación (sin tiendas)
+## 6. Distribución / instalación (solo Android)
 
-| Plataforma | Opción | Notas |
-|---|---|---|
-| **Android** | `eas build -p android --profile preview` → **APK** que se instala directamente (permitir "orígenes desconocidos"). | Gratis. Actualizaciones: nuevo APK o **EAS Update** (OTA) para cambios solo-JS. |
-| **iOS (recomendado)** | **Apple Developer Program (99 USD/año)** + `eas build --profile preview` con *ad hoc* (registrando los UDID de los 2 iPhones con `eas device:create`) o TestFlight interno. | Necesario para **push** y builds que no caducan en 7 días. |
-| **iOS (gratis)** | Apple ID gratuito + Xcode en un **Mac** (`npx expo run:ios --device`). | La app **caduca cada 7 días**, sin push remotas; requiere Mac. Solo como último recurso. |
+1. `eas build -p android --profile development` → APK de desarrollo para probar con
+   `npx expo start --dev-client` (tu laptop/Mac y el celular en la misma red, o túnel).
+2. `eas build -p android --profile preview` → **APK "de uso diario"** que se instala en ambos
+   celulares (permitir "instalar apps desconocidas").
+3. Cambios solo de JS → **EAS Update** (`eas update --branch preview`), sin reinstalar.
+   Cambios nativos (nuevas librerías nativas, widgets) → nueva build.
+4. Alternativa sin EAS: `npx expo run:android --variant release` desde tu Mac (requiere Android
+   Studio/SDK). Útil si se acaban las builds gratis del mes.
 
-> ⚠️ **Decisión pendiente del usuario:** ¿qué móvil tiene cada uno? Si ambos son Android, todo es
-> gratis y la fase de widgets iOS se omite. Ver §11.
-
-**Mantenimiento Supabase Free:** el proyecto se pausa tras ~7 días sin actividad (con uso diario
-no ocurre). Límites relevantes: 500 MB BD, 1 GB Storage, 2 proyectos activos.
+**Supabase Free:** se pausa tras ~7 días sin actividad (con uso diario no pasa). Límites: 500 MB
+BD, 1 GB Storage.
 
 ---
 
 ## 7. Arquitectura
 
 ```
-┌──────────────── Móvil (Expo / RN) ────────────────┐
-│  expo-router screens ─ TanStack Query ─ Zustand    │
+┌──────────── Celular Android (Expo / RN) ──────────┐
+│  expo-router ─ TanStack Query ─ Zustand            │
 │        │  supabase-js (Auth, PostgREST, Realtime,  │
 │        │              Storage)                     │
-│  Widgets ◄── App Group / SharedPrefs (snapshot) ◄──┤
+│  Widgets ◄── snapshot en almacenamiento compartido │
+│  Headless task ◄── push de datos (FCM)             │
 └────────┼───────────────────────────────────────────┘
          ▼
 ┌──────────────── Supabase ─────────────────────────┐
 │ Postgres + RLS ─ RPC (funciones SQL)               │
 │ Realtime (postgres_changes en tablas de la pareja) │
 │ Storage (buckets privados: avatars, media)         │
-│ Triggers/Webhooks ─► Edge Function `notify`        │
-│                       └─► Expo Push API ─► APNs/FCM│
+│ Triggers + pg_net ─► Edge Function `notify`        │
+│                      └─► Expo Push API ─► FCM      │
 │ pg_cron: limpieza de stories caducadas             │
 └────────────────────────────────────────────────────┘
 ```
 
 **Decisiones clave:**
 - **Lógica sensible en SQL (RPC `security definer`)**: `create_couple()`, `join_couple(code)`,
-  `get_daily_question(date)` (crea la asignación si no existe, idempotente),
-  `submit_answer(...)`, `compute_streak()`, `repair_streak(date)`. Así ambos clientes ven lo mismo
-  y no hay *race conditions*.
-- **Respuestas ocultas**: vista/RPC que solo devuelve la respuesta de la pareja si el usuario
-  ya respondió esa pregunta (la RLS de `answers` permite leer las propias; la de la pareja vía RPC).
-- **Zona horaria**: la pareja guarda `timezone` (IANA); "el día" se calcula con ella en SQL.
-- **Widgets**: la app escribe un *snapshot* JSON (días juntos, mood pareja, próximo evento,
-  distancia, URL de story) en almacenamiento compartido y pide recargar el widget. Para que el
-  widget se actualice con la app cerrada: Android → actualización periódica + tarea headless al
-  recibir push de datos; iOS → *timeline* periódica que lee el snapshot y, si es viable, una
-  llamada REST ligera a Supabase con un token guardado en el App Group (se evalúa en la fase 5).
-- **Push**: tabla `push_tokens`; triggers en tablas (`answers`, `messages`, `moods`, `stories`,
-  `nudges`) → Edge Function `notify` → Expo Push API al otro miembro, respetando
-  `notification_prefs`.
+  `get_daily_question(day)` (idempotente), `submit_answer(...)`, `get_streak()`,
+  `repair_streak(day)`. Ambos clientes ven lo mismo y no hay *race conditions*.
+- **Respuestas ocultas**: RPC que solo devuelve la respuesta de tu pareja si tú ya contestaste.
+- **Zona horaria**: la pareja guarda `timezone` (IANA, p. ej. `America/Mexico_City`); "el día" se
+  calcula con ella. Si viven en zonas distintas, manda la de la pareja (configurable).
+- **Widgets**: la app escribe un *snapshot* (días juntos, mood de la pareja, próximo evento,
+  distancia, story) y pide redibujar. Con la app cerrada: actualización periódica del widget +
+  push de datos que despierta una *headless task* que vuelve a leer de Supabase.
+- **Push**: tabla `push_tokens`; triggers en `answers`, `answer_comments`, `moods`, `stories`,
+  `story_replies`, `memories`, `nudges` → Edge Function `notify` → Expo Push API al otro miembro,
+  respetando `notification_prefs`.
+- **Contenido como datos versionados**: el banco de preguntas vive en `content/*.json` en el repo
+  y un script lo convierte en migración/seed SQL idempotente (upsert por `slug`).
 
 ### 7.1 Modelo de datos (borrador)
 
 ```
 profiles(id uuid pk = auth.users.id, display_name, nickname, avatar_path, birthday, created_at)
-couples(id, invite_code unique, anniversary_date, photo_path, timezone, created_at)
-couple_members(couple_id, user_id unique, joined_at)          -- máx. 2 por pareja
-moods(id, couple_id, user_id, emoji, note, created_at)         -- último = actual
-questions(id, category, type[open|choice|wyr|nhie|most_likely|agree], text, options jsonb, is_active)
+couples(id, invite_code unique, anniversary_date, photo_path, timezone, spicy_enabled bool, created_at)
+couple_members(couple_id, user_id unique, spicy_opt_in bool, joined_at)      -- máx. 2
+moods(id, couple_id, user_id, emoji, note, created_at)                        -- el último = actual
+question_categories(id, slug, name, emoji, intensity[ligera|profunda|picante])
+questions(id, slug unique, category_id, type[open|choice|wyr|nhie|most_likely|agree],
+          text, options jsonb, intensity, is_active)
 daily_questions(couple_id, day date, question_id, pk(couple_id, day))
 answers(id, couple_id, question_id, user_id, day date null, text, choice, audio_path, created_at,
         unique(couple_id, question_id, user_id))
-answer_comments(id, couple_id, question_id, user_id, body, created_at)   -- chat por pregunta
-streaks(couple_id pk, current, best, last_completed_day)       -- o calculada por vista
+answer_comments(id, couple_id, question_id, user_id, body, reactions jsonb, created_at)
 nudges(id, couple_id, from_user, kind, created_at)
-messages(id, couple_id, user_id, body, image_path, reply_to, reactions jsonb, seen_at, created_at)
 stories(id, couple_id, user_id, kind[photo|text|drawing], media_path, text, bg, expires_at, created_at)
 story_views(story_id, user_id, seen_at) ; story_reactions(story_id, user_id, emoji)
+story_replies(id, story_id, user_id, body, created_at)
 memories(id, couple_id, created_by, title, body, happened_on, lat, lng, place_name, created_at)
 memory_photos(id, memory_id, path, position)
 events(id, couple_id, title, emoji, date, recurring_yearly, kind[custom|anniversary|birthday|visit])
 lists(id, couple_id, title, emoji, kind) ; list_items(id, list_id, text, done, position, done_by)
 locations(user_id pk, couple_id, lat, lng, updated_at)          -- solo la última, redondeada
-game_rounds(id, couple_id, game, question_id/prompt, state jsonb, created_at)
+game_rounds(id, couple_id, game, item_ids, state jsonb, created_at) ; game_answers(...)
 push_tokens(user_id, token, platform) ; notification_prefs(user_id, prefs jsonb, daily_reminder_time)
 ```
 
-Función auxiliar de RLS: `is_couple_member(couple_id)`; todas las tablas con `couple_id` usan
+Helper de RLS: `is_couple_member(couple_id)`; toda tabla con `couple_id` usa
 `using (is_couple_member(couple_id))`.
 
 ### 7.2 Estructura del repositorio (objetivo)
 
 ```
-app/                 # expo-router (auth), (onboarding), (tabs)/home|questions|chat|memories|more
+app/                 # expo-router: (auth), (onboarding), (tabs)/inicio|preguntas|stories|memorias|mas
 src/
-  components/ features/<feature>/{api,hooks,components}  lib/ (supabase, dates, streak)  theme/
+  components/  features/<feature>/{api,hooks,components}  lib/ (supabase, dates, streak, geo)  theme/
+  widgets/           # react-native-android-widget
+content/             # banco de preguntas/juegos en JSON (fuente de verdad del contenido)
+scripts/             # generar seed SQL desde content/, validar duplicados
 supabase/
-  migrations/  functions/notify/  seed/questions.sql
-widgets/             # android (react-native-android-widget) e ios (targets/widget, SwiftUI)
-docs/PLAN.md  docs/DECISIONS.md
+  migrations/  functions/notify/  seed/
+docs/PLAN.md  docs/DECISIONS.md  docs/SETUP.md  docs/CONTENT.md
 CLAUDE.md
 ```
 
 ### 7.3 Navegación (tabs)
 
-1. **Inicio** – días juntos, moods, pregunta del día, racha, cuenta atrás, stories.
+1. **Inicio** – días juntos, moods, pregunta del día, racha, cuenta regresiva, distancia, fila de stories.
 2. **Preguntas** – pregunta del día, historial, categorías, juegos.
-3. **Chat**.
+3. **Stories** – crear story, ver la de tu pareja, archivo.
 4. **Memorias** – timeline / mapa.
-5. **Más** – cuentas atrás, listas, distancia, perfil, pareja, notificaciones, widgets (ayuda).
+5. **Más** – cuentas regresivas, listas, distancia, extras, perfil, pareja, notificaciones, widgets.
 
 ---
 
 ## 8. Cómo trabajan las sesiones (instrucciones comunes)
 
-- Cada fase = **una sesión de Claude Code** (en la nube o local) sobre este repo.
-- Rama: cada sesión trabaja en su rama `fase-N-<nombre>` (o la que asigne el entorno) y abre PR
-  contra `main` al terminar; el usuario hace *merge* antes de la siguiente fase.
+- Cada fase = **una sesión de Claude Code** sobre este repo.
+- Rama por fase (la que asigne el entorno o `fase-N-<nombre>`) y PR contra `main`; el usuario hace
+  *merge* antes de la siguiente fase.
 - Al empezar: leer `CLAUDE.md`, `docs/PLAN.md` y `docs/DECISIONS.md`.
-- Al terminar: `npm run lint && npm run typecheck && npm test` en verde; actualizar §10 (estado)
-  y `docs/DECISIONS.md`; describir en el PR **cómo probarlo en el móvil**.
-- **Limitación de sesiones en la nube:** no hay emulador ni móvil. Se valida con typecheck, lint,
-  tests y `npx expo export` (bundle). La prueba en dispositivo la hace el usuario con el
-  *development build*. Las migraciones SQL se escriben en `supabase/migrations/` y se aplican con
-  `supabase db push` (el usuario, o la sesión si el entorno tiene el secreto
-  `SUPABASE_ACCESS_TOKEN` + `SUPABASE_PROJECT_REF` configurados).
-- No commitear secretos: `.env` en `.gitignore`; solo `EXPO_PUBLIC_SUPABASE_URL` y
-  `EXPO_PUBLIC_SUPABASE_ANON_KEY` (públicas por diseño) en `.env` local / variables de EAS.
+- Al terminar: `npm run lint && npm run typecheck && npm test` en verde; actualizar §10 y
+  `docs/DECISIONS.md`; en el PR explicar **cómo probarlo en el celular**.
+- **Idioma:** textos de UI, notificaciones y contenido en **español de México**. Código,
+  nombres de variables y commits pueden ir en inglés o español, pero consistentes (definir en Fase 0).
+- **Limitación de sesiones en la nube:** no hay emulador ni celular. Se valida con typecheck, lint,
+  tests, `npx expo export -p android` y `npx expo prebuild -p android --clean`. La prueba en el
+  dispositivo la hace el usuario. Las migraciones van en `supabase/migrations/` y se aplican con
+  `supabase db push` (el usuario, o la sesión si el entorno tiene los secretos
+  `SUPABASE_ACCESS_TOKEN` y `SUPABASE_PROJECT_REF`).
+- Nada de secretos en git: `.env` en `.gitignore`; solo `EXPO_PUBLIC_SUPABASE_URL` y
+  `EXPO_PUBLIC_SUPABASE_ANON_KEY` (públicas por diseño). `google-services.json` fuera del repo
+  (se sube a EAS como archivo secreto).
 
 ---
 
 ## 9. Fases
 
-Resumen:
-
 | Fase | Nombre | Resultado visible | Depende de |
 |---|---|---|---|
-| 0 | Cimientos | Proyecto Expo + Supabase + CI local, app "hola mundo" en el móvil | — |
-| 1 | Auth, emparejamiento y perfil | Ambos se registran y se vinculan con código | 0 |
-| 2 | Home, contador y mood | Home con días juntos y mood en tiempo real | 1 |
-| 3 | Preguntas diarias, racha y chat por pregunta | Núcleo de Couple Joy funcionando | 2 |
-| 4 | Notificaciones push | Avisos de respuestas, mood, toques, recordatorio diario | 3 |
-| 5 | Widgets | Widgets de días juntos, mood, cuenta atrás | 4 |
-| 6 | Chat general y stories | Mensajería y stories 24 h (+ widget de story) | 4, 5 |
+| 0 | Cimientos | Proyecto Expo + Supabase, dev build instalado | — |
+| 1 | Auth, emparejamiento y perfil | Ambos se registran y se vinculan | 0 |
+| 2 | Inicio, contador y mood | Inicio con días juntos y mood en tiempo real | 1 |
+| 3 | Preguntas diarias, racha y comentarios | Núcleo de Couple Joy | 2 |
+| 4 | Notificaciones push | Avisos de respuestas, mood, toques, recordatorio | 3 |
+| 5 | Widgets Android | Widgets de días juntos, mood, cuenta regresiva | 4 |
+| 6 | Stories | Stories 24 h + widget de story | 4, 5 |
 | 7 | Memorias y mapa | Diario de fotos con mapa | 1 |
-| 8 | Cuentas atrás, listas y distancia | Eventos, notas compartidas, distancia (+ widgets) | 2, 5 |
+| 8 | Cuentas regresivas, listas y distancia | Eventos, listas, distancia (+ widgets) | 2, 5 |
 | 9 | Juegos | Qué prefieres, Yo nunca, Quién es más probable, dibujo | 3 |
-| 10 | Pulido, rendimiento y entrega | Diseño final, icono, extras, builds definitivas | todas |
+| 10 | Banco de contenido completo | 3,000+ preguntas e ítems de juegos | 3, 9 |
+| 11 | Extras más allá de Couple Joy | Funciones nuevas elegidas por nosotros | 2 |
+| 12 | Pulido, rendimiento y entrega | Diseño final, audio, APK definitivo | todas |
 
-Las fases 7, 8 y 9 son relativamente independientes y pueden reordenarse.
+Las fases 7, 8, 9 y 11 son bastante independientes y se pueden reordenar.
 
 ---
 
 ### Fase 0 — Cimientos
 
-**Objetivo:** esqueleto del proyecto, herramientas y backend listos; un *development build*
-instalado en el móvil.
+**Objetivo:** esqueleto del proyecto, herramientas y backend listos; *development build* en el celular.
 
 **Tareas:**
 1. `create-expo-app` con TypeScript y expo-router; estructura de §7.2; alias `@/`.
+   Configuración **solo Android** (`platforms: ["android"]`), `package` = `com.appparejas.app`
+   (provisional), nombre centralizado en `APP_NAME`.
 2. ESLint, Prettier, Jest + RNTL; scripts `lint`, `typecheck`, `test`, `format`.
-3. Tema base (tokens de color claro/oscuro, tipografía, espaciado) y componentes primitivos
-   (`Screen`, `Text`, `Button`, `Card`, `Avatar`, `Input`).
-4. Cliente Supabase (`src/lib/supabase.ts`) con sesión en SecureStore/AsyncStorage; TanStack
-   Query provider.
-5. `supabase init`; primera migración: `profiles` + trigger que crea perfil al registrarse +
-   helper `is_couple_member` (stub) y tablas `couples`/`couple_members`.
-6. `eas.json` con perfiles `development`, `preview` (APK / ad hoc) y `production` (no se usa);
-   `app.config.ts` con `name`, `slug`, `scheme`, `bundleIdentifier`/`package`.
-7. `CLAUDE.md` con convenciones, comandos y estructura; `docs/DECISIONS.md`;
-   `docs/SETUP.md` con pasos manuales para el usuario (crear proyecto Supabase, claves, EAS login,
-   build, instalar).
-8. GitHub Actions mínima (opcional): lint + typecheck + test en PR.
+3. Tema base (tokens claro/oscuro, tipografía, espaciado) y primitivos (`Screen`, `Text`,
+   `Button`, `Card`, `Avatar`, `Input`).
+4. Cliente Supabase (`src/lib/supabase.ts`) con sesión persistente; provider de TanStack Query.
+5. `supabase init`; primera migración: `profiles` + trigger al registrarse, `couples`,
+   `couple_members`, helper `is_couple_member`, RLS activada.
+6. `eas.json` con perfiles `development` y `preview` (ambos APK); `app.config.ts` leyendo `EXPO_PUBLIC_*`.
+7. `CLAUDE.md` (convenciones, comandos, estructura, idioma es-MX), `docs/DECISIONS.md`,
+   `docs/SETUP.md` (pasos manuales: crear proyecto Supabase, aplicar migraciones, `eas login`,
+   generar e instalar el APK de desarrollo, correr `expo start --dev-client`).
+8. GitHub Actions mínima: lint + typecheck + test en PR.
 
-**Criterios de aceptación:** `npm run lint/typecheck/test` en verde; `npx expo export` compila;
-`docs/SETUP.md` permite al usuario crear Supabase, aplicar migración e instalar el dev build.
+**Criterios:** lint/typecheck/test en verde; `npx expo export -p android` compila; con
+`docs/SETUP.md` el usuario puede instalar el dev build y ver la app.
 
 **Prompt de arranque:**
 ```
 Lee docs/PLAN.md completo. Vamos a ejecutar la **Fase 0 — Cimientos**.
 Crea el proyecto Expo (SDK estable más reciente, TypeScript estricto, expo-router) en la raíz del
-repo con la estructura de §7.2, configura ESLint/Prettier/Jest/RNTL y los scripts lint, typecheck,
-test. Crea el tema base (claro/oscuro, estética romántica) y componentes primitivos. Configura el
-cliente Supabase y TanStack Query, inicializa supabase/ con la primera migración (profiles con
-trigger on auth signup, couples, couple_members, helper is_couple_member, RLS activada). Crea
-eas.json (development, preview APK/ad hoc), app.config.ts leyendo variables EXPO_PUBLIC_*,
-.env.example, CLAUDE.md (convenciones, comandos, estructura), docs/DECISIONS.md y docs/SETUP.md con
-los pasos manuales que debo hacer yo (crear proyecto Supabase, aplicar migraciones, eas login,
-generar e instalar el development build en Android/iOS). Verifica con lint, typecheck, test y
-`npx expo export`. Actualiza §10 de docs/PLAN.md, haz commit y push, y abre un PR.
+repo con la estructura de §7.2, configurado SOLO para Android (package provisional
+com.appparejas.app, nombre "App Parejas" centralizado en una constante APP_NAME). Configura
+ESLint/Prettier/Jest/RNTL y los scripts lint, typecheck, test. Crea el tema base (claro/oscuro,
+estética romántica) y componentes primitivos. Configura el cliente Supabase y TanStack Query,
+inicializa supabase/ con la primera migración (profiles con trigger al registrarse, couples,
+couple_members, helper is_couple_member, RLS activada). Crea eas.json (development y preview, ambos
+APK), app.config.ts con variables EXPO_PUBLIC_*, .env.example, CLAUDE.md (convenciones, comandos,
+estructura, UI en español de México), docs/DECISIONS.md, docs/SETUP.md con los pasos manuales que
+debo hacer yo y un workflow de GitHub Actions con lint/typecheck/test. Verifica lint, typecheck,
+test y `npx expo export -p android`. Actualiza §10 de docs/PLAN.md, commit, push y abre un PR.
 ```
 
 ---
 
 ### Fase 1 — Autenticación, emparejamiento y perfil
 
-**Objetivo:** ambos crean cuenta, se vinculan como pareja y configuran perfiles.
-
 **Tareas:**
-1. Pantallas `(auth)`: login, registro, recuperar contraseña (email de Supabase).
-2. Guardas de navegación: sin sesión → auth; con sesión sin pareja → onboarding; con pareja → tabs.
-3. Onboarding: nombre/apodo, foto (Storage bucket `avatars` privado, compresión), cumpleaños;
-   **crear pareja** (genera código de 6 caracteres, compartible con Share sheet) o **unirse con
+1. Pantallas `(auth)`: iniciar sesión, crear cuenta, recuperar contraseña.
+2. Guardas: sin sesión → auth; con sesión sin pareja → onboarding; con pareja → tabs.
+3. Onboarding: nombre/apodo, foto (bucket `avatars` privado, compresión), cumpleaños; **crear
+   pareja** (código de 6 caracteres compartible por WhatsApp con el Share sheet) o **unirse con
    código**; fecha de aniversario y zona horaria (autodetectada).
-4. RPC `create_couple()`, `join_couple(code)` (valida máx. 2 miembros), `leave_couple()` simple.
-5. RLS completas para `profiles`, `couples`, `couple_members` (un miembro puede leer el perfil
-   de su pareja).
-6. Pantalla de "esperando a tu pareja" con suscripción Realtime a `couple_members`.
+4. RPC `create_couple()`, `join_couple(code)` (máx. 2 miembros), `leave_couple()` simple.
+5. RLS completas para `profiles`, `couples`, `couple_members` (puedes leer el perfil de tu pareja).
+6. Pantalla "esperando a tu pareja" con Realtime en `couple_members`.
 7. Ajustes: editar perfil y datos de pareja; cerrar sesión.
-8. Hooks `useSession`, `useCouple`, `usePartner`; tipos generados de BD.
-9. Tests de validaciones y de utilidades.
+8. Hooks `useSession`, `useCouple`, `usePartner`; tipos generados.
 
-**Criterios:** dos cuentas reales quedan vinculadas; un tercero no puede unirse; ningún usuario
-lee datos de otra pareja (probar políticas con SQL en la migración o test documentado).
+**Criterios:** dos cuentas quedan vinculadas; un tercero no puede unirse; nadie lee datos de
+otra pareja.
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 1 — Autenticación,
-emparejamiento y perfil** según el plan (RF-01, RF-02, RF-03). Implementa auth con email/contraseña
-de Supabase, guardas de navegación (auth → onboarding → tabs), onboarding de perfil con avatar
-(bucket privado, imagen comprimida), crear pareja con código de invitación de 6 caracteres o unirse
-con código (RPC security definer create_couple/join_couple con límite de 2 miembros), fecha de
-aniversario y zona horaria, pantalla de espera con Realtime y ajustes de perfil/pareja. Escribe las
-migraciones con RLS estrictas y regenera los tipos. Añade tests de la lógica. Verifica lint,
-typecheck, test y expo export. Documenta en el PR cómo probarlo con dos cuentas, actualiza §10 y
-DECISIONS.md, commit, push y PR.
+emparejamiento y perfil** (RF-01, RF-02, RF-03). Implementa auth con email/contraseña de Supabase,
+guardas de navegación (auth → onboarding → tabs), onboarding de perfil con avatar (bucket privado,
+imagen comprimida), crear pareja con código de invitación de 6 caracteres compartible o unirse con
+código (RPC security definer create_couple/join_couple con límite de 2 miembros), fecha de
+aniversario y zona horaria, pantalla de espera con Realtime y ajustes de perfil/pareja. Migraciones
+con RLS estrictas y tipos regenerados. Tests de la lógica. Todos los textos en español de México.
+Verifica lint, typecheck, test y expo export. En el PR explica cómo probarlo con dos cuentas;
+actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 2 — Home, contador de relación y mood
-
-**Objetivo:** pantalla principal con la información de la pareja y mood en tiempo real.
+### Fase 2 — Inicio, contador de relación y mood
 
 **Tareas:**
-1. Tabs base (Inicio, Preguntas, Chat, Memorias, Más) con placeholders.
-2. Home: cabecera con avatares de ambos (o foto de pareja), **días juntos** grande + desglose
-   (años/meses/días) + próximo hito (100, 365, 500, 1000 días, aniversarios).
-3. **Mood**: tocar tu avatar abre selector (emojis + nota corta); tabla `moods`; Realtime para ver
-   el de la pareja al instante; historial simple del mood.
-4. Tarjetas placeholder para pregunta del día, racha y cuenta atrás (se conectan después).
-5. Utilidades de fechas puras y testeadas (`src/lib/dates.ts`: días juntos, desglose, hitos,
-   "día local" de la pareja).
-6. Pull-to-refresh, estados vacíos y de carga bonitos.
-
-**Criterios:** el cambio de mood en un móvil aparece en el otro en < 2 s; tests de fechas
-(bisiestos, zona horaria, cambio de horario).
+1. Tabs de §7.3 con placeholders.
+2. Inicio: avatares de ambos (o foto de pareja), **días juntos** en grande + desglose + próximo
+   hito (100, 365, 500, 1000 días, "mesesitos", aniversarios).
+3. **Mood**: tocar tu avatar abre selector (emojis + nota); tabla `moods`; Realtime; historial simple.
+4. Tarjetas placeholder: pregunta del día, racha, cuenta regresiva, distancia.
+5. `src/lib/dates.ts` con funciones puras y tests (bisiestos, zonas horarias, horario de verano).
+6. Pull-to-refresh, estados vacíos y de carga cuidados.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 2 — Home, contador y mood**
-(RF-04, RF-05). Crea las 5 tabs de §7.3, la Home con avatares, días juntos con desglose y próximos
-hitos, selector de mood al tocar el avatar (tabla moods + RLS + Realtime para ver el mood de la
-pareja al instante) y tarjetas placeholder para pregunta del día, racha y cuenta atrás. Implementa
-src/lib/dates.ts con funciones puras y tests exhaustivos (bisiestos, zonas horarias, DST). Cuida el
-diseño (tema romántico, animaciones sutiles con reanimated, estados vacíos). Verifica lint,
-typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 2 — Inicio, contador y mood**
+(RF-04, RF-05). Crea las 5 tabs de §7.3, el Inicio con avatares, días juntos con desglose y
+próximos hitos (incluyendo cumplemeses), selector de mood al tocar el avatar (tabla moods + RLS +
+Realtime para ver el mood de tu pareja al instante) y tarjetas placeholder para pregunta del día,
+racha, cuenta regresiva y distancia. Implementa src/lib/dates.ts con funciones puras y tests
+exhaustivos (bisiestos, zonas horarias, DST). Cuida el diseño (tema romántico, animaciones sutiles
+con reanimated, haptics, estados vacíos). Textos en español de México. Verifica lint, typecheck,
+test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 3 — Preguntas diarias, racha y chat por pregunta
-
-**Objetivo:** el núcleo de Couple Joy.
+### Fase 3 — Preguntas diarias, racha y comentarios por pregunta
 
 **Tareas:**
-1. Tablas `questions`, `daily_questions`, `answers`, `answer_comments`, `nudges` (+ RLS).
-2. **Seed de ≥ 400 preguntas originales en español** (`supabase/seed/questions.sql`), en
-   categorías: Conocernos, Recuerdos, Futuro, Amor e intimidad (suave), Divertidas, Hipotéticas,
-   Valores, Viajes, Familia, Picantes (opt-in). Tipos: `open` y `choice` (los demás en fase 9).
-3. RPC `get_daily_question(p_day)`: asigna de forma idempotente una pregunta no usada por la
-   pareja (aleatoria por categoría rotativa), usando el día local de la pareja.
-4. RPC `submit_answer` y vista/RPC `get_question_with_answers(question_id)` que **solo revela la
-   respuesta de la pareja si el usuario ya respondió**.
-5. **Racha**: función `get_streak()` (actual, mejor, días completados) calculada desde
-   `daily_questions` + `answers`; **reparar racha**: listar días perdidos (≤ 7) y responderlos.
-   Lógica también en TS pura con tests (fuente de verdad: SQL; TS para UI/tests).
-6. UI: tarjeta de pregunta del día en Home (estados: sin responder / esperando a tu pareja /
-   ambos respondieron), pantalla de pregunta con respuestas y **chat por pregunta** (Realtime),
-   historial con búsqueda y filtro por categoría, responder preguntas extra por categoría,
-   borrar mis respuestas de una pregunta, botón **"recordar a mi pareja"** (inserta `nudge`).
-7. Animación de celebración al completar el día y al subir la racha.
-
-**Criterios:** ambos reciben la misma pregunta el mismo día; la respuesta ajena nunca llega al
-cliente antes de responder (verificado en la RPC); tests de racha (rotura, reparación, zona horaria).
+1. Tablas `question_categories`, `questions`, `daily_questions`, `answers`, `answer_comments`,
+   `nudges` (+ RLS).
+2. Formato de contenido en `content/questions/*.json` (`slug`, categoría, tipo, intensidad, texto,
+   opciones) + `scripts/build-seed.ts` que genera SQL idempotente y valida duplicados.
+   `docs/CONTENT.md` describe el formato y las reglas de estilo.
+3. **Banco inicial de ~300 preguntas originales** en español de México, en categorías: Conocernos,
+   Recuerdos, Nuestro futuro, Amor, A distancia, Divertidas, Hipotéticas, Valores, Viajes,
+   Familia, Picantes (opt-in). Tipos `open` y `choice`.
+4. RPC `get_daily_question(day)`: asigna idempotentemente una pregunta no usada por la pareja
+   (rotando categorías, respetando el opt-in picante).
+5. RPC `submit_answer` y `get_question_with_answers(question_id)` (solo revela la respuesta de tu
+   pareja si ya contestaste).
+6. **Racha**: `get_streak()` (actual, mejor) + reparación de días perdidos (≤ 7) contestándolos.
+   Lógica espejo en TS puro con tests.
+7. UI: tarjeta de pregunta del día en Inicio (sin contestar / esperando a tu pareja / ambos
+   contestaron), pantalla de pregunta con respuestas y **comentarios en tiempo real** (con
+   reacciones emoji), historial con búsqueda y filtros, preguntas extra por categoría, borrar mis
+   respuestas, botón **"recuérdale a tu pareja"**, ajuste para activar picantes (requiere ambos).
+8. Animación de celebración al completar el día y al subir la racha.
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 3 — Preguntas diarias, racha y
-chat por pregunta** (RF-06 a RF-12). Crea las tablas y RLS de §7.1 para preguntas, asignaciones
-diarias, respuestas, comentarios y nudges. Escribe un seed de al menos 400 preguntas ORIGINALES en
-español (no copies las de Couple Joy) en las categorías del plan, tipos open y choice. Implementa
-las RPC get_daily_question (idempotente, día local de la pareja, sin repetir), submit_answer,
-get_question_with_answers (solo revela la respuesta de la pareja si yo ya respondí), get_streak y
-la reparación de racha hasta 7 días. Replica la lógica de racha en TS puro con tests. Construye la
-UI: tarjeta de pregunta del día en Home con sus 3 estados, pantalla de pregunta con chat en tiempo
-real, historial con búsqueda/filtros, preguntas extra por categoría, borrar respuestas, botón de
-recordar a la pareja y celebración al completar. Verifica lint, typecheck, test y expo export.
-Actualiza §10 y DECISIONS.md, commit, push y PR.
+comentarios** (RF-06 a RF-12, RF-23). Crea tablas y RLS de §7.1 para categorías, preguntas,
+asignaciones diarias, respuestas, comentarios y nudges. Define el formato de contenido en
+content/questions/*.json, un script scripts/build-seed.ts que genere SQL idempotente (upsert por
+slug) y valide duplicados, y docs/CONTENT.md con formato y guía de estilo. Escribe ~300 preguntas
+ORIGINALES en español de México (no copies Couple Joy ni juegos comerciales) en las categorías del
+plan, incluida "A distancia" y "Picantes" opt-in, tipos open y choice. Implementa las RPC
+get_daily_question (idempotente, día local de la pareja, sin repetir, respeta opt-in picante),
+submit_answer, get_question_with_answers (solo revela la respuesta de tu pareja si ya contestaste),
+get_streak y reparación de racha hasta 7 días; replica la lógica de racha en TS puro con tests.
+UI: tarjeta de pregunta del día con sus 3 estados, pantalla de pregunta con comentarios en tiempo
+real y reacciones, historial con búsqueda/filtros, preguntas extra por categoría, borrar respuestas,
+botón para recordarle a tu pareja, ajuste de picantes y celebración al completar. Verifica lint,
+typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
 ### Fase 4 — Notificaciones push
 
-**Objetivo:** que la app "avise" como Couple Joy.
-
 **Tareas:**
-1. Registro de token con `expo-notifications` (permisos en el momento adecuado), tabla
-   `push_tokens`, `notification_prefs` (por tipo + hora del recordatorio diario).
-2. Edge Function `notify` (Deno): recibe evento, resuelve el otro miembro de la pareja, respeta
-   preferencias, envía vía Expo Push API; limpia tokens inválidos.
-3. Database Webhooks / triggers `pg_net` en: `answers` (tu pareja respondió / ya podéis ver las
-   respuestas), `answer_comments`, `moods`, `nudges` (y dejar preparado para `messages`,
-   `stories`, `memories`).
-4. Recordatorio diario **local** programado a la hora elegida si no has respondido.
-5. *Deep links*: tocar la notificación abre la pantalla correspondiente (expo-router).
-6. Pantalla de ajustes de notificaciones.
-7. `docs/SETUP.md`: credenciales FCM (Android) y APNs (iOS, vía EAS) y despliegue de la función
-   (`supabase functions deploy notify`), secretos necesarios.
-
-**Criterios:** cada evento genera una sola notificación al otro miembro; desactivar un tipo lo
-silencia; tocarla navega bien.
+1. Registro de token con `expo-notifications` (pedir permiso en el momento adecuado), tablas
+   `push_tokens` y `notification_prefs` (por tipo + hora del recordatorio diario).
+2. Edge Function `notify` (Deno): resuelve al otro miembro, respeta preferencias, envía vía Expo
+   Push API, limpia tokens inválidos; soporta mensajes visibles y **de datos** (para widgets).
+3. Triggers con `pg_net` en `answers`, `answer_comments`, `moods`, `nudges` (mecanismo genérico
+   listo para `stories`, `story_replies`, `memories`).
+4. Recordatorio diario **local** a la hora elegida si no has contestado.
+5. Deep links: tocar la notificación abre la pantalla correcta.
+6. Pantalla de ajustes de notificaciones; textos de notificación con personalidad (es-MX).
+7. `docs/SETUP.md`: crear proyecto Firebase (gratis), subir credenciales FCM a EAS,
+   `supabase functions deploy notify`, secretos.
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 4 — Notificaciones push**
-(RF-13). Registra tokens con expo-notifications en tablas push_tokens/notification_prefs, crea la
-Edge Function `notify` que envía por Expo Push API al otro miembro respetando preferencias y
-limpiando tokens inválidos, y conéctala con triggers/webhooks en answers, answer_comments, moods y
-nudges (deja el mecanismo genérico para messages/stories/memories). Añade recordatorio diario local
-configurable, deep links desde la notificación y pantalla de ajustes de notificaciones. Documenta
-en docs/SETUP.md las credenciales FCM/APNs vía EAS y el despliegue de la función. Tests para la
-lógica de la función (separada en módulo puro). Verifica lint, typecheck, test y expo export.
-Actualiza §10 y DECISIONS.md, commit, push y PR.
+(RF-13). Registra tokens con expo-notifications en push_tokens/notification_prefs, crea la Edge
+Function `notify` que envía por Expo Push API al otro miembro respetando preferencias, limpiando
+tokens inválidos y soportando push de datos (para refrescar widgets después), y conéctala con
+triggers pg_net en answers, answer_comments, moods y nudges (mecanismo genérico reutilizable para
+stories, story_replies y memories). Agrega recordatorio diario local configurable, deep links desde
+la notificación y pantalla de ajustes. Documenta en docs/SETUP.md Firebase/FCM vía EAS y el deploy
+de la función. Separa la lógica de la función en un módulo puro con tests. Textos en español de
+México. Verifica lint, typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 5 — Widgets
-
-**Objetivo:** widgets de pantalla de inicio (y bloqueo en iOS) — la seña de identidad de la app.
+### Fase 5 — Widgets Android
 
 **Tareas:**
-1. Módulo `src/features/widgets/`: construye un **snapshot** (`{ daysTogether, partnerName,
-   partnerMood, nextEvent, distanceKm, partnerStoryUrl, updatedAt }`) y lo escribe en
-   almacenamiento compartido; se llama al abrir la app, al cambiar datos relevantes y al recibir
-   push de datos.
-2. **Android** (`react-native-android-widget`): widgets *Días juntos*, *Mood de mi pareja*,
-   *Cuenta atrás* (tamaños pequeño/mediano), actualización periódica + headless task.
-3. **iOS** (`@bacons/apple-targets`): target WidgetKit SwiftUI con App Group
-   (`group.<bundle>.shared`), mismos widgets + **widget de pantalla de bloqueo** (accessory).
-   Recarga con `WidgetCenter.reloadAllTimelines()` desde un pequeño módulo nativo/plugin.
-   Evaluar fetch directo a Supabase desde el TimelineProvider; documentar decisión.
-4. Push "silenciosa"/de datos para que el cambio de mood de la pareja refresque el widget con la
-   app cerrada (best effort).
-5. Diseño visual de los widgets coherente con la app; pantalla "Cómo añadir widgets" en Más.
-
-> Si ambos usamos Android, omitir el punto 3 (registrarlo en DECISIONS.md).
-
-**Criterios:** widgets instalables en el dev build; muestran datos reales; se actualizan al abrir
-la app y, en Android, periódicamente.
+1. `src/widgets/`: construir el **snapshot** (`daysTogether`, `partnerName`, `partnerMood`,
+   `nextEvent`, `distanceKm`, `partnerStoryThumb`, `updatedAt`) y persistirlo; actualizar al abrir
+   la app, al cambiar datos relevantes y al recibir push de datos (headless task).
+2. Widgets con `react-native-android-widget`: **Días juntos**, **Mood de mi pareja**, **Cuenta
+   regresiva** (tamaños chico y mediano; los de distancia y story se agregan en fases 6 y 8 con la
+   misma infraestructura).
+3. Actualización periódica (`updatePeriodMillis` / WorkManager según la librería), tocar el
+   widget abre la sección correspondiente.
+4. Diseño visual coherente; pantalla "Cómo agregar widgets" en Más.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 5 — Widgets** (RF-14).
-Plataformas a cubrir: [ANDROID / iOS / AMBAS — indicar]. Implementa el snapshot compartido de
-widgets y su actualización (al abrir la app, al cambiar datos y al recibir push de datos). Android
-con react-native-android-widget: Días juntos, Mood de mi pareja y Cuenta atrás, con actualización
-periódica y headless task. iOS con @bacons/apple-targets: target WidgetKit en SwiftUI con App Group,
-mismos widgets más widget de pantalla de bloqueo, y recarga de timelines desde la app; evalúa y
-documenta si el widget hace fetch a Supabase por sí mismo. Añade la pantalla "Cómo añadir widgets".
-Como no puedes ejecutar un móvil, valida con prebuild (`npx expo prebuild --clean` sin errores),
-lint, typecheck, test y expo export, y deja en el PR instrucciones precisas para probar en el
-dispositivo. Actualiza §10 y DECISIONS.md, commit, push y PR.
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 5 — Widgets Android** (RF-14).
+Con react-native-android-widget implementa el snapshot compartido y su actualización (al abrir la
+app, al cambiar datos, periódicamente y al recibir push de datos mediante headless task que vuelve a
+leer de Supabase). Crea los widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico y
+mediano), con tap que abre la pantalla correspondiente, dejando la infraestructura lista para los
+widgets de distancia y story. Agrega la pantalla "Cómo agregar widgets". Como no puedes usar un
+celular, valida con `npx expo prebuild -p android --clean` sin errores, lint, typecheck, test y
+expo export, y deja en el PR instrucciones precisas para probar en el dispositivo (requiere nueva
+build). Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 6 — Chat general y stories
-
-**Objetivo:** comunicación diaria dentro de la app.
+### Fase 6 — Stories
 
 **Tareas:**
-1. **Chat**: tabla `messages` (+ Storage `media`), lista invertida paginada, envío optimista,
-   imágenes, reacciones emoji (long-press), responder (swipe), "escribiendo…" con Realtime
-   *presence/broadcast*, "visto", push de mensaje nuevo.
-2. **Stories**: crear desde cámara/galería, **texto** con fondo, **dibujo** con Skia (pinceles,
-   colores, deshacer); caducan a las 24 h (`expires_at` + pg_cron que borra media caducada);
-   visor a pantalla completa con barra de progreso; "visto", reacciones, responder (al chat);
-   archivo personal; descargar a galería; push de story nueva.
-3. Fila de stories en Home (tuya + de tu pareja) y **widget de story** (fase 5 ampliada).
-
-**Criterios:** mensajes en tiempo real y ordenados; stories desaparecen a las 24 h para la pareja
-y quedan en mi archivo.
+1. Crear story desde cámara/galería, **texto** con fondo y tipografías, **dibujo** con Skia
+   (pinceles, colores, deshacer), stickers/emojis básicos.
+2. Caducidad de 24 h (`expires_at` + pg_cron que borra media caducada del bucket pero conserva
+   el archivo personal si se decide así — documentar).
+3. Visor a pantalla completa con barra de progreso; "visto"; reacciones emoji; **respuesta**
+   (`story_replies`) que tu pareja ve en la story y le llega como push.
+4. Archivo personal de stories; descargar a galería.
+5. Fila de stories en Inicio y **widget de story de mi pareja**.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 6 — Chat general y stories**
-(RF-15, RF-16). Chat: tabla messages con RLS, bucket privado media, lista paginada invertida, envío
-optimista, imágenes comprimidas, reacciones emoji, responder con swipe, indicador "escribiendo…"
-con Realtime presence/broadcast, "visto" y push. Stories: foto (cámara/galería), texto con fondo y
-dibujo con @shopify/react-native-skia, caducidad de 24 h con pg_cron que limpia media, visor con
-progreso, vistos, reacciones, respuesta que va al chat, archivo personal y descarga a galería; push
-de story nueva; fila de stories en Home y widget de story de la pareja reutilizando la
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 6 — Stories** (RF-16). Crear
+stories con foto (cámara/galería, comprimida), texto con fondo y dibujo con
+@shopify/react-native-skia (pinceles, colores, deshacer) y stickers básicos; caducidad de 24 h con
+pg_cron que limpia media (decide y documenta qué pasa con el archivo); visor con progreso, vistos,
+reacciones y respuestas (tabla story_replies, NO hay chat general) con push; archivo personal y
+descarga a galería; fila de stories en Inicio y widget "Story de mi pareja" reutilizando la
 infraestructura de la Fase 5. Verifica lint, typecheck, test, prebuild y expo export. Actualiza §10
 y DECISIONS.md, commit, push y PR.
 ```
@@ -570,52 +544,51 @@ y DECISIONS.md, commit, push y PR.
 
 ### Fase 7 — Memorias y mapa
 
-**Objetivo:** diario compartido de recuerdos.
-
 **Tareas:**
 1. Tablas `memories`, `memory_photos`; subida múltiple (1–10 fotos) con progreso y compresión.
-2. Timeline agrupada por mes/año, detalle con carrusel, edición, reordenar fotos (drag & drop),
-   borrar, descargar foto.
-3. Ubicación opcional: usar la de la foto (EXIF) o buscar/poner chincheta en el mapa.
-4. **Mapa** (`react-native-maps`) con marcadores/clusters de memorias.
-5. "Un día como hoy" en Home (memorias de años anteriores).
-6. Push cuando la pareja añade una memoria.
+2. Timeline agrupada por mes/año, detalle con carrusel, editar, reordenar fotos (drag & drop),
+   borrar, descargar.
+3. Ubicación opcional: EXIF de la foto o elegir en el mapa.
+4. **Mapa** (`react-native-maps`, Google Maps API key gratuita) con marcadores agrupados.
+5. "Un día como hoy" en Inicio. Push cuando tu pareja agrega una memoria.
 
 **Prompt de arranque:**
 ```
 Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 7 — Memorias y mapa** (RF-17).
 Tablas memories y memory_photos con RLS y Storage privado; crear/editar memoria con título, fecha,
-texto, 1–10 fotos comprimidas con progreso de subida y reordenables por drag & drop; timeline
+texto y 1–10 fotos comprimidas con progreso de subida, reordenables con drag & drop; timeline
 agrupada por mes, detalle con carrusel, borrar y descargar; ubicación opcional (EXIF o elegir en
-mapa) y vista de mapa con react-native-maps y clusters; tarjeta "Un día como hoy" en Home y push al
-añadir memoria. Verifica lint, typecheck, test, prebuild y expo export. Actualiza §10 y
-DECISIONS.md, commit, push y PR.
+mapa) y vista de mapa con react-native-maps y clusters (documenta en SETUP.md la API key de Google
+Maps); tarjeta "Un día como hoy" en Inicio y push al agregar memoria. Verifica lint, typecheck,
+test, prebuild y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 8 — Cuentas atrás, listas compartidas y distancia
+### Fase 8 — Cuentas regresivas, listas compartidas y distancia
 
 **Tareas:**
-1. **Eventos**: CRUD con emoji, fecha, recurrencia anual; eventos automáticos (aniversario,
-   cumpleaños de ambos, hitos de días); próxima cuenta atrás en Home y en el widget.
-2. **Listas**: listas con emoji/tipo (viaje, compras, bucket list, pelis), ítems con check,
+1. **Eventos**: CRUD con emoji, fecha y recurrencia anual; automáticos (aniversario, cumplemeses,
+   cumpleaños, hitos de días); **"próxima vez que nos vemos"** destacada (relación a distancia);
+   próxima cuenta regresiva en Inicio y widget.
+2. **Listas**: viaje, súper, bucket list, pelis/series, lugares por visitar; ítems con check,
    reordenar, Realtime, quién lo marcó.
 3. **Distancia**: opt-in de ubicación (`expo-location`, precisión reducida), tabla `locations`
-   (solo última posición, redondeada), cálculo haversine, tarjeta en Home, **widget de distancia**;
-   actualización al abrir la app y en segundo plano con baja frecuencia (si es viable sin agotar
-   batería; documentar).
+   (solo última posición, redondeada), haversine con tests, tarjeta en Inicio con ciudad de cada
+   quien, **widget de distancia**; actualización en segundo plano de baja frecuencia con
+   `expo-task-manager` (o *significant changes*), documentando el consumo de batería.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 8 — Cuentas atrás, listas
-compartidas y distancia** (RF-18, RF-19, RF-20). Eventos con recurrencia anual y eventos
-automáticos (aniversario, cumpleaños, hitos), próxima cuenta atrás en Home y widget; listas
-compartidas con ítems, check, reordenación y Realtime; distancia opt-in con expo-location de baja
-precisión, tabla locations (solo última posición, redondeada), haversine con tests, tarjeta en Home
-y widget de distancia, con actualización en segundo plano de baja frecuencia si es viable
-(documenta la decisión). Verifica lint, typecheck, test, prebuild y expo export. Actualiza §10 y
-DECISIONS.md, commit, push y PR.
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 8 — Cuentas regresivas, listas
+compartidas y distancia** (RF-18, RF-19, RF-20). Eventos con recurrencia anual y automáticos
+(aniversario, cumplemeses, cumpleaños, hitos), evento destacado "la próxima vez que nos vemos" (es
+relación a distancia), próxima cuenta regresiva en Inicio y widget; listas compartidas con ítems,
+check, reordenación y Realtime; distancia opt-in con expo-location de baja precisión, tabla
+locations (solo última posición, redondeada), haversine con tests, tarjeta en Inicio con la ciudad
+de cada quien y widget de distancia, con actualización en segundo plano de baja frecuencia vía
+expo-task-manager (documenta batería y permisos). Verifica lint, typecheck, test, prebuild y expo
+export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
@@ -623,52 +596,123 @@ DECISIONS.md, commit, push y PR.
 ### Fase 9 — Juegos
 
 **Tareas:**
-1. Ampliar `questions.type` con `wyr`, `nhie`, `most_likely`, `agree` + seed original (≥ 80 por juego).
-2. Motor genérico de ronda: ambos responden en paralelo, resultados al terminar ambos con
-   **% de coincidencia** y pantalla de resultados.
+1. Tipos `wyr`, `nhie`, `most_likely`, `agree` + seed inicial original (~50 por juego).
+2. Motor genérico de rondas (10 ítems): ambos contestan en paralelo/asíncrono, resultados con
+   **% de coincidencia** y pantalla de resultados compartible.
 3. Juegos: **¿Qué prefieres?**, **Yo nunca**, **¿Quién es más probable?** (yo / mi pareja),
-   **De acuerdo / En desacuerdo**.
-4. **Reto de dibujo**: uno recibe una palabra y dibuja (Skia), el otro adivina; turnos con Realtime
-   o asíncrono.
-5. Contribución opcional de juegos a la racha (decidir y documentar).
+   **De acuerdo / En desacuerdo**, cada uno con variante picante opt-in.
+4. **Reto de dibujo**: uno recibe una palabra y dibuja (Skia), el otro adivina; asíncrono con
+   Realtime y push.
+5. Decidir si los juegos cuentan para la racha (documentar).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 9 — Juegos** (RF-21). Amplía
-los tipos de pregunta (wyr, nhie, most_likely, agree) con un seed ORIGINAL en español de al menos 80
-ítems por juego, crea un motor genérico de rondas (ambos responden, resultados con % de
-coincidencia) y las pantallas de ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo/En
-desacuerdo dentro de la tab Preguntas. Añade el reto de dibujo (dibujar con Skia, la pareja adivina,
-asíncrono con Realtime y push). Decide y documenta si los juegos cuentan para la racha. Verifica
-lint, typecheck, test y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 9 — Juegos** (RF-21). Amplía los
+tipos de pregunta (wyr, nhie, most_likely, agree) usando el formato de content/ con ~50 ítems
+ORIGINALES por juego en español de México (con variante picante opt-in), crea un motor genérico de
+rondas (ambos contestan de forma asíncrona, resultados con % de coincidencia) y las pantallas de
+¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo/En desacuerdo dentro de la tab
+Preguntas. Agrega el reto de dibujo (dibujar con Skia, tu pareja adivina, asíncrono con Realtime y
+push). Decide y documenta si los juegos cuentan para la racha. Verifica lint, typecheck, test y
+expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
 
-### Fase 10 — Pulido, rendimiento y entrega
+### Fase 10 — Banco de contenido completo
+
+**Sobre de dónde sacar las preguntas:**
+- **No hay una base de datos abierta y confiable** de preguntas para parejas en español. Los juegos
+  de cartas comerciales (We're Not Really Strangers, Gottman Card Decks, BestSelf Intimacy Deck,
+  etc.) y los de Couple Joy tienen derechos de autor: **se usan como inspiración de mecánicas y
+  temas, no se copian textos**.
+- Sí se puede usar como base material de investigación pública, adaptado y traducido con nuestras
+  palabras: las **36 preguntas de Arthur Aron** (estudio de 1997 sobre cercanía interpersonal),
+  temas de los **"Love Maps"** de Gottman (conocer el mundo de tu pareja) y los **5 lenguajes del
+  amor** (como temas, no copiando el libro).
+- El grueso se **genera original** con Claude por lotes, siguiendo la guía de estilo de
+  `docs/CONTENT.md`, con deduplicación automática (similitud de texto) y revisión humana opcional
+  (marcar favoritas / descartar desde la app con un botón "no me gustó esta pregunta").
 
 **Tareas:**
-1. Revisión de diseño completa (consistencia, micro-interacciones, haptics, modo oscuro), icono y
-   *splash* propios, nombre definitivo.
-2. Extras: respuestas por **audio**, tarjeta compartible (imagen) de racha/días juntos
-   (`react-native-view-shot`), bloqueo biométrico opcional.
-3. Rendimiento: listas virtualizadas, caché de imágenes, persistencia de TanStack Query para
-   offline de lectura.
-4. Robustez: manejo de errores y reintentos, *error boundary*, revisión de RLS (auditoría de
-   seguridad de todas las políticas y RPC), limpieza de Storage huérfano.
-5. **EAS Update** para actualizaciones OTA; builds `preview` finales para ambos móviles; guía
-   final en `docs/SETUP.md` (instalar, actualizar, copias de seguridad de la BD con `pg_dump`).
+1. Taxonomía final: categorías × intensidad (ligera / profunda / picante) × tipo, con metas de
+   cantidad por celda.
+2. Generar hasta **≥ 3,000 preguntas** en total (≥ 2,000 diarias `open`/`choice` + ≥ 1,000 de
+   juegos), en lotes por categoría en `content/`, más el set "36 preguntas para enamorarse" como
+   tema especial.
+3. `scripts/check-content.ts`: valida esquema, duplicados exactos y casi-duplicados
+   (normalización + similitud), longitud, ortografía básica; reporte por categoría.
+4. **Temas personalizados**: packs temáticos (p. ej. "A distancia", "Navidad", "Antes de vivir
+   juntos", "Sexualidad y deseo", "Dinero", "Hijos y familia") que se pueden jugar como quiz.
+5. Feedback desde la app: 👍/👎 por pregunta (tabla `question_feedback`), que el asignador use
+   para evitar preguntas descartadas.
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 10 — Pulido, rendimiento y
+Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/CONTENT.md. Ejecuta la **Fase 10 — Banco de
+contenido completo**. Define la taxonomía final (categoría × intensidad × tipo) con metas por celda
+y genera contenido ORIGINAL en español de México, por lotes en content/, hasta llegar a al menos
+3,000 ítems (≥ 2,000 preguntas diarias open/choice y ≥ 1,000 ítems de juegos), incluyendo una
+adaptación propia de las 36 preguntas de Arthur Aron como pack especial y packs temáticos (a
+distancia, fechas especiales, dinero, familia, deseo/picante opt-in, etc.). No copies textos de
+Couple Joy ni de juegos de cartas comerciales. Crea scripts/check-content.ts que valide esquema,
+duplicados y casi-duplicados, y genera el seed. Agrega feedback 👍/👎 por pregunta (tabla
+question_feedback) y haz que el asignador diario evite las descartadas. Verifica lint, typecheck,
+test y el script de contenido. Actualiza §10 y DECISIONS.md, commit, push y PR.
+```
+
+---
+
+### Fase 11 — Extras más allá de Couple Joy
+
+Propuestas (elegir antes de arrancar la fase; cada una es chica):
+
+| Extra | Descripción |
+|---|---|
+| **"Pienso en ti"** | Botón de un toque que le manda a tu pareja una vibración/notificación con un corazón (y contador diario). |
+| **Cartas "Ábrela cuando…"** | Cartas escritas con antelación que se desbloquean por fecha o por situación ("ábrela cuando me extrañes", "cuando estés triste"). |
+| **Cápsula del tiempo** | Mensaje/foto que se abre en una fecha futura (p. ej. en el próximo aniversario). |
+| **Cupones de amor** | Cupones canjeables ("un masaje", "yo elijo la peli") con estado canjeado/pendiente. |
+| **Ruleta de citas** | Ideas de citas (presenciales y **a distancia**: ver una peli sincronizados, cocinar lo mismo por videollamada) con filtro y "girar". |
+| **Test de lenguajes del amor** | Quiz propio para conocer el lenguaje de cada quien y mostrar resultados comparados. |
+| **Calendario de visitas** | Historial de veces que se han visto, días juntos en persona vs. separados, estadísticas. |
+| **Estadísticas de la relación** | Preguntas contestadas, % de coincidencia en juegos, racha récord, memorias por mes. |
+
+**Prompt de arranque:**
+```
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 11 — Extras más allá de Couple
+Joy**. Implementa estos extras de la tabla de la Fase 11: [LISTA ELEGIDA]. Cada uno con su tabla y
+RLS, pantalla dentro de la tab Más (o donde tenga más sentido), push cuando aplique, contenido
+original en español de México y tests de la lógica. Verifica lint, typecheck, test y expo export.
+Actualiza §10 y DECISIONS.md, commit, push y PR.
+```
+
+---
+
+### Fase 12 — Pulido, rendimiento y entrega
+
+**Tareas:**
+1. Revisión de diseño completa (consistencia, micro-interacciones, haptics, modo oscuro), icono y
+   *splash* propios; aplicar el **nombre definitivo** si ya existe.
+2. Respuestas en **audio** (preguntas), tarjeta compartible (imagen) de racha/días juntos
+   (`react-native-view-shot`), bloqueo biométrico opcional.
+3. Rendimiento: listas virtualizadas (FlashList), caché de imágenes, persistencia offline de
+   TanStack Query.
+4. Robustez: manejo de errores y reintentos, *error boundary*, auditoría de todas las políticas
+   RLS y RPC, limpieza de Storage huérfano.
+5. **EAS Update** configurado; APK `preview` final en ambos celulares; `docs/SETUP.md` final
+   (instalar, actualizar, respaldos de la BD con `pg_dump`).
+
+**Prompt de arranque:**
+```
+Lee CLAUDE.md, docs/PLAN.md y docs/DECISIONS.md. Ejecuta la **Fase 12 — Pulido, rendimiento y
 entrega**. Haz una revisión de diseño de toda la app (consistencia, haptics, animaciones, modo
-oscuro), icono y splash propios; añade respuestas por audio, tarjeta compartible de racha/días
-juntos y bloqueo biométrico opcional; mejora rendimiento y modo offline de lectura (persistencia de
-TanStack Query); añade error boundaries y reintentos; audita todas las políticas RLS y RPC; configura
-EAS Update para OTA y completa docs/SETUP.md con instalación, actualización y copias de seguridad.
-Verifica lint, typecheck, test, prebuild y expo export. Actualiza §10 y DECISIONS.md, commit, push
-y PR.
+oscuro), icono y splash propios [y aplica el nombre definitivo: NOMBRE si ya lo tengo]; agrega
+respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico opcional; mejora
+rendimiento (FlashList, caché de imágenes) y modo offline de lectura; agrega error boundaries y
+reintentos; audita todas las políticas RLS y RPC; configura EAS Update para OTA y completa
+docs/SETUP.md con instalación, actualización y respaldos. Verifica lint, typecheck, test, prebuild
+y expo export. Actualiza §10 y DECISIONS.md, commit, push y PR.
 ```
 
 ---
@@ -679,36 +723,43 @@ y PR.
 |---|---|---|---|
 | 0 Cimientos | ⏳ Pendiente | | |
 | 1 Auth y emparejamiento | ⏳ Pendiente | | |
-| 2 Home y mood | ⏳ Pendiente | | |
+| 2 Inicio y mood | ⏳ Pendiente | | |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
 | 4 Push | ⏳ Pendiente | | |
-| 5 Widgets | ⏳ Pendiente | | |
-| 6 Chat y stories | ⏳ Pendiente | | |
+| 5 Widgets Android | ⏳ Pendiente | | |
+| 6 Stories | ⏳ Pendiente | | |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
 | 9 Juegos | ⏳ Pendiente | | |
-| 10 Pulido y entrega | ⏳ Pendiente | | |
+| 10 Banco de contenido | ⏳ Pendiente | | |
+| 11 Extras | ⏳ Pendiente | | |
+| 12 Pulido y entrega | ⏳ Pendiente | | |
 
 ---
 
-## 11. Decisiones pendientes (a responder antes de la Fase 0 / Fase 5)
+## 11. Decisiones tomadas
 
-1. **Plataformas:** ¿qué móvil tiene cada uno (iPhone / Android)? Determina coste (Apple
-   Developer 99 USD/año) y si se hacen widgets iOS.
-2. **¿Tienes Mac?** Solo relevante para la vía iOS gratuita (no recomendada).
-3. **Nombre de la app** e idea de icono/paleta (placeholder "Nosotros", tonos rosa/coral).
-4. **¿Relación a distancia?** Si no, la distancia baja de prioridad (se puede quitar de la Fase 8).
-5. **Categoría "picante"** de preguntas: ¿incluir (opt-in)?
-6. **Chat general**: ¿lo queréis o preferís seguir con WhatsApp y dejar solo el chat por pregunta?
-   (simplifica la Fase 6).
+| # | Decisión | Fecha |
+|---|---|---|
+| D1 | Ambos usamos **Android** → solo Android, APK sin Play Store, sin costo de Apple. | 2026-10-29 |
+| D2 | Hay **Mac** disponible → se puede compilar localmente como alternativa a EAS. | 2026-10-29 |
+| D3 | Nombre provisional **"App Parejas"** (centralizado para cambiarlo fácil). | 2026-10-29 |
+| D4 | **Relación a distancia** → distancia, "próxima vez que nos vemos" y categoría "A distancia" con prioridad alta. | 2026-10-29 |
+| D5 | Contenido **picante** incluido como opt-in; meta de **todo lo de Couple Joy y más** (3,000+ preguntas, extras de la Fase 11). | 2026-10-29 |
+| D6 | **Sin chat general**: solo comentarios por pregunta y respuestas a stories. | 2026-10-29 |
+| D7 | UI y contenido en **español de México**. | 2026-10-29 |
+
+Pendiente: nombre definitivo, icono/paleta, y qué extras de la Fase 11 se hacen.
 
 ## 12. Riesgos
 
 | Riesgo | Mitigación |
 |---|---|
-| Widgets iOS con Expo son la parte más frágil | Aislados en su fase; prebuild verificado; fallback: widgets solo con datos del snapshot. |
-| Sesiones en la nube no pueden probar en dispositivo | Lógica en funciones puras testeadas; PR con pasos de prueba manual; dev build instalado desde la Fase 0. |
-| Límite de builds EAS gratis | Usar EAS Update (OTA) para cambios solo-JS; builds nativas solo cuando cambian dependencias nativas. |
-| Pausa de Supabase por inactividad | Uso diario; si ocurre, reactivar desde el panel. |
+| Widgets dependen de una librería de terceros | Aislados en su fase; prebuild verificado; snapshot simple en JSON. |
+| Las sesiones en la nube no pueden probar en el celular | Lógica en funciones puras con tests; PR con pasos de prueba manual; dev build desde la Fase 0. |
+| Builds EAS gratis limitadas al mes | EAS Update (OTA) para cambios solo-JS; build local en la Mac como respaldo. |
+| Ubicación en segundo plano gasta batería / Android la restringe | Baja frecuencia, precisión reducida, opt-in, actualizar también al abrir la app. |
+| Calidad/repetición del contenido generado | Guía de estilo, validación de casi-duplicados, feedback 👍/👎. |
+| Pausa de Supabase por inactividad | Uso diario; reactivar desde el panel si pasa. |
 | Storage 1 GB | Compresión en cliente; limpieza de stories caducadas. |
-| Pérdida de datos | `pg_dump` periódico documentado (Fase 10). |
+| Pérdida de datos | `pg_dump` periódico documentado (Fase 12). |
