@@ -16,6 +16,12 @@ SUPABASE_CLI_VERSION="2.122.0"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DB_URL="${DB_URL:-postgresql://postgres:postgres@localhost:5432/postgres}"
+# El CLI intenta TLS por defecto; el Postgres efímero del CI no lo soporta.
+case "$DB_URL" in
+  *sslmode=*) ;;
+  *\?*) DB_URL="${DB_URL}&sslmode=disable" ;;
+  *) DB_URL="${DB_URL}?sslmode=disable" ;;
+esac
 OUT="$ROOT/src/types/database.ts"
 TMP="$(mktemp)"
 trap 'rm -f "$TMP"' EXIT
