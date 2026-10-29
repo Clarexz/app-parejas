@@ -56,12 +56,15 @@ end $$;
 set local role authenticated;
 select set_config('request.jwt.claims',
   '{"sub":"00000000-0000-0000-0000-0000000000c3","role":"authenticated"}', true) as _ \gset
+-- auth.uid() puede leer cualquiera de las dos variantes según la versión de la imagen.
+select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000c3', true) as _ \gset
 
 do $$
 begin
+  assert auth.uid() = '00000000-0000-0000-0000-0000000000c3', format('auth.uid() = %s', auth.uid());
   assert (select count(*) from public.couples) = 0, 'c3 no debe ver ninguna pareja';
   assert (select count(*) from public.couple_members) = 0, 'c3 no debe ver miembros';
-  assert (select count(*) from public.profiles) = 1, 'c3 solo debe ver su propio perfil';
+  assert (select count(*) from public.profiles) = 1, format('c3 solo debe ver su propio perfil (ve %s)', (select count(*) from public.profiles));
   assert public.my_couple_id() is null, 'c3 no tiene pareja';
   assert not public.is_couple_member('00000000-0000-0000-0000-00000000c0c0'),
     'c3 no es miembro';
@@ -70,6 +73,8 @@ end $$;
 -- 6) Un miembro ve su pareja, a su pareja y los perfiles de ambos; no el de c3.
 select set_config('request.jwt.claims',
   '{"sub":"00000000-0000-0000-0000-0000000000a1","role":"authenticated"}', true) as _ \gset
+-- auth.uid() puede leer cualquiera de las dos variantes según la versión de la imagen.
+select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000a1', true) as _ \gset
 
 do $$
 begin
