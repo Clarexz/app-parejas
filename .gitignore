@@ -49,6 +49,8 @@ example
 
 # QA visual
 shots/
+
 test-results/
 playwright-report/
 coverage/
+dist-android/

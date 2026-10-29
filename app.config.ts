@@ -1,6 +1,6 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 
-import { ANDROID_PACKAGE, APP_NAME, APP_SCHEME } from './src/constants/app';
+import { ANDROID_PACKAGE, APP_NAME, APP_SCHEME } from './src/constants/app.ts';
 
 // En CI, release-apk.yml define APP_VERSION (tag sin la "v") y APP_VERSION_CODE (run number).
 const version = process.env.APP_VERSION ?? '0.0.0';
