@@ -46,7 +46,7 @@ solo hay ~6 GB libres).
 | `/opt/app-parejas/repo` | Clon de este repositorio (nadie lo edita a mano; `deploy.sh` exige que esté limpio). |
 | `/opt/app-parejas/stack` | Copia del `docker/` oficial de `supabase/supabase` (versión fijada) + `docker-compose.override.yml` (+ `docker-compose.logs.override.yml`). `stack/.env` es un symlink a `secrets/.env`. Datos: `stack/volumes/db/data`, `stack/volumes/storage`, `stack/volumes/functions`. |
 | `/opt/app-parejas/secrets` (700) | `.env`, `CREDENCIALES.md`, `functions.env` (secretos de Edge Functions), keystore Android, `firebase-service-account.json` (Fase 4). Archivos 600. |
-| `/opt/app-parejas/backups` | `db/` (dumps `.dump`), `storage/` (`.tar.gz`), `backup.log`. |
+| `/opt/app-parejas/backups` | `db/` (dumps `.dump`), `storage/` (`.tar.gz`), `cron.log`. |
 
 Los otros proyectos del VPS viven en `/docker/<nombre>`; este usa `/opt/app-parejas` por decisión tomada.
 `APP_ROOT` se puede sobrescribir (`APP_ROOT=/otra/ruta ./deploy.sh`).
@@ -112,8 +112,8 @@ se inyectan al contenedor `functions` con `compose up -d functions`.
 ## 6. Respaldos (cron)
 
 ```cron
-30 3 * * * /opt/app-parejas/repo/scripts/server/backup.sh >> /opt/app-parejas/backups/backup.log 2>&1
-0  4 * * 0 /opt/app-parejas/repo/scripts/server/backup.sh --storage >> /opt/app-parejas/backups/backup.log 2>&1
+30 3 * * * /opt/app-parejas/repo/scripts/server/backup.sh >> /opt/app-parejas/backups/cron.log 2>&1
+0  4 * * 0 /opt/app-parejas/repo/scripts/server/backup.sh --storage >> /opt/app-parejas/backups/cron.log 2>&1
 ```
 
 - BD: `pg_dump -Fc` completo, `backups/db/app-parejas-YYYYmmdd-HHMMSS.dump`, retención 14 días. Se
@@ -121,7 +121,7 @@ se inyectan al contenedor `functions` con `compose up -d functions`.
 - Storage: `backups/storage/app-parejas-storage-*.tar.gz`, retención 4 semanas.
 - Pre-deploy: `pre-deploy-app-parejas-*.dump`, últimos 10.
 - Los secretos **no** se incluyen. Si copias respaldos fuera del VPS (recomendado, es el mismo disco), no los
-  mezcles con `secrets/`. Revisa de vez en cuando `backup.log` y el espacio en disco.
+  mezcles con `secrets/`. Revisa de vez en cuando `cron.log` y el espacio en disco.
 
 ## 7. Studio por túnel SSH
 

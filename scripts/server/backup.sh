@@ -13,8 +13,8 @@
 #                             Retención propia: los últimos 10.
 #
 # Cron sugerido (crontab -e del usuario que administra Docker):
-#   30 3 * * * /opt/app-parejas/repo/scripts/server/backup.sh >> /opt/app-parejas/backups/backup.log 2>&1
-#   0 4 * * 0  /opt/app-parejas/repo/scripts/server/backup.sh --storage >> /opt/app-parejas/backups/backup.log 2>&1
+#   30 3 * * * /opt/app-parejas/repo/scripts/server/backup.sh >> /opt/app-parejas/backups/cron.log 2>&1
+#   0 4 * * 0  /opt/app-parejas/repo/scripts/server/backup.sh --storage >> /opt/app-parejas/backups/cron.log 2>&1
 #
 # Nunca incluye /opt/app-parejas/secrets/ en los respaldos. Si copias los respaldos fuera
 # del VPS, no copies los secretos junto al dump.

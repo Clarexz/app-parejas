@@ -95,6 +95,8 @@ jobs:
           if ! git diff --exit-code src/types/database.ts; then
             mkdir -p generated-types
             cp src/types/database.ts generated-types/database.ts
+            echo "--- database.ts generado (base64) ---"
+            base64 -w0 src/types/database.ts; echo
             echo "::error::src/types/database.ts no coincide con la salida del CLI. Descarga el artifact 'database-types' y copia database.ts a src/types/database.ts."
             exit 1
           fi
