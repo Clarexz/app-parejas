@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Lint, tipos, tests y bundle
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test -- --ci
+      - run: npm run format:check
+      - name: Bundle de Android (expo export)
+        run: npx expo export -p android --output-dir dist-android
+        env:
+          EXPO_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+
+  db:
+    name: Migraciones y tipos de la BD
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        # Misma imagen que usa el docker-compose oficial de Supabase (Postgres 17).
+        image: supabase/postgres:17.6.1.136
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -h localhost"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Esperar a que exista auth.users
+        run: |
+          for i in $(seq 1 60); do
+            if [ "$(psql "$DB_URL" -Atc "select to_regclass('auth.users') is not null" 2>/dev/null)" = "t" ]; then
+              echo "auth.users listo"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::No existe la tabla auth.users: la imagen supabase/postgres no creó el schema auth en su inicialización."
+          exit 1
+
+      - name: Aplicar migraciones
+        run: bash scripts/apply-migrations.sh
+
+      - name: Aplicar migraciones otra vez (idempotencia)
+        run: |
+          out="$(bash scripts/apply-migrations.sh)"
+          echo "$out"
+          if echo "$out" | grep -q '^+ '; then
+            echo "::error::La segunda ejecución volvió a aplicar migraciones."
+            exit 1
+          fi
+
+      - name: Prueba de humo de RLS
+        run: psql "$DB_URL" -X -v ON_ERROR_STOP=1 -f supabase/tests/rls_smoke.sql
+
+      - name: Regenerar tipos de la BD
+        run: bash scripts/gen-db-types.sh
+
+      - name: Comparar con src/types/database.ts
+        run: |
+          if ! git diff --exit-code src/types/database.ts; then
+            mkdir -p generated-types
+            cp src/types/database.ts generated-types/database.ts
+            echo "--- database.ts generado (base64) ---"
+            base64 -w0 src/types/database.ts; echo
+            echo "::error::src/types/database.ts no coincide con la salida del CLI. Descarga el artifact 'database-types' y copia database.ts a src/types/database.ts."
+            exit 1
+          fi
+
+      - name: Subir tipos generados
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: database-types
+          path: generated-types/database.ts
+          if-no-files-found: ignore
