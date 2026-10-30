@@ -1024,7 +1024,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 0.5 Diseño | ✅ Cerrada (2026-10-30) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
 | 1 Auth y emparejamiento | ✅ Cerrada (2026-10-30) | #5 | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
 | 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
-| 3 Preguntas y racha | ⏳ Pendiente | | |
+| 3 Preguntas y racha | 🧪 En pruebas (2026-10-30) | | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. |
 | 4 Push | ⏳ Pendiente | | |
 | 5 Widgets Android | ⏳ Pendiente | | |
 | 6 Stories | ⏳ Pendiente | | |
@@ -1046,6 +1046,10 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 - **Fase 2:** servidor desplegado el 2026-10-30 (`deploy.sh` de la rama de la fase en `fb87659`;
   migración `20261031000000_moods.sql`, `moods` en Realtime, smoke test OK). Falta probar el APK
   **v0.2.0** en los dos celulares con la lista de `docs/releases/v0.2.0.md`.
+- **Fase 3:** falta desplegar en el servidor (migración `20261101000000_questions.sql` + seed de
+  300 preguntas, con `deploy.sh` de la rama de la fase) y probar el APK **v0.3.0** en los dos
+  celulares con la lista de `docs/releases/v0.3.0.md`. Ojo: el teclado sobre la barra de
+  comentarios (`KeyboardAvoidingView`) no se pudo probar en web.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 2 (`claude/sweet-ride-xx0i0m`, commit `fb87659`), con 3 migraciones
   aplicadas. Al preparar el siguiente "Prompt para el servidor":
