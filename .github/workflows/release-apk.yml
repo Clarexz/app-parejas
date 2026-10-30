@@ -154,8 +154,23 @@ jobs:
 
           # Opcionales (fases futuras): si no existen, se sigue sin ellos.
           if [ -n "${GOOGLE_SERVICES_JSON_BASE64:-}" ]; then
-            echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -d > google-services.json
-            echo "google-services.json decodificado."
+            # Se acepta el base64 (con o sin saltos de línea) o el JSON pegado tal cual.
+            if printf '%s' "$GOOGLE_SERVICES_JSON_BASE64" | jq -e . >/dev/null 2>&1; then
+              printf '%s' "$GOOGLE_SERVICES_JSON_BASE64" > google-services.json
+            elif ! printf '%s' "$GOOGLE_SERVICES_JSON_BASE64" | tr -d ' \r\n\t' | base64 -d > google-services.json 2>/dev/null; then
+              echo "::error::GOOGLE_SERVICES_JSON_BASE64 no es base64 válido ni JSON. Vuelve a crearlo con: base64 -i google-services.json | tr -d '\\n' (Mac). Ver docs/SETUP.md §1.1."
+              exit 1
+            fi
+            if ! jq -e '.project_info.project_id and (.client | length > 0)' google-services.json >/dev/null 2>&1; then
+              echo "::error::GOOGLE_SERVICES_JSON_BASE64 no contiene un google-services.json válido (falta project_info/client). ¿Pegaste la cuenta de servicio en lugar de google-services.json? Ver docs/SETUP.md §1.1."
+              exit 1
+            fi
+            paquete="$(sed -n "s/^export const ANDROID_PACKAGE = '\(.*\)';$/\1/p" src/constants/app.ts)"
+            if ! jq -e --arg p "$paquete" '[.client[].client_info.android_client_info.package_name] | index($p)' google-services.json >/dev/null; then
+              echo "::error::google-services.json no tiene una app Android con el paquete $paquete. Agrégala en Firebase y vuelve a descargar el archivo."
+              exit 1
+            fi
+            echo "google-services.json listo (proyecto $(jq -r .project_info.project_id google-services.json))."
           else
             echo "GOOGLE_SERVICES_JSON_BASE64 no definido (opcional); se omite."
           fi
