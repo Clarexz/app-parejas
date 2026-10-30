@@ -4,10 +4,13 @@ import { View } from 'react-native';
 
 import {
   Avatar,
+  AvatarPicker,
   Button,
   Card,
   Chip,
   CloudOff,
+  CodeInput,
+  DateField,
   Divider,
   Doodle,
   EmptyPolaroid,
@@ -17,6 +20,8 @@ import {
   IconButton,
   ICON_NAMES,
   Input,
+  InviteCode,
+  ListRow,
   Note,
   PencilNote,
   Polaroid,
@@ -25,9 +30,12 @@ import {
   Sheet,
   Stamp,
   Sticker,
+  TabBar,
+  type TabBarProps,
   Tape,
   Text,
   useToast,
+  WaitingIllustration,
 } from '@/components';
 import { formatStampDate } from '@/lib/stampDate';
 import { useTheme, type Colors, type TypeVariant } from '@/theme';
@@ -103,6 +111,23 @@ function Label({ children }: { children: string }) {
   );
 }
 
+/** Props mínimas para ver la TabBar fuera de un navegador (solo catálogo). */
+function fakeTabBar(index: number, setIndex: (i: number) => void): TabBarProps {
+  const routes = [
+    { key: 'index', name: 'index', title: 'Inicio' },
+    { key: 'questions', name: 'questions', title: 'Preguntas' },
+    { key: 'stories', name: 'stories', title: 'Fotos' },
+    { key: 'more', name: 'more', title: 'Más' },
+  ];
+  return {
+    state: { index, routes: routes.map(({ key, name }) => ({ key, name })) },
+    descriptors: Object.fromEntries(routes.map((r) => [r.key, { options: { title: r.title } }])),
+    emitter: { emit: () => ({ defaultPrevented: false }) },
+    navigateToTab: (key: string) => setIndex(routes.findIndex((r) => r.key === key)),
+    insets: { top: 0, bottom: 0, left: 0, right: 0 },
+  } as unknown as TabBarProps;
+}
+
 export default function CatalogScreen() {
   const router = useRouter();
   const toast = useToast();
@@ -110,6 +135,9 @@ export default function CatalogScreen() {
   const [folded, setFolded] = useState(false);
   const [sheet, setSheet] = useState(false);
   const [selected, setSelected] = useState('Cena');
+  const [date, setDate] = useState({ day: '14', month: '', year: '' });
+  const [code, setCode] = useState('AB7');
+  const [tab, setTab] = useState(0);
 
   return (
     <Screen scroll>
@@ -375,12 +403,72 @@ export default function CatalogScreen() {
           body="Hoy no han contestado la pregunta."
         />
         <EmptyState
+          illustration={<WaitingIllustration />}
+          title="Esperando a Ale"
+          body="Ya tienen su código. En cuanto Ale lo escriba, empiezan."
+          actionLabel="Compartir código"
+          onAction={() => undefined}
+        />
+        <EmptyState
           illustration={<CloudOff />}
           title="Sin señal"
           body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
           actionLabel="Reintentar"
           onAction={() => undefined}
         />
+      </Section>
+
+      <Section title="Fecha (DateField)">
+        <DateField label="Su aniversario" value={date} onChange={setDate} />
+        <DateField
+          label="Tu cumpleaños"
+          value={{ day: '31', month: '02', year: '1995' }}
+          onChange={() => undefined}
+          error="Esa fecha no existe. Revisa el día y el mes."
+        />
+        <DateField
+          label="Fecha fija"
+          value={{ day: '12', month: '03', year: '2021' }}
+          onChange={() => undefined}
+          disabled
+        />
+      </Section>
+
+      <Section title="Código de invitación">
+        <InviteCode code="K7M2QX" onShare={() => undefined} onCopy={() => undefined} />
+        <InviteCode code="" loading />
+        <CodeInput value={code} onChangeText={setCode} />
+        <CodeInput value="ABC23" onChangeText={() => undefined} error="Ese código no existe." />
+        <CodeInput value="K7M2QX" onChangeText={() => undefined} disabled />
+      </Section>
+
+      <Section title="Foto de perfil (AvatarPicker)">
+        <Row>
+          <AvatarPicker name="Ale" onPick={() => undefined} />
+          <AvatarPicker name="Sam y Ale" variant="couple" onPick={() => undefined} />
+        </Row>
+        <AvatarPicker name="Sam" loading onPick={() => undefined} />
+      </Section>
+
+      <Section title="Renglones (ListRow)">
+        <View>
+          <ListRow icon="bell" label="Avisos" value="Activados" onPress={() => undefined} />
+          <ListRow icon="calendar" label="Nuestra fecha" onPress={() => undefined} />
+          <ListRow icon="settings" label="Ajustes de ustedes" onPress={() => undefined} />
+          <ListRow
+            icon="lock"
+            label="Cerrar sesión"
+            tone="destructive"
+            divider={false}
+            onPress={() => undefined}
+          />
+        </View>
+      </Section>
+
+      <Section title="Pestañas (TabBar)">
+        <View>
+          <TabBar {...fakeTabBar(tab, setTab)} />
+        </View>
       </Section>
 
       <Section title="Garabatos y divisores">

@@ -241,7 +241,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `Paper` | La hoja de fondo | `notebook` · `plain` · `ruled` | — |
 | `Screen` | Contenedor de pantalla con `Paper`, safe area y gutters | `scroll` sí/no, `paper` | — |
 | `Text` | Texto con la escala §2.2 | `variant` = token de tipo; `tone` = `ink`·`muted`·`faint`·`jamaica`·`chile`·`nopal` | — |
-| `Button` | Acción | `primary` (Jamaica, forma `hand`, Gochi Hand 20, sombra `ink`) · `secondary` (contorno tinta 1.5 dp, Figtree 600) · `ghost` (solo texto subrayado a mano) | normal, presionado (se hunde 2 dp y pierde sombra), deshabilitado (`inkFaint`, sin sombra), cargando (lápiz que garabatea) |
+| `Button` | Acción (`fullWidth` para auth y onboarding) | `primary` (Jamaica, forma `hand`, Gochi Hand 20, sombra `ink`) · `secondary` (contorno tinta 1.5 dp, Figtree 600) · `ghost` (solo texto subrayado a mano) | normal, presionado (se hunde 2 dp y pierde sombra), deshabilitado (`inkFaint`, sin sombra), cargando (lápiz que garabatea) |
 | `IconButton` | Icono tocable 44×44 | `plain` · `sticker` (círculo Jamaica) | normal, presionado, deshabilitado |
 | `Card` (ficha) | Ficha bibliográfica | `plain` · `ruled` (renglones) ; `tilt` | normal, presionado (si es tocable) |
 | `Note` | Post-it | `yellow` (default) ; `tape` sí/no ; `tilt` | aparece con "pegar" |
@@ -259,6 +259,12 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `Doodle` | Garabato de énfasis | `underline` · `circle` · `arrow` · `star` | se dibuja una vez |
 | `Divider` | Línea a mano punteada | `dashed` · `solid` | — |
 | `Icon` | Icono del set §3 | `name`, `size`, `color` | — |
+| `DateField` | Fecha como sello de fechador: 3 casillas DD / MM / AAAA en Courier Prime 700, etiqueta a mano; solo captura dígitos y salta el foco (no valida) | `label` | foco (borde Jamaica 2 dp), error (borde y mensaje `chile`), deshabilitado |
+| `InviteCode` | Código de 6 caracteres como boleto con cinta canario, agrupado "ABC 234" en Courier Prime 700 grande; botón de compartir y copiar opcionales | `onShare`, `onCopy`, `shareLabel` | `loading` (casillas punteadas vacías) |
+| `CodeInput` | 6 casillas para escribir el código (una `TextInput` transparente encima); mayúsculas, ignora espacios/guiones, alfabeto `ABCDEFGHJKMNPQRSTUVWXYZ23456789` | `value`, `onChangeText` | activa (Jamaica), error, deshabilitado |
+| `AvatarPicker` | Polaroid grande (L) con inicial a mano y sticker de cámara para elegir foto | `person` · `couple` | sin foto, con foto, `loading` (se "revela" con pulso) |
+| `TabBar` | Barra de pestañas para `Tabs` de expo-router (`tabBar`); `TAB_ICONS` mapea ruta → icono | — | activa (Jamaica), presionada |
+| `ListRow` | Renglón tocable (icono + texto Figtree + flecha) separado por `Divider`, para "Más" y ajustes | `default` · `destructive` (Chile, sin flecha); `value`, `divider` | normal, presionado, deshabilitado |
 
 ## 8. Patrones de pantalla
 
@@ -273,10 +279,12 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 - **Formularios:** `Input` de renglón con etiqueta a mano; botón primario al final, alineado a
   la izquierda (como firma), no a todo lo ancho salvo en onboarding.
 - **Navegación por pestañas (Fase 1+):** fondo `paper`, línea superior punteada `inkMuted`,
-  etiquetas `handSmall`, activo en `jamaica`.
+  etiquetas `handSmall`, activo en `jamaica`, iconos del set (`TabBar`, `TAB_ICONS`).
 - **Carga:** renglones que se escriben solos (líneas `ruled` que se dibujan) o lápiz garabateando.
   Nada de spinners genéricos salvo dentro de botones pequeños.
-- **Vacío:** `EmptyState` con humor y una acción clara.
+- **Vacío:** `EmptyState` con humor y una acción clara. "Esperando a tu pareja": ilustración `WaitingIllustration` (dos tazas, una vacía).
+- **Auth y onboarding:** formularios con `Input`/`DateField` y botón primario a todo lo ancho; el código de pareja se muestra con `InviteCode` y se escribe con `CodeInput`; la foto se elige con `AvatarPicker`.
+- **Más / ajustes:** lista de `ListRow` sin fichas; la acción destructiva (cerrar sesión) al final, en Chile.
 - **Error:** `EmptyState` con ilustración `cloudOff`, mensaje §6 y botón "Reintentar".
 
 ## 9. Prohibido

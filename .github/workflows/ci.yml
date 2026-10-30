@@ -72,6 +72,11 @@ jobs:
           echo "::error::No existe la tabla auth.users: la imagen supabase/postgres no creó el schema auth en su inicialización."
           exit 1
 
+      # En el VPS las tablas de Storage las crea storage-api; aquí se simulan para que las
+      # migraciones creen las políticas del bucket y las pruebas las ejerciten.
+      - name: Stub de Storage
+        run: psql "postgresql://supabase_admin:postgres@localhost:5432/postgres" -X -q -v ON_ERROR_STOP=1 -f supabase/tests/fixtures/storage_stub.sql
+
       - name: Aplicar migraciones
         run: bash scripts/apply-migrations.sh
 
@@ -84,8 +89,12 @@ jobs:
             exit 1
           fi
 
-      - name: Prueba de humo de RLS
-        run: psql "$DB_URL" -X -v ON_ERROR_STOP=1 -f supabase/tests/rls_smoke.sql
+      - name: Pruebas de la BD (supabase/tests/*.sql)
+        run: |
+          for f in supabase/tests/*.sql; do
+            echo "== $f"
+            psql "$DB_URL" -X -v ON_ERROR_STOP=1 -f "$f"
+          done
 
       - name: Regenerar tipos de la BD
         run: bash scripts/gen-db-types.sh

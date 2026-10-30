@@ -4,13 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { AppState, Platform } from 'react-native';
 
+import type { Database } from '@/types/database';
+
 export const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
 export const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
 // Sin variables se usa un destino ficticio para que importar el módulo nunca lance.
-export const supabase = createClient(
+export const supabase = createClient<Database>(
   supabaseUrl || 'http://localhost:54321',
   supabaseAnonKey || 'not-configured',
   {

@@ -44,6 +44,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'expo-secure-store',
+    // Solo galería: sin cámara ni micrófono (el picker los pide por defecto para video).
+    ['expo-image-picker', { cameraPermission: false, microphonePermission: false }],
     './plugins/with-android-signing',
   ],
   experiments: {

@@ -97,7 +97,47 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      avatar_folder_readable: { Args: { p_name: string }; Returns: boolean };
+      avatar_folder_writable: { Args: { p_name: string }; Returns: boolean };
+      create_couple: {
+        Args: { p_anniversary_date?: string; p_timezone?: string };
+        Returns: {
+          anniversary_date: string | null;
+          created_at: string | null;
+          id: string;
+          invite_code: string;
+          photo_path: string | null;
+          spicy_enabled: boolean;
+          timezone: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'couples';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      generate_invite_code: { Args: Record<PropertyKey, never>; Returns: string };
       is_couple_member: { Args: { p_couple_id: string }; Returns: boolean };
+      join_couple: {
+        Args: { p_code: string };
+        Returns: {
+          anniversary_date: string | null;
+          created_at: string | null;
+          id: string;
+          invite_code: string;
+          photo_path: string | null;
+          spicy_enabled: boolean;
+          timezone: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'couples';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
     };
     Enums: {

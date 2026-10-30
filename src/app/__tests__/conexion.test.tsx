@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { ThemeProvider } from '@/theme';
 
-import ConnectionScreen from '../index';
+import ConnectionScreen from '../conexion';
 
 const mockPush = jest.fn();
 jest.mock('expo-router', () => ({ useRouter: () => ({ push: mockPush }) }));
