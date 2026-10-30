@@ -47,4 +47,23 @@ describe('errorMessage', () => {
     expect(errorMessage(null)).toMatch(/Algo no salió/);
     expect(errorMessage('texto')).toMatch(/Algo no salió/);
   });
+
+  it('traduce las claves de preguntas', () => {
+    for (const key of [
+      'invalid_day',
+      'no_questions',
+      'question_not_found',
+      'invalid_answer',
+      'not_answered',
+      'invalid_comment',
+      'comment_not_found',
+      'invalid_reaction',
+      'nudge_too_soon',
+      'no_partner',
+      'invalid_nudge',
+    ]) {
+      expect(errorMessage({ code: 'P0001', message: key })).not.toMatch(/Algo no salió/);
+    }
+    expect(errorMessage({ code: 'P0001', message: 'nudge_too_soon' })).toMatch(/hace un ratito/);
+  });
 });

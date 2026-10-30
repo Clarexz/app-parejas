@@ -33,6 +33,7 @@ jest.mock('@/features/mood', () => ({
   useMoodRealtime: jest.fn(),
   MoodSheet: () => null,
 }));
+jest.mock('@/features/questions', () => ({ useQuestionsRealtime: jest.fn() }));
 
 const renderScreen = () =>
   render(

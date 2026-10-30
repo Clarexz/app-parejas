@@ -24,6 +24,18 @@ const BY_CODE: Record<string, string> = {
   // RPC de mood
   no_couple: 'Todavía no están vinculados. Termina de unirte a tu pareja.',
   invalid_mood: 'Ese mood no se pudo guardar. Elige un emoji y una nota corta.',
+  // RPC de preguntas
+  invalid_day: 'Ese día ya no se puede abrir. Solo se pueden recuperar los últimos 7 días.',
+  no_questions: 'Por ahora no hay preguntas disponibles. Vuelve a intentar más tarde.',
+  question_not_found: 'No encontramos esa pregunta. Regresa y elige otra.',
+  invalid_answer: 'Esa respuesta no se pudo guardar. Revisa que no esté vacía ni sea muy larga.',
+  not_answered: 'Para comentar primero contesta la pregunta.',
+  invalid_comment: 'Ese comentario no se pudo enviar. Escribe algo corto e intenta de nuevo.',
+  comment_not_found: 'Ese comentario ya no existe. Actualiza para ver lo más reciente.',
+  invalid_reaction: 'Esa reacción no se pudo guardar. Elige otro emoji.',
+  nudge_too_soon: 'Ya le recordaste hace un ratito. Dale un poco de tiempo antes de insistir.',
+  no_partner: 'Todavía no hay pareja a quién recordarle. Cuando se una, podrás hacerlo.',
+  invalid_nudge: 'Ese recordatorio no se pudo enviar. Vuelve a intentar.',
 };
 
 function isNetworkError(name: string, message: string, status?: unknown): boolean {
