@@ -1026,7 +1026,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
 | 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
-| 5 Widgets Android | ⏳ Pendiente | | |
+| 5 Widgets Android | ✅ Cerrada (2026-10-30) | #9 | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
 | 6 Stories | ⏳ Pendiente | | |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
@@ -1062,10 +1062,16 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   `release-apk.yml` ahora acepta base64 o JSON y valida el paquete). Falta probar el APK
   **v0.4.0** en los dos celulares con `docs/releases/v0.4.0.md` (prueba rápida: Más → Avisos →
   "Mandarme una de prueba", o `scripts/server/test-push.sh <correo>` en el VPS).
+- **Fase 5:** servidor desplegado el 2026-10-30 (`deploy.sh ccr-b514a1fd-6t6enh` en `31b33bd`;
+  solo cambió la función `notify`, 0 migraciones nuevas, `test-push` con `sent=1`, smoke test OK);
+  la notificación de prueba llegó al celular. Fase cerrada y mergeada a `main` (PR #9) el
+  2026-10-30 a pedido del usuario. Falta probar el APK **v0.5.0** en los dos celulares con
+  `docs/releases/v0.5.0.md` (sobre todo que el widget de mood cambie con la app cerrada y que el
+  dibujo nativo se vea bien); si algo falla, se corrige como parche `v0.5.P`.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
-  quedó en la rama de la Fase 4 (`claude/quirky-pasteur-9x38o6`, commit `df41d37`), con 5
+  quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
-  - Si la Fase 4 (PR #8) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
+  - Si la Fase 5 (PR #9) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
     rama de la fase nueva. `deploy.sh` hace `git fetch`/`checkout`/`pull` de la rama que reciba, así
     que cambiar de rama no requiere pasos extra.
   - **Nunca** vuelvas a desplegar una rama de una fase anterior: las migraciones son

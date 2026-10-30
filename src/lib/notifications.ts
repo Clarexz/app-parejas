@@ -79,7 +79,8 @@ export function notificationKind(data: unknown): string | null {
 export function shouldShowInForeground(data: unknown): boolean {
   const kind = notificationKind(data);
   if (kind === null) return true;
-  return !['answer', 'comment', 'mood', 'nudge', 'reminder'].includes(kind);
+  // 'widget' es un push de datos (solo refresca los widgets): nunca banner.
+  return !['widget', 'answer', 'comment', 'mood', 'nudge', 'reminder'].includes(kind);
 }
 
 // ---------------------------------------------------------------------------

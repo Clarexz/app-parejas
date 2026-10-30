@@ -262,6 +262,15 @@ const sampleComments = () => [
 
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
 export const SCENARIOS = {
+  // Cómo agregar widgets (Fase 5): pantalla con la pareja lista (prefijo `widgets-`).
+  widgets: {
+    prefix: 'widgets',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    routes: ['/widgets'],
+  },
   signed_out: {
     session: false,
     routes: ['/sign-in', '/sign-up', '/forgot-password'],

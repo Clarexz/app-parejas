@@ -140,6 +140,9 @@ INSERT en answers / answer_comments / moods / nudges
   `select id, status_code, left(content, 200) from net._http_response order by id desc limit 5;`
   (pg_net guarda las respuestas unas horas). `smoke-test.sh` revisa que `notify` responda 401 sin
   secreto y avisa si falta la configuración.
+- **Widgets (Fase 5):** cada push que llega al celular despierta una tarea que relee el snapshot
+  de los widgets. Si quien recibe apagó el aviso de mood, `notify` igual manda un push **de datos**
+  (`kind: 'widget'`, sin título, no se muestra) para refrescar su widget de mood.
 
 ## 6. Respaldos (cron)
 

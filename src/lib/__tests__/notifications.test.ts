@@ -59,12 +59,18 @@ describe('routeForNotification', () => {
   });
 });
 
+describe('push de datos para widgets', () => {
+  it('kind widget no produce ruta', () => {
+    expect(routeForNotification({ kind: 'widget', scope: 'mood' })).toBeNull();
+  });
+});
+
 describe('shouldShowInForeground', () => {
   it('solo muestra pruebas y desconocidos', () => {
     expect(shouldShowInForeground({ kind: 'test' })).toBe(true);
     expect(shouldShowInForeground({ kind: 'otra-cosa' })).toBe(true);
     expect(shouldShowInForeground(null)).toBe(true);
-    for (const kind of ['answer', 'comment', 'mood', 'nudge', 'reminder']) {
+    for (const kind of ['answer', 'comment', 'mood', 'nudge', 'reminder', 'widget']) {
       expect(shouldShowInForeground({ kind })).toBe(false);
     }
   });

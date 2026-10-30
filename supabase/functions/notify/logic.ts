@@ -91,7 +91,8 @@ function str(v: unknown): string | null {
   return typeof v === 'string' && v !== '' ? v : null;
 }
 
-// Construye la notificación, o null si la persona apagó este tipo de aviso.
+// Construye la notificación, o null si la persona apagó este tipo de aviso (el mood apagado
+// devuelve un push de datos invisible para el widget).
 export function buildNotification(event: NotifyEvent): BuiltNotification | null {
   const d = event.data;
   const base = { actor: event.actor.name, recipient: event.recipient.name };
@@ -129,7 +130,10 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
       break;
     }
     case 'mood':
-      if (!event.prefs.moods) return null;
+      // Con el aviso apagado igual llega un push de datos que solo refresca el widget.
+      if (!event.prefs.moods) {
+        return { visible: false, channelId: 'actividad', data: { kind: 'widget', scope: 'mood' } };
+      }
       data.url = '/moods';
       copy = moodCopy({
         ...base,
