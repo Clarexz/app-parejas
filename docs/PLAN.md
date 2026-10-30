@@ -1063,9 +1063,11 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   **v0.4.0** en los dos celulares con `docs/releases/v0.4.0.md` (prueba rápida: Más → Avisos →
   "Mandarme una de prueba", o `scripts/server/test-push.sh <correo>` en el VPS).
 - **Fase 5:** servidor desplegado el 2026-10-30 (`deploy.sh ccr-b514a1fd-6t6enh` en `31b33bd`;
-  solo cambió la función `notify`, 0 migraciones nuevas, `test-push` con `sent=1`, smoke test OK).
-  Falta probar el APK **v0.5.0** en los dos celulares con `docs/releases/v0.5.0.md` (sobre todo
-  que el widget de mood cambie con la app cerrada y que el dibujo nativo se vea bien).
+  solo cambió la función `notify`, 0 migraciones nuevas, `test-push` con `sent=1`, smoke test OK);
+  la notificación de prueba llegó al celular. Fase cerrada y mergeada a `main` (PR #9) el
+  2026-10-30 a pedido del usuario. Falta probar el APK **v0.5.0** en los dos celulares con
+  `docs/releases/v0.5.0.md` (sobre todo que el widget de mood cambie con la app cerrada y que el
+  dibujo nativo se vea bien); si algo falla, se corrige como parche `v0.5.P`.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
