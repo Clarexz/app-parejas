@@ -13,6 +13,26 @@ const googleServicesFile = existsSync('./google-services.json')
   ? './google-services.json'
   : undefined;
 
+// Vistas previas del selector de widgets: las genera el diseño; si aún no existen se omiten.
+const widgetPreview = (name: string) => {
+  const path = `./assets/widgets/${name}.png`;
+  return existsSync(path) ? (path as `./${string}`) : undefined;
+};
+
+const WIDGET_DEFAULTS = {
+  minWidth: '110dp',
+  minHeight: '110dp',
+  targetCellWidth: 2,
+  targetCellHeight: 2,
+  maxResizeWidth: '320dp',
+  maxResizeHeight: '220dp',
+  resizeMode: 'horizontal|vertical',
+  updatePeriodMillis: 1800000,
+  widgetCategory: 'home_screen',
+} as const;
+
+const GOOGLE_FONTS = './node_modules/@expo-google-fonts';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: APP_NAME,
@@ -61,6 +81,42 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         icon: './assets/images/notification-icon.png',
         color: '#1E3270',
         defaultChannel: 'actividad',
+      },
+    ],
+    [
+      'react-native-android-widget',
+      {
+        fonts: [
+          `${GOOGLE_FONTS}/gochi-hand/400Regular/GochiHand_400Regular.ttf`,
+          `${GOOGLE_FONTS}/figtree/400Regular/Figtree_400Regular.ttf`,
+          `${GOOGLE_FONTS}/figtree/600SemiBold/Figtree_600SemiBold.ttf`,
+          `${GOOGLE_FONTS}/figtree/700Bold/Figtree_700Bold.ttf`,
+          `${GOOGLE_FONTS}/courier-prime/400Regular/CourierPrime_400Regular.ttf`,
+          `${GOOGLE_FONTS}/courier-prime/700Bold/CourierPrime_700Bold.ttf`,
+        ],
+        widgets: [
+          {
+            name: 'DaysTogether',
+            label: 'Días juntos',
+            description: 'Cuántos días llevan juntos.',
+            previewImage: widgetPreview('DaysTogether'),
+            ...WIDGET_DEFAULTS,
+          },
+          {
+            name: 'PartnerMood',
+            label: 'Mood de mi pareja',
+            description: 'Cómo anda tu pareja ahorita.',
+            previewImage: widgetPreview('PartnerMood'),
+            ...WIDGET_DEFAULTS,
+          },
+          {
+            name: 'Countdown',
+            label: 'Cuenta regresiva',
+            description: 'Cuánto falta para su próxima fecha especial.',
+            previewImage: widgetPreview('Countdown'),
+            ...WIDGET_DEFAULTS,
+          },
+        ],
       },
     ],
     './plugins/with-android-signing',

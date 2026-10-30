@@ -58,8 +58,17 @@ describe('buildNotification', () => {
   it('devuelve null con la preferencia apagada', () => {
     expect(buildNotification(ev('answer', {}, { answers: false }))).toBeNull();
     expect(buildNotification(ev('comment', {}, { comments: false }))).toBeNull();
-    expect(buildNotification(ev('mood', {}, { moods: false }))).toBeNull();
     expect(buildNotification(ev('nudge', {}, { nudges: false }))).toBeNull();
+  });
+  it('mood con el aviso apagado manda un push de datos para el widget', () => {
+    const b = buildNotification(ev('mood', { emoji: '😀' }, { moods: false }));
+    expect(b).toEqual({
+      visible: false,
+      channelId: 'actividad',
+      data: { kind: 'widget', scope: 'mood' },
+    });
+    const { message } = buildFcmMessage('tok', b!);
+    expect(message.data).toEqual({ kind: 'widget', scope: 'mood' });
   });
   it('test ignora las preferencias', () => {
     const b = buildNotification(

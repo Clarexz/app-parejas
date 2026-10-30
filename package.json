@@ -1,7 +1,7 @@
 {
   "name": "app-parejas",
   "version": "0.0.0",
-  "main": "expo-router/entry",
+  "main": "index.ts",
   "dependencies": {
     "@expo-google-fonts/courier-prime": "^0.4.1",
     "@expo-google-fonts/figtree": "^0.4.1",
