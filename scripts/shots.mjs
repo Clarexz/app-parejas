@@ -11,7 +11,7 @@ const { chromium } = require('playwright');
 
 const DIST = 'dist';
 const OUT = 'shots';
-const DEFAULT_ROUTES = ['/'];
+const DEFAULT_ROUTES = ['/', '/catalogo'];
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -65,7 +65,21 @@ try {
       await page.waitForTimeout(500);
       const name = route === '/' ? 'index' : route.replace(/^\//, '').replace(/\//g, '-');
       const file = `${OUT}/${name}-${colorScheme}.png`;
-      await page.screenshot({ path: file });
+      // El scroll vive dentro de un ScrollView de RN-web: se mide su contenido y se agranda el
+      // viewport para que la captura de página completa lo muestre entero.
+      const scrollHeight = await page.evaluate(() =>
+        Math.max(
+          0,
+          ...[...document.querySelectorAll('div')].map((el) =>
+            el.scrollHeight > el.clientHeight + 1 ? el.scrollHeight : 0,
+          ),
+        ),
+      );
+      if (scrollHeight > 915) {
+        await page.setViewportSize({ width: 412, height: Math.min(scrollHeight + 80, 16000) });
+        await page.waitForTimeout(400);
+      }
+      await page.screenshot({ path: file, fullPage: true });
       console.log(`captura: ${file}`);
       await page.close();
     }

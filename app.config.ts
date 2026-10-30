@@ -20,7 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: ANDROID_PACKAGE,
     versionCode,
     adaptiveIcon: {
-      backgroundColor: '#E6F4FE',
+      backgroundColor: '#F7F4EC',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
       monochromeImage: './assets/images/android-icon-monochrome.png',
@@ -37,9 +37,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#208AEF',
+        backgroundColor: '#F7F4EC',
         image: './assets/images/splash-icon.png',
-        imageWidth: 76,
+        imageWidth: 200,
+        dark: { backgroundColor: '#23201B', image: './assets/images/splash-icon.png' },
       },
     ],
     'expo-secure-store',
