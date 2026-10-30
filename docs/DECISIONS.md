@@ -35,6 +35,9 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D28 | El **Catálogo de diseño** vive en `/catalogo`, oculto: se abre con pulsación larga sobre el título de la pantalla principal. `npm run shots` lo captura completo. | Revisar el sistema en el celular sin agregar navegación visible. | 2026-10-29 |
 | D29 | Ícono, ícono adaptativo y splash se generan de SVG en `assets/brand/` con `npm run brand` (Playwright); los PNG resultantes sí se commitean. | Assets reproducibles y editables sin herramientas de diseño. | 2026-10-29 |
 | D30 | La Fase 0.5 publica el APK **v0.0.2** (siguiente parche de la Fase 0, como indica `docs/releases/README.md`). | La 0.5 no tiene número propio. | 2026-10-29 |
+| D31 | Las fases siguientes **no esperan** a cerrar las pruebas pendientes de la Fase 0 (PLAN §10.1): siguen con código, CI y releases. | El usuario no podía probar en ese momento; no frenar el avance. | 2026-10-29 |
+| D32 | **Una versión = un release.** Las sesiones de la Fase 0 y la 0.5 publicaron ambas `v0.0.2` y el APK de una pisó al de la otra. Antes de lanzar `release-apk.yml`, cada sesión revisa los releases existentes y usa el siguiente número libre. La 0.5 + el parche del chequeo de conexión salen como **v0.0.3**. | Evitar releases revueltos. | 2026-10-30 |
+| D33 | La rama principal pasa a llamarse **`main`** (antes `claude/tender-brown-oe85rt`). Los PR de cada fase van contra `main`. | La rama por defecto con nombre de sesión era confusa. | 2026-10-30 |
 
 ## Pendientes
 

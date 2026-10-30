@@ -1,6 +1,6 @@
 import { checkServerHealth } from '../health';
 
-const res = (ok: boolean) => ({ ok }) as Response;
+const res = (ok: boolean, status = ok ? 200 : 503) => ({ ok, status }) as Response;
 const URL = 'https://api.example.com/';
 
 describe('checkServerHealth', () => {
@@ -33,6 +33,21 @@ describe('checkServerHealth', () => {
     ) as unknown as typeof fetch;
     expect(await checkServerHealth(URL, 'anon', f)).toMatchObject({
       auth: 'ok',
+      rest: 'error',
+      status: 'degraded',
+    });
+  });
+
+  it('REST con 401 (anon key en la raíz) cuenta como vivo; 404 no', async () => {
+    const withRest = (status: number) =>
+      jest.fn((u: string) =>
+        Promise.resolve(u.includes('/rest/') ? res(false, status) : res(true)),
+      ) as unknown as typeof fetch;
+    expect(await checkServerHealth(URL, 'anon', withRest(401))).toMatchObject({
+      rest: 'ok',
+      status: 'connected',
+    });
+    expect(await checkServerHealth(URL, 'anon', withRest(404))).toMatchObject({
       rest: 'error',
       status: 'degraded',
     });
