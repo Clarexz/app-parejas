@@ -28,6 +28,8 @@ jobs:
       - run: npm run typecheck
       - run: npm test -- --ci
       - run: npm run format:check
+      - name: Seed de preguntas al día
+        run: node scripts/build-seed.ts --check
       - name: Bundle de Android (expo export)
         run: npx expo export -p android --output-dir dist-android
         env:
@@ -86,6 +88,18 @@ jobs:
           echo "$out"
           if echo "$out" | grep -q '^+ '; then
             echo "::error::La segunda ejecución volvió a aplicar migraciones."
+            exit 1
+          fi
+
+      - name: Aplicar el seed de preguntas (dos veces, idempotencia)
+        run: |
+          bash scripts/apply-seed.sh
+          bash scripts/apply-seed.sh
+          expected="$(node scripts/build-seed.ts --check | sed -n 's/^Total: \([0-9]*\) preguntas$/\1/p')"
+          actual="$(psql "$DB_URL" -X -Atc 'select count(*) from public.questions where is_active')"
+          echo "preguntas activas: $actual (contenido: $expected)"
+          if [ -z "$expected" ] || [ "$expected" -le 0 ] || [ "$actual" != "$expected" ]; then
+            echo "::error::El conteo de preguntas activas ($actual) no coincide con el contenido ($expected)."
             exit 1
           fi
 

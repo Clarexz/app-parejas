@@ -59,6 +59,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "shots": "node scripts/shots.mjs",
+    "seed": "node scripts/build-seed.ts",
     "db:types": "bash scripts/gen-db-types.sh",
     "brand": "node scripts/gen-brand-assets.mjs"
   },

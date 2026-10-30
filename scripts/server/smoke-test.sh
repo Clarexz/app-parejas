@@ -92,7 +92,7 @@ espera_codigo 200 "Storage (/storage/v1/bucket, service key) -> 200" "Storage (/
 
 # --- (e) Base de datos --------------------------------------------------------------------
 if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || true)" == "true" ]]; then
-  for t in profiles couples couple_members moods; do
+  for t in profiles couples couple_members moods question_categories questions daily_questions answers answer_comments nudges; do
     rls="$(psql_db -At -c "select c.relrowsecurity from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relname = '$t' and c.relkind in ('r','p')" 2>/dev/null || true)"
     case "$rls" in
       t) ok "Tabla public.$t existe con RLS activada" ;;
@@ -100,6 +100,12 @@ if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || t
       *) falla "Tabla public.$t no existe (¿faltan migraciones?)" ;;
     esac
   done
+  nq="$(psql_db -At -c 'select count(*) from public.questions where is_active' 2>/dev/null || true)"
+  if [[ "$nq" =~ ^[0-9]+$ ]] && ((nq > 0)); then
+    ok "Preguntas activas en la BD: $nq"
+  else
+    falla "No hay preguntas activas (¿falta el seed? corre deploy.sh o scripts/apply-seed.sh)"
+  fi
   nmig="$(psql_db -At -c 'select count(*) from supabase_migrations.schema_migrations' 2>/dev/null || true)"
   nfiles="$(find "$REPO_DIR/supabase/migrations" -maxdepth 1 -name '*.sql' 2>/dev/null | wc -l | tr -d ' ')"
   if [[ -z "$nmig" ]]; then

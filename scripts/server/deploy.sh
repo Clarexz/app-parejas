@@ -11,8 +11,9 @@
 #   --local         el smoke test final usa la IP del gateway en app-parejas-net (sin Traefik ni HTTPS)
 #
 # Pasos: (1) repo limpio + git fetch/checkout/pull  (2) backup.sh --pre-deploy
-#        (3) scripts/apply-migrations.sh  (4) sincroniza supabase/functions -> stack/volumes/functions
-#            y reinicia `functions`  (5) buckets de server/buckets.json  (6) smoke-test.sh
+#        (3) scripts/apply-migrations.sh  (4) scripts/apply-seed.sh (seed de preguntas, idempotente)
+#        (5) sincroniza supabase/functions -> stack/volumes/functions y reinicia `functions`
+#        (6) buckets de server/buckets.json  (7) smoke-test.sh
 # =====================================================================================
 set -euo pipefail
 
@@ -47,7 +48,7 @@ tomar_lock deploy
 git_repo() { git -C "$REPO_DIR" "$@"; }
 
 # --- 1) Repo ------------------------------------------------------------------------------
-log "1/6 Repositorio ($REPO_DIR)"
+log "1/7 Repositorio ($REPO_DIR)"
 if [[ -n "$(git_repo status --porcelain)" ]]; then
   git_repo status --short >&2
   die "El clon tiene cambios locales. Nadie edita a mano en el VPS: revísalos (git stash / git checkout) y reintenta."
@@ -77,7 +78,7 @@ for f in docker-compose.override.yml docker-compose.logs.override.yml; do
 done
 
 # --- 2) Backup previo ---------------------------------------------------------------------
-log "2/6 Respaldo previo"
+log "2/7 Respaldo previo"
 if ((SALTAR_BACKUP)); then
   aviso "Se omite el respaldo (--skip-backup)."
 elif ((DRY_RUN)); then
@@ -87,7 +88,7 @@ else
 fi
 
 # --- 3) Migraciones -----------------------------------------------------------------------
-log "3/6 Migraciones"
+log "3/7 Migraciones"
 if ((DRY_RUN)); then
   aplicadas="$(psql_db -At -c 'select version from supabase_migrations.schema_migrations' 2>/dev/null || true)"
   pendientes=0
@@ -106,8 +107,17 @@ else
     bash "$REPO_DIR/scripts/apply-migrations.sh"
 fi
 
-# --- 4) Edge Functions --------------------------------------------------------------------
-log "4/6 Edge Functions"
+# --- 4) Seed de preguntas -----------------------------------------------------------------
+log "4/7 Seed de preguntas"
+if ((DRY_RUN)); then
+  log "   [dry-run] correría: apply-seed.sh (supabase/seed/*.sql, idempotente)"
+else
+  PSQL="docker exec -i $DB_CONTAINER psql -U $DB_USER -d ${POSTGRES_DB:-$DB_NAME_DEFAULT}" \
+    bash "$REPO_DIR/scripts/apply-seed.sh"
+fi
+
+# --- 5) Edge Functions --------------------------------------------------------------------
+log "5/7 Edge Functions"
 FUNC_SRC="$REPO_DIR/supabase/functions"
 FUNC_DST="$STACK_DIR/volumes/functions"
 if [[ ! -d "$FUNC_SRC" ]]; then
@@ -133,8 +143,8 @@ else
   fi
 fi
 
-# --- 5) Buckets de Storage ----------------------------------------------------------------
-log "5/6 Buckets de Storage"
+# --- 6) Buckets de Storage ----------------------------------------------------------------
+log "6/7 Buckets de Storage"
 BUCKETS_JSON="$REPO_DIR/server/buckets.json"
 if [[ ! -f "$BUCKETS_JSON" ]]; then
   log "   No existe server/buckets.json; se omite."
@@ -178,8 +188,8 @@ else
   done < <(jq -c '.[]' "$BUCKETS_JSON")
 fi
 
-# --- 6) Smoke test ------------------------------------------------------------------------
-log "6/6 Smoke test"
+# --- 7) Smoke test ------------------------------------------------------------------------
+log "7/7 Smoke test"
 if ((DRY_RUN)); then
   log "   [dry-run] correría: smoke-test.sh$([[ $LOCAL == 1 ]] && echo ' --local')"
   log "== Fin del dry-run =="

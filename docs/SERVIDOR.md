@@ -99,7 +99,8 @@ cd /opt/app-parejas/repo
 Qué hace, en orden: verifica que el clon no tenga cambios locales; `git fetch` + `checkout` + `pull
 --ff-only`; `backup.sh --pre-deploy` (dump previo, últimos 10); aplica `supabase/migrations/*.sql`
 con `scripts/apply-migrations.sh` (vía `PSQL="docker exec -i app-parejas-db psql ..."`, registra en
-`supabase_migrations.schema_migrations`, cada migración en su transacción); sincroniza
+`supabase_migrations.schema_migrations`, cada migración en su transacción); aplica el seed de
+preguntas `supabase/seed/*.sql` con `scripts/apply-seed.sh` (idempotente, ver `docs/CONTENT.md`); sincroniza
 `supabase/functions/` a `stack/volumes/functions/` con `rsync --delete` (conserva `main/`, el
 enrutador del edge-runtime) y reinicia `functions` solo si hubo cambios; crea/sincroniza los
 buckets de `server/buckets.json`; corre `smoke-test.sh`. Flags: `--skip-backup`, `--dry-run`,
