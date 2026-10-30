@@ -1026,7 +1026,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
 | 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
-| 5 Widgets Android | ⏳ Pendiente | | |
+| 5 Widgets Android | 🚧 En curso (2026-10-30) | | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
 | 6 Stories | ⏳ Pendiente | | |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
