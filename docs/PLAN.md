@@ -1025,7 +1025,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 1 Auth y emparejamiento | ✅ Cerrada (2026-10-30) | #5 | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
 | 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
-| 4 Push | 🟡 En cierre (2026-10-30) | | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). APK v0.4.0. Falta desplegar en el VPS y configurar Firebase (ver §10.1). |
+| 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
 | 5 Widgets Android | ⏳ Pendiente | | |
 | 6 Stories | ⏳ Pendiente | | |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
@@ -1055,14 +1055,17 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   - **Pendiente: correcciones de diseño menores** detectadas al probar la v0.3.0. Se dejaron para
     más adelante, cuando la app esté más avanzada (posiblemente junto con la Fase 12); pedirle al
     usuario el detalle antes de corregirlas.
-- **Fase 4:** pendiente que el usuario cree el proyecto de Firebase (`docs/SETUP.md` §1.1), cargue
-  `GOOGLE_SERVICES_JSON_BASE64` en GitHub y suba la cuenta de servicio al VPS; luego el prompt de
-  servidor de la fase (`deploy.sh` de la rama + `set-notify-config.sh` + `test-push.sh`). Probar el
-  APK **v0.4.0** con `docs/releases/v0.4.0.md` en los dos celulares.
+- **Fase 4:** servidor desplegado el 2026-10-30 (`deploy.sh claude/quirky-pasteur-9x38o6` en
+  `df41d37`; migración `20261102000000_notifications.sql`, función `notify`, `set-notify-config.sh`
+  con la cuenta de servicio de Firebase `app-par-946be`, smoke test OK sin avisos). El secreto
+  `GOOGLE_SERVICES_JSON_BASE64` se cargó en GitHub (el primer intento no era base64 válido;
+  `release-apk.yml` ahora acepta base64 o JSON y valida el paquete). Falta probar el APK
+  **v0.4.0** en los dos celulares con `docs/releases/v0.4.0.md` (prueba rápida: Más → Avisos →
+  "Mandarme una de prueba", o `scripts/server/test-push.sh <correo>` en el VPS).
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
-  quedó en la rama de la Fase 3 (`claude/elegant-hypatia-tyibam`, commit `5b3a14c`), con 4
+  quedó en la rama de la Fase 4 (`claude/quirky-pasteur-9x38o6`, commit `df41d37`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
-  - Si la Fase 3 (PR #7) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
+  - Si la Fase 4 (PR #8) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
     rama de la fase nueva. `deploy.sh` hace `git fetch`/`checkout`/`pull` de la rama que reciba, así
     que cambiar de rama no requiere pasos extra.
   - **Nunca** vuelvas a desplegar una rama de una fase anterior: las migraciones son
