@@ -50,6 +50,34 @@ const member = (user_id) => ({
   spicy_opt_in: false,
 });
 
+const minutesAgo = (m) => new Date(Date.now() - m * 60_000).toISOString();
+const mood = (id, user_id, emoji, note, ago) => ({
+  id: `44444444-4444-4444-8444-${String(id).padStart(12, '0')}`,
+  couple_id: COUPLE_ID,
+  user_id,
+  emoji,
+  note,
+  created_at: minutesAgo(ago),
+});
+
+// Moods de ejemplo (más nuevo primero), de ambos y de varios días.
+const sampleMoods = () => [
+  mood(1, ME_ID, '🥰', 'Con tacos en el camino a casa', 25),
+  mood(2, PARTNER_ID, '😴', 'Hoy ni con tres cafés', 130),
+  mood(3, ME_ID, '😅', null, 60 * 9),
+  mood(4, PARTNER_ID, '🤩', 'Ya casi sale el viaje', 60 * 26),
+  mood(5, ME_ID, '😌', 'Domingo de no hacer nada', 60 * 30),
+  mood(6, PARTNER_ID, '😢', null, 60 * 24 * 3),
+  mood(7, ME_ID, '🤗', 'Necesito un abrazo largo', 60 * 24 * 3 + 40),
+  mood(8, PARTNER_ID, '🫠', null, 60 * 24 * 9),
+];
+
+/** ISO 'YYYY-MM-DD' de hoy (Ciudad de México) menos `n` días. */
+const isoDaysAgo = (n) => {
+  const d = new Date(Date.now() - n * 86_400_000);
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City' }).format(d);
+};
+
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
 export const SCENARIOS = {
   signed_out: {
@@ -75,7 +103,51 @@ export const SCENARIOS = {
     me: profiles.me,
     partner: profiles.partner,
     members: [member(ME_ID), member(PARTNER_ID)],
-    routes: ['/', '/more', '/settings/profile', '/settings/couple'],
+    moods: sampleMoods,
+    routes: [
+      '/',
+      '/questions',
+      '/stories',
+      '/memories',
+      '/moods',
+      '/more',
+      '/settings/profile',
+      '/settings/couple',
+    ],
+  },
+  // Sin fecha de aniversario y sin moods (prefijo `empty-` en las capturas).
+  ready_empty: {
+    prefix: 'empty',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    couple: { ...couple, anniversary_date: null },
+    routes: ['/', '/moods'],
+  },
+  // Hoy es el día 1,000: sello de hito (prefijo `hito-`).
+  ready_hito: {
+    prefix: 'hito',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    couple: { ...couple, anniversary_date: isoDaysAgo(999) },
+    moods: sampleMoods,
+    routes: ['/'],
+  },
+  // Selector de mood abierto (prefijo `sheet-`). `actions` corre tras cargar cada ruta.
+  ready_sheet: {
+    prefix: 'sheet',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    routes: ['/'],
+    actions: {
+      '/': async (page) => {
+        await page.getByRole('button', { name: /Alita/ }).first().click();
+        await page.waitForTimeout(900);
+      },
+    },
   },
 };
 
@@ -191,7 +263,26 @@ export async function applyScenario(context, scenario) {
       return rows(route, request, list);
     }
     if (path === '/rest/v1/couples') {
-      return rows(route, request, (scenario.members ?? []).length ? [couple] : []);
+      return rows(
+        route,
+        request,
+        (scenario.members ?? []).length ? [scenario.couple ?? couple] : [],
+      );
+    }
+    if (path === '/rest/v1/moods') {
+      const list = typeof scenario.moods === 'function' ? scenario.moods() : (scenario.moods ?? []);
+      return json(route, list);
+    }
+    if (path === '/rest/v1/rpc/set_mood' && request.method() === 'POST') {
+      const body = request.postDataJSON?.() ?? {};
+      return json(route, {
+        id: '44444444-4444-4444-8444-999999999999',
+        couple_id: COUPLE_ID,
+        user_id: ME_ID,
+        emoji: body.p_emoji ?? '🙂',
+        note: body.p_note ?? null,
+        created_at: new Date().toISOString(),
+      });
     }
 
     // Storage: URL firmada que apunta al mismo host simulado.

@@ -8,6 +8,7 @@ import {
   formatBreakdown,
   formatDaysUntil,
   formatNumber,
+  formatTimeIn,
   isLeapYear,
   parseIsoDate,
   todayIn,
@@ -353,5 +354,26 @@ describe('formatos', () => {
     expect(formatDaysUntil(1)).toBe('mañana');
     expect(formatDaysUntil(15)).toBe('en 15 días');
     expect(formatDaysUntil(1500)).toBe('en 1,500 días');
+  });
+});
+
+describe('formatTimeIn', () => {
+  it('da la hora de 12 h en la zona dada', () => {
+    // 2026-10-30 03:41 UTC = 21:41 del día 29 en Ciudad de México (UTC-6, sin horario de verano).
+    expect(formatTimeIn('America/Mexico_City', new Date('2026-10-30T03:41:00Z'))).toBe(
+      '9:41 p. m.',
+    );
+    expect(formatTimeIn('America/Mexico_City', new Date('2026-10-30T15:05:00Z'))).toBe(
+      '9:05 a. m.',
+    );
+  });
+
+  it('medianoche es 12:xx a. m. y mediodía 12:xx p. m.', () => {
+    expect(formatTimeIn('UTC', new Date('2026-10-30T00:07:00Z'))).toBe('12:07 a. m.');
+    expect(formatTimeIn('UTC', new Date('2026-10-30T12:30:00Z'))).toBe('12:30 p. m.');
+  });
+
+  it('zona inválida cae a Ciudad de México', () => {
+    expect(formatTimeIn('No/Existe', new Date('2026-10-30T03:41:00Z'))).toBe('9:41 p. m.');
   });
 });

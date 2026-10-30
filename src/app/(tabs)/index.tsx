@@ -1,62 +1,91 @@
+import { useRouter } from 'expo-router';
+import { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
-import { Note, Polaroid, Screen, Stamp, Text } from '@/components';
-import { initialOf } from '@/components/Avatar';
-import { useCouple } from '@/features/couple';
-import { useSignedUrl, type Profile } from '@/features/profile';
-import { formatStampDate } from '@/lib/stampDate';
+import { Button, PageHeader, Screen, Text } from '@/components';
+import { useCouple, useToday } from '@/features/couple';
+import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
+import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
+import { haptic } from '@/lib/haptics';
+import { homeSummary } from '@/lib/home';
+import { formatStampIsoDate } from '@/lib/stampDate';
 import { useTheme } from '@/theme';
 
-function PersonPolaroid({
-  profile,
-  fallback,
-  tape,
-}: {
-  profile: Profile | null;
-  fallback: string;
-  tape: 'yellow' | 'mint';
-}) {
-  const { colors } = useTheme();
-  const url = useSignedUrl(profile?.avatar_path);
-  const label = profile?.nickname || profile?.display_name || fallback;
-  return (
-    <Polaroid
-      id={profile?.id ?? fallback}
-      size="M"
-      tape={tape}
-      caption={label}
-      source={url ?? undefined}
-      accessibilityLabel={label}
-    >
-      <Text variant="hero" style={{ color: colors.inkMuted }}>
-        {initialOf(label)}
-      </Text>
-    </Polaroid>
-  );
-}
-
 export default function HomeScreen() {
-  const { spacing, colors } = useTheme();
-  const { me, partner } = useCouple();
+  const { spacing } = useTheme();
+  const router = useRouter();
+  const { couple, me, partner, refetch: refetchCouple } = useCouple();
+  const { today } = useToday();
+  const { latestByUser, isLoading, isError, refetch: refetchMoods } = useMoods();
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [partnerPulse, setPartnerPulse] = useState(0);
+
+  useMoodRealtime(couple?.id ?? null, () => {
+    setPartnerPulse((n) => n + 1);
+    haptic.stick();
+  });
+
+  const anniversary = couple?.anniversary_date ?? null;
+  const summary = useMemo(() => homeSummary(anniversary, today), [anniversary, today]);
+
+  const myMood = (me && latestByUser[me.id]) || null;
+  const partnerMood = (partner && latestByUser[partner.id]) || null;
+
+  const refresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([refetchCouple(), refetchMoods()]);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refetchCouple, refetchMoods]);
+
   return (
-    <Screen scroll>
+    <Screen scroll refreshing={refreshing} onRefresh={refresh}>
       <View style={{ gap: spacing.xl }}>
-        <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
-          <Stamp>{formatStampDate(new Date())}</Stamp>
-          <Text variant="display" accessibilityRole="header">
-            Ustedes dos
-          </Text>
+        <PageHeader stamp={formatStampIsoDate(today)} title="Ustedes dos" />
+
+        <View style={{ gap: spacing.md }}>
+          <View style={{ flexDirection: 'row', gap: spacing.md, paddingTop: spacing.md }}>
+            <PersonPolaroid
+              profile={me}
+              fallback="Tú"
+              tape="yellow"
+              mood={myMood}
+              moodsLoading={isLoading}
+              onPress={() => setSheetOpen(true)}
+            />
+            <PersonPolaroid
+              profile={partner}
+              fallback="Tu pareja"
+              tape="mint"
+              mood={partnerMood}
+              moodsLoading={isLoading}
+              pulse={partnerPulse}
+            />
+          </View>
+          {isError ? (
+            <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
+              No pudimos traer los moods. Desliza hacia abajo para reintentar.
+            </Text>
+          ) : null}
+          <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
+            <Button
+              title="Ver cómo han andado"
+              variant="ghost"
+              onPress={() => router.push('/moods')}
+            />
+          </View>
         </View>
-        <View style={{ flexDirection: 'row', gap: spacing.md, paddingTop: spacing.sm }}>
-          <PersonPolaroid profile={me} fallback="Tú" tape="yellow" />
-          <PersonPolaroid profile={partner} fallback="Tu pareja" tape="mint" />
-        </View>
-        <Note tilt={1} tape={false}>
-          <Text variant="hand" style={{ color: colors.onPostit }}>
-            El Inicio completo llega en la próxima versión. Por ahora, aquí están ustedes.
-          </Text>
-        </Note>
+
+        <DaysTogether summary={summary} anniversary={anniversary} />
+
+        {summary.state === 'counting' ? <UpcomingList items={summary.upcoming} /> : null}
+
+        <HomePlaceholders />
       </View>
+      <MoodSheet visible={sheetOpen} onClose={() => setSheetOpen(false)} current={myMood} />
     </Screen>
   );
 }

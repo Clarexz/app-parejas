@@ -239,7 +239,8 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | Componente | Qué es | Variantes | Estados |
 |---|---|---|---|
 | `Paper` | La hoja de fondo | `notebook` · `plain` · `ruled` | — |
-| `Screen` | Contenedor de pantalla con `Paper`, safe area y gutters | `scroll` sí/no, `paper` | — |
+| `PageHeader` | Encabezado de página (§8): `Stamp` con la fecha/folio, título `display` y acción opcional a la derecha | `stamp`, `title`, `right` | — |
+| `Screen` | Contenedor de pantalla con `Paper`, safe area y gutters. Con `scroll`, acepta `refreshing` y `onRefresh` para jalar y refrescar (indicador Jamaica sobre `paperRaised`) | `scroll` sí/no, `paper` | refrescando |
 | `Text` | Texto con la escala §2.2 | `variant` = token de tipo; `tone` = `ink`·`muted`·`faint`·`jamaica`·`chile`·`nopal` | — |
 | `Button` | Acción (`fullWidth` para auth y onboarding) | `primary` (Jamaica, forma `hand`, Gochi Hand 20, sombra `ink`) · `secondary` (contorno tinta 1.5 dp, Figtree 600) · `ghost` (solo texto subrayado a mano) | normal, presionado (se hunde 2 dp y pierde sombra), deshabilitado (`inkFaint`, sin sombra), cargando (lápiz que garabatea) |
 | `IconButton` | Icono tocable 44×44 | `plain` · `sticker` (círculo Jamaica) | normal, presionado, deshabilitado |
@@ -257,6 +258,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `Toast` | Post-it que se pega arriba | `info` · `success` (Nopal) · `error` (Chile) | entra con "pegar", se va solo en 3.5 s |
 | `EmptyState` | Página vacía con ilustración | ilustración + título a mano + texto + acción opcional | — |
 | `Doodle` | Garabato de énfasis | `underline` · `circle` · `arrow` · `star` | se dibuja una vez |
+| `LoadingLines` | Estado de carga: renglones que se escriben solos (sin spinner) | `count` | con "reducir movimiento" quedan fijos |
 | `Divider` | Línea a mano punteada | `dashed` · `solid` | — |
 | `Icon` | Icono del set §3 | `name`, `size`, `color` | — |
 | `DateField` | Fecha como sello de fechador: 3 casillas DD / MM / AAAA en Courier Prime 700, etiqueta a mano; solo captura dígitos y salta el foco (no valida) | `label` | foco (borde Jamaica 2 dp), error (borde y mensaje `chile`), deshabilitado |
@@ -264,6 +266,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `CodeInput` | 6 casillas para escribir el código (una `TextInput` transparente encima); mayúsculas, ignora espacios/guiones, alfabeto `ABCDEFGHJKMNPQRSTUVWXYZ23456789` | `value`, `onChangeText` | activa (Jamaica), error, deshabilitado |
 | `AvatarPicker` | Polaroid grande (L) con inicial a mano y sticker de cámara para elegir foto | `person` · `couple` | sin foto, con foto, `loading` (se "revela" con pulso) |
 | `TabBar` | Barra de pestañas para `Tabs` de expo-router (`tabBar`); `TAB_ICONS` mapea ruta → icono | — | activa (Jamaica), presionada |
+| `MoodSheet` | Selector de mood sobre `Sheet` (`src/features/mood/components/`): título a mano "¿Cómo te sientes?", rejilla 4×4 de los 16 moods (emoji grande + `caption`, ≥ 44 dp), nota opcional de 80 letras con contador y botón "Pegar mi mood" a la izquierda | `current` preselecciona | seleccionado (contorno tinta 1.5 dp), guardando, error (Toast) |
 | `ListRow` | Renglón tocable (icono + texto Figtree + flecha) separado por `Divider`, para "Más" y ajustes | `default` · `destructive` (Chile, sin flecha); `value`, `divider` | normal, presionado, deshabilitado |
 
 ## 8. Patrones de pantalla

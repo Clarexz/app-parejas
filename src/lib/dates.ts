@@ -241,3 +241,32 @@ export function formatDaysUntil(n: number): string {
   if (n === 1) return 'mañana';
   return `en ${formatNumber(n)} días`;
 }
+
+function timePartsInZone(timeZone: string, date: Date): { hour: number; minute: number } | null {
+  try {
+    const fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      hour: 'numeric',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    });
+    const parts = fmt.formatToParts(date);
+    const hour = Number(parts.find((x) => x.type === 'hour')?.value);
+    const minute = Number(parts.find((x) => x.type === 'minute')?.value);
+    if (Number.isFinite(hour) && Number.isFinite(minute)) return { hour: hour % 24, minute };
+  } catch {
+    // zona inválida o Intl no disponible
+  }
+  return null;
+}
+
+/** Hora de reloj de 12 h en la zona dada: "9:41 a. m." / "9:41 p. m." (inválida → Ciudad de México). */
+export function formatTimeIn(timeZone: string, date: Date): string {
+  const t = timePartsInZone(timeZone, date) ??
+    timePartsInZone(DEFAULT_TIME_ZONE, date) ?? {
+      hour: date.getHours(),
+      minute: date.getMinutes(),
+    };
+  const h12 = t.hour % 12 === 0 ? 12 : t.hour % 12;
+  return `${h12}:${String(t.minute).padStart(2, '0')} ${t.hour < 12 ? 'a. m.' : 'p. m.'}`;
+}

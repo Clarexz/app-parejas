@@ -43,6 +43,7 @@ type Props = {
   tilt?: number;
   onPress?: () => void;
   accessibilityLabel?: string;
+  accessibilityHint?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -58,6 +59,7 @@ export function Polaroid({
   tilt,
   onPress,
   accessibilityLabel,
+  accessibilityHint,
   style,
 }: Props) {
   const { colors, spacing, radius, shadows, motion } = useTheme();
@@ -143,6 +145,7 @@ export function Polaroid({
         onPress={onPress}
         accessibilityRole={onPress ? 'button' : 'image'}
         accessibilityLabel={accessibilityLabel ?? caption}
+        accessibilityHint={accessibilityHint}
         style={({ pressed }) => ({
           width,
           backgroundColor: colors.polaroid,
