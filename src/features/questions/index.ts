@@ -18,3 +18,9 @@ export {
   useSubmitAnswer,
 } from './hooks';
 export type { QuestionsRealtimeHandlers, SubmitAnswerInput, SubmitAnswerResult } from './hooks';
+export { useCelebrationStore } from './celebration';
+export { Celebration } from './components/Celebration';
+export { DailyQuestionCard, DailyQuestionCardView } from './components/DailyQuestionCard';
+export { QuestionsEvents } from './components/QuestionsEvents';
+export { StreakNote } from './components/StreakNote';
+export { QuestionView } from './components/QuestionView';

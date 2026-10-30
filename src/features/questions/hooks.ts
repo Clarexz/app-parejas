@@ -77,6 +77,7 @@ type QueryLike = {
   isLoading: boolean;
   isError: boolean;
   data: unknown;
+  error: unknown;
   refetch: () => unknown;
   isRefetching: boolean;
 };
@@ -86,6 +87,7 @@ function viewState(query: QueryLike, coupleId: string | null) {
   return {
     isLoading: !!coupleId && query.isLoading,
     isError: query.isError && !query.data,
+    error: query.error,
     refetch: query.refetch,
     isRefetching: query.isRefetching,
   };

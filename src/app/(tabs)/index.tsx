@@ -6,7 +6,6 @@ import { Button, PageHeader, Screen, Text } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
 import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
-import { useQuestionsRealtime } from '@/features/questions';
 import { haptic } from '@/lib/haptics';
 import { homeSummary } from '@/lib/home';
 import { formatStampIsoDate } from '@/lib/stampDate';
@@ -26,8 +25,6 @@ export default function HomeScreen() {
     setPartnerPulse((n) => n + 1);
     haptic.stick();
   });
-
-  useQuestionsRealtime(couple?.id ?? null);
 
   const anniversary = couple?.anniversary_date ?? null;
   const summary = useMemo(() => homeSummary(anniversary, today), [anniversary, today]);

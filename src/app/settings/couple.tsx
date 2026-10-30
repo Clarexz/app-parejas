@@ -14,6 +14,7 @@ import {
   useToast,
 } from '@/components';
 import { useCouple, useUpdateCouple, useUploadCouplePhoto } from '@/features/couple';
+import { SpicyOptIn } from '@/features/questions/components/SpicyOptIn';
 import { pickImage, useSignedUrl } from '@/features/profile';
 import { isoDateToParts, optionalIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
@@ -108,6 +109,9 @@ export default function CoupleSettingsScreen() {
           disabled={!couple || sameZone}
           loading={update.isPending}
         />
+
+        <Divider />
+        <SpicyOptIn />
 
         <Divider />
         <View style={{ gap: spacing.sm }}>
