@@ -1025,7 +1025,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 1 Auth y emparejamiento | ✅ Cerrada (2026-10-30) | #5 | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
 | 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
-| 4 Push | ⏳ Pendiente | | |
+| 4 Push | 🟡 En cierre (2026-10-30) | | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). APK v0.4.0. Falta desplegar en el VPS y configurar Firebase (ver §10.1). |
 | 5 Widgets Android | ⏳ Pendiente | | |
 | 6 Stories | ⏳ Pendiente | | |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
@@ -1055,6 +1055,10 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   - **Pendiente: correcciones de diseño menores** detectadas al probar la v0.3.0. Se dejaron para
     más adelante, cuando la app esté más avanzada (posiblemente junto con la Fase 12); pedirle al
     usuario el detalle antes de corregirlas.
+- **Fase 4:** pendiente que el usuario cree el proyecto de Firebase (`docs/SETUP.md` §1.1), cargue
+  `GOOGLE_SERVICES_JSON_BASE64` en GitHub y suba la cuenta de servicio al VPS; luego el prompt de
+  servidor de la fase (`deploy.sh` de la rama + `set-notify-config.sh` + `test-push.sh`). Probar el
+  APK **v0.4.0** con `docs/releases/v0.4.0.md` en los dos celulares.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 3 (`claude/elegant-hypatia-tyibam`, commit `5b3a14c`), con 4
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
