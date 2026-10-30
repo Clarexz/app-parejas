@@ -1046,8 +1046,17 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 - **Fase 2:** servidor desplegado el 2026-10-30 (`deploy.sh` de la rama de la fase en `fb87659`;
   migración `20261031000000_moods.sql`, `moods` en Realtime, smoke test OK). Falta probar el APK
   **v0.2.0** en los dos celulares con la lista de `docs/releases/v0.2.0.md`.
-- **Nota para el servidor:** tras el merge, el clon del VPS sigue en la rama de la Fase 1; el
-  siguiente despliegue debe usar `deploy.sh main` (o la rama de la fase nueva).
+- **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
+  quedó en la rama de la Fase 2 (`claude/sweet-ride-xx0i0m`, commit `fb87659`), con 3 migraciones
+  aplicadas. Al preparar el siguiente "Prompt para el servidor":
+  - Si la Fase 2 (PR #6) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
+    rama de la fase nueva. `deploy.sh` hace `git fetch`/`checkout`/`pull` de la rama que reciba, así
+    que cambiar de rama no requiere pasos extra.
+  - **Nunca** vuelvas a desplegar una rama de una fase anterior: las migraciones son
+    acumulativas y el smoke test compara las registradas con los archivos del repo.
+  - Al empezar una fase, revisa con `git log origin/main` que la fase anterior ya esté en `main`.
+    Si no lo está, la rama nueva debe partir de la de la fase anterior para no "perder" migraciones
+    que ya están en el servidor.
 
 ---
 
