@@ -33,6 +33,9 @@ jest.mock('@/features/mood', () => ({
   useMoodRealtime: jest.fn(),
   MoodSheet: () => null,
 }));
+jest.mock('@/features/notifications', () => ({
+  usePushSoftAsk: () => ({ visible: false, accept: jest.fn(), dismiss: jest.fn() }),
+}));
 jest.mock('@/features/questions', () => ({
   DailyQuestionCard: () => null,
   StreakNote: () => null,

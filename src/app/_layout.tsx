@@ -10,7 +10,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -94,7 +94,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
         <LoadingView />
       )}
       {stage === 'ready' ? <QuestionsEvents /> : null}
-      {stage === 'ready' ? <NotificationsBridge /> : null}
+      {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
     </>
   );
 }

@@ -379,6 +379,44 @@ export const SCENARIOS = {
     streak: () => streakWith(0, 0, []),
     routes: ['/'],
   },
+  // Ajustes de avisos con preferencias a medias (prefijo `avisos-`). En web el permiso es
+  // 'unavailable'; los otros estados del permiso, el TimeField y el aviso previo se revisan en
+  // `/catalogo`.
+  avisos: {
+    prefix: 'avisos',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    prefs: [
+      {
+        answers: true,
+        comments: true,
+        moods: false,
+        nudges: true,
+        reminder_enabled: true,
+        reminder_time: '21:00:00',
+      },
+    ],
+    routes: ['/settings/notifications'],
+  },
+  // Recordatorio apagado: el selector de hora queda deshabilitado (prefijo `avisos-apagado-`).
+  avisos_apagado: {
+    prefix: 'avisos-apagado',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    prefs: [
+      {
+        answers: true,
+        comments: false,
+        moods: false,
+        nudges: true,
+        reminder_enabled: false,
+        reminder_time: '08:45:00',
+      },
+    ],
+    routes: ['/settings/notifications'],
+  },
   // Pantalla de pregunta (prefijo `pregunta-...`). `actions` corre tras cargar cada ruta.
   pregunta_open: {
     prefix: 'pregunta-open',
@@ -655,6 +693,12 @@ export async function applyScenario(context, scenario) {
         created_at: new Date().toISOString(),
       });
     }
+
+    if (path === '/rest/v1/notification_prefs') {
+      if (request.method() !== 'GET') return route.fulfill({ status: 204, headers: CORS });
+      return rows(route, request, scenario.prefs ?? []);
+    }
+    if (path === '/rest/v1/rpc/send_test_notification') return json(route, true);
 
     if (path === '/rest/v1/question_categories') return json(route, CATEGORIES);
     if (path === '/rest/v1/rpc/get_streak') {

@@ -11,6 +11,9 @@ import {
   CloudOff,
   CodeInput,
   DateField,
+  PermissionNote,
+  SoftAskNote,
+  TimeField,
   Divider,
   Doodle,
   EmptyPolaroid,
@@ -138,6 +141,7 @@ export default function CatalogScreen() {
   const [date, setDate] = useState({ day: '14', month: '', year: '' });
   const [code, setCode] = useState('AB7');
   const [tab, setTab] = useState(0);
+  const [time, setTime] = useState('21:00');
 
   return (
     <Screen scroll>
@@ -432,6 +436,42 @@ export default function CatalogScreen() {
           onChange={() => undefined}
           disabled
         />
+      </Section>
+
+      <Section title="Hora (TimeField)">
+        <TimeField label="A qué hora" value={time} onChange={setTime} />
+        <TimeField label="Apagado" value="08:45" onChange={() => undefined} disabled />
+      </Section>
+
+      <Section title="Permiso de avisos (PermissionNote)">
+        <PermissionNote
+          status="undetermined"
+          canAskAgain
+          onRequest={() => undefined}
+          onOpenSettings={() => undefined}
+        />
+        <PermissionNote
+          status="denied"
+          canAskAgain={false}
+          onRequest={() => undefined}
+          onOpenSettings={() => undefined}
+        />
+        <PermissionNote
+          status="granted"
+          canAskAgain={false}
+          onRequest={() => undefined}
+          onOpenSettings={() => undefined}
+        />
+        <PermissionNote
+          status="unavailable"
+          canAskAgain={false}
+          onRequest={() => undefined}
+          onOpenSettings={() => undefined}
+        />
+      </Section>
+
+      <Section title="Aviso previo (SoftAskNote)">
+        <SoftAskNote partnerName="Ale" onAccept={() => undefined} onDismiss={() => undefined} />
       </Section>
 
       <Section title="Código de invitación">

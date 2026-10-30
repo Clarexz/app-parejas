@@ -2,10 +2,11 @@ import { useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, PageHeader, Screen, Text } from '@/components';
+import { Button, PageHeader, Screen, SoftAskNote, Text } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
 import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
+import { usePushSoftAsk } from '@/features/notifications';
 import { haptic } from '@/lib/haptics';
 import { homeSummary } from '@/lib/home';
 import { formatStampIsoDate } from '@/lib/stampDate';
@@ -17,6 +18,7 @@ export default function HomeScreen() {
   const { couple, me, partner, refetch: refetchCouple } = useCouple();
   const { today } = useToday();
   const { latestByUser, isLoading, isError, refetch: refetchMoods } = useMoods();
+  const softAsk = usePushSoftAsk();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [partnerPulse, setPartnerPulse] = useState(0);
@@ -83,7 +85,17 @@ export default function HomeScreen() {
 
         {summary.state === 'counting' ? <UpcomingList items={summary.upcoming} /> : null}
 
-        <HomePlaceholders />
+        <HomePlaceholders
+          afterQuestion={
+            softAsk.visible ? (
+              <SoftAskNote
+                partnerName={partner?.nickname || partner?.display_name}
+                onAccept={() => void softAsk.accept()}
+                onDismiss={softAsk.dismiss}
+              />
+            ) : null
+          }
+        />
       </View>
       <MoodSheet visible={sheetOpen} onClose={() => setSheetOpen(false)} current={myMood} />
     </Screen>

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { View } from 'react-native';
 
 import { Card, Text } from '@/components';
@@ -6,11 +7,12 @@ import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 /** Pregunta del día y racha (Fase 3); cuenta regresiva y distancia llegan en fases siguientes. */
-export function HomePlaceholders() {
+export function HomePlaceholders({ afterQuestion }: { afterQuestion?: ReactNode }) {
   const { spacing } = useTheme();
   return (
     <View style={{ gap: spacing.xl }}>
       <DailyQuestionCard />
+      {afterQuestion}
       <StreakNote />
       <Card tilt={tiltFor('cuenta-regresiva', 1) || 1}>
         <Text variant="hand">Cuenta regresiva</Text>
