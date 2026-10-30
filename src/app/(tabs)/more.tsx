@@ -55,6 +55,7 @@ export default function MoreScreen() {
             icon="bell"
             onPress={() => router.push('/settings/notifications')}
           />
+          <ListRow label="Widgets" icon="home" onPress={() => router.push('/widgets')} />
           <ListRow
             label="Estado del servidor"
             icon="settings"

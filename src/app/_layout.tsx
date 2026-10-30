@@ -21,6 +21,7 @@ import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
 import { NotificationsBridge } from '@/features/notifications';
 import { QuestionsEvents } from '@/features/questions';
+import { WidgetsBridge } from '@/features/widgets';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 
@@ -82,6 +83,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="moods" />
             <Stack.Screen name="question" />
             <Stack.Screen name="history" />
+            <Stack.Screen name="widgets" />
             <Stack.Screen name="category/[slug]" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
@@ -95,6 +97,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       )}
       {stage === 'ready' ? <QuestionsEvents /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
+      {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
     </>
   );
 }
