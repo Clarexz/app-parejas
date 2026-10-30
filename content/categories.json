@@ -1,0 +1,15 @@
+{
+  "categories": [
+    { "slug": "conocernos", "name": "Conocernos", "emoji": "🔎", "intensity": "ligera", "position": 1, "description": "Gustos, manías y detalles chiquitos que todavía no se saben." },
+    { "slug": "recuerdos", "name": "Recuerdos", "emoji": "📷", "intensity": "ligera", "position": 2, "description": "Lo que ya vivieron (juntos y antes de conocerse)." },
+    { "slug": "a-distancia", "name": "A distancia", "emoji": "✈️", "intensity": "profunda", "position": 3, "description": "Para cuando hay kilómetros de por medio." },
+    { "slug": "amor", "name": "Amor", "emoji": "💌", "intensity": "profunda", "position": 4, "description": "Cómo se quieren, cómo se lo demuestran." },
+    { "slug": "futuro", "name": "Nuestro futuro", "emoji": "🧭", "intensity": "profunda", "position": 5, "description": "Planes, sueños y lo que viene." },
+    { "slug": "divertidas", "name": "Divertidas", "emoji": "🎈", "intensity": "ligera", "position": 6, "description": "Para reírse un rato." },
+    { "slug": "hipoteticas", "name": "Hipotéticas", "emoji": "🎲", "intensity": "ligera", "position": 7, "description": "¿Y si…? Escenarios imposibles y no tanto." },
+    { "slug": "valores", "name": "Valores", "emoji": "🧱", "intensity": "profunda", "position": 8, "description": "Lo que les importa de verdad." },
+    { "slug": "viajes", "name": "Viajes", "emoji": "🗺️", "intensity": "ligera", "position": 9, "description": "Lugares, rutas y escapadas soñadas." },
+    { "slug": "familia", "name": "Familia", "emoji": "🏠", "intensity": "profunda", "position": 10, "description": "De dónde vienen y qué familia quieren ser." },
+    { "slug": "picantes", "name": "Picantes", "emoji": "🌶️", "intensity": "picante", "position": 11, "description": "Solo si los dos la activan. Deseo, química y confianza." }
+  ]
+}

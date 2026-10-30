@@ -3,6 +3,108 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      answer_comments: {
+        Row: {
+          body: string;
+          couple_id: string;
+          created_at: string;
+          id: string;
+          question_id: string;
+          reactions: NonNullable<Json>;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          body: string;
+          couple_id: string;
+          created_at?: string;
+          id?: string;
+          question_id: string;
+          reactions?: NonNullable<Json>;
+          user_id: string;
+        };
+        Update: {
+          body?: string;
+          couple_id?: string;
+          created_at?: string;
+          id?: string;
+          question_id?: string;
+          reactions?: NonNullable<Json>;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'answer_comments_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'answer_comments_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      answers: {
+        Row: {
+          audio_path: string | null;
+          choice: number | null;
+          couple_id: string;
+          created_at: string;
+          day: string | null;
+          id: string;
+          question_id: string;
+          text: string | null;
+          updated_at: string;
+          user_id: string;
+          answer_json: Json | null;
+        };
+        ComputedFields: 'answer_json';
+        Insert: {
+          audio_path?: string | null;
+          choice?: number | null;
+          couple_id: string;
+          created_at?: string;
+          day?: string | null;
+          id?: string;
+          question_id: string;
+          text?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          audio_path?: string | null;
+          choice?: number | null;
+          couple_id?: string;
+          created_at?: string;
+          day?: string | null;
+          id?: string;
+          question_id?: string;
+          text?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'answers_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'answers_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       couple_members: {
         Row: {
           couple_id: string;
@@ -64,6 +166,46 @@ export type Database = {
         };
         Relationships: [];
       };
+      daily_questions: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          day: string;
+          question_id: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          day: string;
+          question_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          day?: string;
+          question_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'daily_questions_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'daily_questions_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       moods: {
         Row: {
           couple_id: string;
@@ -100,6 +242,42 @@ export type Database = {
           },
         ];
       };
+      nudges: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          from_user: string;
+          id: string;
+          kind: string;
+          to_user: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          from_user: string;
+          id?: string;
+          kind?: string;
+          to_user: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          from_user?: string;
+          id?: string;
+          kind?: string;
+          to_user?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'nudges_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;
@@ -128,13 +306,126 @@ export type Database = {
         };
         Relationships: [];
       };
+      question_categories: {
+        Row: {
+          created_at: string;
+          description: string;
+          emoji: string;
+          intensity: string;
+          name: string;
+          position: number;
+          slug: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          description?: string;
+          emoji: string;
+          intensity: string;
+          name: string;
+          position?: number;
+          slug: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          emoji?: string;
+          intensity?: string;
+          name?: string;
+          position?: number;
+          slug?: string;
+        };
+        Relationships: [];
+      };
+      questions: {
+        Row: {
+          category: string;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          intensity: string;
+          is_active: boolean;
+          options: Json | null;
+          slug: string;
+          text: string;
+          type: string;
+          question_json: Json | null;
+          question_visible: boolean | null;
+        };
+        ComputedFields: 'question_json' | 'question_visible';
+        Insert: {
+          category: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          intensity: string;
+          is_active?: boolean;
+          options?: Json | null;
+          slug: string;
+          text: string;
+          type: string;
+        };
+        Update: {
+          category?: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          intensity?: string;
+          is_active?: boolean;
+          options?: Json | null;
+          slug?: string;
+          text?: string;
+          type?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'questions_category_fkey';
+            columns: ['category'];
+            isOneToOne: false;
+            referencedRelation: 'question_categories';
+            referencedColumns: ['slug'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
+      add_comment: {
+        Args: { p_body: string; p_question_id: string };
+        Returns: {
+          body: string;
+          couple_id: string;
+          created_at: string;
+          id: string;
+          question_id: string;
+          reactions: NonNullable<Json>;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'answer_comments';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      answer_json: {
+        Args: {
+          p_answer: Omit<
+            Database['public']['Tables']['answers']['Row'],
+            Database['public']['Tables']['answers']['ComputedFields']
+          >;
+        };
+        Returns: Json;
+      };
       avatar_folder_readable: { Args: { p_name: string }; Returns: boolean };
       avatar_folder_writable: { Args: { p_name: string }; Returns: boolean };
+      couple_complete_days: { Args: { p_couple_id: string }; Returns: string[] };
+      couple_member_count: { Args: { p_couple_id: string }; Returns: number };
+      couple_spicy_active: { Args: { p_couple_id: string }; Returns: boolean };
+      couple_start_day: { Args: { p_couple_id: string }; Returns: string };
+      couple_today: { Args: { p_couple_id: string }; Returns: string };
       create_couple: {
         Args: { p_anniversary_date?: string; p_timezone?: string };
         Returns: {
@@ -153,8 +444,33 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      delete_answer: { Args: { p_question_id: string }; Returns: undefined };
+      delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
+      fold_text: { Args: { p_text: string }; Returns: string };
       generate_invite_code: { Args: Record<PropertyKey, never>; Returns: string };
+      get_category_questions: {
+        Args: { p_category: string };
+        Returns: {
+          answered_by_me: boolean;
+          answered_by_partner: boolean;
+          id: string;
+          intensity: string;
+          options: Json;
+          slug: string;
+          text: string;
+          type: string;
+        }[];
+      };
+      get_daily_question: { Args: { p_day?: string }; Returns: Json };
+      get_history: {
+        Args: { p_before?: string; p_category?: string; p_limit?: number; p_search?: string };
+        Returns: Json[];
+      };
+      get_question_with_answers: { Args: { p_question_id: string }; Returns: Json };
+      get_streak: { Args: Record<PropertyKey, never>; Returns: Json };
+      has_answered: { Args: { p_couple_id: string; p_question_id: string }; Returns: boolean };
       is_couple_member: { Args: { p_couple_id: string }; Returns: boolean };
+      is_current_member: { Args: { p_couple_id: string; p_user_id: string }; Returns: boolean };
       join_couple: {
         Args: { p_code: string };
         Returns: {
@@ -175,6 +491,65 @@ export type Database = {
       };
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
+      pick_daily_question: { Args: { p_couple_id: string }; Returns: string };
+      question_card: {
+        Args: { p_couple_id: string; p_day: string; p_question_id: string };
+        Returns: Json;
+      };
+      question_json: {
+        Args: {
+          p_question: Omit<
+            Database['public']['Tables']['questions']['Row'],
+            Database['public']['Tables']['questions']['ComputedFields']
+          >;
+        };
+        Returns: Json;
+      };
+      question_visible: {
+        Args: {
+          p_question: Omit<
+            Database['public']['Tables']['questions']['Row'],
+            Database['public']['Tables']['questions']['ComputedFields']
+          >;
+        };
+        Returns: boolean;
+      };
+      react_to_comment: {
+        Args: { p_comment_id: string; p_emoji?: string };
+        Returns: {
+          body: string;
+          couple_id: string;
+          created_at: string;
+          id: string;
+          question_id: string;
+          reactions: NonNullable<Json>;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'answer_comments';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      require_couple: { Args: Record<PropertyKey, never>; Returns: string };
+      send_nudge: {
+        Args: { p_kind?: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          from_user: string;
+          id: string;
+          kind: string;
+          to_user: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'nudges';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       set_mood: {
         Args: { p_emoji: string; p_note?: string };
         Returns: {
@@ -191,6 +566,11 @@ export type Database = {
           isOneToOne: true;
           isSetofReturn: false;
         };
+      };
+      set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
+      submit_answer: {
+        Args: { p_choice?: number; p_question_id: string; p_text?: string };
+        Returns: Json;
       };
     };
     Enums: {

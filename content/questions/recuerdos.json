@@ -1,0 +1,176 @@
+{
+  "category": "recuerdos",
+  "questions": [
+    {
+      "slug": "recuerdos-primera-impresion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que pensaste de mí cuando nos conocimos?"
+    },
+    {
+      "slug": "recuerdos-primer-mensaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdas del primer mensaje que nos mandamos?"
+    },
+    {
+      "slug": "recuerdos-momento-de-risa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido nuestro momento de risa más fuerte hasta ahorita?"
+    },
+    {
+      "slug": "recuerdos-cuando-fue-en-serio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te diste cuenta de que esto iba en serio?"
+    },
+    {
+      "slug": "recuerdos-foto-favorita-de-los-dos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu foto favorita de los dos y qué pasó justo antes de que se tomara?"
+    },
+    {
+      "slug": "recuerdos-juego-de-infancia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál era tu juego favorito de niñez?",
+      "options": ["Las escondidas", "Videojuegos", "Muñecos o carritos", "Inventar historias"]
+    },
+    {
+      "slug": "recuerdos-vacaciones-de-nino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu niñez, ¿cómo eran tus vacaciones típicas?",
+      "options": [
+        "En casa de los abuelos",
+        "En la playa",
+        "En un pueblo o rancho",
+        "En casa viendo la tele"
+      ]
+    },
+    {
+      "slug": "recuerdos-plan-favorito-de-pareja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué plan de pareja ha sido tu favorito hasta ahorita?",
+      "options": [
+        "Una videollamada larguísima",
+        "Una visita en persona",
+        "Una salida a comer",
+        "Un día cualquiera platicando"
+      ]
+    },
+    {
+      "slug": "recuerdos-olor-de-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te lleva directito a tu infancia?"
+    },
+    {
+      "slug": "recuerdos-mejor-regalo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor regalo que has recibido en tu vida y por qué?"
+    },
+    {
+      "slug": "recuerdos-travesura-escolar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué travesura de la escuela nunca le confesaste a tus papás?"
+    },
+    {
+      "slug": "recuerdos-cancion-de-una-etapa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te recuerda una etapa específica de nuestra relación?"
+    },
+    {
+      "slug": "recuerdos-primer-te-quiero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo fue para ti la primera vez que nos dijimos \"te quiero\"?"
+    },
+    {
+      "slug": "recuerdos-logro-con-orgullo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué logro de tu vida recuerdas con más orgullo?"
+    },
+    {
+      "slug": "recuerdos-apodo-mas-viejo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el apodo más viejo que has tenido y de dónde salió?"
+    },
+    {
+      "slug": "recuerdos-rincon-de-tu-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué rincón de tu casa de niñez era tu favorito para esconderte o jugar?"
+    },
+    {
+      "slug": "recuerdos-momento-que-te-cambio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de tu vida sientes que te cambió para siempre?"
+    },
+    {
+      "slug": "recuerdos-primera-incomodidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendimos la primera vez que algo nos incomodó entre nosotros?"
+    },
+    {
+      "slug": "recuerdos-detalle-que-no-esperabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle mío te sacó una sonrisa cuando no lo esperabas?"
+    },
+    {
+      "slug": "recuerdos-recuerdo-de-pelicula",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdo nuestro se parece más a una película?",
+      "options": ["Una comedia", "Un romance", "Una aventura", "Un documental de cosas random"]
+    },
+    {
+      "slug": "recuerdos-sabados-de-ninez",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu niñez, ¿qué hacías los sábados por la mañana?",
+      "options": ["Ver caricaturas", "Jugar en la calle", "Ayudar en casa", "Seguir dormido"]
+    },
+    {
+      "slug": "recuerdos-platillo-irrepetible",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo de tu infancia nadie ha logrado igualar?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-que-me-extranaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo fue la primera vez que me extrañaste de verdad?"
+    },
+    {
+      "slug": "recuerdos-parte-de-nuestra-historia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué parte de nuestra historia recuerdas con más cariño?",
+      "options": [
+        "Cómo nos conocimos",
+        "Cuando nos hicimos pareja",
+        "Una visita o un viaje",
+        "Una plática cualquiera"
+      ]
+    },
+    {
+      "slug": "recuerdos-momento-torpe",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue nuestro momento más torpe o vergonzoso que hoy te da risa?"
+    }
+  ]
+}

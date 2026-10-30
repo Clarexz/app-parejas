@@ -1,0 +1,253 @@
+{
+  "category": "a-distancia",
+  "questions": [
+    {
+      "slug": "a-distancia-primera-videollamada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdas de nuestra primera videollamada, aparte de los nervios?"
+    },
+    {
+      "slug": "a-distancia-hora-de-extranarte",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué hora del día me extrañas más?"
+    },
+    {
+      "slug": "a-distancia-mensaje-favorito-del-dia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te gusta más recibir de mí durante el día?",
+      "options": ["Nota de voz", "Foto de lo que hago", "Mensaje larguísimo", "Un meme random"]
+    },
+    {
+      "slug": "a-distancia-primeros-cinco-minutos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando nos veamos de nuevo, ¿qué es lo primero que quieres hacer en esos primeros cinco minutos?"
+    },
+    {
+      "slug": "a-distancia-mismo-horario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si mañana tuviéramos exactamente el mismo horario, ¿qué rutina compartiríamos?"
+    },
+    {
+      "slug": "a-distancia-videollamada-perfecta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu plan de videollamada perfecto?",
+      "options": [
+        "Cenar juntos",
+        "Ver una serie al mismo tiempo",
+        "Platicar sin hacer nada más",
+        "Jugar algo"
+      ]
+    },
+    {
+      "slug": "a-distancia-objeto-que-me-recuerda",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué objeto de tu cuarto te recuerda a mí?"
+    },
+    {
+      "slug": "a-distancia-detalle-que-extranas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué detalle chiquito de estar juntos extrañas y nunca me habías contado?"
+    },
+    {
+      "slug": "a-distancia-lo-bueno-de-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué ha mejorado entre nosotros gracias a la distancia?"
+    },
+    {
+      "slug": "a-distancia-dia-mas-pesado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué día de la semana se te hace más pesado sin mí y cómo lo sobrellevas?"
+    },
+    {
+      "slug": "a-distancia-que-ayuda-cuando-extranas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando me extrañas de más, ¿qué te ayuda mejor?",
+      "options": [
+        "Una llamada larga",
+        "Un mensaje cortito",
+        "Distraerte con algo",
+        "Un audio para dormir"
+      ]
+    },
+    {
+      "slug": "a-distancia-paquete-sorpresa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras mandarme un paquete sorpresa por paquetería, ¿qué traería adentro?"
+    },
+    {
+      "slug": "a-distancia-tu-manana-normal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es tu mañana normal? Cuéntame con detalle para imaginarte desde acá."
+    },
+    {
+      "slug": "a-distancia-rincon-de-tu-casa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué rincón de tu casa o de tu cuarto te gustaría que conociera primero?"
+    },
+    {
+      "slug": "a-distancia-primer-abrazo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe cómo imaginas el primer abrazo cuando nos reencontremos."
+    },
+    {
+      "slug": "a-distancia-cuenta-regresiva",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo llevas la cuenta de cuánto falta para vernos?",
+      "options": [
+        "Calendario",
+        "Cuenta regresiva en el celular",
+        "Pregunto cada rato cuánto falta",
+        "Solo en mi cabeza"
+      ]
+    },
+    {
+      "slug": "a-distancia-ritual-de-buenas-noches",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ritual de buenas noches te gustaría inventar para nosotros?"
+    },
+    {
+      "slug": "a-distancia-mensaje-que-releiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mensaje mío que más has releído?"
+    },
+    {
+      "slug": "a-distancia-lo-que-te-preocupa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te preocupa de estar lejos y qué podría hacer yo para ayudarte?"
+    },
+    {
+      "slug": "a-distancia-cuando-supiste-que-aguantabamos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento sentiste que nuestra relación sí podía con la distancia?"
+    },
+    {
+      "slug": "a-distancia-dificil-por-mensaje",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta decirme por mensaje y preferirías decirme en persona?"
+    },
+    {
+      "slug": "a-distancia-como-reencontrarnos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para el próximo reencuentro, ¿qué prefieres?",
+      "options": [
+        "Que yo te vaya a recoger",
+        "Una sorpresa sin avisar",
+        "Encontrarnos a medio camino",
+        "Un lugar nuevo para los dos"
+      ]
+    },
+    {
+      "slug": "a-distancia-primer-lugar-de-tu-ciudad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué lugar de tu ciudad quieres que conozca primero cuando te visite?"
+    },
+    {
+      "slug": "a-distancia-cocinar-en-videollamada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué cocinamos juntos en la próxima videollamada?",
+      "options": ["Tacos", "Pasta", "Un postre", "Un desayuno grande"]
+    },
+    {
+      "slug": "a-distancia-foto-del-dia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si solo pudieras mandarme una foto de hoy, ¿cuál sería?"
+    },
+    {
+      "slug": "a-distancia-cancion-a-distancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te suena a nosotros dos desde lejos?"
+    },
+    {
+      "slug": "a-distancia-tradicion-para-sentirnos-cerca",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición chiquita de pareja te gustaría empezar para sentirnos más cerca?"
+    },
+    {
+      "slug": "a-distancia-lo-que-descubriste-de-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué has descubierto de ti desde que estamos lejos?"
+    },
+    {
+      "slug": "a-distancia-resolver-a-distancia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando algo nos molesta a distancia, ¿cómo prefieres resolverlo?",
+      "options": [
+        "Llamada de inmediato",
+        "Dejarlo enfriar y platicar después",
+        "Escribirlo con calma",
+        "Videollamada con cafecito"
+      ]
+    },
+    {
+      "slug": "a-distancia-sonar-conmigo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Has soñado conmigo últimamente? ¿Qué pasaba?"
+    },
+    {
+      "slug": "a-distancia-horario-fijo-para-platicar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuviéramos que elegir un horario fijo para platicar cada día, ¿cuál sería el ideal y por qué?"
+    },
+    {
+      "slug": "a-distancia-rutina-normal-que-te-emociona",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando nos reencontremos, ¿qué rutina normal, como lavar trastes o ir al súper, te emociona hacer juntos?"
+    },
+    {
+      "slug": "a-distancia-sorpresa-a-distancia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué sorpresa a distancia te gustaría más?",
+      "options": [
+        "Comida a domicilio en tu casa",
+        "Una carta escrita a mano",
+        "Una videollamada inesperada",
+        "Una playlist hecha para ti"
+      ]
+    },
+    {
+      "slug": "a-distancia-llamada-mas-larga",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido nuestra llamada más larga y de qué tanto platicamos?"
+    },
+    {
+      "slug": "a-distancia-cuando-cuelgo-la-llamada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sientes justo después de que colgamos la llamada y qué te gustaría que supiera de eso?"
+    }
+  ]
+}
