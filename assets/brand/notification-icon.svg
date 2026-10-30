@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <!-- Ícono pequeño de notificación (Android): la polaroid del ícono monocromo, blanca sobre transparente. -->
+  <g transform="translate(48 49) rotate(-8) scale(0.155)">
+    <path fill="#FFFFFF" fill-rule="evenodd" d="M-200 -240H200V240H-200Z M-166 -206V90H166V-206Z"/>
+    <path fill="#FFFFFF" d="M-166 90V-10L-80 -90L-10 -20L50 -70L166 40V90Z"/>
+    <circle cx="70" cy="-110" r="42" fill="#FFFFFF"/>
+    <rect x="-90" y="-268" width="180" height="64" fill="#FFFFFF" transform="rotate(-4)"/>
+  </g>
+</svg>

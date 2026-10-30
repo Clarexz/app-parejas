@@ -61,6 +61,7 @@ describe('errorMessage', () => {
       'nudge_too_soon',
       'no_partner',
       'invalid_nudge',
+      'invalid_token',
     ]) {
       expect(errorMessage({ code: 'P0001', message: key })).not.toMatch(/Algo no salió/);
     }

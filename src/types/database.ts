@@ -242,6 +242,40 @@ export type Database = {
           },
         ];
       };
+      notification_prefs: {
+        Row: {
+          answers: boolean;
+          comments: boolean;
+          moods: boolean;
+          nudges: boolean;
+          reminder_enabled: boolean;
+          reminder_time: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          answers?: boolean;
+          comments?: boolean;
+          moods?: boolean;
+          nudges?: boolean;
+          reminder_enabled?: boolean;
+          reminder_time?: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          answers?: boolean;
+          comments?: boolean;
+          moods?: boolean;
+          nudges?: boolean;
+          reminder_enabled?: boolean;
+          reminder_time?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       nudges: {
         Row: {
           couple_id: string;
@@ -303,6 +337,31 @@ export type Database = {
           display_name?: string | null;
           id?: string;
           nickname?: string | null;
+        };
+        Relationships: [];
+      };
+      push_tokens: {
+        Row: {
+          created_at: string;
+          platform: string;
+          token: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          platform?: string;
+          token: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          platform?: string;
+          token?: string;
+          updated_at?: string;
+          user_id?: string;
         };
         Relationships: [];
       };
@@ -446,6 +505,7 @@ export type Database = {
       };
       delete_answer: { Args: { p_question_id: string }; Returns: undefined };
       delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
+      delete_push_tokens: { Args: { p_tokens: string[] }; Returns: number };
       fold_text: { Args: { p_text: string }; Returns: string };
       generate_invite_code: { Args: Record<PropertyKey, never>; Returns: string };
       get_category_questions: {
@@ -532,6 +592,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      register_push_token: { Args: { p_token: string }; Returns: undefined };
       require_couple: { Args: Record<PropertyKey, never>; Returns: string };
       send_nudge: {
         Args: { p_kind?: string };
@@ -550,6 +611,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      send_test_notification: { Args: Record<PropertyKey, never>; Returns: boolean };
       set_mood: {
         Args: { p_emoji: string; p_note?: string };
         Returns: {
@@ -572,6 +634,7 @@ export type Database = {
         Args: { p_choice?: number; p_question_id: string; p_text?: string };
         Returns: Json;
       };
+      unregister_push_token: { Args: { p_token: string }; Returns: undefined };
     };
     Enums: {
       [_ in never]: never;

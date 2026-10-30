@@ -7,6 +7,6 @@ module.exports = defineConfig([
   expoConfig,
   prettierConfig,
   {
-    ignores: ['dist/*', 'android/*', 'shots/*', 'coverage/*'],
+    ignores: ['dist/*', 'android/*', 'shots/*', 'coverage/*', 'supabase/functions/**/index.ts'],
   },
 ]);

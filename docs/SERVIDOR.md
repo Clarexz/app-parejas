@@ -116,6 +116,31 @@ buckets de `server/buckets.json`; corre `smoke-test.sh`. Flags: `--skip-backup`,
 Secretos de Edge Functions (p. ej. credenciales de FCM): `secrets/functions.env` (`KEY=VALOR`, 600);
 se inyectan al contenedor `functions` con `compose up -d functions`.
 
+### 5.1 Notificaciones push (Fase 4)
+
+```
+INSERT en answers / answer_comments / moods / nudges
+  └─ trigger private.notify_on_insert → private.notification_event (destinatario, tokens, prefs)
+       └─ pg_net: POST http://functions:9000/notify   (header x-notify-secret)
+            └─ Edge Function notify → OAuth con la cuenta de servicio → FCM HTTP v1 → celular
+                 └─ tokens rechazados → rpc delete_push_tokens (service role)
+```
+
+- **Configuración** (`scripts/server/set-notify-config.sh`, idempotente, `--dry-run`): genera
+  `NOTIFY_SECRET` en `secrets/functions.env` si no existe; si está
+  `secrets/firebase-service-account.json` (600), guarda su base64 en `FIREBASE_SERVICE_ACCOUNT_B64`;
+  copia `notify_url` y `notify_secret` a `private.settings` (schema sin acceso desde el API) y
+  recarga `functions`. Si cambias la cuenta de servicio, vuelve a correrlo.
+- Sin `private.settings` configurado, los triggers no mandan nada (la escritura nunca falla por un
+  push: los errores quedan como `WARNING` en el log de Postgres).
+- **Probar:** `scripts/server/test-push.sh <correo>` manda una notificación de prueba a los
+  celulares de esa persona y muestra la respuesta de la función (`net._http_response`). Desde la app:
+  Más → Avisos → "Mandarme una de prueba".
+- **Diagnóstico:** `compose logs --tail=100 functions` (líneas `notify <kind>: sent=… invalid=…`);
+  `select id, status_code, left(content, 200) from net._http_response order by id desc limit 5;`
+  (pg_net guarda las respuestas unas horas). `smoke-test.sh` revisa que `notify` responda 401 sin
+  secreto y avisa si falta la configuración.
+
 ## 6. Respaldos (cron)
 
 ```cron

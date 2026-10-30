@@ -51,6 +51,11 @@ export default function MoreScreen() {
             onPress={() => router.push('/settings/couple')}
           />
           <ListRow
+            label="Avisos"
+            icon="bell"
+            onPress={() => router.push('/settings/notifications')}
+          />
+          <ListRow
             label="Estado del servidor"
             icon="settings"
             onPress={() => router.push('/conexion')}

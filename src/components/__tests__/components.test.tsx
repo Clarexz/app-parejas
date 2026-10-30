@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/theme';
 import { Avatar } from '../Avatar';
 import { EmptyState } from '../EmptyState';
 import { FoldedNote } from '../FoldedNote';
+import { TimeField } from '../TimeField';
 import { ToastProvider, useToast } from '../Toast';
 
 jest.mock('expo-haptics', () => ({
@@ -93,5 +94,24 @@ describe('Avatar', () => {
   it('muestra la inicial en mayúscula', async () => {
     await wrap(<Avatar name="ale" />);
     expect(screen.getByText('A')).toBeTruthy();
+  });
+});
+
+describe('TimeField', () => {
+  it('suma horas y minutos con los botones', async () => {
+    const onChange = jest.fn();
+    await wrap(<TimeField label="A qué hora" value="23:45" onChange={onChange} />);
+    expect(screen.getByText('11:45 p. m.')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Una hora más' }));
+    expect(onChange).toHaveBeenLastCalledWith('00:45');
+    await fireEvent.press(screen.getByRole('button', { name: '15 minutos más' }));
+    expect(onChange).toHaveBeenLastCalledWith('23:00');
+  });
+
+  it('deshabilitado no cambia', async () => {
+    const onChange = jest.fn();
+    await wrap(<TimeField value="08:00" onChange={onChange} disabled />);
+    await fireEvent.press(screen.getByRole('button', { name: 'Una hora menos' }));
+    expect(onChange).not.toHaveBeenCalled();
   });
 });

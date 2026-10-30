@@ -16,6 +16,7 @@ const JOBS = [
   ['adaptive-monochrome.svg', 'android-icon-monochrome.png', 1024, true],
   ['splash.svg', 'splash-icon.png', 1024, true],
   ['favicon.svg', 'favicon.png', 48, false],
+  ['notification-icon.svg', 'notification-icon.png', 96, true],
 ];
 
 const browser = await chromium.launch();

@@ -7,7 +7,8 @@
 #
 # Comprueba: (a) contenedores sanos, (b) Auth health, (c) PostgREST, (d) Storage,
 # (e) tablas/RLS/migraciones en la BD, (f) que Postgres y el gateway NO estén expuestos,
-# (g) HTTPS con certificado válido. Imprime ✅/❌ por línea; sale con código 1 si algo falla.
+# (g) HTTPS con certificado válido, (h) Edge Function notify protegida y config de push.
+# Imprime ✅/❌ por línea; sale con código 1 si algo falla.
 # =====================================================================================
 set -euo pipefail
 
@@ -198,6 +199,27 @@ else
       falla "La raíz $BASE/ responde $HTTP_CODE (esperado 404). Revisa las labels de Traefik / limita el proxy a /auth|rest|realtime|storage|functions/v1/"
     fi
   fi
+fi
+
+# --- (h) Edge Function notify (push) --------------------------------------------------------
+# Sin el secreto debe responder 401: así se sabe que está desplegada y protegida.
+api_request POST "$BASE/functions/v1/notify" "$ANON_KEY" '{}'
+case "$HTTP_CODE" in
+  401) ok "notify desplegada y protegida (sin secreto -> 401)" ;;
+  404) falla "notify no está desplegada (404): corre deploy.sh y revisa supabase/functions/notify" ;;
+  500) warn "notify responde 500: probablemente falta NOTIFY_SECRET (corre set-notify-config.sh)" ;;
+  *)   falla "notify sin secreto -> $HTTP_CODE (esperado 401)" ;;
+esac
+if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || true)" == "true" ]]; then
+  nset="$(psql_db -At -c "select count(*) from private.settings where key in ('notify_url','notify_secret')" 2>/dev/null || true)"
+  if [[ "$nset" == "2" ]]; then
+    ok "private.settings tiene notify_url y notify_secret"
+  else
+    warn "private.settings no tiene notify_url/notify_secret: no saldrán pushes (corre set-notify-config.sh)"
+  fi
+fi
+if ! grep -qE '^FIREBASE_SERVICE_ACCOUNT_B64=.+' "${FUNCTIONS_ENV_FILE:-$SECRETS_DIR/functions.env}" 2>/dev/null; then
+  warn "functions.env no tiene FIREBASE_SERVICE_ACCOUNT_B64: sube la cuenta de servicio y corre set-notify-config.sh"
 fi
 
 printf '\n'
