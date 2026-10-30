@@ -1020,8 +1020,8 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 
 | Fase | Estado | PR | Notas |
 |---|---|---|---|
-| 0 Cimientos | 🟡 Hecha, con prueba pendiente (APK v0.0.3) | #1, #3 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). Falta confirmar "conectado" en el celular (ver §10.1). |
-| 0.5 Diseño | 🧪 En prueba (APK v0.0.3) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
+| 0 Cimientos | ✅ Cerrada (2026-10-30) | #1, #3 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). APK final v0.0.3 (con la 0.5). |
+| 0.5 Diseño | ✅ Cerrada (2026-10-30) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
 | 1 Auth y emparejamiento | ⏳ Pendiente | | |
 | 2 Inicio y mood | ⏳ Pendiente | | |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
@@ -1036,19 +1036,13 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente | | |
 | 12 Pulido y entrega | ⏳ Pendiente | | |
 
-### 10.1 Pruebas pendientes (no bloquean las siguientes fases)
+### 10.1 Verificación pendiente de las Fases 0 y 0.5
 
-> **Regla temporal (2026-10-29):** las fases siguientes **continúan normalmente**, con su código,
-> CI, prompts de servidor y releases de APK, aunque estas pruebas sigan pendientes. Cuando el usuario
-> haga la corrección, la sesión que esté activa verifica, actualiza esta sección y quita la regla.
-
-| # | Qué falta | Diagnóstico | Cómo resolverlo |
-|---|---|---|---|
-| P1 | Confirmar en el celular que el APK **v0.0.3** muestra "conectado" (diseño Bitácora). | Diagnóstico (2026-10-30): servidor y llave anon **están bien** (en el VPS, `/auth/v1/health` → 200 con la `ANON_KEY`; la raíz de `/rest/v1/` → 403, normal con la llave pública). Los APK v0.0.1 y v0.0.2 decían "a medias" porque su chequeo contaba ese 403 como error; la corrección (`src/lib/health.ts`: REST vivo con cualquier respuesta que no sea 404 ni 5xx) llega en la v0.0.3. | Instalar la v0.0.3 y ver "conectado". Si no, revisar el secreto `EXPO_PUBLIC_SUPABASE_ANON_KEY` (solo el valor, 169 caracteres, sin comillas). |
-| P2 | Prueba manual de la Fase 0 en el celular: tema claro/oscuro y "conectado". | Depende de P1. | Tras P1, marcar las Fases 0 y 0.5 según su prueba. |
-
-Mientras P1 siga abierto, las sesiones de fase validan su lógica con tests y CI, publican su release
-igual y anotan en las notas del release que la prueba en el celular depende de P1.
+Las fases 0 y 0.5 se dieron por **cerradas** el 2026-10-30 mientras se compilaba el APK **v0.0.3**
+(diseño Bitácora + chequeo de conexión corregido). Servidor y llave anon ya se verificaron en el VPS
+(`/auth/v1/health` → 200). Falta solo confirmar en el celular que la v0.0.3 dice "conectados".
+Si el usuario reporta un error de esas fases, se atiende en la sesión que corresponda o como parche
+`v0.0.P` siguiente; las fases siguientes no lo esperan (D31).
 
 ---
 
