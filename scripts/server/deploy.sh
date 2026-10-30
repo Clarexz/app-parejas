@@ -11,12 +11,22 @@
 #   --local         el smoke test final usa la IP del gateway en app-parejas-net (sin Traefik ni HTTPS)
 #
 # Pasos: (1) repo limpio + git fetch/checkout/pull  (2) backup.sh --pre-deploy
-#        (3) scripts/apply-migrations.sh  (4) sincroniza supabase/functions -> stack/volumes/functions
-#            y reinicia `functions`  (5) buckets de server/buckets.json  (6) smoke-test.sh
+#        (3) scripts/apply-migrations.sh  (4) scripts/apply-seed.sh (seed de preguntas, idempotente)
+#        (5) sincroniza supabase/functions -> stack/volumes/functions y reinicia `functions`
+#        (6) buckets de server/buckets.json  (7) smoke-test.sh
+#
+# Si el pull trae una versión nueva de deploy.sh o lib.sh, el script se vuelve a ejecutar
+# solo (con el lock tomado) para que los pasos siguientes usen la versión nueva.
+# --dry-run no hace checkout: evalúa el contenido ACTUAL del clon. Para ver qué haría una rama
+# nueva, primero `git checkout <rama> && git pull` en el clon.
 # =====================================================================================
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ARGS_ORIGINALES=("$@")
+# Huella del script en ejecución, para detectar si el pull lo cambia (ver paso 1).
+huella_scripts() { cat "$SCRIPT_DIR/deploy.sh" "$SCRIPT_DIR/lib.sh" | cksum; }
+HUELLA_INICIAL="$(huella_scripts)"
 # shellcheck source=lib.sh
 source "$SCRIPT_DIR/lib.sh"
 
@@ -29,7 +39,7 @@ for arg in "$@"; do
     --skip-backup) SALTAR_BACKUP=1 ;;
     --dry-run)     DRY_RUN=1 ;;
     --local)       LOCAL=1 ;;
-    -h|--help)     sed -n '2,17p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help)     sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*)            die "Opción desconocida: $arg" ;;
     *)             [[ -z "$RAMA" ]] || die "Solo se acepta una rama."; RAMA="$arg" ;;
   esac
@@ -40,14 +50,15 @@ requiere_cmd git docker curl jq rsync
 cargar_env
 validar_env
 requiere_db
-tomar_lock deploy
+# En la re-ejecución (paso 1) el lock ya lo tiene este mismo proceso (descriptor heredado).
+[[ -n "${DEPLOY_REEJECUTADO:-}" ]] || tomar_lock deploy
 ((DRY_RUN)) && log "== MODO DRY-RUN: no se cambia nada =="
 
 [[ -d "$REPO_DIR/.git" ]] || die "$REPO_DIR no es un clon git."
 git_repo() { git -C "$REPO_DIR" "$@"; }
 
 # --- 1) Repo ------------------------------------------------------------------------------
-log "1/6 Repositorio ($REPO_DIR)"
+log "1/7 Repositorio ($REPO_DIR)"
 if [[ -n "$(git_repo status --porcelain)" ]]; then
   git_repo status --short >&2
   die "El clon tiene cambios locales. Nadie edita a mano en el VPS: revísalos (git stash / git checkout) y reintenta."
@@ -66,6 +77,11 @@ if ((DRY_RUN)); then
 else
   git_repo checkout "$RAMA"
   git_repo pull --ff-only origin "$RAMA"
+  if [[ -z "${DEPLOY_REEJECUTADO:-}" && "$(huella_scripts)" != "$HUELLA_INICIAL" ]]; then
+    log "   deploy.sh/lib.sh cambiaron con el pull: se vuelve a ejecutar con la versión nueva."
+    export DEPLOY_REEJECUTADO=1
+    exec bash "$SCRIPT_DIR/deploy.sh" "${ARGS_ORIGINALES[@]}"
+  fi
 fi
 log "   HEAD: $(git_repo log -1 --format='%h %s')"
 
@@ -77,7 +93,7 @@ for f in docker-compose.override.yml docker-compose.logs.override.yml; do
 done
 
 # --- 2) Backup previo ---------------------------------------------------------------------
-log "2/6 Respaldo previo"
+log "2/7 Respaldo previo"
 if ((SALTAR_BACKUP)); then
   aviso "Se omite el respaldo (--skip-backup)."
 elif ((DRY_RUN)); then
@@ -87,7 +103,7 @@ else
 fi
 
 # --- 3) Migraciones -----------------------------------------------------------------------
-log "3/6 Migraciones"
+log "3/7 Migraciones"
 if ((DRY_RUN)); then
   aplicadas="$(psql_db -At -c 'select version from supabase_migrations.schema_migrations' 2>/dev/null || true)"
   pendientes=0
@@ -106,8 +122,17 @@ else
     bash "$REPO_DIR/scripts/apply-migrations.sh"
 fi
 
-# --- 4) Edge Functions --------------------------------------------------------------------
-log "4/6 Edge Functions"
+# --- 4) Seed de preguntas -----------------------------------------------------------------
+log "4/7 Seed de preguntas"
+if ((DRY_RUN)); then
+  log "   [dry-run] correría: apply-seed.sh (supabase/seed/*.sql, idempotente)"
+else
+  PSQL="docker exec -i $DB_CONTAINER psql -U $DB_USER -d ${POSTGRES_DB:-$DB_NAME_DEFAULT}" \
+    bash "$REPO_DIR/scripts/apply-seed.sh"
+fi
+
+# --- 5) Edge Functions --------------------------------------------------------------------
+log "5/7 Edge Functions"
 FUNC_SRC="$REPO_DIR/supabase/functions"
 FUNC_DST="$STACK_DIR/volumes/functions"
 if [[ ! -d "$FUNC_SRC" ]]; then
@@ -133,8 +158,8 @@ else
   fi
 fi
 
-# --- 5) Buckets de Storage ----------------------------------------------------------------
-log "5/6 Buckets de Storage"
+# --- 6) Buckets de Storage ----------------------------------------------------------------
+log "6/7 Buckets de Storage"
 BUCKETS_JSON="$REPO_DIR/server/buckets.json"
 if [[ ! -f "$BUCKETS_JSON" ]]; then
   log "   No existe server/buckets.json; se omite."
@@ -178,8 +203,8 @@ else
   done < <(jq -c '.[]' "$BUCKETS_JSON")
 fi
 
-# --- 6) Smoke test ------------------------------------------------------------------------
-log "6/6 Smoke test"
+# --- 7) Smoke test ------------------------------------------------------------------------
+log "7/7 Smoke test"
 if ((DRY_RUN)); then
   log "   [dry-run] correría: smoke-test.sh$([[ $LOCAL == 1 ]] && echo ' --local')"
   log "== Fin del dry-run =="

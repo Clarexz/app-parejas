@@ -1,0 +1,166 @@
+{
+  "category": "hipoteticas",
+  "questions": [
+    {
+      "slug": "hipoteticas-teletransporte-diario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras teletransportarte una vez al mes a donde sea, ¿a dónde irías la primera vez?"
+    },
+    {
+      "slug": "hipoteticas-isla-desierta-objeto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Te quedas en una isla desierta con un solo objeto de tu casa. ¿Cuál agarras?"
+    },
+    {
+      "slug": "hipoteticas-loteria-primera-compra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Te ganas la lotería hoy. ¿Qué es lo primero que compras antes de decirle a alguien?"
+    },
+    {
+      "slug": "hipoteticas-viaje-al-pasado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Puedes visitar el pasado una sola tarde. ¿A qué época y lugar vas?"
+    },
+    {
+      "slug": "hipoteticas-idioma-instantaneo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Mañana despiertas hablando un idioma nuevo a la perfección. ¿Cuál te gustaría que fuera?"
+    },
+    {
+      "slug": "hipoteticas-vida-en-pelicula",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras vivir una semana dentro de una película o serie, ¿cuál escogerías?"
+    },
+    {
+      "slug": "hipoteticas-ciudad-nueva",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Les regalan casa gratis en cualquier ciudad del mundo. ¿Cuál eligen?"
+    },
+    {
+      "slug": "hipoteticas-dia-sin-reglas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes un día sin consecuencias para nada. ¿Cómo lo aprovechas?"
+    },
+    {
+      "slug": "hipoteticas-leer-mentes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras leer la mente de una sola persona durante una hora, ¿de quién sería?"
+    },
+    {
+      "slug": "hipoteticas-cena-con-famoso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cenas con tres personas, vivas o no. ¿A quiénes invitas?"
+    },
+    {
+      "slug": "hipoteticas-reencuentro-sorpresa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras aparecerte hoy en mi puerta sin avisar, ¿qué traerías contigo?"
+    },
+    {
+      "slug": "hipoteticas-borrar-recuerdo-feliz",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras revivir por primera vez un solo recuerdo feliz, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-carta-al-yo-joven",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Puedes mandarle una frase a tu yo de quince años. ¿Qué le dices?"
+    },
+    {
+      "slug": "hipoteticas-vida-sin-redes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si el internet desapareciera un año, ¿qué extrañarías de verdad y qué no?"
+    },
+    {
+      "slug": "hipoteticas-empezar-de-cero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras empezar tu carrera desde cero con todo pagado, ¿qué estudiarías?"
+    },
+    {
+      "slug": "hipoteticas-vivir-cien-anos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si supieras que vivirás hasta los cien, ¿qué harías distinto desde ahora?"
+    },
+    {
+      "slug": "hipoteticas-mundo-sin-dinero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "En un mundo sin dinero, ¿a qué te dedicarías todos los días?"
+    },
+    {
+      "slug": "hipoteticas-mascota-exotica",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Puedes tener un animal exótico como mascota sin problemas. ¿Cuál escoges?"
+    },
+    {
+      "slug": "hipoteticas-comer-un-solo-platillo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Solo puedes comer una cosa el resto de tu vida:",
+      "options": ["Tacos", "Pizza", "Pasta", "Sushi"]
+    },
+    {
+      "slug": "hipoteticas-pasado-o-futuro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una máquina del tiempo con un solo viaje: ¿hacia dónde vas?",
+      "options": ["Al pasado", "Al futuro", "No me subo"]
+    },
+    {
+      "slug": "hipoteticas-clima-eterno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienes que vivir con un solo clima para siempre:",
+      "options": ["Calor playero", "Frío con chamarra", "Primavera eterna", "Lluvia con café"]
+    },
+    {
+      "slug": "hipoteticas-volar-o-invisible",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Elige el superpoder:",
+      "options": ["Volar", "Ser invisible", "Detener el tiempo", "Hablar con animales"]
+    },
+    {
+      "slug": "hipoteticas-vivir-donde",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para vivir tranquilos, ¿qué lugar escogerían?",
+      "options": ["Ciudad enorme", "Pueblo chico", "Cerca del mar", "En la montaña"]
+    },
+    {
+      "slug": "hipoteticas-saber-fecha-o-causa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras saber una sola cosa de tu vida, ¿cuál sería?",
+      "options": [
+        "Cómo termina todo",
+        "Qué pasará el próximo año",
+        "Qué piensan de mí",
+        "Prefiero no saber nada"
+      ]
+    },
+    {
+      "slug": "hipoteticas-semana-de-vacaciones-sorpresa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Te avisan que mañana empiezan siete días de vacaciones pagadas. ¿Qué haces el primer día?"
+    }
+  ]
+}

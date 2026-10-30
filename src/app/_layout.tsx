@@ -19,6 +19,7 @@ import { ToastProvider } from '@/components/Toast';
 import { initSessionListener } from '@/features/auth';
 import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
+import { QuestionsEvents } from '@/features/questions';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 
@@ -77,6 +78,9 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="settings/profile" />
             <Stack.Screen name="settings/couple" />
             <Stack.Screen name="moods" />
+            <Stack.Screen name="question" />
+            <Stack.Screen name="history" />
+            <Stack.Screen name="category/[slug]" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
@@ -87,6 +91,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       ) : (
         <LoadingView />
       )}
+      {stage === 'ready' ? <QuestionsEvents /> : null}
     </>
   );
 }

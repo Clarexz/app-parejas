@@ -1,0 +1,161 @@
+{
+  "category": "futuro",
+  "questions": [
+    {
+      "slug": "futuro-proximo-aniversario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo imaginas nuestro próximo aniversario?"
+    },
+    {
+      "slug": "futuro-donde-vivir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudiéramos vivir juntos mañana, ¿dónde sería?",
+      "options": ["Ciudad grande", "Pueblo tranquilo", "Cerca de la playa", "Donde haya chamba"]
+    },
+    {
+      "slug": "futuro-casa-de-sueno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe en tres detalles la casa o el departamento de tus sueños."
+    },
+    {
+      "slug": "futuro-un-martes-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te imaginas un martes cualquiera cuando vivamos en el mismo lugar?"
+    },
+    {
+      "slug": "futuro-meta-de-este-ano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué meta personal quieres lograr este año y cómo te puedo apoyar?"
+    },
+    {
+      "slug": "futuro-lo-mas-dificil-de-vivir-juntos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que será lo más difícil de pasar de la distancia a vivir juntos?"
+    },
+    {
+      "slug": "futuro-trabajo-en-cinco-anos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría estar haciendo en tu chamba dentro de cinco años?"
+    },
+    {
+      "slug": "futuro-mascota-compartida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué mascota tendríamos?",
+      "options": ["Un perro", "Un gato", "Los dos", "Plantas, que ya es mucho"]
+    },
+    {
+      "slug": "futuro-tradicion-de-fin-de-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición de fin de año te gustaría que tuviéramos?"
+    },
+    {
+      "slug": "futuro-aprender-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría aprender a hacer juntos?"
+    },
+    {
+      "slug": "futuro-primer-ahorro-juntos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si juntáramos dinero para algo, ¿qué sería primero?",
+      "options": ["Un viaje", "Un lugar propio", "Un coche", "Un fondo de emergencias"]
+    },
+    {
+      "slug": "futuro-miedo-del-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué miedo sobre el futuro te gustaría que platicáramos con calma?"
+    },
+    {
+      "slug": "futuro-con-ochenta-anos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te imaginas con ochenta años y yo a tu lado?"
+    },
+    {
+      "slug": "futuro-cuidar-desde-ahorita",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosas quieres que cuidemos desde ahorita para que la convivencia sea buena?"
+    },
+    {
+      "slug": "futuro-sueno-mas-loco",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu sueño más loco que todavía no le cuentas a casi nadie?"
+    },
+    {
+      "slug": "futuro-tarea-de-la-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Viviendo juntos, ¿qué tarea elegirías?",
+      "options": ["Cocinar", "Lavar los trastes", "Ordenar", "Pagar las cuentas"]
+    },
+    {
+      "slug": "futuro-decisiones-grandes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que decidiéramos las cosas grandes, como una mudanza o una compra importante?"
+    },
+    {
+      "slug": "futuro-primer-proyecto-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál sería el primer proyecto que haríamos juntos?"
+    },
+    {
+      "slug": "futuro-lo-que-te-ilusiona",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo que más te ilusiona de lo que viene?"
+    },
+    {
+      "slug": "futuro-fin-de-semana-futuro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En nuestro futuro, ¿cómo sería un fin de semana típico?",
+      "options": ["Salir y conocer gente", "Quedarnos en casa", "Escapadas", "Una mezcla de todo"]
+    },
+    {
+      "slug": "futuro-primer-objeto-del-hogar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sería lo primero que pondríamos en casa para que se sintiera nuestra?"
+    },
+    {
+      "slug": "futuro-sueno-mio-que-apoyar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño mío te gustaría ayudarme a cumplir?"
+    },
+    {
+      "slug": "futuro-como-nos-recuerden",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que la gente recuerde a nuestra pareja?"
+    },
+    {
+      "slug": "futuro-prioridad-de-los-proximos-anos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En los próximos años, ¿qué quisieras priorizar como pareja?",
+      "options": ["Estabilidad económica", "Vivir juntos", "Crecer en lo profesional", "Viajar"]
+    },
+    {
+      "slug": "futuro-carta-para-diez-anos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si escribiéramos una carta para abrirla en diez años, ¿qué le pondrías?"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "category": "familia",
+  "questions": [
+    {
+      "slug": "familia-olor-casa-abuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te recuerda a la casa de tus abuelos o de algún familiar querido?"
+    },
+    {
+      "slug": "familia-receta-heredada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo de tu familia te gustaría aprender a cocinar tal cual?"
+    },
+    {
+      "slug": "familia-reunion-caotica",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe una reunión familiar típica en tu casa, con todo y el tío que siempre aparece."
+    },
+    {
+      "slug": "familia-frase-heredada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dicho o frase repite tu familia que ya se te quedó pegada?"
+    },
+    {
+      "slug": "familia-navidad-tradicion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición de diciembre jamás se negocia en tu familia?"
+    },
+    {
+      "slug": "familia-anecdota-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué anécdota de tu infancia siempre sale cuando todos se juntan?"
+    },
+    {
+      "slug": "familia-leccion-de-abuelos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué consejo de alguien mayor de tu familia te sigue sirviendo?"
+    },
+    {
+      "slug": "familia-orgullo-de-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿De qué estás más orgulloso u orgullosa de la forma en que te criaron?"
+    },
+    {
+      "slug": "familia-cambiar-algo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué costumbre de tu familia te gustaría hacer distinta en la que tú formes?"
+    },
+    {
+      "slug": "familia-hogar-que-sonamos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando imaginas nuestra casa, ¿cómo se siente al entrar un domingo cualquiera?"
+    },
+    {
+      "slug": "familia-hijos-o-mascotas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando piensas en cuidar a alguien más, ¿cómo te imaginas ese cariño?"
+    },
+    {
+      "slug": "familia-presentar-pareja",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué quisieras que tu familia supiera de mí en cuanto me conozca?"
+    },
+    {
+      "slug": "familia-persona-mas-parecido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué familiar te pareces más, por dentro o por fuera?"
+    },
+    {
+      "slug": "familia-llamar-a-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría contarle a tu familia más seguido pero a veces se te pasa?"
+    },
+    {
+      "slug": "familia-domingo-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Comida familiar de domingo: ¿cuál es tu rol?",
+      "options": [
+        "Quien cocina",
+        "Quien se come todo",
+        "Quien lava los platos",
+        "Quien alarga la sobremesa"
+      ]
+    },
+    {
+      "slug": "familia-llamar-o-visitar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para sentirte cerca de tu familia, ¿qué funciona mejor?",
+      "options": [
+        "Llamadas largas",
+        "Mensajes diarios",
+        "Visitas de fin de semana",
+        "Fotos y memes"
+      ]
+    },
+    {
+      "slug": "familia-estilo-de-crianza",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si algún día cuidáramos a alguien pequeño, ¿qué valor pondrías primero?",
+      "options": ["Respeto", "Curiosidad", "Alegría", "Responsabilidad"]
+    },
+    {
+      "slug": "familia-fiesta-grande-o-chica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para celebrar un cumpleaños, tu plan ideal es...",
+      "options": [
+        "Fiesta con toda la familia",
+        "Cena pequeña",
+        "Solo los dos",
+        "Sorpresa que no esperaba"
+      ]
+    },
+    {
+      "slug": "familia-confianza-hermano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tienes hermanos o primos cercanos, ¿qué travesura hicieron juntos que nadie sabe?"
+    },
+    {
+      "slug": "familia-ejemplo-de-pareja",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pareja de tu familia o de tu entorno te ha enseñado cómo sí querer?"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "category": "viajes",
+  "questions": [
+    {
+      "slug": "viajes-maleta-de-emergencia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes diez minutos para armar maleta. ¿Qué es lo primero que metes?"
+    },
+    {
+      "slug": "viajes-primer-destino-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando por fin estemos en el mismo lugar, ¿a dónde nos escapamos primero?"
+    },
+    {
+      "slug": "viajes-playa-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué playa o rincón de México sientes que todavía te debe una visita?"
+    },
+    {
+      "slug": "viajes-comida-del-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo probarías en un viaje aunque no supieras qué lleva?"
+    },
+    {
+      "slug": "viajes-pueblo-magico",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudiéramos pasar un fin de semana en cualquier pueblo mágico, ¿cuál escogerías?"
+    },
+    {
+      "slug": "viajes-peor-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido tu viaje más caótico y qué recuerdas con más risa?"
+    },
+    {
+      "slug": "viajes-cancion-de-carretera",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción no puede faltar en una playlist de carretera?"
+    },
+    {
+      "slug": "viajes-souvenir-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa has traído de un viaje que todavía conservas?"
+    },
+    {
+      "slug": "viajes-lugar-sin-turistas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe un lugar hermoso que casi nadie conoce, real o imaginado."
+    },
+    {
+      "slug": "viajes-mapa-pendientes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si marcáramos en un mapa todo lo que queremos conocer juntos, ¿qué lugar sería el primer pin?"
+    },
+    {
+      "slug": "viajes-fotografia-perfecta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué foto de un viaje tuyo nunca te cansas de mirar?"
+    },
+    {
+      "slug": "viajes-aeropuerto-despedida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que hiciéramos distinto en nuestras despedidas para que duelan menos?"
+    },
+    {
+      "slug": "viajes-regalo-de-aniversario",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si el próximo aniversario lo pasamos viajando, ¿qué queremos sentir al llegar?"
+    },
+    {
+      "slug": "viajes-escapada-lluvia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Un fin de semana de lluvia en una cabaña: ¿qué llevarías para pasarla increíble?"
+    },
+    {
+      "slug": "viajes-mas-lejos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tan lejos de casa has estado y qué fue lo que más te sorprendió?"
+    },
+    {
+      "slug": "viajes-aventura-miedo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué actividad de aventura te daría miedo pero aun así intentarías conmigo?"
+    },
+    {
+      "slug": "viajes-olor-de-ciudad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué olor o sonido de un lugar te hace sentir que estás en casa?"
+    },
+    {
+      "slug": "viajes-aprender-del-camino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseñó viajar que no habías aprendido quedándote en casa?"
+    },
+    {
+      "slug": "viajes-estilo-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu estilo de viaje ideal es...",
+      "options": [
+        "Itinerario por horas",
+        "Un par de planes y ya",
+        "Improvisar todo",
+        "Dormir y comer, nada más"
+      ]
+    },
+    {
+      "slug": "viajes-transporte-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para ir de un punto a otro, ¿cómo prefieres moverte?",
+      "options": ["Avión", "Carretera", "Autobús o tren", "Caminando"]
+    },
+    {
+      "slug": "viajes-hospedaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Dónde dormirías en un viaje soñado?",
+      "options": ["Hotel con alberca", "Cabaña en el bosque", "Casa en renta", "Tienda de campaña"]
+    },
+    {
+      "slug": "viajes-clima-destino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para una escapada de una semana, ¿qué prefieres?",
+      "options": [
+        "Mar y arena",
+        "Montaña y frío",
+        "Ciudad con museos",
+        "Desierto bajo las estrellas"
+      ]
+    },
+    {
+      "slug": "viajes-madrugar-o-no",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un viaje, ¿tú cómo te organizas con las mañanas?",
+      "options": [
+        "Madrugo para aprovechar",
+        "Salgo después del desayuno",
+        "Duermo hasta el mediodía"
+      ]
+    },
+    {
+      "slug": "viajes-puerta-a-puerta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de visitarnos en persona imaginas con más ilusión?"
+    },
+    {
+      "slug": "viajes-recorrido-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si hiciéramos juntos una ruta en carro, ¿qué dos paradas no podrían faltar?"
+    }
+  ]
+}

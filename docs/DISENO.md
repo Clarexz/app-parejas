@@ -260,7 +260,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `Doodle` | Garabato de énfasis | `underline` · `circle` · `arrow` · `star` | se dibuja una vez |
 | `LoadingLines` | Estado de carga: renglones que se escriben solos (sin spinner) | `count` | con "reducir movimiento" quedan fijos |
 | `Divider` | Línea a mano punteada | `dashed` · `solid` | — |
-| `Icon` | Icono del set §3 | `name`, `size`, `color` | — |
+| `Icon` | Icono del set §3 | `name`, `size`, `color`, `draw` (se dibuja una vez, §5) | — |
 | `DateField` | Fecha como sello de fechador: 3 casillas DD / MM / AAAA en Courier Prime 700, etiqueta a mano; solo captura dígitos y salta el foco (no valida) | `label` | foco (borde Jamaica 2 dp), error (borde y mensaje `chile`), deshabilitado |
 | `InviteCode` | Código de 6 caracteres como boleto con cinta canario, agrupado "ABC 234" en Courier Prime 700 grande; botón de compartir y copiar opcionales | `onShare`, `onCopy`, `shareLabel` | `loading` (casillas punteadas vacías) |
 | `CodeInput` | 6 casillas para escribir el código (una `TextInput` transparente encima); mayúsculas, ignora espacios/guiones, alfabeto `ABCDEFGHJKMNPQRSTUVWXYZ23456789` | `value`, `onChangeText` | activa (Jamaica), error, deshabilitado |
@@ -268,6 +268,14 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `TabBar` | Barra de pestañas para `Tabs` de expo-router (`tabBar`); `TAB_ICONS` mapea ruta → icono | — | activa (Jamaica), presionada |
 | `MoodSheet` | Selector de mood sobre `Sheet` (`src/features/mood/components/`): título a mano "¿Cómo te sientes?", rejilla 4×4 de los 16 moods (emoji grande + `caption`, ≥ 44 dp), nota opcional de 80 letras con contador y botón "Pegar mi mood" a la izquierda | `current` preselecciona | seleccionado (contorno tinta 1.5 dp), guardando, error (Toast) |
 | `ListRow` | Renglón tocable (icono + texto Figtree + flecha) separado por `Divider`, para "Más" y ajustes | `default` · `destructive` (Chile, sin flecha); `value`, `divider` | normal, presionado, deshabilitado |
+| `DailyQuestionCard` | Pregunta del día en Inicio (`src/features/questions/components/`): `Card` ruled tocable con `Stamp`, la pregunta a mano y una línea de estado | sin contestar (`TE TOCA`, Jamaica) · esperando (`ESPERANDO`, tinta) · ambos (`LOS DOS CONTESTARON`, Nopal + nº de comentarios) | carga (`LoadingLines`), error y sin preguntas (toca para reintentar) |
+| `StreakNote` | Racha en un `Note` sin cinta: "N días seguidos contestando." a mano con flama Cempasúchil que se dibuja; si hay días por reparar, enlace a Preguntas | racha · arranque (racha 0) | sin datos: no se muestra |
+| `Celebration` | "Sellar" en grande: sello "¡Día completo!" con la racha nueva que baja con `springStick` sobre el velo, 2 estrellas `Doodle`, háptica `notificationSuccess`; se cierra a los 2.5 s o al tocar. Lo monta `QuestionsEvents` | — | con "reducir movimiento" solo se funde |
+| `QuestionsEvents` | Sin UI propia, se monta una vez en el layout raíz: Realtime de preguntas con `Toast` (toque, pareja contestó) y la celebración | — | — |
+| `QuestionView` | Pantalla de pregunta (`/question?id=` · `?day=` · hoy): sello + `Chip` de categoría, pregunta a mano, formulario (renglones o fichas de opciones con contador), respuesta propia con `PEGADA`, `FoldedNote` de la pareja que se desdobla, "Recuérdale a…" e hilo de comentarios (notitas amarillas mías a la derecha, fichas de tu pareja a la izquierda, reacciones con pulsación larga en `Sheet`) | sin contestar · editando · contestada · ambos | carga, error, sin preguntas, no encontrada |
+| `Toggle` | Interruptor de pastilla (`pill`): contorno de tinta, encendido en Jamaica con perilla `onJamaica`; 56×32 con `hitSlop`; `role=switch` | `value`, `onValueChange`, `accessibilityLabel` | apagado, encendido, presionado, deshabilitado (`inkFaint`) |
+| `SpicyOptIn` | Bloque de ajuste "Preguntas picantes" (`src/features/questions/components/`): `Toggle` con mi opt-in, línea de la pareja ("Caleb ya las activó.") y resultado ("Activas para los dos." en Nopal) | — | pendiente, activo, error (Toast) |
+| `HistoryCard` | Ficha del historial (`Card` tilt ±1): `Stamp` con la fecha, `Chip` de categoría, pregunta y extractos de las dos respuestas; la de la pareja solo si ya contestaste | `item`, `partnerName` | con las dos, solo la mía, solo de la pareja ("Te toca para leerla") |
 
 ## 8. Patrones de pantalla
 
@@ -276,6 +284,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 - **Inicio (Fase 2):** página de diario: avatares como polaroids con mood en sticker, número de
   días `hero` con `Doodle underline`, racha en `Note`, distancia en `Card`, pregunta del día en
   `Card` tocable.
+- **Preguntas (Fase 3):** categorías como renglones con `Chip` de cinta (canario/menta alternan por categoría; rosa solo para picantes, con `lock` si no están activas), racha como número `hero` con `Doodle`, días por reparar como `Stamp` tocables, historial como fichas apiladas.
 - **Listas:** fichas apiladas (`Card`, tilt ±1) o renglones con `Divider`. Nunca cuadrícula de
   tarjetas idénticas.
 - **Galerías:** polaroids en 2 columnas con tilt alternado y separación generosa (16 dp).

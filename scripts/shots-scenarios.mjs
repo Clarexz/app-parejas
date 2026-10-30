@@ -78,6 +78,188 @@ const isoDaysAgo = (n) => {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City' }).format(d);
 };
 
+// --- Preguntas (Fase 3) -----------------------------------------------------------------------
+
+const CATEGORIES = [
+  [
+    'conocernos',
+    'Conocernos',
+    '🔎',
+    'ligera',
+    'Gustos, manías y detalles chiquitos que todavía no se saben.',
+  ],
+  ['recuerdos', 'Recuerdos', '📷', 'ligera', 'Lo que ya vivieron (juntos y antes de conocerse).'],
+  ['a-distancia', 'A distancia', '✈️', 'profunda', 'Para cuando hay kilómetros de por medio.'],
+  ['amor', 'Amor', '💌', 'profunda', 'Cómo se quieren, cómo se lo demuestran.'],
+  ['futuro', 'Nuestro futuro', '🧭', 'profunda', 'Planes, sueños y lo que viene.'],
+  ['divertidas', 'Divertidas', '🎈', 'ligera', 'Para reírse un rato.'],
+  [
+    'picantes',
+    'Picantes',
+    '🌶️',
+    'picante',
+    'Solo si los dos la activan. Deseo, química y confianza.',
+  ],
+].map(([slug, name, emoji, intensity, description], i) => ({
+  slug,
+  name,
+  emoji,
+  intensity,
+  description,
+  position: i + 1,
+  created_at: '2026-10-01T12:00:00Z',
+}));
+
+const qid = (n) => `55555555-5555-4555-8555-${String(n).padStart(12, '0')}`;
+const answerInfo = (n, user_id, text, choice = null) => ({
+  id: qid(900 + n),
+  user_id,
+  text,
+  choice,
+  created_at: minutesAgo(60),
+  updated_at: minutesAgo(60),
+});
+const card = (n, category, category_name, text, { day, mine, partner, options = null } = {}) => ({
+  question: {
+    id: qid(n),
+    slug: `q-${n}`,
+    category,
+    category_name,
+    category_emoji: '💬',
+    type: options ? 'choice' : 'open',
+    text,
+    options,
+    intensity: 'ligera',
+  },
+  day: day ?? null,
+  mine: mine ? answerInfo(n, ME_ID, mine.text, mine.choice ?? null) : null,
+  partner: partner ? answerInfo(n + 50, PARTNER_ID, partner.text, partner.choice ?? null) : null,
+  partner_answered: !!partner,
+  comment_count: 0,
+  last_activity: minutesAgo(60 * n),
+});
+
+const sampleHistory = () => [
+  card(
+    1,
+    'conocernos',
+    'Conocernos',
+    '¿Qué canción te transporta a un momento exacto de tu vida?',
+    {
+      day: isoDaysAgo(1),
+      mine: {
+        text: 'Cada vez que escucho "Fuimos" de Café Tacvba me acuerdo del camión a la prepa.',
+      },
+      partner: { text: 'Cualquiera de Soda Stereo. Mi papá las ponía en el carro los domingos.' },
+    },
+  ),
+  card(2, 'divertidas', 'Divertidas', '¿Qué superpoder inútil te gustaría tener?', {
+    day: isoDaysAgo(2),
+    mine: { text: 'Saber siempre cuál es la fila más rápida del súper.' },
+    partner: { text: 'Que el café nunca se enfríe.' },
+  }),
+  card(3, 'amor', 'Amor', '¿Qué gesto pequeño te hace sentir más querido?', {
+    mine: { text: 'Que me guardes el último pedazo de pan dulce sin que yo lo pida.' },
+    partner: { text: 'Que me escribas "ya llegué" aunque sea una cuadra.' },
+  }),
+  card(4, 'futuro', 'Nuestro futuro', '¿Dónde les gustaría pasar un invierno completo?', {
+    day: isoDaysAgo(4),
+    partner: { text: 'En una casita en Oaxaca, con chocolate caliente todos los días.' },
+  }),
+  card(5, 'recuerdos', 'Recuerdos', '¿Cuál fue su primera salida juntos?', {
+    day: isoDaysAgo(5),
+    mine: { text: 'Los tacos de la esquina y una caminata larga sin rumbo.' },
+  }),
+];
+
+const sampleCategoryQuestions = () =>
+  [
+    ['¿Cuál es tu desayuno ideal de domingo?', true, true],
+    ['¿Qué cosa nunca te cansarías de comer?', true, false],
+    ['¿Qué manía tuya crees que nadie ha notado?', false, true],
+    ['¿Qué aprendiste a cocinar y de quién?', false, false],
+    ['¿Cuál es tu lugar favorito de tu casa y por qué?', false, false],
+  ].map(([text, answered_by_me, answered_by_partner], i) => ({
+    id: qid(100 + i),
+    slug: `conocernos-${i}`,
+    type: 'open',
+    text,
+    options: null,
+    intensity: 'ligera',
+    answered_by_me,
+    answered_by_partner,
+  }));
+
+const streakWith = (current, best, missing) => ({
+  current,
+  best,
+  today: isoDaysAgo(0),
+  today_done: false,
+  missing_days: missing.map(isoDaysAgo),
+});
+
+const dailyCard = () =>
+  card(
+    1,
+    'conocernos',
+    'Conocernos',
+    '¿Qué canción te transporta a un momento exacto de tu vida?',
+    {
+      day: isoDaysAgo(0),
+      partner: { text: 'Cualquiera de Soda Stereo.' },
+    },
+  );
+
+// --- Pantalla de pregunta e Inicio (Fase 3) ---------------------------------------------------
+
+const TODAY_TEXT = '¿Qué canción te transporta a un momento exacto de tu vida?';
+const CHOICE_OPTIONS = ['Playa', 'Montaña', 'Ciudad grande', 'Pueblo chiquito'];
+const withComments = (c, comment_count) => ({ ...c, comment_count });
+const todayCard = (state, extra = {}) =>
+  withComments(
+    card(1, 'conocernos', 'Conocernos', TODAY_TEXT, {
+      day: isoDaysAgo(0),
+      mine: state === 'unanswered' || state === 'unanswered_partner_done' ? undefined : mineAnswer,
+      partner: state === 'waiting' || state === 'unanswered' ? undefined : partnerAnswer,
+    }),
+    extra.comment_count ?? 0,
+  );
+const mineAnswer = {
+  text: 'Cada vez que escucho "Fuimos" de Café Tacvba me acuerdo del camión a la prepa.',
+};
+const partnerAnswer = {
+  text: 'Cualquiera de Soda Stereo. Mi papá las ponía en el carro los domingos.',
+};
+const choiceCard = (mine, partner) =>
+  card(7, 'divertidas', 'Divertidas', 'Si mañana pudieran escaparse, ¿a dónde se van?', {
+    day: isoDaysAgo(0),
+    options: CHOICE_OPTIONS,
+    mine,
+    partner,
+  });
+const comment = (n, user_id, body, ago, reactions = {}) => ({
+  id: `66666666-6666-4666-8666-${String(n).padStart(12, '0')}`,
+  couple_id: COUPLE_ID,
+  question_id: qid(1),
+  user_id,
+  body,
+  reactions,
+  created_at: minutesAgo(ago),
+});
+const sampleComments = () => [
+  comment(1, PARTNER_ID, 'Jajaja, ¿el camión de la prepa? Eso no me lo habías contado.', 42, {
+    [ME_ID]: '😂',
+    [PARTNER_ID]: '🥹',
+  }),
+  comment(
+    2,
+    ME_ID,
+    'Es que tenía cara de que iba a llover y nunca llovía. Te lo cuento completo en la cena.',
+    30,
+  ),
+  comment(3, PARTNER_ID, 'Pide los tacos que te gustan, yo invito.', 12, { [ME_ID]: '❤️' }),
+];
+
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
 export const SCENARIOS = {
   signed_out: {
@@ -114,6 +296,195 @@ export const SCENARIOS = {
       '/settings/profile',
       '/settings/couple',
     ],
+  },
+
+  // Pestaña Preguntas con racha y días por reparar (prefijo `preguntas-`).
+  preguntas: {
+    prefix: 'preguntas',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    streak: () => streakWith(12, 23, [2, 3]),
+    routes: ['/questions', '/category/conocernos', '/history'],
+  },
+  // Racha en cero, sin historial ni preguntas contestadas (prefijo `preguntas0-`).
+  preguntas_cero: {
+    prefix: 'preguntas0',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    streak: () => streakWith(0, 0, []),
+    history: () => [],
+    categoryQuestions: () => [],
+    routes: ['/questions', '/category/conocernos', '/history'],
+  },
+  // Picantes activas para los dos: la categoría sin candado (prefijo `picantes-`).
+  preguntas_picantes: {
+    prefix: 'picantes',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [
+      { ...member(ME_ID), spicy_opt_in: true },
+      { ...member(PARTNER_ID), spicy_opt_in: true },
+    ],
+    streak: () => streakWith(3, 5, []),
+    routes: ['/questions', '/settings/couple'],
+  },
+  // Ajuste de pareja: solo mi pareja activó las picantes (prefijo `ella-`).
+  pareja_pendiente: {
+    prefix: 'pendiente',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), { ...member(PARTNER_ID), spicy_opt_in: true }],
+    routes: ['/settings/couple'],
+  },
+  // Inicio con la pregunta del día en cada estado (prefijo `inicio-...`).
+  inicio_te_toca: {
+    prefix: 'inicio-tetoca',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    daily: () => todayCard('unanswered_partner_done'),
+    streak: () => streakWith(12, 23, [2, 3]),
+    routes: ['/'],
+  },
+  inicio_esperando: {
+    prefix: 'inicio-esperando',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    daily: () => todayCard('waiting'),
+    streak: () => streakWith(1, 1, []),
+    routes: ['/'],
+  },
+  inicio_ambos: {
+    prefix: 'inicio-ambos',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    daily: () => todayCard('both', { comment_count: 3 }),
+    streak: () => ({ ...streakWith(13, 23, []), today_done: true }),
+    routes: ['/'],
+  },
+  inicio_racha_cero: {
+    prefix: 'inicio-cero',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    daily: () => todayCard('unanswered'),
+    streak: () => streakWith(0, 0, []),
+    routes: ['/'],
+  },
+  // Pantalla de pregunta (prefijo `pregunta-...`). `actions` corre tras cargar cada ruta.
+  pregunta_open: {
+    prefix: 'pregunta-open',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('unanswered'),
+    routes: ['/question'],
+    actions: {
+      '/question': async (page) => {
+        await page.getByLabel('Tu respuesta').fill('Cualquiera de Soda Stereo, sin pensarlo.');
+        await page.waitForTimeout(300);
+      },
+    },
+  },
+  pregunta_choice: {
+    prefix: 'pregunta-choice',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => choiceCard(undefined, { text: null, choice: 0 }),
+    routes: ['/question'],
+    actions: {
+      '/question': async (page) => {
+        await page.getByRole('radio', { name: 'Playa' }).click();
+        await page.waitForTimeout(300);
+      },
+    },
+  },
+  pregunta_esperando: {
+    prefix: 'pregunta-esperando',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('waiting'),
+    comments: () => [],
+    routes: ['/question'],
+  },
+  pregunta_ambos: {
+    prefix: 'pregunta-ambos',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('both', { comment_count: 3 }),
+    comments: sampleComments,
+    routes: ['/question'],
+  },
+  // Opciones con la misma elección.
+  pregunta_igual: {
+    prefix: 'pregunta-igual',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () =>
+      choiceCard({ text: 'Con un mapa de papel.', choice: 0 }, { text: null, choice: 0 }),
+    comments: () => [],
+    routes: ['/question'],
+  },
+  // Menú de reacciones abierto con pulsación larga.
+  pregunta_menu: {
+    prefix: 'pregunta-menu',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('both', { comment_count: 3 }),
+    comments: sampleComments,
+    routes: ['/question'],
+    actions: {
+      '/question': async (page) => {
+        const target = page.getByText('Pide los tacos que te gustan, yo invito.');
+        await target.scrollIntoViewIfNeeded();
+        const box = await target.boundingBox();
+        await page.mouse.move(box.x + 10, box.y + 5);
+        await page.mouse.down();
+        await page.waitForTimeout(700);
+        await page.mouse.up();
+        await page.waitForTimeout(900);
+      },
+    },
+  },
+  pregunta_sin_preguntas: {
+    prefix: 'pregunta-vacia',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    dailyError: { code: 'P0001', message: 'no_questions', details: null, hint: null },
+    routes: ['/question'],
+  },
+  // Contesto y completo el día: celebración (se captura a media animación).
+  pregunta_celebracion: {
+    prefix: 'pregunta-celebra',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('unanswered_partner_done'),
+    submitted: () => todayCard('both'),
+    streak: () => ({ ...streakWith(13, 23, []), today_done: true }),
+    comments: () => [],
+    routes: ['/question'],
+    actions: {
+      '/question': async (page) => {
+        await page.getByLabel('Tu respuesta').fill('Cualquiera de Soda Stereo, sin pensarlo.');
+        await page.getByRole('button', { name: 'Pegar mi respuesta' }).click();
+        await page.waitForTimeout(1100);
+      },
+    },
   },
   // Sin fecha de aniversario y sin moods (prefijo `empty-` en las capturas).
   ready_empty: {
@@ -284,6 +655,49 @@ export async function applyScenario(context, scenario) {
         created_at: new Date().toISOString(),
       });
     }
+
+    if (path === '/rest/v1/question_categories') return json(route, CATEGORIES);
+    if (path === '/rest/v1/rpc/get_streak') {
+      return json(route, (scenario.streak ?? (() => streakWith(12, 23, [2, 3])))());
+    }
+    if (path === '/rest/v1/rpc/get_daily_question') {
+      if (scenario.dailyError) return json(route, scenario.dailyError, 400);
+      return json(route, (scenario.daily ?? dailyCard)());
+    }
+    if (path === '/rest/v1/rpc/get_question_with_answers') {
+      return json(route, (scenario.daily ?? dailyCard)());
+    }
+    if (path === '/rest/v1/rpc/submit_answer') {
+      return json(route, (scenario.submitted ?? scenario.daily ?? dailyCard)());
+    }
+    if (path === '/rest/v1/answer_comments') {
+      return json(route, (scenario.comments ?? (() => []))());
+    }
+    if (path === '/rest/v1/rpc/add_comment') {
+      const body = request.postDataJSON?.() ?? {};
+      return json(route, comment(99, ME_ID, body.p_body ?? '', 0));
+    }
+    if (path === '/rest/v1/rpc/react_to_comment') return json(route, comment(98, ME_ID, '', 0));
+    if (path === '/rest/v1/rpc/delete_answer' || path === '/rest/v1/rpc/delete_comment') {
+      return route.fulfill({ status: 204, headers: CORS });
+    }
+    if (path === '/rest/v1/rpc/send_nudge') {
+      return json(route, {
+        id: '77777777-7777-4777-8777-000000000001',
+        couple_id: COUPLE_ID,
+        from_user: ME_ID,
+        to_user: PARTNER_ID,
+        kind: 'answer',
+        created_at: new Date().toISOString(),
+      });
+    }
+    if (path === '/rest/v1/rpc/get_history') {
+      return json(route, (scenario.history ?? sampleHistory)());
+    }
+    if (path === '/rest/v1/rpc/get_category_questions') {
+      return json(route, (scenario.categoryQuestions ?? sampleCategoryQuestions)());
+    }
+    if (path === '/rest/v1/rpc/set_spicy_opt_in') return json(route, false);
 
     // Storage: URL firmada que apunta al mismo host simulado.
     if (request.method() === 'POST' && path.startsWith('/storage/v1/object/sign/')) {

@@ -1,0 +1,202 @@
+{
+  "category": "amor",
+  "questions": [
+    {
+      "slug": "amor-como-sientes-el-carino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Con qué sientes más cariño de mi parte?",
+      "options": ["Palabras bonitas", "Tiempo juntos", "Detalles o regalos", "Abrazos y contacto"]
+    },
+    {
+      "slug": "amor-lo-que-hago-sin-darme-cuenta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa que hago sin darme cuenta te enamora más?"
+    },
+    {
+      "slug": "amor-lo-que-cuidar-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de nuestra relación te gustaría que cuidáramos con más atención?"
+    },
+    {
+      "slug": "amor-gesto-chiquito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el gesto más chiquito que te hace sentir que te quiero un montón?"
+    },
+    {
+      "slug": "amor-cuando-sentiste-mi-carino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo has sentido más mi cariño?"
+    },
+    {
+      "slug": "amor-lo-que-aprendiste-de-querer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué has aprendido sobre querer a alguien desde que estamos juntos?"
+    },
+    {
+      "slug": "amor-apoyo-en-mal-dia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando tienes un mal día, ¿cómo te gusta que te apoye?",
+      "options": [
+        "Escucharte sin opinar",
+        "Darte consejos",
+        "Distraerte con algo",
+        "Dejarte espacio"
+      ]
+    },
+    {
+      "slug": "amor-apodo-carinoso-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el apodo cariñoso que más te gusta que te diga?"
+    },
+    {
+      "slug": "amor-dar-o-recibir-detalles",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Hablando de detalles, ¿qué disfrutas más?",
+      "options": ["Darlos", "Recibirlos", "Planearlos juntos", "Que sean espontáneos"]
+    },
+    {
+      "slug": "amor-lo-que-admiras",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué admiras de mí que quizá nunca te he dicho?"
+    },
+    {
+      "slug": "amor-orgullo-de-ser-pareja",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo has sentido orgullo de que seamos pareja?"
+    },
+    {
+      "slug": "amor-gesto-para-reconciliarnos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Después de una discusión, ¿qué gesto te ayuda a sentir que ya estamos bien?"
+    },
+    {
+      "slug": "amor-carta-de-tres-lineas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si me escribieras ahorita una carta de tres líneas, ¿qué diría?"
+    },
+    {
+      "slug": "amor-miedo-a-enamorarte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te daba miedo de enamorarte y cómo cambió eso conmigo?"
+    },
+    {
+      "slug": "amor-cosa-practica-que-te-cuida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa práctica que hago te hace sentir cuidado?"
+    },
+    {
+      "slug": "amor-mejor-momento-para-un-beso",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu mejor momento para un beso?",
+      "options": ["Al despedirnos", "Por sorpresa", "Después de reírnos", "Antes de dormir"]
+    },
+    {
+      "slug": "amor-sentirte-vulnerable",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te has sentido más vulnerable conmigo y cómo respondí?"
+    },
+    {
+      "slug": "amor-lo-que-te-da-ternura",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa mía te da ternura aunque no lo digas?"
+    },
+    {
+      "slug": "amor-habito-que-te-importa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hábito mío te hace sentir que me importas?"
+    },
+    {
+      "slug": "amor-tiempo-a-solas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En una relación, ¿cuánto tiempo a solas necesitas?",
+      "options": ["Mucho", "Un poco", "Depende del día", "Casi nada"]
+    },
+    {
+      "slug": "amor-mejor-cumplido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido el mejor cumplido que te he dicho?"
+    },
+    {
+      "slug": "amor-como-quererte-mejor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué podría hacer para quererte mejor?"
+    },
+    {
+      "slug": "amor-agradecimiento-de-la-semana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Por qué cosa de esta semana quieres agradecerme?"
+    },
+    {
+      "slug": "amor-parte-de-ti-que-aprendiste-a-querer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti has aprendido a querer más estando conmigo?"
+    },
+    {
+      "slug": "amor-como-celebrar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para celebrar algo importante, ¿qué prefieres?",
+      "options": [
+        "Una cena especial",
+        "Algo sencillo en casa",
+        "Una escapada",
+        "Un detalle sorpresa"
+      ]
+    },
+    {
+      "slug": "amor-nuestro-amor-como-lugar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nuestro amor fuera un lugar, ¿cómo sería?"
+    },
+    {
+      "slug": "amor-lo-que-no-cambiarias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué de nuestra relación no cambiarías por nada?"
+    },
+    {
+      "slug": "amor-frase-dificil-de-decir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase sientes de verdad pero te cuesta decirla en voz alta?"
+    },
+    {
+      "slug": "amor-mensaje-a-tu-yo-de-hace-un-ano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le dirías a tu yo de hace un año sobre nosotros?"
+    },
+    {
+      "slug": "amor-dia-de-consentirte",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un día para consentirte, ¿qué eliges?",
+      "options": ["Masaje", "Tu comida favorita", "Película con cobija", "Que me dejen dormir"]
+    }
+  ]
+}

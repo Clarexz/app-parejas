@@ -1,0 +1,207 @@
+{
+  "category": "conocernos",
+  "questions": [
+    {
+      "slug": "conocernos-mania-al-dormir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué manía tienes al dormir que casi nadie sabe?"
+    },
+    {
+      "slug": "conocernos-antojo-nocturno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Son las once de la noche y te da un antojo, ¿de qué?",
+      "options": ["Tacos", "Algo dulce", "Cereal", "Fruta o galletas"]
+    },
+    {
+      "slug": "conocernos-miedo-tonto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu miedo más tonto que de todos modos sí te da miedo?"
+    },
+    {
+      "slug": "conocernos-talento-inutil",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué talento inútil tienes que presumirías en una fiesta?"
+    },
+    {
+      "slug": "conocernos-app-mas-abierta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué app abres más veces al día sin darte cuenta?",
+      "options": ["Mensajes", "Redes sociales", "Videos cortos", "Juegos"]
+    },
+    {
+      "slug": "conocernos-como-despiertas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres para despertar?",
+      "options": [
+        "Alarma a la primera",
+        "Cinco veces posponer",
+        "Me levanto antes de la alarma",
+        "Necesito café antes de hablar"
+      ]
+    },
+    {
+      "slug": "conocernos-comida-reconfortante",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida te abraza el alma cuando tienes un mal día?"
+    },
+    {
+      "slug": "conocernos-palabra-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu palabra favorita en español y por qué?"
+    },
+    {
+      "slug": "conocernos-pelicula-repetida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué película has visto más de tres veces sin cansarte?"
+    },
+    {
+      "slug": "conocernos-prenda-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es esa prenda que no soltarías ni aunque ya esté vieja?"
+    },
+    {
+      "slug": "conocernos-cuando-te-rebasa-el-estres",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando el estrés te rebasa, ¿qué te sirve más?",
+      "options": [
+        "Estar solo un rato",
+        "Platicar con alguien",
+        "Salir a caminar",
+        "Comer algo rico"
+      ]
+    },
+    {
+      "slug": "conocernos-detalle-que-te-saca-de-quicio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle chiquito te saca de quicio más que cualquier cosa grande?"
+    },
+    {
+      "slug": "conocernos-tres-palabras-sobre-ti",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te describiría en tres palabras alguien que te conoce muy bien?"
+    },
+    {
+      "slug": "conocernos-lo-que-te-costo-aceptar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de ti te costó años aceptar?"
+    },
+    {
+      "slug": "conocernos-frase-que-quieres-oir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase te gustaría que te dijeran más seguido?"
+    },
+    {
+      "slug": "conocernos-tu-risa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es tu risa cuando algo te da risa de verdad?"
+    },
+    {
+      "slug": "conocernos-tarde-libre",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienes una tarde libre sin pendientes, ¿qué eliges?",
+      "options": [
+        "Siesta",
+        "Serie o videojuegos",
+        "Salir a comer",
+        "Ese proyecto que tenías pendiente"
+      ]
+    },
+    {
+      "slug": "conocernos-hobby-pendiente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hobby has querido probar y nunca te animas?"
+    },
+    {
+      "slug": "conocernos-sabor-de-helado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fueras un sabor de helado o de paleta, ¿cuál serías?"
+    },
+    {
+      "slug": "conocernos-gesto-que-te-hace-sentir-visto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gesto de alguien te hace sentir que de verdad te ven?"
+    },
+    {
+      "slug": "conocernos-lo-que-te-relaja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te relaja más?",
+      "options": ["La lluvia", "Una playlist", "Olor a café", "Una cobija pesada"]
+    },
+    {
+      "slug": "conocernos-dato-que-sorprende",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dato de ti sorprende a la gente cuando se entera?"
+    },
+    {
+      "slug": "conocernos-ritual-a-solas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ritual tienes a solas que disfrutas mucho?"
+    },
+    {
+      "slug": "conocernos-de-grande-quiero-ser",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "De niñez, ¿qué querías ser de grande y qué tan lejos quedó eso de la realidad?"
+    },
+    {
+      "slug": "conocernos-mejor-consejo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es el mejor consejo que te han dado y que sí seguiste?"
+    },
+    {
+      "slug": "conocernos-error-que-ensena",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué error te enseñó más de lo que esperabas?"
+    },
+    {
+      "slug": "conocernos-olor-que-alegra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te alegra el día apenas lo sientes?"
+    },
+    {
+      "slug": "conocernos-hora-mas-activa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿A qué hora del día rindes más?",
+      "options": ["Mañana temprano", "Mediodía", "Tarde", "Madrugada"]
+    },
+    {
+      "slug": "conocernos-coleccion-sin-querer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa acumulas sin querer, como si fuera una colección?"
+    },
+    {
+      "slug": "conocernos-lo-que-te-hace-sentir-a-salvo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué persona, lugar o cosa te hace sentir a salvo sin que haga falta decir nada?"
+    }
+  ]
+}

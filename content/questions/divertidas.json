@@ -1,0 +1,221 @@
+{
+  "category": "divertidas",
+  "questions": [
+    {
+      "slug": "divertidas-superpoder-inutil",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras tener un superpoder completamente inútil, ¿cuál escogerías?"
+    },
+    {
+      "slug": "divertidas-apodo-ridiculo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa el apodo más ridículo posible para mí y explica por qué me queda."
+    },
+    {
+      "slug": "divertidas-sticker-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el sticker o meme que más mandas por WhatsApp sin darte cuenta?"
+    },
+    {
+      "slug": "divertidas-nombre-de-mascota",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si adoptáramos un perrito mañana, ¿qué nombre absurdo le pondrías?"
+    },
+    {
+      "slug": "divertidas-talento-escondido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué talento ridículo tienes que casi nadie conoce?"
+    },
+    {
+      "slug": "divertidas-verguenza-ajena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te da más pena ajena cuando la ves en la tele?"
+    },
+    {
+      "slug": "divertidas-dormida-en-peor-lugar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué lugar rarísimo te has quedado dormido o dormida?"
+    },
+    {
+      "slug": "divertidas-titulo-de-nuestra-peli",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nuestra historia fuera una película de bajo presupuesto, ¿cómo se llamaría?"
+    },
+    {
+      "slug": "divertidas-ruido-que-odias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ruido cotidiano te saca de quicio aunque sepas que es exagerado?"
+    },
+    {
+      "slug": "divertidas-baile-inconfesable",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te hace bailar solito o solita cuando nadie te ve?"
+    },
+    {
+      "slug": "divertidas-discurso-de-borracho",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la tontería más grande que has defendido con total seguridad?"
+    },
+    {
+      "slug": "divertidas-mentira-piadosa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la mentirita inocente que dices más seguido?"
+    },
+    {
+      "slug": "divertidas-taco-imposible",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un taco que suene horrible pero que juras que sí funcionaría."
+    },
+    {
+      "slug": "divertidas-reality-show",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si ustedes dos entraran a un reality, ¿en cuál episodio nos eliminan y por qué?"
+    },
+    {
+      "slug": "divertidas-miedo-tonto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué miedo tonto tienes que te da pena admitir?"
+    },
+    {
+      "slug": "divertidas-trabajo-de-un-dia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Por un día puedes tener el trabajo más raro del mundo. ¿Cuál eliges?"
+    },
+    {
+      "slug": "divertidas-regalo-peor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el peor regalo que has recibido y cómo disimulaste?"
+    },
+    {
+      "slug": "divertidas-historial-de-busqueda",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo último raro que buscaste en internet?"
+    },
+    {
+      "slug": "divertidas-voz-de-doblaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué personaje de caricatura crees que se parece más a mí cuando me enojo?"
+    },
+    {
+      "slug": "divertidas-manias-al-comer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué manía tuya sabes que a los demás les parece rarísima pero a ti te da paz?"
+    },
+    {
+      "slug": "divertidas-risa-mas-fuerte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál ha sido la carcajada más fuerte de tu vida y qué la provocó?"
+    },
+    {
+      "slug": "divertidas-pizza-pina",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Veredicto final sobre la piña en la pizza:",
+      "options": [
+        "Sí, con orgullo",
+        "Solo si no la veo",
+        "Jamás en la vida",
+        "Depende de quién la pida"
+      ]
+    },
+    {
+      "slug": "divertidas-zombie-apocalipsis",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un apocalipsis zombi, ¿cuál sería tu papel?",
+      "options": [
+        "El líder que da órdenes",
+        "El que sale corriendo primero",
+        "El que roba comida",
+        "El zombi, sin duda"
+      ]
+    },
+    {
+      "slug": "divertidas-mensaje-de-voz",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando alguien te manda un audio de siete minutos, tú...",
+      "options": [
+        "Lo escucho completo",
+        "Lo pongo al doble de velocidad",
+        "Contesto con texto",
+        "Finjo que no lo vi"
+      ]
+    },
+    {
+      "slug": "divertidas-caida-publica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te caes en plena calle frente a todos. ¿Qué haces?",
+      "options": [
+        "Me río yo primero",
+        "Me levanto y finjo que nada",
+        "Le echo la culpa al piso",
+        "Me quedo ahí un rato"
+      ]
+    },
+    {
+      "slug": "divertidas-ducha-canta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la regadera, ¿cuál es tu nivel de espectáculo?",
+      "options": [
+        "Concierto completo",
+        "Tarareo suave",
+        "Silencio total",
+        "Hablo conmigo mismo o misma"
+      ]
+    },
+    {
+      "slug": "divertidas-hora-de-risa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuándo te da la risa más incontrolable?",
+      "options": [
+        "En un funeral o misa",
+        "En una junta seria",
+        "A medianoche",
+        "Cuando alguien más se ríe"
+      ]
+    },
+    {
+      "slug": "divertidas-primera-cita-desastre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si diseñáramos la primera cita más desastrosa posible, ¿qué saldría mal?"
+    },
+    {
+      "slug": "divertidas-frase-de-mama",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de tu infancia te decían tanto que ya la repites sin querer?"
+    },
+    {
+      "slug": "divertidas-superheroe-por-defecto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que ser un superhéroe con un defecto muy tonto, ¿cuál sería el defecto?"
+    }
+  ]
+}

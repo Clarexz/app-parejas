@@ -1,0 +1,176 @@
+{
+  "category": "valores",
+  "questions": [
+    {
+      "slug": "valores-regla-que-no-rompes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué regla personal no rompes ni cuando nadie te está viendo?"
+    },
+    {
+      "slug": "valores-exito-significa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Dentro de veinte años, ¿qué te haría sentir que tu vida salió bien?"
+    },
+    {
+      "slug": "valores-gesto-que-admiras",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gesto de una persona te hace respetarla de inmediato?"
+    },
+    {
+      "slug": "valores-limite-no-negociable",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué límite no negociarías aunque te costara algo importante?"
+    },
+    {
+      "slug": "valores-honestidad-incomoda",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo vale la pena decir una verdad incómoda y cuándo es mejor callar?"
+    },
+    {
+      "slug": "valores-dinero-y-tranquilidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuánto dinero necesitas para sentirte tranquilo o tranquila, y en qué lo notarías?"
+    },
+    {
+      "slug": "valores-tiempo-libre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si te regalaran un día libre cada semana, ¿en qué lo gastarías?"
+    },
+    {
+      "slug": "valores-ayudar-a-otros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué causa te movería a dar tiempo o dinero sin pensarlo mucho?"
+    },
+    {
+      "slug": "valores-perdon-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa te cuesta más perdonar y qué te ayuda a soltarla?"
+    },
+    {
+      "slug": "valores-fe-y-creencias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué creencia o filosofía te sostiene cuando todo se pone difícil?"
+    },
+    {
+      "slug": "valores-persona-modelo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué persona, real o inventada, quisieras parecerte más?"
+    },
+    {
+      "slug": "valores-tradicion-que-conservar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición mexicana te gustaría conservar siempre en tu casa?"
+    },
+    {
+      "slug": "valores-error-que-te-enseno",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué error te enseñó algo que ya no cambiarías por no haberlo cometido?"
+    },
+    {
+      "slug": "valores-respeto-en-pareja",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Para ti, ¿cómo se ve el respeto en una pareja en un día cualquiera?"
+    },
+    {
+      "slug": "valores-independencia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu independencia quieres seguir cuidando aunque estemos juntos?"
+    },
+    {
+      "slug": "valores-trabajo-vs-vida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Dónde sientes que está la línea entre echarle ganas y quemarte?"
+    },
+    {
+      "slug": "valores-cosa-que-te-indigna",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te indigna tanto que no puedes quedarte callado o callada?"
+    },
+    {
+      "slug": "valores-pequena-felicidad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle chiquito de tu día vale más de lo que parece?"
+    },
+    {
+      "slug": "valores-prioridad-en-crisis",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un momento difícil, ¿qué necesitas más de mi parte?",
+      "options": [
+        "Que me escuches",
+        "Que me des consejos",
+        "Que me distraigas",
+        "Que me des espacio"
+      ]
+    },
+    {
+      "slug": "valores-lo-mas-importante",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tuvieras que ordenar, ¿qué pondrías primero?",
+      "options": ["Familia", "Pareja", "Carrera", "Salud"]
+    },
+    {
+      "slug": "valores-calidad-a-admirar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué cualidad valoras más en una persona?",
+      "options": ["Honestidad", "Sentido del humor", "Constancia", "Generosidad"]
+    },
+    {
+      "slug": "valores-decision-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Ante una decisión grande, tú normalmente...",
+      "options": [
+        "Lo platico con alguien",
+        "Hago listas de pros y contras",
+        "Sigo mi instinto",
+        "Lo pospongo hasta que no se pueda"
+      ]
+    },
+    {
+      "slug": "valores-regalo-de-valor",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para sentirte valorado o valorada, ¿qué pesa más?",
+      "options": [
+        "Palabras bonitas",
+        "Tiempo juntos",
+        "Un detalle inesperado",
+        "Ayuda con algo pesado"
+      ]
+    },
+    {
+      "slug": "valores-seguridad-o-aventura",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "A largo plazo, ¿qué prefieres?",
+      "options": ["Estabilidad", "Aventura", "Un poco de cada una"]
+    },
+    {
+      "slug": "valores-conflicto-estilo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando discutimos, ¿qué te ayuda a sentir que seguimos del mismo lado?"
+    }
+  ]
+}

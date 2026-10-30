@@ -1,0 +1,206 @@
+{
+  "category": "picantes",
+  "questions": [
+    {
+      "slug": "picantes-primer-escalofrio",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué fue lo primero de mí que te dio un escalofrío bonito?"
+    },
+    {
+      "slug": "picantes-mensaje-coqueto",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Escríbeme un mensaje coqueto como si me lo mandaras al oído."
+    },
+    {
+      "slug": "picantes-lugar-para-besarte",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿En qué lugar del mundo te gustaría darme un beso largo?"
+    },
+    {
+      "slug": "picantes-mirada-que-derrite",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué tipo de mirada mía te desarma por completo?"
+    },
+    {
+      "slug": "picantes-videollamada-ambiente",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Si hiciéramos una videollamada romántica, ¿cómo prepararías el ambiente?"
+    },
+    {
+      "slug": "picantes-perfume-que-recuerdas",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué olor mío te hace extrañarme con más ganas?"
+    },
+    {
+      "slug": "picantes-reencuentro-primeros-minutos",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Cuando por fin nos veamos, ¿cómo imaginas los primeros cinco minutos?"
+    },
+    {
+      "slug": "picantes-fantasia-de-cita",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Describe la cita que termina con ustedes sin querer irse a casa."
+    },
+    {
+      "slug": "picantes-parte-favorita-de-mi",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué parte de mí te gusta mirar cuando crees que no me doy cuenta?"
+    },
+    {
+      "slug": "picantes-baile-lento",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué canción pondrías para bailar pegaditos en la cocina?"
+    },
+    {
+      "slug": "picantes-susurro-ideal",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué te gustaría que te susurrara al oído y nunca te he dicho?"
+    },
+    {
+      "slug": "picantes-recuerdo-electrico",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué momento entre nosotros ha sido el más eléctrico para ti?"
+    },
+    {
+      "slug": "picantes-masaje-pendiente",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Cuando estemos juntos, ¿qué mimos te gustaría que te ofreciera primero, preguntándote antes?"
+    },
+    {
+      "slug": "picantes-sorpresa-en-casa",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Si pudieras prepararme una sorpresa sensual en casa, ¿qué incluiría?"
+    },
+    {
+      "slug": "picantes-regla-del-juego",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué regla de confianza te hace sentir libre para jugar y probar cosas conmigo?"
+    },
+    {
+      "slug": "picantes-mejor-abrazo",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué abrazo mío te ha hecho olvidar el resto del mundo?"
+    },
+    {
+      "slug": "picantes-hora-del-dia",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿A qué hora del día te dan más ganas de mí?"
+    },
+    {
+      "slug": "picantes-palabra-secreta",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Inventemos una palabra clave que signifique \"te extraño muchísimo\" en versión traviesa. ¿Cuál propones?"
+    },
+    {
+      "slug": "picantes-nota-bajo-la-almohada",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué nota coqueta te gustaría encontrar escondida en tu maleta?"
+    },
+    {
+      "slug": "picantes-confesion-suave",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Dime una cosa atrevida que te dé curiosidad probar, solo si hoy tienes ganas de contarla."
+    },
+    {
+      "slug": "picantes-ambiente-ideal",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Para una noche íntima, ¿qué ambiente te prende más?",
+      "options": ["Luz de velas", "Música suave", "Lluvia afuera", "Cuarto en penumbra"]
+    },
+    {
+      "slug": "picantes-beso-favorito",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Qué tipo de beso te derrite más?",
+      "options": ["Lento y suave", "En el cuello", "Inesperado", "Mordidita juguetona"]
+    },
+    {
+      "slug": "picantes-ritmo-del-momento",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Para un momento a solas, ¿qué ritmo prefieres?",
+      "options": [
+        "Pausado y largo",
+        "Juguetón con risas",
+        "Intenso y pasional",
+        "Depende del humor"
+      ]
+    },
+    {
+      "slug": "picantes-mensaje-nocturno",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Qué te gustaría recibir antes de dormir?",
+      "options": [
+        "Un audio con mi voz",
+        "Una foto coqueta",
+        "Un mensaje largo",
+        "Una llamada en la oscuridad"
+      ]
+    },
+    {
+      "slug": "picantes-lugar-del-reencuentro",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Si pudieras elegir dónde besarme tras semanas sin verme:",
+      "options": [
+        "En el aeropuerto",
+        "En la puerta de casa",
+        "En una calle vacía",
+        "En cuanto cierre la puerta"
+      ]
+    },
+    {
+      "slug": "picantes-iniciativa",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Para sentirte cómodo o cómoda con el coqueteo, ¿cómo te gusta que llegue?",
+      "options": ["Yo propongo", "Tú propones", "Lo vamos sintiendo", "Con una pista juguetona"]
+    },
+    {
+      "slug": "picantes-pedir-lo-que-quieres",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Cómo te gustaría que te dijera \"quiero estar contigo\" sin presionar a ninguno de los dos?"
+    },
+    {
+      "slug": "picantes-juego-de-cartas",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Si inventáramos un juego de mesa solo para nosotros, ¿qué premio travieso tendría el que gane?"
+    },
+    {
+      "slug": "picantes-recuerdo-del-cuerpo",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué caricia mía recuerdas con más claridad aun a la distancia?"
+    },
+    {
+      "slug": "picantes-limites-bonitos",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué cosa te gustaría que supiera para cuidarte mejor cuando nos pongamos juguetones?"
+    }
+  ]
+}
