@@ -1022,7 +1022,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 |---|---|---|---|
 | 0 Cimientos | ✅ Cerrada (2026-10-30) | #1, #3 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). APK final v0.0.3 (con la 0.5). |
 | 0.5 Diseño | ✅ Cerrada (2026-10-30) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
-| 1 Auth y emparejamiento | 🧪 En pruebas (2026-10-30) | | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
+| 1 Auth y emparejamiento | ✅ Cerrada (2026-10-30) | #5 | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
 | 2 Inicio y mood | ⏳ Pendiente | | |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
 | 4 Push | ⏳ Pendiente | | |
@@ -1036,13 +1036,15 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente | | |
 | 12 Pulido y entrega | ⏳ Pendiente | | |
 
-### 10.1 Verificación pendiente de las Fases 0 y 0.5
+### 10.1 Verificaciones pendientes en el celular
 
-Las fases 0 y 0.5 se dieron por **cerradas** el 2026-10-30 mientras se compilaba el APK **v0.0.3**
-(diseño Bitácora + chequeo de conexión corregido). Servidor y llave anon ya se verificaron en el VPS
-(`/auth/v1/health` → 200). Falta solo confirmar en el celular que la v0.0.3 dice "conectados".
-Si el usuario reporta un error de esas fases, se atiende en la sesión que corresponda o como parche
-`v0.0.P` siguiente; las fases siguientes no lo esperan (D31).
+- **Fases 0 y 0.5:** ✅ verificadas: la v0.0.3 instala y dice "conectados" (2026-10-30).
+- **Fase 1:** se cerró el 2026-10-30 con el servidor ya desplegado (migración `20261030010000`,
+  bucket `avatars`, smoke test OK) mientras se compilaba el APK **v0.1.0**. Falta probarlo en los
+  dos celulares con la lista de `docs/releases/v0.1.0.md`. Si sale un error, se corrige como
+  parche `v0.1.P` siguiente; la Fase 2 no lo espera (D31).
+- **Nota para el servidor:** tras el merge, el clon del VPS sigue en la rama de la Fase 1; el
+  siguiente despliegue debe usar `deploy.sh main` (o la rama de la fase nueva).
 
 ---
 
