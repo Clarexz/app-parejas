@@ -9,7 +9,9 @@ const version = process.env.APP_VERSION ?? '0.0.0';
 const versionCode = Number(process.env.APP_VERSION_CODE ?? '1');
 // google-services.json (Firebase, para push) no va en git: release-apk.yml lo decodifica del
 // secreto GOOGLE_SERVICES_JSON_BASE64. Sin él el APK compila igual, pero sin push remoto.
-const googleServicesFile = existsSync('./google-services.json') ? './google-services.json' : undefined;
+const googleServicesFile = existsSync('./google-services.json')
+  ? './google-services.json'
+  : undefined;
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
