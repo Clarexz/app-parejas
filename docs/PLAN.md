@@ -1043,8 +1043,9 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   bucket `avatars`, smoke test OK) mientras se compilaba el APK **v0.1.0**. Falta probarlo en los
   dos celulares con la lista de `docs/releases/v0.1.0.md`. Si sale un error, se corrige como
   parche `v0.1.P` siguiente; la Fase 2 no lo espera (D31).
-- **Fase 2:** migración `20261031000000_moods.sql` (prompt de servidor en el PR). Probar el APK
-  **v0.2.0** con la lista de `docs/releases/v0.2.0.md`.
+- **Fase 2:** servidor desplegado el 2026-10-30 (`deploy.sh` de la rama de la fase en `fb87659`;
+  migración `20261031000000_moods.sql`, `moods` en Realtime, smoke test OK). Falta probar el APK
+  **v0.2.0** en los dos celulares con la lista de `docs/releases/v0.2.0.md`.
 - **Nota para el servidor:** tras el merge, el clon del VPS sigue en la rama de la Fase 1; el
   siguiente despliegue debe usar `deploy.sh main` (o la rama de la fase nueva).
 
