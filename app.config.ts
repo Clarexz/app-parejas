@@ -72,8 +72,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'expo-secure-store',
-    // Solo galería: sin cámara ni micrófono (el picker los pide por defecto para video).
-    ['expo-image-picker', { cameraPermission: false, microphonePermission: false }],
+    // Galería y cámara (stories, Fase 6); sin micrófono (no grabamos video).
+    [
+      'expo-image-picker',
+      { cameraPermission: 'Para tomar la foto de tu story.', microphonePermission: false },
+    ],
+    // Guardar fotos de stories en la galería; solo imágenes, sin ubicación de la foto.
+    ['expo-media-library', { granularPermissions: ['photo'], isAccessMediaLocationEnabled: false }],
     [
       'expo-notifications',
       {
