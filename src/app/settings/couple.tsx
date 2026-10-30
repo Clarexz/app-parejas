@@ -1,121 +1,121 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Avatar, Button, Input, Screen, Text } from '@/components';
+import {
+  AvatarPicker,
+  Button,
+  DateField,
+  Divider,
+  IconButton,
+  InviteCode,
+  Screen,
+  Text,
+  useToast,
+} from '@/components';
 import { useCouple, useUpdateCouple, useUploadCouplePhoto } from '@/features/couple';
 import { pickImage, useSignedUrl } from '@/features/profile';
-import { formatLongDate, isoDateToParts, partsToIsoDate, type DateParts } from '@/lib/dateParts';
+import { isoDateToParts, optionalIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
+import { haptic } from '@/lib/haptics';
 import { detectTimeZone, timeZoneLabel } from '@/lib/timezone';
-import { formatInviteCode } from '@/lib/validation';
 import { useTheme } from '@/theme';
 
 export default function CoupleSettingsScreen() {
   const { spacing } = useTheme();
+  const router = useRouter();
+  const toast = useToast();
   const { couple } = useCouple();
   const update = useUpdateCouple();
   const upload = useUploadCouplePhoto();
   const photoUrl = useSignedUrl(couple?.photo_path);
   const [date, setDate] = useState<DateParts>(isoDateToParts(couple?.anniversary_date));
   const [dateError, setDateError] = useState<string | undefined>();
-  const [saved, setSaved] = useState(false);
+
+  const saved = (message: string) => {
+    haptic.stamp();
+    toast.show({ message, tone: 'success' });
+  };
+  const failed = (e: unknown) => toast.show({ message: errorMessage(e), tone: 'error' });
 
   const saveDate = () => {
-    setSaved(false);
-    let iso: string | null = null;
-    if (date.day || date.month || date.year) {
-      const parsed = partsToIsoDate(date, { notAfter: new Date() });
-      if (!parsed.ok) {
-        setDateError(parsed.error);
-        return;
-      }
-      iso = parsed.value;
+    const parsed = optionalIsoDate(date, { notAfter: new Date() });
+    if (!parsed.ok) {
+      setDateError(parsed.error);
+      return;
     }
     setDateError(undefined);
-    update.mutate({ anniversary_date: iso }, { onSuccess: () => setSaved(true) });
+    update.mutate(
+      { anniversary_date: parsed.value },
+      { onSuccess: () => saved('Aniversario guardado.'), onError: failed },
+    );
   };
 
-  const useDeviceZone = () => {
-    setSaved(false);
-    update.mutate({ timezone: detectTimeZone() }, { onSuccess: () => setSaved(true) });
-  };
+  const useDeviceZone = () =>
+    update.mutate(
+      { timezone: detectTimeZone() },
+      { onSuccess: () => saved('Zona horaria actualizada.'), onError: failed },
+    );
 
   const changePhoto = async () => {
     const uri = await pickImage();
-    if (uri) upload.mutate(uri);
+    if (!uri) return;
+    upload.mutate(uri, {
+      onSuccess: () => toast.show({ message: 'Foto nueva pegada.', tone: 'success' }),
+      onError: failed,
+    });
   };
+
+  const deviceZone = detectTimeZone();
+  const sameZone = couple?.timezone === deviceZone;
 
   return (
     <Screen scroll>
       <View style={{ gap: spacing.lg }}>
-        <Text variant="display">Nuestra pareja</Text>
-        <Avatar variant="polaroid" name="Nosotros" source={photoUrl ?? undefined} size={120} />
-        <Button
-          title="Cambiar foto"
-          variant="secondary"
-          onPress={() => void changePhoto()}
-          loading={upload.isPending}
-        />
-        {upload.isError ? (
-          <Text variant="small" tone="chile">
-            {errorMessage(upload.error)}
-          </Text>
-        ) : null}
-        {couple ? (
-          <Text variant="mono" muted>
-            Código: {formatInviteCode(couple.invite_code)}
-          </Text>
-        ) : null}
-        {couple?.anniversary_date ? (
-          <Text variant="body">Aniversario: {formatLongDate(couple.anniversary_date)}</Text>
-        ) : null}
-        <View style={{ flexDirection: 'row', gap: spacing.md }}>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Día"
-              value={date.day}
-              onChangeText={(day) => setDate((d) => ({ ...d, day }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Mes"
-              value={date.month}
-              onChangeText={(month) => setDate((d) => ({ ...d, month }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 2 }}>
-            <Input
-              label="Año"
-              value={date.year}
-              onChangeText={(year) => setDate((d) => ({ ...d, year }))}
-              keyboardType="number-pad"
-              maxLength={4}
-            />
-          </View>
+        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
+          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
         </View>
-        {dateError ? (
-          <Text variant="small" tone="chile">
-            {dateError}
-          </Text>
-        ) : null}
+        <Text variant="display" accessibilityRole="header">
+          Nuestra pareja
+        </Text>
+        <View style={{ alignItems: 'center' }}>
+          <AvatarPicker
+            variant="couple"
+            name="Nosotros"
+            uri={photoUrl}
+            onPick={() => void changePhoto()}
+            loading={upload.isPending}
+          />
+        </View>
+
+        <DateField label="Su aniversario" value={date} onChange={setDate} error={dateError} />
         <Button title="Guardar aniversario" onPress={saveDate} loading={update.isPending} />
-        <Text variant="body">Zona horaria: {couple ? timeZoneLabel(couple.timezone) : ''}</Text>
-        <Button title="Usar la de mi celular" variant="secondary" onPress={useDeviceZone} />
-        {update.isError ? (
-          <Text variant="small" tone="chile">
-            {errorMessage(update.error)}
+
+        <Divider />
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="small" muted>
+            Zona horaria
           </Text>
-        ) : null}
-        {saved ? (
-          <Text variant="small" tone="nopal">
-            Listo, guardado.
+          <Text variant="body">{couple ? timeZoneLabel(couple.timezone) : ''}</Text>
+          <Text variant="caption" muted>
+            Con ella se decide cuándo empieza cada día para ustedes dos.
           </Text>
-        ) : null}
+        </View>
+        <Button
+          title="Usar la de este celular"
+          variant="secondary"
+          onPress={useDeviceZone}
+          disabled={!couple || sameZone}
+          loading={update.isPending}
+        />
+
+        <Divider />
+        <View style={{ gap: spacing.sm }}>
+          <Text variant="small" muted>
+            Código de su pareja
+          </Text>
+          <InviteCode code={couple?.invite_code ?? ''} loading={!couple} />
+        </View>
       </View>
     </Screen>
   );

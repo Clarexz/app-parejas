@@ -16,6 +16,13 @@ export function validatePassword(value: string): string | null {
   return null;
 }
 
+/** Confirmación de contraseña: debe coincidir con la primera. */
+export function validatePasswordConfirm(password: string, confirm: string): string | null {
+  if (!confirm) return 'Escribe la contraseña otra vez.';
+  if (confirm !== password) return 'Las contraseñas no coinciden.';
+  return null;
+}
+
 export function validateDisplayName(value: string): string | null {
   const v = value.trim();
   if (!v) return 'Escribe tu nombre.';

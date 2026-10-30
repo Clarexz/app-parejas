@@ -1,4 +1,4 @@
-import { formatLongDate, isoDateToParts, partsToIsoDate } from '../dateParts';
+import { formatLongDate, isoDateToParts, optionalIsoDate, partsToIsoDate } from '../dateParts';
 
 const p = (day: string, month: string, year: string) => ({ day, month, year });
 
@@ -34,5 +34,13 @@ describe('isoDateToParts / formatLongDate', () => {
   it('formatea', () => {
     expect(formatLongDate('2023-02-14')).toBe('14 de febrero de 2023');
     expect(formatLongDate('2023-12-01')).toBe('1 de diciembre de 2023');
+  });
+});
+
+describe('optionalIsoDate', () => {
+  it('vacío es null y lleno se valida', () => {
+    expect(optionalIsoDate(p('', '', ''))).toEqual({ ok: true, value: null });
+    expect(optionalIsoDate(p('14', '2', '2023'))).toEqual({ ok: true, value: '2023-02-14' });
+    expect(optionalIsoDate(p('14', '', '')).ok).toBe(false);
   });
 });

@@ -6,6 +6,7 @@ import {
   validateEmail,
   validateNickname,
   validatePassword,
+  validatePasswordConfirm,
 } from '../validation';
 
 describe('validadores', () => {
@@ -46,5 +47,13 @@ describe('código de invitación', () => {
   it('da formato', () => {
     expect(formatInviteCode('abc234')).toBe('ABC 234');
     expect(formatInviteCode('AB')).toBe('AB');
+  });
+});
+
+describe('validatePasswordConfirm', () => {
+  it('pide la confirmación y que coincida', () => {
+    expect(validatePasswordConfirm('12345678', '')).toBeTruthy();
+    expect(validatePasswordConfirm('12345678', '12345679')).toBe('Las contraseñas no coinciden.');
+    expect(validatePasswordConfirm('12345678', '12345678')).toBeNull();
   });
 });

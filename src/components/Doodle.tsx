@@ -39,17 +39,25 @@ const shapes: Record<DoodleKind, { w: number; h: number; d: string; length: numb
 type Props = {
   kind?: DoodleKind;
   width?: number;
+  /** Alto fijo: el trazo se estira a lo ancho sin crecer (subrayados de textos largos). */
+  height?: number;
   /** Por defecto Jamaica. */
   color?: string;
   style?: StyleProp<ViewStyle>;
 };
 
 /** Garabato de énfasis que se dibuja una sola vez al montar, ~600 ms (DISENO §5). */
-export function Doodle({ kind = 'underline', width = 120, color, style }: Props) {
+export function Doodle({
+  kind = 'underline',
+  width = 120,
+  height: fixedHeight,
+  color,
+  style,
+}: Props) {
   const { colors } = useTheme();
   const reduced = useReducedMotion();
   const shape = shapes[kind];
-  const height = (width * shape.h) / shape.w;
+  const height = fixedHeight ?? (width * shape.h) / shape.w;
   const offset = useSharedValue(reduced ? 0 : shape.length);
 
   useEffect(() => {
@@ -68,6 +76,7 @@ export function Doodle({ kind = 'underline', width = 120, color, style }: Props)
       height={height}
       viewBox={`0 0 ${shape.w} ${shape.h}`}
       fill="none"
+      preserveAspectRatio={fixedHeight ? 'none' : undefined}
       pointerEvents="none"
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"

@@ -241,7 +241,7 @@ sus estados en el **Catálogo de diseño** (`/catalogo`).
 | `Paper` | La hoja de fondo | `notebook` · `plain` · `ruled` | — |
 | `Screen` | Contenedor de pantalla con `Paper`, safe area y gutters | `scroll` sí/no, `paper` | — |
 | `Text` | Texto con la escala §2.2 | `variant` = token de tipo; `tone` = `ink`·`muted`·`faint`·`jamaica`·`chile`·`nopal` | — |
-| `Button` | Acción | `primary` (Jamaica, forma `hand`, Gochi Hand 20, sombra `ink`) · `secondary` (contorno tinta 1.5 dp, Figtree 600) · `ghost` (solo texto subrayado a mano) | normal, presionado (se hunde 2 dp y pierde sombra), deshabilitado (`inkFaint`, sin sombra), cargando (lápiz que garabatea) |
+| `Button` | Acción (`fullWidth` para auth y onboarding) | `primary` (Jamaica, forma `hand`, Gochi Hand 20, sombra `ink`) · `secondary` (contorno tinta 1.5 dp, Figtree 600) · `ghost` (solo texto subrayado a mano) | normal, presionado (se hunde 2 dp y pierde sombra), deshabilitado (`inkFaint`, sin sombra), cargando (lápiz que garabatea) |
 | `IconButton` | Icono tocable 44×44 | `plain` · `sticker` (círculo Jamaica) | normal, presionado, deshabilitado |
 | `Card` (ficha) | Ficha bibliográfica | `plain` · `ruled` (renglones) ; `tilt` | normal, presionado (si es tocable) |
 | `Note` | Post-it | `yellow` (default) ; `tape` sí/no ; `tilt` | aparece con "pegar" |

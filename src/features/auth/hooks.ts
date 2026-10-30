@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { signIn, signOut, signUp } from './api';
+import { changePassword, signIn, signOut, signUp } from './api';
 import { useSessionStore } from './store';
 
 export function useSession() {
@@ -25,4 +25,8 @@ export function useSignUp() {
 
 export function useSignOut() {
   return useMutation({ mutationFn: signOut });
+}
+
+export function useChangePassword() {
+  return useMutation({ mutationFn: (password: string) => changePassword(password) });
 }

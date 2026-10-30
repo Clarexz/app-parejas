@@ -55,6 +55,8 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   icon?: IconName;
+  /** Ocupa todo el ancho (auth y onboarding, DISENO §8). */
+  fullWidth?: boolean;
 };
 
 /** Botón del sistema (DISENO §7): primario recortado a mano, secundario de contorno, ghost subrayado. */
@@ -65,6 +67,7 @@ export function Button({
   disabled = false,
   loading = false,
   icon,
+  fullWidth = false,
 }: Props) {
   const { colors, spacing, radius, shadows, motion, type } = useTheme();
   const reduced = useReducedMotion();
@@ -122,7 +125,7 @@ export function Button({
       onPressOut={() => set(0)}
       // Deja espacio para la sombra "dibujada" (2/3 dp) y para que no se recorte al hundirse.
       style={{
-        alignSelf: 'flex-start',
+        alignSelf: fullWidth ? 'stretch' : 'flex-start',
         paddingRight: primary ? 2 : 0,
         paddingBottom: primary ? 3 : 0,
       }}
@@ -157,6 +160,7 @@ export function Button({
                 <Doodle
                   kind="underline"
                   width={textWidth}
+                  height={10}
                   style={{ position: 'absolute', left: 0, bottom: -6 }}
                 />
               ) : null}

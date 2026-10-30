@@ -1,96 +1,103 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, Input, Screen, Text } from '@/components';
-import { useUpdateProfile } from '@/features/profile';
-import { partsToIsoDate, type DateParts } from '@/lib/dateParts';
+import { AvatarPicker, Button, DateField, Input, Screen, Text, useToast } from '@/components';
+import {
+  pickImage,
+  useProfile,
+  useSignedUrl,
+  useUpdateProfile,
+  useUploadAvatar,
+} from '@/features/profile';
+import { optionalIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
 import { validateDisplayName, validateNickname } from '@/lib/validation';
 import { useTheme } from '@/theme';
 
+type Errors = { name?: string; nickname?: string; birthday?: string };
+
 export default function OnboardingProfileScreen() {
   const { spacing } = useTheme();
+  const toast = useToast();
+  const { data: profile } = useProfile();
   const update = useUpdateProfile();
+  const upload = useUploadAvatar();
+  const avatarUrl = useSignedUrl(profile?.avatar_path);
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [birthday, setBirthday] = useState<DateParts>({ day: '', month: '', year: '' });
-  const [errors, setErrors] = useState<{ name?: string; nickname?: string; birthday?: string }>({});
+  const [errors, setErrors] = useState<Errors>({});
+
+  const changePhoto = async () => {
+    const uri = await pickImage();
+    if (!uri) return;
+    upload.mutate(uri, {
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+    });
+  };
 
   const submit = () => {
-    const next: typeof errors = {
+    const parsed = optionalIsoDate(birthday, { notAfter: new Date() });
+    const next: Errors = {
       name: validateDisplayName(name) ?? undefined,
       nickname: validateNickname(nickname) ?? undefined,
+      birthday: parsed.ok ? undefined : parsed.error,
     };
-    let iso: string | null = null;
-    const hasBirthday = birthday.day || birthday.month || birthday.year;
-    if (hasBirthday) {
-      const parsed = partsToIsoDate(birthday, { notAfter: new Date() });
-      if (parsed.ok) iso = parsed.value;
-      else next.birthday = parsed.error;
-    }
     setErrors(next);
-    if (next.name || next.nickname || next.birthday) return;
+    if (next.name || next.nickname || !parsed.ok) return;
     update.mutate({
       display_name: name.trim(),
       nickname: nickname.trim() || null,
-      birthday: iso,
+      birthday: parsed.value,
     });
   };
 
   return (
     <Screen scroll>
       <View style={{ gap: spacing.lg }}>
-        <Text variant="display">¿Cómo te llamas?</Text>
-        <Input label="Tu nombre" value={name} onChangeText={setName} error={errors.name} />
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="display" accessibilityRole="header">
+            ¿Cómo te llamas?
+          </Text>
+          <Text variant="body" muted>
+            Así te van a ver en la libreta. Lo puedes cambiar cuando quieras.
+          </Text>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <AvatarPicker
+            name={name.trim()}
+            uri={avatarUrl}
+            onPick={() => void changePhoto()}
+            loading={upload.isPending}
+          />
+        </View>
+        <Input
+          label="Tu nombre"
+          value={name}
+          onChangeText={setName}
+          error={errors.name}
+          autoComplete="given-name"
+          returnKeyType="next"
+        />
         <Input
           label="Apodo (opcional)"
           value={nickname}
           onChangeText={setNickname}
           error={errors.nickname}
+          returnKeyType="next"
         />
-        <Text variant="hand" muted>
-          Tu cumpleaños (opcional)
-        </Text>
-        <View style={{ flexDirection: 'row', gap: spacing.md }}>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Día"
-              value={birthday.day}
-              onChangeText={(day) => setBirthday((b) => ({ ...b, day }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Mes"
-              value={birthday.month}
-              onChangeText={(month) => setBirthday((b) => ({ ...b, month }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 2 }}>
-            <Input
-              label="Año"
-              value={birthday.year}
-              onChangeText={(year) => setBirthday((b) => ({ ...b, year }))}
-              keyboardType="number-pad"
-              maxLength={4}
-            />
-          </View>
-        </View>
-        {errors.birthday ? (
-          <Text variant="small" tone="chile">
-            {errors.birthday}
-          </Text>
-        ) : null}
+        <DateField
+          label="Tu cumpleaños (opcional)"
+          value={birthday}
+          onChange={setBirthday}
+          error={errors.birthday}
+        />
         {update.isError ? (
-          <Text variant="small" tone="chile">
+          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
             {errorMessage(update.error)}
           </Text>
         ) : null}
-        <Button title="Seguir" onPress={submit} loading={update.isPending} />
+        <Button title="Seguir" onPress={submit} loading={update.isPending} fullWidth />
       </View>
     </Screen>
   );

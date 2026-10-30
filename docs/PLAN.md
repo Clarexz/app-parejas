@@ -1022,7 +1022,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 |---|---|---|---|
 | 0 Cimientos | ✅ Cerrada (2026-10-30) | #1, #3 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). APK final v0.0.3 (con la 0.5). |
 | 0.5 Diseño | ✅ Cerrada (2026-10-30) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
-| 1 Auth y emparejamiento | ⏳ Pendiente | | |
+| 1 Auth y emparejamiento | 🧪 En pruebas (2026-10-30) | | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
 | 2 Inicio y mood | ⏳ Pendiente | | |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
 | 4 Push | ⏳ Pendiente | | |

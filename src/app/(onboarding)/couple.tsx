@@ -1,89 +1,82 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, Input, Screen, Text } from '@/components';
+import { Button, DateField, Divider, Screen, Text } from '@/components';
 import { useCreateCouple } from '@/features/couple';
-import { partsToIsoDate, type DateParts } from '@/lib/dateParts';
+import { optionalIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
-import { detectTimeZone } from '@/lib/timezone';
+import { haptic } from '@/lib/haptics';
+import { detectTimeZone, timeZoneLabel } from '@/lib/timezone';
 import { useTheme } from '@/theme';
 
 export default function OnboardingCoupleScreen() {
   const { spacing } = useTheme();
+  const router = useRouter();
   const create = useCreateCouple();
   const [date, setDate] = useState<DateParts>({ day: '', month: '', year: '' });
   const [dateError, setDateError] = useState<string | undefined>();
+  const timezone = detectTimeZone();
 
   const submit = () => {
-    let anniversaryDate: string | null = null;
-    if (date.day || date.month || date.year) {
-      const parsed = partsToIsoDate(date, { notAfter: new Date() });
-      if (!parsed.ok) {
-        setDateError(parsed.error);
-        return;
-      }
-      anniversaryDate = parsed.value;
+    const parsed = optionalIsoDate(date, { notAfter: new Date() });
+    if (!parsed.ok) {
+      setDateError(parsed.error);
+      return;
     }
     setDateError(undefined);
-    create.mutate({ anniversaryDate, timezone: detectTimeZone() });
+    create.mutate({ anniversaryDate: parsed.value, timezone }, { onSuccess: () => haptic.stamp() });
   };
 
   return (
     <Screen scroll>
       <View style={{ gap: spacing.lg }}>
-        <Text variant="display">Su pareja</Text>
-        <Text variant="body">
-          Creen su espacio y compartan el código, o únanse con el código que les pasó su pareja.
-        </Text>
-        <Text variant="hand" muted>
-          Su aniversario (opcional)
-        </Text>
-        <View style={{ flexDirection: 'row', gap: spacing.md }}>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Día"
-              value={date.day}
-              onChangeText={(day) => setDate((d) => ({ ...d, day }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Input
-              label="Mes"
-              value={date.month}
-              onChangeText={(month) => setDate((d) => ({ ...d, month }))}
-              keyboardType="number-pad"
-              maxLength={2}
-            />
-          </View>
-          <View style={{ flex: 2 }}>
-            <Input
-              label="Año"
-              value={date.year}
-              onChangeText={(year) => setDate((d) => ({ ...d, year }))}
-              keyboardType="number-pad"
-              maxLength={4}
-            />
-          </View>
-        </View>
-        {dateError ? (
-          <Text variant="small" tone="chile">
-            {dateError}
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="display" accessibilityRole="header">
+            Su pareja
           </Text>
-        ) : null}
+          <Text variant="body" muted>
+            Una persona abre la libreta y la otra se une con un código.
+          </Text>
+        </View>
+        <DateField
+          label="Su aniversario (opcional)"
+          value={date}
+          onChange={setDate}
+          error={dateError}
+        />
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="small" muted>
+            Zona horaria
+          </Text>
+          <Text variant="body">{timeZoneLabel(timezone)}</Text>
+          <Text variant="caption" muted>
+            La tomamos de este celular. Después pueden cambiarla en Más → Nuestra pareja.
+          </Text>
+        </View>
         {create.isError ? (
-          <Text variant="small" tone="chile">
+          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
             {errorMessage(create.error)}
           </Text>
         ) : null}
-        <Button title="Crear nuestro espacio" onPress={submit} loading={create.isPending} />
-        <Link href="/join">
-          <Text variant="body" tone="jamaica">
-            Ya tengo un código
+        <Button
+          title="Crear nuestra libreta"
+          onPress={submit}
+          loading={create.isPending}
+          fullWidth
+        />
+        <Divider />
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="body" muted>
+            ¿Tu pareja ya la abrió y te pasó un código?
           </Text>
-        </Link>
+          <Button
+            title="Tengo un código"
+            variant="secondary"
+            onPress={() => router.push('/join')}
+            fullWidth
+          />
+        </View>
       </View>
     </Screen>
   );

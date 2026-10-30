@@ -51,6 +51,8 @@ export function AvatarPicker({ name, uri, onPick, loading = false, variant = 'pe
   const bg = [colors.jamaica, colors.cempasuchil, colors.nopal][idx];
   const fg = [colors.onJamaica, colors.onPolaroid, colors.onPolaroid][idx];
   const couple = variant === 'couple';
+  // Sin nombre (aún no lo escriben) se ve como foto vacía, igual que la de pareja.
+  const empty = couple || !name.trim();
   const hasPhoto = !!uri;
   const label = hasPhoto ? 'Cambiar foto' : 'Elegir foto';
 
@@ -72,10 +74,10 @@ export function AvatarPicker({ name, uri, onPick, loading = false, variant = 'pe
               height: INNER,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: couple ? colors.photoEmpty : bg,
+              backgroundColor: empty ? colors.photoEmpty : bg,
             }}
           >
-            {couple ? (
+            {empty ? (
               <Icon name="photo" size={28} color={colors.inkFaint} />
             ) : (
               <Text

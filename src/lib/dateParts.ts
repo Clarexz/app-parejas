@@ -53,6 +53,17 @@ export function partsToIsoDate(
   return { ok: true, value };
 }
 
+/** Como `partsToIsoDate`, pero si las tres casillas están vacías devuelve `value: null`. */
+export function optionalIsoDate(
+  parts: DateParts,
+  opts: { notAfter?: Date; notBefore?: Date } = {},
+): { ok: true; value: string | null } | { ok: false; error: string } {
+  if (!parts.day.trim() && !parts.month.trim() && !parts.year.trim()) {
+    return { ok: true, value: null };
+  }
+  return partsToIsoDate(parts, opts);
+}
+
 export function isoDateToParts(iso: string | null | undefined): DateParts {
   const match = iso ? /^(\d{4})-(\d{2})-(\d{2})/.exec(iso) : null;
   if (!match) return { day: '', month: '', year: '' };

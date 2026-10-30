@@ -1,15 +1,16 @@
 import { useRouter } from 'expo-router';
 import { Alert, View } from 'react-native';
 
-import { Button, Screen, Text } from '@/components';
+import { ListRow, Screen, Text } from '@/components';
 import { useSignOut } from '@/features/auth';
-import { useLeaveCouple } from '@/features/couple';
+import { useCouple, useLeaveCouple } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
 import { useTheme } from '@/theme';
 
 export default function MoreScreen() {
   const { spacing } = useTheme();
   const router = useRouter();
+  const { partner } = useCouple();
   const signOut = useSignOut();
   const leave = useLeaveCouple();
 
@@ -19,10 +20,11 @@ export default function MoreScreen() {
       { text: 'Cerrar sesión', onPress: () => signOut.mutate() },
     ]);
 
+  const partnerName = partner?.nickname || partner?.display_name;
   const confirmLeave = () =>
     Alert.alert(
       'Salir de la pareja',
-      'Dejarán de compartir su espacio. Esto no se puede deshacer. ¿Seguro?',
+      `${partnerName ? `Dejarás de compartir la libreta con ${partnerName}.` : 'Dejarás de compartir la libreta.'} Esto no se puede deshacer. ¿Seguro?`,
       [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Salir', style: 'destructive', onPress: () => leave.mutate() },
@@ -34,39 +36,40 @@ export default function MoreScreen() {
   return (
     <Screen scroll>
       <View style={{ gap: spacing.lg }}>
-        <Text variant="display">Más</Text>
-        <Button
-          title="Mi perfil"
-          variant="secondary"
-          onPress={() => router.push('/settings/profile')}
-        />
-        <Button
-          title="Nuestra pareja"
-          variant="secondary"
-          onPress={() => router.push('/settings/couple')}
-        />
-        <Button
-          title="Estado del servidor"
-          variant="secondary"
-          onPress={() => router.push('/conexion')}
-        />
+        <Text variant="display" accessibilityRole="header">
+          Más
+        </Text>
+        <View>
+          <ListRow
+            label="Mi perfil"
+            icon="smile"
+            onPress={() => router.push('/settings/profile')}
+          />
+          <ListRow
+            label="Nuestra pareja"
+            icon="calendar"
+            onPress={() => router.push('/settings/couple')}
+          />
+          <ListRow
+            label="Estado del servidor"
+            icon="settings"
+            onPress={() => router.push('/conexion')}
+          />
+          <ListRow label="Cerrar sesión" icon="lock" onPress={confirmSignOut} />
+          <ListRow
+            label="Salir de la pareja"
+            tone="destructive"
+            icon="close"
+            onPress={confirmLeave}
+            disabled={leave.isPending}
+            divider={false}
+          />
+        </View>
         {error ? (
-          <Text variant="small" tone="chile">
+          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
             {errorMessage(error)}
           </Text>
         ) : null}
-        <Button
-          title="Cerrar sesión"
-          variant="ghost"
-          onPress={confirmSignOut}
-          loading={signOut.isPending}
-        />
-        <Button
-          title="Salir de la pareja"
-          variant="ghost"
-          onPress={confirmLeave}
-          loading={leave.isPending}
-        />
       </View>
     </Screen>
   );

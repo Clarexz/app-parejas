@@ -1,15 +1,17 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, Input, Screen, Text } from '@/components';
+import { Button, CodeInput, Screen, Text } from '@/components';
 import { useJoinCouple } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
+import { haptic } from '@/lib/haptics';
 import { isValidInviteCode, normalizeInviteCode } from '@/lib/validation';
 import { useTheme } from '@/theme';
 
 export default function JoinScreen() {
   const { spacing } = useTheme();
+  const router = useRouter();
   const join = useJoinCouple();
   const [code, setCode] = useState('');
   const [error, setError] = useState<string | undefined>();
@@ -21,33 +23,42 @@ export default function JoinScreen() {
       return;
     }
     setError(undefined);
-    join.mutate(normalized);
+    join.mutate(normalized, { onSuccess: () => haptic.stamp() });
   };
 
   return (
     <Screen scroll>
       <View style={{ gap: spacing.lg }}>
-        <Text variant="display">Unirse</Text>
-        <Input
-          label="Código de su pareja"
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="display" accessibilityRole="header">
+            Tengo un código
+          </Text>
+          <Text variant="body" muted>
+            Escribe el código que te pasó tu pareja. No importa si va con mayúsculas o espacios.
+          </Text>
+        </View>
+        <CodeInput
           value={code}
-          onChangeText={setCode}
+          onChangeText={(next) => {
+            setCode(next);
+            if (error) setError(undefined);
+          }}
           error={error}
-          autoCapitalize="characters"
-          autoCorrect={false}
-          maxLength={10}
+          autoFocus
         />
         {join.isError ? (
-          <Text variant="small" tone="chile">
+          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
             {errorMessage(join.error)}
           </Text>
         ) : null}
-        <Button title="Unirme" onPress={submit} loading={join.isPending} />
-        <Link href="/couple">
-          <Text variant="body" tone="jamaica">
-            Mejor creo el espacio yo
-          </Text>
-        </Link>
+        <Button title="Unirme" onPress={submit} loading={join.isPending} fullWidth />
+        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.xl }}>
+          <Button
+            title="Mejor creo la libreta yo"
+            variant="ghost"
+            onPress={() => router.replace('/couple')}
+          />
+        </View>
       </View>
     </Screen>
   );

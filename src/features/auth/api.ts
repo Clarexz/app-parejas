@@ -19,3 +19,9 @@ export async function signOut() {
   queryClient.clear();
   if (error) throw error;
 }
+
+/** Cambia la contraseña de la sesión actual. */
+export async function changePassword(password: string) {
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) throw error;
+}
