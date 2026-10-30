@@ -1,7 +1,14 @@
 export { Button } from './Button';
 export { Card } from './Card';
 export { Icon, ICON_NAMES, type IconName } from './Icon';
-export { CloudOff, EmptyPolaroid, PencilNote, Scene, type SceneKind } from './illustrations';
+export {
+  CloudOff,
+  EmptyPolaroid,
+  PencilNote,
+  Scene,
+  WaitingIllustration,
+  type SceneKind,
+} from './illustrations';
 export { Paper, type PaperVariant } from './Paper';
 export { Screen } from './Screen';
 export { Text, type TextTone } from './Text';
@@ -21,3 +28,9 @@ export { Polaroid } from './Polaroid';
 export { Sheet } from './Sheet';
 export { Sticker } from './Sticker';
 export { Toast, ToastProvider, useToast } from './Toast';
+export { DateField, digitsOnly, type DateParts } from './DateField';
+export { InviteCode, spokenCode } from './InviteCode';
+export { CodeInput, normalizeCode, CODE_ALPHABET, CODE_LENGTH } from './CodeInput';
+export { AvatarPicker } from './AvatarPicker';
+export { TabBar, TAB_ICONS, type TabBarProps } from './TabBar';
+export { ListRow } from './ListRow';
