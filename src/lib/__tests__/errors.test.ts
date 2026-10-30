@@ -36,6 +36,11 @@ describe('errorMessage', () => {
     }
   });
 
+  it('traduce las claves de mood', () => {
+    expect(errorMessage({ code: 'P0001', message: 'no_couple' })).toMatch(/vinculados/);
+    expect(errorMessage({ code: 'P0001', message: 'invalid_mood' })).toMatch(/emoji/);
+  });
+
   it('cubre check_violation y genérico', () => {
     expect(errorMessage({ code: '23514' })).toMatch(/no cumple/);
     expect(errorMessage(new Error('boom'))).toMatch(/Algo no salió/);

@@ -21,6 +21,9 @@ const BY_CODE: Record<string, string> = {
   code_not_found: 'No encontramos ese código. Revisa que esté bien escrito.',
   couple_full: 'Ese código ya tiene a sus dos personas. Pídele a tu pareja que revise el código.',
   invalid_timezone: 'No reconocimos la zona horaria. Elige otra e intenta de nuevo.',
+  // RPC de mood
+  no_couple: 'Todavía no están vinculados. Termina de unirte a tu pareja.',
+  invalid_mood: 'Ese mood no se pudo guardar. Elige un emoji y una nota corta.',
 };
 
 function isNetworkError(name: string, message: string, status?: unknown): boolean {
