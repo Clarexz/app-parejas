@@ -34,3 +34,5 @@ export { CodeInput, normalizeCode, CODE_ALPHABET, CODE_LENGTH } from './CodeInpu
 export { AvatarPicker } from './AvatarPicker';
 export { TabBar, TAB_ICONS, type TabBarProps } from './TabBar';
 export { ListRow } from './ListRow';
+export { PageHeader } from './PageHeader';
+export { LoadingLines } from './LoadingLines';

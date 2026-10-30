@@ -1023,7 +1023,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 0 Cimientos | ✅ Cerrada (2026-10-30) | #1, #3 | Expo SDK 58, CI y release; Supabase self-hosted en el VPS (Traefik, `parejas-api.srv1574981.hstgr.cloud`). APK final v0.0.3 (con la 0.5). |
 | 0.5 Diseño | ✅ Cerrada (2026-10-30) | #2 | Concepto "Bitácora" (D24); `docs/DISENO.md`, componentes base y Catálogo de diseño oculto (`/catalogo`) |
 | 1 Auth y emparejamiento | ✅ Cerrada (2026-10-30) | #5 | Cuentas, perfil con foto, crear/unirse con código, espera en tiempo real, ajustes y cambio de contraseña (D34–D41). APK v0.1.0. |
-| 2 Inicio y mood | ⏳ Pendiente | | |
+| 2 Inicio y mood | ✅ Cerrada (2026-10-30) | #6 | 5 pestañas, días juntos con desglose e hitos, mood con Realtime e historial (D42–D47). APK v0.2.0. |
 | 3 Preguntas y racha | ⏳ Pendiente | | |
 | 4 Push | ⏳ Pendiente | | |
 | 5 Widgets Android | ⏳ Pendiente | | |
@@ -1043,8 +1043,20 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   bucket `avatars`, smoke test OK) mientras se compilaba el APK **v0.1.0**. Falta probarlo en los
   dos celulares con la lista de `docs/releases/v0.1.0.md`. Si sale un error, se corrige como
   parche `v0.1.P` siguiente; la Fase 2 no lo espera (D31).
-- **Nota para el servidor:** tras el merge, el clon del VPS sigue en la rama de la Fase 1; el
-  siguiente despliegue debe usar `deploy.sh main` (o la rama de la fase nueva).
+- **Fase 2:** servidor desplegado el 2026-10-30 (`deploy.sh` de la rama de la fase en `fb87659`;
+  migración `20261031000000_moods.sql`, `moods` en Realtime, smoke test OK). Falta probar el APK
+  **v0.2.0** en los dos celulares con la lista de `docs/releases/v0.2.0.md`.
+- **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
+  quedó en la rama de la Fase 2 (`claude/sweet-ride-xx0i0m`, commit `fb87659`), con 3 migraciones
+  aplicadas. Al preparar el siguiente "Prompt para el servidor":
+  - Si la Fase 2 (PR #6) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
+    rama de la fase nueva. `deploy.sh` hace `git fetch`/`checkout`/`pull` de la rama que reciba, así
+    que cambiar de rama no requiere pasos extra.
+  - **Nunca** vuelvas a desplegar una rama de una fase anterior: las migraciones son
+    acumulativas y el smoke test compara las registradas con los archivos del repo.
+  - Al empezar una fase, revisa con `git log origin/main` que la fase anterior ya esté en `main`.
+    Si no lo está, la rama nueva debe partir de la de la fase anterior para no "perder" migraciones
+    que ya están en el servidor.
 
 ---
 

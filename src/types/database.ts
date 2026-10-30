@@ -64,6 +64,42 @@ export type Database = {
         };
         Relationships: [];
       };
+      moods: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          emoji: string;
+          id: string;
+          note: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          emoji: string;
+          id?: string;
+          note?: string | null;
+          user_id: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          emoji?: string;
+          id?: string;
+          note?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'moods_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;
@@ -139,6 +175,23 @@ export type Database = {
       };
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
+      set_mood: {
+        Args: { p_emoji: string; p_note?: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          emoji: string;
+          id: string;
+          note: string | null;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'moods';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
     };
     Enums: {
       [_ in never]: never;

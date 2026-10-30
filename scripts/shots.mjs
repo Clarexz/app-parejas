@@ -101,8 +101,11 @@ try {
         const page = await context.newPage();
         await page.goto(base + route, { waitUntil: 'networkidle' });
         await page.waitForTimeout(job.scenario ? 900 : 500);
+        // Acciones del escenario para esta ruta (p. ej. abrir el selector de mood).
+        await job.scenario?.actions?.[route]?.(page);
         const name = route === '/' ? 'index' : route.replace(/^\//, '').replace(/\//g, '-');
-        const file = `${OUT}/${name}-${colorScheme}.png`;
+        const prefix = job.scenario?.prefix ? `${job.scenario.prefix}-` : '';
+        const file = `${OUT}/${prefix}${name}-${colorScheme}.png`;
         // El scroll vive dentro de un ScrollView de RN-web: se mide su contenido y se agranda el
         // viewport para que la captura de página completa lo muestre entero.
         const scrollHeight = await page.evaluate(() =>

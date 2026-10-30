@@ -76,6 +76,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="settings/profile" />
             <Stack.Screen name="settings/couple" />
+            <Stack.Screen name="moods" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
