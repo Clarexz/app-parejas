@@ -36,6 +36,8 @@ const BY_CODE: Record<string, string> = {
   nudge_too_soon: 'Ya le recordaste hace un ratito. Dale un poco de tiempo antes de insistir.',
   no_partner: 'Todavía no hay pareja a quién recordarle. Cuando se una, podrás hacerlo.',
   invalid_nudge: 'Ese recordatorio no se pudo enviar. Vuelve a intentar.',
+  // RPC de notificaciones
+  invalid_token: 'No pudimos registrar este celular para los avisos. Vuelve a intentar.',
 };
 
 function isNetworkError(name: string, message: string, status?: unknown): boolean {
