@@ -92,9 +92,15 @@ Los otros proyectos del VPS viven en `/docker/<nombre>`; este usa `/opt/app-pare
 
 ```bash
 cd /opt/app-parejas/repo
-./scripts/server/deploy.sh <rama> --dry-run     # revisa qué haría (recomendado)
+git fetch && git checkout <rama> && git pull --ff-only   # el dry-run evalúa lo que hay en el clon
+./scripts/server/deploy.sh <rama> --dry-run              # revisa qué haría (recomendado)
 ./scripts/server/deploy.sh <rama>
 ```
+
+`--dry-run` no hace checkout: muestra los commits nuevos de la rama, pero evalúa migraciones y
+pasos con el contenido **actual** del clon; por eso conviene hacer el checkout antes. Si el `pull`
+trae una versión nueva de `deploy.sh` o `lib.sh`, el script se vuelve a ejecutar solo con la
+versión nueva (conservando el lock), para no correr pasos viejos.
 
 Qué hace, en orden: verifica que el clon no tenga cambios locales; `git fetch` + `checkout` + `pull
 --ff-only`; `backup.sh --pre-deploy` (dump previo, últimos 10); aplica `supabase/migrations/*.sql`

@@ -14,10 +14,19 @@
 #        (3) scripts/apply-migrations.sh  (4) scripts/apply-seed.sh (seed de preguntas, idempotente)
 #        (5) sincroniza supabase/functions -> stack/volumes/functions y reinicia `functions`
 #        (6) buckets de server/buckets.json  (7) smoke-test.sh
+#
+# Si el pull trae una versión nueva de deploy.sh o lib.sh, el script se vuelve a ejecutar
+# solo (con el lock tomado) para que los pasos siguientes usen la versión nueva.
+# --dry-run no hace checkout: evalúa el contenido ACTUAL del clon. Para ver qué haría una rama
+# nueva, primero `git checkout <rama> && git pull` en el clon.
 # =====================================================================================
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ARGS_ORIGINALES=("$@")
+# Huella del script en ejecución, para detectar si el pull lo cambia (ver paso 1).
+huella_scripts() { cat "$SCRIPT_DIR/deploy.sh" "$SCRIPT_DIR/lib.sh" | cksum; }
+HUELLA_INICIAL="$(huella_scripts)"
 # shellcheck source=lib.sh
 source "$SCRIPT_DIR/lib.sh"
 
@@ -30,7 +39,7 @@ for arg in "$@"; do
     --skip-backup) SALTAR_BACKUP=1 ;;
     --dry-run)     DRY_RUN=1 ;;
     --local)       LOCAL=1 ;;
-    -h|--help)     sed -n '2,17p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help)     sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*)            die "Opción desconocida: $arg" ;;
     *)             [[ -z "$RAMA" ]] || die "Solo se acepta una rama."; RAMA="$arg" ;;
   esac
@@ -41,7 +50,8 @@ requiere_cmd git docker curl jq rsync
 cargar_env
 validar_env
 requiere_db
-tomar_lock deploy
+# En la re-ejecución (paso 1) el lock ya lo tiene este mismo proceso (descriptor heredado).
+[[ -n "${DEPLOY_REEJECUTADO:-}" ]] || tomar_lock deploy
 ((DRY_RUN)) && log "== MODO DRY-RUN: no se cambia nada =="
 
 [[ -d "$REPO_DIR/.git" ]] || die "$REPO_DIR no es un clon git."
@@ -67,6 +77,11 @@ if ((DRY_RUN)); then
 else
   git_repo checkout "$RAMA"
   git_repo pull --ff-only origin "$RAMA"
+  if [[ -z "${DEPLOY_REEJECUTADO:-}" && "$(huella_scripts)" != "$HUELLA_INICIAL" ]]; then
+    log "   deploy.sh/lib.sh cambiaron con el pull: se vuelve a ejecutar con la versión nueva."
+    export DEPLOY_REEJECUTADO=1
+    exec bash "$SCRIPT_DIR/deploy.sh" "${ARGS_ORIGINALES[@]}"
+  fi
 fi
 log "   HEAD: $(git_repo log -1 --format='%h %s')"
 

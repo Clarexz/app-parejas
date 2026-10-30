@@ -1046,14 +1046,17 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 - **Fase 2:** servidor desplegado el 2026-10-30 (`deploy.sh` de la rama de la fase en `fb87659`;
   migración `20261031000000_moods.sql`, `moods` en Realtime, smoke test OK). Falta probar el APK
   **v0.2.0** en los dos celulares con la lista de `docs/releases/v0.2.0.md`.
-- **Fase 3:** falta desplegar en el servidor (migración `20261101000000_questions.sql` + seed de
-  300 preguntas, con `deploy.sh` de la rama de la fase) y probar el APK **v0.3.0** en los dos
-  celulares con la lista de `docs/releases/v0.3.0.md`. Ojo: el teclado sobre la barra de
+- **Fase 3:** servidor desplegado el 2026-10-30 (`deploy.sh claude/elegant-hypatia-tyibam` en
+  `5b3a14c`; migración `20261101000000_questions.sql`, seed de 300 preguntas en 11 categorías,
+  Realtime en `answers`, `answer_comments`, `daily_questions` y `nudges`, smoke test OK). La primera
+  corrida saltó el seed porque bash siguió con el `deploy.sh` viejo tras el checkout; se corrió dos
+  veces y desde esta fase el script se re-ejecuta solo si el pull lo cambia. Falta probar el APK
+  **v0.3.0** en los dos celulares con la lista de `docs/releases/v0.3.0.md`. Ojo: el teclado sobre la barra de
   comentarios (`KeyboardAvoidingView`) no se pudo probar en web.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
-  quedó en la rama de la Fase 2 (`claude/sweet-ride-xx0i0m`, commit `fb87659`), con 3 migraciones
-  aplicadas. Al preparar el siguiente "Prompt para el servidor":
-  - Si la Fase 2 (PR #6) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
+  quedó en la rama de la Fase 3 (`claude/elegant-hypatia-tyibam`, commit `5b3a14c`), con 4
+  migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
+  - Si la Fase 3 (PR #7) ya está mergeada, despliega **`./scripts/server/deploy.sh main`** o la
     rama de la fase nueva. `deploy.sh` hace `git fetch`/`checkout`/`pull` de la rama que reciba, así
     que cambiar de rama no requiere pasos extra.
   - **Nunca** vuelvas a desplegar una rama de una fase anterior: las migraciones son
