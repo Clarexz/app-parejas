@@ -175,7 +175,7 @@ select pg_temp.assert((select (e -> 'recipient' ->> 'id')::uuid from t_ev) = pg_
 select pg_temp.assert((select e -> 'recipient' ->> 'name' from t_ev) = 'Betito', 'apodo del destinatario');
 select pg_temp.assert((select e -> 'actor' ->> 'name' from t_ev) = 'Ana', 'nombre del actor');
 select pg_temp.assert((select e -> 'tokens' from t_ev) = '["token-beto-celular-1-xxxxxxxxxxx"]', 'tokens de Beto');
-select pg_temp.assert((select e -> 'prefs' from t_ev) = '{"answers": true, "comments": true, "memories": true, "moods": false, "nudges": true, "stories": true}',
+select pg_temp.assert((select e -> 'prefs' from t_ev) = '{"answers": true, "comments": true, "games": true, "memories": true, "moods": false, "nudges": true, "stories": true}',
   'preferencias de Beto');
 select pg_temp.assert((select e -> 'data' ->> 'emoji' from t_ev) = '🥰', 'emoji del mood');
 

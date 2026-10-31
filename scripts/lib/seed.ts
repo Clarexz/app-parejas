@@ -4,6 +4,17 @@
 
 export type Intensity = 'ligera' | 'profunda' | 'picante';
 export type QuestionType = 'open' | 'choice';
+export type GameType = 'wyr' | 'nhie' | 'most_likely' | 'agree';
+
+/** Categoría que el seed crea sola para los ítems de juegos (no va en categories.json). */
+export const GAMES_CATEGORY = 'juegos';
+export const GAME_TYPES: readonly GameType[] = ['wyr', 'nhie', 'most_likely', 'agree'];
+const GAME_SLUG_PREFIX: Record<GameType, string> = {
+  wyr: 'prefieres-',
+  nhie: 'yo-nunca-',
+  most_likely: 'quien-',
+  agree: 'acuerdo-',
+};
 
 export interface Category {
   slug: string;
@@ -28,18 +39,39 @@ export interface QuestionFile {
   data: unknown;
 }
 
+/** Archivo de content/games/ (p. ej. "wyr.json" o "drawing.json"). */
+export interface GameFile {
+  file: string;
+  data: unknown;
+}
+
+export interface ValidatedDrawingWord {
+  slug: string;
+  word: string;
+  alternates: string[];
+  intensity: 'ligera' | 'profunda';
+}
+
 export interface ValidatedQuestion {
   slug: string;
   category: string;
-  type: QuestionType;
+  type: QuestionType | GameType;
   intensity: Intensity;
   text: string;
   options: string[] | null;
 }
 
 export interface Content {
+  /** Solo las de categories.json (la categoría `juegos` la agrega generateSeedSql). */
   categories: Category[];
+  /** Preguntas de categorías + ítems de juegos. */
   questions: ValidatedQuestion[];
+  drawingWords: ValidatedDrawingWord[];
+}
+
+export interface GameSummary {
+  game: GameType | 'drawing';
+  total: number;
 }
 
 export interface CategorySummary {
@@ -50,7 +82,8 @@ export interface CategorySummary {
 }
 
 export type ValidationResult =
-  { ok: true; content: Content; summary: CategorySummary[] } | { ok: false; errors: string[] };
+  | { ok: true; content: Content; summary: CategorySummary[]; games: GameSummary[] }
+  | { ok: false; errors: string[] };
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const INTENSITIES = ['ligera', 'profunda', 'picante'];
@@ -128,9 +161,15 @@ function validateCategories(data: unknown, errors: string[]): Category[] {
 }
 
 /** Valida todo el contenido. Devuelve errores con archivo y slug, o el contenido ordenado. */
-export function validateContent(categoriesData: unknown, files: QuestionFile[]): ValidationResult {
+export function validateContent(
+  categoriesData: unknown,
+  files: QuestionFile[],
+  gameFiles: GameFile[] = [],
+): ValidationResult {
   const errors: string[] = [];
   const categories = validateCategories(categoriesData, errors);
+  if (categories.some((c) => c.slug === GAMES_CATEGORY))
+    errors.push(`categories.json: la categoría "${GAMES_CATEGORY}" es reservada (la crea el seed)`);
   const categoryBySlug = new Map(categories.map((c) => [c.slug, c]));
 
   const questions: ValidatedQuestion[] = [];
@@ -239,6 +278,12 @@ export function validateContent(categoriesData: unknown, files: QuestionFile[]):
     });
   }
 
+  const drawingWords: ValidatedDrawingWord[] = [];
+  const games: GameSummary[] = [];
+  for (const { file, data } of gameFiles) {
+    validateGameFile(file, data, errors, questions, drawingWords, games, slugOrigin, textOrigin);
+  }
+
   for (const c of categories) {
     if (!categoriesWithFile.has(c.slug))
       errors.push(`categories.json [${c.slug}]: no tiene archivo content/questions/${c.slug}.json`);
@@ -250,9 +295,11 @@ export function validateContent(categoriesData: unknown, files: QuestionFile[]):
   const sortedCategories = [...categories].sort(
     (a, b) => a.position - b.position || cmp(a.slug, b.slug),
   );
+  // Los ítems de juegos van al final (la categoría `juegos` no tiene position en categories.json).
   const sortedQuestions = [...questions].sort(
     (a, b) =>
-      (position.get(a.category) ?? 0) - (position.get(b.category) ?? 0) || cmp(a.slug, b.slug),
+      (position.get(a.category) ?? Number.MAX_SAFE_INTEGER) -
+        (position.get(b.category) ?? Number.MAX_SAFE_INTEGER) || cmp(a.slug, b.slug),
   );
   const summary: CategorySummary[] = sortedCategories.map((c) => {
     const qs = sortedQuestions.filter((q) => q.category === c.slug);
@@ -265,9 +312,206 @@ export function validateContent(categoriesData: unknown, files: QuestionFile[]):
   });
   return {
     ok: true,
-    content: { categories: sortedCategories, questions: sortedQuestions },
+    content: {
+      categories: sortedCategories,
+      questions: sortedQuestions,
+      drawingWords: [...drawingWords].sort((a, b) => cmp(a.slug, b.slug)),
+    },
     summary,
+    games: [...games].sort((a, b) => cmp(a.game, b.game)),
   };
+}
+
+const DRAWING_INTENSITIES = ['ligera', 'profunda'];
+
+/** Valida un archivo de content/games/ y agrega sus ítems a `questions` o `drawingWords`. */
+function validateGameFile(
+  file: string,
+  data: unknown,
+  errors: string[],
+  questions: ValidatedQuestion[],
+  drawingWords: ValidatedDrawingWord[],
+  games: GameSummary[],
+  slugOrigin: Map<string, string>,
+  textOrigin: Map<string, string>,
+): void {
+  const where0 = `games/${file}`;
+  const expected = file.replace(/\.json$/, '');
+  const isDrawing = expected === 'drawing';
+  const isGame = (GAME_TYPES as readonly string[]).includes(expected);
+  if (!isDrawing && !isGame) {
+    errors.push(
+      `${where0}: juego desconocido (archivos válidos: ${[...GAME_TYPES, 'drawing'].join(', ')})`,
+    );
+    return;
+  }
+  const listKey = isDrawing ? 'words' : 'items';
+  if (!isRecord(data) || typeof data.game !== 'string' || !Array.isArray(data[listKey])) {
+    errors.push(`${where0}: se esperaba { "game": "${expected}", "${listKey}": [...] }`);
+    return;
+  }
+  if (data.game !== expected)
+    errors.push(`${where0}: "game" (${data.game}) debe coincidir con el nombre del archivo`);
+  const list = data[listKey] as unknown[];
+  games.push({ game: expected as GameType | 'drawing', total: list.length });
+
+  const claimSlug = (slug: string, where: string, prefix: string) => {
+    if (slug.length === 0 || !SLUG_RE.test(slug)) {
+      errors.push(`${where}: slug inválido (minúsculas, números y guiones)`);
+      return;
+    }
+    if (slug.length > 80) errors.push(`${where}: slug de más de 80 caracteres`);
+    if (!slug.startsWith(prefix)) errors.push(`${where}: el slug debe empezar con "${prefix}"`);
+    const prev = slugOrigin.get(slug);
+    if (prev !== undefined) errors.push(`${where}: slug duplicado (ya está en ${prev})`);
+    else slugOrigin.set(slug, where0);
+  };
+
+  if (isDrawing) {
+    // Palabras (y sus alternates) sin repetirse entre sí.
+    const wordOrigin = new Map<string, string>();
+    const claimWord = (value: string, label: string, where: string) => {
+      const norm = normalizeText(value);
+      const prev = wordOrigin.get(norm);
+      if (prev !== undefined) errors.push(`${where}: ${label} "${value}" duplicada de ${prev}`);
+      else wordOrigin.set(norm, where);
+    };
+    list.forEach((raw: unknown, i: number) => {
+      if (!isRecord(raw)) {
+        errors.push(`${where0}: la palabra #${i + 1} no es un objeto`);
+        return;
+      }
+      const slug = typeof raw.slug === 'string' ? raw.slug : '';
+      const where = `${where0} [${slug || `#${i + 1}`}]`;
+      claimSlug(slug, where, 'dibujo-');
+
+      const word = raw.word;
+      let wordOk = false;
+      if (typeof word !== 'string') errors.push(`${where}: falta word`);
+      else {
+        const len = charLength(word);
+        if (len < 2 || len > 40) errors.push(`${where}: word de ${len} caracteres (2 a 40)`);
+        else if (hasEdgeOrDoubleSpaces(word))
+          errors.push(`${where}: word con espacios al inicio/fin o dobles`);
+        else if (word !== word.normalize('NFC'))
+          errors.push(`${where}: word debe estar en Unicode NFC (acentos compuestos)`);
+        else wordOk = true;
+        if (normalizeText(word) === '') errors.push(`${where}: word sin letras ni números`);
+        else claimWord(word, 'palabra', where);
+      }
+
+      const alternates: string[] = [];
+      if (raw.alternates !== undefined) {
+        if (!Array.isArray(raw.alternates)) errors.push(`${where}: alternates debe ser una lista`);
+        else {
+          if (raw.alternates.length > 6)
+            errors.push(`${where}: alternates de más de 6 elementos (${raw.alternates.length})`);
+          for (const alt of raw.alternates as unknown[]) {
+            if (typeof alt !== 'string') {
+              errors.push(`${where}: cada alternate debe ser texto`);
+              continue;
+            }
+            const len = charLength(alt);
+            if (len < 2 || len > 40)
+              errors.push(`${where}: alternate "${alt}" de ${len} caracteres (2 a 40)`);
+            else if (hasEdgeOrDoubleSpaces(alt))
+              errors.push(`${where}: alternate "${alt}" con espacios al inicio/fin o dobles`);
+            else if (alt !== alt.normalize('NFC'))
+              errors.push(`${where}: alternate "${alt}" debe estar en Unicode NFC`);
+            if (normalizeText(alt) === '') errors.push(`${where}: alternate "${alt}" sin letras`);
+            else claimWord(alt, 'alternate', where);
+            alternates.push(alt);
+          }
+        }
+      }
+
+      const intensity = raw.intensity;
+      const intensityOk = typeof intensity === 'string' && DRAWING_INTENSITIES.includes(intensity);
+      if (!intensityOk)
+        errors.push(`${where}: intensity debe ser ${DRAWING_INTENSITIES.join(' o ')}`);
+
+      drawingWords.push({
+        slug,
+        word: wordOk && typeof word === 'string' ? word : '',
+        alternates,
+        intensity: intensityOk && intensity === 'profunda' ? 'profunda' : 'ligera',
+      });
+    });
+    return;
+  }
+
+  const game = expected as GameType;
+  list.forEach((raw: unknown, i: number) => {
+    if (!isRecord(raw)) {
+      errors.push(`${where0}: el ítem #${i + 1} no es un objeto`);
+      return;
+    }
+    const slug = typeof raw.slug === 'string' ? raw.slug : '';
+    const where = `${where0} [${slug || `#${i + 1}`}]`;
+    claimSlug(slug, where, GAME_SLUG_PREFIX[game]);
+
+    const intensity = raw.intensity;
+    const intensityOk = typeof intensity === 'string' && INTENSITIES.includes(intensity);
+    if (!intensityOk) errors.push(`${where}: intensity debe ser ${INTENSITIES.join(', ')}`);
+
+    const text = raw.text;
+    if (typeof text !== 'string') {
+      errors.push(`${where}: falta text`);
+    } else {
+      const len = charLength(text);
+      if (len < 10 || len > 220) errors.push(`${where}: text de ${len} caracteres (10 a 220)`);
+      if (hasEdgeOrDoubleSpaces(text))
+        errors.push(`${where}: text con espacios al inicio/fin o dobles`);
+      if (game === 'nhie') {
+        if (!text.startsWith('Yo nunca')) errors.push(`${where}: text debe empezar con "Yo nunca"`);
+        if (/[¿?]/.test(text))
+          errors.push(`${where}: text de nhie no lleva signos de interrogación`);
+      }
+      if (game === 'most_likely' && !text.startsWith('¿Quién es más probable que'))
+        errors.push(`${where}: text debe empezar con "¿Quién es más probable que"`);
+      const norm = normalizeText(text);
+      const prev = textOrigin.get(norm);
+      if (prev !== undefined) errors.push(`${where}: texto duplicado de ${prev}`);
+      else textOrigin.set(norm, `${slug || `#${i + 1}`} (${where0})`);
+    }
+
+    let options: string[] | null = null;
+    if (game === 'wyr') {
+      const opts = raw.options;
+      if (!Array.isArray(opts) || opts.length !== 2) {
+        errors.push(`${where}: wyr requiere "options" con exactamente 2 opciones`);
+      } else {
+        const normSeen = new Set<string>();
+        let allStrings = true;
+        for (const o of opts as unknown[]) {
+          if (typeof o !== 'string') {
+            allStrings = false;
+            errors.push(`${where}: cada opción debe ser texto`);
+            continue;
+          }
+          const l = charLength(o);
+          if (l < 1 || l > 60) errors.push(`${where}: opción "${o}" de ${l} caracteres (1 a 60)`);
+          if (o.trim() !== o || /\s{2,}/.test(o))
+            errors.push(`${where}: opción "${o}" con espacios al inicio/fin o dobles`);
+          const n = normalizeText(o) || o;
+          if (normSeen.has(n)) errors.push(`${where}: opción repetida "${o}"`);
+          normSeen.add(n);
+        }
+        if (allStrings) options = opts as string[];
+      }
+    } else if (raw.options !== undefined) {
+      errors.push(`${where}: "options" está prohibido en ${game}`);
+    }
+
+    questions.push({
+      slug,
+      category: GAMES_CATEGORY,
+      type: game,
+      intensity: (intensityOk ? intensity : 'ligera') as Intensity,
+      text: typeof text === 'string' ? text : '',
+      options,
+    });
+  });
 }
 
 function cmp(a: string, b: string): number {
@@ -280,43 +524,55 @@ export function sqlString(s: string): string {
   return `'${s.replace(/'/g, "''")}'`;
 }
 
+function sqlTextArray(items: string[]): string {
+  return items.length === 0
+    ? "'{}'::text[]"
+    : `array[${items.map((i) => sqlString(i)).join(', ')}]::text[]`;
+}
+
 function sqlJsonb(options: string[] | null): string {
   return options === null ? 'null' : `${sqlString(JSON.stringify(options))}::jsonb`;
 }
 
 /** Genera el seed SQL (determinista) a partir del contenido ya validado. */
 export function generateSeedSql(content: Content, summary: CategorySummary[]): string {
-  const { categories, questions } = content;
+  const { categories, questions, drawingWords } = content;
   const lines: string[] = [];
   lines.push('-- Generado por scripts/build-seed.ts — no editar a mano');
   lines.push(
     '-- Fuente: content/ (ver docs/CONTENT.md). Idempotente: se puede aplicar las veces que sea.',
   );
-  lines.push(`-- Total: ${questions.length} preguntas en ${categories.length} categorías`);
+  lines.push(`-- Total: ${questions.length} preguntas en ${categories.length + 1} categorías`);
   for (const s of summary) {
     lines.push(`--   ${s.slug}: ${s.total} (open ${s.open}, choice ${s.choice})`);
   }
+  const gameItems = questions.filter((q) => q.category === GAMES_CATEGORY);
+  lines.push(`--   ${GAMES_CATEGORY}: ${gameItems.length} (ítems de juegos)`);
+  lines.push(`-- Palabras de dibujo: ${drawingWords.length}`);
   lines.push('');
   lines.push('begin;');
   lines.push('');
   lines.push('-- Categorías');
   lines.push(
-    'insert into public.question_categories (slug, name, emoji, description, intensity, position) values',
+    'insert into public.question_categories (slug, name, emoji, description, intensity, position, kind) values',
   );
+  const gamesPosition = categories.reduce((m, c) => Math.max(m, c.position), 0) + 1;
   lines.push(
-    categories
-      .map(
+    [
+      ...categories.map(
         (c) =>
-          `  (${sqlString(c.slug)}, ${sqlString(c.name)}, ${sqlString(c.emoji)}, ${sqlString(c.description)}, ${sqlString(c.intensity)}, ${c.position})`,
-      )
-      .join(',\n'),
+          `  (${sqlString(c.slug)}, ${sqlString(c.name)}, ${sqlString(c.emoji)}, ${sqlString(c.description)}, ${sqlString(c.intensity)}, ${c.position}, 'questions')`,
+      ),
+      `  (${sqlString(GAMES_CATEGORY)}, 'Juegos', '🎲', 'Ítems de los juegos de pareja (no sale en la lista de preguntas).', 'ligera', ${gamesPosition}, 'games')`,
+    ].join(',\n'),
   );
   lines.push('on conflict (slug) do update set');
   lines.push('  name = excluded.name,');
   lines.push('  emoji = excluded.emoji,');
   lines.push('  description = excluded.description,');
   lines.push('  intensity = excluded.intensity,');
-  lines.push('  position = excluded.position;');
+  lines.push('  position = excluded.position,');
+  lines.push('  kind = excluded.kind;');
   lines.push('');
   lines.push('-- Preguntas (upsert por slug; no toca id ni created_by)');
   lines.push(
@@ -343,6 +599,30 @@ export function generateSeedSql(content: Content, summary: CategorySummary[]): s
   lines.push('where created_by is null and slug not in (');
   lines.push(questions.map((q) => `  ${sqlString(q.slug)}`).join(',\n'));
   lines.push(');');
+  lines.push('');
+  lines.push('-- Palabras del reto de dibujo (upsert por slug; las que ya no están se desactivan)');
+  if (drawingWords.length > 0) {
+    lines.push('insert into public.drawing_words (slug, word, alternates, intensity) values');
+    lines.push(
+      drawingWords
+        .map(
+          (w) =>
+            `  (${sqlString(w.slug)}, ${sqlString(w.word)}, ${sqlTextArray(w.alternates)}, ${sqlString(w.intensity)})`,
+        )
+        .join(',\n'),
+    );
+    lines.push('on conflict (slug) do update set');
+    lines.push('  word = excluded.word,');
+    lines.push('  alternates = excluded.alternates,');
+    lines.push('  intensity = excluded.intensity,');
+    lines.push('  is_active = true;');
+    lines.push('update public.drawing_words set is_active = false');
+    lines.push('where slug not in (');
+    lines.push(drawingWords.map((w) => `  ${sqlString(w.slug)}`).join(',\n'));
+    lines.push(');');
+  } else {
+    lines.push('update public.drawing_words set is_active = false;');
+  }
   lines.push('');
   lines.push('commit;');
   return `${lines.join('\n')}\n`;

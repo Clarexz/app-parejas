@@ -3,6 +3,8 @@ import {
   COPY_LIMITS,
   answerCopy,
   commentCopy,
+  drawingCopy,
+  gameCopy,
   moodCopy,
   nudgeCopy,
   memoryCopy,
@@ -72,6 +74,15 @@ describe('copys', () => {
       }
       within(memoryCopy({ ...b, title: LONG_TEXT, placeName: LONG_TEXT }));
       within(memoryCopy({ ...b, title: null, placeName: null }));
+      for (const game of ['wyr', 'nhie', 'most_likely', 'agree', 'x']) {
+        within(gameCopy({ ...b, game, event: 'started', matchPct: null }));
+        within(gameCopy({ ...b, game, event: 'finished', matchPct: 100 }));
+        within(gameCopy({ ...b, game, event: 'finished', matchPct: null }));
+      }
+      for (const event of ['ready', 'solved', 'gave_up'] as const) {
+        within(drawingCopy({ ...b, event, word: LONG_TEXT }));
+        within(drawingCopy({ ...b, event, word: null }));
+      }
       within(testCopy(b));
     }
   });
@@ -156,6 +167,16 @@ describe('copys', () => {
     );
     expect(titles.size).toBe(3);
   });
+  it('gameCopy y drawingCopy: nombre del juego, porcentaje y palabra', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
+    const g = gameCopy({ ...b, game: 'wyr', event: 'started', matchPct: null });
+    expect(g.title).toBe('Ale te retó a ¿Qué prefieres?');
+    expect(gameCopy({ ...b, game: 'nhie', event: 'finished', matchPct: 70 }).body).toContain(
+      '70 %',
+    );
+    expect(drawingCopy({ ...b, event: 'solved', word: 'Piñata' }).body).toContain('Piñata');
+    expect(drawingCopy({ ...b, event: 'ready', word: 'Piñata' }).body).not.toContain('Piñata');
+  });
   it('no usa "tu pareja ha respondido" ni signos de exclamación', () => {
     for (const seed of seeds) {
       const all = [
@@ -165,6 +186,11 @@ describe('copys', () => {
         storyCopy({ ...base, seed, storyKind: 'drawing', text: null }),
         storyReplyCopy({ ...base, seed, body: 'hola', toAuthor: true }),
         memoryCopy({ ...base, seed, title: 'Playa', placeName: 'Malecón' }),
+        gameCopy({ ...base, seed, game: 'wyr', event: 'started', matchPct: null }),
+        gameCopy({ ...base, seed, game: 'wyr', event: 'finished', matchPct: 70 }),
+        drawingCopy({ ...base, seed, event: 'ready', word: null }),
+        drawingCopy({ ...base, seed, event: 'solved', word: 'Piñata' }),
+        drawingCopy({ ...base, seed, event: 'gave_up', word: 'Piñata' }),
         testCopy({ ...base, seed }),
       ];
       for (const c of all) expect(`${c.title} ${c.body}`).not.toMatch(/[¡!]|ha respondido/i);

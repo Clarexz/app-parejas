@@ -31,6 +31,7 @@ function raw(
       nudges: true,
       stories: true,
       memories: true,
+      games: true,
       ...prefs,
     },
     data,
@@ -164,6 +165,33 @@ describe('buildNotification', () => {
     expect(e?.prefs.memories).toBe(true);
     expect(parseEvent(raw('memory', {}, { memories: false }))?.prefs.memories).toBe(false);
   });
+  it('game: apagado no manda nada; started y finished con ruta', () => {
+    expect(buildNotification(ev('game', { round_id: 'r1' }, { games: false }))).toBeNull();
+    const s = buildNotification(ev('game', { round_id: 'r1', game: 'wyr', event: 'started' }));
+    expect(s?.visible).toBe(true);
+    expect(s?.title).toContain('Ana');
+    expect(s?.title).toMatch(/¿Qué prefieres\?|empezó|Reto/);
+    expect(s?.data).toEqual({ kind: 'game', url: '/game/r1', round_id: 'r1' });
+    const f = buildNotification(
+      ev('game', { round_id: 'r1', game: 'agree', event: 'finished', match_pct: 70 }),
+    );
+    expect(f?.body).toContain('70 %');
+  });
+  it('drawing: apagado no manda nada; ruta y palabra solo en solved/gave_up', () => {
+    expect(buildNotification(ev('drawing', { drawing_id: 'd1' }, { games: false }))).toBeNull();
+    const r = buildNotification(ev('drawing', { drawing_id: 'd1', event: 'ready' }));
+    expect(r?.data).toEqual({ kind: 'drawing', url: '/drawing/d1', drawing_id: 'd1' });
+    const s = buildNotification(
+      ev('drawing', { drawing_id: 'd1', event: 'solved', word: 'Piñata' }),
+    );
+    expect(JSON.stringify(s)).toContain('Piñata');
+    expect(JSON.stringify(r)).not.toContain('Piñata');
+  });
+  it('prefs.games se interpreta como encendido si falta', () => {
+    const e = parseEvent({ ...raw('game'), prefs: { answers: true } });
+    expect(e?.prefs.games).toBe(true);
+    expect(parseEvent(raw('game', {}, { games: false }))?.prefs.games).toBe(false);
+  });
   it('test ignora las preferencias', () => {
     const b = buildNotification(
       ev(
@@ -176,6 +204,7 @@ describe('buildNotification', () => {
           nudges: false,
           stories: false,
           memories: false,
+          games: false,
         },
       ),
     );
