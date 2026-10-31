@@ -34,12 +34,13 @@ export function NextVisitCard({ countdown, heading, onPress }: Props) {
             {heading}
           </Text>
         ) : null}
-        <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
-          <View>
+        <View>
+          {/* El número y la unidad en el mismo renglón; el garabato subraya los dos. */}
+          <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
             <Text variant="hero">{value}</Text>
-            <Doodle kind="underline" width={96} />
+            {unit ? <Text variant="title">{unit}</Text> : null}
           </View>
-          {unit ? <Text variant="title">{unit}</Text> : null}
+          <Doodle kind="underline" width={96} />
         </View>
         <Text variant="hand" numberOfLines={2}>
           {title}

@@ -946,7 +946,7 @@ export const SCENARIOS = {
     ];
     const restFor =
       (getLists, getItems) =>
-      async (path, { url, request, route, json, rows }) => {
+      (path, { url, request, route, json, rows }) => {
         if (path === '/rest/v1/lists') {
           const idFilter = url.searchParams.get('id');
           if (idFilter) {
@@ -1483,7 +1483,8 @@ export async function applyScenario(context, scenario) {
     // Fase 8+: un escenario puede atender sus propias rutas (tablas o RPC nuevas) con
     // `rest(path, { url, request, route, json, rows })`; si devuelve algo, ya respondió.
     if (scenario.rest) {
-      const handled = await scenario.rest(path, { url, request, route, json, rows });
+      // Se revisa sin esperar: `json()` es una promesa que resuelve en undefined.
+      const handled = scenario.rest(path, { url, request, route, json, rows });
       if (handled !== undefined) return handled;
     }
 
@@ -1658,6 +1659,9 @@ export async function applyScenario(context, scenario) {
       });
     }
 
+    // Una tabla que el escenario no simula responde vacía (PostgREST siempre devuelve una lista).
+    if (request.method() === 'GET' && /^\/rest\/v1\/[a-z_]+$/.test(path))
+      return rows(route, request, []);
     return json(route, {});
   });
 

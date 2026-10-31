@@ -99,6 +99,8 @@ try {
       if (job.scenario) await applyScenario(context, job.scenario);
       for (const route of job.routes) {
         const page = await context.newPage();
+        // Errores de la app en la consola del navegador (pantallas en blanco, excepciones).
+        page.on('pageerror', (err) => console.error(`  error en ${route}: ${err.message}`));
         await page.goto(base + route, { waitUntil: 'networkidle' });
         await page.waitForTimeout(job.scenario ? 900 : 500);
         // Acciones del escenario para esta ruta (p. ej. abrir el selector de mood).
