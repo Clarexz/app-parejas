@@ -1,0 +1,255 @@
+{
+  "game": "nhie",
+  "items": [
+    {
+      "slug": "yo-nunca-cantado-karaoke",
+      "intensity": "ligera",
+      "text": "Yo nunca he cantado en un karaoke con público."
+    },
+    {
+      "slug": "yo-nunca-comido-con-las-manos",
+      "intensity": "ligera",
+      "text": "Yo nunca he comido tacos con cubiertos."
+    },
+    {
+      "slug": "yo-nunca-quedado-dormido-cita",
+      "intensity": "ligera",
+      "text": "Yo nunca me he quedado dormido en medio de una película."
+    },
+    {
+      "slug": "yo-nunca-mandado-mensaje-equivocado",
+      "intensity": "ligera",
+      "text": "Yo nunca he mandado un mensaje a la persona equivocada."
+    },
+    {
+      "slug": "yo-nunca-perdido-celular",
+      "intensity": "ligera",
+      "text": "Yo nunca he perdido mi celular y lo traía en la mano."
+    },
+    {
+      "slug": "yo-nunca-llorado-pelicula",
+      "intensity": "ligera",
+      "text": "Yo nunca he llorado con una película de caricaturas."
+    },
+    {
+      "slug": "yo-nunca-fingido-conocer-cancion",
+      "intensity": "ligera",
+      "text": "Yo nunca he fingido conocer una canción para no quedar mal."
+    },
+    {
+      "slug": "yo-nunca-subido-pinata",
+      "intensity": "ligera",
+      "text": "Yo nunca me he llevado un golpe en una fiesta con piñata."
+    },
+    {
+      "slug": "yo-nunca-comido-pastel-solo",
+      "intensity": "ligera",
+      "text": "Yo nunca me he comido un pastel entero sin compartir."
+    },
+    {
+      "slug": "yo-nunca-llegado-tarde-aeropuerto",
+      "intensity": "ligera",
+      "text": "Yo nunca he corrido en un aeropuerto para alcanzar mi vuelo."
+    },
+    {
+      "slug": "yo-nunca-hablado-solo",
+      "intensity": "ligera",
+      "text": "Yo nunca me he descubierto hablando solo en voz alta."
+    },
+    {
+      "slug": "yo-nunca-revisado-mensajes-extrano",
+      "intensity": "ligera",
+      "text": "Yo nunca he releído una conversación vieja para sonreír."
+    },
+    {
+      "slug": "yo-nunca-videollamada-pijama",
+      "intensity": "ligera",
+      "text": "Yo nunca he contestado una videollamada importante en pijama."
+    },
+    {
+      "slug": "yo-nunca-videollamada-dormido",
+      "intensity": "ligera",
+      "text": "Yo nunca me he quedado dormido en una videollamada con mi pareja."
+    },
+    {
+      "slug": "yo-nunca-extranado-hora-diferente",
+      "intensity": "ligera",
+      "text": "Yo nunca he puesto una alarma para despertar y desearle buenos días a alguien."
+    },
+    {
+      "slug": "yo-nunca-contado-dias-reencuentro",
+      "intensity": "ligera",
+      "text": "Yo nunca he contado los días que faltan para ver a alguien especial."
+    },
+    {
+      "slug": "yo-nunca-pedido-comida-mismo-tiempo",
+      "intensity": "ligera",
+      "text": "Yo nunca he pedido la misma comida que mi pareja para cenar juntos a distancia."
+    },
+    {
+      "slug": "yo-nunca-bailado-cocina",
+      "intensity": "ligera",
+      "text": "Yo nunca he bailado solo en la cocina mientras cocino."
+    },
+    {
+      "slug": "yo-nunca-comprado-sin-necesitar",
+      "intensity": "ligera",
+      "text": "Yo nunca he comprado algo en línea a las dos de la mañana."
+    },
+    {
+      "slug": "yo-nunca-mentido-peso-gusto",
+      "intensity": "ligera",
+      "text": "Yo nunca he dicho que me gustó un regalo que no me gustó."
+    },
+    {
+      "slug": "yo-nunca-visto-amanecer",
+      "intensity": "ligera",
+      "text": "Yo nunca he visto amanecer sin haber dormido."
+    },
+    {
+      "slug": "yo-nunca-dormido-avion",
+      "intensity": "ligera",
+      "text": "Yo nunca me he quedado dormido en un avión con la boca abierta."
+    },
+    {
+      "slug": "yo-nunca-tropezado-publico",
+      "intensity": "ligera",
+      "text": "Yo nunca me he tropezado frente a mucha gente."
+    },
+    {
+      "slug": "yo-nunca-guardado-boleto",
+      "intensity": "ligera",
+      "text": "Yo nunca he guardado un boleto de cine como recuerdo."
+    },
+    {
+      "slug": "yo-nunca-sacado-foto-comida",
+      "intensity": "ligera",
+      "text": "Yo nunca he dejado que se enfríe la comida por tomarle foto."
+    },
+    {
+      "slug": "yo-nunca-cambiado-nombre-contacto",
+      "intensity": "ligera",
+      "text": "Yo nunca le he puesto un apodo cursi a un contacto en mi celular."
+    },
+    {
+      "slug": "yo-nunca-cocinado-quemado",
+      "intensity": "ligera",
+      "text": "Yo nunca he quemado algo mientras intentaba cocinar para impresionar."
+    },
+    {
+      "slug": "yo-nunca-perdido-viaje-carretera",
+      "intensity": "ligera",
+      "text": "Yo nunca me he perdido en un viaje por carretera."
+    },
+    {
+      "slug": "yo-nunca-bailado-boda",
+      "intensity": "ligera",
+      "text": "Yo nunca he sido el último en irse de una boda."
+    },
+    {
+      "slug": "yo-nunca-roto-algo-ajeno",
+      "intensity": "ligera",
+      "text": "Yo nunca he roto algo en casa ajena y he fingido que no fui yo."
+    },
+    {
+      "slug": "yo-nunca-olvidado-nombre",
+      "intensity": "ligera",
+      "text": "Yo nunca he olvidado el nombre de alguien un segundo después de que me lo dijeran."
+    },
+    {
+      "slug": "yo-nunca-escrito-carta-amor",
+      "intensity": "profunda",
+      "text": "Yo nunca he escrito una carta de amor a mano."
+    },
+    {
+      "slug": "yo-nunca-llorado-de-felicidad",
+      "intensity": "profunda",
+      "text": "Yo nunca he llorado de felicidad frente a alguien."
+    },
+    {
+      "slug": "yo-nunca-cambiado-opinion-pareja",
+      "intensity": "profunda",
+      "text": "Yo nunca he cambiado de opinión por algo que me dijo mi pareja."
+    },
+    {
+      "slug": "yo-nunca-pedido-perdon-primero",
+      "intensity": "profunda",
+      "text": "Yo nunca he pedido perdón primero aunque pensara que no tenía la culpa."
+    },
+    {
+      "slug": "yo-nunca-pensado-futuro-juntos",
+      "intensity": "profunda",
+      "text": "Yo nunca me he imaginado cómo sería nuestra casa algún día."
+    },
+    {
+      "slug": "yo-nunca-guardado-secreto-lindo",
+      "intensity": "profunda",
+      "text": "Yo nunca he guardado una sorpresa durante meses para dársela a alguien."
+    },
+    {
+      "slug": "yo-nunca-sentido-miedo-querer",
+      "intensity": "profunda",
+      "text": "Yo nunca he sentido miedo de querer demasiado a alguien."
+    },
+    {
+      "slug": "yo-nunca-picante-beso-publico",
+      "intensity": "picante",
+      "text": "Yo nunca he besado a alguien en un lugar donde podían vernos."
+    },
+    {
+      "slug": "yo-nunca-picante-mensaje-coqueto",
+      "intensity": "picante",
+      "text": "Yo nunca he mandado un mensaje coqueto y luego me arrepentí un segundo."
+    },
+    {
+      "slug": "yo-nunca-picante-foto-guapo",
+      "intensity": "picante",
+      "text": "Yo nunca me he tomado veinte fotos para mandar solo una bonita a mi pareja."
+    },
+    {
+      "slug": "yo-nunca-picante-sonrojado",
+      "intensity": "picante",
+      "text": "Yo nunca me he sonrojado por un cumplido de mi pareja."
+    },
+    {
+      "slug": "yo-nunca-picante-sorpresa-ropa",
+      "intensity": "picante",
+      "text": "Yo nunca he usado algo nuevo solo para ver la reacción de mi pareja."
+    },
+    {
+      "slug": "yo-nunca-picante-fantasia-confesada",
+      "intensity": "picante",
+      "text": "Yo nunca le he contado a mi pareja una fantasía romántica que tengo."
+    },
+    {
+      "slug": "yo-nunca-picante-susurrado",
+      "intensity": "picante",
+      "text": "Yo nunca he susurrado algo coqueto al oído de mi pareja en una reunión."
+    },
+    {
+      "slug": "yo-nunca-picante-videollamada-coqueta",
+      "intensity": "picante",
+      "text": "Yo nunca he coqueteado por videollamada hasta que se me olvidó el tiempo."
+    },
+    {
+      "slug": "yo-nunca-picante-mirada-larga",
+      "intensity": "picante",
+      "text": "Yo nunca me he quedado mirando a mi pareja con ganas de darle un beso en pleno día."
+    },
+    {
+      "slug": "yo-nunca-picante-playlist-intima",
+      "intensity": "picante",
+      "text": "Yo nunca he armado una playlist pensando en una noche especial."
+    },
+    {
+      "slug": "yo-nunca-picante-beso-despedida",
+      "intensity": "picante",
+      "text": "Yo nunca he alargado una despedida solo por un beso más."
+    },
+    {
+      "slug": "yo-nunca-picante-cita-sorpresa",
+      "intensity": "picante",
+      "text": "Yo nunca he planeado una noche romántica para sorprender a mi pareja."
+    }
+  ]
+}

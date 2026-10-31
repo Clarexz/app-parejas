@@ -1,0 +1,305 @@
+{
+  "game": "wyr",
+  "items": [
+    {
+      "slug": "prefieres-viajar-pasado-futuro",
+      "intensity": "ligera",
+      "text": "¿Prefieres viajar en el tiempo al pasado o al futuro?",
+      "options": ["Al pasado", "Al futuro"]
+    },
+    {
+      "slug": "prefieres-playa-o-montana",
+      "intensity": "ligera",
+      "text": "¿Prefieres unas vacaciones en la playa o en una cabaña en la montaña?",
+      "options": ["Playa", "Cabaña en la montaña"]
+    },
+    {
+      "slug": "prefieres-tacos-o-pizza",
+      "intensity": "ligera",
+      "text": "¿Prefieres comer tacos toda la semana o pizza toda la semana?",
+      "options": ["Tacos", "Pizza"]
+    },
+    {
+      "slug": "prefieres-madrugar-o-desvelarte",
+      "intensity": "ligera",
+      "text": "¿Prefieres ser de las personas que madrugan o de las que se desvelan?",
+      "options": ["Madrugar", "Desvelarme"]
+    },
+    {
+      "slug": "prefieres-pelicula-o-serie",
+      "intensity": "ligera",
+      "text": "¿Prefieres una maratón de películas o una maratón de series?",
+      "options": ["Películas", "Series"]
+    },
+    {
+      "slug": "prefieres-frio-o-calor",
+      "intensity": "ligera",
+      "text": "¿Prefieres vivir con mucho frío o con mucho calor todo el año?",
+      "options": ["Mucho frío", "Mucho calor"]
+    },
+    {
+      "slug": "prefieres-cocinar-o-lavar",
+      "intensity": "ligera",
+      "text": "¿Prefieres cocinar la cena o lavar todos los trastes después?",
+      "options": ["Cocinar", "Lavar los trastes"]
+    },
+    {
+      "slug": "prefieres-cantar-o-bailar",
+      "intensity": "ligera",
+      "text": "¿Prefieres cantar frente a todos o bailar frente a todos?",
+      "options": ["Cantar", "Bailar"]
+    },
+    {
+      "slug": "prefieres-dulce-o-salado",
+      "intensity": "ligera",
+      "text": "¿Prefieres que el antojo de medianoche sea dulce o salado?",
+      "options": ["Dulce", "Salado"]
+    },
+    {
+      "slug": "prefieres-videollamada-o-mensajes",
+      "intensity": "ligera",
+      "text": "¿Prefieres una videollamada larga o mensajes todo el día?",
+      "options": ["Videollamada larga", "Mensajes todo el día"]
+    },
+    {
+      "slug": "prefieres-regalo-sorpresa-o-pedido",
+      "intensity": "ligera",
+      "text": "¿Prefieres regalos sorpresa o regalos que pediste con anticipación?",
+      "options": ["Sorpresa", "Que lo pedí"]
+    },
+    {
+      "slug": "prefieres-perro-o-gato",
+      "intensity": "ligera",
+      "text": "¿Prefieres adoptar un perro o un gato juntos?",
+      "options": ["Un perro", "Un gato"]
+    },
+    {
+      "slug": "prefieres-cafe-o-te",
+      "intensity": "ligera",
+      "text": "¿Prefieres empezar el día con café o con té?",
+      "options": ["Café", "Té"]
+    },
+    {
+      "slug": "prefieres-leer-o-escuchar",
+      "intensity": "ligera",
+      "text": "¿Prefieres leer un libro o escuchar el audiolibro?",
+      "options": ["Leerlo", "Escucharlo"]
+    },
+    {
+      "slug": "prefieres-ciudad-o-pueblo",
+      "intensity": "ligera",
+      "text": "¿Prefieres vivir en una ciudad enorme o en un pueblito tranquilo?",
+      "options": ["Ciudad enorme", "Pueblito tranquilo"]
+    },
+    {
+      "slug": "prefieres-aventura-o-descanso",
+      "intensity": "ligera",
+      "text": "¿Prefieres un viaje lleno de aventuras o uno de puro descanso?",
+      "options": ["Aventuras", "Puro descanso"]
+    },
+    {
+      "slug": "prefieres-reencuentro-aeropuerto-o-casa",
+      "intensity": "ligera",
+      "text": "¿Prefieres el reencuentro con abrazo en el aeropuerto o llegar de sorpresa a su puerta?",
+      "options": ["En el aeropuerto", "De sorpresa en su puerta"]
+    },
+    {
+      "slug": "prefieres-cita-en-casa-o-fuera",
+      "intensity": "ligera",
+      "text": "¿Prefieres una cita en casa con pijama o una cita fuera de gala?",
+      "options": ["En casa con pijama", "Fuera y de gala"]
+    },
+    {
+      "slug": "prefieres-foto-o-video",
+      "intensity": "ligera",
+      "text": "¿Prefieres que guardemos los recuerdos en fotos o en videos?",
+      "options": ["Fotos", "Videos"]
+    },
+    {
+      "slug": "prefieres-musica-o-silencio",
+      "intensity": "ligera",
+      "text": "¿Prefieres manejar con música a todo volumen o en silencio?",
+      "options": ["Música a todo volumen", "En silencio"]
+    },
+    {
+      "slug": "prefieres-helado-o-paleta",
+      "intensity": "ligera",
+      "text": "¿Prefieres un helado de cono o una paleta de hielo?",
+      "options": ["Helado de cono", "Paleta de hielo"]
+    },
+    {
+      "slug": "prefieres-mensaje-voz-o-texto",
+      "intensity": "ligera",
+      "text": "¿Prefieres recibir notas de voz o mensajes de texto?",
+      "options": ["Notas de voz", "Mensajes de texto"]
+    },
+    {
+      "slug": "prefieres-fiesta-o-plan-tranquilo",
+      "intensity": "ligera",
+      "text": "¿Prefieres una fiesta con mucha gente o un plan tranquilo de dos?",
+      "options": ["Fiesta con mucha gente", "Plan de dos"]
+    },
+    {
+      "slug": "prefieres-ver-pelicula-vieja-o-estreno",
+      "intensity": "ligera",
+      "text": "¿Prefieres ver una película que ya amas o descubrir un estreno?",
+      "options": ["Una que ya amo", "Un estreno"]
+    },
+    {
+      "slug": "prefieres-lluvia-o-sol",
+      "intensity": "ligera",
+      "text": "¿Prefieres pasar un domingo de lluvia o un domingo de sol?",
+      "options": ["De lluvia", "De sol"]
+    },
+    {
+      "slug": "prefieres-carta-o-llamada",
+      "intensity": "ligera",
+      "text": "¿Prefieres recibir una carta escrita a mano o una llamada sorpresa?",
+      "options": ["Carta a mano", "Llamada sorpresa"]
+    },
+    {
+      "slug": "prefieres-maleta-ligera-o-pesada",
+      "intensity": "ligera",
+      "text": "¿Prefieres viajar con una maleta mínima o llevar de todo por si acaso?",
+      "options": ["Maleta mínima", "De todo por si acaso"]
+    },
+    {
+      "slug": "prefieres-comida-callejera-o-restaurante",
+      "intensity": "ligera",
+      "text": "¿Prefieres comida de puesto callejero o restaurante elegante?",
+      "options": ["Puesto callejero", "Restaurante elegante"]
+    },
+    {
+      "slug": "prefieres-juego-mesa-o-videojuego",
+      "intensity": "ligera",
+      "text": "¿Prefieres un juego de mesa o un videojuego en pareja?",
+      "options": ["Juego de mesa", "Videojuego"]
+    },
+    {
+      "slug": "prefieres-dormir-pegados-o-espacio",
+      "intensity": "ligera",
+      "text": "¿Prefieres dormir abrazados o cada quien en su espacio de la cama?",
+      "options": ["Abrazados", "Cada quien en su espacio"]
+    },
+    {
+      "slug": "prefieres-verse-cada-mes-o-hablar-diario",
+      "intensity": "ligera",
+      "text": "A distancia, ¿prefieres verse en persona cada mes o hablar por videollamada todos los días?",
+      "options": ["Vernos cada mes", "Videollamada diaria"]
+    },
+    {
+      "slug": "prefieres-hora-del-mundo-o-misma-hora",
+      "intensity": "ligera",
+      "text": "¿Prefieres vivir en la misma zona horaria pero lejos, o con distinta hora pero más cerca?",
+      "options": ["Misma hora, lejos", "Distinta hora, más cerca"]
+    },
+    {
+      "slug": "prefieres-recordar-todo-o-olvidar-penas",
+      "intensity": "profunda",
+      "text": "¿Prefieres recordar absolutamente todo o poder olvidar lo que te duele?",
+      "options": ["Recordar todo", "Olvidar lo que duele"]
+    },
+    {
+      "slug": "prefieres-saber-fecha-o-sorpresa",
+      "intensity": "profunda",
+      "text": "¿Prefieres saber cómo termina tu vida o vivirla sin saberlo?",
+      "options": ["Saberlo", "Vivirla sin saber"]
+    },
+    {
+      "slug": "prefieres-ser-amado-o-admirado",
+      "intensity": "profunda",
+      "text": "¿Prefieres ser profundamente amado por pocas personas o admirado por muchas?",
+      "options": ["Amado por pocas", "Admirado por muchas"]
+    },
+    {
+      "slug": "prefieres-pelear-y-hablar-o-callar",
+      "intensity": "profunda",
+      "text": "¿Prefieres discutir y resolver en el momento o esperar a calmarte para hablar?",
+      "options": ["Hablar en el momento", "Esperar a calmarme"]
+    },
+    {
+      "slug": "prefieres-pasado-sin-cambiar-o-borrar",
+      "intensity": "profunda",
+      "text": "¿Prefieres cambiar un error de tu pasado o conservarlo por lo que te enseñó?",
+      "options": ["Cambiarlo", "Conservarlo"]
+    },
+    {
+      "slug": "prefieres-estabilidad-o-pasion",
+      "intensity": "profunda",
+      "text": "¿Prefieres una vida estable y predecible o una llena de cambios emocionantes?",
+      "options": ["Estable", "Llena de cambios"]
+    },
+    {
+      "slug": "prefieres-picante-a-juego-de-rol",
+      "intensity": "picante",
+      "text": "¿Prefieres un beso lento de despedida o un beso de sorpresa en plena cocina?",
+      "options": ["Beso lento de despedida", "Beso sorpresa en la cocina"]
+    },
+    {
+      "slug": "prefieres-picante-masaje-o-bano",
+      "intensity": "picante",
+      "text": "¿Prefieres darle un masaje largo a tu pareja o recibirlo tú?",
+      "options": ["Darlo", "Recibirlo"]
+    },
+    {
+      "slug": "prefieres-picante-videollamada-coqueta",
+      "intensity": "picante",
+      "text": "¿Prefieres un mensaje coqueto a media tarde o una videollamada coqueta de noche?",
+      "options": ["Mensaje a media tarde", "Videollamada de noche"]
+    },
+    {
+      "slug": "prefieres-picante-luz-o-velas",
+      "intensity": "picante",
+      "text": "¿Prefieres un momento íntimo con velas o con luces apagadas y música suave?",
+      "options": ["Con velas", "Luces apagadas y música"]
+    },
+    {
+      "slug": "prefieres-picante-planear-o-improvisar",
+      "intensity": "picante",
+      "text": "¿Prefieres planear una noche especial con días de anticipación o improvisarla?",
+      "options": ["Planearla", "Improvisarla"]
+    },
+    {
+      "slug": "prefieres-picante-susurro-o-nota",
+      "intensity": "picante",
+      "text": "¿Prefieres que te susurren algo coqueto al oído o que te dejen una notita pícara?",
+      "options": ["Un susurro al oído", "Una notita pícara"]
+    },
+    {
+      "slug": "prefieres-picante-cama-o-sofa",
+      "intensity": "picante",
+      "text": "¿Prefieres una noche de besos en el sillón o una mañana lenta en la cama?",
+      "options": ["Besos en el sillón", "Mañana lenta en la cama"]
+    },
+    {
+      "slug": "prefieres-picante-extranar-reencuentro",
+      "intensity": "picante",
+      "text": "¿Prefieres que el primer beso del reencuentro sea apenas se vean o después de platicar un rato?",
+      "options": ["Apenas vernos", "Después de platicar"]
+    },
+    {
+      "slug": "prefieres-picante-vestir-o-desvestir",
+      "intensity": "picante",
+      "text": "¿Prefieres elegirle el atuendo a tu pareja para una cita o que te lo elija a ti?",
+      "options": ["Elegírselo yo", "Que me lo elija"]
+    },
+    {
+      "slug": "prefieres-picante-juego-reto",
+      "intensity": "picante",
+      "text": "¿Prefieres un juego de retos coquetos o una charla honesta de fantasías?",
+      "options": ["Retos coquetos", "Charla de fantasías"]
+    },
+    {
+      "slug": "prefieres-picante-hotel-o-casa",
+      "intensity": "picante",
+      "text": "¿Prefieres una escapada romántica a un hotel o una noche especial en casa?",
+      "options": ["Escapada a un hotel", "Noche en casa"]
+    },
+    {
+      "slug": "prefieres-picante-iniciar-o-esperar",
+      "intensity": "picante",
+      "text": "¿Prefieres ser quien da el primer paso o quien se deja seducir?",
+      "options": ["Dar el primer paso", "Dejarme seducir"]
+    }
+  ]
+}
