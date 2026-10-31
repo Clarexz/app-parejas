@@ -476,6 +476,10 @@ agentes, correr la verificación final y cerrar la fase (§8.2); hablar contigo.
 
 Las fases 7, 8, 9 y 11 son bastante independientes y se pueden reordenar.
 
+**Orden acordado desde el 2026-10-31 (D86):** 9 → 11B → 12. Las fases **10** (banco de 3,000+
+preguntas) y **11A** (Pienso en ti, cápsula, cupones, ruleta) quedan **pospuestas** para después de
+la 12 por tiempo; se retoman con sus mismos prompts de arranque.
+
 ---
 
 ### Fase 0 — Cimientos (app + CI/APK + servidor)
@@ -867,7 +871,7 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
    **De acuerdo / En desacuerdo**, cada uno con variante picante opt-in.
 4. **Reto de dibujo**: uno recibe una palabra y dibuja (Skia), el otro adivina; asíncrono con
    Realtime y push.
-5. Decidir si los juegos cuentan para la racha (documentar).
+5. Los juegos **no** cuentan para la racha (decidido por el usuario, D85): solo la pregunta del día.
 
 **Entregable APK (`v0.9.x`):** los 5 juegos jugables entre los dos con resultados de coincidencia.
 
@@ -879,7 +883,7 @@ ORIGINALES por juego en español de México (con variante picante opt-in), crea 
 rondas (ambos contestan de forma asíncrona, resultados con % de coincidencia) y las pantallas de
 ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo/En desacuerdo dentro de la tab
 Preguntas. Agrega el reto de dibujo (dibujar con Skia, tu pareja adivina, asíncrono con Realtime y
-push). Decide y documenta si los juegos cuentan para la racha. Verifica lint, typecheck, test y
+push). Los juegos NO cuentan para la racha (D85). Verifica lint, typecheck, test y
 expo export. Cierra la fase con el protocolo de §8.2 (prompt de servidor si aplica,
 APK en GitHub Releases, §10, DECISIONS.md y PR).
 ```
@@ -1031,10 +1035,10 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 7 Memorias y mapa | 🟡 Mergeada, falta deploy (2026-10-31) | #11 | Memorias con 1–10 fotos reordenables (drag & drop), diario por mes, detalle con carrusel, editar/borrar/descargar, ubicación por EXIF o mapa, mapa de Google con clusters (o "mapa de papel" sin key), "Un día como hoy" en Inicio y push (D73–D77). **Pendiente: desplegar en el VPS (junto con la Fase 6), cargar `GOOGLE_MAPS_API_KEY` y publicar el APK v0.7.0** (ver §10.1). |
 | 8 Eventos, listas, distancia | ✅ Cerrada (2026-10-31), deploy pendiente | #12 | Cuentas regresivas automáticas y propias con "la próxima vez que nos vemos" destacada (Inicio y widget), listas compartidas con tiempo real y quién tachó, distancia opt-in aproximada (~1 km) con modo en segundo plano de baja frecuencia, tarjeta en Inicio y widget Distancia (D78–D84). CI verde. **Pendiente: un solo deploy de `main` que incluya las Fases 6, 7 y 8, y publicar el APK v0.8.0** (ver §10.1). |
 | 9 Juegos | ⏳ Pendiente | | |
-| 10 Banco de contenido | ⏳ Pendiente | | |
-| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏳ Pendiente | | |
-| 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente | | |
-| 12 Pulido y entrega | ⏳ Pendiente | | |
+| 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
+| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
+| 11B Extras (lenguajes del amor, visitas, estadísticas) | ⏳ Pendiente (va después de la 9) | | |
+| 12 Pulido y entrega | ⏳ Pendiente (va después de la 11B) | | Sin las fases 10 y 11A. |
 
 ### 10.1 Verificaciones pendientes en el celular
 
@@ -1131,6 +1135,8 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | D14 | **Diseño propio y llamativo, anti "AI slop"**: Fase 0.5 de dirección de arte (3 conceptos a elegir) y `docs/DISENO.md` obligatorio + QA visual con capturas. | 2026-10-29 |
 | D15 | **Opus orquesta, Sonnet 5.5 / Haiku 5.5 ejecutan** mediante agentes del proyecto (§8.4). | 2026-10-29 |
 | D10 | Extras confirmados: Pienso en ti, Cápsula del tiempo, Cupones, Ruleta de citas, Lenguajes del amor, Calendario de visitas, Estadísticas. Sin cartas "Ábrela cuando…". | 2026-10-29 |
+| D85 | Los **juegos no cuentan para la racha**; solo la pregunta del día. | 2026-10-31 |
+| D86 | Por tiempo, orden **9 → 11B → 12**; las fases **10** y **11A** se posponen para después de la 12. | 2026-10-31 |
 
 Pendiente: nombre definitivo, icono/paleta y **subdominio** para la API (p. ej. `parejas-api.<tu-dominio>`); recursos del VPS (los mide S0).
 
