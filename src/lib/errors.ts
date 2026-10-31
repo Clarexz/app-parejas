@@ -71,7 +71,8 @@ const BY_CODE: Record<string, string> = {
   no_rerolls: 'Ya cambiaste la palabra las 3 veces que se puede. ¡A dibujar esta!',
   no_words: 'Por ahora no hay palabras disponibles. Vuelve a intentar más tarde.',
   // RPC de lenguajes del amor, visitas y estadísticas (Fase 11B)
-  invalid_love_language: 'Tus respuestas no se pudieron guardar. Vuelve a hacer el test, por favor.',
+  invalid_love_language:
+    'Tus respuestas no se pudieron guardar. Vuelve a hacer el test, por favor.',
   invalid_visit:
     'Esa visita no se pudo guardar. Revisa las fechas: no puede empezar en el futuro ni durar más de un año.',
   visit_overlap: 'Esas fechas se enciman con otra visita que ya apuntaron. Revisa el calendario.',
