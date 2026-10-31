@@ -24,7 +24,15 @@ function raw(
     actor: { id: 'u-1', name: 'Ana' },
     recipient: { id: 'u-2', name: 'Luis' },
     tokens: ['tok-aaaaaaaaaaaaaaaaaaaa'],
-    prefs: { answers: true, comments: true, moods: true, nudges: true, stories: true, ...prefs },
+    prefs: {
+      answers: true,
+      comments: true,
+      moods: true,
+      nudges: true,
+      stories: true,
+      memories: true,
+      ...prefs,
+    },
     data,
   };
 }
@@ -123,12 +131,37 @@ describe('buildNotification', () => {
     expect(e?.prefs.stories).toBe(true);
     expect(parseEvent(raw('story', {}, { stories: false }))?.prefs.stories).toBe(false);
   });
+  it('memory con el aviso apagado no manda nada (ni push de datos)', () => {
+    expect(buildNotification(ev('memory', { memory_id: 'm1' }, { memories: false }))).toBeNull();
+  });
+  it('memory: copy, ruta a la memoria y canal', () => {
+    const b = buildNotification(
+      ev('memory', { memory_id: 'm1', title: 'Playa en Mazatlán', place_name: 'Malecón' }),
+    );
+    expect(b?.visible).toBe(true);
+    expect(b?.channelId).toBe('actividad');
+    expect(b?.title).toContain('Ana');
+    expect(b?.body).toContain('Playa en Mazatlán');
+    expect(b?.data).toEqual({ kind: 'memory', url: '/memory/m1', memory_id: 'm1' });
+  });
+  it('prefs.memories se interpreta como encendido si falta', () => {
+    const e = parseEvent({ ...raw('memory'), prefs: { answers: true } });
+    expect(e?.prefs.memories).toBe(true);
+    expect(parseEvent(raw('memory', {}, { memories: false }))?.prefs.memories).toBe(false);
+  });
   it('test ignora las preferencias', () => {
     const b = buildNotification(
       ev(
         'test',
         {},
-        { answers: false, comments: false, moods: false, nudges: false, stories: false },
+        {
+          answers: false,
+          comments: false,
+          moods: false,
+          nudges: false,
+          stories: false,
+          memories: false,
+        },
       ),
     );
     expect(b?.visible).toBe(true);

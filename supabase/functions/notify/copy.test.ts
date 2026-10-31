@@ -5,6 +5,7 @@ import {
   commentCopy,
   moodCopy,
   nudgeCopy,
+  memoryCopy,
   storyCopy,
   storyReplyCopy,
   testCopy,
@@ -69,6 +70,8 @@ describe('copys', () => {
         within(storyReplyCopy({ ...b, body: LONG_TEXT, toAuthor }));
         within(storyReplyCopy({ ...b, body: '', toAuthor }));
       }
+      within(memoryCopy({ ...b, title: LONG_TEXT, placeName: LONG_TEXT }));
+      within(memoryCopy({ ...b, title: null, placeName: null }));
       within(testCopy(b));
     }
   });
@@ -135,6 +138,24 @@ describe('copys', () => {
       expect(storyReplyCopy({ ...b, seed, toAuthor: false }).title).not.toMatch(/tu story/);
     }
   });
+  it('memoryCopy: título con el nombre y el título de la memoria en el cuerpo', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
+    const c = memoryCopy({ ...b, title: 'Playa en Mazatlán', placeName: null });
+    expect(c.title).toBe('Ale pegó una memoria');
+    expect(c.body).toBe('Playa en Mazatlán');
+    for (const seed of seeds) {
+      const v = memoryCopy({ ...b, seed, title: 'Playa en Mazatlán', placeName: 'Malecón' });
+      expect(v.title).toContain('Ale');
+      expect(v.body).toContain('Playa en Mazatlán');
+    }
+    // Sin título cae a un cuerpo genérico.
+    expect(memoryCopy({ ...b, title: null, placeName: null }).body.length).toBeGreaterThan(0);
+    // Las tres variantes existen.
+    const titles = new Set(
+      [0, 1, 2].map((seed) => memoryCopy({ ...b, seed, title: 'x', placeName: null }).title),
+    );
+    expect(titles.size).toBe(3);
+  });
   it('no usa "tu pareja ha respondido" ni signos de exclamación', () => {
     for (const seed of seeds) {
       const all = [
@@ -143,6 +164,7 @@ describe('copys', () => {
         storyCopy({ ...base, seed, storyKind: 'photo', text: null }),
         storyCopy({ ...base, seed, storyKind: 'drawing', text: null }),
         storyReplyCopy({ ...base, seed, body: 'hola', toAuthor: true }),
+        memoryCopy({ ...base, seed, title: 'Playa', placeName: 'Malecón' }),
         testCopy({ ...base, seed }),
       ];
       for (const c of all) expect(`${c.title} ${c.body}`).not.toMatch(/[¡!]|ha respondido/i);

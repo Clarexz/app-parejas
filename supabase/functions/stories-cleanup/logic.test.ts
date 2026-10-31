@@ -2,6 +2,7 @@
 import {
   chunk,
   parseBatch,
+  parsePaths,
   REMOVE_CHUNK_SIZE,
   storiesToCommit,
   timingSafeEqual,
@@ -52,6 +53,28 @@ describe('parseBatch', () => {
       paths: [],
       items: [],
     });
+  });
+});
+
+describe('parsePaths', () => {
+  it('acepta la forma de memories_cleanup_batch', () => {
+    expect(parsePaths({ paths: ['a/b/1.jpg', 'a/b/1_thumb.jpg'] })).toEqual([
+      'a/b/1.jpg',
+      'a/b/1_thumb.jpg',
+    ]);
+  });
+  it('filtra basura dentro de la lista', () => {
+    expect(parsePaths({ paths: ['p1', 7, null, '', 'p2'] })).toEqual(['p1', 'p2']);
+  });
+  it('un lote vacío es válido', () => {
+    expect(parsePaths({ paths: [] })).toEqual([]);
+  });
+  it('rechaza formas inesperadas', () => {
+    expect(parsePaths(null)).toBeNull();
+    expect(parsePaths('x')).toBeNull();
+    expect(parsePaths([])).toBeNull();
+    expect(parsePaths({})).toBeNull();
+    expect(parsePaths({ paths: 'x' })).toBeNull();
   });
 });
 
