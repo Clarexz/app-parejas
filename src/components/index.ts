@@ -44,3 +44,4 @@ export { SealOverlay } from './SealOverlay';
 export { Checkbox } from './Checkbox';
 export { Tally, TallyLine } from './Tally';
 export { GridScore } from './GridScore';
+export { GridColumns, filledCells, type GridColumn } from './GridColumns';
