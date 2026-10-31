@@ -206,6 +206,119 @@ export type Database = {
           },
         ];
       };
+      drawing_challenges: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          drawer_id: string;
+          drawn_at: string | null;
+          finished_at: string | null;
+          guesser_id: string;
+          guesses: NonNullable<Json>;
+          id: string;
+          rerolls: number;
+          status: string;
+          strokes: Json | null;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          drawer_id: string;
+          drawn_at?: string | null;
+          finished_at?: string | null;
+          guesser_id: string;
+          guesses?: NonNullable<Json>;
+          id?: string;
+          rerolls?: number;
+          status?: string;
+          strokes?: Json | null;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          drawer_id?: string;
+          drawn_at?: string | null;
+          finished_at?: string | null;
+          guesser_id?: string;
+          guesses?: NonNullable<Json>;
+          id?: string;
+          rerolls?: number;
+          status?: string;
+          strokes?: Json | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'drawing_challenges_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      drawing_secrets: {
+        Row: {
+          challenge_id: string;
+          word_slug: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          challenge_id: string;
+          word_slug: string;
+        };
+        Update: {
+          challenge_id?: string;
+          word_slug?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'drawing_secrets_challenge_id_fkey';
+            columns: ['challenge_id'];
+            isOneToOne: true;
+            referencedRelation: 'drawing_challenges';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'drawing_secrets_word_slug_fkey';
+            columns: ['word_slug'];
+            isOneToOne: false;
+            referencedRelation: 'drawing_words';
+            referencedColumns: ['slug'];
+          },
+        ];
+      };
+      drawing_words: {
+        Row: {
+          alternates: string[];
+          created_at: string;
+          intensity: string;
+          is_active: boolean;
+          slug: string;
+          word: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          alternates?: string[];
+          created_at?: string;
+          intensity: string;
+          is_active?: boolean;
+          slug: string;
+          word: string;
+        };
+        Update: {
+          alternates?: string[];
+          created_at?: string;
+          intensity?: string;
+          is_active?: boolean;
+          slug?: string;
+          word?: string;
+        };
+        Relationships: [];
+      };
       events: {
         Row: {
           couple_id: string;
@@ -250,6 +363,104 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: 'events_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      game_answers: {
+        Row: {
+          choice: number;
+          couple_id: string;
+          created_at: string;
+          question_id: string;
+          round_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          choice: number;
+          couple_id: string;
+          created_at?: string;
+          question_id: string;
+          round_id: string;
+          user_id: string;
+        };
+        Update: {
+          choice?: number;
+          couple_id?: string;
+          created_at?: string;
+          question_id?: string;
+          round_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'game_answers_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'game_answers_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'questions';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'game_answers_round_id_fkey';
+            columns: ['round_id'];
+            isOneToOne: false;
+            referencedRelation: 'game_rounds';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      game_rounds: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          finished_at: string | null;
+          game: string;
+          id: string;
+          item_ids: string[];
+          spicy: boolean;
+          status: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          finished_at?: string | null;
+          game: string;
+          id?: string;
+          item_ids: string[];
+          spicy?: boolean;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          finished_at?: string | null;
+          game?: string;
+          id?: string;
+          item_ids?: string[];
+          spicy?: boolean;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'game_rounds_couple_id_fkey';
             columns: ['couple_id'];
             isOneToOne: false;
             referencedRelation: 'couples';
@@ -536,6 +747,7 @@ export type Database = {
         Row: {
           answers: boolean;
           comments: boolean;
+          games: boolean;
           memories: boolean;
           moods: boolean;
           nudges: boolean;
@@ -549,6 +761,7 @@ export type Database = {
         Insert: {
           answers?: boolean;
           comments?: boolean;
+          games?: boolean;
           memories?: boolean;
           moods?: boolean;
           nudges?: boolean;
@@ -561,6 +774,7 @@ export type Database = {
         Update: {
           answers?: boolean;
           comments?: boolean;
+          games?: boolean;
           memories?: boolean;
           moods?: boolean;
           nudges?: boolean;
@@ -670,6 +884,7 @@ export type Database = {
           description: string;
           emoji: string;
           intensity: string;
+          kind: string;
           name: string;
           position: number;
           slug: string;
@@ -680,6 +895,7 @@ export type Database = {
           description?: string;
           emoji: string;
           intensity: string;
+          kind?: string;
           name: string;
           position?: number;
           slug: string;
@@ -689,6 +905,7 @@ export type Database = {
           description?: string;
           emoji?: string;
           intensity?: string;
+          kind?: string;
           name?: string;
           position?: number;
           slug?: string;
@@ -950,6 +1167,10 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      answer_game_item: {
+        Args: { p_choice: number; p_question_id: string; p_round_id: string };
+        Returns: Json;
+      };
       answer_json: {
         Args: {
           p_answer: Omit<
@@ -1052,7 +1273,9 @@ export type Database = {
       };
       delete_answer: { Args: { p_question_id: string }; Returns: undefined };
       delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
+      delete_drawing: { Args: { p_id: string }; Returns: undefined };
       delete_event: { Args: { p_id: string }; Returns: undefined };
+      delete_game_round: { Args: { p_round_id: string }; Returns: undefined };
       delete_list: { Args: { p_id: string }; Returns: undefined };
       delete_list_item: { Args: { p_id: string }; Returns: undefined };
       delete_memory: { Args: { p_memory_id: string }; Returns: undefined };
@@ -1074,12 +1297,17 @@ export type Database = {
         }[];
       };
       get_daily_question: { Args: { p_day?: string }; Returns: Json };
+      get_drawing: { Args: { p_id: string }; Returns: Json };
+      get_game_overview: { Args: Record<PropertyKey, never>; Returns: Json };
+      get_game_round: { Args: { p_round_id: string }; Returns: Json };
       get_history: {
         Args: { p_before?: string; p_category?: string; p_limit?: number; p_search?: string };
         Returns: Json[];
       };
       get_question_with_answers: { Args: { p_question_id: string }; Returns: Json };
       get_streak: { Args: Record<PropertyKey, never>; Returns: Json };
+      give_up_drawing: { Args: { p_id: string }; Returns: Json };
+      guess_drawing: { Args: { p_guess: string; p_id: string }; Returns: Json };
       has_answered: { Args: { p_couple_id: string; p_question_id: string }; Returns: boolean };
       is_couple_member: { Args: { p_couple_id: string }; Returns: boolean };
       is_current_member: { Args: { p_couple_id: string; p_user_id: string }; Returns: boolean };
@@ -1169,6 +1397,7 @@ export type Database = {
         };
       };
       require_couple: { Args: Record<PropertyKey, never>; Returns: string };
+      reroll_drawing_word: { Args: { p_id: string }; Returns: Json };
       save_event: {
         Args: {
           p_date: string;
@@ -1294,6 +1523,8 @@ export type Database = {
       };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
+      start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };
+      start_game_round: { Args: { p_game: string; p_spicy?: boolean }; Returns: Json };
       stories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
       stories_cleanup_commit: { Args: { p_story_ids: string[] }; Returns: number };
       story_path_readable: { Args: { p_name: string }; Returns: boolean };
@@ -1303,6 +1534,7 @@ export type Database = {
         Args: { p_choice?: number; p_question_id: string; p_text?: string };
         Returns: Json;
       };
+      submit_drawing: { Args: { p_id: string; p_strokes: Json }; Returns: Json };
       unregister_push_token: { Args: { p_token: string }; Returns: undefined };
       update_list_item: {
         Args: { p_id: string; p_text: string };

@@ -20,6 +20,7 @@ import {
   Text,
 } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
+import { GamesEntryCard } from '@/features/games';
 import { useCategories, useDailyQuestion, useStreak } from '@/features/questions';
 import { cardState, spicyState } from '@/lib/questions';
 import { categoryColor, shortStamp, streakHeadline } from '@/lib/questionsView';
@@ -172,6 +173,13 @@ export default function QuestionsScreen() {
                 </View>
               </View>
             ) : null}
+
+            <View style={{ gap: spacing.md }}>
+              <Text variant="title" accessibilityRole="header">
+                Juegos
+              </Text>
+              <GamesEntryCard />
+            </View>
 
             <View style={{ gap: spacing.sm }}>
               <Text variant="title" accessibilityRole="header">

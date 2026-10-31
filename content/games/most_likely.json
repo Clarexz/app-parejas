@@ -1,0 +1,255 @@
+{
+  "game": "most_likely",
+  "items": [
+    {
+      "slug": "quien-llegar-tarde",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llegue tarde a una cita importante?"
+    },
+    {
+      "slug": "quien-perder-llaves",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pierda las llaves esta semana?"
+    },
+    {
+      "slug": "quien-llorar-pelicula",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llore con el final de una película?"
+    },
+    {
+      "slug": "quien-dormirse-videollamada",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se quede dormido en plena videollamada?"
+    },
+    {
+      "slug": "quien-cocinar-desastre",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que queme la cena intentando cocinar algo elegante?"
+    },
+    {
+      "slug": "quien-comprar-impulso",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que compre algo que no necesita por pura emoción?"
+    },
+    {
+      "slug": "quien-hacer-amigos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que haga amigos con un desconocido en la fila?"
+    },
+    {
+      "slug": "quien-perderse-viaje",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se pierda en una ciudad nueva aun con el mapa?"
+    },
+    {
+      "slug": "quien-ganar-juego-mesa",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que gane en lotería o cualquier juego de mesa?"
+    },
+    {
+      "slug": "quien-reir-momento-serio",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se ría en un momento muy serio?"
+    },
+    {
+      "slug": "quien-cantar-regadera",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cante a todo pulmón en la regadera?"
+    },
+    {
+      "slug": "quien-buscar-celular",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se olvide de dónde dejó el celular mientras lo busca?"
+    },
+    {
+      "slug": "quien-organizar-viaje",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que organice el viaje completo con itinerario?"
+    },
+    {
+      "slug": "quien-comer-ultimo-pedazo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se coma el último taco sin preguntar?"
+    },
+    {
+      "slug": "quien-bailar-fiesta",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que sea el primero en pararse a bailar en una fiesta?"
+    },
+    {
+      "slug": "quien-mandar-meme",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que mande un meme en el peor momento posible?"
+    },
+    {
+      "slug": "quien-extranar-primero",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que escriba primero apenas se extrañen?"
+    },
+    {
+      "slug": "quien-quedarse-llamada",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que alargue la despedida en una videollamada?"
+    },
+    {
+      "slug": "quien-llevar-botana",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que lleve botana a escondidas al cine?"
+    },
+    {
+      "slug": "quien-adoptar-mascota",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que quiera adoptar otra mascota sin avisar?"
+    },
+    {
+      "slug": "quien-maleta-pesada",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que lleve la maleta más pesada en un viaje?"
+    },
+    {
+      "slug": "quien-hablar-dormido",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que hable dormido?"
+    },
+    {
+      "slug": "quien-ahorrar-gastar",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que ahorre para un gran viaje de pareja?"
+    },
+    {
+      "slug": "quien-tomar-fotos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tome cien fotos del mismo atardecer?"
+    },
+    {
+      "slug": "quien-pedir-postre",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pida postre cuando dijo que no tenía hambre?"
+    },
+    {
+      "slug": "quien-viajar-sorpresa",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que aparezca de sorpresa en el aeropuerto con globos?"
+    },
+    {
+      "slug": "quien-ver-serie-sin-esperar",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que vea un capítulo de la serie sin esperar al otro?"
+    },
+    {
+      "slug": "quien-acordarse-aniversario",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se acuerde de las fechas especiales?"
+    },
+    {
+      "slug": "quien-bromear-todo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le saque un chiste a cualquier situación?"
+    },
+    {
+      "slug": "quien-manejar-cantando",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que ponga la música más rara en el carro?"
+    },
+    {
+      "slug": "quien-tropezar-publico",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se tropiece frente a todos?"
+    },
+    {
+      "slug": "quien-pedir-perdon-primero",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que dé el primer paso para hacer las paces?"
+    },
+    {
+      "slug": "quien-decir-te-amo-primero",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que diga \"te quiero\" primero después de una discusión?"
+    },
+    {
+      "slug": "quien-guardar-sentimientos",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que se guarde lo que siente por no preocupar al otro?"
+    },
+    {
+      "slug": "quien-sonar-grande",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que sueñe con cambiar de vida por completo?"
+    },
+    {
+      "slug": "quien-cuidar-enfermo",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que cuide mejor al otro cuando está enfermo?"
+    },
+    {
+      "slug": "quien-acordarse-detalle",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que recuerde un detalle pequeño que el otro dijo hace años?"
+    },
+    {
+      "slug": "quien-hablar-de-futuro",
+      "intensity": "profunda",
+      "text": "¿Quién es más probable que saque el tema de vivir en la misma ciudad?"
+    },
+    {
+      "slug": "quien-picante-iniciar-beso",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que dé el primer beso del día?"
+    },
+    {
+      "slug": "quien-picante-coquetear",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que mande un mensaje coqueto a media junta?"
+    },
+    {
+      "slug": "quien-picante-sonrojarse",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que se sonroje con un piropo?"
+    },
+    {
+      "slug": "quien-picante-planear-noche",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que planee una noche romántica de sorpresa?"
+    },
+    {
+      "slug": "quien-picante-susurrar",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que susurre algo coqueto en un lugar público?"
+    },
+    {
+      "slug": "quien-picante-videollamada",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que ponga el ambiente romántico en una videollamada?"
+    },
+    {
+      "slug": "quien-picante-extranar-besos",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que extrañe más los abrazos largos?"
+    },
+    {
+      "slug": "quien-picante-atreverse",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que proponga algo nuevo para la próxima cita íntima?"
+    },
+    {
+      "slug": "quien-picante-elegir-musica",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que prepare la música para una noche especial?"
+    },
+    {
+      "slug": "quien-picante-cumplido-picaro",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que haga un cumplido pícaro frente a los amigos?"
+    },
+    {
+      "slug": "quien-picante-despedida",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que no quiera soltar al otro en la despedida?"
+    },
+    {
+      "slug": "quien-picante-masaje",
+      "intensity": "picante",
+      "text": "¿Quién es más probable que ofrezca un masaje sin que se lo pidan?"
+    }
+  ]
+}

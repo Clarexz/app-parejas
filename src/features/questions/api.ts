@@ -60,6 +60,7 @@ export async function fetchCategories(): Promise<QuestionCategory[]> {
   const { data, error } = await supabase
     .from('question_categories')
     .select('*')
+    .eq('kind', 'questions')
     .order('position', { ascending: true });
   if (error) throw error;
   return data;

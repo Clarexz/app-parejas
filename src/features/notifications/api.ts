@@ -5,7 +5,9 @@ import { supabase } from '@/lib/supabase';
 export async function fetchNotificationPrefs(userId: string): Promise<NotificationPrefs> {
   const { data, error } = await supabase
     .from('notification_prefs')
-    .select('answers, comments, moods, nudges, stories, memories, reminder_enabled, reminder_time')
+    .select(
+      'answers, comments, moods, nudges, stories, memories, games, reminder_enabled, reminder_time',
+    )
     .eq('user_id', userId)
     .maybeSingle();
   if (error) throw error;

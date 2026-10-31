@@ -1,0 +1,255 @@
+{
+  "game": "agree",
+  "items": [
+    {
+      "slug": "acuerdo-vacaciones-sin-plan",
+      "intensity": "ligera",
+      "text": "Las vacaciones más bonitas son las que no se planean."
+    },
+    {
+      "slug": "acuerdo-desayuno-mejor-comida",
+      "intensity": "ligera",
+      "text": "El desayuno es la mejor comida del día."
+    },
+    {
+      "slug": "acuerdo-pina-pizza",
+      "intensity": "ligera",
+      "text": "La piña sí va en la pizza."
+    },
+    {
+      "slug": "acuerdo-domingo-sin-pantallas",
+      "intensity": "ligera",
+      "text": "Los domingos deberían ser sin pantallas."
+    },
+    {
+      "slug": "acuerdo-mascotas-cama",
+      "intensity": "ligera",
+      "text": "Las mascotas tienen derecho a dormir en la cama."
+    },
+    {
+      "slug": "acuerdo-regalos-detalles",
+      "intensity": "ligera",
+      "text": "Un detalle chiquito vale más que un regalo caro."
+    },
+    {
+      "slug": "acuerdo-lluvia-romantica",
+      "intensity": "ligera",
+      "text": "Un día de lluvia es el mejor plan para quedarse en casa."
+    },
+    {
+      "slug": "acuerdo-cocinar-juntos",
+      "intensity": "ligera",
+      "text": "Cocinar juntos es más divertido que salir a cenar."
+    },
+    {
+      "slug": "acuerdo-spoilers",
+      "intensity": "ligera",
+      "text": "Contar un spoiler es una falta grave."
+    },
+    {
+      "slug": "acuerdo-llegar-temprano",
+      "intensity": "ligera",
+      "text": "Llegar diez minutos antes es mejor que llegar a tiempo."
+    },
+    {
+      "slug": "acuerdo-notas-de-voz",
+      "intensity": "ligera",
+      "text": "Las notas de voz son más románticas que los mensajes escritos."
+    },
+    {
+      "slug": "acuerdo-reunion-familiar",
+      "intensity": "ligera",
+      "text": "Las reuniones familiares son mejores con mucha comida y poca agenda."
+    },
+    {
+      "slug": "acuerdo-musica-viajes",
+      "intensity": "ligera",
+      "text": "Un viaje por carretera sin una buena playlist no cuenta."
+    },
+    {
+      "slug": "acuerdo-foto-viajes",
+      "intensity": "ligera",
+      "text": "En los viajes es mejor guardar el celular y solo disfrutar."
+    },
+    {
+      "slug": "acuerdo-amigos-pareja",
+      "intensity": "ligera",
+      "text": "Está bien que cada quien tenga sus planes con sus amigos cada semana."
+    },
+    {
+      "slug": "acuerdo-videollamada-cena",
+      "intensity": "ligera",
+      "text": "Cenar juntos por videollamada cuenta como una cita de verdad."
+    },
+    {
+      "slug": "acuerdo-distancia-fortalece",
+      "intensity": "ligera",
+      "text": "Estar lejos un tiempo puede fortalecer a una pareja."
+    },
+    {
+      "slug": "acuerdo-extranar-bonito",
+      "intensity": "ligera",
+      "text": "Extrañar a alguien es una forma bonita de saber cuánto lo quieres."
+    },
+    {
+      "slug": "acuerdo-mensaje-buenos-dias",
+      "intensity": "ligera",
+      "text": "Un mensaje de buenos días y buenas noches es indispensable."
+    },
+    {
+      "slug": "acuerdo-horas-de-llamada",
+      "intensity": "ligera",
+      "text": "No hace falta hablar todos los días para estar cerca."
+    },
+    {
+      "slug": "acuerdo-reencuentro-planeado",
+      "intensity": "ligera",
+      "text": "El reencuentro se disfruta más cuando se planea con calma."
+    },
+    {
+      "slug": "acuerdo-sorpresas-mejor",
+      "intensity": "ligera",
+      "text": "Las sorpresas son mejores que los planes avisados."
+    },
+    {
+      "slug": "acuerdo-tareas-casa",
+      "intensity": "ligera",
+      "text": "Las tareas de la casa deben repartirse según los gustos, no a partes iguales."
+    },
+    {
+      "slug": "acuerdo-cafe-mejor-cita",
+      "intensity": "ligera",
+      "text": "Una cita en una cafetería vale tanto como una en un restaurante elegante."
+    },
+    {
+      "slug": "acuerdo-peliculas-repetidas",
+      "intensity": "ligera",
+      "text": "Ver mil veces la misma película no aburre."
+    },
+    {
+      "slug": "acuerdo-fiestas-casa",
+      "intensity": "ligera",
+      "text": "Es mejor recibir gente en casa que ir a un lugar de moda."
+    },
+    {
+      "slug": "acuerdo-apodos-cursis",
+      "intensity": "ligera",
+      "text": "Los apodos cursis en público son tiernos."
+    },
+    {
+      "slug": "acuerdo-madrugar-productivo",
+      "intensity": "ligera",
+      "text": "Madrugar le cambia la vida a cualquiera."
+    },
+    {
+      "slug": "acuerdo-ahorro-primero",
+      "intensity": "ligera",
+      "text": "Primero se ahorra y luego se viaja."
+    },
+    {
+      "slug": "acuerdo-bailar-sin-saber",
+      "intensity": "ligera",
+      "text": "Bailar sin saber es más divertido que bailar bien."
+    },
+    {
+      "slug": "acuerdo-chiles-bromas",
+      "intensity": "ligera",
+      "text": "Quien no aguanta el picante se pierde de lo mejor de la comida."
+    },
+    {
+      "slug": "acuerdo-pelear-dormir",
+      "intensity": "profunda",
+      "text": "Nunca hay que irse a dormir sin hacer las paces."
+    },
+    {
+      "slug": "acuerdo-hablar-de-dinero",
+      "intensity": "profunda",
+      "text": "Hablar de dinero desde el principio le hace bien a la relación."
+    },
+    {
+      "slug": "acuerdo-espacio-propio",
+      "intensity": "profunda",
+      "text": "Cada persona necesita un tiempo a solas, incluso en pareja."
+    },
+    {
+      "slug": "acuerdo-perdon-olvido",
+      "intensity": "profunda",
+      "text": "Perdonar no significa olvidar."
+    },
+    {
+      "slug": "acuerdo-cambiar-por-otro",
+      "intensity": "profunda",
+      "text": "Con el tiempo, las personas cambian y eso está bien para la relación."
+    },
+    {
+      "slug": "acuerdo-decir-lo-que-sientes",
+      "intensity": "profunda",
+      "text": "Es mejor decir lo que sientes aunque duela un poco."
+    },
+    {
+      "slug": "acuerdo-amor-requiere-trabajo",
+      "intensity": "profunda",
+      "text": "El amor no solo se siente, también se practica todos los días."
+    },
+    {
+      "slug": "acuerdo-picante-coqueteo-siempre",
+      "intensity": "picante",
+      "text": "El coqueteo debería seguir igual de vivo después de muchos años juntos."
+    },
+    {
+      "slug": "acuerdo-picante-planear-citas",
+      "intensity": "picante",
+      "text": "Las citas íntimas se disfrutan más cuando se planean con anticipación."
+    },
+    {
+      "slug": "acuerdo-picante-hablar-gustos",
+      "intensity": "picante",
+      "text": "Platicar abiertamente de lo que nos gusta nos acerca más."
+    },
+    {
+      "slug": "acuerdo-picante-tension",
+      "intensity": "picante",
+      "text": "La tensión de la distancia hace más emocionante el reencuentro."
+    },
+    {
+      "slug": "acuerdo-picante-mensajes",
+      "intensity": "picante",
+      "text": "Un mensaje coqueto vale más que un regalo caro."
+    },
+    {
+      "slug": "acuerdo-picante-lento",
+      "intensity": "picante",
+      "text": "Lo mejor de una noche especial es ir despacio."
+    },
+    {
+      "slug": "acuerdo-picante-sorpresa-noche",
+      "intensity": "picante",
+      "text": "Una noche romántica sorpresa es mejor que una planeada."
+    },
+    {
+      "slug": "acuerdo-picante-juegos",
+      "intensity": "picante",
+      "text": "Los juegos coquetos entre pareja nunca pasan de moda."
+    },
+    {
+      "slug": "acuerdo-picante-miradas",
+      "intensity": "picante",
+      "text": "Una mirada a tiempo dice más que mil palabras."
+    },
+    {
+      "slug": "acuerdo-picante-limites",
+      "intensity": "picante",
+      "text": "Poner límites con cariño hace que todo sea más divertido."
+    },
+    {
+      "slug": "acuerdo-picante-cumplidos",
+      "intensity": "picante",
+      "text": "Los cumplidos coquetos se disfrutan más en público que en privado."
+    },
+    {
+      "slug": "acuerdo-picante-videollamada-romantica",
+      "intensity": "picante",
+      "text": "Una videollamada romántica puede ser tan especial como una cita en persona."
+    }
+  ]
+}

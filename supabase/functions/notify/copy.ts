@@ -219,6 +219,74 @@ export function memoryCopy(i: CopyBase & { title: string | null; placeName: stri
   );
 }
 
+const GAME_NAMES: Record<string, string> = {
+  wyr: '¿Qué prefieres?',
+  nhie: 'Yo nunca',
+  most_likely: '¿Quién es más probable?',
+  agree: 'De acuerdo o no',
+};
+
+export function gameCopy(
+  i: CopyBase & { game: string; event: 'started' | 'finished'; matchPct: number | null },
+): Copy {
+  const a = short(i.actor);
+  const name = GAME_NAMES[i.game] ?? 'un juego';
+  if (i.event === 'finished') {
+    const pct = i.matchPct === null ? '' : `${Math.round(i.matchPct)} % de coincidencia. `;
+    return pick(
+      [
+        finish(`Ya están los resultados de ${name}`, `${pct}Entra a ver en qué coincidieron.`),
+        finish('Terminaron la ronda', `${pct}Vean quién pensó igual que quién.`),
+        finish(`Resultados de ${name}`, `${pct}A ver si se conocen tanto como creen.`),
+      ],
+      i.seed,
+    );
+  }
+  return pick(
+    [
+      finish(`${a} te retó a ${name}`, 'Entra a contestar cuando puedas.'),
+      finish(`${a} empezó una ronda`, `Toca jugar ${name}. ¿Le entras?`),
+      finish(`Reto de ${a}`, `${name}: te toca contestar tu parte.`),
+    ],
+    i.seed,
+  );
+}
+
+export function drawingCopy(
+  i: CopyBase & { event: 'ready' | 'solved' | 'gave_up'; word: string | null },
+): Copy {
+  const a = short(i.actor);
+  const word = i.word ? truncate(i.word, 40) : '';
+  if (i.event === 'solved') {
+    return pick(
+      [
+        finish('Adivinó tu dibujo', word ? `Era «${word}». Sí te entiende.` : 'Sí te entiende.'),
+        finish(`${a} le atinó`, word ? `Adivinó «${word}». Qué buen dibujo.` : 'Qué buen dibujo.'),
+        finish('Dibujo adivinado', word ? `La palabra era «${word}».` : 'Ya lo resolvió.'),
+      ],
+      i.seed,
+    );
+  }
+  if (i.event === 'gave_up') {
+    return pick(
+      [
+        finish(`${a} se rindió`, word ? `Era «${word}». Quizá faltó otro trazo.` : 'No lo sacó.'),
+        finish('Se les complicó', word ? `La palabra era «${word}».` : 'Pasó a mejor vida.'),
+        finish('Dibujo sin adivinar', word ? `Era «${word}». Va la revancha.` : 'Va la revancha.'),
+      ],
+      i.seed,
+    );
+  }
+  return pick(
+    [
+      finish(`${a} te dejó un dibujo`, 'A ver si adivinas qué es.'),
+      finish('Te toca adivinar', `${a} hizo un dibujo para ti.`),
+      finish(`Dibujo de ${a}`, 'Entra y échale ojo: ¿qué será?'),
+    ],
+    i.seed,
+  );
+}
+
 export function testCopy(i: CopyBase): Copy {
   const r = short(i.recipient, 20);
   return pick(

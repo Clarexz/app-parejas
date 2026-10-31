@@ -3,6 +3,8 @@
 import {
   answerCopy,
   commentCopy,
+  drawingCopy,
+  gameCopy,
   memoryCopy,
   moodCopy,
   nudgeCopy,
@@ -13,7 +15,17 @@ import {
 } from './copy.ts';
 
 export type NotifyKind =
-  'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'memory' | 'widget' | 'test';
+  | 'answer'
+  | 'comment'
+  | 'mood'
+  | 'nudge'
+  | 'story'
+  | 'story_reply'
+  | 'memory'
+  | 'game'
+  | 'drawing'
+  | 'widget'
+  | 'test';
 
 export type NotifyEvent = {
   kind: NotifyKind;
@@ -28,6 +40,7 @@ export type NotifyEvent = {
     nudges: boolean;
     stories: boolean;
     memories: boolean;
+    games: boolean;
   };
   data: Record<string, unknown>;
 };
@@ -65,6 +78,8 @@ const KINDS: readonly string[] = [
   'story',
   'story_reply',
   'memory',
+  'game',
+  'drawing',
   'widget',
   'test',
 ];
@@ -104,6 +119,7 @@ export function parseEvent(json: unknown): NotifyEvent | null {
       nudges: p.nudges !== false,
       stories: p.stories !== false,
       memories: p.memories !== false,
+      games: p.games !== false,
     },
     data,
   };
@@ -222,6 +238,35 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
         seed: stableSeed(d.memory_id),
         title: typeof d.title === 'string' ? d.title : null,
         placeName: typeof d.place_name === 'string' ? d.place_name : null,
+      });
+      break;
+    }
+    case 'game': {
+      // Sin push de datos: no hay widget de juegos. Apagado = no se manda nada.
+      if (!event.prefs.games) return null;
+      const roundId = str(d.round_id);
+      if (roundId) data.round_id = roundId;
+      data.url = `/game/${roundId ?? ''}`;
+      const matchPct = typeof d.match_pct === 'number' ? d.match_pct : null;
+      copy = gameCopy({
+        ...base,
+        seed: stableSeed(d.round_id),
+        game: str(d.game) ?? '',
+        event: d.event === 'finished' ? 'finished' : 'started',
+        matchPct,
+      });
+      break;
+    }
+    case 'drawing': {
+      if (!event.prefs.games) return null;
+      const drawingId = str(d.drawing_id);
+      if (drawingId) data.drawing_id = drawingId;
+      data.url = `/drawing/${drawingId ?? ''}`;
+      copy = drawingCopy({
+        ...base,
+        seed: stableSeed(d.drawing_id),
+        event: d.event === 'solved' || d.event === 'gave_up' ? d.event : 'ready',
+        word: str(d.word),
       });
       break;
     }
