@@ -31,6 +31,8 @@ describe('routeForNotification', () => {
     `/story/view?user=${UUID}`,
     `/story/view?story=${UUID}`,
     `/memory/${UUID}`,
+    `/game/${UUID}`,
+    `/drawing/${UUID}`,
   ])('acepta %s', (url) => {
     expect(routeForNotification({ url })).toBe(url);
   });
@@ -49,6 +51,12 @@ describe('routeForNotification', () => {
     '/story/view',
     '/memory/123',
     '/memory',
+    '/game',
+    '/game/123',
+    '/drawing/123',
+    `/game/${UUID}/x`,
+    `/drawing/${UUID}?x=1`,
+    `/games/${UUID}`,
     `/memory/${UUID}/x`,
     `/memory/${UUID}?x=1`,
     '/story/view?user=123',
@@ -103,6 +111,7 @@ describe('preferencias', () => {
         nudges: true,
         stories: false,
         memories: false,
+        games: false,
         reminder_enabled: false,
         reminder_time: '08:30:00',
       }),
@@ -113,6 +122,7 @@ describe('preferencias', () => {
       nudges: true,
       stories: false,
       memories: false,
+      games: false,
       reminderEnabled: false,
       reminderTime: '08:30',
     });
@@ -128,6 +138,7 @@ describe('preferencias', () => {
     expect(toPrefsRow({ moods: false })).toEqual({ moods: false });
     expect(toPrefsRow({ stories: false })).toEqual({ stories: false });
     expect(toPrefsRow({ memories: false })).toEqual({ memories: false });
+    expect(toPrefsRow({ games: false })).toEqual({ games: false });
     expect(toPrefsRow({ reminderEnabled: true, reminderTime: '07:15' })).toEqual({
       reminder_enabled: true,
       reminder_time: '07:15:00',

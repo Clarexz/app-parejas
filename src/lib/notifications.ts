@@ -18,7 +18,7 @@ export const CHANNELS: readonly ChannelDef[] = [
   {
     id: 'actividad',
     name: 'Actividad de la pareja',
-    description: 'Respuestas, comentarios, moods, stories y memorias de tu pareja.',
+    description: 'Respuestas, comentarios, moods, stories, memorias y juegos de tu pareja.',
     importance: 'default',
   },
   {
@@ -62,6 +62,8 @@ export function routeForNotification(data: unknown): string | null {
   if (STATIC_ROUTES.has(url)) return url;
   const story = /^\/story\/view\?(user|story)=([^&]+)$/.exec(url);
   if (story) return UUID_RE.test(story[2]) ? url : null;
+  const game = /^\/(game|drawing)\/([^/?]+)$/.exec(url);
+  if (game) return UUID_RE.test(game[2]) ? url : null;
   const memory = /^\/memory\/([^/?]+)$/.exec(url);
   if (memory) return UUID_RE.test(memory[1]) ? url : null;
   const m = /^\/question\?(id|day)=([^&]+)$/.exec(url);
@@ -98,6 +100,7 @@ export type NotificationPrefs = {
   nudges: boolean;
   stories: boolean;
   memories: boolean;
+  games: boolean;
   reminderEnabled: boolean;
   /** 'HH:MM' en la hora local del celular. */
   reminderTime: string;
@@ -110,6 +113,7 @@ export const DEFAULT_PREFS: NotificationPrefs = {
   nudges: true,
   stories: true,
   memories: true,
+  games: true,
   reminderEnabled: true,
   reminderTime: '21:00',
 };
@@ -121,6 +125,7 @@ export type PrefsRow = {
   nudges: boolean;
   stories: boolean;
   memories: boolean;
+  games: boolean;
   reminder_enabled: boolean;
   reminder_time: string;
 };
@@ -147,6 +152,7 @@ export function normalizePrefs(row: Partial<PrefsRow> | null | undefined): Notif
     nudges: bool(row.nudges, DEFAULT_PREFS.nudges),
     stories: bool(row.stories, DEFAULT_PREFS.stories),
     memories: bool(row.memories, DEFAULT_PREFS.memories),
+    games: bool(row.games, DEFAULT_PREFS.games),
     reminderEnabled: bool(row.reminder_enabled, DEFAULT_PREFS.reminderEnabled),
     reminderTime: normalizeTime(row.reminder_time) ?? DEFAULT_PREFS.reminderTime,
   };
@@ -161,6 +167,7 @@ export function toPrefsRow(partial: Partial<NotificationPrefs>): Partial<PrefsRo
   if (partial.nudges !== undefined) out.nudges = partial.nudges;
   if (partial.stories !== undefined) out.stories = partial.stories;
   if (partial.memories !== undefined) out.memories = partial.memories;
+  if (partial.games !== undefined) out.games = partial.games;
   if (partial.reminderEnabled !== undefined) out.reminder_enabled = partial.reminderEnabled;
   if (partial.reminderTime !== undefined) {
     const t = normalizeTime(partial.reminderTime);

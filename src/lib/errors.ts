@@ -34,7 +34,7 @@ const BY_CODE: Record<string, string> = {
   comment_not_found: 'Ese comentario ya no existe. Actualiza para ver lo más reciente.',
   invalid_reaction: 'Esa reacción no se pudo guardar. Elige otro emoji.',
   nudge_too_soon: 'Ya le recordaste hace un ratito. Dale un poco de tiempo antes de insistir.',
-  no_partner: 'Todavía no hay pareja a quién recordarle. Cuando se una, podrás hacerlo.',
+  no_partner: 'Todavía no hay pareja con quién hacer esto. Cuando se una, podrán hacerlo juntos.',
   invalid_nudge: 'Ese recordatorio no se pudo enviar. Vuelve a intentar.',
   // RPC de stories
   invalid_story: 'Esa story no se pudo publicar. Revisa que tenga contenido y no sea muy larga.',
@@ -55,6 +55,21 @@ const BY_CODE: Record<string, string> = {
   item_not_found: 'Ese renglón ya no está. Actualiza para ver lo más reciente.',
   invalid_order: 'La lista cambió mientras la acomodabas. Ya la actualizamos; vuelve a intentar.',
   invalid_location: 'No pudimos guardar tu ubicación. Vuelve a intentar en un momento.',
+  // RPC de juegos (Fase 9)
+  invalid_game: 'Ese juego no existe. Elige otro de la lista.',
+  spicy_not_active: 'Las preguntas picantes aún no están activas para ustedes dos.',
+  round_not_found: 'Esa ronda ya no está. Quizá la quitaron desde el otro celular.',
+  round_finished: 'Esa ronda ya terminó. Entra a ver cómo les fue.',
+  invalid_choice: 'Esa respuesta no se pudo guardar. Elige una de las dos opciones.',
+  item_not_in_round: 'Esa pregunta ya no es parte de la ronda. Actualiza e intenta de nuevo.',
+  drawing_not_found: 'Ese dibujo ya no está. Quizá lo quitaron desde el otro celular.',
+  not_drawer: 'Solo quien dibuja puede hacer eso.',
+  not_guesser: 'Solo quien adivina puede hacer eso.',
+  invalid_drawing_state: 'El reto cambió mientras tanto. Ya lo actualizamos; vuelve a intentar.',
+  invalid_drawing: 'Ese dibujo no se pudo enviar. Revisa que tenga trazos y vuelve a intentar.',
+  invalid_guess: 'Ese intento no se pudo enviar. Escribe una palabra corta e intenta de nuevo.',
+  no_rerolls: 'Ya cambiaste la palabra las 3 veces que se puede. ¡A dibujar esta!',
+  no_words: 'Por ahora no hay palabras disponibles. Vuelve a intentar más tarde.',
   // RPC de notificaciones
   invalid_token: 'No pudimos registrar este celular para los avisos. Vuelve a intentar.',
 };

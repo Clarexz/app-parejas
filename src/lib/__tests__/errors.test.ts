@@ -89,4 +89,28 @@ describe('errorMessage', () => {
     }
     expect(errorMessage({ code: 'P0001', message: 'nudge_too_soon' })).toMatch(/hace un ratito/);
   });
+
+  it('traduce las claves de juegos', () => {
+    for (const key of [
+      'no_partner',
+      'invalid_game',
+      'spicy_not_active',
+      'no_questions',
+      'round_not_found',
+      'round_finished',
+      'invalid_choice',
+      'item_not_in_round',
+      'drawing_not_found',
+      'not_drawer',
+      'not_guesser',
+      'invalid_drawing_state',
+      'invalid_drawing',
+      'invalid_guess',
+      'no_rerolls',
+      'no_words',
+    ]) {
+      expect(errorMessage({ code: 'P0001', message: key })).not.toMatch(/Algo no salió/);
+    }
+    expect(errorMessage({ code: 'P0001', message: 'no_rerolls' })).toMatch(/3 veces/);
+  });
 });
