@@ -121,6 +121,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             previewImage: widgetPreview('Countdown'),
             ...WIDGET_DEFAULTS,
           },
+          {
+            name: 'PartnerStory',
+            label: 'Story de tu pareja',
+            description: 'Lo último que pegó tu pareja, sin abrir la app.',
+            previewImage: widgetPreview('PartnerStory'),
+            ...WIDGET_DEFAULTS,
+          },
         ],
       },
     ],

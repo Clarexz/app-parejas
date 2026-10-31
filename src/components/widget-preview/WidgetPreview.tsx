@@ -8,6 +8,7 @@ import { Stamp } from '@/components/Stamp';
 import { Sticker } from '@/components/Sticker';
 import { Tape, type TapeColor } from '@/components/Tape';
 import { Text } from '@/components/Text';
+import { StoryFrame } from '@/features/stories/components/StoryFrame';
 import { formatDaysUntil, formatNumber } from '@/lib/dates';
 import { formatStampIsoDate } from '@/lib/stampDate';
 import { useTheme } from '@/theme';
@@ -18,12 +19,14 @@ const TAPE: Record<WidgetPreviewProps['name'], TapeColor> = {
   DaysTogether: 'yellow',
   PartnerMood: 'mint',
   Countdown: 'pink',
+  PartnerStory: 'pink',
 };
 
 export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps) {
   const { colors, spacing, radius } = useTheme();
   const days = model.daysTogether ?? model.daysUntilStart;
   const event = model.nextEvent;
+  const story = model.partnerStory;
   const mood = model.partnerMood;
   return (
     <View
@@ -97,6 +100,42 @@ export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps
             </Text>
           </View>
           {event ? <Stamp>{formatStampIsoDate(event.date)}</Stamp> : null}
+        </View>
+      ) : null}
+      {name === 'PartnerStory' ? (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+          {story ? (
+            <>
+              <StoryFrame
+                story={{
+                  kind: story.kind,
+                  text: story.text,
+                  bg: story.bg,
+                  font: story.font,
+                  strokes: story.strokes,
+                }}
+                width={Math.round(((height - spacing.lg * 2) * 9) / 16)}
+                mediaUrl={story.thumb}
+              />
+              <View style={{ flex: 1, gap: spacing.xxs }}>
+                <Text variant="hand" numberOfLines={1}>
+                  {model.partnerName}
+                </Text>
+                <Text variant="small" tone="muted" numberOfLines={1}>
+                  {story.ago}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <View style={{ flex: 1, gap: spacing.xxs }}>
+              <Text variant="hand" numberOfLines={2}>
+                {`${model.partnerName} no ha pegado nada hoy`}
+              </Text>
+              <Text variant="small" tone="jamaica">
+                Pégale una tú
+              </Text>
+            </View>
+          )}
         </View>
       ) : null}
     </View>
