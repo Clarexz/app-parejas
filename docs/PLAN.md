@@ -1037,7 +1037,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 9 Juegos | ✅ Cerrada (2026-10-31), deploy pendiente | #15 | ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo o no en rondas asíncronas de 10 con % de coincidencia y variante picante, reto de dibujo con palabra secreta, push y 200 ítems + 80 palabras originales (D87–D91). **Pendiente: un solo deploy que incluya las Fases 6–9 y publicar el APK v0.9.0** (ver §10.1). |
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
-| 11B Extras (lenguajes del amor, visitas, estadísticas) | 🟡 Código listo, falta deploy (2026-10-31) | | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). **Pendiente: un solo deploy que incluya las Fases 6–9 y 11B y publicar el APK v0.11.0** (ver §10.1). |
+| 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada (2026-10-31), deploy pendiente | #16 | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). APK v0.11.0 publicado **antes** del deploy a pedido del usuario. **Pendiente: un solo deploy de `main` que incluya las Fases 6–9 y 11B, y hasta entonces no instalar el APK** (ver §10.1). |
 | 12 Pulido y entrega | ⏳ Siguiente | | Sin las fases 10 y 11A. |
 
 ### 10.1 Verificaciones pendientes en el celular
@@ -1112,14 +1112,17 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   Fases 6–8, el smoke test revisa `game_rounds`, `game_answers` y `drawing_challenges`. Sin secretos
   nuevos (opcional `GOOGLE_MAPS_API_KEY`). Después, lanzar `release-apk.yml` con
   `docs/releases/v0.9.0.md` (incluye las Fases 6–8); **no** publicar v0.6.0–v0.8.0 por separado.
-- **Fase 11B (deploy pendiente):** rama `ccr-b0a5c7ad-6ia4ce`, parte de `main` con la Fase 9. Un solo
-  `./scripts/server/deploy.sh <rama de la 11B o main ya mergeada>` aplica en orden las cinco
+- **Fase 11B (deploy pendiente):** cerrada y mergeada a `main` el 2026-10-31 a pedido del usuario, sin
+  acceso al VPS; el APK **v0.11.0** se publicó igual (pre-release) con el aviso de no instalarlo antes del
+  deploy. El prompt completo del servidor está en el PR #16 (usa `main` como rama). Un solo
+  `./scripts/server/deploy.sh main` aplica en orden las cinco
   migraciones pendientes (`…103_stories`, `…104_memories`, `…105_events_lists_distance`,
   `…106_games`, `…107_love_languages_visits_stats`), el seed, los buckets y las funciones `notify`
   (ahora con `love_language` y `visit`) y `stories-cleanup`. Además de lo listado para las Fases
   6–9, el smoke test revisa `love_language_results` y `visits`. Sin secretos nuevos (opcional
   `GOOGLE_MAPS_API_KEY`). Después, `release-apk.yml` con `docs/releases/v0.11.0.md` (incluye las
-  Fases 6–9); **no** publicar v0.6.0–v0.9.0 por separado.
+  Fases 6–9); **no** publicar v0.6.0–v0.9.0 por separado. El APK ya existe: tras el deploy basta con
+  instalarlo y probar con esa lista.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
