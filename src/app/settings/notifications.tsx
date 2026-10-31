@@ -59,13 +59,13 @@ function kindRows(name: string | null): { key: KindKey; label: string; hint: str
     },
     {
       key: 'memories',
-      label: 'Memorias nuevas',
-      hint: `Cuando ${who} pega una memoria en su diario.`,
+      label: 'Memorias y visitas',
+      hint: `Cuando ${who} pega una memoria o apunta una visita.`,
     },
     {
       key: 'games',
-      label: 'Juegos',
-      hint: 'Cuando tu pareja te reta, termina una ronda o deja un dibujo',
+      label: 'Juegos y tests',
+      hint: `Cuando ${who} te reta, termina una ronda, deja un dibujo o hace el test de lenguajes del amor.`,
     },
   ];
 }

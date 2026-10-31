@@ -604,6 +604,31 @@ export type Database = {
           },
         ];
       };
+      love_language_results: {
+        Row: {
+          answers: string[];
+          created_at: string;
+          quiz_version: number;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          answers: string[];
+          created_at?: string;
+          quiz_version?: number;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          answers?: string[];
+          created_at?: string;
+          quiz_version?: number;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       memories: {
         Row: {
           body: string | null;
@@ -1122,6 +1147,61 @@ export type Database = {
           },
         ];
       };
+      visits: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          end_date: string;
+          event_id: string | null;
+          id: string;
+          note: string | null;
+          place: string | null;
+          start_date: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          end_date: string;
+          event_id?: string | null;
+          id?: string;
+          note?: string | null;
+          place?: string | null;
+          start_date: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          end_date?: string;
+          event_id?: string | null;
+          id?: string;
+          note?: string | null;
+          place?: string | null;
+          start_date?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'visits_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'visits_event_id_fkey';
+            columns: ['event_id'];
+            isOneToOne: true;
+            referencedRelation: 'events';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -1281,6 +1361,7 @@ export type Database = {
       delete_memory: { Args: { p_memory_id: string }; Returns: undefined };
       delete_push_tokens: { Args: { p_tokens: string[] }; Returns: number };
       delete_story: { Args: { p_story_id: string }; Returns: undefined };
+      delete_visit: { Args: { p_id: string }; Returns: undefined };
       fold_text: { Args: { p_text: string }; Returns: string };
       generate_invite_code: { Args: Record<PropertyKey, never>; Returns: string };
       get_category_questions: {
@@ -1304,7 +1385,9 @@ export type Database = {
         Args: { p_before?: string; p_category?: string; p_limit?: number; p_search?: string };
         Returns: Json[];
       };
+      get_love_languages: { Args: Record<PropertyKey, never>; Returns: Json };
       get_question_with_answers: { Args: { p_question_id: string }; Returns: Json };
+      get_relationship_stats: { Args: Record<PropertyKey, never>; Returns: Json };
       get_streak: { Args: Record<PropertyKey, never>; Returns: Json };
       give_up_drawing: { Args: { p_id: string }; Returns: Json };
       guess_drawing: { Args: { p_guess: string; p_id: string }; Returns: Json };
@@ -1330,6 +1413,7 @@ export type Database = {
         };
       };
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
+      love_language_done: { Args: Record<PropertyKey, never>; Returns: boolean };
       mark_story_seen: { Args: { p_story_id: string }; Returns: undefined };
       memories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
       memory_path_readable: { Args: { p_name: string }; Returns: boolean };
@@ -1447,6 +1531,34 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      save_visit: {
+        Args: {
+          p_end_date: string;
+          p_event_id?: string;
+          p_id?: string;
+          p_note?: string;
+          p_place?: string;
+          p_start_date: string;
+        };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          end_date: string;
+          event_id: string | null;
+          id: string;
+          note: string | null;
+          place: string | null;
+          start_date: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'visits';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       send_nudge: {
         Args: { p_kind?: string };
         Returns: {
@@ -1535,6 +1647,10 @@ export type Database = {
         Returns: Json;
       };
       submit_drawing: { Args: { p_id: string; p_strokes: Json }; Returns: Json };
+      submit_love_language_test: {
+        Args: { p_answers: string[]; p_quiz_version?: number };
+        Returns: Json;
+      };
       unregister_push_token: { Args: { p_token: string }; Returns: undefined };
       update_list_item: {
         Args: { p_id: string; p_text: string };

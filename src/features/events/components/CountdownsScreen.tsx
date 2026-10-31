@@ -16,7 +16,9 @@ import {
 import { daysBetween } from '@/lib/dates';
 import type { Countdown } from '@/lib/events';
 import { pastLabel } from '@/lib/eventsView';
+import { pendingVisitEvents } from '@/lib/visits';
 import { formatStampIsoDate } from '@/lib/stampDate';
+import { useVisits } from '@/features/visits/hooks';
 import { useTheme } from '@/theme';
 
 import type { EventRow } from '../api';
@@ -44,6 +46,8 @@ export function CountdownsScreen() {
   const router = useRouter();
   const { countdowns, visit, past, today, isLoading, isError, refetch, isRefetching } =
     useCountdowns();
+  const { visits } = useVisits();
+  const unlogged = pendingVisitEvents(past, visits, today).length;
 
   const edit = (id: string) => router.push({ pathname: '/events/edit', params: { id } });
   const create = () => router.push('/events/edit');
@@ -117,6 +121,19 @@ export function CountdownsScreen() {
             <Text variant="title" accessibilityRole="header">
               Ya pasaron
             </Text>
+            {unlogged > 0 ? (
+              <View style={{ alignItems: 'flex-start' }}>
+                <Button
+                  title={
+                    unlogged === 1
+                      ? '¿Ya se vieron? Apunten esa visita'
+                      : `¿Ya se vieron? Apunten ${unlogged} visitas`
+                  }
+                  variant="ghost"
+                  onPress={() => router.push('/visits')}
+                />
+              </View>
+            ) : null}
             <View>
               {past.map((e, i) => (
                 <View key={e.id}>

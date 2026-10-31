@@ -177,6 +177,34 @@ describe('buildNotification', () => {
     );
     expect(f?.body).toContain('70 %');
   });
+  it('love_language: respeta prefs.games, ruta y no filtra resultados', () => {
+    expect(buildNotification(ev('love_language', {}, { games: false }))).toBeNull();
+    const n = buildNotification(ev('love_language', { event: 'done', recipient_done: false }));
+    expect(n?.visible).toBe(true);
+    expect(n?.data).toEqual({ kind: 'love_language', url: '/love-languages' });
+    expect(n?.channelId).toBe('actividad');
+    const m = buildNotification(ev('love_language'));
+    expect(m?.data.url).toBe('/love-languages');
+    const both = buildNotification(ev('love_language', { recipient_done: true }, {}));
+    expect(`${both?.title} ${both?.body}`).toMatch(/compar|resultados/i);
+  });
+  it('visit: respeta prefs.memories, ruta y fechas', () => {
+    expect(buildNotification(ev('visit', { visit_id: 'v1' }, { memories: false }))).toBeNull();
+    const n = buildNotification(
+      ev('visit', {
+        visit_id: 'v1',
+        start_date: '2026-10-12',
+        end_date: '2026-10-18',
+        place: 'Monterrey',
+      }),
+    );
+    expect(n?.data).toEqual({ kind: 'visit', url: '/visits', visit_id: 'v1' });
+    expect(n?.body).toContain('del 12 al 18 de octubre');
+    expect(n?.body).toContain('en Monterrey');
+    const min = buildNotification(ev('visit'));
+    expect(min?.visible).toBe(true);
+    expect(min?.data.url).toBe('/visits');
+  });
   it('drawing: apagado no manda nada; ruta y palabra solo en solved/gave_up', () => {
     expect(buildNotification(ev('drawing', { drawing_id: 'd1' }, { games: false }))).toBeNull();
     const r = buildNotification(ev('drawing', { drawing_id: 'd1', event: 'ready' }));

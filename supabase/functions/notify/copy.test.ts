@@ -4,7 +4,10 @@ import {
   answerCopy,
   commentCopy,
   drawingCopy,
+  formatDateRange,
   gameCopy,
+  loveLanguageCopy,
+  visitCopy,
   moodCopy,
   nudgeCopy,
   memoryCopy,
@@ -83,6 +86,10 @@ describe('copys', () => {
         within(drawingCopy({ ...b, event, word: LONG_TEXT }));
         within(drawingCopy({ ...b, event, word: null }));
       }
+      for (const recipientDone of [true, false]) within(loveLanguageCopy({ ...b, recipientDone }));
+      within(visitCopy({ ...b, startDate: '2025-12-28', endDate: '2026-01-02', place: LONG_TEXT }));
+      within(visitCopy({ ...b, startDate: '2026-10-12', endDate: '2026-10-12', place: null }));
+      within(visitCopy({ ...b, startDate: '', endDate: '', place: null }));
       within(testCopy(b));
     }
   });
@@ -191,9 +198,55 @@ describe('copys', () => {
         drawingCopy({ ...base, seed, event: 'ready', word: null }),
         drawingCopy({ ...base, seed, event: 'solved', word: 'Piñata' }),
         drawingCopy({ ...base, seed, event: 'gave_up', word: 'Piñata' }),
+        loveLanguageCopy({ ...base, seed, recipientDone: true }),
+        loveLanguageCopy({ ...base, seed, recipientDone: false }),
+        visitCopy({
+          ...base,
+          seed,
+          startDate: '2026-10-12',
+          endDate: '2026-10-18',
+          place: 'Monterrey',
+        }),
         testCopy({ ...base, seed }),
       ];
       for (const c of all) expect(`${c.title} ${c.body}`).not.toMatch(/[¡!]|ha respondido/i);
     }
+  });
+  it('formatDateRange: mismo mes, distinto mes, distinto año, un día e inválida', () => {
+    expect(formatDateRange('2026-10-12', '2026-10-18')).toBe('del 12 al 18 de octubre');
+    expect(formatDateRange('2026-09-28', '2026-10-02')).toBe('del 28 de sep. al 2 de oct.');
+    expect(formatDateRange('2025-12-28', '2026-01-02')).toBe(
+      'del 28 de dic. de 2025 al 2 de ene. de 2026',
+    );
+    expect(formatDateRange('2026-10-12', '2026-10-12')).toBe('el 12 de octubre');
+    expect(formatDateRange('2026-13-01', '2026-10-12')).toBe('');
+    expect(formatDateRange('hola', '')).toBe('');
+  });
+  it('visitCopy: con y sin lugar', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
+    const withPlace = visitCopy({
+      ...b,
+      startDate: '2026-10-12',
+      endDate: '2026-10-18',
+      place: 'Monterrey',
+    });
+    expect(withPlace.body).toBe('Se vieron del 12 al 18 de octubre en Monterrey.');
+    const noPlace = visitCopy({
+      ...b,
+      startDate: '2026-10-12',
+      endDate: '2026-10-12',
+      place: null,
+    });
+    expect(noPlace.body).toBe('Se vieron el 12 de octubre.');
+  });
+  it('loveLanguageCopy: invita o invita a comparar, sin resultado', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
+    expect(loveLanguageCopy({ ...b, recipientDone: false }).body).toMatch(
+      /Hazlo|el tuyo|Haz el tuyo/,
+    );
+    expect(
+      loveLanguageCopy({ ...b, recipientDone: true }).title +
+        loveLanguageCopy({ ...b, recipientDone: true }).body,
+    ).toMatch(/compar|resultados/i);
   });
 });

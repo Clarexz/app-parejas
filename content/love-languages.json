@@ -1,0 +1,417 @@
+{
+  "version": 1,
+  "languages": [
+    {
+      "key": "words",
+      "name": "Palabras de afirmación",
+      "short": "Palabras",
+      "description": "Sientes cariño cuando te lo dicen con palabras: un mensaje, un audio o un \"me encanta cómo eres\" te alcanzan para todo el día.",
+      "tips": [
+        "Mándale un audio diciéndole algo que admiras de su forma de ser.",
+        "Dale las gracias con detalle, aunque sea por algo chiquito.",
+        "Escríbele una nota corta y escóndela donde la vaya a encontrar.",
+        "Cuéntale a otras personas lo que te gusta de ella o de él."
+      ],
+      "distanceTips": [
+        "Mándale un mensaje de ánimo antes de su día más pesado.",
+        "Grábale un audio largo para que lo escuche cuando te extrañe."
+      ]
+    },
+    {
+      "key": "time",
+      "name": "Tiempo de calidad",
+      "short": "Tiempo",
+      "description": "Lo que más te llega es la atención completa: estar juntos de verdad, sin prisas y sin el celular de por medio.",
+      "tips": [
+        "Aparten una tarde sin pendientes y sin celular, solo para ustedes.",
+        "Pregúntale cómo está y escucha la respuesta completa, sin interrumpir.",
+        "Propón un plan nuevo que hagan juntos: cocinar, caminar o un juego.",
+        "Cuando estén juntos, guarda el celular y mírale a los ojos al platicar."
+      ],
+      "distanceTips": [
+        "Hagan una videollamada con la cámara prendida y sin hacer otra cosa a la vez.",
+        "Vean la misma película a la vez y platíquenla al terminar."
+      ]
+    },
+    {
+      "key": "gifts",
+      "name": "Detalles",
+      "short": "Detalles",
+      "description": "Te enamora que piensen en ti con algo pequeño: no importa el precio, importa que se acordaron de ti.",
+      "tips": [
+        "Guarda algo que te recordó a ella o a él y dáselo cuando se vean.",
+        "Lleva su antojo favorito sin avisar, aunque sea un dulce.",
+        "Regala algo hecho por ti: una carta, un dibujo, una playlist.",
+        "Guarda boletos y recuerdos de sus planes para armar una cajita."
+      ],
+      "distanceTips": [
+        "Mándale por paquete algo chiquito que te recordó a ella o a él.",
+        "Pídele a domicilio su comida favorita cuando sepas que tuvo un mal día."
+      ]
+    },
+    {
+      "key": "acts",
+      "name": "Actos de servicio",
+      "short": "Ayuda",
+      "description": "Sientes que te quieren cuando alguien te quita peso de encima: una mano con lo pendiente vale más que mil palabras.",
+      "tips": [
+        "Hazte cargo de algo que sabes que le pesa, sin que te lo pida.",
+        "Prepárale el desayuno o la cena cuando se vean.",
+        "Pregunta qué pendiente le agobia y ofrécete a ayudar con eso.",
+        "Cumple a tiempo lo que prometiste que ibas a hacer."
+      ],
+      "distanceTips": [
+        "Ayúdale a hacer un trámite o una reservación desde donde estés.",
+        "Organicen juntos su semana por videollamada y repártanse lo pendiente."
+      ]
+    },
+    {
+      "key": "touch",
+      "name": "Contacto físico",
+      "short": "Contacto",
+      "description": "Tu forma de sentirte cerca es a través del cuerpo: un abrazo, una mano que te busca, dormir pegaditos.",
+      "tips": [
+        "Abrázale largo cuando se vean y cuando se despidan.",
+        "Tómale la mano al caminar, aunque no digan nada.",
+        "Ofrécele un masaje de hombros después de un día pesado.",
+        "Busca el contacto chiquito: un roce, la mano en la espalda, un beso en la frente."
+      ],
+      "distanceTips": [
+        "Acuerden un abrazo bien largo al verse, y cuéntense los días que faltan.",
+        "Mándale algo con tu olor o una prenda tuya para que lo abrace."
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "ll-01",
+      "a": {
+        "text": "Que me mande un audio diciendo por qué me admira",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que me guarde la tarde del sábado solo para nosotros",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-02",
+      "a": {
+        "text": "Que me regale mi botana favorita porque sí",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que lave los trastes sin que se lo pida",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-03",
+      "a": {
+        "text": "Que me abrace largo apenas nos veamos",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que me diga \"qué bueno que existes\" sin ningún motivo",
+        "language": "words"
+      }
+    },
+    {
+      "id": "ll-04",
+      "a": {
+        "text": "Que veamos la misma película a la vez, cada quien en su casa",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que me mande por paquete algo que vio y le recordó a mí",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-05",
+      "a": {
+        "text": "Que me prepare el desayuno antes de que me vaya",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que me haga cosquillas hasta que me ría",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-06",
+      "a": {
+        "text": "Que me traiga un recuerdito de su viaje, el que sea",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que le cuente a su gente lo que le encanta de mí",
+        "language": "words"
+      }
+    },
+    {
+      "id": "ll-07",
+      "a": {
+        "text": "Que me acompañe a hacer mis pendientes aunque sea aburrido",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que me ayude a organizar una semana pesada, aunque sea por videollamada",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-08",
+      "a": {
+        "text": "Que me dé un beso de buenos días",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que me deje una sorpresa escondida en la maleta cuando me voy",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-09",
+      "a": {
+        "text": "Que me diga \"confío en ti\" antes de algo importante",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que me ayude con un pendiente que traigo atorado",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-10",
+      "a": {
+        "text": "Que deje el celular a un lado durante toda una videollamada",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que nos quedemos dormidos abrazados",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-11",
+      "a": {
+        "text": "Que me mande flores o una plantita a la puerta sin motivo",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que me ponga la mano en la espalda al pasar, como diciendo \"aquí estoy\"",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-12",
+      "a": {
+        "text": "Que me hable temprano para despertarme el día que tengo algo importante",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que me cuente por llamada qué le gustó de mí hoy",
+        "language": "words"
+      }
+    },
+    {
+      "id": "ll-13",
+      "a": {
+        "text": "Que me deje recargar la cabeza en su hombro",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que caminemos sin rumbo, platicando de todo",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-14",
+      "a": {
+        "text": "Que tengamos una llamada fija cada semana que nadie mueva",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que me mande ánimo en un mensaje antes de un día difícil",
+        "language": "words"
+      }
+    },
+    {
+      "id": "ll-15",
+      "a": {
+        "text": "Que me pida a domicilio mi comida favorita en un mal día",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que me resuelva un trámite o una cita que me da flojera",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-16",
+      "a": {
+        "text": "Que me despierte con un beso en la frente",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que me cuide cuando me enfermo",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-17",
+      "a": {
+        "text": "Que me recuerde con palabras por qué me eligió",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que me mande por correo un detalle pequeño envuelto con cariño",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-18",
+      "a": {
+        "text": "Que me ayude a preparar algo importante que tengo que presentar",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que me pregunte cómo me fue y se quede a escuchar la respuesta completa",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-19",
+      "a": {
+        "text": "Que al despedirnos me diga con sus propias palabras cuánto me va a extrañar",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que me despida con un abrazo que no quiera soltar",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-20",
+      "a": {
+        "text": "Que platiquemos por teléfono sin prisa hasta que nos gane el sueño",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que me mande una foto impresa de nosotros con una dedicatoria",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-21",
+      "a": {
+        "text": "Que me ayude a acomodar mi cuarto o mi casa después de una mudanza",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que juguemos algo en línea una noche entre semana",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-22",
+      "a": {
+        "text": "Que me lea algo que escribió pensando en mí",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que me regale algo hecho por sus manos, aunque quede chueco",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-23",
+      "a": {
+        "text": "Que me abrace por la espalda mientras cocino",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que me consiga lo que me hace falta cuando estoy con mucho trabajo",
+        "language": "acts"
+      }
+    },
+    {
+      "id": "ll-24",
+      "a": {
+        "text": "Que planee una visita larga sin pendientes de trabajo",
+        "language": "time"
+      },
+      "b": {
+        "text": "Que me tome de la mano cuando caminamos",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-25",
+      "a": {
+        "text": "Que reconozca con palabras algo que me costó mucho trabajo",
+        "language": "words"
+      },
+      "b": {
+        "text": "Que cocinemos juntos una receta nueva",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-26",
+      "a": {
+        "text": "Que me sorprenda con el libro que mencioné una vez",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que me dé un masaje de hombros después de un día pesado",
+        "language": "touch"
+      }
+    },
+    {
+      "id": "ll-27",
+      "a": {
+        "text": "Que se encargue de reservar el viaje y de todos los detalles",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que me dé las gracias con detalle por algo pequeño que hice",
+        "language": "words"
+      }
+    },
+    {
+      "id": "ll-28",
+      "a": {
+        "text": "Que guarde un boleto de algo que vivimos y me lo dé enmarcado",
+        "language": "gifts"
+      },
+      "b": {
+        "text": "Que nos escapemos un fin de semana a un lugar nuevo",
+        "language": "time"
+      }
+    },
+    {
+      "id": "ll-29",
+      "a": {
+        "text": "Que haga su parte de la casa para que yo pueda descansar",
+        "language": "acts"
+      },
+      "b": {
+        "text": "Que me lleve un café como me gusta sin que se lo pida",
+        "language": "gifts"
+      }
+    },
+    {
+      "id": "ll-30",
+      "a": {
+        "text": "Que me acaricie el cabello mientras vemos algo",
+        "language": "touch"
+      },
+      "b": {
+        "text": "Que me escriba una notita de cariño y la esconda donde la encuentre",
+        "language": "words"
+      }
+    }
+  ]
+}

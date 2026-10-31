@@ -57,6 +57,8 @@ type Props = {
   icon?: IconName;
   /** Ocupa todo el ancho (auth y onboarding, DISENO §8). */
   fullWidth?: boolean;
+  /** Sobre un `Note` (post-it): el contorno y el texto del secundario usan la tinta del post-it. */
+  onNote?: boolean;
 };
 
 /** Botón del sistema (DISENO §7): primario recortado a mano, secundario de contorno, ghost subrayado. */
@@ -68,6 +70,7 @@ export function Button({
   loading = false,
   icon,
   fullWidth = false,
+  onNote = false,
 }: Props) {
   const { colors, spacing, radius, shadows, motion, type } = useTheme();
   const reduced = useReducedMotion();
@@ -93,7 +96,9 @@ export function Button({
     : disabled
       ? colors.inkFaint
       : secondary
-        ? colors.ink
+        ? onNote
+          ? colors.onPostit
+          : colors.ink
         : colors.jamaica;
   const labelStyle = primary ? type.hand : type.bodyStrong;
 
@@ -109,7 +114,7 @@ export function Button({
     : secondary
       ? {
           borderWidth: 1.5,
-          borderColor: disabled ? colors.inkFaint : colors.ink,
+          borderColor: disabled ? colors.inkFaint : onNote ? colors.onPostit : colors.ink,
           borderRadius: radius.sm,
         }
       : {};

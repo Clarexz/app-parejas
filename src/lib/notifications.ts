@@ -43,7 +43,14 @@ export const REMINDER_ID_PREFIX = 'reminder-';
 // ---------------------------------------------------------------------------
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const STATIC_ROUTES = new Set(['/', '/question', '/moods', '/settings/notifications']);
+const STATIC_ROUTES = new Set([
+  '/',
+  '/question',
+  '/moods',
+  '/settings/notifications',
+  '/love-languages',
+  '/visits',
+]);
 
 function asRecord(data: unknown): Record<string, unknown> | null {
   return data && typeof data === 'object' && !Array.isArray(data)
