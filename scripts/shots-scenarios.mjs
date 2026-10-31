@@ -779,6 +779,9 @@ export const SCENARIOS = {
     moods: sampleMoods,
     routes: ['/'],
   },
+  // --- Fase 8: cuentas regresivas (prefijo `eventos-`) ---
+  // --- Fase 8: listas (prefijo `listas-`) ---
+  // --- Fase 8: distancia (prefijo `distancia-`) ---
   signed_out: {
     session: false,
     routes: ['/sign-in', '/sign-up', '/forgot-password'],
@@ -1183,6 +1186,13 @@ export async function applyScenario(context, scenario) {
     }
     if (path === '/auth/v1/token') return json(route, sessionPayload());
     if (path.startsWith('/auth/v1/')) return json(route, {});
+
+    // Fase 8+: un escenario puede atender sus propias rutas (tablas o RPC nuevas) con
+    // `rest(path, { url, request, route, json, rows })`; si devuelve algo, ya respondió.
+    if (scenario.rest) {
+      const handled = await scenario.rest(path, { url, request, route, json, rows });
+      if (handled !== undefined) return handled;
+    }
 
     if (path === '/rest/v1/profiles') {
       // Filtros de PostgREST que usa la app: id=eq.<uuid> o id=in.(<uuid>,<uuid>).
