@@ -7,6 +7,7 @@ import {
   AvatarPicker,
   Button,
   Card,
+  Checkbox,
   Chip,
   CloudOff,
   CodeInput,
@@ -137,6 +138,7 @@ export default function CatalogScreen() {
   const toast = useToast();
   const { colors, spacing, radius, isDark } = useTheme();
   const [folded, setFolded] = useState(false);
+  const [ticked, setTicked] = useState(true);
   const [sheet, setSheet] = useState(false);
   const [selected, setSelected] = useState('Cena');
   const [date, setDate] = useState({ day: '14', month: '', year: '' });
@@ -437,6 +439,18 @@ export default function CatalogScreen() {
           onChange={() => undefined}
           disabled
         />
+      </Section>
+
+      <Section title="Casilla (Checkbox)">
+        <Row>
+          <Checkbox
+            checked={ticked}
+            onPress={() => setTicked((v) => !v)}
+            accessibilityLabel="Casilla de muestra"
+          />
+          <Checkbox checked={false} onPress={() => undefined} accessibilityLabel="Sin tachar" />
+          <Checkbox checked disabled onPress={() => undefined} accessibilityLabel="Deshabilitada" />
+        </Row>
       </Section>
 
       <Section title="Hora (TimeField)">

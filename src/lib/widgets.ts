@@ -17,10 +17,11 @@ import {
 import { simplifyStroke, type Stroke } from './drawing';
 import { featuredCountdown, type CountdownKind, type EventInput } from './events';
 
-export { nextBirthday } from './events';
 import { moodLabel } from './mood';
 import { isStoryActive, storyAgo, type StoryBg, type StoryFont, type StoryKind } from './stories';
 import { DEFAULT_TIME_ZONE } from './timezone';
+
+export { nextBirthday } from './events';
 
 export const WIDGET_SNAPSHOT_VERSION = 3;
 
