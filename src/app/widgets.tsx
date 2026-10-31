@@ -13,7 +13,7 @@ import { useTheme } from '@/theme';
 
 const STEPS = [
   'Mantén presionado un espacio vacío de tu pantalla de inicio.',
-  'Elige “Widgets” y busca App Parejas.',
+  'Elige “Widgets” y busca Noviecitosfest.',
   'Arrastra el widget que quieras a tu pantalla.',
   'Para el tamaño mediano, mantenlo presionado y estira los bordes hasta que ocupe 4 columnas.',
 ];
