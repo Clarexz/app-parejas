@@ -382,6 +382,105 @@ const sampleArchive = () => [
   storyRow(15, ME_ID, 'photo', { ago: 24 * 45, text: 'Atardecer en la azotea' }),
 ];
 
+// --- Memorias (Fase 7) ------------------------------------------------------------------------
+
+const mid = (n) => `aaaaaaaa-aaaa-4aaa-8aaa-${String(n).padStart(12, '0')}`;
+/** ISO 'YYYY-MM-DD' de hoy (Ciudad de México) hace `n` años. */
+const isoYearsAgo = (n) => {
+  const [y, m, d] = isoDaysAgo(0).split('-');
+  return `${Number(y) - n}-${m}-${d}`;
+};
+
+/** Memoria con fotos anidadas (como `select('*, photos:memory_photos(*)')`). */
+const memoryRow = (n, title, happenedOn, o = {}) => {
+  const sizes = [
+    [1200, 1600],
+    [1600, 1200],
+    [1200, 1200],
+  ];
+  const count = o.photos ?? 1;
+  return {
+    id: mid(n),
+    couple_id: COUPLE_ID,
+    created_by: o.by ?? ME_ID,
+    title,
+    body: o.body ?? null,
+    happened_on: happenedOn,
+    lat: o.lat ?? null,
+    lng: o.lng ?? null,
+    place_name: o.place ?? null,
+    created_at: hoursAgo(24 * (30 - n)),
+    updated_at: hoursAgo(24 * (30 - n)),
+    photos: Array.from({ length: count }, (_, k) => {
+      const [width, height] = sizes[(n + k) % sizes.length];
+      return {
+        id: `bbbbbbbb-bbbb-4bbb-8bbb-${String(n * 100 + k).padStart(12, '0')}`,
+        couple_id: COUPLE_ID,
+        memory_id: mid(n),
+        path: `${COUPLE_ID}/${ME_ID}/m${n}-${k}.jpg`,
+        thumb_path: `${COUPLE_ID}/${ME_ID}/m${n}-${k}_thumb.jpg`,
+        position: k,
+        width,
+        height,
+        created_at: hoursAgo(24 * (30 - n)),
+      };
+    }),
+  };
+};
+
+const sampleMemories = () => [
+  memoryRow(1, 'Tacos de pastor a las 2 am', isoDaysAgo(3), {
+    place: 'Condesa, CDMX',
+    lat: 19.4115,
+    lng: -99.173,
+    body: 'Salimos de la fiesta con hambre y el señor del trompo ya nos conocía. Le pedimos doble de piña y nos sentamos en la banqueta a platicar de todo.',
+  }),
+  memoryRow(2, 'Domingo en Coyoacán', isoDaysAgo(20), {
+    photos: 3,
+    place: 'Coyoacán, CDMX',
+    lat: 19.3467,
+    lng: -99.1617,
+    body: 'Helado de mamey, el mercado y la tarde entera sin reloj.',
+  }),
+  memoryRow(3, 'Atardecer en Mazunte', '2026-08-14', {
+    photos: 5,
+    place: 'Playa Mazunte, Oaxaca',
+    lat: 15.6669,
+    lng: -96.5545,
+    body: 'Nos tocó el mejor atardecer del viaje. Caleb dice que fue casualidad; yo digo que lo pedí.',
+  }),
+  memoryRow(4, 'Nuestro primer viaje en carretera, con todo y llanta ponchada', '2026-08-02', {
+    photos: 2,
+  }),
+  memoryRow(5, 'Cumple de Caleb', '2026-05-20', {
+    photos: 4,
+    place: 'Casa de los suegros',
+    lat: 20.6597,
+    lng: -103.3496,
+  }),
+  memoryRow(6, 'Teotihuacán antes de que saliera el sol', isoYearsAgo(1), {
+    photos: 3,
+    by: PARTNER_ID,
+    place: 'Teotihuacán, Edomex',
+    lat: 19.6925,
+    lng: -98.8438,
+    body: 'Subimos la Pirámide del Sol con frío y sueño. Valió cada escalón.',
+  }),
+  memoryRow(7, 'Halloween en casa', isoYearsAgo(2), { photos: 1 }),
+  memoryRow(8, 'Primer café juntos', '2023-02-14', {
+    place: 'Café de la esquina',
+    lat: 19.426,
+    lng: -99.17,
+  }),
+];
+
+const memoriesSession = {
+  me: profiles.me,
+  partner: profiles.partner,
+  members: [member(ME_ID), member(PARTNER_ID)],
+  memories: sampleMemories,
+};
+
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
 export const SCENARIOS = {
   // Cómo agregar widgets (Fase 5): pantalla con la pareja lista (prefijo `widgets-`).
@@ -594,6 +693,91 @@ export const SCENARIOS = {
     members: [member(ME_ID), member(PARTNER_ID)],
     stories: () => [],
     routes: ['/story/archive'],
+  },
+
+  // Memorias (Fase 7): diario, mapa de papel, detalle, editar, vacío y error (prefijo `memorias-`).
+  memorias_diario: {
+    prefix: 'memorias',
+    ...memoriesSession,
+    routes: ['/memories'],
+  },
+  memorias_mapa: {
+    prefix: 'memorias-mapa',
+    ...memoriesSession,
+    routes: ['/memories'],
+    actions: {
+      '/memories': async (page) => {
+        await page.getByRole('button', { name: 'Mapa' }).click();
+        await page.waitForTimeout(600);
+      },
+    },
+  },
+  memorias_vacio: {
+    prefix: 'memorias-vacio',
+    ...memoriesSession,
+    memories: () => [],
+    routes: ['/memories'],
+  },
+  memorias_error: {
+    prefix: 'memorias-error',
+    ...memoriesSession,
+    memoriesError: true,
+    routes: ['/memories'],
+  },
+  memorias_detalle: {
+    prefix: 'memorias-detalle',
+    ...memoriesSession,
+    routes: [`/memory/${mid(3)}`, `/memory/${mid(4)}`],
+  },
+  memorias_noencontrada: {
+    prefix: 'memorias-noencontrada',
+    ...memoriesSession,
+    routes: [`/memory/${mid(99)}`],
+  },
+  memorias_arrancar: {
+    prefix: 'memorias-arrancar',
+    ...memoriesSession,
+    routes: [`/memory/${mid(2)}`],
+    actions: {
+      [`/memory/${mid(2)}`]: async (page) => {
+        await page.getByRole('button', { name: 'Arrancar esta hoja' }).click();
+        await page.waitForTimeout(900);
+      },
+    },
+  },
+  memorias_editar: {
+    prefix: 'memorias-editar',
+    ...memoriesSession,
+    routes: [`/memory/edit?id=${mid(3)}`],
+  },
+  memorias_nueva: {
+    prefix: 'memorias-nueva',
+    ...memoriesSession,
+    routes: ['/memory/edit'],
+    actions: {
+      '/memory/edit': async (page) => {
+        await page.getByRole('button', { name: 'Pegar memoria' }).click();
+        await page.waitForTimeout(500);
+      },
+    },
+  },
+  memorias_lugar: {
+    prefix: 'memorias-lugar',
+    ...memoriesSession,
+    routes: ['/memory/edit'],
+    actions: {
+      '/memory/edit': async (page) => {
+        await page.getByRole('button', { name: 'Elegir en el mapa' }).click();
+        await page.waitForTimeout(700);
+      },
+    },
+  },
+  // Inicio con "Un día como hoy" (hay memorias de este mismo día en años anteriores).
+  memorias_inicio: {
+    prefix: 'memorias-inicio',
+    ...memoriesSession,
+    moods: sampleMoods,
+    routes: ['/'],
   },
   signed_out: {
     session: false,
@@ -924,9 +1108,20 @@ function sessionPayload() {
 }
 
 // Foto de ejemplo (SVG "cerro y sol") para los avatares y la foto de pareja.
-const PHOTO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-<rect width="400" height="400" fill="#BFE0E8"/><circle cx="290" cy="110" r="46" fill="#F2B25A"/>
-<path d="M0 400V270q90-110 190-30t210-50v210z" fill="#6FA070"/><path d="M0 400V330q120-70 230-10t170-20v100z" fill="#4F7A4A"/></svg>`;
+const PHOTO_PALETTES = [
+  ['#BFE0E8', '#F2B25A', '#6FA070', '#4F7A4A'],
+  ['#F2D3C4', '#C23B6B', '#8E9AC4', '#5F6690'],
+  ['#E9E2B8', '#E8932A', '#7FA58B', '#3F6B58'],
+  ['#CFD8EE', '#F7F4EC', '#A98BB7', '#6F5A86'],
+];
+/** Paisaje de ejemplo: la paleta depende de la ruta para que las fotos no se vean idénticas. */
+const photoSvg = (seed = '') => {
+  const sum = [...seed].reduce((n, ch) => n + ch.charCodeAt(0), 0);
+  const [sky, sun, far, near] = PHOTO_PALETTES[sum % PHOTO_PALETTES.length];
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+<rect width="400" height="400" fill="${sky}"/><circle cx="290" cy="110" r="46" fill="${sun}"/>
+<path d="M0 400V270q90-110 190-30t210-50v210z" fill="${far}"/><path d="M0 400V330q120-70 230-10t170-20v100z" fill="${near}"/></svg>`;
+};
 
 const CORS = {
   'access-control-allow-origin': '*',
@@ -1072,6 +1267,22 @@ export async function applyScenario(context, scenario) {
         created_at: new Date().toISOString(),
       });
     }
+    // Memorias (Fase 7)
+    if (path === '/rest/v1/memories') {
+      if (scenario.memoriesError) return json(route, { message: 'boom' }, 500);
+      const all = (scenario.memories ?? (() => []))();
+      const idFilter = url.searchParams.get('id');
+      if (idFilter) {
+        return rows(
+          route,
+          request,
+          all.filter((r) => idFilter === `eq.${r.id}`),
+        );
+      }
+      return json(route, all);
+    }
+    if (path === '/rest/v1/rpc/delete_memory') return route.fulfill({ status: 204, headers: CORS });
+
     if (path === '/rest/v1/rpc/my_couple_id') return json(route, COUPLE_ID);
 
     if (path === '/rest/v1/question_categories') return json(route, CATEGORIES);
@@ -1117,6 +1328,19 @@ export async function applyScenario(context, scenario) {
     }
     if (path === '/rest/v1/rpc/set_spicy_opt_in') return json(route, false);
 
+    // Storage: URLs firmadas en lote (`createSignedUrls`) de un bucket.
+    if (request.method() === 'POST' && /^\/storage\/v1\/object\/sign\/[^/]+$/.test(path)) {
+      const bucket = path.split('/').pop();
+      const body = request.postDataJSON?.() ?? {};
+      return json(
+        route,
+        (body.paths ?? []).map((p) => ({
+          error: null,
+          path: p,
+          signedURL: `/object/sign/${bucket}/${p}?token=shots`,
+        })),
+      );
+    }
     // Storage: URL firmada que apunta al mismo host simulado.
     if (request.method() === 'POST' && path.startsWith('/storage/v1/object/sign/')) {
       const objectPath = path.replace('/storage/v1', '');
@@ -1127,7 +1351,7 @@ export async function applyScenario(context, scenario) {
         status: 200,
         contentType: 'image/svg+xml',
         headers: CORS,
-        body: PHOTO_SVG,
+        body: photoSvg(path),
       });
     }
 

@@ -2,6 +2,8 @@
 // Con service role pide el lote de stories/archivos por limpiar, borra los archivos del bucket
 // `stories` con la API de Storage (SQL no puede: Storage protege storage.objects) y confirma
 // con stories_cleanup_commit para que Postgres borre las filas.
+// También limpia el bucket `memories`: memories_cleanup_batch lista los archivos huérfanos
+// (más de 24 h sin fila en memory_photos) y aquí se borran; no hay nada que confirmar.
 // Protegida con el secreto compartido `x-notify-secret` (JWT desactivado en el servidor).
 import {
   BATCH_LIMIT,
@@ -9,6 +11,7 @@ import {
   REMOVE_CHUNK_SIZE,
   chunk,
   parseBatch,
+  parsePaths,
   storiesToCommit,
   timingSafeEqual,
 } from './logic.ts';
@@ -48,18 +51,18 @@ Deno.serve(async (req: Request) => {
     return await res.json();
   };
 
-  // Borra un lote de archivos; true si Storage lo aceptó.
-  const removeChunk = async (prefixes: string[]): Promise<boolean> => {
+  // Borra un lote de archivos de un bucket; true si Storage lo aceptó.
+  const removeChunk = async (bucket: string, prefixes: string[]): Promise<boolean> => {
     try {
-      const res = await fetch(`${base}/storage/v1/object/stories`, {
+      const res = await fetch(`${base}/storage/v1/object/${bucket}`, {
         method: 'DELETE',
         headers,
         body: JSON.stringify({ prefixes }),
       });
-      if (!res.ok) console.error(`Storage DELETE respondió ${res.status}`);
+      if (!res.ok) console.error(`Storage DELETE (${bucket}) respondió ${res.status}`);
       return res.ok;
     } catch (e) {
-      console.error('Storage DELETE falló:', errText(e));
+      console.error(`Storage DELETE (${bucket}) falló:`, errText(e));
       return false;
     }
   };
@@ -68,6 +71,7 @@ Deno.serve(async (req: Request) => {
   let committed = 0;
   let failed = 0;
   let batches = 0;
+  let storiesFailed = false;
   try {
     for (; batches < MAX_BATCHES; batches++) {
       const batch = parseBatch(await rpc('stories_cleanup_batch', { p_limit: BATCH_LIMIT }));
@@ -77,7 +81,7 @@ Deno.serve(async (req: Request) => {
       const failedPaths = new Set<string>();
       let removedNow = 0;
       for (const part of chunk(batch.paths, REMOVE_CHUNK_SIZE)) {
-        if (await removeChunk(part)) removedNow += part.length;
+        if (await removeChunk('stories', part)) removedNow += part.length;
         else for (const p of part) failedPaths.add(p);
       }
 
@@ -95,9 +99,45 @@ Deno.serve(async (req: Request) => {
     }
   } catch (e) {
     console.error('stories-cleanup falló:', errText(e));
-    return json(500, { error: 'cleanup_failed', removed, committed, failed });
+    storiesFailed = true;
   }
 
-  console.log(`stories-cleanup: removed=${removed} committed=${committed} failed=${failed}`);
-  return json(200, { removed, committed, failed, batches });
+  // Archivos huérfanos del bucket `memories`. Va aparte para que un fallo no frene a las stories.
+  let memoriesRemoved = 0;
+  let memoriesFailed = 0;
+  let memoriesError = false;
+  try {
+    for (let b = 0; b < MAX_BATCHES; b++) {
+      const paths = parsePaths(await rpc('memories_cleanup_batch', { p_limit: BATCH_LIMIT }));
+      if (!paths) throw new Error('memories_cleanup_batch devolvió una forma inesperada');
+      if (paths.length === 0) break;
+      let removedNow = 0;
+      for (const part of chunk(paths, REMOVE_CHUNK_SIZE)) {
+        if (await removeChunk('memories', part)) removedNow += part.length;
+        else memoriesFailed += part.length;
+      }
+      memoriesRemoved += removedNow;
+      // Sin avance, el siguiente lote traería lo mismo: se reintenta en la próxima hora.
+      if (removedNow === 0) break;
+    }
+  } catch (e) {
+    console.error('memories-cleanup falló:', errText(e));
+    memoriesError = true;
+  }
+
+  console.log(
+    `stories-cleanup: removed=${removed} committed=${committed} failed=${failed}` +
+      ` memories_removed=${memoriesRemoved} memories_failed=${memoriesFailed}`,
+  );
+  if (storiesFailed || memoriesError) {
+    return json(500, {
+      error: 'cleanup_failed',
+      removed,
+      committed,
+      failed,
+      memoriesRemoved,
+      memoriesFailed,
+    });
+  }
+  return json(200, { removed, committed, failed, batches, memoriesRemoved, memoriesFailed });
 });

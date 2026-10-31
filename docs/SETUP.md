@@ -56,6 +56,46 @@ Postgres (pg_net) llama a la Edge Function `notify` con el evento; la función r
 preferencias de quien recibe, arma el texto y lo manda por FCM HTTP v1 a sus celulares, y borra
 los tokens que FCM rechaza. Detalles en `docs/SERVIDOR.md` §5.1.
 
+## 1.2 API key de Google Maps (Fase 7, opcional)
+
+El mapa de las memorias usa Google Maps. La key es **opcional**: si el APK se compila sin
+`GOOGLE_MAPS_API_KEY`, todo funciona igual y el mapa se dibuja con el "mapa de papel" propio de la
+app (sin calles). Para tener el mapa de Google, una sola vez:
+
+1. Entra a <https://console.cloud.google.com> con tu cuenta de Google → selector de proyectos →
+   **Proyecto nuevo** (p. ej. `app-parejas`). Google pide una tarjeta para activar la facturación,
+   pero el uso de Maps SDK for Android (mapas móviles) no tiene costo ni cuota para este volumen.
+2. **APIs y servicios → Biblioteca** → busca **Maps SDK for Android** → **Habilitar**.
+3. **APIs y servicios → Credenciales → Crear credenciales → Clave de API**. Copia la key.
+4. Ábrela para **restringirla** (así, aunque alguien la extraiga del APK, no la puede usar):
+   - *Restricciones de la aplicación*: **Apps de Android** → **Agregar un elemento**:
+     - Nombre del paquete: **`com.appparejas.app`** (el `ANDROID_PACKAGE` de `src/constants/app.ts`).
+     - Huella digital del certificado SHA-1: la del **keystore de release** (ver abajo).
+   - *Restricciones de API*: **Restringir clave** → solo **Maps SDK for Android**.
+5. Crea el secreto de GitHub **`GOOGLE_MAPS_API_KEY`** con la key. `release-apk.yml` lo exporta
+   antes de `expo prebuild`; `app.config.ts` agrega el plugin `react-native-maps` y enciende
+   `extra.mapsEnabled` solo cuando existe.
+
+**SHA-1 del keystore de release.** El keystore vive en el VPS
+(`/opt/app-parejas/secrets/android-release.keystore`; alias y contraseña en `CREDENCIALES.md`):
+
+```bash
+ssh root@<IP-del-VPS>
+keytool -list -v \
+  -keystore /opt/app-parejas/secrets/android-release.keystore \
+  -alias <ANDROID_KEY_ALIAS> -storepass '<ANDROID_KEYSTORE_PASSWORD>' | grep 'SHA1'
+```
+
+Copia el valor `SHA1: AB:CD:...` en la restricción del paso 4. Si no tienes `keytool` en el VPS,
+decodifica el keystore del secreto `ANDROID_KEYSTORE_BASE64` en tu computadora y corre el mismo
+comando ahí. No se necesita SHA-1 de depuración: la app solo se instala con el APK firmado de
+release.
+
+**Ubicación de las fotos.** `app.config.ts` activa `isAccessMediaLocationEnabled` en
+`expo-media-library` (permiso `ACCESS_MEDIA_LOCATION`) para poder leer el GPS que traen las fotos
+de la galería y proponer el lugar de la memoria. Es opcional para quien la usa: si la persona no
+lo concede, el lugar se elige a mano en el mapa.
+
 ## 2. Publicar un APK
 
 Lo hace la sesión de cada fase al cerrar, pero también puedes tú:

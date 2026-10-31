@@ -183,6 +183,31 @@ pg_cron (cada hora, minuto 23)  select private.run_stories_cleanup()
   siguiente hora (`failed` en el log).
 - Los pushes de story y de respuesta usan el mecanismo de §5.1 (preferencia `stories`).
 
+### 5.3 Memorias (Fase 7)
+
+- **Bucket** `memories` (privado, JPEG, 4 MB): lo crea `deploy.sh` desde `server/buckets.json`, igual
+  que `stories`. Rutas `<couple_id>/<user_id>/<uuid>.jpg` y `<uuid>_thumb.jpg`. Las políticas de
+  `storage.objects` las crea la migración: subir solo a tu carpeta (`<tu pareja>/<tú>/archivo`) y
+  leer todo lo que esté bajo la carpeta de tu pareja; nadie actualiza ni borra desde la app.
+- **Las memorias son de la pareja:** las ven, editan y borran los dos (RLS por `my_couple_id()`),
+  sin importar quién la creó. Borrar una memoria es **hard delete** (las filas de `memory_photos`
+  caen en cascade); una foto quitada al editar también pierde su fila.
+- **Limpieza de huérfanos:** al borrar una memoria o quitar una foto, los archivos quedan en el
+  bucket. Los borra el **mismo job horario** de §5.2 (`app-parejas-stories-cleanup`): la Edge
+  Function `stories-cleanup`, después de las stories, pide `memories_cleanup_batch()` (solo
+  service role), que devuelve `{ paths: [...] }` con los objetos del bucket `memories` de más de
+  24 h sin fila en `memory_photos` (ni como `path` ni como `thumb_path`), y los borra con
+  `DELETE /storage/v1/object/memories` en lotes de 100 (hasta 10 lotes de 200 por ejecución). Las 24 h
+  de gracia cubren la subida de fotos antes de que exista la memoria. No hay nada que confirmar:
+  si un archivo no se puede borrar, se reintenta la siguiente hora.
+- **Configuración:** nada nuevo (mismos `notify_secret` y `notify_url`). El log de cada corrida
+  trae ahora `memories_removed=… memories_failed=…` junto a los datos de stories
+  (`compose logs --tail=50 functions`). Si cambió la Edge Function, vuelve a desplegar
+  (`deploy.sh`) para que el contenedor `functions` cargue la nueva versión.
+- **Push:** una memoria nueva avisa a la otra persona (preferencia `memories`, por omisión
+  encendida) con el mecanismo de §5.1; editarla no avisa. No hay push de datos porque no hay widget.
+- **Respaldos:** `backup.sh --storage` (§6) incluye ya el bucket `memories`, que es el que más pesa.
+
 ## 6. Respaldos (cron)
 
 ```cron

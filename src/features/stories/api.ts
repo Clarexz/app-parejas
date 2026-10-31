@@ -1,9 +1,9 @@
 import * as FileSystem from 'expo-file-system';
-import * as ImageManipulator from 'expo-image-manipulator';
 import * as MediaLibrary from 'expo-media-library';
 
-import { base64ToArrayBuffer } from '@/lib/base64';
 import type { Stroke } from '@/lib/drawing';
+import { randomUuid } from '@/lib/ids';
+import { toJpeg } from '@/lib/image';
 import {
   STORY_CAPTION_MAX,
   storyPaths,
@@ -96,34 +96,6 @@ export async function fetchStory(id: string): Promise<Story | null> {
 // Crear
 // ---------------------------------------------------------------------------
 
-function randomFileId(): string {
-  const bytes = new Uint8Array(16);
-  const c = (globalThis as { crypto?: { getRandomValues?: (a: Uint8Array) => Uint8Array } }).crypto;
-  if (c?.getRandomValues) c.getRandomValues(bytes);
-  else for (let i = 0; i < 16; i++) bytes[i] = Math.floor(Math.random() * 256);
-  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-}
-
-/** Reduce a `maxSide` px (solo se reduce) y guarda JPEG; devuelve el contenido listo para subir. */
-async function toJpeg(localUri: string, maxSide: number, quality: number): Promise<ArrayBuffer> {
-  const original = await ImageManipulator.ImageManipulator.manipulate(localUri).renderAsync();
-  const context = ImageManipulator.ImageManipulator.manipulate(localUri);
-  if (Math.max(original.width, original.height) > maxSide) {
-    context.resize(original.width >= original.height ? { width: maxSide } : { height: maxSide });
-  }
-  const image = await context.renderAsync();
-  const result = await image.saveAsync({
-    compress: quality,
-    format: ImageManipulator.SaveFormat.JPEG,
-    base64: true,
-  });
-  if (!result.base64) throw new Error('No se pudo procesar la foto.');
-  return base64ToArrayBuffer(result.base64);
-}
-
 async function upload(path: string, body: ArrayBuffer): Promise<void> {
   const { error } = await supabase.storage
     .from(STORIES_BUCKET)
@@ -157,10 +129,10 @@ export async function createStory(
   if (input.kind === 'photo') {
     onProgress?.(0);
     const { userId, coupleId } = await currentIds();
-    const paths = storyPaths(coupleId, userId, randomFileId());
-    const media = await toJpeg(input.uri, MEDIA_SIDE, MEDIA_QUALITY);
+    const paths = storyPaths(coupleId, userId, randomUuid());
+    const media = (await toJpeg(input.uri, MEDIA_SIDE, MEDIA_QUALITY)).data;
     onProgress?.(0.25);
-    const thumb = await toJpeg(input.uri, THUMB_SIDE, THUMB_QUALITY);
+    const thumb = (await toJpeg(input.uri, THUMB_SIDE, THUMB_QUALITY)).data;
     onProgress?.(0.4);
     await upload(paths.media, media);
     onProgress?.(0.7);

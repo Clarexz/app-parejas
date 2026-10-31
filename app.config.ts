@@ -31,6 +31,10 @@ const WIDGET_DEFAULTS = {
   widgetCategory: 'home_screen',
 } as const;
 
+// API key de Google Maps (secreto opcional): sin ella el APK compila igual, pero el mapa de las
+// memorias es el "mapa de papel" propio en lugar de Google Maps.
+const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY || undefined;
+
 const GOOGLE_FONTS = './node_modules/@expo-google-fonts';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
@@ -72,13 +76,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'expo-secure-store',
-    // Galería y cámara (stories, Fase 6); sin micrófono (no grabamos video).
+    // Galería y cámara (stories y memorias); sin micrófono (no grabamos video).
     [
       'expo-image-picker',
-      { cameraPermission: 'Para tomar la foto de tu story.', microphonePermission: false },
+      {
+        cameraPermission: 'Para tomar fotos de tus stories y memorias.',
+        microphonePermission: false,
+      },
     ],
-    // Guardar fotos de stories en la galería; solo imágenes, sin ubicación de la foto.
-    ['expo-media-library', { granularPermissions: ['photo'], isAccessMediaLocationEnabled: false }],
+    // Guardar fotos en la galería; solo imágenes. `isAccessMediaLocationEnabled` permite leer el GPS
+    // del EXIF de las fotos de una memoria para proponer el lugar.
+    ['expo-media-library', { granularPermissions: ['photo'], isAccessMediaLocationEnabled: true }],
     [
       'expo-notifications',
       {
@@ -132,6 +140,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     './plugins/with-android-signing',
+    ...(googleMapsApiKey
+      ? [['react-native-maps', { androidGoogleMapsApiKey: googleMapsApiKey }] as [string, object]]
+      : []),
   ],
   experiments: {
     typedRoutes: true,
@@ -139,5 +150,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   extra: {
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,
+    mapsEnabled: Boolean(googleMapsApiKey),
   },
 });

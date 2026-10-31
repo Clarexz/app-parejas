@@ -1028,7 +1028,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
 | 5 Widgets Android | ✅ Cerrada (2026-10-30) | #9 | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
 | 6 Stories | 🟡 Código listo, falta deploy (2026-10-31) | #10 | Stories de foto/texto/dibujo vectorial con stickers, visor con vistos/reacciones/respuestas, archivo personal, limpieza horaria con pg_cron + `stories-cleanup`, push, fila en Inicio y widget "Story de tu pareja" (D68–D72). CI verde. **Pendiente: desplegar en el VPS y publicar el APK v0.6.0** (ver §10.1). |
-| 7 Memorias y mapa | ⏳ Pendiente | | |
+| 7 Memorias y mapa | 🟡 Mergeada, falta deploy (2026-10-31) | #11 | Memorias con 1–10 fotos reordenables (drag & drop), diario por mes, detalle con carrusel, editar/borrar/descargar, ubicación por EXIF o mapa, mapa de Google con clusters (o "mapa de papel" sin key), "Un día como hoy" en Inicio y push (D73–D77). **Pendiente: desplegar en el VPS (junto con la Fase 6), cargar `GOOGLE_MAPS_API_KEY` y publicar el APK v0.7.0** (ver §10.1). |
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
 | 9 Juegos | ⏳ Pendiente | | |
 | 10 Banco de contenido | ⏳ Pendiente | | |
@@ -1080,6 +1080,16 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   `compose logs --tail=30 functions`; (c) `scripts/server/test-push.sh <correo>`. No requiere
   secretos nuevos. Después, lanzar `release-apk.yml` con las notas de `docs/releases/v0.6.0.md`
   (o el APK de la fase más reciente, si ya se acumularon) y probar con esa lista.
+- **Fase 7 (deploy pendiente):** mergeada a `main` el 2026-10-31 a pedido del usuario, **sin
+  desplegar** y con la Fase 6 tampoco desplegada; el usuario prueba después. **Un solo deploy de
+  `main`** (`./scripts/server/deploy.sh main`; el prompt completo está en el PR #11) aplica las migraciones
+  `20261103000000_stories.sql` y `20261104000000_memories.sql`, crea los buckets `stories` y
+  `memories` (`server/buckets.json`) y sincroniza `notify` y `stories-cleanup` (que ahora también
+  borra fotos huérfanas de memorias). Además de lo listado para la Fase 6, probar
+  `select public.memories_cleanup_batch(10);` como service_role (o revisar la respuesta de la
+  limpieza: incluye `memoriesRemoved`). Secreto nuevo **opcional** en GitHub: `GOOGLE_MAPS_API_KEY`
+  (`docs/SETUP.md` §1.2); sin él el mapa es de papel. Después, lanzar `release-apk.yml` con
+  `docs/releases/v0.7.0.md` (incluye la Fase 6) y **no** publicar v0.6.0 por separado.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":

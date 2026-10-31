@@ -20,6 +20,7 @@ import { ToastProvider } from '@/components/Toast';
 import { initSessionListener } from '@/features/auth';
 import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
+import { MemoriesEvents } from '@/features/memories';
 import { NotificationsBridge } from '@/features/notifications';
 import { QuestionsEvents } from '@/features/questions';
 import { StoriesEvents } from '@/features/stories';
@@ -96,6 +97,11 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
               options={{ presentation: 'fullScreenModal', animation: 'fade' }}
             />
             <Stack.Screen name="story/archive" />
+            <Stack.Screen name="memory/[id]" />
+            <Stack.Screen
+              name="memory/edit"
+              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+            />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
@@ -108,6 +114,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       )}
       {stage === 'ready' ? <QuestionsEvents /> : null}
       {stage === 'ready' ? <StoriesEvents /> : null}
+      {stage === 'ready' ? <MemoriesEvents /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
       {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
     </>

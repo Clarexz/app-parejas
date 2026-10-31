@@ -3,6 +3,7 @@
 import {
   answerCopy,
   commentCopy,
+  memoryCopy,
   moodCopy,
   nudgeCopy,
   storyCopy,
@@ -11,7 +12,8 @@ import {
   type Copy,
 } from './copy.ts';
 
-export type NotifyKind = 'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'test';
+export type NotifyKind =
+  'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'memory' | 'test';
 
 export type NotifyEvent = {
   kind: NotifyKind;
@@ -19,7 +21,14 @@ export type NotifyEvent = {
   actor: { id: string; name: string };
   recipient: { id: string; name: string };
   tokens: string[];
-  prefs: { answers: boolean; comments: boolean; moods: boolean; nudges: boolean; stories: boolean };
+  prefs: {
+    answers: boolean;
+    comments: boolean;
+    moods: boolean;
+    nudges: boolean;
+    stories: boolean;
+    memories: boolean;
+  };
   data: Record<string, unknown>;
 };
 
@@ -55,6 +64,7 @@ const KINDS: readonly string[] = [
   'nudge',
   'story',
   'story_reply',
+  'memory',
   'test',
 ];
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
@@ -92,6 +102,7 @@ export function parseEvent(json: unknown): NotifyEvent | null {
       moods: p.moods !== false,
       nudges: p.nudges !== false,
       stories: p.stories !== false,
+      memories: p.memories !== false,
     },
     data,
   };
@@ -196,6 +207,20 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
         seed: stableSeed(d.reply_id),
         body: typeof d.body === 'string' ? d.body : '',
         toAuthor: str(d.story_author_id) === event.recipient.id,
+      });
+      break;
+    }
+    case 'memory': {
+      // Sin push de datos: no hay widget de memorias. Apagado = no se manda nada.
+      if (!event.prefs.memories) return null;
+      const memoryId = str(d.memory_id);
+      if (memoryId) data.memory_id = memoryId;
+      data.url = `/memory/${memoryId ?? ''}`;
+      copy = memoryCopy({
+        ...base,
+        seed: stableSeed(d.memory_id),
+        title: typeof d.title === 'string' ? d.title : null,
+        placeName: typeof d.place_name === 'string' ? d.place_name : null,
       });
       break;
     }

@@ -204,6 +204,21 @@ export function storyReplyCopy(i: CopyBase & { body: string; toAuthor: boolean }
   );
 }
 
+export function memoryCopy(i: CopyBase & { title: string | null; placeName: string | null }): Copy {
+  const a = short(i.actor);
+  const title = i.title ? truncate(i.title, 80) : '';
+  const place = i.placeName ? truncate(i.placeName, 30) : '';
+  const fallback = 'Pásate a verla cuando puedas.';
+  return pick(
+    [
+      finish(`${a} pegó una memoria`, title || fallback),
+      finish(`${a} guardó un recuerdo`, title || 'Pásate a verlo cuando quieras.'),
+      finish(`Nueva memoria de ${a}`, title && place ? `${title} · ${place}` : title || fallback),
+    ],
+    i.seed,
+  );
+}
+
 export function testCopy(i: CopyBase): Copy {
   const r = short(i.recipient, 20);
   return pick(

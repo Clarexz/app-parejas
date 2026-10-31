@@ -43,6 +43,13 @@ export function parseBatch(json: unknown): CleanupBatch | null {
   return { storyIds, paths, items };
 }
 
+// Valida la respuesta de memories_cleanup_batch: { paths: [..] } (archivos huérfanos del bucket
+// `memories`). Devuelve null si no tiene esa forma.
+export function parsePaths(json: unknown): string[] | null {
+  if (!isRecord(json) || !Array.isArray(json.paths)) return null;
+  return strings(json.paths);
+}
+
 // Parte una lista en lotes de `size` (mínimo 1).
 export function chunk<T>(list: readonly T[], size: number): T[][] {
   const n = Math.max(1, Math.floor(size));

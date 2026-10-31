@@ -30,6 +30,7 @@ describe('routeForNotification', () => {
     '/question?day=2026-11-02',
     `/story/view?user=${UUID}`,
     `/story/view?story=${UUID}`,
+    `/memory/${UUID}`,
   ])('acepta %s', (url) => {
     expect(routeForNotification({ url })).toBe(url);
   });
@@ -46,6 +47,10 @@ describe('routeForNotification', () => {
     '/question?id=' + UUID + '#x',
     '/question/../moods',
     '/story/view',
+    '/memory/123',
+    '/memory',
+    `/memory/${UUID}/x`,
+    `/memory/${UUID}?x=1`,
     '/story/view?user=123',
     `/story/view?story=${UUID}&x=1`,
     `/story/view?user=${UUID}#x`,
@@ -97,6 +102,7 @@ describe('preferencias', () => {
         moods: false,
         nudges: true,
         stories: false,
+        memories: false,
         reminder_enabled: false,
         reminder_time: '08:30:00',
       }),
@@ -106,6 +112,7 @@ describe('preferencias', () => {
       moods: false,
       nudges: true,
       stories: false,
+      memories: false,
       reminderEnabled: false,
       reminderTime: '08:30',
     });
@@ -120,6 +127,7 @@ describe('preferencias', () => {
   it('toPrefsRow convierte solo lo que viene', () => {
     expect(toPrefsRow({ moods: false })).toEqual({ moods: false });
     expect(toPrefsRow({ stories: false })).toEqual({ stories: false });
+    expect(toPrefsRow({ memories: false })).toEqual({ memories: false });
     expect(toPrefsRow({ reminderEnabled: true, reminderTime: '07:15' })).toEqual({
       reminder_enabled: true,
       reminder_time: '07:15:00',

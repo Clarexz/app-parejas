@@ -37,6 +37,7 @@ jest.mock('@/features/notifications', () => ({
   usePushSoftAsk: () => ({ visible: false, accept: jest.fn(), dismiss: jest.fn() }),
 }));
 jest.mock('@/features/stories', () => ({ StoriesRow: () => null }));
+jest.mock('@/features/memories', () => ({ OnThisDayCard: () => null }));
 jest.mock('@/features/questions', () => ({
   DailyQuestionCard: () => null,
   StreakNote: () => null,

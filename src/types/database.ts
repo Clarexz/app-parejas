@@ -206,6 +206,109 @@ export type Database = {
           },
         ];
       };
+      memories: {
+        Row: {
+          body: string | null;
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          happened_on: string;
+          id: string;
+          lat: number | null;
+          lng: number | null;
+          place_name: string | null;
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          body?: string | null;
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          happened_on: string;
+          id?: string;
+          lat?: number | null;
+          lng?: number | null;
+          place_name?: string | null;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          body?: string | null;
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          happened_on?: string;
+          id?: string;
+          lat?: number | null;
+          lng?: number | null;
+          place_name?: string | null;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'memories_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      memory_photos: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          height: number | null;
+          id: string;
+          memory_id: string;
+          path: string;
+          position: number;
+          thumb_path: string;
+          width: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          height?: number | null;
+          id?: string;
+          memory_id: string;
+          path: string;
+          position: number;
+          thumb_path: string;
+          width?: number | null;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          height?: number | null;
+          id?: string;
+          memory_id?: string;
+          path?: string;
+          position?: number;
+          thumb_path?: string;
+          width?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'memory_photos_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'memory_photos_memory_id_fkey';
+            columns: ['memory_id'];
+            isOneToOne: false;
+            referencedRelation: 'memories';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       moods: {
         Row: {
           couple_id: string;
@@ -246,6 +349,7 @@ export type Database = {
         Row: {
           answers: boolean;
           comments: boolean;
+          memories: boolean;
           moods: boolean;
           nudges: boolean;
           reminder_enabled: boolean;
@@ -258,6 +362,7 @@ export type Database = {
         Insert: {
           answers?: boolean;
           comments?: boolean;
+          memories?: boolean;
           moods?: boolean;
           nudges?: boolean;
           reminder_enabled?: boolean;
@@ -269,6 +374,7 @@ export type Database = {
         Update: {
           answers?: boolean;
           comments?: boolean;
+          memories?: boolean;
           moods?: boolean;
           nudges?: boolean;
           reminder_enabled?: boolean;
@@ -669,6 +775,36 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      create_memory: {
+        Args: {
+          p_body?: string;
+          p_happened_on: string;
+          p_lat?: number;
+          p_lng?: number;
+          p_photos?: Json;
+          p_place_name?: string;
+          p_title: string;
+        };
+        Returns: {
+          body: string | null;
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          happened_on: string;
+          id: string;
+          lat: number | null;
+          lng: number | null;
+          place_name: string | null;
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'memories';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       create_story: {
         Args: {
           p_bg?: string;
@@ -705,6 +841,7 @@ export type Database = {
       };
       delete_answer: { Args: { p_question_id: string }; Returns: undefined };
       delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
+      delete_memory: { Args: { p_memory_id: string }; Returns: undefined };
       delete_push_tokens: { Args: { p_tokens: string[] }; Returns: number };
       delete_story: { Args: { p_story_id: string }; Returns: undefined };
       fold_text: { Args: { p_text: string }; Returns: string };
@@ -752,6 +889,9 @@ export type Database = {
       };
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
       mark_story_seen: { Args: { p_story_id: string }; Returns: undefined };
+      memories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
+      memory_path_readable: { Args: { p_name: string }; Returns: boolean };
+      memory_path_writable: { Args: { p_name: string }; Returns: boolean };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
       pick_daily_question: { Args: { p_couple_id: string }; Returns: string };
       question_card: {
@@ -861,6 +1001,37 @@ export type Database = {
         Returns: Json;
       };
       unregister_push_token: { Args: { p_token: string }; Returns: undefined };
+      update_memory: {
+        Args: {
+          p_body?: string;
+          p_happened_on: string;
+          p_lat?: number;
+          p_lng?: number;
+          p_memory_id: string;
+          p_photos?: Json;
+          p_place_name?: string;
+          p_title: string;
+        };
+        Returns: {
+          body: string | null;
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          happened_on: string;
+          id: string;
+          lat: number | null;
+          lng: number | null;
+          place_name: string | null;
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'memories';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
     };
     Enums: {
       [_ in never]: never;

@@ -2,7 +2,8 @@ export type DateParts = { day: string; month: string; year: string };
 
 type Result = { ok: true; value: string } | { ok: false; error: string };
 
-const MONTHS = [
+/** Nombres de los meses en minúsculas (es-MX). */
+export const MONTH_NAMES = [
   'enero',
   'febrero',
   'marzo',
@@ -15,7 +16,8 @@ const MONTHS = [
   'octubre',
   'noviembre',
   'diciembre',
-];
+] as const;
+const MONTHS = MONTH_NAMES;
 
 const pad = (n: number, len: number) => String(n).padStart(len, '0');
 

@@ -22,3 +22,27 @@ jest.mock('expo-notifications', () => ({
   scheduleNotificationAsync: jest.fn(async () => 'id'),
   cancelScheduledNotificationAsync: jest.fn(async () => undefined),
 }));
+
+// react-native-maps registra un módulo nativo (Fabric) al importarse: en Jest se simula con vistas
+// vacías. La pantalla real usa MapView solo en Android con GOOGLE_MAPS_API_KEY (ver src/lib/maps.ts).
+jest.mock('react-native-maps', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  const make = (name) => {
+    const Component = React.forwardRef((props, ref) =>
+      React.createElement(View, { ...props, ref, testID: props.testID ?? name }),
+    );
+    Component.displayName = name;
+    return Component;
+  };
+  const MapView = make('MapView');
+  return {
+    __esModule: true,
+    default: MapView,
+    MapView,
+    Marker: make('Marker'),
+    Callout: make('Callout'),
+    PROVIDER_GOOGLE: 'google',
+    PROVIDER_DEFAULT: null,
+  };
+});

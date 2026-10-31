@@ -11,14 +11,6 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-
 import {
   Button,
   Chip,
@@ -27,8 +19,8 @@ import {
   LoadingLines,
   Note,
   Paper,
+  SealOverlay,
   Sheet,
-  Stamp,
   Text,
 } from '@/components';
 import { useToast } from '@/components/Toast';
@@ -61,44 +53,6 @@ export function parseComposerKind(value: string | string[] | undefined): Compose
 }
 
 type PhotoState = 'asking' | 'ready' | 'denied' | 'canceled';
-
-/** Sello grande que baja al terminar de pegar (DISENO §5 "Sellar"). */
-function SealOverlay() {
-  const { colors, motion } = useTheme();
-  const reduced = useReducedMotion();
-  const progress = useSharedValue(0);
-  useEffect(() => {
-    progress.value = withTiming(1, {
-      duration: reduced ? motion.duration.fast : motion.duration.base,
-      easing: Easing.out(Easing.cubic),
-    });
-  }, [reduced, motion, progress]);
-  const style = useAnimatedStyle(() => ({
-    opacity: progress.value,
-    transform: [{ scale: reduced ? 2.4 : 2.4 * (1.15 - 0.15 * progress.value) }],
-  }));
-  return (
-    <View
-      pointerEvents="none"
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.scrim,
-      }}
-    >
-      <Animated.View style={style}>
-        <Stamp tone="nopal" rotate={-6} style={{ backgroundColor: colors.paperRaised }}>
-          PEGADA
-        </Stamp>
-      </Animated.View>
-    </View>
-  );
-}
 
 /** Fila de cuadritos de papel para elegir el fondo. */
 function BgPicker({ value, onChange }: { value: StoryBg; onChange: (bg: StoryBg) => void }) {
