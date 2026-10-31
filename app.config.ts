@@ -54,7 +54,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#F7F4EC',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
-      monochromeImage: './assets/images/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
     googleServicesFile,
