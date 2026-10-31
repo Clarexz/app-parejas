@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import {
   Button,
@@ -164,7 +164,7 @@ export function VisitsScreen() {
           <Text variant="caption" style={{ color: colors.onPostit }}>
             {e.title}
           </Text>
-          <Button title="Apuntarla" variant="secondary" onPress={() => fromEvent(e.id)} />
+          <Button title="Apuntarla" variant="secondary" onNote onPress={() => fromEvent(e.id)} />
         </View>
       </Note>
     ));
@@ -202,11 +202,15 @@ export function VisitsScreen() {
               <Text variant="title">{daysWord(stats.daysSinceLast)} sin verse</Text>
             ) : null}
             {waiting !== null ? (
-              <Button
-                title={waiting === 0 ? 'Se ven hoy' : `Faltan ${daysWord(waiting)} para la próxima`}
-                variant="ghost"
+              <Pressable
+                accessibilityRole="button"
                 onPress={() => router.push('/events')}
-              />
+                style={{ minHeight: 44, justifyContent: 'center' }}
+              >
+                <Text variant="bodyStrong" tone="jamaica">
+                  {waiting === 0 ? 'Se ven hoy' : `Faltan ${daysWord(waiting)} para la próxima`}
+                </Text>
+              </Pressable>
             ) : null}
           </View>
 

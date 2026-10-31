@@ -4,6 +4,10 @@
 // Cada escenario decide qué ve la app (sesión, perfil, pareja) y qué rutas se capturan.
 // Se responden con `context.route` las llamadas a REST, Auth y Storage del host simulado.
 
+import { readFileSync } from 'node:fs';
+
+const LOVE_QUIZ = JSON.parse(readFileSync('content/love-languages.json', 'utf8'));
+
 export const SHOTS_SUPABASE_URL = 'https://shots.supabase.test';
 export const SHOTS_ANON_KEY = 'shots';
 // supabase-js guarda la sesión en `sb-<primer-segmento-del-host>-auth-token`.
@@ -1676,6 +1680,259 @@ export const SCENARIOS = {
       },
     },
   },
+  // --- Fase 11B: lenguajes del amor, visitas y estadísticas ---
+  ...(() => {
+    const session = {
+      me: profiles.me,
+      partner: profiles.partner,
+      members: [member(ME_ID), member(PARTNER_ID)],
+    };
+    const KEYS = ['words', 'time', 'gifts', 'acts', 'touch'];
+    // Respuestas que cuadran con los puntajes: se reparten las keys en rondas.
+    const answersFor = (scores) => {
+      const left = { ...scores };
+      const out = [];
+      while (out.length < 30) {
+        for (const k of KEYS) {
+          if (left[k] > 0) {
+            out.push(k);
+            left[k] -= 1;
+          }
+        }
+      }
+      return out;
+    };
+    const llResult = (user_id, scores) => ({
+      user_id,
+      quiz_version: 1,
+      answers: answersFor(scores),
+      scores,
+      created_at: '2026-10-10T15:00:00Z',
+      updated_at: '2026-10-10T15:00:00Z',
+    });
+    const MINE = { words: 5, time: 9, gifts: 3, acts: 7, touch: 6 };
+    const HERS = { words: 4, time: 10, gifts: 2, acts: 5, touch: 9 };
+    const llRest =
+      (overview) =>
+      (path, { route, json }) => {
+        if (path === '/rest/v1/rpc/get_love_languages') return json(route, overview);
+        if (path === '/rest/v1/rpc/submit_love_language_test') return json(route, overview.mine);
+        return undefined;
+      };
+
+    const day = (n) => new Date(Date.now() + n * 86_400_000).toISOString().slice(0, 10);
+    const vrow = (n, start, end, place, note = null, event_id = null) => ({
+      id: `dddddddd-dddd-4ddd-8ddd-${String(n).padStart(12, '0')}`,
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      start_date: start,
+      end_date: end,
+      place,
+      note,
+      event_id,
+      created_at: '2026-10-01T12:00:00Z',
+      updated_at: '2026-10-01T12:00:00Z',
+    });
+    const evrow = (n, kind, title, emoji, date) => ({
+      id: `bbbbbbbb-bbbb-4bbb-8bbb-${String(n).padStart(12, '0')}`,
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      kind,
+      title,
+      emoji,
+      date,
+      recurring_yearly: false,
+      note: null,
+      created_at: '2026-10-01T12:00:00Z',
+      updated_at: '2026-10-01T12:00:00Z',
+    });
+    const sampleVisits = () => [
+      vrow(1, day(-2), day(3), 'Guadalajara', 'Llegó con el pan de la esquina'),
+      vrow(2, '2026-07-18', '2026-07-27', 'Querétaro'),
+      vrow(3, '2026-04-02', '2026-04-06', 'Ciudad de México', 'Semana Santa'),
+      vrow(4, '2026-02-13', '2026-02-16', 'Puebla'),
+      vrow(5, '2025-12-20', '2026-01-02', 'Guadalajara', 'Navidad y Año Nuevo'),
+      vrow(6, '2025-09-12', '2025-09-15', 'Monterrey'),
+      vrow(7, '2025-05-23', '2025-05-26', 'Ciudad de México'),
+      vrow(8, '2025-03-01', '2025-03-01', null),
+    ];
+    const visitEvents = () => [
+      evrow(1, 'visit', 'Nos vemos en Guadalajara', '✈️', day(-2)),
+      evrow(2, 'visit', 'Fin de semana en Valle de Bravo', '🏞️', day(-40)),
+      evrow(3, 'visit', 'Nos vemos en Oaxaca', '✈️', day(45)),
+    ];
+    const visitsRest =
+      (visits, events) =>
+      (path, { route, json }) => {
+        if (path === '/rest/v1/visits') return json(route, visits);
+        if (path === '/rest/v1/events') return json(route, events);
+        if (path === '/rest/v1/rpc/save_visit') return json(route, visits[0] ?? {});
+        if (path === '/rest/v1/rpc/delete_visit') return json(route, null);
+        return undefined;
+      };
+    const sampleStats = (zero = false) =>
+      zero
+        ? {
+            since: day(-3),
+            today: day(0),
+            questions: {
+              answered_me: 0,
+              answered_partner: 0,
+              answered_both: 0,
+              daily_complete: 0,
+              comments: 0,
+            },
+            streak: { current: 0, best: 0 },
+            games: { rounds: 0, avg_pct: null, best_pct: null, by_game: [] },
+            drawings: { solved: 0, finished: 0 },
+            memories: { total: 0, photos: 0, by_month: [] },
+            visits: { count: 0, days: 0 },
+            stories: 0,
+            moods: 0,
+          }
+        : {
+            since: isoDaysAgo(430),
+            today: day(0),
+            questions: {
+              answered_me: 148,
+              answered_partner: 139,
+              answered_both: 131,
+              daily_complete: 118,
+              comments: 64,
+            },
+            streak: { current: 12, best: 41 },
+            games: {
+              rounds: 36,
+              avg_pct: 72,
+              best_pct: 100,
+              by_game: [
+                { game: 'wyr', rounds: 20, avg_pct: 68 },
+                { game: 'agree', rounds: 10, avg_pct: 77 },
+                { game: 'most_likely', rounds: 6, avg_pct: 70 },
+              ],
+            },
+            drawings: { solved: 11, finished: 16 },
+            memories: {
+              total: 27,
+              photos: 61,
+              by_month: [
+                { month: '2026-01', count: 2 },
+                { month: '2026-02', count: 3 },
+                { month: '2026-03', count: 1 },
+                { month: '2026-04', count: 5 },
+                { month: '2026-05', count: 0 },
+                { month: '2026-06', count: 2 },
+                { month: '2026-07', count: 6 },
+                { month: '2026-08', count: 3 },
+                { month: '2026-09', count: 1 },
+                { month: '2026-10', count: 4 },
+              ],
+            },
+            visits: { count: 8, days: 41 },
+            stories: 33,
+            moods: 210,
+          };
+    const statsRest =
+      (zero, visits, events, overview) =>
+      (path, { route, json }) => {
+        if (path === '/rest/v1/rpc/get_relationship_stats') return json(route, sampleStats(zero));
+        return (
+          visitsRest(visits, events)(path, { route, json }) ??
+          llRest(overview)(path, { route, json })
+        );
+      };
+    const none = { mine: null, partner: null, partner_done: false };
+
+    return {
+      lenguajes_nadie: {
+        prefix: 'lenguajes-nadie',
+        ...session,
+        routes: ['/love-languages', '/love-languages/quiz'],
+        rest: llRest(none),
+      },
+      lenguajes_pareja: {
+        prefix: 'lenguajes-pareja',
+        ...session,
+        routes: ['/love-languages'],
+        rest: llRest({ mine: null, partner: llResult(PARTNER_ID, HERS), partner_done: true }),
+      },
+      lenguajes_ambos: {
+        prefix: 'lenguajes-ambos',
+        ...session,
+        routes: ['/love-languages'],
+        rest: llRest({
+          mine: llResult(ME_ID, MINE),
+          partner: llResult(PARTNER_ID, HERS),
+          partner_done: true,
+        }),
+      },
+      // Solo yo lo hice (esperando a mi pareja).
+      lenguajes_yo: {
+        prefix: 'lenguajes-yo',
+        ...session,
+        routes: ['/love-languages'],
+        rest: llRest({ mine: llResult(ME_ID, MINE), partner: null, partner_done: false }),
+      },
+      // Test a media: contesto 14 y llego a la 15.
+      lenguajes_quiz: {
+        prefix: 'lenguajes-quiz',
+        ...session,
+        routes: ['/love-languages/quiz'],
+        rest: llRest(none),
+        actions: {
+          '/love-languages/quiz': async (page) => {
+            for (let i = 0; i < 14; i += 1) {
+              await page
+                .getByRole('button', { name: LOVE_QUIZ.items[i].a.text, exact: true })
+                .click();
+              await page.waitForTimeout(450);
+            }
+            await page.waitForTimeout(500);
+          },
+        },
+      },
+      visitas: {
+        prefix: 'visitas',
+        ...session,
+        routes: ['/visits'],
+        rest: visitsRest(sampleVisits(), visitEvents()),
+      },
+      visitas_vacio: {
+        prefix: 'visitas-vacio',
+        ...session,
+        routes: ['/visits'],
+        rest: visitsRest([], []),
+      },
+      visitas_editar: {
+        prefix: 'visitas-editar',
+        ...session,
+        routes: ['/visits/edit', '/visits/edit?id=dddddddd-dddd-4ddd-8ddd-000000000002'],
+        rest: visitsRest(sampleVisits(), visitEvents()),
+      },
+      estadisticas: {
+        prefix: 'estadisticas',
+        ...session,
+        routes: ['/stats'],
+        rest: statsRest(false, sampleVisits(), visitEvents(), {
+          mine: llResult(ME_ID, MINE),
+          partner: llResult(PARTNER_ID, HERS),
+          partner_done: true,
+        }),
+      },
+      estadisticas_ceros: {
+        prefix: 'estadisticas-ceros',
+        ...session,
+        routes: ['/stats'],
+        rest: statsRest(true, [], [], none),
+      },
+      mas_nuevas: {
+        prefix: 'mas',
+        ...session,
+        moods: sampleMoods,
+        routes: ['/more'],
+      },
+    };
+  })(),
 };
 
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');
