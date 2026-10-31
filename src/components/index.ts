@@ -42,3 +42,4 @@ export { PermissionNote, type PermissionStatus } from './PermissionNote';
 export { SoftAskNote } from './SoftAskNote';
 export { SealOverlay } from './SealOverlay';
 export { Checkbox } from './Checkbox';
+export { Tally, TallyLine } from './Tally';

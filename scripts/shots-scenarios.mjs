@@ -482,6 +482,202 @@ const memoriesSession = {
 };
 
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
+
+// --- Juegos (Fase 9) ---------------------------------------------------------------------------
+
+const gid = (n) => `cccccccc-cccc-4ccc-8ccc-${String(n).padStart(12, '0')}`;
+const R_PLAY = gid(1);
+const R_WAIT = gid(2);
+const R_DONE = gid(3);
+const D_DRAW = gid(11);
+const D_GUESS = gid(12);
+const D_SOLVED = gid(13);
+
+const WYR_ITEMS = [
+  ['¿Prefieres viajar en el tiempo al pasado o al futuro?', ['Al pasado', 'Al futuro']],
+  ['¿Prefieres desayunar tacos o hot cakes todos los domingos?', ['Tacos', 'Hot cakes']],
+  ['¿Prefieres vivir en la playa o en la montaña?', ['En la playa', 'En la montaña']],
+  ['¿Prefieres perder tu celular o tus llaves por un mes?', ['El celular', 'Las llaves']],
+  ['¿Prefieres una cena elegante o una pizza en la sala?', ['Cena elegante', 'Pizza en la sala']],
+  ['¿Prefieres saber siempre la hora o siempre el clima?', ['La hora', 'El clima']],
+  ['¿Prefieres bailar en una boda o dar el brindis?', ['Bailar', 'El brindis']],
+  ['¿Prefieres que te sorprendan o planear todo?', ['Sorpresa', 'Plan completo']],
+  ['¿Prefieres cine en casa o en la sala de cine?', ['En casa', 'En el cine']],
+  ['¿Prefieres un viaje largo o muchas escapadas cortas?', ['Un viaje largo', 'Escapadas']],
+].map(([text, options], i) => ({
+  id: qid(2000 + i),
+  position: i,
+  text,
+  options,
+  intensity: 'ligera',
+}));
+
+const choices = (n, pattern) =>
+  Object.fromEntries(WYR_ITEMS.slice(0, n).map((it, i) => [it.id, pattern[i % pattern.length]]));
+
+const wyrRound = (id, o) => ({
+  id,
+  game: 'wyr',
+  spicy: false,
+  status: 'playing',
+  created_by: PARTNER_ID,
+  created_at: minutesAgo(60 * 5),
+  finished_at: null,
+  total: 10,
+  my_count: 0,
+  partner_count: 0,
+  items: WYR_ITEMS,
+  mine: {},
+  partner: null,
+  match: null,
+  ...o,
+});
+
+const gameRounds = () => ({
+  [R_PLAY]: wyrRound(R_PLAY, { my_count: 3, partner_count: 7, mine: choices(3, [0, 1, 0]) }),
+  [R_WAIT]: wyrRound(R_WAIT, { my_count: 10, partner_count: 4, mine: choices(10, [0, 1, 1, 0]) }),
+  [R_DONE]: wyrRound(R_DONE, {
+    status: 'finished',
+    finished_at: minutesAgo(30),
+    my_count: 10,
+    partner_count: 10,
+    mine: choices(10, [0, 1, 1, 0, 0]),
+    partner: choices(10, [0, 1, 0, 0, 1, 1, 0, 1, 1, 0]),
+    match: { matches: 7, total: 10, pct: 70 },
+  }),
+});
+
+const drawingBase = {
+  created_at: minutesAgo(90),
+  drawn_at: minutesAgo(80),
+  finished_at: null,
+  word: null,
+  strokes: null,
+  guesses: [],
+  guess_count: 0,
+  hint: '_ _ _ _ _ _',
+  word_length: 6,
+  rerolls_left: 3,
+};
+
+const drawings = () => ({
+  [D_DRAW]: {
+    ...drawingBase,
+    id: D_DRAW,
+    drawer_id: ME_ID,
+    guesser_id: PARTNER_ID,
+    status: 'drawing',
+    drawn_at: null,
+    word: 'Piñata',
+    rerolls_left: 2,
+  },
+  [D_GUESS]: {
+    ...drawingBase,
+    id: D_GUESS,
+    drawer_id: PARTNER_ID,
+    guesser_id: ME_ID,
+    status: 'guessing',
+    strokes: sampleStrokes(),
+    guesses: [
+      { text: 'sombrero', at: minutesAgo(20) },
+      { text: 'una montaña', at: minutesAgo(15) },
+      { text: 'estrella', at: minutesAgo(10) },
+    ],
+    guess_count: 3,
+  },
+  [D_SOLVED]: {
+    ...drawingBase,
+    id: D_SOLVED,
+    drawer_id: PARTNER_ID,
+    guesser_id: ME_ID,
+    status: 'solved',
+    finished_at: minutesAgo(5),
+    strokes: sampleStrokes(),
+    word: 'Piñata',
+    guesses: [
+      { text: 'sombrero', at: minutesAgo(20) },
+      { text: 'estrella', at: minutesAgo(10) },
+      { text: 'la piñata', at: minutesAgo(6) },
+    ],
+    guess_count: 3,
+  },
+});
+
+const drawingSummary = (d) => ({
+  id: d.id,
+  drawer_id: d.drawer_id,
+  guesser_id: d.guesser_id,
+  status: d.status,
+  created_at: d.created_at,
+  drawn_at: d.drawn_at,
+  finished_at: d.finished_at,
+  guess_count: d.guess_count,
+  word: d.word,
+});
+
+const gameOverview = (o = {}) => {
+  const rounds = gameRounds();
+  const open = (r) => ({
+    id: r.id,
+    spicy: false,
+    created_by: r.created_by,
+    created_at: r.created_at,
+    my_count: r.my_count,
+    partner_count: r.partner_count,
+    total: r.total,
+  });
+  const ds = drawings();
+  return {
+    games: [
+      {
+        game: 'wyr',
+        open_round: open(rounds[R_PLAY]),
+        finished_count: 3,
+        avg_pct: 64,
+        last_pct: 70,
+      },
+      { game: 'nhie', open_round: null, finished_count: 1, avg_pct: 80, last_pct: 80 },
+      { game: 'most_likely', open_round: null, finished_count: 0, avg_pct: null, last_pct: null },
+      { game: 'agree', open_round: null, finished_count: 0, avg_pct: null, last_pct: null },
+    ],
+    recent: [
+      { id: R_DONE, game: 'wyr', spicy: false, finished_at: minutesAgo(30), pct: 70 },
+      { id: gid(4), game: 'nhie', spicy: false, finished_at: minutesAgo(60 * 30), pct: 80 },
+      { id: gid(5), game: 'wyr', spicy: false, finished_at: minutesAgo(60 * 24 * 5), pct: 40 },
+    ],
+    drawings: { active: [drawingSummary(ds[D_GUESS])], recent: [drawingSummary(ds[D_SOLVED])] },
+    ...o,
+  };
+};
+
+/** Atiende las RPC de juegos del escenario (`overview` decide el resumen del hub). */
+const gamesRest =
+  (overview = gameOverview) =>
+  (path, { route, json }) => {
+    if (path === '/rest/v1/rpc/get_game_overview') return json(route, overview());
+    if (path === '/rest/v1/rpc/get_game_round') {
+      const body = route.request().postDataJSON?.() ?? {};
+      const r = gameRounds()[body.p_round_id];
+      return r
+        ? json(route, r)
+        : json(route, { code: 'P0001', message: 'round_not_found', details: '', hint: '' }, 400);
+    }
+    if (path === '/rest/v1/rpc/get_drawing') {
+      const body = route.request().postDataJSON?.() ?? {};
+      const d = drawings()[body.p_id];
+      return d
+        ? json(route, d)
+        : json(route, { code: 'P0001', message: 'drawing_not_found', details: '', hint: '' }, 400);
+    }
+    return undefined;
+  };
+
+const gamesBase = {
+  me: profiles.me,
+  partner: profiles.partner,
+  members: [member(ME_ID), member(PARTNER_ID)],
+};
+
 export const SCENARIOS = {
   // Cómo agregar widgets (Fase 5): pantalla con la pareja lista (prefijo `widgets-`).
   widgets: {
@@ -1074,6 +1270,115 @@ export const SCENARIOS = {
       if (path === '/rest/v1/rpc/clear_my_location') return json(route, null);
       return undefined;
     },
+  },
+
+  // Juegos (Fase 9): hub con turno pendiente, versión picante activa y vacío.
+  juegos_hub: {
+    prefix: 'juegos-hub',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: ['/games'],
+  },
+  juegos_hoja: {
+    prefix: 'juegos-hoja',
+    ...gamesBase,
+    members: [
+      { ...member(ME_ID), spicy_opt_in: true },
+      { ...member(PARTNER_ID), spicy_opt_in: true },
+    ],
+    rest: gamesRest(),
+    routes: ['/games'],
+    actions: {
+      '/games': async (page) => {
+        await page.getByRole('button', { name: /^De acuerdo o no\./ }).click();
+        await page.waitForTimeout(700);
+      },
+    },
+  },
+  juegos_hoja_sin_picantes: {
+    prefix: 'juegos-hoja-sin-picantes',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: ['/games'],
+    actions: {
+      '/games': async (page) => {
+        await page.getByRole('button', { name: /^De acuerdo o no\./ }).click();
+        await page.waitForTimeout(700);
+      },
+    },
+  },
+  juegos_vacio: {
+    prefix: 'juegos-vacio',
+    ...gamesBase,
+    rest: gamesRest(() => ({
+      games: ['wyr', 'nhie', 'most_likely', 'agree'].map((game) => ({
+        game,
+        open_round: null,
+        finished_count: 0,
+        avg_pct: null,
+        last_pct: null,
+      })),
+      recent: [],
+      drawings: { active: [], recent: [] },
+    })),
+    routes: ['/games'],
+  },
+  juegos_error: {
+    prefix: 'juegos-error',
+    ...gamesBase,
+    rest: (path, { route, json }) =>
+      path === '/rest/v1/rpc/get_game_overview' ? json(route, { message: 'boom' }, 500) : undefined,
+    routes: ['/games'],
+  },
+  juegos_ronda: {
+    prefix: 'juegos-ronda',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/game/${R_PLAY}`],
+  },
+  juegos_espera: {
+    prefix: 'juegos-espera',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/game/${R_WAIT}`],
+  },
+  juegos_resultados: {
+    prefix: 'juegos-resultados',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/game/${R_DONE}`],
+  },
+  juegos_no_existe: {
+    prefix: 'juegos-no-existe',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/game/${gid(99)}`],
+  },
+  juegos_dibujando: {
+    prefix: 'juegos-dibujando',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/drawing/${D_DRAW}`],
+  },
+  juegos_adivinando: {
+    prefix: 'juegos-adivinando',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/drawing/${D_GUESS}`],
+  },
+  juegos_resuelto: {
+    prefix: 'juegos-resuelto',
+    ...gamesBase,
+    rest: gamesRest(),
+    routes: [`/drawing/${D_SOLVED}`],
+  },
+  // Pestaña Preguntas con la ficha de Juegos (turno pendiente en el resumen).
+  juegos_preguntas: {
+    prefix: 'juegos-preguntas',
+    ...gamesBase,
+    streak: () => streakWith(12, 23, [2]),
+    rest: gamesRest(),
+    routes: ['/questions'],
   },
   signed_out: {
     session: false,

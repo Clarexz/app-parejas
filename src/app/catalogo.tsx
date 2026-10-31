@@ -36,6 +36,7 @@ import {
   Sticker,
   TabBar,
   type TabBarProps,
+  Tally,
   Tape,
   Text,
   useToast,
@@ -451,6 +452,12 @@ export default function CatalogScreen() {
           <Checkbox checked={false} onPress={() => undefined} accessibilityLabel="Sin tachar" />
           <Checkbox checked disabled onPress={() => undefined} accessibilityLabel="Deshabilitada" />
         </Row>
+      </Section>
+
+      <Section title="Palitos (Tally)">
+        <Tally total={10} count={3} accessibilityLabel="3 de 10" />
+        <Tally total={10} count={10} accessibilityLabel="10 de 10" />
+        <Tally total={10} count={4} tone="chile" accessibilityLabel="4 intentos gastados de 10" />
       </Section>
 
       <Section title="Hora (TimeField)">

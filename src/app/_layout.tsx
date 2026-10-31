@@ -114,6 +114,9 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="lists/index" />
             <Stack.Screen name="lists/[id]" />
             <Stack.Screen name="distance" />
+            <Stack.Screen name="games/index" />
+            <Stack.Screen name="game/[id]" />
+            <Stack.Screen name="drawing/[id]" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
