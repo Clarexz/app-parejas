@@ -13,7 +13,7 @@ import {
 } from './copy.ts';
 
 export type NotifyKind =
-  'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'memory' | 'test';
+  'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'memory' | 'widget' | 'test';
 
 export type NotifyEvent = {
   kind: NotifyKind;
@@ -65,6 +65,7 @@ const KINDS: readonly string[] = [
   'story',
   'story_reply',
   'memory',
+  'widget',
   'test',
 ];
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
@@ -223,6 +224,16 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
         placeName: typeof d.place_name === 'string' ? d.place_name : null,
       });
       break;
+    }
+    case 'widget': {
+      // Fase 8: cambió algo que solo ven los widgets (eventos, distancia). Siempre es un push de
+      // datos sin aviso, así que no depende de ninguna preferencia.
+      const scope = str(d.scope);
+      return {
+        visible: false,
+        channelId: 'actividad',
+        data: scope ? { kind: 'widget', scope } : { kind: 'widget' },
+      };
     }
     case 'test':
       data.url = '/settings/notifications';

@@ -46,7 +46,8 @@ describe('buildWidgetSnapshot', () => {
     expect(s.anniversary).toBe('2024-01-10');
     expect(s.me).toEqual({ name: 'Ana', birthday: '1995-03-02' });
     expect(s.updatedAt).toBe(NOW.toISOString());
-    expect(s.distanceKm).toBeNull();
+    expect(s.distance).toBeNull();
+    expect(s.events).toEqual([]);
   });
 
   it('limpia nombres y fechas inválidas', () => {
@@ -82,7 +83,39 @@ describe('buildWidgetSnapshot', () => {
   });
 
   it('conserva la distancia', () => {
-    expect(buildWidgetSnapshot(input({ distanceKm: 12 })).distanceKm).toBe(12);
+    const distance = {
+      me: { city: 'CDMX', at: NOW.toISOString() },
+      partner: { city: 'Monterrey', at: NOW.toISOString() },
+      km: 707,
+    };
+    expect(buildWidgetSnapshot(input({ distance })).distance).toEqual(distance);
+  });
+
+  it('guarda los eventos con la fecha recortada', () => {
+    const s = buildWidgetSnapshot(
+      input({
+        events: [
+          {
+            id: 'e1',
+            kind: 'visit',
+            title: 'Nos vemos',
+            emoji: null,
+            date: '2026-07-01',
+            recurring_yearly: false,
+          },
+        ],
+      }),
+    );
+    expect(s.events).toEqual([
+      {
+        id: 'e1',
+        kind: 'visit',
+        title: 'Nos vemos',
+        emoji: null,
+        date: '2026-07-01',
+        recurring_yearly: false,
+      },
+    ]);
   });
 
   it('guarda la story de tu pareja con trazos simplificados', () => {
@@ -257,6 +290,7 @@ describe('nextCountdown', () => {
     expect(nextCountdown(s, '2026-06-15')).toEqual({
       kind: 'anniversary',
       title: 'Empieza su historia',
+      emoji: null,
       date: '2026-06-20',
       daysUntil: 5,
     });
@@ -284,6 +318,40 @@ describe('nextCountdown', () => {
     const c = nextCountdown(s, '2026-06-15');
     expect(c?.title).toBe('Tu cumple');
     expect(c?.daysUntil).toBe(16);
+  });
+});
+
+describe('nextCountdown con eventos', () => {
+  const visit = {
+    id: 'v1',
+    kind: 'visit' as const,
+    title: 'Nos vemos en Monterrey',
+    emoji: '✈️',
+    date: '2026-09-01',
+    recurring_yearly: false,
+  };
+  it('la próxima visita gana aunque haya algo antes', () => {
+    const s = snap({ anniversary: '2024-06-16', events: [visit] });
+    const c = nextCountdown(s, '2026-06-15');
+    expect(c?.kind).toBe('visit');
+    expect(c?.emoji).toBe('✈️');
+    expect(c?.daysUntil).toBe(78);
+  });
+  it('una visita pasada no cuenta; un evento propio entra por cercanía', () => {
+    const s = snap({
+      anniversary: null,
+      me: null,
+      partner: null,
+      events: [
+        { ...visit, date: '2026-06-01' },
+        { ...visit, id: 'c1', kind: 'custom', title: 'Concierto', date: '2026-06-20' },
+      ],
+    });
+    expect(nextCountdown(s, '2026-06-15')?.title).toBe('Concierto');
+  });
+  it('snapshot sin events (viejo) no truena', () => {
+    const s = { ...snap({ anniversary: null, partner: null }), events: undefined } as never;
+    expect(nextCountdown(s, '2026-03-01')?.title).toBe('Tu cumple');
   });
 });
 
