@@ -96,6 +96,41 @@ release.
 de la galería y proponer el lugar de la memoria. Es opcional para quien la usa: si la persona no
 lo concede, el lugar se elige a mano en el mapa.
 
+## 1.3 Distancia: permisos y batería (Fase 8)
+
+La distancia entre los dos es **opt-in**: la app nunca pide ubicación al abrirse; solo cuando
+alguien activa "Compartir mi distancia" en la pantalla **Distancia** (Más → Distancia, o tocando la
+tarjeta de Inicio).
+
+**Qué pide** (`expo-location` en `app.config.ts`):
+
+- `ACCESS_COARSE_LOCATION`: ubicación **aproximada**. La precisa (`ACCESS_FINE_LOCATION`) se
+  bloquea en el manifiesto, así que Android no ofrece "Exacta".
+- `ACCESS_BACKGROUND_LOCATION` (+ `RECEIVE_BOOT_COMPLETED`): solo se solicita si eliges **También
+  en segundo plano**. No hay servicio en primer plano ni notificación fija.
+
+**Modos** (preferencia local de cada celular):
+
+1. *Apagado*: se borra tu fila de `locations` y se detiene la tarea.
+2. *Al abrir la app*: al abrir la app o volver a ella se lee la última ubicación conocida (o una
+   lectura de precisión baja), se redondea a 2 decimales (~1 km), se obtiene la ciudad y se manda
+   con `set_my_location`. No se manda si pasaron menos de 10 minutos y no te moviste más de 1 km.
+3. *También en segundo plano*: igual que el anterior, más una tarea de `expo-task-manager` de baja
+   frecuencia (precisión baja, cada ~1 km o ~30 min, agrupada).
+
+**Activar "Permitir todo el tiempo"** (modo en segundo plano). La app primero pide el permiso
+normal; después Android 11+ te manda a Ajustes: **Permisos → Ubicación → Permitir todo el tiempo**
+(y deja "Usar ubicación precisa" apagado). Si ya lo habías negado: Ajustes → Apps → App Parejas →
+Permisos → Ubicación. Si lo niegas, la app se queda en *Al abrir la app* y lo avisa.
+
+**Consumo esperado.** En primer plano es una sola lectura al abrir la app. En segundo plano Android
+entrega pocas actualizaciones por hora y las agrupa; con precisión baja el gasto de batería es
+mínimo, pero depende del celular (algunos fabricantes matan las tareas en segundo plano; en ese caso
+la ubicación se actualiza al abrir la app). Si notas gasto, vuelve a *Al abrir la app*.
+
+**Privacidad.** El servidor guarda solo la última ubicación de cada quien (redondeada, sin
+historial) y la borra al apagar la distancia o al salir de la pareja. Solo la ve tu pareja (RLS).
+
 ## 2. Publicar un APK
 
 Lo hace la sesión de cada fase al cerrar, pero también puedes tú:

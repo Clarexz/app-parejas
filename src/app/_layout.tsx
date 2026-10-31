@@ -25,6 +25,7 @@ import { NotificationsBridge } from '@/features/notifications';
 import { QuestionsEvents } from '@/features/questions';
 import { StoriesEvents } from '@/features/stories';
 import { WidgetsBridge } from '@/features/widgets';
+import { useLocationSync } from '@/features/distance';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 
@@ -49,6 +50,12 @@ function LoadingView() {
       </Text>
     </View>
   );
+}
+
+/** Sin UI: manda mi ubicación al abrir la app si activé la distancia (Fase 8). */
+function LocationSyncBridge() {
+  useLocationSync();
+  return null;
 }
 
 function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
@@ -102,6 +109,11 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
               name="memory/edit"
               options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
             />
+            <Stack.Screen name="events/index" />
+            <Stack.Screen name="events/edit" />
+            <Stack.Screen name="lists/index" />
+            <Stack.Screen name="lists/[id]" />
+            <Stack.Screen name="distance" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
@@ -115,6 +127,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       {stage === 'ready' ? <QuestionsEvents /> : null}
       {stage === 'ready' ? <StoriesEvents /> : null}
       {stage === 'ready' ? <MemoriesEvents /> : null}
+      {stage === 'ready' && Platform.OS === 'android' ? <LocationSyncBridge /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
       {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
     </>

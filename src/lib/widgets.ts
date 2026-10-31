@@ -7,34 +7,41 @@
  * periódica aunque nadie abra la app; solo el mood necesita volver a leer del servidor.
  */
 import {
-  addMonths,
   daysBetween,
   daysTogether,
   formatNumber,
   parseIsoDate,
   todayIn,
-  toIsoDate,
-  upcomingMilestones,
   type IsoDate,
 } from './dates';
 import { simplifyStroke, type Stroke } from './drawing';
-import { milestoneLabel } from './home';
+import { featuredCountdown, type CountdownKind, type EventInput } from './events';
+
 import { moodLabel } from './mood';
 import { isStoryActive, storyAgo, type StoryBg, type StoryFont, type StoryKind } from './stories';
 import { DEFAULT_TIME_ZONE } from './timezone';
 
-export const WIDGET_SNAPSHOT_VERSION = 2;
+export { nextBirthday } from './events';
+
+export const WIDGET_SNAPSHOT_VERSION = 3;
 
 /** Nombres con los que se registran los widgets (app.config.ts y el task handler). */
-export const WIDGET_NAMES = ['DaysTogether', 'PartnerMood', 'Countdown', 'PartnerStory'] as const;
+export const WIDGET_NAMES = [
+  'DaysTogether',
+  'PartnerMood',
+  'Countdown',
+  'PartnerStory',
+  'Distance',
+] as const;
 export type WidgetName = (typeof WIDGET_NAMES)[number];
 
 /** A dónde lleva tocar cada widget (deep link `appparejas://<ruta>`). */
 export const WIDGET_ROUTES: Record<WidgetName, string> = {
   DaysTogether: '/',
   PartnerMood: '/moods',
-  Countdown: '/',
+  Countdown: '/events',
   PartnerStory: '/stories',
+  Distance: '/distance',
 };
 
 /** Pasado este tiempo el snapshot se considera viejo y el widget intenta refrescar del servidor. */
@@ -62,6 +69,16 @@ export type SnapshotStory = {
   strokes: Stroke[] | null;
 };
 
+/** Un lado de la distancia: null = esa persona no comparte su ubicación. */
+export type SnapshotPlace = { city: string | null; at: string } | null;
+
+/** Fase 8: distancia entre los dos (km solo si los dos comparten). */
+export type SnapshotDistance = {
+  me: SnapshotPlace;
+  partner: SnapshotPlace;
+  km: number | null;
+};
+
 export type WidgetStatus = 'ready' | 'signed_out' | 'no_couple';
 
 export type WidgetSnapshot = {
@@ -72,8 +89,10 @@ export type WidgetSnapshot = {
   me: SnapshotPerson | null;
   partner: SnapshotPerson | null;
   partnerMood: SnapshotMood | null;
-  /** Fase 8 (distancia). */
-  distanceKm: number | null;
+  /** Fase 8: eventos de la pareja (fechas propias y visitas) para la cuenta regresiva. */
+  events: EventInput[];
+  /** Fase 8: distancia (null si nadie comparte o aún no se lee). */
+  distance: SnapshotDistance | null;
   /** Id de tu pareja (para abrir su story desde el widget). */
   partnerId: string | null;
   /** Fase 6: la story activa más nueva de tu pareja. */
@@ -82,12 +101,24 @@ export type WidgetSnapshot = {
   updatedAt: string;
 };
 
-export type CountdownKind = 'anniversary' | 'monthiversary' | 'days' | 'birthday';
+export type { CountdownKind };
 export type WidgetCountdown = {
   kind: CountdownKind;
   title: string;
+  emoji: string | null;
   date: IsoDate;
   daysUntil: number;
+};
+
+export type WidgetDistance = {
+  km: number | null;
+  myCity: string | null;
+  partnerCity: string | null;
+  /** ¿Compartes tú / tu pareja? */
+  meSharing: boolean;
+  partnerSharing: boolean;
+  /** "hace 2 h" de la última ubicación de tu pareja ('' si no comparte). */
+  partnerAgo: string;
 };
 
 export type WidgetStory = Pick<
@@ -105,7 +136,7 @@ export type WidgetModel = {
   partnerName: string;
   partnerMood: { emoji: string; label: string | null; note: string | null; ago: string } | null;
   nextEvent: WidgetCountdown | null;
-  distanceKm: number | null;
+  distance: WidgetDistance | null;
   partnerId: string | null;
   /** Solo si sigue activa al dibujar. */
   partnerStory: WidgetStory | null;
@@ -118,7 +149,8 @@ export type SnapshotInput = {
   me: { name: string | null | undefined; birthday: string | null | undefined } | null;
   partner: { name: string | null | undefined; birthday: string | null | undefined } | null;
   partnerMood: { emoji: string; note: string | null; created_at: string } | null;
-  distanceKm?: number | null;
+  events?: readonly EventInput[];
+  distance?: SnapshotDistance | null;
   partnerId?: string | null;
   partnerStory?: {
     id: string;
@@ -192,7 +224,15 @@ export function buildWidgetSnapshot(input: SnapshotInput): WidgetSnapshot {
           at: input.partnerMood.created_at,
         }
       : null,
-    distanceKm: input.distanceKm ?? null,
+    events: (input.events ?? []).map((e) => ({
+      id: e.id,
+      kind: e.kind,
+      title: e.title,
+      emoji: e.emoji,
+      date: e.date.slice(0, 10),
+      recurring_yearly: e.recurring_yearly,
+    })),
+    distance: input.distance ?? null,
     partnerId: input.partnerId ?? null,
     partnerStory: cleanStory(input.partnerStory),
     updatedAt: (input.now ?? new Date()).toISOString(),
@@ -209,7 +249,8 @@ export function emptyWidgetSnapshot(status: Exclude<WidgetStatus, 'ready'>, now 
     me: null,
     partner: null,
     partnerMood: null,
-    distanceKm: null,
+    events: [],
+    distance: null,
     partnerId: null,
     partnerStory: null,
     updatedAt: now.toISOString(),
@@ -240,61 +281,21 @@ export function snapshotChanged(a: WidgetSnapshot | null, b: WidgetSnapshot): bo
   return strip(a) !== strip(b);
 }
 
-/** Próximo cumpleaños >= today; el 29 de febrero se festeja el 28 en años no bisiestos (D42). */
-export function nextBirthday(birthday: IsoDate, today: IsoDate): IsoDate | null {
-  const b = parseIsoDate(birthday);
-  const t = parseIsoDate(today);
-  if (!b || !t) return null;
-  for (const year of [t.year, t.year + 1]) {
-    // addMonths ajusta el 29/feb al último día del mes destino.
-    const date = addMonths(
-      toIsoDate({ year: b.year, month: b.month, day: b.day }),
-      12 * (year - b.year),
-    );
-    if (date >= today) return date;
-  }
-  return null;
-}
-
-const KIND_RANK: Record<CountdownKind, number> = {
-  anniversary: 0,
-  birthday: 1,
-  days: 2,
-  monthiversary: 3,
-};
-
-/** Lo próximo que viene: hitos de la relación y cumpleaños de los dos. Hoy cuenta (daysUntil 0). */
+/**
+ * Lo que muestra el widget de cuenta regresiva: la próxima visita si hay (D4), si no lo más
+ * próximo entre hitos, cumpleaños y fechas propias. Hoy cuenta (daysUntil 0).
+ */
 export function nextCountdown(s: WidgetSnapshot, today: IsoDate): WidgetCountdown | null {
-  const items: WidgetCountdown[] = [];
-  if (s.anniversary && daysBetween(today, s.anniversary) <= 0) {
-    for (const m of upcomingMilestones(s.anniversary, today, { limit: 3 })) {
-      items.push({ kind: m.kind, title: milestoneLabel(m), date: m.date, daysUntil: m.daysUntil });
-    }
-  } else if (s.anniversary) {
-    items.push({
-      kind: 'anniversary',
-      title: 'Empieza su historia',
-      date: s.anniversary,
-      daysUntil: daysBetween(today, s.anniversary),
-    });
-  }
-  const birthdays: [SnapshotPerson | null, (name: string) => string][] = [
-    [s.me, () => 'Tu cumple'],
-    [s.partner, (name) => `Cumple de ${name}`],
-  ];
-  for (const [p, title] of birthdays) {
-    if (!p?.birthday) continue;
-    const date = nextBirthday(p.birthday, today);
-    if (date)
-      items.push({
-        kind: 'birthday',
-        title: title(p.name),
-        date,
-        daysUntil: daysBetween(today, date),
-      });
-  }
-  items.sort((a, b) => a.daysUntil - b.daysUntil || KIND_RANK[a.kind] - KIND_RANK[b.kind]);
-  return items[0] ?? null;
+  const c = featuredCountdown({
+    anniversary: s.anniversary,
+    me: s.me,
+    partner: s.partner,
+    events: s.events ?? [],
+    today,
+  });
+  return c
+    ? { kind: c.kind, title: c.title, emoji: c.emoji, date: c.date, daysUntil: c.daysUntil }
+    : null;
 }
 
 /** "ahorita", "hace 5 min", "hace 2 h", "ayer", "hace 3 días". */
@@ -308,6 +309,18 @@ export function formatAgo(fromIso: string, now: Date): string {
   if (h < 24) return `hace ${h} h`;
   const d = Math.floor(h / 24);
   return d === 1 ? 'ayer' : `hace ${formatNumber(d)} días`;
+}
+
+/** Distancia lista para dibujar. */
+export function distanceModel(d: SnapshotDistance, now: Date): WidgetDistance {
+  return {
+    km: d.me && d.partner ? d.km : null,
+    myCity: d.me?.city ?? null,
+    partnerCity: d.partner?.city ?? null,
+    meSharing: d.me !== null,
+    partnerSharing: d.partner !== null,
+    partnerAgo: d.partner ? formatAgo(d.partner.at, now) : '',
+  };
 }
 
 /** Lo que dibuja cada widget, calculado "ahora" a partir del snapshot. */
@@ -334,7 +347,7 @@ export function widgetModel(s: WidgetSnapshot | null, now: Date = new Date()): W
         }
       : null,
     nextEvent: ready ? nextCountdown(snap, today) : null,
-    distanceKm: ready ? snap.distanceKm : null,
+    distance: ready && snap.distance ? distanceModel(snap.distance, now) : null,
     partnerId: ready ? snap.partnerId : null,
     partnerStory:
       story && isStoryActive({ expires_at: story.expiresAt, deleted_at: null }, now)

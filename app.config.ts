@@ -58,6 +58,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     predictiveBackGestureEnabled: false,
     googleServicesFile,
+    // Distancia (Fase 8): solo ubicación aproximada. expo-location agrega también la precisa en su
+    // manifiesto; aquí se bloquea para que Android solo ofrezca "Aproximada".
+    blockedPermissions: ['android.permission.ACCESS_FINE_LOCATION'],
   },
   // Web solo se usa en desarrollo para QA visual (npm run shots).
   web: {
@@ -87,6 +90,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // Guardar fotos en la galería; solo imágenes. `isAccessMediaLocationEnabled` permite leer el GPS
     // del EXIF de las fotos de una memoria para proponer el lugar.
     ['expo-media-library', { granularPermissions: ['photo'], isAccessMediaLocationEnabled: true }],
+    // Distancia (Fase 8): ubicación aproximada, opt-in y sin servicio en primer plano (sin
+    // notificación fija). `isAndroidBackgroundLocationEnabled` pide "Permitir todo el tiempo" solo
+    // si la persona elige el modo en segundo plano. Android no tiene textos de permiso en el
+    // manifiesto: la explicación vive en la pantalla Distancia.
+    [
+      'expo-location',
+      {
+        isAndroidBackgroundLocationEnabled: true,
+        isAndroidForegroundServiceEnabled: false,
+      },
+    ],
     [
       'expo-notifications',
       {
@@ -134,6 +148,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             label: 'Story de tu pareja',
             description: 'Lo último que pegó tu pareja, sin abrir la app.',
             previewImage: widgetPreview('PartnerStory'),
+            ...WIDGET_DEFAULTS,
+          },
+          {
+            name: 'Distance',
+            label: 'Distancia',
+            description: 'A cuántos kilómetros están ahorita.',
+            previewImage: widgetPreview('Distance'),
             ...WIDGET_DEFAULTS,
           },
         ],

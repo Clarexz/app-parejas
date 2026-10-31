@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import { View } from 'react-native';
 
-import { Card, Text } from '@/components';
+import { DistanceCard } from '@/features/distance';
+import { CountdownHomeCard } from '@/features/events';
 import { DailyQuestionCard, StreakNote } from '@/features/questions';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
-/** Pregunta del día y racha (Fase 3); cuenta regresiva y distancia llegan en fases siguientes. */
+/** Pregunta del día y racha (Fase 3); cuenta regresiva y distancia (Fase 8). */
 export function HomePlaceholders({ afterQuestion }: { afterQuestion?: ReactNode }) {
   const { spacing } = useTheme();
   return (
@@ -14,18 +14,8 @@ export function HomePlaceholders({ afterQuestion }: { afterQuestion?: ReactNode 
       <DailyQuestionCard />
       {afterQuestion}
       <StreakNote />
-      <Card tilt={tiltFor('cuenta-regresiva', 1) || 1}>
-        <Text variant="hand">Cuenta regresiva</Text>
-        <Text variant="body" tone="muted">
-          Pronto podrán contar los días para la próxima vez que se vean.
-        </Text>
-      </Card>
-      <Card tilt={tiltFor('distancia', 1) || -1}>
-        <Text variant="hand">Distancia</Text>
-        <Text variant="body" tone="muted">
-          Pronto verán a cuántos kilómetros están.
-        </Text>
-      </Card>
+      <CountdownHomeCard />
+      <DistanceCard />
     </View>
   );
 }

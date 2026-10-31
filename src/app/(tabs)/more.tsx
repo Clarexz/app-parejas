@@ -50,6 +50,9 @@ export default function MoreScreen() {
             icon="calendar"
             onPress={() => router.push('/settings/couple')}
           />
+          <ListRow label="Cuentas regresivas" icon="clock" onPress={() => router.push('/events')} />
+          <ListRow label="Listas" icon="list" onPress={() => router.push('/lists')} />
+          <ListRow label="Distancia" icon="pin" onPress={() => router.push('/distance')} />
           <ListRow
             label="Avisos"
             icon="bell"

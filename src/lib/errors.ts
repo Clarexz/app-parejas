@@ -46,6 +46,15 @@ const BY_CODE: Record<string, string> = {
   memory_not_found: 'Esa memoria ya no está. Quizá la arrancaron desde el otro celular.',
   story_not_found: 'Esa story ya no está. Pudo caducar o haberla quitado su autor.',
   invalid_reply: 'Esa respuesta no se pudo enviar. Escribe algo corto e intenta de nuevo.',
+  // RPC de cuentas regresivas, listas y distancia (Fase 8)
+  invalid_event: 'Esa fecha no se pudo guardar. Revisa el nombre y la fecha e intenta de nuevo.',
+  event_not_found: 'Esa fecha ya no está. Quizá la borraron desde el otro celular.',
+  invalid_list: 'Esa lista no se pudo guardar. Ponle un nombre corto e intenta de nuevo.',
+  list_not_found: 'Esa lista ya no está. Quizá la borraron desde el otro celular.',
+  invalid_item: 'Ese renglón no se pudo guardar. Escribe algo corto e intenta de nuevo.',
+  item_not_found: 'Ese renglón ya no está. Actualiza para ver lo más reciente.',
+  invalid_order: 'La lista cambió mientras la acomodabas. Ya la actualizamos; vuelve a intentar.',
+  invalid_location: 'No pudimos guardar tu ubicación. Vuelve a intentar en un momento.',
   // RPC de notificaciones
   invalid_token: 'No pudimos registrar este celular para los avisos. Vuelve a intentar.',
 };

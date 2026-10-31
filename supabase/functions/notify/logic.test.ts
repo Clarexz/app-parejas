@@ -86,6 +86,21 @@ describe('buildNotification', () => {
       data: { kind: 'widget', scope: 'story' },
     });
   });
+  it('widget (eventos/distancia) siempre es un push de datos, sin importar preferencias', () => {
+    const off = { answers: false, comments: false, moods: false, nudges: false, stories: false };
+    for (const scope of ['events', 'distance']) {
+      const b = buildNotification(ev('widget', { scope }, off));
+      expect(b).toEqual({
+        visible: false,
+        channelId: 'actividad',
+        data: { kind: 'widget', scope },
+      });
+      expect(buildFcmMessage('tok', b!).message.data).toEqual({ kind: 'widget', scope });
+    }
+    // El evento de widget llega con prefs vacías desde send_widget_push.
+    const bare = parseEvent({ ...raw('widget', {}), prefs: {} });
+    expect(bare && buildNotification(bare)?.data).toEqual({ kind: 'widget' });
+  });
   it('story_reply con el aviso apagado no manda nada', () => {
     expect(buildNotification(ev('story_reply', { story_id: 's1' }, { stories: false }))).toBeNull();
   });

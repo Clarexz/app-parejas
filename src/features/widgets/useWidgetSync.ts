@@ -2,8 +2,11 @@ import { useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
 
 import { useCouple } from '@/features/couple';
+import { useLocations } from '@/features/distance';
+import { useEvents } from '@/features/events';
 import { useMoods } from '@/features/mood';
 import { useActiveStories } from '@/features/stories';
+import { snapshotDistance } from '@/lib/distance';
 import type { OnboardingStage } from '@/lib/onboarding';
 import {
   buildWidgetSnapshot,
@@ -27,6 +30,8 @@ export function useWidgetSync(stage: OnboardingStage): void {
   const { couple, me, partner } = useCouple();
   const { latestByUser } = useMoods();
   const { stories, isLoading: storiesLoading, isError: storiesError } = useActiveStories();
+  const { events, isLoading: eventsLoading, isError: eventsError } = useEvents();
+  const { rows: locations, isLoading: locationsLoading, isError: locationsError } = useLocations();
   const latest = useRef<WidgetSnapshot | null>(null);
 
   const mood = (partner && latestByUser[partner.id]) || null;
@@ -34,6 +39,12 @@ export function useWidgetSync(stage: OnboardingStage): void {
   // Mientras las stories no cargan se conserva la story del snapshot anterior (no se borra).
   const storiesPending = storiesLoading || storiesError;
   const partnerStory = partner ? latestActiveStory(stories, partner.id, new Date()) : null;
+  // Igual que las stories: mientras eventos o ubicaciones no cargan se conserva lo anterior.
+  const eventsPending = eventsLoading || eventsError;
+  const locationsPending = locationsLoading || locationsError;
+  const distance = locationsPending
+    ? null
+    : snapshotDistance(locations, me?.id ?? null, partner?.id ?? null);
 
   const key = JSON.stringify([
     stage,
@@ -47,6 +58,12 @@ export function useWidgetSync(stage: OnboardingStage): void {
     partner?.id ?? null,
     storiesPending,
     partnerStory ? [partnerStory.id, partnerStory.expires_at, partnerStory.deleted_at] : null,
+    eventsPending,
+    eventsPending
+      ? null
+      : events.map((e) => [e.id, e.kind, e.title, e.emoji, e.date, e.recurring_yearly]),
+    locationsPending,
+    distance,
   ]);
 
   useEffect(() => {
@@ -69,6 +86,8 @@ export function useWidgetSync(stage: OnboardingStage): void {
             partnerMood: mood,
             partnerId: partner?.id ?? null,
             partnerStory: story,
+            events: eventsPending ? (previous?.events ?? []) : events,
+            distance: locationsPending ? (previous?.distance ?? null) : distance,
           });
           if (storiesPending && previous?.partnerStory) {
             snapshot = { ...snapshot, partnerStory: previous.partnerStory };

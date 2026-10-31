@@ -1029,7 +1029,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 5 Widgets Android | ✅ Cerrada (2026-10-30) | #9 | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
 | 6 Stories | 🟡 Código listo, falta deploy (2026-10-31) | #10 | Stories de foto/texto/dibujo vectorial con stickers, visor con vistos/reacciones/respuestas, archivo personal, limpieza horaria con pg_cron + `stories-cleanup`, push, fila en Inicio y widget "Story de tu pareja" (D68–D72). CI verde. **Pendiente: desplegar en el VPS y publicar el APK v0.6.0** (ver §10.1). |
 | 7 Memorias y mapa | 🟡 Mergeada, falta deploy (2026-10-31) | #11 | Memorias con 1–10 fotos reordenables (drag & drop), diario por mes, detalle con carrusel, editar/borrar/descargar, ubicación por EXIF o mapa, mapa de Google con clusters (o "mapa de papel" sin key), "Un día como hoy" en Inicio y push (D73–D77). **Pendiente: desplegar en el VPS (junto con la Fase 6), cargar `GOOGLE_MAPS_API_KEY` y publicar el APK v0.7.0** (ver §10.1). |
-| 8 Eventos, listas, distancia | ⏳ Pendiente | | |
+| 8 Eventos, listas, distancia | 🟡 Mergeada, falta deploy (2026-10-31) | #12 | Cuentas regresivas automáticas y propias con "la próxima vez que nos vemos" destacada (Inicio y widget), listas compartidas con tiempo real y quién tachó, distancia opt-in aproximada (~1 km) con modo en segundo plano de baja frecuencia, tarjeta en Inicio y widget Distancia (D78–D84). CI verde. **Pendiente: un solo deploy de `main` que incluya las Fases 6, 7 y 8, y publicar el APK v0.8.0** (ver §10.1). |
 | 9 Juegos | ⏳ Pendiente | | |
 | 10 Banco de contenido | ⏳ Pendiente | | |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏳ Pendiente | | |
@@ -1090,6 +1090,14 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   limpieza: incluye `memoriesRemoved`). Secreto nuevo **opcional** en GitHub: `GOOGLE_MAPS_API_KEY`
   (`docs/SETUP.md` §1.2); sin él el mapa es de papel. Después, lanzar `release-apk.yml` con
   `docs/releases/v0.7.0.md` (incluye la Fase 6) y **no** publicar v0.6.0 por separado.
+- **Fase 8 (deploy pendiente):** mergeada a `main` el 2026-10-31 a pedido del usuario, **sin
+  desplegar** (igual que las Fases 6 y 7). **Un solo `./scripts/server/deploy.sh main`** (el prompt
+  completo está en el PR #12; cambia la rama por `main`) aplica en orden las tres migraciones pendientes (`…103_stories`, `…104_memories`,
+  `…105_events_lists_distance`), crea los buckets y sincroniza `notify` (ahora acepta
+  `kind: 'widget'`) y `stories-cleanup`. Además de lo listado para las Fases 6 y 7, el smoke test
+  revisa las tablas `events`, `lists`, `list_items` y `locations`. Sin secretos nuevos (opcional
+  `GOOGLE_MAPS_API_KEY`). Después, lanzar `release-apk.yml` con `docs/releases/v0.8.0.md` (incluye
+  las Fases 6 y 7); **no** publicar v0.6.0 ni v0.7.0 por separado.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":

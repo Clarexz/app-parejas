@@ -94,7 +94,7 @@ espera_codigo 200 "Storage (/storage/v1/bucket, service key) -> 200" "Storage (/
 
 # --- (e) Base de datos --------------------------------------------------------------------
 if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || true)" == "true" ]]; then
-  for t in profiles couples couple_members moods question_categories questions daily_questions answers answer_comments nudges stories story_views story_reactions story_replies memories memory_photos; do
+  for t in profiles couples couple_members moods question_categories questions daily_questions answers answer_comments nudges stories story_views story_reactions story_replies memories memory_photos events lists list_items locations; do
     rls="$(psql_db -At -c "select c.relrowsecurity from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relname = '$t' and c.relkind in ('r','p')" 2>/dev/null || true)"
     case "$rls" in
       t) ok "Tabla public.$t existe con RLS activada" ;;

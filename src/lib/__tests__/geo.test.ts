@@ -1,6 +1,7 @@
 import {
   MEXICO_REGION,
   clusterPoints,
+  haversineKm,
   projectEquirect,
   regionForPoints,
   zoomInRegion,
@@ -268,5 +269,34 @@ describe('projectEquirect', () => {
     expect(out).toHaveLength(3);
     expect(out[2].x).toBeGreaterThan(out[1].x);
     expect(out[2].x).toBeLessThan(out[0].x);
+  });
+});
+
+describe('haversineKm', () => {
+  const MONTERREY = { lat: 25.6866, lng: -100.3161 };
+  const MADRID = { lat: 40.4168, lng: -3.7038 };
+
+  it('el mismo punto está a 0 km', () => {
+    expect(haversineKm(CDMX, CDMX)).toBe(0);
+  });
+
+  it('CDMX y Monterrey, unos 705 km', () => {
+    expect(Math.abs(haversineKm(CDMX, MONTERREY) - 705)).toBeLessThanOrEqual(5);
+  });
+
+  it('CDMX y Madrid, unos 9,070 km', () => {
+    expect(Math.abs(haversineKm(CDMX, MADRID) - 9070)).toBeLessThanOrEqual(30);
+  });
+
+  it('es simétrica', () => {
+    expect(haversineKm(CDMX, MADRID)).toBeCloseTo(haversineKm(MADRID, CDMX), 9);
+  });
+
+  it('antípodas, unos 20,015 km', () => {
+    const d = haversineKm({ lat: 0, lng: 0 }, { lat: 0, lng: 180 });
+    expect(Math.abs(d - 20015)).toBeLessThanOrEqual(10);
+    expect(
+      Math.abs(haversineKm({ lat: 90, lng: 0 }, { lat: -90, lng: 0 }) - 20015),
+    ).toBeLessThanOrEqual(10);
   });
 });

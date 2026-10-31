@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { Button, PageHeader, Screen, SoftAskNote, Text } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
+import { useCountdowns } from '@/features/events';
 import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
 import { OnThisDayCard } from '@/features/memories';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
@@ -33,17 +34,20 @@ export default function HomeScreen() {
   const anniversary = couple?.anniversary_date ?? null;
   const summary = useMemo(() => homeSummary(anniversary, today), [anniversary, today]);
 
+  const { countdowns, refetch: refetchEvents } = useCountdowns();
+  const upcoming = useMemo(() => countdowns.slice(0, 4), [countdowns]);
+
   const myMood = (me && latestByUser[me.id]) || null;
   const partnerMood = (partner && latestByUser[partner.id]) || null;
 
   const refresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      await Promise.all([refetchCouple(), refetchMoods()]);
+      await Promise.all([refetchCouple(), refetchMoods(), refetchEvents()]);
     } finally {
       setRefreshing(false);
     }
-  }, [refetchCouple, refetchMoods]);
+  }, [refetchCouple, refetchMoods, refetchEvents]);
 
   return (
     <Screen scroll refreshing={refreshing} onRefresh={refresh}>
@@ -90,7 +94,7 @@ export default function HomeScreen() {
 
         <DaysTogether summary={summary} anniversary={anniversary} />
 
-        {summary.state === 'counting' ? <UpcomingList items={summary.upcoming} /> : null}
+        <UpcomingList items={upcoming} />
 
         <OnThisDayCard />
 

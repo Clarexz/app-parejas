@@ -35,6 +35,10 @@ const INFO: Record<WidgetName, { title: string; text: string }> = {
     title: 'Story de tu pareja',
     text: 'Lo último que pegó tu pareja, foto, nota o dibujo. Toca para verla completa.',
   },
+  Distance: {
+    title: 'Distancia',
+    text: 'A cuántos kilómetros están ahorita. Solo se ve si los dos activan su distancia.',
+  },
 };
 
 function WidgetCard({ name, model }: { name: WidgetName; model: ReturnType<typeof previewModel> }) {

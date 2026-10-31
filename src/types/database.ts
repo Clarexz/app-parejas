@@ -206,6 +206,193 @@ export type Database = {
           },
         ];
       };
+      events: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          date: string;
+          emoji: string | null;
+          id: string;
+          kind: string;
+          note: string | null;
+          recurring_yearly: boolean;
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          date: string;
+          emoji?: string | null;
+          id?: string;
+          kind?: string;
+          note?: string | null;
+          recurring_yearly?: boolean;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          date?: string;
+          emoji?: string | null;
+          id?: string;
+          kind?: string;
+          note?: string | null;
+          recurring_yearly?: boolean;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'events_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      list_items: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          done: boolean;
+          done_at: string | null;
+          done_by: string | null;
+          id: string;
+          list_id: string;
+          position: number;
+          text: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          done?: boolean;
+          done_at?: string | null;
+          done_by?: string | null;
+          id?: string;
+          list_id: string;
+          position?: number;
+          text: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          done?: boolean;
+          done_at?: string | null;
+          done_by?: string | null;
+          id?: string;
+          list_id?: string;
+          position?: number;
+          text?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'list_items_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'list_items_list_id_fkey';
+            columns: ['list_id'];
+            isOneToOne: false;
+            referencedRelation: 'lists';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      lists: {
+        Row: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          emoji: string | null;
+          id: string;
+          kind: string;
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          couple_id: string;
+          created_at?: string;
+          created_by: string;
+          emoji?: string | null;
+          id?: string;
+          kind?: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_id?: string;
+          created_at?: string;
+          created_by?: string;
+          emoji?: string | null;
+          id?: string;
+          kind?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'lists_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      locations: {
+        Row: {
+          city: string | null;
+          couple_id: string;
+          lat: number;
+          lng: number;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          city?: string | null;
+          couple_id: string;
+          lat: number;
+          lng: number;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          city?: string | null;
+          couple_id?: string;
+          lat?: number;
+          lng?: number;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'locations_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       memories: {
         Row: {
           body: string | null;
@@ -741,6 +928,28 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      add_list_item: {
+        Args: { p_list_id: string; p_text: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          done: boolean;
+          done_at: string | null;
+          done_by: string | null;
+          id: string;
+          list_id: string;
+          position: number;
+          text: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'list_items';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       answer_json: {
         Args: {
           p_answer: Omit<
@@ -752,6 +961,8 @@ export type Database = {
       };
       avatar_folder_readable: { Args: { p_name: string }; Returns: boolean };
       avatar_folder_writable: { Args: { p_name: string }; Returns: boolean };
+      clear_done_list_items: { Args: { p_list_id: string }; Returns: number };
+      clear_my_location: { Args: Record<PropertyKey, never>; Returns: undefined };
       couple_complete_days: { Args: { p_couple_id: string }; Returns: string[] };
       couple_member_count: { Args: { p_couple_id: string }; Returns: number };
       couple_spicy_active: { Args: { p_couple_id: string }; Returns: boolean };
@@ -841,6 +1052,9 @@ export type Database = {
       };
       delete_answer: { Args: { p_question_id: string }; Returns: undefined };
       delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
+      delete_event: { Args: { p_id: string }; Returns: undefined };
+      delete_list: { Args: { p_id: string }; Returns: undefined };
+      delete_list_item: { Args: { p_id: string }; Returns: undefined };
       delete_memory: { Args: { p_memory_id: string }; Returns: undefined };
       delete_push_tokens: { Args: { p_tokens: string[] }; Returns: number };
       delete_story: { Args: { p_story_id: string }; Returns: undefined };
@@ -936,6 +1150,7 @@ export type Database = {
       };
       react_to_story: { Args: { p_emoji: string; p_story_id: string }; Returns: undefined };
       register_push_token: { Args: { p_token: string }; Returns: undefined };
+      reorder_list_items: { Args: { p_ids: string[]; p_list_id: string }; Returns: undefined };
       reply_to_story: {
         Args: { p_body: string; p_story_id: string };
         Returns: {
@@ -954,6 +1169,55 @@ export type Database = {
         };
       };
       require_couple: { Args: Record<PropertyKey, never>; Returns: string };
+      save_event: {
+        Args: {
+          p_date: string;
+          p_emoji?: string;
+          p_id?: string;
+          p_kind?: string;
+          p_note?: string;
+          p_recurring_yearly?: boolean;
+          p_title: string;
+        };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          date: string;
+          emoji: string | null;
+          id: string;
+          kind: string;
+          note: string | null;
+          recurring_yearly: boolean;
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'events';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      save_list: {
+        Args: { p_emoji?: string; p_id?: string; p_kind?: string; p_title: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          emoji: string | null;
+          id: string;
+          kind: string;
+          title: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'lists';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       send_nudge: {
         Args: { p_kind?: string };
         Returns: {
@@ -972,6 +1236,28 @@ export type Database = {
         };
       };
       send_test_notification: { Args: Record<PropertyKey, never>; Returns: boolean };
+      set_list_item_done: {
+        Args: { p_done: boolean; p_id: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          done: boolean;
+          done_at: string | null;
+          done_by: string | null;
+          id: string;
+          list_id: string;
+          position: number;
+          text: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'list_items';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       set_mood: {
         Args: { p_emoji: string; p_note?: string };
         Returns: {
@@ -989,6 +1275,23 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      set_my_location: {
+        Args: { p_city?: string; p_lat: number; p_lng: number };
+        Returns: {
+          city: string | null;
+          couple_id: string;
+          lat: number;
+          lng: number;
+          updated_at: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'locations';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       stories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
@@ -1001,6 +1304,28 @@ export type Database = {
         Returns: Json;
       };
       unregister_push_token: { Args: { p_token: string }; Returns: undefined };
+      update_list_item: {
+        Args: { p_id: string; p_text: string };
+        Returns: {
+          couple_id: string;
+          created_at: string;
+          created_by: string;
+          done: boolean;
+          done_at: string | null;
+          done_by: string | null;
+          id: string;
+          list_id: string;
+          position: number;
+          text: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'list_items';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       update_memory: {
         Args: {
           p_body?: string;
