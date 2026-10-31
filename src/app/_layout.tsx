@@ -111,6 +111,8 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             />
             <Stack.Screen name="events/index" />
             <Stack.Screen name="events/edit" />
+            <Stack.Screen name="visits/index" />
+            <Stack.Screen name="visits/edit" />
             <Stack.Screen name="lists/index" />
             <Stack.Screen name="lists/[id]" />
             <Stack.Screen name="distance" />

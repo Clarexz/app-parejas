@@ -68,6 +68,7 @@ let mockData = {
   isRefetching: false,
   refetch: jest.fn(),
 };
+jest.mock('@/features/visits/hooks', () => ({ useVisits: () => ({ visits: [] }) }));
 let mockEvents: EventRow[] = [];
 const mockSave = jest.fn();
 const mockRemove = jest.fn();
