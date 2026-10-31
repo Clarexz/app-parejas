@@ -93,7 +93,7 @@ export function StoriesRowView({
               </View>
             ) : null}
           </View>
-          <Text variant="handSmall" numberOfLines={1} tone={mineHas ? 'ink' : 'muted'}>
+          <Text variant="handSmall" numberOfLines={2} tone={mineHas ? 'ink' : 'muted'}>
             {mineHas ? 'Tu story' : 'Pega la tuya'}
           </Text>
         </Pressable>

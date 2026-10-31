@@ -39,7 +39,10 @@ export function Chip({
       disabled={disabled || !onPress}
       onPress={onPress}
       hitSlop={spacing.sm}
-      style={[{ alignSelf: 'flex-start', transform: [{ rotate: `${angle}deg` }] }, style]}
+      style={[
+        { alignSelf: 'flex-start', maxWidth: '100%', transform: [{ rotate: `${angle}deg` }] },
+        style,
+      ]}
     >
       {({ pressed }) => (
         <View
