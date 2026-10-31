@@ -890,6 +890,8 @@ export type Database = {
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
       mark_story_seen: { Args: { p_story_id: string }; Returns: undefined };
       memories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
+      memory_path_readable: { Args: { p_name: string }; Returns: boolean };
+      memory_path_writable: { Args: { p_name: string }; Returns: boolean };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
       pick_daily_question: { Args: { p_couple_id: string }; Returns: string };
       question_card: {
