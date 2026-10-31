@@ -53,6 +53,16 @@ describe('errorMessage', () => {
     expect(errorMessage({ code: 'P0001', message: 'invalid_reaction' })).toMatch(/reacción/);
   });
 
+  it('traduce las claves de memorias', () => {
+    for (const key of ['invalid_memory', 'invalid_photos', 'memory_not_found']) {
+      const msg = errorMessage({ code: 'P0001', message: key });
+      expect(msg).not.toMatch(/Algo no salió/);
+      expect(msg).not.toBe(key);
+    }
+    expect(errorMessage({ code: 'P0001', message: 'memory_not_found' })).toMatch(/memoria/);
+    expect(errorMessage({ code: 'P0001', message: 'invalid_photos' })).toMatch(/fotos/);
+  });
+
   it('cubre check_violation y genérico', () => {
     expect(errorMessage({ code: '23514' })).toMatch(/no cumple/);
     expect(errorMessage(new Error('boom'))).toMatch(/Algo no salió/);

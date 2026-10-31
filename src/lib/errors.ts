@@ -39,6 +39,11 @@ const BY_CODE: Record<string, string> = {
   // RPC de stories
   invalid_story: 'Esa story no se pudo publicar. Revisa que tenga contenido y no sea muy larga.',
   too_many_stories: 'Ya tienes muchas stories activas. Espera a que caduquen o arranca alguna.',
+  invalid_memory:
+    'Esa memoria no se pudo guardar. Revisa el título, la fecha y que no sea muy larga.',
+  invalid_photos:
+    'Algo pasó con las fotos. Debe haber entre 1 y 10; vuelve a elegirlas e intenta de nuevo.',
+  memory_not_found: 'Esa memoria ya no está. Quizá la arrancaron desde el otro celular.',
   story_not_found: 'Esa story ya no está. Pudo caducar o haberla quitado su autor.',
   invalid_reply: 'Esa respuesta no se pudo enviar. Escribe algo corto e intenta de nuevo.',
   // RPC de notificaciones
