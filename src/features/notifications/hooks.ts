@@ -9,6 +9,7 @@ import { create } from 'zustand';
 import { useSession } from '@/features/auth';
 import { useCouple } from '@/features/couple';
 import { questionKeys, useDailyQuestion } from '@/features/questions';
+import { storyKeys } from '@/features/stories';
 import {
   DEFAULT_PREFS,
   notificationKind,
@@ -317,6 +318,8 @@ function invalidateFor(
     );
   } else if (kind === 'mood') {
     keys.push(['moods', coupleId]);
+  } else if (kind === 'story' || kind === 'story_reply') {
+    keys.push(storyKeys.all);
   }
   for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
 }

@@ -40,6 +40,7 @@ import {
   useToast,
   WaitingIllustration,
 } from '@/components';
+import { StoriesRowView, StoryFrame, StoryProgress } from '@/features/stories';
 import { formatStampDate } from '@/lib/stampDate';
 import { useTheme, type Colors, type TypeVariant } from '@/theme';
 
@@ -509,6 +510,43 @@ export default function CatalogScreen() {
         <View>
           <TabBar {...fakeTabBar(tab, setTab)} />
         </View>
+      </Section>
+
+      <Section title="Stories (StoryFrame, StoriesRow, StoryProgress)">
+        <Row>
+          <StoryFrame
+            width={120}
+            story={{ kind: 'text', text: 'Hay café', bg: 'postit', font: 'hand' }}
+          />
+          <StoryFrame
+            width={120}
+            story={{
+              kind: 'text',
+              text: 'Nos vemos a las 8',
+              bg: 'jamaica',
+              font: 'stamp',
+              stickers: [{ e: '🌮', x: 0.5, y: 0.8, s: 1.2, r: 8 }],
+            }}
+          />
+          <StoryFrame
+            width={120}
+            story={{
+              kind: 'drawing',
+              bg: 'paper',
+              strokes: [{ c: 'jamaica', w: 18, p: [150, 300, 450, 800, 750, 300] }],
+            }}
+          />
+        </Row>
+        <StoriesRowView
+          myName="Alita"
+          partnerName="Caleb"
+          mineCount={0}
+          partnerCount={2}
+          partnerUnseen={1}
+          onPressMine={() => {}}
+          onPressPartner={() => {}}
+        />
+        <StoryProgress count={3} index={1} durationMs={60000} paused onComplete={() => {}} />
       </Section>
 
       <Section title="Garabatos y divisores">

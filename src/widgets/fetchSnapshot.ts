@@ -5,6 +5,9 @@ import { supabase } from '@/lib/supabase';
 import { latestMoodByUser } from '@/lib/mood';
 import { buildWidgetSnapshot, emptyWidgetSnapshot, type WidgetSnapshot } from '@/lib/widgets';
 
+import { fetchPartnerStory } from './partnerStory';
+import { readSnapshot } from './storage';
+
 export const FETCH_TIMEOUT_MS = 8000;
 
 class TimeoutError extends Error {}
@@ -21,6 +24,10 @@ async function read(): Promise<WidgetSnapshot> {
 
   const moods = await fetchMoods(state.couple.id, 20);
   const partnerMood = state.partner ? (latestMoodByUser(moods)[state.partner.id] ?? null) : null;
+  // La miniatura de la story se reutiliza del snapshot anterior si no cambió la story.
+  const partnerStory = state.partner
+    ? await fetchPartnerStory(state.partner.id, await readSnapshot())
+    : null;
   const nameOf = (p: typeof state.me) =>
     p ? { name: p.nickname || p.display_name, birthday: p.birthday } : null;
 
@@ -30,6 +37,8 @@ async function read(): Promise<WidgetSnapshot> {
     me: nameOf(state.me),
     partner: nameOf(state.partner),
     partnerMood,
+    partnerId: state.partner?.id ?? null,
+    partnerStory,
   });
 }
 

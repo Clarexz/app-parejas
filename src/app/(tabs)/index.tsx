@@ -7,6 +7,7 @@ import { useCouple, useToday } from '@/features/couple';
 import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
 import { usePushSoftAsk } from '@/features/notifications';
+import { StoriesRow } from '@/features/stories';
 import { haptic } from '@/lib/haptics';
 import { homeSummary } from '@/lib/home';
 import { formatStampIsoDate } from '@/lib/stampDate';
@@ -80,6 +81,11 @@ export default function HomeScreen() {
             />
           </View>
         </View>
+
+        <StoriesRow
+          onOpen={(userId) => router.push({ pathname: '/story/view', params: { user: userId } })}
+          onCreate={() => router.push('/stories')}
+        />
 
         <DaysTogether summary={summary} anniversary={anniversary} />
 

@@ -260,6 +260,128 @@ const sampleComments = () => [
   comment(3, PARTNER_ID, 'Pide los tacos que te gustan, yo invito.', 12, { [ME_ID]: '❤️' }),
 ];
 
+// --- Stories (Fase 6) -------------------------------------------------------------------------
+
+const sid = (n) => `88888888-8888-4888-8888-${String(n).padStart(12, '0')}`;
+const hoursAgo = (h) => minutesAgo(Math.round(h * 60));
+const inHours = (h) => new Date(Date.now() + h * 3_600_000).toISOString();
+
+/** Corazón vectorial en el lienzo de 900 x 1600 (puntos planos enteros). */
+const heartStroke = (cx, cy, k, c, w) => {
+  const p = [];
+  for (let i = 0; i <= 48; i++) {
+    const t = (i / 48) * Math.PI * 2;
+    const x = 16 * Math.sin(t) ** 3;
+    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    p.push(Math.round(cx + x * k), Math.round(cy - y * k));
+  }
+  return { c, w, p };
+};
+const waveStroke = (y0, amp, c, w, o) => {
+  const p = [];
+  for (let i = 0; i <= 30; i++) {
+    p.push(60 + i * 26, Math.round(y0 + Math.sin(i / 2.2) * amp));
+  }
+  return { c, w, ...(o ? { o } : {}), p };
+};
+const sampleStrokes = () => [
+  waveStroke(300, 70, 'cempasuchil', 40, 0.4),
+  heartStroke(450, 760, 22, 'jamaica', 18),
+  waveStroke(1250, 50, 'ink', 8),
+  { c: 'nopal', w: 18, p: [140, 1380, 260, 1330, 380, 1390, 500, 1330, 640, 1390, 760, 1340] },
+];
+
+/** Fila de story; `ago` en horas (la caducidad es creada + 24 h). */
+const storyRow = (n, userId, kind, o = {}) => {
+  const created = o.createdAt ?? hoursAgo(o.ago ?? 1);
+  return {
+    id: sid(n),
+    couple_id: COUPLE_ID,
+    user_id: userId,
+    kind,
+    media_path: kind === 'photo' ? `${COUPLE_ID}/${userId}/${n}.jpg` : null,
+    thumb_path: kind === 'photo' ? `${COUPLE_ID}/${userId}/${n}_thumb.jpg` : null,
+    text: o.text ?? null,
+    bg: kind === 'photo' ? null : (o.bg ?? 'paper'),
+    font: kind === 'text' ? (o.font ?? 'hand') : null,
+    strokes: kind === 'drawing' ? (o.strokes ?? sampleStrokes()) : null,
+    stickers: o.stickers ?? [],
+    created_at: created,
+    expires_at: o.expiresAt ?? new Date(Date.parse(created) + 24 * 3_600_000).toISOString(),
+    deleted_at: null,
+    views: (o.views ?? []).map(([user_id, ago]) => ({ user_id, seen_at: hoursAgo(ago) })),
+    reactions: (o.reactions ?? []).map(([user_id, emoji]) => ({ user_id, emoji })),
+    replies: (o.replies ?? []).map(([user_id, body, ago], i) => ({
+      id: `99999999-9999-4999-8999-${String(n * 10 + i).padStart(12, '0')}`,
+      story_id: sid(n),
+      couple_id: COUPLE_ID,
+      user_id,
+      body,
+      created_at: hoursAgo(ago),
+    })),
+  };
+};
+
+// Tu pareja: un texto sin ver (hace ~2 h) y una foto sin ver (hace ~40 min). Tuyas: un dibujo ya
+// visto con reacción y respuestas, y un texto que todavía no ve.
+const sampleStories = () => [
+  storyRow(1, PARTNER_ID, 'text', {
+    ago: 2.2,
+    text: 'Hoy me acordé de ti cuando pasé por el puesto de las quesadillas.',
+    bg: 'postit',
+    font: 'hand',
+    stickers: [{ e: '🌮', x: 0.78, y: 0.82, s: 1.6, r: 12 }],
+  }),
+  storyRow(2, PARTNER_ID, 'photo', {
+    ago: 0.7,
+    text: 'Domingo de pan dulce',
+    stickers: [{ e: '☕', x: 0.2, y: 0.2, s: 1.8, r: -10 }],
+  }),
+  storyRow(3, ME_ID, 'drawing', {
+    ago: 5,
+    bg: 'paper',
+    stickers: [{ e: '⭐', x: 0.82, y: 0.14, s: 1.4, r: 10 }],
+    views: [[PARTNER_ID, 4.5]],
+    reactions: [[PARTNER_ID, '😍']],
+    replies: [
+      [PARTNER_ID, 'Está bien bonito el corazón. Lo imprimo.', 4.4],
+      [ME_ID, 'Jajaja ya sabía que lo ibas a decir.', 4.2],
+    ],
+  }),
+  storyRow(4, ME_ID, 'text', {
+    ago: 1.5,
+    text: 'Pan dulce a las 8 p. m., ¿quién dijo que no?',
+    bg: 'jamaica',
+    font: 'body',
+  }),
+];
+
+// Archivo: mías, activas y caducadas de varios meses.
+const sampleArchive = () => [
+  storyRow(4, ME_ID, 'text', {
+    ago: 1.5,
+    text: 'Pan dulce a las 8 p. m., ¿quién dijo que no?',
+    bg: 'jamaica',
+    font: 'body',
+  }),
+  storyRow(3, ME_ID, 'drawing', { ago: 5, views: [[PARTNER_ID, 4.5]] }),
+  storyRow(11, ME_ID, 'photo', { ago: 30, text: 'Camino a casa' }),
+  storyRow(12, ME_ID, 'text', {
+    ago: 24 * 4,
+    text: 'Primer día de lluvia y ya quiero sopa.',
+    bg: 'nopal',
+    font: 'stamp',
+  }),
+  storyRow(13, ME_ID, 'drawing', { ago: 24 * 12, bg: 'ink' }),
+  storyRow(14, ME_ID, 'text', {
+    ago: 24 * 40,
+    text: 'Feliz mes. Gracias por aguantarme.',
+    bg: 'cempasuchil',
+    font: 'hand',
+  }),
+  storyRow(15, ME_ID, 'photo', { ago: 24 * 45, text: 'Atardecer en la azotea' }),
+];
+
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
 export const SCENARIOS = {
   // Cómo agregar widgets (Fase 5): pantalla con la pareja lista (prefijo `widgets-`).
@@ -270,6 +392,208 @@ export const SCENARIOS = {
     members: [member(ME_ID), member(PARTNER_ID)],
     moods: sampleMoods,
     routes: ['/widgets'],
+  },
+
+  // Stories (Fase 6): pestaña con la pareja sin ver y las mías (prefijo `stories-`).
+  stories_pestana: {
+    prefix: 'stories',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: ['/stories'],
+    actions: {
+      '/stories': async (page) => {
+        await page.waitForTimeout(500);
+      },
+    },
+  },
+  // Sheet "Pegar una story" abierto.
+  stories_hoja: {
+    prefix: 'stories-hoja',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: ['/stories'],
+    actions: {
+      '/stories': async (page) => {
+        await page.getByRole('button', { name: 'Pegar una story' }).click();
+        await page.waitForTimeout(900);
+      },
+    },
+  },
+  stories_vacio: {
+    prefix: 'stories-vacio',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: () => [],
+    routes: ['/stories', '/'],
+  },
+  stories_error: {
+    prefix: 'stories-error',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    storiesError: true,
+    routes: ['/stories'],
+  },
+  // Inicio con la fila de stories (pareja con stories sin ver).
+  stories_inicio: {
+    prefix: 'stories-inicio',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    stories: sampleStories,
+    routes: ['/'],
+  },
+  stories_crear_texto: {
+    prefix: 'stories-crear',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: () => [],
+    routes: ['/story/new?kind=text'],
+    actions: {
+      '/story/new?kind=text': async (page) => {
+        await page
+          .getByLabel('Texto de la story')
+          .fill('Cuando llegues hay café. Y si no hay, lo hago yo.');
+        await page.getByRole('radio', { name: 'Fondo cempasuchil' }).click();
+        await page.waitForTimeout(500);
+      },
+    },
+  },
+  stories_crear_dibujo: {
+    prefix: 'stories-crear',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: () => [],
+    routes: ['/story/new?kind=drawing'],
+    actions: {
+      '/story/new?kind=drawing': async (page) => {
+        const canvas = page.getByLabel('Lienzo para dibujar');
+        const box = await canvas.boundingBox();
+        const drag = async (points) => {
+          await page.mouse.move(
+            box.x + points[0][0] * box.width,
+            box.y + points[0][1] * box.height,
+          );
+          await page.mouse.down();
+          for (const [x, y] of points.slice(1)) {
+            await page.mouse.move(box.x + x * box.width, box.y + y * box.height, { steps: 6 });
+          }
+          await page.mouse.up();
+        };
+        await drag([
+          [0.15, 0.25],
+          [0.3, 0.18],
+          [0.5, 0.28],
+          [0.7, 0.18],
+          [0.85, 0.25],
+        ]);
+        await page.getByRole('radio', { name: 'Color Jamaica' }).click();
+        await page.getByText('Plumón', { exact: true }).click();
+        await drag([
+          [0.5, 0.6],
+          [0.3, 0.45],
+          [0.2, 0.55],
+          [0.5, 0.78],
+          [0.8, 0.55],
+          [0.7, 0.45],
+          [0.5, 0.6],
+        ]);
+        await page.getByRole('radio', { name: 'Color Cempasúchil' }).click();
+        await page.getByText('Marcatextos', { exact: true }).click();
+        await drag([
+          [0.2, 0.88],
+          [0.5, 0.9],
+          [0.8, 0.88],
+        ]);
+        await page.getByRole('button', { name: 'Pegar un sticker' }).click();
+        await page.waitForTimeout(700);
+        await page.getByRole('button', { name: 'Pegar ⭐' }).click();
+        await page.waitForTimeout(800);
+      },
+    },
+  },
+  // Visor de la story de tu pareja (primero la no vista más vieja, luego la foto).
+  stories_visor_pareja: {
+    prefix: 'stories-visor',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: [`/story/view?user=${PARTNER_ID}`, `/story/view?story=${sid(2)}`],
+    actions: {
+      [`/story/view?user=${PARTNER_ID}`]: async (page) => {
+        await page.waitForTimeout(600);
+      },
+    },
+  },
+  // Visor de una story mía: con visto, reacción y respuestas; y otra que todavía no ven.
+  stories_visor_mia: {
+    prefix: 'stories-visor-mia',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: [`/story/view?story=${sid(3)}`, `/story/view?story=${sid(4)}`],
+  },
+  stories_respuestas: {
+    prefix: 'stories-respuestas',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: [`/story/view?story=${sid(3)}`],
+    actions: {
+      [`/story/view?story=${sid(3)}`]: async (page) => {
+        await page.getByRole('button', { name: /Respuestas \(2\)/ }).click();
+        await page.waitForTimeout(900);
+      },
+    },
+  },
+  stories_arrancar: {
+    prefix: 'stories-arrancar',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleStories,
+    routes: [`/story/view?story=${sid(3)}`],
+    actions: {
+      [`/story/view?story=${sid(3)}`]: async (page) => {
+        await page.getByRole('button', { name: 'Arrancar esta story' }).click();
+        await page.waitForTimeout(900);
+      },
+    },
+  },
+  stories_caducada: {
+    prefix: 'stories-caducada',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: () => [],
+    routes: [`/story/view?story=${sid(99)}`],
+  },
+  stories_archivo: {
+    prefix: 'stories-archivo',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: sampleArchive,
+    routes: ['/story/archive'],
+  },
+  stories_archivo_vacio: {
+    prefix: 'stories-archivo-vacio',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    stories: () => [],
+    routes: ['/story/archive'],
   },
   signed_out: {
     session: false,
@@ -708,6 +1032,47 @@ export async function applyScenario(context, scenario) {
       return rows(route, request, scenario.prefs ?? []);
     }
     if (path === '/rest/v1/rpc/send_test_notification') return json(route, true);
+
+    // Stories (Fase 6)
+    if (path === '/rest/v1/stories') {
+      if (scenario.storiesError) return json(route, { message: 'boom' }, 500);
+      const all = (scenario.stories ?? (() => []))();
+      const idFilter = url.searchParams.get('id');
+      if (idFilter)
+        return rows(
+          route,
+          request,
+          all.filter((r) => idFilter === `eq.${r.id}`),
+        );
+      if (url.searchParams.get('user_id')) {
+        return json(
+          route,
+          all.filter((r) => r.user_id === ME_ID),
+        );
+      }
+      return json(
+        route,
+        all.filter((r) => Date.parse(r.expires_at) > Date.now()),
+      );
+    }
+    if (
+      path.startsWith('/rest/v1/rpc/') &&
+      /\/(mark_story_seen|react_to_story|delete_story|set_story_archive)$/.test(path)
+    ) {
+      return route.fulfill({ status: 204, headers: CORS });
+    }
+    if (path === '/rest/v1/rpc/reply_to_story') {
+      const body = request.postDataJSON?.() ?? {};
+      return json(route, {
+        id: '99999999-9999-4999-8999-999999999999',
+        story_id: body.p_story_id,
+        couple_id: COUPLE_ID,
+        user_id: ME_ID,
+        body: body.p_body ?? '',
+        created_at: new Date().toISOString(),
+      });
+    }
+    if (path === '/rest/v1/rpc/my_couple_id') return json(route, COUPLE_ID);
 
     if (path === '/rest/v1/question_categories') return json(route, CATEGORIES);
     if (path === '/rest/v1/rpc/get_streak') {

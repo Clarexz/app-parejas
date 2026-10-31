@@ -16,16 +16,18 @@ type Props = {
   tape: TapeTone;
   /** Descripción para lectores de pantalla de todo el widget. */
   label: string;
+  /** Ruta distinta de la de `WIDGET_ROUTES` (p. ej. abrir la story de tu pareja). */
+  route?: string;
   children: ReactNode;
 };
 
-export function WidgetSheet({ name, palette, size, tape, label, children }: Props) {
+export function WidgetSheet({ name, palette, size, tape, label, route, children }: Props) {
   const medium = isMedium(size);
   const svg = sheetSvg(palette, size, { tape, margin: medium });
   return (
     <OverlapWidget
       style={{ width: 'match_parent', height: 'match_parent' }}
-      {...tapProps(name, label)}
+      {...tapProps(name, label, route)}
     >
       <SvgWidget svg={svg} style={{ width: 'match_parent', height: 'match_parent' }} />
       <FlexWidget

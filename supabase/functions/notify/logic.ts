@@ -1,8 +1,17 @@
 // Lógica pura de la Edge Function `notify` (sin APIs de Deno ni de Node): la usan
 // index.ts (Deno) y los tests de Jest.
-import { answerCopy, commentCopy, moodCopy, nudgeCopy, testCopy, type Copy } from './copy.ts';
+import {
+  answerCopy,
+  commentCopy,
+  moodCopy,
+  nudgeCopy,
+  storyCopy,
+  storyReplyCopy,
+  testCopy,
+  type Copy,
+} from './copy.ts';
 
-export type NotifyKind = 'answer' | 'comment' | 'mood' | 'nudge' | 'test';
+export type NotifyKind = 'answer' | 'comment' | 'mood' | 'nudge' | 'story' | 'story_reply' | 'test';
 
 export type NotifyEvent = {
   kind: NotifyKind;
@@ -10,7 +19,7 @@ export type NotifyEvent = {
   actor: { id: string; name: string };
   recipient: { id: string; name: string };
   tokens: string[];
-  prefs: { answers: boolean; comments: boolean; moods: boolean; nudges: boolean };
+  prefs: { answers: boolean; comments: boolean; moods: boolean; nudges: boolean; stories: boolean };
   data: Record<string, unknown>;
 };
 
@@ -39,7 +48,15 @@ export type ServiceAccount = {
   token_uri?: string;
 };
 
-const KINDS: readonly string[] = ['answer', 'comment', 'mood', 'nudge', 'test'];
+const KINDS: readonly string[] = [
+  'answer',
+  'comment',
+  'mood',
+  'nudge',
+  'story',
+  'story_reply',
+  'test',
+];
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
 export const TOKEN_AUDIENCE = 'https://oauth2.googleapis.com/token';
 
@@ -74,6 +91,7 @@ export function parseEvent(json: unknown): NotifyEvent | null {
       comments: p.comments !== false,
       moods: p.moods !== false,
       nudges: p.nudges !== false,
+      stories: p.stories !== false,
     },
     data,
   };
@@ -148,6 +166,39 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
       data.url = '/question';
       copy = nudgeCopy({ ...base, seed: stableSeed(d.nudge_id) });
       break;
+    case 'story': {
+      // Con el aviso apagado igual llega un push de datos que solo refresca el widget de story.
+      if (!event.prefs.stories) {
+        return { visible: false, channelId: 'actividad', data: { kind: 'widget', scope: 'story' } };
+      }
+      const storyId = str(d.story_id);
+      if (storyId) data.story_id = storyId;
+      data.url = `/story/view?user=${event.actor.id}`;
+      const storyKind =
+        d.story_kind === 'text' || d.story_kind === 'drawing' ? d.story_kind : 'photo';
+      copy = storyCopy({
+        ...base,
+        seed: stableSeed(d.story_id),
+        storyKind,
+        text: typeof d.text === 'string' ? d.text : null,
+      });
+      break;
+    }
+    case 'story_reply': {
+      if (!event.prefs.stories) return null;
+      const storyId = str(d.story_id);
+      if (storyId) data.story_id = storyId;
+      const replyId = str(d.reply_id);
+      if (replyId) data.reply_id = replyId;
+      data.url = `/story/view?story=${storyId ?? ''}`;
+      copy = storyReplyCopy({
+        ...base,
+        seed: stableSeed(d.reply_id),
+        body: typeof d.body === 'string' ? d.body : '',
+        toAuthor: str(d.story_author_id) === event.recipient.id,
+      });
+      break;
+    }
     case 'test':
       data.url = '/settings/notifications';
       copy = testCopy({ ...base, seed: 0 });

@@ -103,7 +103,13 @@ try {
         await page.waitForTimeout(job.scenario ? 900 : 500);
         // Acciones del escenario para esta ruta (p. ej. abrir el selector de mood).
         await job.scenario?.actions?.[route]?.(page);
-        const name = route === '/' ? 'index' : route.replace(/^\//, '').replace(/\//g, '-');
+        const name =
+          route === '/'
+            ? 'index'
+            : route
+                .replace(/^\//, '')
+                .replace(/[^A-Za-z0-9-]+/g, '-')
+                .replace(/-+$/, '');
         const prefix = job.scenario?.prefix ? `${job.scenario.prefix}-` : '';
         const file = `${OUT}/${prefix}${name}-${colorScheme}.png`;
         // El scroll vive dentro de un ScrollView de RN-web: se mide su contenido y se agranda el

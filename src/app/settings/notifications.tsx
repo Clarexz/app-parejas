@@ -27,7 +27,7 @@ import {
 import { errorMessage } from '@/lib/errors';
 import { useTheme } from '@/theme';
 
-type KindKey = 'answers' | 'comments' | 'moods' | 'nudges';
+type KindKey = 'answers' | 'comments' | 'moods' | 'nudges' | 'stories';
 
 function kindRows(name: string | null): { key: KindKey; label: string; hint: string }[] {
   const who = name ?? 'tu pareja';
@@ -51,6 +51,11 @@ function kindRows(name: string | null): { key: KindKey; label: string; hint: str
       key: 'nudges',
       label: 'Cuando te recuerdan la pregunta',
       hint: `Un toque de ${who} para que contestes.`,
+    },
+    {
+      key: 'stories',
+      label: 'Stories nuevas y respuestas',
+      hint: `Cuando ${who} pega una story o responde a la tuya.`,
     },
   ];
 }

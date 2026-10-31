@@ -7,7 +7,8 @@
 #
 # Comprueba: (a) contenedores sanos, (b) Auth health, (c) PostgREST, (d) Storage,
 # (e) tablas/RLS/migraciones en la BD, (f) que Postgres y el gateway NO estén expuestos,
-# (g) HTTPS con certificado válido, (h) Edge Function notify protegida y config de push.
+# (g) HTTPS con certificado válido, (h) Edge Function notify protegida y config de push,
+# (i) stories-cleanup protegida y job de pg_cron.
 # Imprime ✅/❌ por línea; sale con código 1 si algo falla.
 # =====================================================================================
 set -euo pipefail
@@ -20,7 +21,7 @@ LOCAL=0
 for arg in "$@"; do
   case "$arg" in
     --local)   LOCAL=1 ;;
-    -h|--help) sed -n '2,11p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,12p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) die "Opción desconocida: $arg (usa --local)" ;;
   esac
 done
@@ -93,7 +94,7 @@ espera_codigo 200 "Storage (/storage/v1/bucket, service key) -> 200" "Storage (/
 
 # --- (e) Base de datos --------------------------------------------------------------------
 if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || true)" == "true" ]]; then
-  for t in profiles couples couple_members moods question_categories questions daily_questions answers answer_comments nudges; do
+  for t in profiles couples couple_members moods question_categories questions daily_questions answers answer_comments nudges stories story_views story_reactions story_replies; do
     rls="$(psql_db -At -c "select c.relrowsecurity from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relname = '$t' and c.relkind in ('r','p')" 2>/dev/null || true)"
     case "$rls" in
       t) ok "Tabla public.$t existe con RLS activada" ;;
@@ -218,6 +219,24 @@ if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || t
     warn "private.settings no tiene notify_url/notify_secret: no saldrán pushes (corre set-notify-config.sh)"
   fi
 fi
+
+# --- (i) Stories: Edge Function stories-cleanup y job de pg_cron -----------------------------
+api_request POST "$BASE/functions/v1/stories-cleanup" "$ANON_KEY" '{}'
+case "$HTTP_CODE" in
+  401) ok "stories-cleanup desplegada y protegida (sin secreto -> 401)" ;;
+  404) falla "stories-cleanup no está desplegada (404): corre deploy.sh y revisa supabase/functions/stories-cleanup" ;;
+  500) warn "stories-cleanup responde 500: probablemente falta NOTIFY_SECRET (corre set-notify-config.sh)" ;;
+  *)   falla "stories-cleanup sin secreto -> $HTTP_CODE (esperado 401)" ;;
+esac
+if [[ "$(docker inspect -f '{{.State.Running}}' "$DB_CONTAINER" 2>/dev/null || true)" == "true" ]]; then
+  njob="$(psql_db -At -c "select count(*) from cron.job where jobname = 'app-parejas-stories-cleanup' and active" 2>/dev/null || true)"
+  if [[ "$njob" == "1" ]]; then
+    ok "Job de pg_cron app-parejas-stories-cleanup activo"
+  else
+    warn "No hay job de pg_cron para la limpieza de stories (¿pg_cron disponible? ver docs/SERVIDOR.md §5.2): las stories borradas no se limpiarán del bucket"
+  fi
+fi
+
 if ! grep -qE '^FIREBASE_SERVICE_ACCOUNT_B64=.+' "${FUNCTIONS_ENV_FILE:-$SECRETS_DIR/functions.env}" 2>/dev/null; then
   warn "functions.env no tiene FIREBASE_SERVICE_ACCOUNT_B64: sube la cuenta de servicio y corre set-notify-config.sh"
 fi

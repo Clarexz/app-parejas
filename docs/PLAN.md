@@ -1027,7 +1027,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
 | 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
 | 5 Widgets Android | ✅ Cerrada (2026-10-30) | #9 | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
-| 6 Stories | ⏳ Pendiente | | |
+| 6 Stories | 🟡 Código listo, falta deploy (2026-10-31) | #10 | Stories de foto/texto/dibujo vectorial con stickers, visor con vistos/reacciones/respuestas, archivo personal, limpieza horaria con pg_cron + `stories-cleanup`, push, fila en Inicio y widget "Story de tu pareja" (D68–D72). CI verde. **Pendiente: desplegar en el VPS y publicar el APK v0.6.0** (ver §10.1). |
 | 7 Memorias y mapa | ⏳ Pendiente | | |
 | 8 Eventos, listas, distancia | ⏳ Pendiente | | |
 | 9 Juegos | ⏳ Pendiente | | |
@@ -1068,6 +1068,18 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   2026-10-30 a pedido del usuario. Falta probar el APK **v0.5.0** en los dos celulares con
   `docs/releases/v0.5.0.md` (sobre todo que el widget de mood cambie con la app cerrada y que el
   dibujo nativo se vea bien); si algo falla, se corrige como parche `v0.5.P`.
+- **Fase 6 (deploy pendiente):** mergeada a `main` el 2026-10-31 **sin desplegar** (el usuario no
+  tenía acceso al VPS). **No publicar ni instalar el APK v0.6.0 antes del deploy**: sin las tablas
+  de stories la pestaña falla y los widgets dejan de refrescarse. Las fases siguientes parten de
+  `main` y siguen sin esperar; cuando haya acceso, **un solo deploy de `main` (o de la rama de la
+  fase más reciente)** aplica en orden todas las migraciones acumuladas. Al desplegar, además de
+  `deploy.sh` y el smoke test: (a) verificar el job de pg_cron con
+  `select jobname, schedule, active from cron.job;` (debe existir `app-parejas-stories-cleanup`,
+  `23 * * * *`; si no, reportarlo, no crearlo a mano); (b) probar la limpieza con
+  `select private.run_stories_cleanup();` y revisar `net._http_response` (200) y
+  `compose logs --tail=30 functions`; (c) `scripts/server/test-push.sh <correo>`. No requiere
+  secretos nuevos. Después, lanzar `release-apk.yml` con las notas de `docs/releases/v0.6.0.md`
+  (o el APK de la fase más reciente, si ya se acumularon) y probar con esa lista.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":

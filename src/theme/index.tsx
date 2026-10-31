@@ -31,8 +31,19 @@ export type Theme = {
 
 const ThemeContext = createContext<Theme | null>(null);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const isDark = useColorScheme() === 'dark';
+/**
+ * `scheme` fuerza claro u oscuro en una parte del árbol (el visor de stories siempre es "de
+ * noche"); sin él se sigue el modo del sistema.
+ */
+export function ThemeProvider({
+  children,
+  scheme,
+}: {
+  children: ReactNode;
+  scheme?: 'light' | 'dark';
+}) {
+  const system = useColorScheme();
+  const isDark = (scheme ?? system) === 'dark';
   const theme = useMemo<Theme>(() => {
     const colors = isDark ? darkColors : lightColors;
     return {

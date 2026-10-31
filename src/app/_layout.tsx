@@ -11,6 +11,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -21,6 +22,7 @@ import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
 import { NotificationsBridge } from '@/features/notifications';
 import { QuestionsEvents } from '@/features/questions';
+import { StoriesEvents } from '@/features/stories';
 import { WidgetsBridge } from '@/features/widgets';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
@@ -85,6 +87,15 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="history" />
             <Stack.Screen name="widgets" />
             <Stack.Screen name="category/[slug]" />
+            <Stack.Screen
+              name="story/new"
+              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+            />
+            <Stack.Screen
+              name="story/view"
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+            />
+            <Stack.Screen name="story/archive" />
           </Stack.Protected>
           <Stack.Protected guard={stage === 'error'} redirectTo={redirectTo}>
             <Stack.Screen name="error" />
@@ -96,6 +107,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
         <LoadingView />
       )}
       {stage === 'ready' ? <QuestionsEvents /> : null}
+      {stage === 'ready' ? <StoriesEvents /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
       {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
     </>
@@ -117,14 +129,16 @@ export default function RootLayout() {
   if (!ready) return null;
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider>
-        <QueryProvider>
-          <ToastProvider>
-            <ThemedStack fontsReady={ready} />
-          </ToastProvider>
-        </QueryProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            <ToastProvider>
+              <ThemedStack fontsReady={ready} />
+            </ToastProvider>
+          </QueryProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

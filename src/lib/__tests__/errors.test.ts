@@ -41,6 +41,18 @@ describe('errorMessage', () => {
     expect(errorMessage({ code: 'P0001', message: 'invalid_mood' })).toMatch(/emoji/);
   });
 
+  it('traduce las claves de stories', () => {
+    for (const key of ['invalid_story', 'too_many_stories', 'story_not_found', 'invalid_reply']) {
+      const msg = errorMessage({ code: 'P0001', message: key });
+      expect(msg).not.toMatch(/Algo no salió/);
+      expect(msg).not.toBe(key);
+    }
+    expect(errorMessage({ code: 'P0001', message: 'story_not_found' })).toMatch(/story/);
+    expect(errorMessage({ code: 'P0001', message: 'too_many_stories' })).toMatch(/activas/);
+    // invalid_reaction ya existe (comentarios) y también lo usa react_to_story.
+    expect(errorMessage({ code: 'P0001', message: 'invalid_reaction' })).toMatch(/reacción/);
+  });
+
   it('cubre check_violation y genérico', () => {
     expect(errorMessage({ code: '23514' })).toMatch(/no cumple/);
     expect(errorMessage(new Error('boom'))).toMatch(/Algo no salió/);

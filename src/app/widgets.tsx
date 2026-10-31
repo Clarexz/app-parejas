@@ -31,6 +31,10 @@ const INFO: Record<WidgetName, { title: string; text: string }> = {
     title: 'Cuenta regresiva',
     text: 'Lo próximo que viene: su aniversario, sus cumples y sus hitos.',
   },
+  PartnerStory: {
+    title: 'Story de tu pareja',
+    text: 'Lo último que pegó tu pareja, foto, nota o dibujo. Toca para verla completa.',
+  },
 };
 
 function WidgetCard({ name, model }: { name: WidgetName; model: ReturnType<typeof previewModel> }) {
@@ -129,7 +133,7 @@ export default function WidgetsScreen() {
         <Note tape={false} tilt={-1}>
           <Text variant="small" style={{ color: colors.onPostit }}>
             Se actualizan solos más o menos cada 30 minutos, al abrir la app y cuando tu pareja
-            cambia su mood.
+            cambia su mood o pega una story.
           </Text>
         </Note>
 
