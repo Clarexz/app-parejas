@@ -36,6 +36,11 @@ const BY_CODE: Record<string, string> = {
   nudge_too_soon: 'Ya le recordaste hace un ratito. Dale un poco de tiempo antes de insistir.',
   no_partner: 'Todavía no hay pareja a quién recordarle. Cuando se una, podrás hacerlo.',
   invalid_nudge: 'Ese recordatorio no se pudo enviar. Vuelve a intentar.',
+  // RPC de stories
+  invalid_story: 'Esa story no se pudo publicar. Revisa que tenga contenido y no sea muy larga.',
+  too_many_stories: 'Ya tienes muchas stories activas. Espera a que caduquen o arranca alguna.',
+  story_not_found: 'Esa story ya no está. Pudo caducar o haberla quitado su autor.',
+  invalid_reply: 'Esa respuesta no se pudo enviar. Escribe algo corto e intenta de nuevo.',
   // RPC de notificaciones
   invalid_token: 'No pudimos registrar este celular para los avisos. Vuelve a intentar.',
 };

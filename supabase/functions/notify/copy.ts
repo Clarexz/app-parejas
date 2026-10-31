@@ -143,6 +143,67 @@ export function nudgeCopy(i: CopyBase): Copy {
   );
 }
 
+export function storyCopy(
+  i: CopyBase & { storyKind: 'photo' | 'text' | 'drawing'; text: string | null },
+): Copy {
+  const a = short(i.actor);
+  if (i.storyKind === 'text') {
+    const text = i.text ? truncate(i.text, 100) : '';
+    if (text) {
+      return pick(
+        [
+          finish(`${a} pegó una story`, text),
+          finish(`${a} escribió una story`, text),
+          finish(`Nueva story de ${a}`, text),
+        ],
+        i.seed,
+      );
+    }
+  }
+  if (i.storyKind === 'drawing') {
+    return pick(
+      [
+        finish(`${a} pegó una story`, 'Hizo un dibujo para ti. Dura 24 horas.'),
+        finish(`${a} dibujó una story`, 'Pásate a verla antes de que se borre.'),
+        finish(`Nuevo dibujo de ${a}`, 'Está en sus stories, por si quieres verlo.'),
+      ],
+      i.seed,
+    );
+  }
+  return pick(
+    [
+      finish(`${a} pegó una story`, 'Una foto nueva. Dura 24 horas, no se te pase.'),
+      finish(`${a} subió una story`, 'Pásate a verla antes de que se borre.'),
+      finish(`Nueva story de ${a}`, 'Échale un ojo cuando puedas.'),
+    ],
+    i.seed,
+  );
+}
+
+export function storyReplyCopy(i: CopyBase & { body: string; toAuthor: boolean }): Copy {
+  const a = short(i.actor);
+  const text = truncate(i.body, 100);
+  const body = text || 'Pásate a leerla.';
+  if (i.toAuthor) {
+    return pick(
+      [
+        finish(`${a} respondió tu story`, body),
+        finish(`${a} te contestó en tu story`, body),
+        finish(`Respuesta de ${a} a tu story`, body),
+      ],
+      i.seed,
+    );
+  }
+  return pick(
+    [
+      finish(`${a} te escribió en su story`, body),
+      finish(`${a} respondió en su story`, body),
+      finish(`Mensaje de ${a} en su story`, body),
+    ],
+    i.seed,
+  );
+}
+
 export function testCopy(i: CopyBase): Copy {
   const r = short(i.recipient, 20);
   return pick(

@@ -28,6 +28,7 @@ let mockPrefs = {
   comments: true,
   moods: true,
   nudges: true,
+  stories: true,
   reminderEnabled: true,
   reminderTime: '21:00',
 };
@@ -85,6 +86,12 @@ describe('NotificationSettingsScreen', () => {
     await renderScreen();
     await fireEvent.press(screen.getByRole('switch', { name: 'Cuando Caleb contesta' }));
     expect(mockUpdate).toHaveBeenCalledWith({ answers: false }, expect.any(Object));
+  });
+
+  it('el aviso de stories se puede apagar', async () => {
+    await renderScreen();
+    await fireEvent.press(screen.getByRole('switch', { name: 'Stories nuevas y respuestas' }));
+    expect(mockUpdate).toHaveBeenCalledWith({ stories: false }, expect.any(Object));
   });
 
   it('cambia la hora del recordatorio', async () => {

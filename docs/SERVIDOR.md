@@ -144,6 +144,45 @@ INSERT en answers / answer_comments / moods / nudges
   de los widgets. Si quien recibe apagó el aviso de mood, `notify` igual manda un push **de datos**
   (`kind: 'widget'`, sin título, no se muestra) para refrescar su widget de mood.
 
+### 5.2 Stories (Fase 6)
+
+```
+pg_cron (cada hora, minuto 23)  select private.run_stories_cleanup()
+  └─ pg_net: POST http://functions:9000/stories-cleanup   (header x-notify-secret)
+       └─ Edge Function stories-cleanup (service role)
+            ├─ rpc stories_cleanup_batch  → { story_ids, paths, items }
+            ├─ DELETE /storage/v1/object/stories  {prefixes:[…]}  (lotes de 100)
+            └─ rpc stories_cleanup_commit → borra las filas cuyos archivos ya se borraron
+```
+
+- **Bucket** `stories` (privado, JPEG, 4 MB): lo crea `deploy.sh` desde `server/buckets.json`.
+  Rutas `<couple_id>/<user_id>/<uuid>.jpg` y `<uuid>_thumb.jpg`. Las políticas de
+  `storage.objects` las crea la migración (subir solo a tu carpeta; leer lo tuyo o la media de una
+  story activa de tu pareja; nadie borra desde la app).
+- **Caducidad:** a las 24 h (`expires_at`) la pareja deja de ver la story (RLS). Su autor la
+  conserva en su **archivo personal** salvo que apague "Guardar mis stories en mi archivo"
+  (`profiles.story_archive`). Borrar ("Arrancar") es soft delete (`deleted_at`).
+- **Qué limpia el job:** la media de stories borradas, la de las caducadas cuyo autor apagó el
+  archivo y los archivos huérfanos del bucket (más de 24 h sin story). Después borra esas filas. Las
+  caducadas con archivo **no** se tocan. Storage protege `storage.objects`, por eso no se borra con
+  SQL sino con la API de Storage desde la Edge Function.
+- **Configuración:** no hay nada nuevo. Usa `notify_secret` y `notify_url` de `private.settings`
+  (`set-notify-config.sh`): la URL se deriva cambiando `/notify` por `/stories-cleanup`. Para otra
+  URL: `insert into private.settings (key, value) values ('stories_cleanup_url', '…') on conflict
+  (key) do update set value = excluded.value;`. Sin configuración el job no hace nada.
+- **Diagnóstico del job:** `select jobid, jobname, schedule, active from cron.job;` y
+  `select status, return_message, start_time from cron.job_run_details order by start_time desc limit 5;`.
+  Si pg_cron no estaba disponible al migrar, la migración lo avisa con `NOTICE` y no programa nada
+  (habilita la extensión y vuelve a correr `deploy.sh` o programa el job a mano con
+  `select cron.schedule('app-parejas-stories-cleanup', '23 * * * *', 'select private.run_stories_cleanup()');`).
+- **Limpieza a mano:** `select private.run_stories_cleanup();` (encola la petición; el resultado en
+  `select id, status_code, left(content, 200) from net._http_response order by id desc limit 5;`
+  y en `compose logs --tail=50 functions`, línea `stories-cleanup: removed=… committed=… failed=…`).
+  Cada ejecución procesa hasta 10 lotes de 200 stories; si queda más, sigue la hora siguiente.
+- **Si un archivo no se puede borrar** de Storage, su story no se confirma y se reintenta en la
+  siguiente hora (`failed` en el log).
+- Los pushes de story y de respuesta usan el mecanismo de §5.1 (preferencia `stories`).
+
 ## 6. Respaldos (cron)
 
 ```cron

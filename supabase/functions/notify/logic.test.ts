@@ -24,7 +24,7 @@ function raw(
     actor: { id: 'u-1', name: 'Ana' },
     recipient: { id: 'u-2', name: 'Luis' },
     tokens: ['tok-aaaaaaaaaaaaaaaaaaaa'],
-    prefs: { answers: true, comments: true, moods: true, nudges: true, ...prefs },
+    prefs: { answers: true, comments: true, moods: true, nudges: true, stories: true, ...prefs },
     data,
   };
 }
@@ -70,9 +70,66 @@ describe('buildNotification', () => {
     const { message } = buildFcmMessage('tok', b!);
     expect(message.data).toEqual({ kind: 'widget', scope: 'mood' });
   });
+  it('story con el aviso apagado manda un push de datos para el widget', () => {
+    const b = buildNotification(ev('story', { story_id: 's1' }, { stories: false }));
+    expect(b).toEqual({
+      visible: false,
+      channelId: 'actividad',
+      data: { kind: 'widget', scope: 'story' },
+    });
+  });
+  it('story_reply con el aviso apagado no manda nada', () => {
+    expect(buildNotification(ev('story_reply', { story_id: 's1' }, { stories: false }))).toBeNull();
+  });
+  it('story: copy, ruta al perfil de quien la pegó y canal', () => {
+    const b = buildNotification(ev('story', { story_id: 's1', story_kind: 'text', text: 'Hola' }));
+    expect(b?.visible).toBe(true);
+    expect(b?.channelId).toBe('actividad');
+    expect(b?.title).toContain('Ana');
+    expect(b?.body).toBe('Hola');
+    expect(b?.data).toEqual({ kind: 'story', url: '/story/view?user=u-1', story_id: 's1' });
+    const photo = buildNotification(ev('story', { story_id: 's2', story_kind: 'photo' }));
+    expect(photo?.title).toBe('Ana pegó una story');
+  });
+  it('story_reply: ruta a la story y copy según si quien recibe es el autor', () => {
+    const toAuthor = buildNotification(
+      ev('story_reply', {
+        story_id: 's1',
+        reply_id: 'r1',
+        body: 'Qué lindo',
+        story_author_id: 'u-2',
+      }),
+    );
+    expect(toAuthor?.title).toMatch(/Ana.*tu story/);
+    expect(toAuthor?.body).toBe('Qué lindo');
+    expect(toAuthor?.data).toEqual({
+      kind: 'story_reply',
+      url: '/story/view?story=s1',
+      story_id: 's1',
+      reply_id: 'r1',
+    });
+    const toOther = buildNotification(
+      ev('story_reply', {
+        story_id: 's1',
+        reply_id: 'r1',
+        body: 'Gracias',
+        story_author_id: 'u-1',
+      }),
+    );
+    expect(toOther?.title).not.toMatch(/tu story/);
+  });
+  it('prefs.stories se interpreta como encendido si falta', () => {
+    const e = parseEvent({ ...raw('story'), prefs: { answers: true } });
+    expect(e?.prefs.stories).toBe(true);
+    expect(parseEvent(raw('story', {}, { stories: false }))?.prefs.stories).toBe(false);
+  });
   it('test ignora las preferencias', () => {
     const b = buildNotification(
-      ev('test', {}, { answers: false, comments: false, moods: false, nudges: false }),
+      ev(
+        'test',
+        {},
+        { answers: false, comments: false, moods: false, nudges: false, stories: false },
+      ),
     );
     expect(b?.visible).toBe(true);
     expect(b?.data.url).toBe('/settings/notifications');

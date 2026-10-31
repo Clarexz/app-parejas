@@ -250,6 +250,7 @@ export type Database = {
           nudges: boolean;
           reminder_enabled: boolean;
           reminder_time: string;
+          stories: boolean;
           updated_at: string;
           user_id: string;
         };
@@ -261,6 +262,7 @@ export type Database = {
           nudges?: boolean;
           reminder_enabled?: boolean;
           reminder_time?: string;
+          stories?: boolean;
           updated_at?: string;
           user_id: string;
         };
@@ -271,6 +273,7 @@ export type Database = {
           nudges?: boolean;
           reminder_enabled?: boolean;
           reminder_time?: string;
+          stories?: boolean;
           updated_at?: string;
           user_id?: string;
         };
@@ -320,6 +323,7 @@ export type Database = {
           display_name: string | null;
           id: string;
           nickname: string | null;
+          story_archive: boolean;
         };
         ComputedFields: never;
         Insert: {
@@ -329,6 +333,7 @@ export type Database = {
           display_name?: string | null;
           id: string;
           nickname?: string | null;
+          story_archive?: boolean;
         };
         Update: {
           avatar_path?: string | null;
@@ -337,6 +342,7 @@ export type Database = {
           display_name?: string | null;
           id?: string;
           nickname?: string | null;
+          story_archive?: boolean;
         };
         Relationships: [];
       };
@@ -446,6 +452,166 @@ export type Database = {
           },
         ];
       };
+      stories: {
+        Row: {
+          bg: string | null;
+          couple_id: string;
+          created_at: string;
+          deleted_at: string | null;
+          expires_at: string;
+          font: string | null;
+          id: string;
+          kind: string;
+          media_path: string | null;
+          stickers: NonNullable<Json>;
+          strokes: Json | null;
+          text: string | null;
+          thumb_path: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          bg?: string | null;
+          couple_id: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          expires_at?: string;
+          font?: string | null;
+          id?: string;
+          kind: string;
+          media_path?: string | null;
+          stickers?: NonNullable<Json>;
+          strokes?: Json | null;
+          text?: string | null;
+          thumb_path?: string | null;
+          user_id: string;
+        };
+        Update: {
+          bg?: string | null;
+          couple_id?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          expires_at?: string;
+          font?: string | null;
+          id?: string;
+          kind?: string;
+          media_path?: string | null;
+          stickers?: NonNullable<Json>;
+          strokes?: Json | null;
+          text?: string | null;
+          thumb_path?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'stories_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      story_reactions: {
+        Row: {
+          created_at: string;
+          emoji: string;
+          story_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          emoji: string;
+          story_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          emoji?: string;
+          story_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'story_reactions_story_id_fkey';
+            columns: ['story_id'];
+            isOneToOne: false;
+            referencedRelation: 'stories';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      story_replies: {
+        Row: {
+          body: string;
+          couple_id: string;
+          created_at: string;
+          id: string;
+          story_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          body: string;
+          couple_id: string;
+          created_at?: string;
+          id?: string;
+          story_id: string;
+          user_id: string;
+        };
+        Update: {
+          body?: string;
+          couple_id?: string;
+          created_at?: string;
+          id?: string;
+          story_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'story_replies_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'story_replies_story_id_fkey';
+            columns: ['story_id'];
+            isOneToOne: false;
+            referencedRelation: 'stories';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      story_views: {
+        Row: {
+          seen_at: string;
+          story_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          seen_at?: string;
+          story_id: string;
+          user_id: string;
+        };
+        Update: {
+          seen_at?: string;
+          story_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'story_views_story_id_fkey';
+            columns: ['story_id'];
+            isOneToOne: false;
+            referencedRelation: 'stories';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -503,9 +669,44 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      create_story: {
+        Args: {
+          p_bg?: string;
+          p_font?: string;
+          p_kind: string;
+          p_media_path?: string;
+          p_stickers?: Json;
+          p_strokes?: Json;
+          p_text?: string;
+          p_thumb_path?: string;
+        };
+        Returns: {
+          bg: string | null;
+          couple_id: string;
+          created_at: string;
+          deleted_at: string | null;
+          expires_at: string;
+          font: string | null;
+          id: string;
+          kind: string;
+          media_path: string | null;
+          stickers: NonNullable<Json>;
+          strokes: Json | null;
+          text: string | null;
+          thumb_path: string | null;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'stories';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       delete_answer: { Args: { p_question_id: string }; Returns: undefined };
       delete_comment: { Args: { p_comment_id: string }; Returns: undefined };
       delete_push_tokens: { Args: { p_tokens: string[] }; Returns: number };
+      delete_story: { Args: { p_story_id: string }; Returns: undefined };
       fold_text: { Args: { p_text: string }; Returns: string };
       generate_invite_code: { Args: Record<PropertyKey, never>; Returns: string };
       get_category_questions: {
@@ -550,6 +751,7 @@ export type Database = {
         };
       };
       leave_couple: { Args: Record<PropertyKey, never>; Returns: undefined };
+      mark_story_seen: { Args: { p_story_id: string }; Returns: undefined };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
       pick_daily_question: { Args: { p_couple_id: string }; Returns: string };
       question_card: {
@@ -592,7 +794,25 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      react_to_story: { Args: { p_emoji: string; p_story_id: string }; Returns: undefined };
       register_push_token: { Args: { p_token: string }; Returns: undefined };
+      reply_to_story: {
+        Args: { p_body: string; p_story_id: string };
+        Returns: {
+          body: string;
+          couple_id: string;
+          created_at: string;
+          id: string;
+          story_id: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'story_replies';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       require_couple: { Args: Record<PropertyKey, never>; Returns: string };
       send_nudge: {
         Args: { p_kind?: string };
@@ -630,6 +850,12 @@ export type Database = {
         };
       };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
+      set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
+      stories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
+      stories_cleanup_commit: { Args: { p_story_ids: string[] }; Returns: number };
+      story_path_readable: { Args: { p_name: string }; Returns: boolean };
+      story_path_writable: { Args: { p_name: string }; Returns: boolean };
+      story_visible: { Args: { p_story_id: string }; Returns: boolean };
       submit_answer: {
         Args: { p_choice?: number; p_question_id: string; p_text?: string };
         Returns: Json;

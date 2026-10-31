@@ -5,6 +5,8 @@ import {
   commentCopy,
   moodCopy,
   nudgeCopy,
+  storyCopy,
+  storyReplyCopy,
   testCopy,
   truncate,
   type Copy,
@@ -59,6 +61,14 @@ describe('copys', () => {
       within(moodCopy({ ...b, emoji: '😀', note: LONG_TEXT }));
       within(moodCopy({ ...b, emoji: '😀', note: null }));
       within(nudgeCopy(b));
+      for (const storyKind of ['photo', 'text', 'drawing'] as const) {
+        within(storyCopy({ ...b, storyKind, text: LONG_TEXT }));
+        within(storyCopy({ ...b, storyKind, text: null }));
+      }
+      for (const toAuthor of [true, false]) {
+        within(storyReplyCopy({ ...b, body: LONG_TEXT, toAuthor }));
+        within(storyReplyCopy({ ...b, body: '', toAuthor }));
+      }
       within(testCopy(b));
     }
   });
@@ -103,11 +113,36 @@ describe('copys', () => {
     expect(c.title).toContain('🥹');
     expect(c.body).toBe('Día largo');
   });
+  it('storyCopy: título con el nombre y cuerpo según el tipo', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
+    expect(storyCopy({ ...b, storyKind: 'photo', text: null }).title).toBe('Ale pegó una story');
+    const text = storyCopy({ ...b, storyKind: 'text', text: 'Te quiero harto' });
+    expect(text.title).toContain('Ale');
+    expect(text.body).toBe('Te quiero harto');
+    // Una story de texto sin texto cae al aviso genérico.
+    expect(storyCopy({ ...b, storyKind: 'text', text: null }).body.length).toBeGreaterThan(0);
+    expect(storyCopy({ ...b, storyKind: 'drawing', text: null }).body).toMatch(
+      /dibujo|verla|verlo/,
+    );
+  });
+  it('storyReplyCopy distingue si quien recibe es el autor de la story', () => {
+    const b = { actor: 'Ale', recipient: 'Beto', seed: 0, body: 'Qué bonita' };
+    const toAuthor = storyReplyCopy({ ...b, toAuthor: true });
+    expect(toAuthor.title).toBe('Ale respondió tu story');
+    expect(toAuthor.body).toBe('Qué bonita');
+    for (const seed of seeds) {
+      expect(storyReplyCopy({ ...b, seed, toAuthor: true }).title).toMatch(/story/);
+      expect(storyReplyCopy({ ...b, seed, toAuthor: false }).title).not.toMatch(/tu story/);
+    }
+  });
   it('no usa "tu pareja ha respondido" ni signos de exclamación', () => {
     for (const seed of seeds) {
       const all = [
         answerCopy({ ...base, seed, daily: true, recipientAnswered: false, questionText: null }),
         nudgeCopy({ ...base, seed }),
+        storyCopy({ ...base, seed, storyKind: 'photo', text: null }),
+        storyCopy({ ...base, seed, storyKind: 'drawing', text: null }),
+        storyReplyCopy({ ...base, seed, body: 'hola', toAuthor: true }),
         testCopy({ ...base, seed }),
       ];
       for (const c of all) expect(`${c.title} ${c.body}`).not.toMatch(/[¡!]|ha respondido/i);
