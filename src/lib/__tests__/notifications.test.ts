@@ -26,6 +26,8 @@ describe('routeForNotification', () => {
     '/question',
     '/moods',
     '/settings/notifications',
+    '/love-languages',
+    '/visits',
     `/question?id=${UUID}`,
     '/question?day=2026-11-02',
     `/story/view?user=${UUID}`,

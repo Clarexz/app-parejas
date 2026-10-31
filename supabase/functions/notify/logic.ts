@@ -5,12 +5,14 @@ import {
   commentCopy,
   drawingCopy,
   gameCopy,
+  loveLanguageCopy,
   memoryCopy,
   moodCopy,
   nudgeCopy,
   storyCopy,
   storyReplyCopy,
   testCopy,
+  visitCopy,
   type Copy,
 } from './copy.ts';
 
@@ -25,7 +27,9 @@ export type NotifyKind =
   | 'game'
   | 'drawing'
   | 'widget'
-  | 'test';
+  | 'test'
+  | 'love_language'
+  | 'visit';
 
 export type NotifyEvent = {
   kind: NotifyKind;
@@ -82,6 +86,8 @@ const KINDS: readonly string[] = [
   'drawing',
   'widget',
   'test',
+  'love_language',
+  'visit',
 ];
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
 export const TOKEN_AUDIENCE = 'https://oauth2.googleapis.com/token';
@@ -267,6 +273,30 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
         seed: stableSeed(d.drawing_id),
         event: d.event === 'solved' || d.event === 'gave_up' ? d.event : 'ready',
         word: str(d.word),
+      });
+      break;
+    }
+    case 'love_language':
+      // Sin push de datos. Nunca se incluye el resultado del test.
+      if (!event.prefs.games) return null;
+      data.url = '/love-languages';
+      copy = loveLanguageCopy({
+        ...base,
+        seed: stableSeed(event.actor.id),
+        recipientDone: d.recipient_done === true,
+      });
+      break;
+    case 'visit': {
+      if (!event.prefs.memories) return null;
+      const visitId = str(d.visit_id);
+      if (visitId) data.visit_id = visitId;
+      data.url = '/visits';
+      copy = visitCopy({
+        ...base,
+        seed: stableSeed(d.visit_id),
+        startDate: str(d.start_date) ?? '',
+        endDate: str(d.end_date) ?? str(d.start_date) ?? '',
+        place: str(d.place),
       });
       break;
     }

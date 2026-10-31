@@ -301,3 +301,106 @@ export function testCopy(i: CopyBase): Copy {
     i.seed,
   );
 }
+
+export function loveLanguageCopy(i: CopyBase & { recipientDone: boolean }): Copy {
+  const a = short(i.actor);
+  if (i.recipientDone) {
+    return pick(
+      [
+        finish(`${a} ya terminó el test`, 'Ya pueden comparar sus lenguajes del amor.'),
+        finish('Ya están los dos resultados', `Entra a ver qué idioma habla cada quien con ${a}.`),
+        finish('Lenguajes del amor', `${a} terminó su test. Comparen resultados cuando quieran.`),
+      ],
+      i.seed,
+    );
+  }
+  return pick(
+    [
+      finish(
+        `${a} hizo el test de lenguajes`,
+        'Hazlo tú y vean qué idioma del amor habla cada quien.',
+      ),
+      finish(`${a} ya terminó su test`, 'Te toca el tuyo para ver sus resultados.'),
+      finish('Lenguajes del amor', `${a} ya hizo el test. Haz el tuyo y los comparan.`),
+    ],
+    i.seed,
+  );
+}
+
+const MONTHS_LONG = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
+];
+const MONTHS_SHORT = [
+  'ene.',
+  'feb.',
+  'mar.',
+  'abr.',
+  'may.',
+  'jun.',
+  'jul.',
+  'ago.',
+  'sep.',
+  'oct.',
+  'nov.',
+  'dic.',
+];
+
+function parseYmd(s: string): { y: number; m: number; d: number } | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) return null;
+  const y = Number(m[1]);
+  const mo = Number(m[2]);
+  const d = Number(m[3]);
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  return { y, m: mo, d };
+}
+
+// Rango de fechas en español corto, sin Intl: "el 12 de octubre", "del 12 al 18 de octubre",
+// "del 28 de sep. al 2 de oct.", "del 28 de dic. de 2025 al 2 de ene. de 2026".
+// Cadena vacía si alguna fecha no es válida (YYYY-MM-DD).
+export function formatDateRange(start: string, end: string): string {
+  const s = parseYmd(start);
+  const e = parseYmd(end);
+  if (!s || !e) return '';
+  if (s.y === e.y && s.m === e.m) {
+    if (s.d === e.d) return `el ${s.d} de ${MONTHS_LONG[s.m - 1]}`;
+    return `del ${s.d} al ${e.d} de ${MONTHS_LONG[s.m - 1]}`;
+  }
+  if (s.y === e.y) {
+    return `del ${s.d} de ${MONTHS_SHORT[s.m - 1]} al ${e.d} de ${MONTHS_SHORT[e.m - 1]}`;
+  }
+  return `del ${s.d} de ${MONTHS_SHORT[s.m - 1]} de ${s.y} al ${e.d} de ${MONTHS_SHORT[e.m - 1]} de ${e.y}`;
+}
+
+export function visitCopy(
+  i: CopyBase & { startDate: string; endDate: string; place: string | null },
+): Copy {
+  const a = short(i.actor);
+  const range = formatDateRange(i.startDate, i.endDate);
+  const place = i.place ? truncate(i.place, 30) : '';
+  const where = place ? ` en ${place}` : '';
+  const when = range ? `${range}${where}` : place ? `en ${place}` : '';
+  const sentence = (lead: string) => (when ? `${lead} ${when}.` : `${lead}.`);
+  return pick(
+    [
+      finish(`${a} apuntó una visita`, sentence('Se vieron')),
+      finish(
+        `${a} guardó cuándo se vieron`,
+        when ? `${when[0].toUpperCase()}${when.slice(1)}.` : 'Pásate a verla.',
+      ),
+      finish('Nueva visita en su historia', sentence(`${a} apuntó que se vieron`)),
+    ],
+    i.seed,
+  );
+}

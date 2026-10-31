@@ -168,7 +168,7 @@ Set propio en `src/components/icons/` (SVG con `react-native-svg`), **dibujados 
 - Tamaños: 16, 20, **24** (default), 28.
 - Set base: `home`, `ask`, `photo`, `more`, `flame`, `pin`, `lock`, `plus`, `send`, `calendar`,
   `close`, `check`, `back`, `bell`, `camera`, `smile`, `map`, `list`, `gift`, `clock`, `settings`,
-  `cloudOff` (sin conexión), Fase 6: `pencil` (dibujar), `type` (texto), `download`, `undo`, `eye` (visto), `trash`, `archive`, `sticker`; Fase 7 reutiliza `pin`, `map`, `photo`, `camera`, `pencil` (editar), `download` y `trash` (sin iconos nuevos); `heart` (solo para "pienso en ti" y reacciones, nunca decorativo).
+  `cloudOff` (sin conexión), Fase 6: `pencil` (dibujar), `type` (texto), `download`, `undo`, `eye` (visto), `trash`, `archive`, `sticker`; Fase 7 reutiliza `pin`, `map`, `photo`, `camera`, `pencil` (editar), `download` y `trash` (sin iconos nuevos); `heart` (solo para "pienso en ti" y reacciones, nunca decorativo); Fase 11B: `envelope` (lenguajes del amor), `suitcase` (visitas), `chart` (estadísticas).
 - **Prohibido**: librerías de iconos genéricas (Ionicons, Material, Lucide) sin redibujar, y
   emojis como iconos del sistema. Los emojis solo aparecen en contenido de los usuarios (mood).
 
