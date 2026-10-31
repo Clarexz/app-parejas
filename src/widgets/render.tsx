@@ -8,6 +8,7 @@ import type { WidgetModel, WidgetName } from '@/lib/widgets';
 import {
   CountdownWidget,
   DaysTogetherWidget,
+  DistanceWidget,
   PartnerMoodWidget,
   PartnerStoryWidget,
   palettes,
@@ -31,6 +32,8 @@ export function renderWidget(
         return <CountdownWidget name={name} palette={palette} size={size} model={model} />;
       case 'PartnerStory':
         return <PartnerStoryWidget name={name} palette={palette} size={size} model={model} />;
+      case 'Distance':
+        return <DistanceWidget name={name} palette={palette} size={size} model={model} />;
     }
   };
   return { light: draw(palettes.light), dark: draw(palettes.dark) };

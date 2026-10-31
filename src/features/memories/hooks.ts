@@ -183,7 +183,10 @@ export function useMemoriesRealtime() {
       for (const event of ['INSERT', 'UPDATE', 'DELETE'] as const) {
         channel = channel.on(
           'postgres_changes',
-          { event, schema: 'public', table, filter },
+          // Los DELETE solo traen la llave (no couple_id): no se pueden filtrar por pareja.
+          event === 'DELETE'
+            ? { event, schema: 'public', table }
+            : { event, schema: 'public', table, filter },
           invalidate,
         );
       }

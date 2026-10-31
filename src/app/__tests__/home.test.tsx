@@ -37,6 +37,27 @@ jest.mock('@/features/notifications', () => ({
   usePushSoftAsk: () => ({ visible: false, accept: jest.fn(), dismiss: jest.fn() }),
 }));
 jest.mock('@/features/stories', () => ({ StoriesRow: () => null }));
+jest.mock('@/features/distance', () => ({
+  DistanceCard: () => null,
+}));
+
+jest.mock('@/features/events', () => ({
+  CountdownHomeCard: () => null,
+  useCountdowns: () => {
+    const { autoCountdowns } = jest.requireActual('@/lib/events');
+    return {
+      countdowns: mockAnniversary
+        ? autoCountdowns({
+            anniversary: mockAnniversary,
+            me: null,
+            partner: null,
+            today: '2026-10-30',
+          })
+        : [],
+      refetch: jest.fn(),
+    };
+  },
+}));
 jest.mock('@/features/memories', () => ({ OnThisDayCard: () => null }));
 jest.mock('@/features/questions', () => ({
   DailyQuestionCard: () => null,

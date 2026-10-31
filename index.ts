@@ -11,4 +11,6 @@ if (Platform.OS === 'android') {
     require('./src/widgets/taskHandler') as typeof import('./src/widgets/taskHandler');
   registerWidgetTaskHandler(widgetTaskHandler);
   require('./src/widgets/backgroundTask');
+  // Distancia (opcional, en segundo plano): la tarea de ubicación se define en el scope del módulo.
+  require('./src/features/distance/backgroundTask');
 }

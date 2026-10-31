@@ -28,6 +28,12 @@ export function previewModel(input: PreviewInput = {}): WidgetModel {
       created_at: new Date(now.getTime() - 25 * 60_000).toISOString(),
     },
     partnerId: 'preview',
+    // Ejemplo: Ciudad de México y Monterrey.
+    distance: {
+      me: { city: 'Ciudad de México', at: now.toISOString() },
+      partner: { city: 'Monterrey', at: new Date(now.getTime() - 2 * 3_600_000).toISOString() },
+      km: 704,
+    },
     partnerStory: {
       id: 'preview',
       kind: 'text',

@@ -46,7 +46,13 @@ describe('refreshWidgets', () => {
     const names = mockRequestWidgetUpdate.mock.calls.map(
       (c) => (c[0] as { widgetName: string }).widgetName,
     );
-    expect(names.sort()).toEqual(['Countdown', 'DaysTogether', 'PartnerMood', 'PartnerStory']);
+    expect(names.sort()).toEqual([
+      'Countdown',
+      'DaysTogether',
+      'Distance',
+      'PartnerMood',
+      'PartnerStory',
+    ]);
   });
 
   it('nunca lanza', async () => {

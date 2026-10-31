@@ -76,6 +76,21 @@ const MODELS: Record<string, WidgetModel> = {
   }),
 };
 
+const placeNow = { city: 'Ciudad de México', at: '2026-10-30T17:50:00Z' };
+const placeHer = { city: 'Monterrey', at: '2026-10-30T16:00:00Z' };
+const withDistance = (distance: Parameters<typeof buildWidgetSnapshot>[0]['distance']) =>
+  widgetModel({ ...ready, distance: distance ?? null }, NOW);
+Object.assign(MODELS, {
+  distanciaLosDos: withDistance({ me: placeNow, partner: placeHer, km: 704.4 }),
+  distanciaSinCiudades: withDistance({
+    me: { city: null, at: placeNow.at },
+    partner: { city: null, at: placeHer.at },
+    km: 1239.6,
+  }),
+  distanciaSoloYo: withDistance({ me: placeNow, partner: null, km: null }),
+  distanciaSoloEl: withDistance({ me: null, partner: placeHer, km: null }),
+});
+
 const SIZES = [
   { width: 110, height: 110 },
   { width: 160, height: 160 },
@@ -103,8 +118,9 @@ describe('renderWidget', () => {
     const expected: Record<string, string> = {
       DaysTogether: 'appparejas://',
       PartnerMood: 'appparejas://moods',
-      Countdown: 'appparejas://',
+      Countdown: 'appparejas://events',
       PartnerStory: 'appparejas://stories',
+      Distance: 'appparejas://distance',
     };
     for (const name of WIDGET_NAMES) {
       const { light } = renderWidget(name, MODELS.ready, SIZES[2]) as { light: React.JSX.Element };
@@ -141,5 +157,39 @@ describe('renderWidget', () => {
     };
     const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
     expect(String(tree.props.accessibilityLabel)).toContain('Abre la app para empezar');
+  });
+
+  it('la distancia dice los kilómetros y las ciudades', () => {
+    const { light } = renderWidget('Distance', MODELS.distanciaLosDos, SIZES[2]) as {
+      light: React.JSX.Element;
+    };
+    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
+    const label = String(tree.props.accessibilityLabel);
+    expect(label).toContain('704 kilómetros');
+    expect(label).toContain('Ciudad de México ↔ Monterrey');
+  });
+
+  it('la distancia sin ciudades usa los nombres', () => {
+    const { light } = renderWidget('Distance', MODELS.distanciaSinCiudades, SIZES[0]) as {
+      light: React.JSX.Element;
+    };
+    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
+    const label = String(tree.props.accessibilityLabel);
+    expect(label).toContain('1,240 kilómetros');
+    expect(label).toContain('Tú ↔ Caleb');
+  });
+
+  it('si solo uno comparte, explica qué falta', () => {
+    const draw = (m: WidgetModel) =>
+      String(
+        (
+          buildWidgetTree(
+            (renderWidget('Distance', m, SIZES[0]) as { light: React.JSX.Element }).light,
+          ) as { props: Record<string, unknown> }
+        ).props.accessibilityLabel,
+      );
+    expect(draw(MODELS.distanciaSoloYo)).toContain('Cuando Caleb active su distancia');
+    expect(draw(MODELS.distanciaSoloEl)).toContain('Caleb ya la comparte');
+    expect(draw(MODELS.ready)).toContain('Activen su distancia');
   });
 });

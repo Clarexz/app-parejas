@@ -780,8 +780,301 @@ export const SCENARIOS = {
     routes: ['/'],
   },
   // --- Fase 8: cuentas regresivas (prefijo `eventos-`) ---
+  // Cuentas regresivas: con una visita, fechas propias (una repetida) y una que ya pasó.
+  eventos: (() => {
+    const day = (n) => new Date(Date.now() + n * 86_400_000).toISOString().slice(0, 10);
+    const ev = (n, kind, title, emoji, date, yearly = false, note = null) => ({
+      id: `bbbbbbbb-bbbb-4bbb-8bbb-${String(n).padStart(12, '0')}`,
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      kind,
+      title,
+      emoji,
+      date,
+      recurring_yearly: yearly,
+      note,
+      created_at: '2026-10-01T12:00:00Z',
+      updated_at: '2026-10-01T12:00:00Z',
+    });
+    const list = [
+      ev(1, 'visit', 'Nos vemos en Guadalajara', '✈️', day(23)),
+      ev(2, 'custom', 'Concierto de Natalia Lafourcade', '🎶', day(61)),
+      ev(3, 'custom', 'Cumple de mamá', '🎂', day(140), true, 'Llevar el pastel'),
+      ev(4, 'custom', 'Cine de verano', '🎬', day(-12)),
+    ];
+    return {
+      prefix: 'eventos',
+      me: profiles.me,
+      partner: profiles.partner,
+      members: [member(ME_ID), member(PARTNER_ID)],
+      moods: sampleMoods,
+      routes: ['/events', '/'],
+      rest: (path, { route, json }) => {
+        if (path === '/rest/v1/events') return json(route, list);
+        if (path === '/rest/v1/rpc/save_event') return json(route, list[0]);
+        if (path === '/rest/v1/rpc/delete_event') return json(route, null);
+        return undefined;
+      },
+    };
+  })(),
+  // Sin eventos: invitación a apuntar la próxima visita.
+  eventos_vacio: {
+    prefix: 'eventos-vacio',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    routes: ['/events'],
+    rest: (path, { route, json }) => {
+      if (path === '/rest/v1/events') return json(route, []);
+      if (path === '/rest/v1/rpc/save_event') return json(route, {});
+      if (path === '/rest/v1/rpc/delete_event') return json(route, null);
+      return undefined;
+    },
+  },
+  // Editar una fecha propia (la visita) y crear una nueva.
+  eventos_editar: {
+    prefix: 'eventos-editar',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    routes: ['/events/edit?id=bbbbbbbb-bbbb-4bbb-8bbb-000000000001', '/events/edit?kind=visit'],
+    rest: (path, { route, json }) => {
+      if (path === '/rest/v1/events') {
+        const date = new Date(Date.now() + 23 * 86_400_000).toISOString().slice(0, 10);
+        return json(route, [
+          {
+            id: 'bbbbbbbb-bbbb-4bbb-8bbb-000000000001',
+            couple_id: COUPLE_ID,
+            created_by: ME_ID,
+            kind: 'visit',
+            title: 'Nos vemos en Guadalajara',
+            emoji: '✈️',
+            date,
+            recurring_yearly: false,
+            note: 'Llego el viernes en la noche',
+            created_at: '2026-10-01T12:00:00Z',
+            updated_at: '2026-10-01T12:00:00Z',
+          },
+        ]);
+      }
+      if (path === '/rest/v1/rpc/save_event') return json(route, {});
+      if (path === '/rest/v1/rpc/delete_event') return json(route, null);
+      return undefined;
+    },
+  },
   // --- Fase 8: listas (prefijo `listas-`) ---
+  ...(() => {
+    const lid = (n) => `bbbbbbbb-bbbb-4bbb-8bbb-${String(n).padStart(12, '0')}`;
+    const iid = (n) => `cccccccc-cccc-4ccc-8ccc-${String(n).padStart(12, '0')}`;
+    const session = {
+      me: profiles.me,
+      partner: profiles.partner,
+      members: [member(ME_ID), member(PARTNER_ID)],
+    };
+    const listRow = (n, kind, title, emoji, items, daysAgo) => ({
+      id: lid(n),
+      couple_id: COUPLE_ID,
+      created_by: n % 2 ? ME_ID : PARTNER_ID,
+      kind,
+      title,
+      emoji,
+      created_at: `${isoDaysAgo(daysAgo)}T15:00:00Z`,
+      updated_at: `${isoDaysAgo(daysAgo)}T15:00:00Z`,
+      list_items: items.map((it) => ({ id: it.id, done: it.done })),
+    });
+    const item = (n, listN, position, text, doneBy = null) => ({
+      id: iid(n),
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      done_by: doneBy,
+      list_id: lid(listN),
+      text,
+      done: doneBy !== null,
+      done_at: doneBy ? minutesAgo(90 + n) : null,
+      position,
+      created_at: `${isoDaysAgo(3)}T15:00:00Z`,
+      updated_at: `${isoDaysAgo(1)}T15:00:00Z`,
+    });
+    const items = [
+      item(1, 1, 0, 'Jitomates y cilantro'),
+      item(2, 1, 1, 'Leche de avena'),
+      item(3, 1, 2, 'Tortillas de maíz, de las que dejan de tres días'),
+      item(4, 1, 3, 'Queso Oaxaca', PARTNER_ID),
+      item(5, 1, 4, 'Café para la semana', ME_ID),
+      item(6, 1, 5, 'Limones', PARTNER_ID),
+      item(7, 2, 0, 'Pasaportes'),
+      item(8, 2, 1, 'Bloqueador y gorra', ME_ID),
+      item(9, 3, 0, 'Pasear en lancha en Xochimilco'),
+      item(10, 3, 1, 'Ver las luciérnagas en Nanacamilpa'),
+      item(11, 4, 0, 'Dune: Parte dos', PARTNER_ID),
+      item(12, 4, 1, 'Esa serie que siempre dejamos para después'),
+    ];
+    const lists = () => [
+      listRow(
+        1,
+        'groceries',
+        'Súper del sábado',
+        '🛒',
+        items.filter((i) => i.list_id === lid(1)),
+        1,
+      ),
+      listRow(
+        2,
+        'trip',
+        'Qué llevar a Oaxaca',
+        '✈️',
+        items.filter((i) => i.list_id === lid(2)),
+        2,
+      ),
+      listRow(
+        3,
+        'bucket',
+        'Cosas por hacer juntos',
+        null,
+        items.filter((i) => i.list_id === lid(3)),
+        9,
+      ),
+      listRow(
+        4,
+        'watch',
+        'Pelis y series',
+        null,
+        items.filter((i) => i.list_id === lid(4)),
+        20,
+      ),
+    ];
+    const restFor =
+      (getLists, getItems) =>
+      async (path, { url, request, route, json, rows }) => {
+        if (path === '/rest/v1/lists') {
+          const idFilter = url.searchParams.get('id');
+          if (idFilter) {
+            return rows(
+              route,
+              request,
+              getLists().filter((l) => idFilter === `eq.${l.id}`),
+            );
+          }
+          return json(route, getLists());
+        }
+        if (path === '/rest/v1/list_items') {
+          const listFilter = url.searchParams.get('list_id') ?? '';
+          const mine = getItems().filter((i) => listFilter === `eq.${i.list_id}`);
+          return json(
+            route,
+            [...mine].sort((a, b) => a.position - b.position),
+          );
+        }
+        if (path.startsWith('/rest/v1/rpc/') && /list/.test(path)) {
+          return route.fulfill({ status: 204, headers: CORS });
+        }
+        return undefined;
+      };
+    const full = restFor(lists, () => items);
+    return {
+      listas: {
+        prefix: 'listas',
+        ...session,
+        rest: full,
+        routes: ['/lists', `/lists/${lid(1)}`, `/lists/${lid(3)}`],
+      },
+      listas_acomodar: {
+        prefix: 'listas-acomodar',
+        ...session,
+        rest: full,
+        routes: [`/lists/${lid(1)}`],
+        actions: {
+          [`/lists/${lid(1)}`]: async (page) => {
+            await page.getByRole('button', { name: 'Acomodar los renglones' }).click();
+            await page.waitForTimeout(500);
+          },
+        },
+      },
+      listas_nueva: {
+        prefix: 'listas-nueva',
+        ...session,
+        rest: full,
+        routes: ['/lists'],
+        actions: {
+          '/lists': async (page) => {
+            await page.getByRole('button', { name: 'Nueva lista' }).click();
+            await page.waitForTimeout(700);
+          },
+        },
+      },
+      listas_vacio: {
+        prefix: 'listas-vacio',
+        ...session,
+        rest: restFor(
+          () => [],
+          () => [],
+        ),
+        routes: ['/lists'],
+      },
+    };
+  })(),
   // --- Fase 8: distancia (prefijo `distancia-`) ---
+  // Los dos comparten: kilómetros en grande, ciudades y "hace cuánto" (Inicio y /distance).
+  distancia: {
+    prefix: 'distancia',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    routes: ['/distance', '/'],
+    rest: (path, { route, json }) => {
+      if (path === '/rest/v1/locations') {
+        return json(route, [
+          {
+            user_id: ME_ID,
+            couple_id: COUPLE_ID,
+            lat: 19.43,
+            lng: -99.13,
+            city: 'Ciudad de México',
+            updated_at: new Date(Date.now() - 5 * 60_000).toISOString(),
+          },
+          {
+            user_id: PARTNER_ID,
+            couple_id: COUPLE_ID,
+            lat: 25.67,
+            lng: -100.31,
+            city: 'Monterrey',
+            updated_at: new Date(Date.now() - 2 * 3_600_000).toISOString(),
+          },
+        ]);
+      }
+      if (path === '/rest/v1/rpc/set_my_location') return json(route, {});
+      if (path === '/rest/v1/rpc/clear_my_location') return json(route, null);
+      return undefined;
+    },
+  },
+  // Solo yo comparto: espera a que mi pareja active la suya.
+  distancia_solo_yo: {
+    prefix: 'distancia-solo-yo',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    moods: sampleMoods,
+    routes: ['/distance', '/'],
+    rest: (path, { route, json }) => {
+      if (path === '/rest/v1/locations') {
+        return json(route, [
+          {
+            user_id: ME_ID,
+            couple_id: COUPLE_ID,
+            lat: 19.43,
+            lng: -99.13,
+            city: 'Ciudad de México',
+            updated_at: new Date(Date.now() - 5 * 60_000).toISOString(),
+          },
+        ]);
+      }
+      if (path === '/rest/v1/rpc/set_my_location') return json(route, {});
+      if (path === '/rest/v1/rpc/clear_my_location') return json(route, null);
+      return undefined;
+    },
+  },
   signed_out: {
     session: false,
     routes: ['/sign-in', '/sign-up', '/forgot-password'],

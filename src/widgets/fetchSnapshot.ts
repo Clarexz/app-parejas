@@ -1,7 +1,10 @@
 // Lee del servidor lo que necesitan los widgets. Pensado para correr sin la UI (tarea headless).
 import { fetchCoupleState } from '@/features/couple/api';
+import { fetchLocations } from '@/features/distance/api';
+import { fetchEvents } from '@/features/events/api';
 import { fetchMoods } from '@/features/mood/api';
 import { supabase } from '@/lib/supabase';
+import { snapshotDistance } from '@/lib/distance';
 import { latestMoodByUser } from '@/lib/mood';
 import { buildWidgetSnapshot, emptyWidgetSnapshot, type WidgetSnapshot } from '@/lib/widgets';
 
@@ -22,7 +25,11 @@ async function read(): Promise<WidgetSnapshot> {
   const state = await fetchCoupleState(userId);
   if (!state.couple) return emptyWidgetSnapshot('no_couple');
 
-  const moods = await fetchMoods(state.couple.id, 20);
+  const [moods, events, locations] = await Promise.all([
+    fetchMoods(state.couple.id, 20),
+    fetchEvents(state.couple.id),
+    fetchLocations(state.couple.id),
+  ]);
   const partnerMood = state.partner ? (latestMoodByUser(moods)[state.partner.id] ?? null) : null;
   // La miniatura de la story se reutiliza del snapshot anterior si no cambió la story.
   const partnerStory = state.partner
@@ -39,6 +46,8 @@ async function read(): Promise<WidgetSnapshot> {
     partnerMood,
     partnerId: state.partner?.id ?? null,
     partnerStory,
+    events,
+    distance: snapshotDistance(locations, userId, state.partner?.id),
   });
 }
 

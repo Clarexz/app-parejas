@@ -10,6 +10,7 @@ import { Tape, type TapeColor } from '@/components/Tape';
 import { Text } from '@/components/Text';
 import { StoryFrame } from '@/features/stories/components/StoryFrame';
 import { formatDaysUntil, formatNumber } from '@/lib/dates';
+import { formatKm } from '@/lib/distance';
 import { formatStampIsoDate } from '@/lib/stampDate';
 import { useTheme } from '@/theme';
 
@@ -20,6 +21,7 @@ const TAPE: Record<WidgetPreviewProps['name'], TapeColor> = {
   PartnerMood: 'mint',
   Countdown: 'pink',
   PartnerStory: 'pink',
+  Distance: 'yellow',
 };
 
 export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps) {
@@ -28,6 +30,7 @@ export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps
   const event = model.nextEvent;
   const story = model.partnerStory;
   const mood = model.partnerMood;
+  const distance = model.distance;
   return (
     <View
       accessible
@@ -100,6 +103,20 @@ export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps
             </Text>
           </View>
           {event ? <Stamp>{formatStampIsoDate(event.date)}</Stamp> : null}
+        </View>
+      ) : null}
+      {name === 'Distance' ? (
+        <View style={{ gap: spacing.xxs }}>
+          <Text variant="title" numberOfLines={1}>
+            {distance?.km != null ? formatKm(distance.km) : 'Distancia'}
+          </Text>
+          <Text variant="small" tone="muted" numberOfLines={2}>
+            {distance?.km != null
+              ? distance.myCity && distance.partnerCity
+                ? `${distance.myCity} ↔ ${distance.partnerCity}`
+                : `Tú ↔ ${model.partnerName}`
+              : 'Activen su distancia en la app para ver cuántos kilómetros hay entre ustedes.'}
+          </Text>
         </View>
       ) : null}
       {name === 'PartnerStory' ? (
