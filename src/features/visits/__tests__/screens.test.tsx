@@ -107,7 +107,8 @@ describe('Visitas', () => {
     ];
     await wrap(<VisitsScreen />);
     expect(screen.getByText('13 días sin verse')).toBeTruthy();
-    expect(screen.getByText('12 días juntos')).toBeTruthy();
+    expect(screen.getByText('12')).toBeTruthy();
+    expect(screen.getByText('días juntos')).toBeTruthy();
     expect(screen.getByText('10–18 OCT 2026')).toBeTruthy();
     expect(screen.getByText('Guadalajara')).toBeTruthy();
     expect(screen.getByText('Visita más larga')).toBeTruthy();

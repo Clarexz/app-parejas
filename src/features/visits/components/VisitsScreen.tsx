@@ -212,7 +212,11 @@ export function VisitsScreen() {
 
           <View style={{ gap: spacing.sm }}>
             <View>
-              <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
+              <View
+                accessible
+                accessibilityLabel={`${daysWord(stats.daysTogether)} juntos`}
+                style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}
+              >
                 <Text variant="hero">{formatNumber(stats.daysTogether)}</Text>
                 <Text variant="title">
                   {stats.daysTogether === 1 ? 'día juntos' : 'días juntos'}
