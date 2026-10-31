@@ -1038,7 +1038,7 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada (2026-10-31), deploy pendiente | #17 | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). APK v0.11.0 publicado **antes** del deploy a pedido del usuario. **Pendiente: un solo deploy de `main` que incluya las Fases 6–9 y 11B, y hasta entonces no instalar el APK** (ver §10.1). |
-| 12 Pulido y entrega | ⏳ Siguiente | | Sin las fases 10 y 11A. |
+| 12 Pulido y entrega | 🟡 Parte 1 mergeada (2026-10-31) | #18 | Sin las fases 10 y 11A. Parte 1: nombre definitivo **Noviecitosfest**, icono con la foto de la pareja y textos apachurrados corregidos; APK v0.12.0. Falta todo lo demás de la fase (audio, tarjeta, biometría, FlashList/offline, error boundaries, auditoría RLS/RPC, `app_versions`, prueba de restauración, v1.0.0). |
 
 ### 10.1 Verificaciones pendientes en el celular
 
@@ -1123,6 +1123,15 @@ vez publica el release v1.0.0 como release normal (no pre-release).
   6–9, el smoke test revisa `love_language_results` y `visits`. Sin secretos nuevos (opcional
   `GOOGLE_MAPS_API_KEY`). Después, instalar el APK v0.11.0 (ya publicado) y probar con
   `docs/releases/v0.11.0.md` (y las listas de v0.6.0–v0.9.0).
+- **Deploy acumulado (2026-10-31):** `./scripts/server/deploy.sh main` en `5e8d345` (PR #18). El
+  clon estaba en la Fase 6 (`claude/jolly-euler-567zu8`, stories ya aplicada); se aplicaron
+  memories, events_lists_distance, games y love_languages_visits_stats → **10 migraciones
+  registradas**. Seed: 500 preguntas activas, 80 palabras de dibujo; buckets avatars, stories y
+  memories (privados); `notify` y `stories-cleanup` actualizadas. Smoke test OK sin avisos; job
+  `app-parejas-stories-cleanup` activo; limpieza manual 200 (incluye memories); `test-push` con
+  `sent=1`. Respaldo previo: `backups/db/pre-deploy-app-parejas-20261031-194839.dump`. **Las
+  Fases 6–9 y 11B ya están desplegadas**: se pueden instalar v0.11.0/v0.12.0 y probar sus listas.
+  Desde ahora el clon del VPS sigue `main`.
 - **Nota para el servidor (vigente desde la Fase 2):** el clon del VPS (`/opt/app-parejas/repo`)
   quedó en la rama de la Fase 5 (`ccr-b514a1fd-6t6enh`, commit `31b33bd`), con 5
   migraciones aplicadas. Al preparar el siguiente "Prompt para el servidor":
