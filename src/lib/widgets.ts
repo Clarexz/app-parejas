@@ -17,14 +17,16 @@ import {
   upcomingMilestones,
   type IsoDate,
 } from './dates';
+import { simplifyStroke, type Stroke } from './drawing';
 import { milestoneLabel } from './home';
 import { moodLabel } from './mood';
+import { isStoryActive, storyAgo, type StoryBg, type StoryFont, type StoryKind } from './stories';
 import { DEFAULT_TIME_ZONE } from './timezone';
 
-export const WIDGET_SNAPSHOT_VERSION = 1;
+export const WIDGET_SNAPSHOT_VERSION = 2;
 
 /** Nombres con los que se registran los widgets (app.config.ts y el task handler). */
-export const WIDGET_NAMES = ['DaysTogether', 'PartnerMood', 'Countdown'] as const;
+export const WIDGET_NAMES = ['DaysTogether', 'PartnerMood', 'Countdown', 'PartnerStory'] as const;
 export type WidgetName = (typeof WIDGET_NAMES)[number];
 
 /** A dónde lleva tocar cada widget (deep link `appparejas://<ruta>`). */
@@ -32,6 +34,7 @@ export const WIDGET_ROUTES: Record<WidgetName, string> = {
   DaysTogether: '/',
   PartnerMood: '/moods',
   Countdown: '/',
+  PartnerStory: '/stories',
 };
 
 /** Pasado este tiempo el snapshot se considera viejo y el widget intenta refrescar del servidor. */
@@ -39,6 +42,25 @@ export const SNAPSHOT_STALE_MS = 60 * 60 * 1000;
 
 export type SnapshotPerson = { name: string; birthday: IsoDate | null };
 export type SnapshotMood = { emoji: string; note: string | null; at: string };
+
+/** Tolerancia (en unidades del lienzo 900x1600) con la que se simplifican los trazos del widget. */
+export const WIDGET_STROKE_TOLERANCE = 4;
+
+/** Story activa más nueva de tu pareja, tal como se guarda en el snapshot. */
+export type SnapshotStory = {
+  id: string;
+  kind: StoryKind;
+  createdAt: string;
+  expiresAt: string;
+  /** `data:image/jpeg;base64,…` de la miniatura (solo photo, y solo si pesa poco). */
+  thumb: string | null;
+  /** text: el texto; photo: el pie de foto (si hay). */
+  text: string | null;
+  bg: StoryBg | null;
+  font: StoryFont | null;
+  /** drawing: trazos ya simplificados. */
+  strokes: Stroke[] | null;
+};
 
 export type WidgetStatus = 'ready' | 'signed_out' | 'no_couple';
 
@@ -52,8 +74,10 @@ export type WidgetSnapshot = {
   partnerMood: SnapshotMood | null;
   /** Fase 8 (distancia). */
   distanceKm: number | null;
-  /** Fase 6 (stories): URI local o firmada de la miniatura. */
-  partnerStoryThumb: string | null;
+  /** Id de tu pareja (para abrir su story desde el widget). */
+  partnerId: string | null;
+  /** Fase 6: la story activa más nueva de tu pareja. */
+  partnerStory: SnapshotStory | null;
   /** ISO del momento en que se armó el snapshot. */
   updatedAt: string;
 };
@@ -66,6 +90,11 @@ export type WidgetCountdown = {
   daysUntil: number;
 };
 
+export type WidgetStory = Pick<
+  SnapshotStory,
+  'id' | 'kind' | 'thumb' | 'text' | 'bg' | 'font' | 'strokes'
+> & { ago: string };
+
 export type WidgetModel = {
   status: WidgetStatus;
   today: IsoDate;
@@ -77,7 +106,9 @@ export type WidgetModel = {
   partnerMood: { emoji: string; label: string | null; note: string | null; ago: string } | null;
   nextEvent: WidgetCountdown | null;
   distanceKm: number | null;
-  partnerStoryThumb: string | null;
+  partnerId: string | null;
+  /** Solo si sigue activa al dibujar. */
+  partnerStory: WidgetStory | null;
   stale: boolean;
 };
 
@@ -88,7 +119,18 @@ export type SnapshotInput = {
   partner: { name: string | null | undefined; birthday: string | null | undefined } | null;
   partnerMood: { emoji: string; note: string | null; created_at: string } | null;
   distanceKm?: number | null;
-  partnerStoryThumb?: string | null;
+  partnerId?: string | null;
+  partnerStory?: {
+    id: string;
+    kind: StoryKind;
+    created_at: string;
+    expires_at: string;
+    thumb?: string | null;
+    text?: string | null;
+    bg?: StoryBg | null;
+    font?: StoryFont | null;
+    strokes?: Stroke[] | null;
+  } | null;
   now?: Date;
 };
 
@@ -101,6 +143,37 @@ const cleanName = (n: string | null | undefined, fallback: string): string =>
 function person(p: SnapshotInput['me'], fallback: string): SnapshotPerson | null {
   if (!p) return null;
   return { name: cleanName(p.name, fallback), birthday: cleanDate(p.birthday) };
+}
+
+function cleanStory(v: SnapshotInput['partnerStory']): SnapshotStory | null {
+  if (!v) return null;
+  return {
+    id: v.id,
+    kind: v.kind,
+    createdAt: v.created_at,
+    expiresAt: v.expires_at,
+    thumb: v.kind === 'photo' ? (v.thumb ?? null) : null,
+    text: v.text?.trim() || null,
+    bg: v.bg ?? null,
+    font: v.font ?? null,
+    strokes:
+      v.kind === 'drawing' && v.strokes
+        ? v.strokes.map((st) => ({ ...st, p: simplifyStroke(st.p, WIDGET_STROKE_TOLERANCE) }))
+        : null,
+  };
+}
+
+/** La story activa más nueva de `userId` (null si no hay). */
+export function latestActiveStory<
+  T extends { user_id: string; created_at: string; expires_at: string; deleted_at: string | null },
+>(stories: readonly T[], userId: string | null | undefined, now: Date): T | null {
+  if (!userId) return null;
+  let best: T | null = null;
+  for (const s of stories) {
+    if (s.user_id !== userId || !isStoryActive(s, now)) continue;
+    if (!best || Date.parse(s.created_at) > Date.parse(best.created_at)) best = s;
+  }
+  return best;
 }
 
 /** Snapshot de una sesión con pareja lista. */
@@ -120,7 +193,8 @@ export function buildWidgetSnapshot(input: SnapshotInput): WidgetSnapshot {
         }
       : null,
     distanceKm: input.distanceKm ?? null,
-    partnerStoryThumb: input.partnerStoryThumb ?? null,
+    partnerId: input.partnerId ?? null,
+    partnerStory: cleanStory(input.partnerStory),
     updatedAt: (input.now ?? new Date()).toISOString(),
   };
 }
@@ -136,7 +210,8 @@ export function emptyWidgetSnapshot(status: Exclude<WidgetStatus, 'ready'>, now 
     partner: null,
     partnerMood: null,
     distanceKm: null,
-    partnerStoryThumb: null,
+    partnerId: null,
+    partnerStory: null,
     updatedAt: now.toISOString(),
   };
   return s;
@@ -242,6 +317,7 @@ export function widgetModel(s: WidgetSnapshot | null, now: Date = new Date()): W
   const ready = snap.status === 'ready';
   const diff = ready && snap.anniversary ? daysBetween(today, snap.anniversary) : null;
   const mood = ready ? snap.partnerMood : null;
+  const story = ready ? snap.partnerStory : null;
   return {
     status: snap.status,
     today,
@@ -259,7 +335,20 @@ export function widgetModel(s: WidgetSnapshot | null, now: Date = new Date()): W
       : null,
     nextEvent: ready ? nextCountdown(snap, today) : null,
     distanceKm: ready ? snap.distanceKm : null,
-    partnerStoryThumb: ready ? snap.partnerStoryThumb : null,
+    partnerId: ready ? snap.partnerId : null,
+    partnerStory:
+      story && isStoryActive({ expires_at: story.expiresAt, deleted_at: null }, now)
+        ? {
+            id: story.id,
+            kind: story.kind,
+            thumb: story.thumb,
+            text: story.text,
+            bg: story.bg,
+            font: story.font,
+            strokes: story.strokes,
+            ago: storyAgo(story.createdAt, now),
+          }
+        : null,
     stale: now.getTime() - Date.parse(snap.updatedAt) > SNAPSHOT_STALE_MS,
   };
 }

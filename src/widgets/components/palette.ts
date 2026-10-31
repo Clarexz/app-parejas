@@ -35,16 +35,16 @@ export const FONT = {
 export const isMedium = (size: WidgetSize): boolean => size.width >= MEDIUM_MIN_WIDTH;
 
 /** Deep link de un widget: `appparejas://moods`, o `appparejas://` para el inicio. */
-export function widgetUri(name: WidgetName): string {
-  const route = WIDGET_ROUTES[name].replace(/^\/+/, '');
+export function widgetUri(name: WidgetName, routeOverride?: string): string {
+  const route = (routeOverride ?? WIDGET_ROUTES[name]).replace(/^\/+/, '');
   return `${APP_SCHEME}://${route}`;
 }
 
 /** Props de toque comunes a todo el widget. */
-export function tapProps(name: WidgetName, label: string) {
+export function tapProps(name: WidgetName, label: string, route?: string) {
   return {
     clickAction: 'OPEN_URI' as const,
-    clickActionData: { uri: widgetUri(name) },
+    clickActionData: { uri: widgetUri(name, route) },
     accessibilityLabel: label,
   };
 }

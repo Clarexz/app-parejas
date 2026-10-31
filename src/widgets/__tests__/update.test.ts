@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-import { buildWidgetSnapshot } from '@/lib/widgets';
+import { buildWidgetSnapshot, WIDGET_NAMES } from '@/lib/widgets';
 
 import { readSnapshot } from '../storage';
 import { refreshWidgets, saveAndRefresh } from '../update';
@@ -41,12 +41,12 @@ beforeEach(() => {
 });
 
 describe('refreshWidgets', () => {
-  it('pide actualizar los tres widgets', async () => {
+  it('pide actualizar todos los widgets', async () => {
     await refreshWidgets(snap());
     const names = mockRequestWidgetUpdate.mock.calls.map(
       (c) => (c[0] as { widgetName: string }).widgetName,
     );
-    expect(names.sort()).toEqual(['Countdown', 'DaysTogether', 'PartnerMood']);
+    expect(names.sort()).toEqual(['Countdown', 'DaysTogether', 'PartnerMood', 'PartnerStory']);
   });
 
   it('nunca lanza', async () => {
@@ -59,7 +59,7 @@ describe('saveAndRefresh', () => {
   it('guarda y redibuja la primera vez', async () => {
     await saveAndRefresh(snap());
     expect(await readSnapshot()).not.toBeNull();
-    expect(mockRequestWidgetUpdate).toHaveBeenCalledTimes(3);
+    expect(mockRequestWidgetUpdate).toHaveBeenCalledTimes(WIDGET_NAMES.length);
   });
 
   it('no redibuja si no cambió nada visible', async () => {
@@ -74,6 +74,6 @@ describe('saveAndRefresh', () => {
     await saveAndRefresh(snap());
     mockRequestWidgetUpdate.mockClear();
     await saveAndRefresh(snap('2023-05-05'));
-    expect(mockRequestWidgetUpdate).toHaveBeenCalledTimes(3);
+    expect(mockRequestWidgetUpdate).toHaveBeenCalledTimes(WIDGET_NAMES.length);
   });
 });

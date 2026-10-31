@@ -81,10 +81,48 @@ describe('buildWidgetSnapshot', () => {
     expect(buildWidgetSnapshot(input({ partnerMood: mood(null) })).partnerMood?.note).toBeNull();
   });
 
-  it('conserva distancia y miniatura', () => {
-    const s = buildWidgetSnapshot(input({ distanceKm: 12, partnerStoryThumb: 'file://x' }));
-    expect(s.distanceKm).toBe(12);
-    expect(s.partnerStoryThumb).toBe('file://x');
+  it('conserva la distancia', () => {
+    expect(buildWidgetSnapshot(input({ distanceKm: 12 })).distanceKm).toBe(12);
+  });
+
+  it('guarda la story de tu pareja con trazos simplificados', () => {
+    const line = [0, 0, 100, 1, 200, 0, 300, 2, 400, 0];
+    const s = buildWidgetSnapshot(
+      input({
+        partnerId: 'u2',
+        partnerStory: {
+          id: 's1',
+          kind: 'drawing',
+          created_at: '2026-06-15T17:00:00Z',
+          expires_at: '2026-06-16T17:00:00Z',
+          thumb: 'data:image/jpeg;base64,AAAA',
+          text: '  ',
+          bg: 'paper',
+          strokes: [{ c: 'ink', w: 8, p: line }],
+        },
+      }),
+    );
+    expect(s.partnerId).toBe('u2');
+    expect(s.partnerStory?.createdAt).toBe('2026-06-15T17:00:00Z');
+    expect(s.partnerStory?.thumb).toBeNull(); // solo photo lleva miniatura
+    expect(s.partnerStory?.text).toBeNull();
+    expect(s.partnerStory?.strokes?.[0].p).toEqual([0, 0, 400, 0]);
+  });
+
+  it('la miniatura se conserva en photo', () => {
+    const s = buildWidgetSnapshot(
+      input({
+        partnerStory: {
+          id: 's1',
+          kind: 'photo',
+          created_at: '2026-06-15T17:00:00Z',
+          expires_at: '2026-06-16T17:00:00Z',
+          thumb: 'data:image/jpeg;base64,AAAA',
+        },
+      }),
+    );
+    expect(s.partnerStory?.thumb).toBe('data:image/jpeg;base64,AAAA');
+    expect(s.partnerStory?.strokes).toBeNull();
   });
 });
 
@@ -95,6 +133,38 @@ describe('emptyWidgetSnapshot', () => {
     expect(s.anniversary).toBeNull();
     expect(s.partner).toBeNull();
     expect(s.updatedAt).toBe(NOW.toISOString());
+  });
+});
+
+describe('widgetModel / partnerStory', () => {
+  const story = {
+    id: 's1',
+    kind: 'text' as const,
+    created_at: '2026-06-15T15:00:00Z',
+    expires_at: '2026-06-16T15:00:00Z',
+    text: 'Te extraño',
+    bg: 'postit' as const,
+    font: 'hand' as const,
+  };
+
+  it('expone la story activa con su "hace"', () => {
+    const m = widgetModel(
+      buildWidgetSnapshot(input({ partnerId: 'u2', partnerStory: story })),
+      NOW,
+    );
+    expect(m.partnerId).toBe('u2');
+    expect(m.partnerStory).toMatchObject({ id: 's1', kind: 'text', text: 'Te extraño' });
+    expect(m.partnerStory?.ago).toBe('hace 3 h');
+  });
+
+  it('la oculta cuando ya caducó al dibujar', () => {
+    const s = buildWidgetSnapshot(input({ partnerStory: story }));
+    expect(widgetModel(s, new Date('2026-06-16T15:00:01Z')).partnerStory).toBeNull();
+  });
+
+  it('sin sesión o sin pareja no hay story', () => {
+    expect(widgetModel(emptyWidgetSnapshot('no_couple', NOW), NOW).partnerStory).toBeNull();
+    expect(widgetModel(null, NOW).partnerStory).toBeNull();
   });
 });
 
@@ -111,6 +181,7 @@ describe('parseWidgetSnapshot', () => {
     expect(parseWidgetSnapshot('null')).toBeNull();
     expect(parseWidgetSnapshot('5')).toBeNull();
     expect(parseWidgetSnapshot(JSON.stringify({ ...snap(), version: 99 }))).toBeNull();
+    expect(parseWidgetSnapshot(JSON.stringify({ ...snap(), version: 1 }))).toBeNull();
     expect(parseWidgetSnapshot(JSON.stringify({ ...snap(), status: 'raro' }))).toBeNull();
     expect(parseWidgetSnapshot(JSON.stringify({ ...snap(), updatedAt: 3 }))).toBeNull();
     expect(parseWidgetSnapshot(JSON.stringify({ ...snap(), timezone: null }))).toBeNull();

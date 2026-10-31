@@ -9,6 +9,7 @@ import {
   CountdownWidget,
   DaysTogetherWidget,
   PartnerMoodWidget,
+  PartnerStoryWidget,
   palettes,
   type WidgetSize,
 } from './components';
@@ -28,6 +29,8 @@ export function renderWidget(
         return <PartnerMoodWidget name={name} palette={palette} size={size} model={model} />;
       case 'Countdown':
         return <CountdownWidget name={name} palette={palette} size={size} model={model} />;
+      case 'PartnerStory':
+        return <PartnerStoryWidget name={name} palette={palette} size={size} model={model} />;
     }
   };
   return { light: draw(palettes.light), dark: draw(palettes.dark) };
