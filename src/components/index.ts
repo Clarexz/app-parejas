@@ -40,3 +40,4 @@ export { Toggle } from './Toggle';
 export { TimeField } from './TimeField';
 export { PermissionNote, type PermissionStatus } from './PermissionNote';
 export { SoftAskNote } from './SoftAskNote';
+export { SealOverlay } from './SealOverlay';

@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { Button, PageHeader, Screen, SoftAskNote, Text } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
 import { DaysTogether, HomePlaceholders, PersonPolaroid, UpcomingList } from '@/features/home';
+import { OnThisDayCard } from '@/features/memories';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
 import { usePushSoftAsk } from '@/features/notifications';
 import { StoriesRow } from '@/features/stories';
@@ -90,6 +91,8 @@ export default function HomeScreen() {
         <DaysTogether summary={summary} anniversary={anniversary} />
 
         {summary.state === 'counting' ? <UpcomingList items={summary.upcoming} /> : null}
+
+        <OnThisDayCard />
 
         <HomePlaceholders
           afterQuestion={
