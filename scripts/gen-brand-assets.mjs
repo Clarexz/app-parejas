@@ -9,13 +9,10 @@ const SRC = 'assets/brand';
 const OUT = 'assets/images';
 
 // [svg, png, tamaño, transparente]
+// El icono de la app (icon, adaptativo y favicon) es la foto de la pareja desde la Fase 12:
+// se recorta aparte y ya no sale de un SVG.
 const JOBS = [
-  ['icon.svg', 'icon.png', 1024, false],
-  ['adaptive-background.svg', 'android-icon-background.png', 1024, false],
-  ['adaptive-foreground.svg', 'android-icon-foreground.png', 1024, true],
-  ['adaptive-monochrome.svg', 'android-icon-monochrome.png', 1024, true],
   ['splash.svg', 'splash-icon.png', 1024, true],
-  ['favicon.svg', 'favicon.png', 48, false],
   ['notification-icon.svg', 'notification-icon.png', 96, true],
 ];
 

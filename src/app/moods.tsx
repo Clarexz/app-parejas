@@ -111,16 +111,31 @@ export default function MoodsScreen() {
                           }}
                         >
                           <MoodAvatar profile={who?.profile ?? null} name={name} />
-                          <Text variant="display" style={{ minWidth: 44 }}>
+                          <Text variant="display" style={{ minWidth: 44, textAlign: 'center' }}>
                             {mood.emoji}
                           </Text>
-                          <View style={{ flex: 1, gap: spacing.xxs }}>
-                            <Text variant="bodyStrong">{name}</Text>
+                          <View style={{ flex: 1, minWidth: 0, gap: spacing.xxs }}>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'baseline',
+                                justifyContent: 'space-between',
+                                gap: spacing.sm,
+                              }}
+                            >
+                              <Text
+                                variant="bodyStrong"
+                                numberOfLines={1}
+                                style={{ flexShrink: 1 }}
+                              >
+                                {name}
+                              </Text>
+                              <Text variant="mono" tone="muted">
+                                {formatTimeIn(timeZone, new Date(mood.created_at))}
+                              </Text>
+                            </View>
                             {mood.note ? <Text variant="hand">{mood.note}</Text> : null}
                           </View>
-                          <Text variant="mono" tone="muted">
-                            {formatTimeIn(timeZone, new Date(mood.created_at))}
-                          </Text>
                         </View>
                       </View>
                     );

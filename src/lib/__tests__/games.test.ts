@@ -430,7 +430,7 @@ describe('textos para compartir', () => {
     expect(t).toContain('Pregunta 0 → Playa');
     expect(t).toContain('Pregunta 1 → Café');
     expect(t).not.toContain('Pregunta 2');
-    expect(t).toContain('App Parejas');
+    expect(t).toContain('Noviecitosfest');
   });
 
   it('roundShareText most_likely nombra a la persona señalada y limita a 3', () => {
@@ -462,7 +462,7 @@ describe('textos para compartir', () => {
     expect(drawingShareText({ ...base, status: 'gave_up' }, names)).toContain('no pudo adivinar');
     const t = drawingShareText({ ...base, status: 'solved', guess_count: 3, guesses: [] }, names);
     expect(t).toContain('3 intentos');
-    expect(t).toContain('App Parejas');
+    expect(t).toContain('Noviecitosfest');
     expect(drawingShareText({ ...base, word: null, status: 'guessing' }, names)).toContain(
       'lo está adivinando',
     );
