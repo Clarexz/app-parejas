@@ -12,6 +12,10 @@ function run(fn: () => Promise<unknown>) {
 }
 
 export const haptic = {
+  /** Tocar un mood, una pestaña o una reacción. */
+  light: () => run(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)),
+  /** Confirmación destructiva. */
+  warning: () => run(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)),
   /** Pegar un objeto. */
   stick: () => run(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)),
   /** Sellar algo importante. */

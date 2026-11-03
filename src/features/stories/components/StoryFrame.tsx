@@ -5,7 +5,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { CANVAS_H, CANVAS_W, strokePath, type Stroke } from '@/lib/drawing';
 import type { StoryBg, StoryFont, StoryKind, StorySticker } from '@/lib/stories';
-import { useTheme, type Colors, type Theme } from '@/theme';
+import { lightColors, useTheme, type Colors, type Theme } from '@/theme';
 
 /** Lo mínimo de una story para dibujarla (la fila de la BD y el borrador de "crear" lo cumplen). */
 export type FrameStory = {
@@ -64,7 +64,8 @@ export function storyTextColor(bg: string | null | undefined, colors: Colors): s
     case 'ink':
       return colors.onJamaica;
     case 'cempasuchil':
-      return colors.onPolaroid;
+      // El fondo es el Mango de siempre (no cambia con el modo): su texto tampoco.
+      return lightColors.ink;
     case 'paper':
     default:
       return colors.ink;

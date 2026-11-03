@@ -1,9 +1,8 @@
-import { Pressable } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/theme';
 
-import { iconPaths } from './icons/paths';
+import { Icon } from './Icon';
 
 type Props = {
   checked: boolean;
@@ -13,13 +12,9 @@ type Props = {
   disabled?: boolean;
 };
 
-const BOX =
-  'M4.6 5.3 C8 5 15 5.2 19.2 4.9 C19.5 8.5 19.3 15 19.4 19.3 C15.5 19.6 8.5 19.4 4.8 19.6 C4.5 15.5 4.7 9 4.6 5.3 Z';
-
-/** Casilla dibujada a pluma (DISENO §7): cuadrito de tinta; tachada lleva la palomita en Jamaica. */
+/** Casilla redonda de 24 dp: marcada = círculo de tu fruta con palomita (DISENO §7). */
 export function Checkbox({ checked, onPress, accessibilityLabel, disabled = false }: Props) {
-  const { colors } = useTheme();
-  const stroke = disabled ? colors.inkFaint : checked ? colors.inkMuted : colors.ink;
+  const { colors, fruit, radius } = useTheme();
   return (
     <Pressable
       accessibilityRole="checkbox"
@@ -28,31 +23,27 @@ export function Checkbox({ checked, onPress, accessibilityLabel, disabled = fals
       disabled={disabled}
       onPress={onPress}
       style={({ pressed }) => ({
-        width: 44,
-        height: 44,
+        width: 48,
+        height: 48,
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: pressed ? 0.6 : 1,
+        opacity: disabled ? 0.4 : pressed ? 0.7 : 1,
       })}
     >
-      <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
-        <Path
-          d={BOX}
-          stroke={stroke}
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {checked ? (
-          <Path
-            d={iconPaths.check[0]}
-            stroke={disabled ? colors.inkFaint : colors.jamaica}
-            strokeWidth={2.4}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        ) : null}
-      </Svg>
+      <View
+        style={{
+          width: 26,
+          height: 26,
+          borderRadius: radius.pill,
+          borderWidth: 2,
+          borderColor: checked ? fruit.me.hex : colors.inkMuted,
+          backgroundColor: checked ? fruit.me.hex : 'transparent',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {checked ? <Icon name="tick" size={18} color={fruit.me.on} /> : null}
+      </View>
     </Pressable>
   );
 }

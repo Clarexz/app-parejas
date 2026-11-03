@@ -1,11 +1,10 @@
-import { CourierPrime_400Regular, CourierPrime_700Bold } from '@expo-google-fonts/courier-prime';
 import {
-  Figtree_400Regular,
-  Figtree_500Medium,
-  Figtree_600SemiBold,
-  Figtree_700Bold,
-} from '@expo-google-fonts/figtree';
-import { GochiHand_400Regular } from '@expo-google-fonts/gochi-hand';
+  AlbertSans_400Regular,
+  AlbertSans_500Medium,
+  AlbertSans_600SemiBold,
+  AlbertSans_700Bold,
+} from '@expo-google-fonts/albert-sans';
+import { BricolageGrotesque_800ExtraBold } from '@expo-google-fonts/bricolage-grotesque';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,7 +14,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { Text } from '@/components';
+import { LoadingSymbol } from '@/components';
 import { ToastProvider } from '@/components/Toast';
 import { initSessionListener } from '@/features/auth';
 import { useCouple, useCoupleRealtime } from '@/features/couple';
@@ -28,6 +27,7 @@ import { WidgetsBridge } from '@/features/widgets';
 import { useLocationSync } from '@/features/distance';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
+import { FruitThemeBridge } from '@/theme/FruitThemeBridge';
 
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -42,12 +42,10 @@ function LoadingView() {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.paper,
+        backgroundColor: colors.bg,
       }}
     >
-      <Text variant="hand" muted>
-        Un momento…
-      </Text>
+      <LoadingSymbol size={48} />
     </View>
   );
 }
@@ -144,13 +142,11 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    GochiHand_400Regular,
-    Figtree_400Regular,
-    Figtree_500Medium,
-    Figtree_600SemiBold,
-    Figtree_700Bold,
-    CourierPrime_400Regular,
-    CourierPrime_700Bold,
+    BricolageGrotesque_800ExtraBold,
+    AlbertSans_400Regular,
+    AlbertSans_500Medium,
+    AlbertSans_600SemiBold,
+    AlbertSans_700Bold,
   });
   const ready = fontsLoaded || !!fontError;
 
@@ -161,9 +157,11 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <ThemeProvider>
           <QueryProvider>
-            <ToastProvider>
-              <ThemedStack fontsReady={ready} />
-            </ToastProvider>
+            <FruitThemeBridge>
+              <ToastProvider>
+                <ThemedStack fontsReady={ready} />
+              </ToastProvider>
+            </FruitThemeBridge>
           </QueryProvider>
         </ThemeProvider>
       </SafeAreaProvider>

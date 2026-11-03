@@ -113,12 +113,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'react-native-android-widget',
       {
         fonts: [
-          `${GOOGLE_FONTS}/gochi-hand/400Regular/GochiHand_400Regular.ttf`,
-          `${GOOGLE_FONTS}/figtree/400Regular/Figtree_400Regular.ttf`,
-          `${GOOGLE_FONTS}/figtree/600SemiBold/Figtree_600SemiBold.ttf`,
-          `${GOOGLE_FONTS}/figtree/700Bold/Figtree_700Bold.ttf`,
-          `${GOOGLE_FONTS}/courier-prime/400Regular/CourierPrime_400Regular.ttf`,
-          `${GOOGLE_FONTS}/courier-prime/700Bold/CourierPrime_700Bold.ttf`,
+          `${GOOGLE_FONTS}/bricolage-grotesque/800ExtraBold/BricolageGrotesque_800ExtraBold.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/400Regular/AlbertSans_400Regular.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/500Medium/AlbertSans_500Medium.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/600SemiBold/AlbertSans_600SemiBold.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/700Bold/AlbertSans_700Bold.ttf`,
         ],
         widgets: [
           {

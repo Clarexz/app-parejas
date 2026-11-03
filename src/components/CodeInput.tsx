@@ -3,6 +3,7 @@ import { TextInput, View } from 'react-native';
 
 import { useTheme } from '@/theme';
 
+import { FieldError } from './FieldError';
 import { Text } from './Text';
 
 export const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
@@ -31,7 +32,7 @@ type Props = {
  * casillas: el teclado, el pegado y la accesibilidad funcionan como un campo normal.
  */
 export function CodeInput({ value, onChangeText, error, disabled = false, autoFocus }: Props) {
-  const { colors, spacing, radius, type, fonts } = useTheme();
+  const { colors, spacing, radius, type, fonts, fruit } = useTheme();
   const ref = useRef<ComponentRef<typeof TextInput>>(null);
   const [focused, setFocused] = useState(false);
   const code = normalizeCode(value);
@@ -39,7 +40,7 @@ export function CodeInput({ value, onChangeText, error, disabled = false, autoFo
 
   return (
     <View style={{ gap: spacing.xs }}>
-      <View style={{ opacity: disabled ? 0.7 : 1 }}>
+      <View style={{ opacity: disabled ? 0.5 : 1 }}>
         <View
           accessibilityElementsHidden
           importantForAccessibility="no-hide-descendants"
@@ -47,7 +48,7 @@ export function CodeInput({ value, onChangeText, error, disabled = false, autoFo
         >
           {Array.from({ length: CODE_LENGTH }, (_, i) => {
             const isActive = focused && !disabled && i === active;
-            const border = error ? colors.chile : isActive ? colors.jamaica : colors.ink;
+            const border = error ? colors.danger : isActive ? fruit.me.hex : 'transparent';
             return (
               <View
                 key={i}
@@ -60,21 +61,21 @@ export function CodeInput({ value, onChangeText, error, disabled = false, autoFo
                 <View
                   style={{
                     width: 44,
-                    height: 56,
+                    height: 60,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: colors.paperRaised,
-                    borderWidth: error || !isActive ? 1.5 : 2,
+                    backgroundColor: colors.surface,
+                    borderWidth: 2,
                     borderColor: border,
-                    borderRadius: radius.xs,
+                    borderRadius: radius.md,
                   }}
                 >
                   <Text
                     style={{
-                      fontFamily: fonts.monoBold,
-                      fontSize: type.title.fontSize,
-                      lineHeight: type.title.lineHeight,
-                      color: disabled ? colors.inkFaint : colors.ink,
+                      fontFamily: fonts.display,
+                      fontSize: type.h2.fontSize,
+                      lineHeight: type.h2.lineHeight,
+                      color: colors.ink,
                     }}
                   >
                     {code[i] ?? ''}
@@ -98,7 +99,7 @@ export function CodeInput({ value, onChangeText, error, disabled = false, autoFo
           spellCheck={false}
           maxLength={CODE_LENGTH * 2}
           caretHidden
-          selectionColor={colors.jamaica}
+          selectionColor={fruit.me.hex}
           accessibilityLabel="Código de invitación"
           accessibilityHint="Seis caracteres, letras y números"
           accessibilityState={{ disabled }}
@@ -109,15 +110,11 @@ export function CodeInput({ value, onChangeText, error, disabled = false, autoFo
             right: 0,
             bottom: 0,
             opacity: 0.02,
-            color: colors.paper,
+            color: colors.bg,
           }}
         />
       </View>
-      {error ? (
-        <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-          {error}
-        </Text>
-      ) : null}
+      {error ? <FieldError>{error}</FieldError> : null}
     </View>
   );
 }

@@ -29,7 +29,7 @@ describe('FoldedNote', () => {
       </FoldedNote>,
     );
     expect(screen.queryByText('Te quiero un montón')).toBeNull();
-    expect(screen.getByText('Doblada hasta que contestes')).toBeTruthy();
+    expect(screen.getByText('Se abre cuando contestes.')).toBeTruthy();
   });
 
   it('abierta muestra el texto real', async () => {

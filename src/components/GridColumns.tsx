@@ -26,15 +26,17 @@ export function filledCells(value: number, max: number, rows: number): number {
 const GAP = 2;
 
 /**
- * Gráfica de columnas hecha de cuadritos de la cuadrícula del cuaderno, coloreados (DISENO §7).
- * Sin ejes ni barras: cada casilla pintada es un punto, la etiqueta va debajo en `caption`.
+ * @deprecated Bitácora: se quita al rediseñar pantallas. Columnas de casillas redondeadas;
+ * `jamaica` = tu fruta y `nopal` = la de tu pareja.
  */
 export function GridColumns({ columns, rows = 8, tone = 'jamaica', accessibilityLabel }: Props) {
-  const { colors, spacing } = useTheme();
+  const { colors, spacing, fruit } = useTheme();
   const [width, setWidth] = useState(0);
   const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width);
   const max = Math.max(0, ...columns.map((c) => c.value));
-  const fill = colors[tone];
+  const fill = { jamaica: fruit.me.hex, nopal: (fruit.partner ?? fruit.me).hex, ink: colors.ink }[
+    tone
+  ];
   const n = Math.max(1, columns.length);
   const cell = width > 0 ? Math.floor((width - GAP * (n - 1)) / n) : 0;
 
@@ -62,16 +64,15 @@ export function GridColumns({ columns, rows = 8, tone = 'jamaica', accessibility
                         style={{
                           width: cell,
                           height: cell,
-                          backgroundColor: on ? fill : 'transparent',
-                          borderWidth: 1,
-                          borderColor: on ? fill : colors.ruled,
+                          borderRadius: 4,
+                          backgroundColor: on ? fill : colors.surface2,
                         }}
                       />
                     );
                   })}
                 </View>
                 <Text
-                  variant="caption"
+                  variant="note"
                   muted
                   numberOfLines={1}
                   maxFontSizeMultiplier={1}

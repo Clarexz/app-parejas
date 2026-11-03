@@ -153,9 +153,9 @@ describe('TabBar', () => {
     expect(TAB_ICONS).toMatchObject({
       index: 'home',
       more: 'more',
-      questions: 'ask',
-      stories: 'photo',
-      memories: 'map',
+      questions: 'question',
+      stories: 'stories',
+      memories: 'memories',
     });
   });
 });

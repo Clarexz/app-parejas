@@ -4,7 +4,7 @@ import { useTheme } from '@/theme';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
-import { Note } from './Note';
+import { Notice } from './Notice';
 import { Text } from './Text';
 
 export type PermissionStatus = 'granted' | 'denied' | 'undetermined' | 'unavailable';
@@ -18,8 +18,8 @@ type Props = {
 };
 
 /**
- * Estado del permiso de avisos (DISENO §7): activos (línea con palomita Nopal), por pedir
- * (post-it + botón), bloqueado (post-it + botón a los ajustes del celular) o solo-celular (web).
+ * Estado del permiso de avisos (DISENO §7): activos (palomita en Nopal + línea), por pedir
+ * (`Notice` + botón), bloqueado (`Notice` + botón a los ajustes del celular) o solo-celular (web).
  */
 export function PermissionNote({
   status,
@@ -33,7 +33,7 @@ export function PermissionNote({
   if (status === 'granted') {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        <Icon name="check" size={24} color={colors.nopal} />
+        <Icon name="check" size={24} color={colors.success} />
         <Text variant="body" style={{ flex: 1 }}>
           Los avisos están activos en este celular.
         </Text>
@@ -52,13 +52,13 @@ export function PermissionNote({
   const canAsk = status === 'undetermined' || canAskAgain;
   return (
     <View style={{ gap: spacing.md, alignItems: 'flex-start' }}>
-      <Note id="permiso-avisos" tape={false} style={{ alignSelf: 'stretch' }}>
-        <Text variant="hand" style={{ color: colors.onPostit }}>
+      <View style={{ alignSelf: 'stretch' }}>
+        <Notice>
           {canAsk
-            ? 'Para que te llegue el aviso cuando tu pareja conteste, necesito tu permiso.'
+            ? 'Para avisarte cuando tu pareja conteste, necesitamos tu permiso.'
             : 'Los avisos están apagados en este celular. Se activan en los ajustes del sistema.'}
-        </Text>
-      </Note>
+        </Notice>
+      </View>
       {canAsk ? (
         <Button title="Activar avisos" onPress={onRequest} loading={loading} />
       ) : (
