@@ -11,3 +11,4 @@ supabase/migrations
 docs/rebranding/
 # Prototipo generado con fotos embebidas
 docs/design/ahorita-prototipo.html
+.claude/
