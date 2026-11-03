@@ -11,6 +11,8 @@ type Props<T extends string> = {
   value: T;
   onChange: (value: T) => void;
   accessibilityLabel?: string;
+  /** Ocupa todo el ancho y reparte las opciones por igual; si no, mide lo que dicen. */
+  fullWidth?: boolean;
 };
 
 /** Píldora `surface` con opciones; la activa en `ink` (DISENO §7). */
@@ -19,6 +21,7 @@ export function Segmented<T extends string>({
   value,
   onChange,
   accessibilityLabel,
+  fullWidth = false,
 }: Props<T>) {
   const { colors, radius, spacing } = useTheme();
   return (
@@ -27,6 +30,7 @@ export function Segmented<T extends string>({
       accessibilityLabel={accessibilityLabel}
       style={{
         flexDirection: 'row',
+        alignSelf: fullWidth ? 'stretch' : 'flex-start',
         backgroundColor: colors.surface,
         borderRadius: radius.pill,
         padding: spacing.xs,
@@ -43,12 +47,13 @@ export function Segmented<T extends string>({
             accessibilityState={{ selected }}
             onPress={() => onChange(option.value)}
             style={{
-              flex: 1,
+              flex: fullWidth ? 1 : undefined,
+              minWidth: 88,
               minHeight: 40,
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: radius.pill,
-              paddingHorizontal: spacing.md,
+              paddingHorizontal: spacing.lg,
               backgroundColor: selected ? colors.ink : 'transparent',
             }}
           >

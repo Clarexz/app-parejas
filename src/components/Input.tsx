@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { TextInput, View, type TextInputProps } from 'react-native';
+import { Platform, TextInput, View, type TextInputProps } from 'react-native';
 
 import { useTheme } from '@/theme';
 
 import { FieldError } from './FieldError';
+import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
 
 type Props = Omit<TextInputProps, 'style'> & {
@@ -11,7 +12,14 @@ type Props = Omit<TextInputProps, 'style'> & {
   variant?: 'line' | 'multiline';
   error?: string;
   disabled?: boolean;
+  /** Ícono a la izquierda (la lupa de una búsqueda). */
+  icon?: IconName;
 };
+
+// En web el navegador dibuja su propio contorno encima del aro de tu fruta.
+const noBrowserOutline = (
+  Platform.OS === 'web' ? { outlineStyle: 'none', outlineWidth: 0 } : null
+) as object | null;
 
 /** Campo `surface`, radio 18; foco = contorno de 2 dp de tu fruta (DISENO §7). */
 export function Input({
@@ -19,6 +27,7 @@ export function Input({
   variant = 'line',
   error,
   disabled = false,
+  icon,
   onFocus,
   onBlur,
   accessibilityLabel,
@@ -43,8 +52,16 @@ export function Input({
           borderWidth: 2,
           borderColor: outline,
           opacity: disabled ? 0.5 : 1,
+          flexDirection: 'row',
+          alignItems: multiline ? 'flex-start' : 'center',
+          paddingLeft: icon ? spacing.lg - 2 : 0,
         }}
       >
+        {icon ? (
+          <View style={{ paddingTop: multiline ? spacing.md : 0 }}>
+            <Icon name={icon} size={20} color={colors.inkMuted} />
+          </View>
+        ) : null}
         <TextInput
           {...rest}
           multiline={multiline}
@@ -63,9 +80,12 @@ export function Input({
           }}
           style={[
             type.body,
+            noBrowserOutline,
             {
+              flex: 1,
               color: colors.ink,
-              paddingHorizontal: spacing.lg - 2,
+              paddingLeft: icon ? spacing.sm : spacing.lg - 2,
+              paddingRight: spacing.lg - 2,
               paddingVertical: multiline ? spacing.md : spacing.sm,
               minHeight: multiline ? 104 : 52,
             },

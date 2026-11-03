@@ -16,6 +16,7 @@ import {
   Button,
   DateField,
   EmptyState,
+  FieldError,
   Icon,
   Input,
   LoadingSymbol,
@@ -25,7 +26,6 @@ import {
   Sheet,
   Text,
 } from '@/components';
-import { FieldError } from '@/components/FieldError';
 import { useToast } from '@/components/Toast';
 import { useToday } from '@/features/couple';
 import { addDays } from '@/lib/dates';

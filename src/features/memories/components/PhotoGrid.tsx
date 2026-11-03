@@ -72,8 +72,8 @@ function Cell({
       x.value = target.x;
       y.value = target.y;
     } else {
-      x.value = withTiming(target.x, { duration: motion.duration.fast });
-      y.value = withTiming(target.y, { duration: motion.duration.fast });
+      x.value = withTiming(target.x, { duration: motion.tap.duration });
+      y.value = withTiming(target.y, { duration: motion.tap.duration });
     }
   }, [target.x, target.y, reduced, motion, x, y]);
 
@@ -224,10 +224,10 @@ export function PhotoGrid({
     onMove,
     onDragChange,
     reduced,
-    duration: motion.duration.fast,
+    duration: motion.tap.duration,
   });
   useEffect(() => {
-    latest.current = { items, grid, onMove, onDragChange, reduced, duration: motion.duration.fast };
+    latest.current = { items, grid, onMove, onDragChange, reduced, duration: motion.tap.duration };
   });
   const clearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(

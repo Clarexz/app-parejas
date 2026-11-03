@@ -14,10 +14,6 @@ type Props = {
   onPress?: () => void;
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya no hay renglones. */
-  variant?: 'plain' | 'ruled';
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya nada se inclina. */
-  tilt?: number;
 };
 
 /** Superficie `surface`, radio 24, padding 18, sin sombra (DISENO §7). */

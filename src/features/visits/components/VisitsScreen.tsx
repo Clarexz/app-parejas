@@ -163,7 +163,7 @@ export function VisitsScreen() {
           <View style={{ gap: spacing.xs }}>
             {stats.current ? (
               <>
-                <Text variant="display">Juntos</Text>
+                <Text variant="h1">Juntos</Text>
                 <Text variant="body" tone="muted">
                   Día {daysBetween(stats.current.start_date, today) + 1} de esta visita.
                 </Text>

@@ -61,14 +61,12 @@ export default function MemoriesScreen() {
   } else {
     body = (
       <View style={{ gap: spacing.xl }}>
-        <View style={{ alignSelf: 'flex-start', minWidth: 240 }}>
-          <Segmented
-            options={MODES}
-            value={mode}
-            onChange={setMode}
-            accessibilityLabel="Ver memorias como diario o mapa"
-          />
-        </View>
+        <Segmented
+          options={MODES}
+          value={mode}
+          onChange={setMode}
+          accessibilityLabel="Ver memorias como diario o mapa"
+        />
         {mode === 'diary' ? (
           <MemoriesTimeline memories={memories} onOpen={open} />
         ) : (

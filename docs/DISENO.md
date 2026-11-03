@@ -150,7 +150,7 @@ relleno de tu fruta detrás (pestañas). Base del manual: `home`, `question`, `m
 mismo estilo: `more`, `person`, `couple`, `fruit`, `suitcase`, `widgets`, `signal`, `door`,
 `leave`, `chevron`, `back`, `plus`, `lock`, `send`, `spark`, `pin`, `alert`, `check`, `close`,
 `map`, `camera`, `photo`, `pencil`, `trash`, `download`, `eye`, `archive`, `calendar`, `clock`,
-`gift`, `settings`, `undo`, `type`, `sticker`, `envelope`, `chart`, `cloudOff`, `smile`. Si falta
+`gift`, `settings`, `search`, `undo`, `type`, `sticker`, `envelope`, `chart`, `cloudOff`, `smile`. Si falta
 uno, se dibuja con estas reglas (referencia: Material Symbols Rounded peso 500), nunca se usa un
 emoji como ícono del sistema. Los emojis solo existen como **contenido** (moods, reacciones).
 
@@ -211,29 +211,31 @@ en el Catálogo de diseño (`/catalogo`).
 | `Screen` | Fondo `bg`, safe area, gutter 20, `scroll`, `refreshing`/`onRefresh` (indicador en tu fruta) | `scroll`, `padded` | refrescando |
 | `ScreenHeader` | Título `h1` + `label` opcional arriba + acción a la derecha; con `back` muestra flecha y texto de regreso | `title`, `label`, `right`, `back` | — |
 | `Text` | Escala §2.4 | `variant`; `tone` = `ink`·`muted`·`danger`·`success`·`onFruit` | — |
-| `Button` | Píldora de 50 dp | `primary` (`action`), `secondary` (`surface2` + `ink`), `ghost` (solo texto `ink` 600), `danger` (texto Chile); `fullWidth`, `icon`, `size: 'md'|'sm'` | normal, presionado (`tap`), deshabilitado (40 % opacidad), cargando (`LoadingSymbol` chico) |
+| `Button` | Píldora de 50 dp | `primary` (`action`), `secondary` (`surface2` + `ink`), `ghost` (solo texto `ink` 600), `danger` (texto Chile); `fullWidth`, `icon`, `size: 'md'|'sm'`; sin `fullWidth` mide su contenido y respeta la alineación del padre (en un padre que estira, envuélvelo en `alignItems: 'flex-start'`) | normal, presionado (`tap`), deshabilitado (40 % opacidad), cargando (`LoadingSymbol` chico) |
 | `IconButton` | Ícono tocable 48×48 | `plain`, `filled` (círculo `action`), `soft` (círculo `surface2`) | normal, presionado, deshabilitado |
 | `Card` | Superficie `surface`, radio 24, padding 18, sin sombra | `tone`: `surface` · `me` · `partner` (tinte de fruta); `onPress` | normal, presionado |
 | `Symbol` | §3 | `size`, `left`/`right` (`Fruit` o llave), `animate`: `none`·`arrive`·`breathe` | — |
 | `Wordmark` | §3 | `size`, `layout`: `name`·`horizontal`·`stacked` | — |
-| `Avatar` | Foto o inicial sobre `surface2`; aro de fruta 3 dp con separación `bg` | `size`, `fruit`, `ring`, `newDot` (punto de story nueva) | cargando, sin foto |
-| `MoodBubble` | Burbuja con pico arriba en el tinte de la fruta: emoji + mood + nota | `fruit`, `empty` (contorno `line`, "¿Y tú?") | vacío, cargando |
+| `Avatar` | Foto o inicial sobre `surface2`; aro de fruta 3 dp con separación `bg` | `size`, `fruit`, `ring`, `newDot` (punto de story nueva); `initialOf(nombre)` se exporta aparte | cargando, sin foto |
+| `MoodBubble` | Burbuja con pico arriba en el tinte de la fruta: emoji + mood + nota | `fruit`, `empty` (contorno `line`, "¿Y tú?"), `note` (varias líneas), `pulse` (sube al llegar un mood nuevo: resorte; fundido con reducir movimiento) | vacío, cargando |
 | `FruitDot` | Punto de 12 dp de la fruta: "esto es de…" | `fruit`, `size` | — |
 | `FruitPicker` | Rejilla 4 columnas de las 7 frutas con nombre; bloqueadas con candado y motivo ("es de X", "se parece a la suya"), sugerida marcada; vista previa con `Symbol` | `value`, `partnerFruit`, `partnerName`, `onChange` | seleccionada (aro `ink`), bloqueada (30 %) |
 | `AnswerCard` | Respuesta de una persona: `FruitDot` + nombre + texto, fondo tinte de su fruta; `locked` muestra renglones borrosos y "Se abre cuando contestes." | `fruit`, `name`, `text`, `locked` | revelándose (§5) |
-| `StatTile` | Número `num` + nota, sobre `surface` | `value`, `label`, `icon` | — |
-| `Chip` | Píldora `surface2` | `selected` (fondo `ink`, texto `bg`), `icon` | seleccionado, deshabilitado |
-| `Segmented` | Píldora `surface` con opciones; la activa en `ink` | `options`, `value` | — |
-| `Input` | Campo `surface`, radio 18, texto `body`; foco = contorno 2 dp de tu fruta | `label`, `error`, `multiline` | foco, error (texto Chile + ícono), deshabilitado |
+| `StatTile` | Número `num` + nota, sobre `surface`; tocable se achica al presionar | `value`, `label`, `icon`, `iconColor` (p. ej. tu fruta en la racha), `onPress`, `accessibilityHint` | presionado (si es tocable) |
+| `Chip` | Píldora `surface2` | `selected` (fondo `ink`, texto `bg`), `icon`, `iconColor` | seleccionado, deshabilitado |
+| `Segmented` | Píldora `surface` con opciones; la activa en `ink`. Mide lo que dicen (cada opción con `minWidth` 88); `fullWidth` la estira y reparte por igual | `options`, `value`, `fullWidth` | — |
+| `Input` | Campo `surface`, radio 18, texto `body`; foco = contorno 2 dp de tu fruta | `label`, `error`, `multiline`, `icon` (a la izquierda, p. ej. `search`) | foco, error (texto Chile + ícono), deshabilitado |
 | `ListRow` / `ListGroup` | Renglón de 52 dp: ícono `ink`, texto `body`, chevrón `inkMuted`; divisor `line`. `ListGroup` pone la etiqueta arriba | `tone: 'danger'`, `right`, `divider` | presionado (`surface`), deshabilitado |
 | `Sheet` | Hoja inferior radio 28, `bg`, agarradera | `title` | — |
 | `Toast` | Píldora `ink` con texto `bg` y ícono | `tone` `info`·`success`·`danger` | — |
-| `Notice` | Aviso en `surface`, radio 18, ícono + texto; `danger`/`success` colorean el ícono | `tone`, `action` | — |
+| `Notice` | Aviso en `surface`, radio 18, ícono + texto; `danger`/`success` colorean el ícono | `tone`, `action`; `children` acepta texto suelto o varias partes (`Text` anidados) | — |
 | `EmptyState` | `Symbol` (o forma de widget) + `h3` + nota + acción opcional; con humor | `art`: `symbol`·`heart`·`bubble`·`dome`·`spark`·`circles`, `title`, `body`, `action` | — |
 | `LoadingSymbol` | Símbolo que respira (§5) | `size` | — |
 | `ArrivalOverlay` | Las mitades llegan y aparece una frase corta | `text`, `onDone` | — |
 | `TabBar` | 5 pestañas solo ícono (con `accessibilityLabel`); activa = círculo de tu fruta (`on` encima) | — | activa (`spring`) |
-| `Toggle`, `Checkbox`, `DateField`, `TimeField`, `CodeInput`, `InviteCode`, `AvatarPicker`, `PermissionNote`, `SoftAskNote`, `Divider` | Mismos contratos que antes, redibujados con estos tokens (Toggle encendido = tu fruta) | — | — |
+| `Checkbox` | Casilla redonda; marcada = círculo de tu fruta con palomita | `size`: `md` (26) · `lg` (círculo de 32, detalle de listas) | — |
+| `PermissionNote` | Estado de un permiso: activo, por pedir, bloqueado o solo-celular | `kind`: `notifications` · `location` (cada uno con sus textos) | — |
+| `Toggle`, `DateField`, `TimeField`, `CodeInput`, `InviteCode`, `AvatarPicker`, `SoftAskNote`, `Divider`, `FieldError` | Mismos contratos que antes, redibujados con estos tokens (Toggle encendido = tu fruta) | — | — |
 | `Sticker` | Sticker de stories: círculo de fruta con frase corta en display (manual §15) | `text`, `fruit` | — |
 
 **Retirados** (no se usan más): `Paper`, `Tape`, `Polaroid`, `Stamp`, `Doodle`, `FoldedNote`,

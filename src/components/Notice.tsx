@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { Children, isValidElement, type ReactNode } from 'react';
 import { View } from 'react-native';
 
 import { useTheme } from '@/theme';
@@ -15,6 +15,16 @@ type Props = {
   children: ReactNode;
   action?: { label: string; onPress: () => void; loading?: boolean };
 };
+
+/**
+ * El texto suelto (strings, números o mezclados con `Text`) va envuelto en un `Text`; así el aviso
+ * acepta varias partes sin romper "Text strings must be rendered within a <Text>".
+ */
+function Body({ children }: { children: ReactNode }) {
+  const parts = Children.toArray(children);
+  const loose = parts.some((part) => !isValidElement(part));
+  return loose ? <Text variant="body">{children}</Text> : <>{children}</>;
+}
 
 const ICONS: Record<NoticeTone, IconName> = { info: 'alert', danger: 'alert', success: 'check' };
 
@@ -38,11 +48,11 @@ export function Notice({ tone = 'info', children, action }: Props) {
           <Icon name={ICONS[tone]} size={24} color={iconColor} />
         </View>
         <View style={{ flex: 1 }}>
-          {typeof children === 'string' ? <Text variant="body">{children}</Text> : children}
+          <Body>{children}</Body>
         </View>
       </View>
       {action ? (
-        <View style={{ paddingLeft: 24 + spacing.md }}>
+        <View style={{ paddingLeft: 24 + spacing.md, alignItems: 'flex-start' }}>
           <Button
             title={action.label}
             onPress={action.onPress}

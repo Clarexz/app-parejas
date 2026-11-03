@@ -20,7 +20,7 @@ export const palettes: { light: WidgetPalette; dark: WidgetPalette } = {
 export const col = (value: string): ColorProp => value as ColorProp;
 
 export const FONT = {
-  semiBold: fonts.bodySemiBold,
+  semiBold: fonts.textSemi,
 } as const;
 
 /** Deep link de un widget: `appparejas://moods`, o `appparejas://` para el inicio. */

@@ -8,8 +8,6 @@ import { moodLabel } from '@/lib/mood';
 import { storyAgo } from '@/lib/stories';
 import { useTheme } from '@/theme';
 
-import { PulseView } from './PulseView';
-
 type Props = {
   profile: Profile | null;
   /** Nombre si el perfil aún no carga. */
@@ -83,6 +81,7 @@ export function PersonColumn({
         emoji={mood.emoji}
         mood={spoken}
         note={note}
+        pulse={mine ? 0 : pulse}
         onPress={onPressMood}
         accessibilityLabel={`${name}, ${spoken || mood.emoji}${mood.note ? `: ${mood.note}` : ''}`}
       />
@@ -120,7 +119,7 @@ export function PersonColumn({
       ) : (
         avatar
       )}
-      {mine ? bubble : <PulseView pulse={pulse}>{bubble}</PulseView>}
+      {bubble}
     </View>
   );
 }

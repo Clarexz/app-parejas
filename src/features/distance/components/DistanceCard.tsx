@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { Card, LoadingSymbol, Text } from '@/components';
-import { initialOf } from '@/components/Avatar';
+import { Card, initialOf, LoadingSymbol, Text } from '@/components';
 import { spokenKm, type DistanceView } from '@/lib/distance';
 import { useTheme } from '@/theme';
 

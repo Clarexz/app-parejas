@@ -12,8 +12,6 @@ type Props = {
   /** Con `scroll`: activa el "jalar para refrescar" (DISENO §7). */
   refreshing?: boolean;
   onRefresh?: () => void;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya no hay hoja de cuaderno. */
-  paper?: string;
 };
 
 /** Contenedor de pantalla: fondo `bg`, safe area y gutter de 20 dp (DISENO §7). */

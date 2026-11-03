@@ -20,8 +20,6 @@ type Props = {
   /** Ocupa todo el ancho (formularios, auth y onboarding). */
   fullWidth?: boolean;
   size?: 'md' | 'sm';
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya no hay post-its. */
-  onNote?: boolean;
 };
 
 /** Botón del sistema (DISENO §7): píldora de 50 dp. Una sola `primary` por pantalla. */
@@ -61,7 +59,8 @@ export function Button({
       onPress={onPress}
       onPressIn={tap.onPressIn}
       onPressOut={tap.onPressOut}
-      style={{ alignSelf: fullWidth ? 'stretch' : 'flex-start' }}
+      // Con "reducir movimiento" la animación de toque usa `opacity`: la del deshabilitado va aquí.
+      style={{ alignSelf: fullWidth ? 'stretch' : undefined, opacity: disabled ? 0.4 : 1 }}
     >
       <Animated.View
         style={[
@@ -75,7 +74,6 @@ export function Button({
             paddingHorizontal: size === 'sm' ? spacing.lg : spacing.xl - 2,
             borderRadius: radius.pill,
             backgroundColor: bg,
-            opacity: disabled ? 0.4 : 1,
           },
           tap.style,
         ]}

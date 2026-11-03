@@ -1,13 +1,6 @@
 /** Textos y decisiones de presentación de las preguntas (funciones puras, es-MX). */
 import type { QuestionCard, Streak } from '@/lib/questions';
 
-export const LONG_QUESTION_CHARS = 140;
-
-/** Gochi Hand solo hasta ~140 caracteres (DISENO §2.2); más largo va en Figtree. */
-export function questionTextVariant(text: string): 'title' | 'heading' {
-  return Array.from(text).length <= LONG_QUESTION_CHARS ? 'title' : 'heading';
-}
-
 export function pluralDays(n: number): string {
   return n === 1 ? '1 día' : `${n} días`;
 }

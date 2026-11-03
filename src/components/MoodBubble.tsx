@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { useTheme } from '@/theme';
 
@@ -20,6 +28,8 @@ type Props = {
   emptyTitle?: string;
   emptyNote?: string;
   loading?: boolean;
+  /** Sube cuando llega un mood nuevo: la burbuja "llega" (resorte; fundido con reducir movimiento). */
+  pulse?: number;
   onPress?: () => void;
   accessibilityLabel?: string;
 };
@@ -34,10 +44,28 @@ export function MoodBubble({
   emptyTitle = '¿Y tú?',
   emptyNote = 'Toca para elegir',
   loading = false,
+  pulse = 0,
   onPress,
   accessibilityLabel,
 }: Props) {
-  const { colors, spacing, tint } = useTheme();
+  const { colors, spacing, tint, motion } = useTheme();
+  const reduced = useReducedMotion();
+  const scale = useSharedValue(1);
+  const fade = useSharedValue(1);
+  useEffect(() => {
+    if (pulse === 0) return;
+    if (reduced) {
+      fade.value = 0.3;
+      fade.value = withTiming(1, { duration: motion.reduced });
+      return;
+    }
+    scale.value = 0.94;
+    scale.value = withSpring(1, motion.spring);
+  }, [pulse, reduced, scale, fade, motion]);
+  const pulseStyle = useAnimatedStyle(() => ({
+    opacity: fade.value,
+    transform: [{ scale: scale.value }],
+  }));
   const bg = empty || loading ? 'transparent' : tint(fruitOf(fruit));
   const title = empty ? emptyTitle : [emoji, mood].filter(Boolean).join(' ');
   const sub = empty ? emptyNote : note;
@@ -83,7 +111,7 @@ export function MoodBubble({
             {title}
           </Text>
           {sub ? (
-            <Text variant="note" tone="muted" numberOfLines={2}>
+            <Text variant="note" tone="muted">
               {sub}
             </Text>
           ) : null}
@@ -92,10 +120,11 @@ export function MoodBubble({
     </View>
   );
 
+  const animated = <Animated.View style={pulseStyle}>{body}</Animated.View>;
   if (!onPress) {
     return (
       <View accessible accessibilityLabel={label} style={{ paddingTop: spacing.xxs }}>
-        {body}
+        {animated}
       </View>
     );
   }
@@ -106,7 +135,7 @@ export function MoodBubble({
       onPress={onPress}
       style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
     >
-      {body}
+      {animated}
     </Pressable>
   );
 }

@@ -9,7 +9,31 @@ import { Text } from './Text';
 
 export type PermissionStatus = 'granted' | 'denied' | 'undetermined' | 'unavailable';
 
+export type PermissionKind = 'notifications' | 'location';
+
+const COPY: Record<
+  PermissionKind,
+  { granted: string; unavailable: string; ask: string; blocked: string }
+> = {
+  notifications: {
+    granted: 'Los avisos están activos en este celular.',
+    unavailable:
+      'Los avisos solo funcionan en el celular. Aquí puedes dejar listas tus preferencias.',
+    ask: 'Para avisarte cuando tu pareja conteste, necesitamos tu permiso.',
+    blocked: 'Los avisos están apagados en este celular. Se activan en los ajustes del sistema.',
+  },
+  location: {
+    granted: 'La ubicación está activa en este celular.',
+    unavailable: 'La distancia solo funciona en el celular. Ábrela desde la app para activarla.',
+    ask: 'Para medir la distancia necesitamos tu permiso de ubicación.',
+    blocked:
+      'La ubicación está apagada para esta app. Se activa en Ajustes, Permisos, Ubicación, “Permitir solo mientras se usa la app”.',
+  },
+};
+
 type Props = {
+  /** Qué permiso explica (por defecto, los avisos). */
+  kind?: PermissionKind;
   status: PermissionStatus;
   canAskAgain: boolean;
   onRequest: () => void;
@@ -22,6 +46,7 @@ type Props = {
  * (`Notice` + botón), bloqueado (`Notice` + botón a los ajustes del celular) o solo-celular (web).
  */
 export function PermissionNote({
+  kind = 'notifications',
   status,
   canAskAgain,
   onRequest,
@@ -29,13 +54,14 @@ export function PermissionNote({
   loading = false,
 }: Props) {
   const { colors, spacing } = useTheme();
+  const copy = COPY[kind];
 
   if (status === 'granted') {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
         <Icon name="check" size={24} color={colors.success} />
         <Text variant="body" style={{ flex: 1 }}>
-          Los avisos están activos en este celular.
+          {copy.granted}
         </Text>
       </View>
     );
@@ -44,7 +70,7 @@ export function PermissionNote({
   if (status === 'unavailable') {
     return (
       <Text variant="body" tone="muted">
-        Los avisos solo funcionan en el celular. Aquí puedes dejar listas tus preferencias.
+        {copy.unavailable}
       </Text>
     );
   }
@@ -53,14 +79,14 @@ export function PermissionNote({
   return (
     <View style={{ gap: spacing.md, alignItems: 'flex-start' }}>
       <View style={{ alignSelf: 'stretch' }}>
-        <Notice>
-          {canAsk
-            ? 'Para avisarte cuando tu pareja conteste, necesitamos tu permiso.'
-            : 'Los avisos están apagados en este celular. Se activan en los ajustes del sistema.'}
-        </Notice>
+        <Notice>{canAsk ? copy.ask : copy.blocked}</Notice>
       </View>
       {canAsk ? (
-        <Button title="Activar avisos" onPress={onRequest} loading={loading} />
+        <Button
+          title={kind === 'location' ? 'Activar ubicación' : 'Activar avisos'}
+          onPress={onRequest}
+          loading={loading}
+        />
       ) : (
         <Button title="Abrir ajustes del celular" variant="secondary" onPress={onOpenSettings} />
       )}

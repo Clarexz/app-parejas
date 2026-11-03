@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/theme';
 
 import { Avatar } from '../Avatar';
 import { EmptyState } from '../EmptyState';
-import { FoldedNote } from '../FoldedNote';
 import { TimeField } from '../TimeField';
 import { ToastProvider, useToast } from '../Toast';
 
@@ -20,27 +19,6 @@ jest.mock('react-native-safe-area-context', () => ({
 }));
 
 const wrap = async (ui: React.ReactElement) => render(<ThemeProvider>{ui}</ThemeProvider>);
-
-describe('FoldedNote', () => {
-  it('cerrada no muestra el texto real', async () => {
-    await wrap(
-      <FoldedNote open={false}>
-        <RNText>Te quiero un montón</RNText>
-      </FoldedNote>,
-    );
-    expect(screen.queryByText('Te quiero un montón')).toBeNull();
-    expect(screen.getByText('Se abre cuando contestes.')).toBeTruthy();
-  });
-
-  it('abierta muestra el texto real', async () => {
-    await wrap(
-      <FoldedNote open>
-        <RNText>Te quiero un montón</RNText>
-      </FoldedNote>,
-    );
-    expect(screen.getByText('Te quiero un montón')).toBeTruthy();
-  });
-});
 
 describe('Toast', () => {
   function Trigger() {
@@ -83,7 +61,7 @@ describe('EmptyState', () => {
   it('la acción llama onAction', async () => {
     const onAction = jest.fn();
     await wrap(
-      <EmptyState title="Nada por aquí" actionLabel="Pegar una foto" onAction={onAction} />,
+      <EmptyState title="Nada por aquí" action={{ label: 'Pegar una foto', onPress: onAction }} />,
     );
     await fireEvent.press(screen.getByText('Pegar una foto'));
     expect(onAction).toHaveBeenCalledTimes(1);

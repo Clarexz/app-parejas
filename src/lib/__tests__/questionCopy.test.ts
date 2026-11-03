@@ -3,7 +3,6 @@ import {
   commentCountLabel,
   partnerFoldedLabel,
   questionErrorKind,
-  questionTextVariant,
   repairLine,
   sameChoice,
   streakLine,
@@ -20,11 +19,6 @@ const ans = (choice: number | null) => ({
 });
 
 describe('questionCopy', () => {
-  it('usa Gochi Hand solo hasta 140 caracteres', () => {
-    expect(questionTextVariant('a'.repeat(140))).toBe('title');
-    expect(questionTextVariant('a'.repeat(141))).toBe('heading');
-  });
-
   it('escribe la racha con singular y plural', () => {
     expect(streakLine(23)).toBe('23 días seguidos contestando.');
     expect(streakLine(1)).toBe('1 día seguido contestando.');

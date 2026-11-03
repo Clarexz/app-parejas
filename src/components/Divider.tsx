@@ -4,8 +4,6 @@ import { useTheme } from '@/theme';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Siempre es una línea continua. */
-  variant?: 'dashed' | 'solid';
 };
 
 /** Divisor de 1 dp en `line` (DISENO §2.1). */

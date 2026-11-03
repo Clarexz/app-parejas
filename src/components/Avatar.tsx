@@ -18,8 +18,6 @@ type Props = {
   ring?: boolean;
   /** Punto de story nueva. */
   newDot?: boolean;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. Siempre es un círculo. */
-  variant?: 'polaroid' | 'round';
   /** Mood corto (emoji); se pone en una burbuja chica en la esquina. */
   mood?: string;
 };
@@ -28,13 +26,6 @@ type Props = {
 export function initialOf(name: string): string {
   const first = Array.from(name.trim())[0];
   return first ? first.toLocaleUpperCase('es-MX') : '?';
-}
-
-/** Índice determinista 0..2 por nombre. @deprecated Bitácora: ya no se colorea por nombre. */
-export function paletteIndex(name: string): number {
-  let h = 0;
-  for (const ch of name.trim().toLowerCase()) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h % 3;
 }
 
 const RING = 3;

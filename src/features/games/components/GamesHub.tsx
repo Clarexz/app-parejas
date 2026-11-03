@@ -406,7 +406,7 @@ export function GamesHub() {
                   disabled={startRound.isPending}
                 />
               ) : (
-                <View style={{ gap: spacing.xs }}>
+                <View style={{ gap: spacing.xs, alignItems: 'flex-start' }}>
                   <Text variant="note" tone="muted">
                     La versión picante se abre cuando los dos activan picantes.
                   </Text>

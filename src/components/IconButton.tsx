@@ -9,8 +9,8 @@ import { useTapScale } from './motion';
 type Props = {
   name: IconName;
   onPress?: () => void;
-  /** `filled`: círculo `action`. `soft`: círculo `surface2`. `sticker` es el nombre viejo de `filled`. */
-  variant?: 'plain' | 'filled' | 'soft' | 'sticker';
+  /** `filled`: círculo `action`. `soft`: círculo `surface2`. */
+  variant?: 'plain' | 'filled' | 'soft';
   disabled?: boolean;
   /** Obligatorio: el botón no tiene texto visible. */
   accessibilityLabel: string;
@@ -26,7 +26,7 @@ export function IconButton({
 }: Props) {
   const { colors, radius } = useTheme();
   const tap = useTapScale();
-  const filled = variant === 'filled' || variant === 'sticker';
+  const filled = variant === 'filled';
   const soft = variant === 'soft';
   return (
     <Pressable
@@ -37,7 +37,14 @@ export function IconButton({
       onPress={onPress}
       onPressIn={tap.onPressIn}
       onPressOut={tap.onPressOut}
-      style={{ width: 48, height: 48, alignItems: 'center', justifyContent: 'center' }}
+      // La opacidad del deshabilitado va aquí para que la animación de toque no la pise.
+      style={{
+        width: 48,
+        height: 48,
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: disabled ? 0.4 : 1,
+      }}
     >
       <Animated.View
         style={[
@@ -48,7 +55,6 @@ export function IconButton({
             justifyContent: 'center',
             borderRadius: radius.pill,
             backgroundColor: filled ? colors.action : soft ? colors.surface2 : undefined,
-            opacity: disabled ? 0.4 : 1,
           },
           tap.style,
         ]}

@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
-import { Button, Card, Icon, Text } from '@/components';
+import { Button, Card, StatTile, Text } from '@/components';
 import { useFruits } from '@/features/couple';
 import { useStreak } from '@/features/questions';
 import { formatLongDate } from '@/lib/dateParts';
@@ -11,58 +11,6 @@ import { haptic } from '@/lib/haptics';
 import type { HomeSummary } from '@/lib/home';
 import { repairLine, streakView } from '@/lib/questionCopy';
 import { useTheme } from '@/theme';
-
-type TileProps = {
-  value: string;
-  label: string;
-  /** Chispa en la fruta indicada, junto al número. */
-  sparkColor?: string;
-  onPress?: () => void;
-  hint?: string;
-};
-
-/** Número secundario (`num`) con su nota sobre `surface`; la racha lleva su chispa (DISENO §8). */
-function Tile({ value, label, sparkColor, onPress, hint }: TileProps) {
-  const { colors, spacing, radius } = useTheme();
-  const body = (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.surface,
-        borderRadius: radius.card,
-        padding: 18,
-        gap: spacing.xxs,
-        justifyContent: 'center',
-      }}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        <Text variant="num">{value}</Text>
-        {sparkColor ? <Icon name="spark" size={22} color={sparkColor} /> : null}
-      </View>
-      <Text variant="note" tone="muted">
-        {label}
-      </Text>
-    </View>
-  );
-  if (!onPress) {
-    return (
-      <View accessible accessibilityLabel={`${value} ${label}`} style={{ flex: 1 }}>
-        {body}
-      </View>
-    );
-  }
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${value} ${label}`}
-      accessibilityHint={hint}
-      onPress={onPress}
-      style={({ pressed }) => ({ flex: 1, opacity: pressed ? 0.8 : 1 })}
-    >
-      {body}
-    </Pressable>
-  );
-}
 
 type Props = {
   summary: HomeSummary;
@@ -131,18 +79,20 @@ export function StatsRow({ summary, anniversary }: Props) {
   return (
     <View style={{ gap: spacing.sm }}>
       <View style={{ flexDirection: 'row', gap: spacing.md }}>
-        <Tile
+        <StatTile
           value={daysValue}
           label={daysLabel}
+          icon="love"
           onPress={detailText ? () => setDetail((v) => !v) : undefined}
-          hint="Muestra el desglose"
+          accessibilityHint="Muestra el desglose"
         />
-        <Tile
+        <StatTile
           value={formatNumber(current)}
           label={current === 1 ? 'día de racha' : 'días de racha'}
-          sparkColor={fruits.me.hex}
+          icon="spark"
+          iconColor={fruits.me.hex}
           onPress={() => router.navigate('/questions')}
-          hint="Abre las preguntas"
+          accessibilityHint="Abre las preguntas"
         />
       </View>
       {todayStamp ? (

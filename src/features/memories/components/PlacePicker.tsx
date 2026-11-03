@@ -92,7 +92,12 @@ function PickerBody({ initial, onConfirm, onClose }: Omit<Props, 'visible'>) {
               ? 'Ya está el lugar. Toca otra parte para moverlo.'
               : 'Toca el mapa para marcar el lugar.'}
           </Text>
-          <Button title="Aquí fue" disabled={!pin} onPress={() => pin && onConfirm(pin)} />
+          <Button
+            title="Aquí fue"
+            fullWidth
+            disabled={!pin}
+            onPress={() => pin && onConfirm(pin)}
+          />
         </View>
       </View>
     </View>

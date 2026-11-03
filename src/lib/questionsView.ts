@@ -1,20 +1,5 @@
 /** Lógica pura de presentación de las preguntas (pestaña, categorías, historial, picantes). */
-import { todayIn } from './dates';
 import { spicyState, type AnswerInfo, type HistoryItem, type QuestionInfo } from './questions';
-import { formatStampIsoDate } from './stampDate';
-
-export type CategoryColor = 'yellow' | 'mint' | 'pink';
-
-// Rosa se reserva para las picantes; el resto alterna canario y menta.
-const COLORS: readonly CategoryColor[] = ['yellow', 'mint'];
-
-/** Color de cinta estable por categoría; las picantes siempre van en rosa. */
-export function categoryColor(slug: string, intensity?: string): CategoryColor {
-  if (intensity === 'picante' || slug === 'picantes') return 'pink';
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
-  return COLORS[h % COLORS.length] ?? 'yellow';
-}
 
 /** Texto corto de una respuesta: la opción elegida (y su nota) o el texto, recortado. */
 export function answerExcerpt(
@@ -42,18 +27,6 @@ export function historyPartnerLine(item: HistoryItem): PartnerLine {
     return { kind: 'answer', text: answerExcerpt(item.partner, item.question) };
   }
   return { kind: 'pending' };
-}
-
-/** "29 OCT 2026" a partir de 'YYYY-MM-DD'. */
-export function shortStamp(iso: string): string {
-  const full = formatStampIsoDate(iso); // "JUE 29 OCT 2026"
-  return full ? full.split(' ').slice(1).join(' ') : '';
-}
-
-/** Sello de una ficha del historial: el día de la pregunta o, si no fue del día, la última actividad. */
-export function historyStamp(item: HistoryItem, timeZone: string): string {
-  const iso = item.day ?? todayIn(timeZone, new Date(item.last_activity));
-  return shortStamp(iso);
 }
 
 export type CategoryRowState = 'unanswered' | 'mine' | 'partner' | 'both';

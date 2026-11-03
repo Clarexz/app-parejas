@@ -224,12 +224,14 @@ export function DrawingView({ id }: { id: string }) {
                 </Text>
               </Card>
               {drawing.rerolls_left > 0 ? (
-                <Button
-                  title={`Otra palabra (quedan ${drawing.rerolls_left})`}
-                  variant="secondary"
-                  loading={reroll.isPending}
-                  onPress={() => reroll.mutate(undefined, { onError })}
-                />
+                <View style={{ alignItems: 'flex-start' }}>
+                  <Button
+                    title={`Otra palabra (quedan ${drawing.rerolls_left})`}
+                    variant="secondary"
+                    loading={reroll.isPending}
+                    onPress={() => reroll.mutate(undefined, { onError })}
+                  />
+                </View>
               ) : (
                 <Text variant="note" tone="muted">
                   Ya cambiaste la palabra las 3 veces. A dibujar esta.
@@ -342,7 +344,7 @@ export function DrawingView({ id }: { id: string }) {
                     ? `${names.guesser} lo adivinó en ${drawing.guesses.length} ${drawing.guesses.length === 1 ? 'intento' : 'intentos'}. Era:`
                     : 'La palabra era:'}
                 </Text>
-                <Text variant="display">{drawing.word}</Text>
+                <Text variant="h1">{drawing.word}</Text>
               </View>
               <GuessList drawing={drawing} />
               <Divider />
@@ -364,7 +366,13 @@ export function DrawingView({ id }: { id: string }) {
           ) : null}
 
           {canDelete ? (
-            <Button title="Tirar este reto" variant="ghost" onPress={() => setConfirm('delete')} />
+            <View style={{ alignItems: 'flex-start' }}>
+              <Button
+                title="Tirar este reto"
+                variant="ghost"
+                onPress={() => setConfirm('delete')}
+              />
+            </View>
           ) : null}
         </View>
 
@@ -382,10 +390,11 @@ export function DrawingView({ id }: { id: string }) {
             <Button
               title={confirm === 'giveup' ? 'Me rindo' : 'Tirarlo'}
               variant="danger"
+              fullWidth
               onPress={confirmed}
               loading={giveUp.isPending || remove.isPending}
             />
-            <Button title="Mejor no" variant="ghost" onPress={() => setConfirm(null)} />
+            <Button title="Mejor no" variant="ghost" fullWidth onPress={() => setConfirm(null)} />
           </View>
         </Sheet>
       </Screen>

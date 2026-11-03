@@ -2,20 +2,7 @@ import { Text as RNText, type TextProps } from 'react-native';
 
 import { useTheme, type TypeVariant } from '@/theme';
 
-export type TextTone =
-  | 'ink'
-  | 'muted'
-  | 'danger'
-  | 'success'
-  | 'onFruit'
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `muted`). */
-  | 'faint'
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `ink`). */
-  | 'jamaica'
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `danger`). */
-  | 'chile'
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `success`). */
-  | 'nopal';
+export type TextTone = 'ink' | 'muted' | 'danger' | 'success' | 'onFruit';
 
 type Props = TextProps & {
   variant?: TypeVariant;
@@ -41,13 +28,9 @@ export function Text({
     danger: colors.danger,
     success: colors.success,
     onFruit: fruit.me.on,
-    faint: colors.inkMuted,
-    jamaica: colors.ink,
-    chile: colors.danger,
-    nopal: colors.success,
   }[resolved];
   // Los números grandes no deben desbordar su tarjeta con la fuente del sistema muy grande.
-  const capped = variant === 'display' || variant === 'hero' || variant === 'h1' ? 1.4 : undefined;
+  const capped = variant === 'display' || variant === 'h1' ? 1.4 : undefined;
   return (
     <RNText
       {...rest}
