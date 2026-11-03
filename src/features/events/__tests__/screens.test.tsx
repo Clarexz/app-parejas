@@ -31,6 +31,10 @@ jest.mock('expo-haptics', () => ({
 }));
 jest.mock('@/lib/supabase', () => ({ supabase: {} }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', hex: '#FFC24B', on: '#1B1B1F', name: 'Mango' },
+    partner: { key: 'sandia', hex: '#F2495C', on: '#1B1B1F', name: 'Sandía' },
+  }),
   useCouple: () => ({ couple: { id: 'c1' } }),
   useToday: () => ({ today: '2026-10-31', timeZone: 'America/Mexico_City' }),
 }));
@@ -112,11 +116,11 @@ describe('Cuentas regresivas', () => {
     mockData.visit = visit;
     mockData.countdowns = [visit, countdown({})];
     await wrap(<CountdownsScreen />);
-    expect(screen.getByText('La próxima vez que nos vemos')).toBeTruthy();
-    expect(screen.getByText('10')).toBeTruthy();
+    expect(screen.getByText('Faltan')).toBeTruthy();
+    expect(screen.getByText('10 días')).toBeTruthy();
     expect(screen.getAllByText('✈️ Nos vemos en Guadalajara').length).toBeGreaterThan(0);
-    expect(screen.getByText('Sale de su aniversario')).toBeTruthy();
-    await fireEvent.press(screen.getByLabelText(/^La próxima vez que nos vemos: /));
+    expect(screen.getByText(/Sale de su aniversario/)).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText(/^✈️ Nos vemos en Guadalajara, faltan 10 días$/));
     expect(mockPush).toHaveBeenCalledWith({ pathname: '/events/edit', params: { id: 'v' } });
   });
 
@@ -130,7 +134,7 @@ describe('Cuentas regresivas', () => {
   it('error: permite reintentar', async () => {
     mockData.isError = true;
     await wrap(<CountdownsScreen />);
-    expect(screen.getByText('No pudimos abrir las cuentas regresivas')).toBeTruthy();
+    expect(screen.getByText(/No pudimos abrir las cuentas regresivas/)).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: 'Reintentar' }));
     expect(mockData.refetch).toHaveBeenCalled();
   });
@@ -161,7 +165,7 @@ describe('EventEditor', () => {
   it('con ?kind=visit precarga la visita y esconde "se repite"', async () => {
     await wrap(<EventEditor kind="visit" />);
     expect(screen.getByText('Apuntar la próxima visita')).toBeTruthy();
-    expect(screen.queryByLabelText('Se repite cada año')).toBeNull();
+    expect(screen.queryByLabelText('Cada año')).toBeNull();
   });
 
   it('valida el título antes de guardar', async () => {
@@ -174,7 +178,7 @@ describe('EventEditor', () => {
   it('guarda una fecha propia que se repite', async () => {
     await wrap(<EventEditor />);
     await fireEvent.changeText(screen.getByLabelText('¿Qué es?'), 'Nuestro cumple');
-    await fireEvent(screen.getByLabelText('Se repite cada año'), 'valueChange', true);
+    await fireEvent(screen.getByLabelText('Cada año'), 'valueChange', true);
     await fireEvent.press(screen.getByRole('button', { name: 'Apuntar' }));
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -187,7 +191,7 @@ describe('EventEditor', () => {
     );
   });
 
-  it('al editar carga el evento y ofrece arrancarlo', async () => {
+  it('al editar carga el evento y ofrece borrarla', async () => {
     mockEvents = [
       {
         id: 'e1',
@@ -205,6 +209,6 @@ describe('EventEditor', () => {
     ];
     await wrap(<EventEditor id="e1" />);
     expect(screen.getByDisplayValue('Viaje')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Arrancar esta hoja' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Borrar esta fecha' })).toBeTruthy();
   });
 });

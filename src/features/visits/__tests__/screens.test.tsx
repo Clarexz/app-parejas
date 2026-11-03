@@ -29,6 +29,10 @@ jest.mock('expo-haptics', () => ({
 }));
 jest.mock('@/lib/supabase', () => ({ supabase: {} }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', hex: '#FFC24B', on: '#1B1B1F', name: 'Mango' },
+    partner: { key: 'sandia', hex: '#F2495C', on: '#1B1B1F', name: 'Sandía' },
+  }),
   useCouple: () => ({ couple: { id: 'c1', anniversary_date: '2025-10-01' } }),
   useToday: () => ({ today: '2026-10-31', timeZone: 'America/Mexico_City' }),
 }));
@@ -88,7 +92,7 @@ beforeEach(() => {
 describe('Visitas', () => {
   it('vacío: invita a apuntar la primera', async () => {
     await wrap(<VisitsScreen />);
-    expect(screen.getByText('Todavía no apuntan ninguna visita')).toBeTruthy();
+    expect(screen.getByText('Aquí irá su primera visita')).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: 'Apuntar la primera' }));
     expect(mockPush).toHaveBeenCalledWith('/visits/edit');
   });
@@ -106,12 +110,12 @@ describe('Visitas', () => {
       visit('a', '2026-09-01', '2026-09-03'),
     ];
     await wrap(<VisitsScreen />);
-    expect(screen.getByText('13 días sin verse')).toBeTruthy();
+    expect(screen.getByLabelText('13 días sin verse')).toBeTruthy();
     expect(screen.getByText('12')).toBeTruthy();
     expect(screen.getByText('días juntos')).toBeTruthy();
-    expect(screen.getByText('10–18 OCT 2026')).toBeTruthy();
+    expect(screen.getByText('10–18 oct 2026')).toBeTruthy();
     expect(screen.getByText('Guadalajara')).toBeTruthy();
-    expect(screen.getByText('Visita más larga')).toBeTruthy();
+    expect(screen.getByText('días, su visita más larga')).toBeTruthy();
     await fireEvent.press(screen.getByLabelText(/^Visita 10–18 oct 2026/));
     expect(mockPush).toHaveBeenCalledWith({ pathname: '/visits/edit', params: { id: 'b' } });
   });
@@ -119,7 +123,7 @@ describe('Visitas', () => {
   it('visita en curso: están juntos', async () => {
     mockVisits = [visit('a', '2026-10-29', '2026-11-03')];
     await wrap(<VisitsScreen />);
-    expect(screen.getByText('Están juntos')).toBeTruthy();
+    expect(screen.getByText('Juntos')).toBeTruthy();
   });
 
   it('sugiere apuntar una cuenta regresiva que ya pasó', async () => {
@@ -154,6 +158,6 @@ describe('VisitEditor', () => {
 
   it('editando una que no existe: hoja ya no está', async () => {
     await wrap(<VisitEditor id="zzz" />);
-    expect(screen.getByText('Esa hoja ya no está')).toBeTruthy();
+    expect(screen.getByText('Esa visita ya no está')).toBeTruthy();
   });
 });

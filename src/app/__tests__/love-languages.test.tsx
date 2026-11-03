@@ -22,6 +22,10 @@ jest.mock('@/components/Toast', () => ({
   useToast: () => ({ show: jest.fn() }),
 }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', hex: '#FFC24B', on: '#1B1B1F', name: 'Mango' },
+    partner: { key: 'sandia', hex: '#F2495C', on: '#1B1B1F', name: 'Sandía' },
+  }),
   useCouple: () => ({
     me: { id: 'u1', display_name: 'Caleb', nickname: null },
     partner: { id: 'u2', display_name: 'Ale', nickname: null },
