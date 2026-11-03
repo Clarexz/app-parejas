@@ -1063,10 +1063,15 @@ Fase 12 (pulido y v1.0.0).
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
 | 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Sigue después de la 12A. Sin las fases 10 y 11A. |
-| 12A Rediseño "ahorita" | 🟡 En curso (2026-11-03) | | Prototipo aprobado; DISENO v2, frutas, tema, pantallas, widgets 1×1, ícono (D97–D104). |
+| 12A Rediseño "ahorita" | 🟡 Código listo, falta deploy (2026-11-03) | | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. **Pendiente: deploy de las migraciones `…108_fruits` y `…109_stories_fruit_bg` y de `notify`.** |
 
 ### 10.1 Verificaciones pendientes en el celular
 
+- **Fase 12A (deploy pendiente):** el servidor necesita `./scripts/server/deploy.sh
+  claude/elegant-lovelace-tz2aqw` (o `main` si ya se mergeó el PR): migraciones
+  `20261108000000_fruits.sql` y `20261109000000_stories_fruit_bg.sql` y la función `notify` (color
+  de la fruta de quien manda). Sin secretos nuevos. Después, probar el APK **v0.12.2** con
+  `docs/releases/v0.12.2.md`; el spike **v0.12.1** valida solo los widgets.
 - **Deploy de las Fases 6–9 y 11B: ✅ hecho.** El usuario desplegó el servidor en la sesión de la
   Fase 12 (parte 1), antes de la 12A, y probó la app con su novia en los dos celulares: todo
   funciona, incluidas las notificaciones (confirmado el 2026-11-03). Las notas de abajo sobre esas

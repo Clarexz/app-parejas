@@ -109,7 +109,10 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D102 | **Movimiento**: la firma es la "rendija" (las mitades llegan con un resorte y no se tocan); cargando = el símbolo respira; toque 120 ms, base 220 ms, salida 160 ms, resorte damping 14 / stiffness 180; reducir movimiento = fundido de 150 ms. | Juguetón pero corto (manual §02). | 2026-11-03 |
 | D103 | **Pantallas y widgets**: Inicio sin fila de stories (el aro de fruta con punto en tu foto o la de tu pareja es la story nueva); Juegos pasa a la lista de Más. Seis widgets **1×1** con forma y vidrio simulado en SVG (Días juntos, Mood, La próxima vez, Distancia, Story y **Racha**, nuevo); snapshot de widgets **v4** con `streak` y las frutas. | Aprobado en el prototipo. | 2026-11-03 |
 | D104 | La Fase 12A se publica como **v0.12.2**; el spike de widgets en el APK sale antes como **v0.12.1** (pre-release de prueba). Las Fases 6–9 y 11B ya están desplegadas (el usuario lo hizo antes de la 12A); el servidor solo necesita la migración de frutas y `notify`. | Convención `v0.N.P` (D32); la v0.12.0 fue la parte 1 de la Fase 12. | 2026-11-03 |
+| D105 | **Fondos de stories de texto con las 7 frutas y Hueso** (migración `20261109000000_stories_fruit_bg.sql`): el check acepta las llaves de fruta y `bone` además de las 6 claves viejas, que se siguen pintando con su mapeo. El texto encima usa `fruit.on`; Uva y Arándano con Hueso pasan 3:1, suficiente porque el texto de story es grande y en ExtraBold. | Que todas las frutas sirvan de fondo sin reescribir stories viejas (caducan solas). | 2026-11-03 |
+| D106 | **Voz nueva en todo el copy**: avisos con el nombre de quien escribe como título y una frase corta como cuerpo; errores "qué pasó + qué hacer" sin culpar al celular cuando no se sabe (un fallo de red dice "No pudimos conectarnos"); fuera las metáforas de papel de Bitácora (pegar, doblar, arrancar, hoja). Los stickers de stories siguen siendo emojis (en un círculo de fruta); los stickers con frase del manual quedan pendientes. | Manual §11 y §15. | 2026-11-03 |
 
 ## Pendientes
 
-- Nombre definitivo (Fase 12). Ícono definitivo (el de la Fase 0.5 es provisional).
+- Stickers con frase en stories (manual §15) en lugar de emojis.
+- Vistas previas (PNG) de los widgets en el selector de Android.
