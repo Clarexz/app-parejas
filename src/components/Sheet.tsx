@@ -9,10 +9,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Path } from 'react-native-svg';
 
 import { useTheme } from '@/theme';
 
+import { bezierOf } from './motion';
 import { Text } from './Text';
 
 type Props = {
@@ -22,24 +22,11 @@ type Props = {
   children: ReactNode;
 };
 
-const TEAR = 10;
-
-/** Borde superior "arrancado": zigzag irregular determinista. */
-function tornPath(width: number): string {
-  const step = 14;
-  let d = `M0 ${TEAR}`;
-  for (let x = 0, i = 0; x < width; x += step, i++) {
-    const y = i % 2 === 0 ? 2 + (i % 3) : TEAR - (i % 4);
-    d += ` L${Math.min(x + step / 2, width)} ${y}`;
-  }
-  return `${d} L${width} ${TEAR} L${width} ${TEAR + 1} L0 ${TEAR + 1} Z`;
-}
-
-/** Hoja que sube desde abajo sobre un velo (DISENO §7). */
+/** Hoja inferior de radio 28 sobre el velo, con agarradera (DISENO §7). */
 export function Sheet({ visible, onClose, title, children }: Props) {
-  const { colors, spacing, shadows, motion } = useTheme();
+  const { colors, spacing, radius, shadows, motion } = useTheme();
   const reduced = useReducedMotion();
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const [mounted, setMounted] = useState(visible);
   const y = useSharedValue(height);
@@ -50,15 +37,22 @@ export function Sheet({ visible, onClose, title, children }: Props) {
 
   useEffect(() => {
     if (visible) {
-      veil.value = withTiming(1, { duration: motion.duration.base });
+      veil.value = withTiming(1, { duration: reduced ? motion.reduced : motion.base.duration });
       y.value = reduced
-        ? withTiming(0, { duration: motion.duration.fast })
-        : withSpring(0, motion.springSoft);
+        ? withTiming(0, { duration: motion.reduced })
+        : withSpring(0, { ...motion.spring, damping: 20 });
     } else if (mounted) {
-      veil.value = withTiming(0, { duration: motion.duration.fast });
-      y.value = withTiming(height, { duration: motion.duration.base }, (done) => {
-        if (done) runOnJS(setMounted)(false);
-      });
+      veil.value = withTiming(0, { duration: reduced ? motion.reduced : motion.exit.duration });
+      y.value = withTiming(
+        height,
+        {
+          duration: reduced ? motion.reduced : motion.exit.duration,
+          easing: bezierOf(motion.exit),
+        },
+        (done) => {
+          if (done) runOnJS(setMounted)(false);
+        },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
@@ -79,26 +73,37 @@ export function Sheet({ visible, onClose, title, children }: Props) {
             accessibilityLabel="Cerrar"
           />
         </Animated.View>
-        <Animated.View style={[{ maxHeight: height * 0.9 }, sheetStyle]}>
-          <Svg width={width} height={TEAR + 1} style={{ marginBottom: -1 }}>
-            <Path d={tornPath(width)} fill={colors.paperRaised} />
-          </Svg>
-          <View
-            style={{
-              backgroundColor: colors.paperRaised,
+        <Animated.View
+          style={[
+            {
+              maxHeight: height * 0.9,
+              backgroundColor: colors.bg,
+              borderTopLeftRadius: radius.sheet,
+              borderTopRightRadius: radius.sheet,
               paddingHorizontal: spacing.xl,
               paddingTop: spacing.sm,
               paddingBottom: spacing.xl + insets.bottom,
-              boxShadow: shadows.lifted,
+              boxShadow: shadows.float,
+            },
+            sheetStyle,
+          ]}
+        >
+          <View
+            style={{
+              alignSelf: 'center',
+              width: 40,
+              height: 4,
+              borderRadius: 2,
+              backgroundColor: colors.surface2,
+              marginBottom: spacing.md,
             }}
-          >
-            {title ? (
-              <Text variant="title" accessibilityRole="header" style={{ marginBottom: spacing.md }}>
-                {title}
-              </Text>
-            ) : null}
-            {children}
-          </View>
+          />
+          {title ? (
+            <Text variant="h2" accessibilityRole="header" style={{ marginBottom: spacing.md }}>
+              {title}
+            </Text>
+          ) : null}
+          {children}
         </Animated.View>
       </View>
     </Modal>

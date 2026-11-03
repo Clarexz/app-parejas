@@ -14,12 +14,14 @@ type Props = {
 };
 
 /**
- * Puntos como cuadritos de la cuadrícula del cuaderno, coloreados (DISENO §7). Reemplaza a las
- * barras de progreso: cada casilla pintada es un punto.
+ * @deprecated Bitácora: se quita al rediseñar pantallas. Casillas redondeadas, `jamaica` = tu
+ * fruta y `nopal` = la de tu pareja.
  */
 export function GridScore({ value, total, tone = 'jamaica', accessibilityLabel }: Props) {
-  const { colors } = useTheme();
-  const fill = colors[tone];
+  const { colors, fruit } = useTheme();
+  const fill = { jamaica: fruit.me.hex, nopal: (fruit.partner ?? fruit.me).hex, ink: colors.ink }[
+    tone
+  ];
   return (
     <View
       accessible
@@ -34,9 +36,8 @@ export function GridScore({ value, total, tone = 'jamaica', accessibilityLabel }
           style={{
             flex: 1,
             aspectRatio: 1,
-            backgroundColor: i < value ? fill : 'transparent',
-            borderWidth: 1,
-            borderColor: i < value ? fill : colors.ruled,
+            borderRadius: 4,
+            backgroundColor: i < value ? fill : colors.surface2,
           }}
         />
       ))}

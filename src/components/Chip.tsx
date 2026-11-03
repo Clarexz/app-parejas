@@ -1,36 +1,27 @@
 import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
+import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
-
-export type ChipColor = 'yellow' | 'mint' | 'pink';
 
 type Props = {
   label: string;
-  color?: ChipColor;
   selected?: boolean;
   onPress?: () => void;
   disabled?: boolean;
-  /** Inclinación en grados; por defecto estable por etiqueta (±1.5° máx.). */
-  tilt?: number;
+  icon?: IconName;
   style?: StyleProp<ViewStyle>;
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya no hay cintas de colores. */
+  color?: 'yellow' | 'mint' | 'pink';
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya nada se inclina. */
+  tilt?: number;
 };
 
-/** Etiqueta de cinta washi (DISENO §7). */
-export function Chip({
-  label,
-  color = 'yellow',
-  selected = false,
-  onPress,
-  disabled = false,
-  tilt,
-  style,
-}: Props) {
+/** Píldora `surface2`; seleccionada = fondo `ink` y texto `bg` (DISENO §7). */
+export function Chip({ label, selected = false, onPress, disabled = false, icon, style }: Props) {
   const { colors, radius, spacing } = useTheme();
-  const bg = { yellow: colors.tapeYellow, mint: colors.tapeMint, pink: colors.tapePink }[color];
-  const angle = tilt ?? tiltFor(label, 1) * 1.5;
+  const fg = selected ? colors.bg : colors.ink;
   return (
     <Pressable
       accessibilityRole={onPress ? 'button' : 'text'}
@@ -39,24 +30,27 @@ export function Chip({
       disabled={disabled || !onPress}
       onPress={onPress}
       hitSlop={spacing.sm}
-      style={[
-        { alignSelf: 'flex-start', maxWidth: '100%', transform: [{ rotate: `${angle}deg` }] },
-        style,
-      ]}
+      style={[{ alignSelf: 'flex-start', maxWidth: '100%' }, style]}
     >
       {({ pressed }) => (
         <View
           style={{
-            backgroundColor: bg,
-            borderRadius: radius.sm,
-            borderWidth: 1.5,
-            borderColor: selected ? colors.ink : 'transparent',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: spacing.xs + 2,
+            backgroundColor: selected ? colors.ink : colors.surface2,
+            borderRadius: radius.pill,
             paddingHorizontal: spacing.md,
-            paddingVertical: spacing.xs,
-            opacity: disabled ? 0.45 : pressed ? 0.8 : 1,
+            paddingVertical: 6,
+            opacity: disabled ? 0.4 : pressed ? 0.8 : 1,
           }}
         >
-          <Text variant="handSmall" style={{ color: colors.ink }}>
+          {icon ? <Icon name={icon} size={16} color={fg} /> : null}
+          <Text
+            variant="ui"
+            numberOfLines={1}
+            style={{ color: fg, fontSize: 14, lineHeight: 20, flexShrink: 1 }}
+          >
             {label}
           </Text>
         </View>

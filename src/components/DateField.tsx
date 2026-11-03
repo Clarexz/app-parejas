@@ -3,6 +3,7 @@ import { TextInput, View } from 'react-native';
 
 import { useTheme } from '@/theme';
 
+import { FieldError } from './FieldError';
 import { Text } from './Text';
 
 export type DateParts = { day: string; month: string; year: string };
@@ -33,7 +34,7 @@ export function digitsOnly(text: string, max: number): string {
  * dígitos y salta el foco al llenar día y mes; no valida (eso vive en la lógica pura).
  */
 export function DateField({ label, value, onChange, error, disabled = false }: Props) {
-  const { colors, spacing, radius, type, fonts } = useTheme();
+  const { colors, spacing, radius, type, fonts, fruit } = useTheme();
   const refs = useRef<Record<Part, ComponentRef<typeof TextInput> | null>>({
     day: null,
     month: null,
@@ -59,7 +60,7 @@ export function DateField({ label, value, onChange, error, disabled = false }: P
   return (
     <View style={{ gap: spacing.xs }}>
       {label ? (
-        <Text variant="hand" tone="muted">
+        <Text variant="ui" tone="muted" style={{ fontSize: 14, lineHeight: 20 }}>
           {label}
         </Text>
       ) : null}
@@ -69,12 +70,12 @@ export function DateField({ label, value, onChange, error, disabled = false }: P
           flexDirection: 'row',
           alignItems: 'center',
           gap: spacing.sm,
-          opacity: disabled ? 0.7 : 1,
+          opacity: disabled ? 0.5 : 1,
         }}
       >
         {PARTS.map((part, i) => {
           const isFocused = focused === part.key;
-          const border = error ? colors.chile : isFocused ? colors.jamaica : colors.ink;
+          const border = error ? colors.danger : isFocused ? fruit.me.hex : 'transparent';
           return (
             <View key={part.key} style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TextInput
@@ -92,25 +93,22 @@ export function DateField({ label, value, onChange, error, disabled = false }: P
                 keyboardType="number-pad"
                 maxLength={part.length}
                 placeholder={part.placeholder}
-                placeholderTextColor={colors.inkFaint}
-                selectionColor={colors.jamaica}
+                placeholderTextColor={colors.inkMuted}
+                selectionColor={fruit.me.hex}
                 accessibilityLabel={part.a11y}
                 accessibilityState={{ disabled }}
                 textAlign="center"
                 style={[
-                  type.mono,
+                  type.h3,
                   {
-                    fontFamily: fonts.monoBold,
-                    fontSize: type.heading.fontSize,
-                    lineHeight: type.heading.lineHeight,
-                    letterSpacing: 1,
+                    fontFamily: fonts.display,
                     width: part.width,
-                    minHeight: 44,
-                    color: disabled ? colors.inkFaint : colors.ink,
-                    backgroundColor: colors.paperRaised,
-                    borderWidth: error || !isFocused ? 1.5 : 2,
+                    minHeight: 52,
+                    color: colors.ink,
+                    backgroundColor: colors.surface,
+                    borderWidth: 2,
                     borderColor: border,
-                    borderRadius: radius.xs,
+                    borderRadius: radius.md,
                     paddingVertical: spacing.sm,
                     paddingHorizontal: 0,
                     textAlign: 'center',
@@ -118,7 +116,7 @@ export function DateField({ label, value, onChange, error, disabled = false }: P
                 ]}
               />
               {i < PARTS.length - 1 ? (
-                <Text variant="heading" tone="faint" style={{ marginLeft: spacing.sm }}>
+                <Text variant="h3" tone="muted" style={{ marginLeft: spacing.sm }}>
                   /
                 </Text>
               ) : null}
@@ -126,11 +124,7 @@ export function DateField({ label, value, onChange, error, disabled = false }: P
           );
         })}
       </View>
-      {error ? (
-        <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-          {error}
-        </Text>
-      ) : null}
+      {error ? <FieldError>{error}</FieldError> : null}
     </View>
   );
 }

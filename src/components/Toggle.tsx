@@ -4,6 +4,7 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -19,28 +20,26 @@ type Props = {
 
 const WIDTH = 56;
 const HEIGHT = 32;
-const THUMB = 22;
-const PAD = 5;
+const THUMB = 24;
+const PAD = 4;
 
-/** Interruptor: pastilla de contorno de tinta; encendido en Jamaica (DISENO §7). */
+/** Interruptor de píldora; encendido = tu fruta (DISENO §7). */
 export function Toggle({ value, onValueChange, accessibilityLabel, disabled = false }: Props) {
-  const { colors, radius, motion } = useTheme();
+  const { colors, radius, motion, fruit } = useTheme();
   const reduced = useReducedMotion();
   const on = useSharedValue(value ? 1 : 0);
 
   useEffect(() => {
+    const target = value ? 1 : 0;
     on.value = reduced
-      ? value
-        ? 1
-        : 0
-      : withTiming(value ? 1 : 0, { duration: motion.duration.fast });
-  }, [value, reduced, on, motion.duration.fast]);
+      ? withTiming(target, { duration: motion.reduced })
+      : withSpring(target, motion.spring);
+  }, [value, reduced, on, motion]);
 
   const thumb = useAnimatedStyle(() => ({
-    transform: [{ translateX: on.value * (WIDTH - THUMB - PAD * 2 - 3) }],
+    transform: [{ translateX: on.value * (WIDTH - THUMB - PAD * 2) }],
   }));
 
-  const track = disabled ? colors.inkFaint : value ? colors.jamaica : colors.inkMuted;
   return (
     <Pressable
       accessibilityRole="switch"
@@ -48,17 +47,15 @@ export function Toggle({ value, onValueChange, accessibilityLabel, disabled = fa
       accessibilityState={{ checked: value, disabled }}
       disabled={disabled}
       onPress={() => onValueChange(!value)}
-      hitSlop={6}
+      hitSlop={8}
       style={({ pressed }) => ({
         width: WIDTH,
         height: HEIGHT,
         borderRadius: radius.pill,
-        borderWidth: 1.5,
-        borderColor: track,
-        backgroundColor: value && !disabled ? colors.jamaica : colors.paperRaised,
+        backgroundColor: value ? fruit.me.hex : colors.surface2,
         justifyContent: 'center',
         paddingHorizontal: PAD,
-        opacity: pressed ? 0.8 : 1,
+        opacity: disabled ? 0.4 : pressed ? 0.85 : 1,
       })}
     >
       <Animated.View
@@ -67,7 +64,7 @@ export function Toggle({ value, onValueChange, accessibilityLabel, disabled = fa
             width: THUMB,
             height: THUMB,
             borderRadius: radius.pill,
-            backgroundColor: value && !disabled ? colors.onJamaica : track,
+            backgroundColor: value ? fruit.me.on : colors.inkMuted,
           },
           thumb,
         ]}

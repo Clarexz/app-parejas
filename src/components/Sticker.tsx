@@ -1,76 +1,90 @@
 import { View, type StyleProp, type ViewStyle } from 'react-native';
-import Animated from 'react-native-reanimated';
 
 import { useTheme } from '@/theme';
 
 import { Icon, type IconName } from './Icon';
-import { useStickIn } from './motion';
+import { fruitOf, type FruitLike } from './Symbol';
 import { Text } from './Text';
 
-export type StickerTone = 'jamaica' | 'cempasuchil' | 'nopal' | 'postit';
-
 type Props = {
-  /** Texto corto a mano. */
-  label?: string;
-  icon?: IconName;
-  /** Solo para el mood que escribe un usuario (DISENO §3). */
-  emoji?: string;
-  tone?: StickerTone;
-  tilt?: number;
+  /** Frase corta en display (manual §15): "te extraño". */
+  text?: string;
+  /** Fruta de quien lo pone; por defecto la tuya. */
+  fruit?: FruitLike;
+  size?: number;
   style?: StyleProp<ViewStyle>;
+  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `text`). */
+  label?: string;
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. */
+  icon?: IconName;
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. */
+  emoji?: string;
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. */
+  tone?: 'jamaica' | 'cempasuchil' | 'nopal' | 'postit';
+  /** @deprecated Bitácora: se quita al rediseñar pantallas. Ya nada se inclina. */
+  tilt?: number;
 };
 
-/** Sticker troquelado: borde blanco grueso y sombra de objeto (DISENO §7). */
-export function Sticker({ label, icon, emoji, tone = 'postit', tilt = 3, style }: Props) {
-  const { colors, spacing, radius, shadows } = useTheme();
-  const animated = useStickIn(tilt);
-  const bg = colors[tone];
-  const fg =
-    tone === 'postit'
-      ? colors.onPostit
-      : tone === 'jamaica' || tone === 'nopal'
-        ? colors.onJamaica
-        : colors.onPolaroid;
+/** Sticker de stories: círculo de fruta con una frase corta en display (DISENO §7). */
+export function Sticker({ text, fruit, size = 96, style, label, icon, emoji }: Props) {
+  const { colors, spacing, radius, fruit: mine } = useTheme();
+  const chosen = fruitOf(fruit ?? mine.me);
+
+  // Adaptador de la Bitácora: etiquetas, íconos y emojis sueltos.
+  if (!text) {
+    return (
+      <View
+        style={[
+          {
+            alignSelf: 'flex-start',
+            minHeight: 28,
+            minWidth: 28,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: spacing.xs,
+            paddingHorizontal: spacing.sm,
+            borderRadius: radius.pill,
+            backgroundColor: colors.surface2,
+          },
+          style,
+        ]}
+      >
+        {icon ? <Icon name={icon} size={16} color={colors.ink} /> : null}
+        {emoji ? <Text variant="note">{emoji}</Text> : null}
+        {label ? <Text variant="note">{label}</Text> : null}
+      </View>
+    );
+  }
+
   return (
-    <Animated.View
+    <View
+      accessible
+      accessibilityLabel={text}
       style={[
         {
-          alignSelf: 'flex-start',
-          backgroundColor: colors.polaroid,
-          padding: spacing.xs,
-          borderRadius: radius.sm + 4,
-          boxShadow: shadows.object,
+          width: size,
+          height: size,
+          borderRadius: radius.pill,
+          backgroundColor: chosen.hex,
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: size * 0.14,
         },
-        animated,
         style,
       ]}
     >
-      <View
+      <Text
+        variant="h3"
         style={{
-          backgroundColor: bg,
-          borderRadius: radius.sm,
-          paddingHorizontal: spacing.sm,
-          paddingVertical: spacing.xs,
-          minHeight: 24,
-          minWidth: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: spacing.xs,
+          color: chosen.on,
+          textAlign: 'center',
+          fontSize: Math.round(size * 0.2),
+          lineHeight: Math.round(size * 0.23),
         }}
       >
-        {icon ? <Icon name={icon} size={20} color={fg} /> : null}
-        {emoji ? (
-          <Text variant="hand" style={{ color: fg }}>
-            {emoji}
-          </Text>
-        ) : null}
-        {label ? (
-          <Text variant="handSmall" style={{ color: fg }}>
-            {label}
-          </Text>
-        ) : null}
-      </View>
-    </Animated.View>
+        {text}
+      </Text>
+    </View>
   );
 }

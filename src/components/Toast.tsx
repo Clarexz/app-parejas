@@ -16,10 +16,11 @@ import { haptic } from '@/lib/haptics';
 import { useTheme } from '@/theme';
 
 import { Icon, type IconName } from './Icon';
-import { useStickIn } from './motion';
+import { useArrive } from './motion';
 import { Text } from './Text';
 
-export type ToastTone = 'info' | 'success' | 'error';
+/** `error` es el nombre viejo de `danger`. */
+export type ToastTone = 'info' | 'success' | 'danger' | 'error';
 export type ToastOptions = { message: string; tone?: ToastTone };
 
 const DURATION = 3500;
@@ -27,41 +28,47 @@ const DURATION = 3500;
 type Ctx = { show: (options: ToastOptions) => void };
 const ToastContext = createContext<Ctx | null>(null);
 
-/** Muestra avisos tipo post-it. Requiere `ToastProvider` arriba en el árbol. */
+/** Muestra avisos breves. Requiere `ToastProvider` arriba en el árbol. */
 export function useToast(): Ctx {
   const ctx = useContext(ToastContext);
   if (!ctx) throw new Error('useToast debe usarse dentro de ToastProvider');
   return ctx;
 }
 
-/** Post-it que se pega arriba (DISENO §7). */
+/** Píldora `ink` con texto `bg` y un ícono; el color solo acompaña al ícono (DISENO §7). */
 export function Toast({ message, tone = 'info' }: ToastOptions) {
   const { colors, spacing, radius, shadows } = useTheme();
-  const animated = useStickIn(-1);
-  const accent = { info: colors.onPostit, success: colors.nopal, error: colors.chile }[tone];
-  const icon: IconName = { info: 'bell', success: 'check', error: 'cloudOff' }[tone] as IconName;
+  const animated = useArrive();
+  const danger = tone === 'danger' || tone === 'error';
+  // El ícono va sobre `ink`: usa las versiones del modo contrario, que sí contrastan ahí.
+  const iconColor = danger
+    ? colors.dangerOnInk
+    : tone === 'success'
+      ? colors.successOnInk
+      : colors.bg;
+  const icon: IconName = danger ? 'alert' : tone === 'success' ? 'check' : 'bell';
   return (
     <Animated.View
       accessibilityLiveRegion="polite"
       accessibilityRole="alert"
       style={[
         {
-          backgroundColor: colors.postit,
-          borderRadius: radius.none,
-          borderLeftWidth: tone === 'info' ? 0 : 4,
-          borderLeftColor: accent,
+          backgroundColor: colors.ink,
+          borderRadius: radius.pill,
           paddingVertical: spacing.md,
-          paddingHorizontal: spacing.lg,
+          paddingLeft: spacing.lg,
+          paddingRight: spacing.xl - 2,
           flexDirection: 'row',
           alignItems: 'center',
           gap: spacing.md,
-          boxShadow: shadows.object,
+          maxWidth: '100%',
+          boxShadow: shadows.float,
         },
         animated,
       ]}
     >
-      <Icon name={icon} size={24} color={accent} />
-      <Text variant="hand" style={{ color: colors.onPostit, flexShrink: 1 }}>
+      <Icon name={icon} size={24} color={iconColor} />
+      <Text variant="ui" style={{ color: colors.bg, flexShrink: 1 }}>
         {message}
       </Text>
     </Animated.View>
@@ -79,7 +86,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     if (timer.current) clearTimeout(timer.current);
     counter.current += 1;
     setCurrent({ ...options, key: counter.current });
-    haptic.stick();
+    haptic.light();
     timer.current = setTimeout(() => setCurrent(null), DURATION);
   }, []);
 
@@ -101,9 +108,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           style={{
             position: 'absolute',
             top: insets.top + spacing.sm,
-            left: page.contentLeft - spacing.sm,
-            right: page.contentRight,
-            alignItems: 'flex-start',
+            left: page.gutter,
+            right: page.gutter,
+            alignItems: 'center',
           }}
         >
           <Toast key={current.key} message={current.message} tone={current.tone} />

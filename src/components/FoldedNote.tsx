@@ -1,18 +1,16 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, {
-  Easing,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import Svg, { Path } from 'react-native-svg';
 
 import { haptic } from '@/lib/haptics';
 import { useTheme } from '@/theme';
 
-import { Icon } from './Icon';
+import { bezierOf } from './motion';
 import { Text } from './Text';
 
 type Props = {
@@ -23,17 +21,19 @@ type Props = {
   onPress?: () => void;
 };
 
-const SCRIBBLE_WIDTHS = ['92%', '78%', '86%', '54%'] as const;
-const FOLD = 28;
+const BARS = ['92%', '78%', '50%'] as const;
 
-/** Respuesta doblada: ilegible hasta que se abre (DISENO §7). */
+/**
+ * @deprecated Bitácora: se quita al rediseñar pantallas (usa `AnswerCard`). Cerrada muestra
+ * renglones borrosos; al abrirse el contenido se aclara (DISENO §5).
+ */
 export function FoldedNote({
   open,
   children,
-  lockedLabel = 'Doblada hasta que contestes',
+  lockedLabel = 'Se abre cuando contestes.',
   onPress,
 }: Props) {
-  const { colors, spacing, radius, shadows, motion } = useTheme();
+  const { colors, spacing, radius, motion } = useTheme();
   const reduced = useReducedMotion();
   const progress = useSharedValue(open ? 1 : 0);
   const wasOpen = useRef(open);
@@ -43,15 +43,15 @@ export function FoldedNote({
     wasOpen.current = open;
     if (open) haptic.success();
     progress.value = withTiming(open ? 1 : 0, {
-      duration: reduced ? motion.duration.fast : motion.duration.slow,
-      easing: Easing.out(Easing.cubic),
+      duration: reduced ? motion.reduced : 320,
+      easing: bezierOf(motion.base),
     });
   }, [open, reduced, motion, progress]);
 
-  const unfold = useAnimatedStyle(() => ({
-    transform: reduced ? [] : [{ scaleY: 0.6 + 0.4 * progress.value }],
+  const reveal = useAnimatedStyle(() => ({
+    opacity: 0.3 + 0.7 * progress.value,
+    transform: reduced ? [] : [{ translateY: 8 * (1 - progress.value) }],
   }));
-  const fade = useAnimatedStyle(() => ({ opacity: progress.value }));
 
   return (
     <Pressable
@@ -59,87 +59,32 @@ export function FoldedNote({
       onPress={onPress}
       accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={open ? undefined : lockedLabel}
-      style={{ alignSelf: 'stretch' }}
     >
-      <Animated.View
-        style={[
-          {
-            backgroundColor: colors.paperRaised,
-            borderRadius: radius.none,
-            borderTopWidth: 2,
-            borderTopColor: colors.margin,
-            padding: spacing.lg,
-            minHeight: 96,
-            boxShadow: shadows.object,
-          },
-          unfold,
-        ]}
+      <View
+        style={{
+          backgroundColor: colors.surface,
+          borderRadius: radius.card,
+          padding: spacing.lg,
+        }}
       >
         {open ? (
-          <Animated.View style={fade}>{children}</Animated.View>
+          <Animated.View style={reveal}>{children}</Animated.View>
         ) : (
-          <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-            <View
-              style={{
-                gap: spacing.sm,
-                paddingRight: FOLD,
-                minHeight: 64,
-                justifyContent: 'center',
-              }}
-            >
-              {SCRIBBLE_WIDTHS.map((w) => (
+          <View style={{ gap: spacing.sm }}>
+            <View style={{ gap: spacing.sm, filter: 'blur(3px)', opacity: 0.55 }}>
+              {BARS.map((w) => (
                 <View
                   key={w}
-                  style={{ width: w, height: 3, backgroundColor: colors.ruled, borderRadius: 2 }}
+                  style={{ width: w, height: 12, borderRadius: 6, backgroundColor: colors.ink }}
                 />
               ))}
             </View>
+            <Text variant="note" tone="muted">
+              {lockedLabel}
+            </Text>
           </View>
         )}
-        {!open ? (
-          <View
-            pointerEvents="none"
-            style={{
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              left: spacing.lg,
-              right: spacing.lg,
-              alignItems: 'flex-start',
-              justifyContent: 'center',
-            }}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: spacing.sm,
-                backgroundColor: colors.paperRaised,
-                paddingHorizontal: spacing.sm,
-                paddingVertical: spacing.xs,
-              }}
-            >
-              <Icon name="lock" size={20} color={colors.jamaica} />
-              <Text variant="hand" tone="jamaica" style={{ flexShrink: 1 }}>
-                {lockedLabel}
-              </Text>
-            </View>
-          </View>
-        ) : null}
-        {!open ? (
-          <Svg
-            width={FOLD}
-            height={FOLD}
-            pointerEvents="none"
-            style={{ position: 'absolute', top: -2, right: 0 }}
-          >
-            {/* Esquina doblada: lo que queda de la hoja y el triángulo del dobléz. */}
-            <Path d={`M0 0 L${FOLD} 0 L${FOLD} ${FOLD} Z`} fill={colors.paper} />
-            <Path d={`M0 0 L${FOLD} ${FOLD} L0 ${FOLD} Z`} fill={colors.ruled} />
-            <Path d={`M0 0 L${FOLD} ${FOLD}`} stroke={colors.inkFaint} strokeWidth={1} />
-          </Svg>
-        ) : null}
-      </Animated.View>
+      </View>
     </Pressable>
   );
 }

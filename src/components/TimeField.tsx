@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native';
 import { formatTimeFriendly, MINUTE_STEP, splitTime, stepHour, stepMinute } from '@/lib/timeField';
 import { useTheme } from '@/theme';
 
+import { Icon } from './Icon';
 import { Text } from './Text';
 
 type Props = {
@@ -30,19 +31,16 @@ function Step({ sign, label, onPress, disabled }: StepProps) {
       disabled={disabled}
       onPress={onPress}
       style={({ pressed }) => ({
-        width: 44,
-        height: 44,
+        width: 48,
+        height: 48,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1.5,
-        borderColor: disabled ? colors.inkFaint : colors.ink,
-        borderRadius: radius.xs,
-        opacity: pressed ? 0.6 : 1,
+        backgroundColor: colors.surface2,
+        borderRadius: radius.pill,
+        opacity: disabled ? 0.4 : pressed ? 0.7 : 1,
       })}
     >
-      <Text variant="heading" style={{ color: disabled ? colors.inkFaint : colors.ink }}>
-        {sign}
-      </Text>
+      <Icon name={sign === '+' ? 'plus' : 'minus'} size={20} color={colors.ink} />
     </Pressable>
   );
 }
@@ -55,19 +53,14 @@ export function TimeField({ label, value, onChange, disabled = false }: Props) {
   const { colors, spacing, radius, type, fonts } = useTheme();
   const { hour, minute } = splitTime(value);
   const box = {
-    ...type.mono,
-    fontFamily: fonts.monoBold,
-    fontSize: type.title.fontSize,
-    lineHeight: type.title.lineHeight + 4,
-    letterSpacing: 1,
+    ...type.num,
+    fontFamily: fonts.display,
     minWidth: 76,
     textAlign: 'center' as const,
-    color: disabled ? colors.inkFaint : colors.ink,
-    backgroundColor: colors.paperRaised,
-    borderWidth: 1.5,
-    borderColor: disabled ? colors.inkFaint : colors.ink,
-    borderRadius: radius.xs,
-    paddingVertical: spacing.xs,
+    color: colors.ink,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    paddingVertical: spacing.sm,
   };
 
   return (
@@ -76,7 +69,7 @@ export function TimeField({ label, value, onChange, disabled = false }: Props) {
       style={{ gap: spacing.xs, opacity: disabled ? 0.7 : 1, alignItems: 'flex-start' }}
     >
       {label ? (
-        <Text variant="hand" tone="muted">
+        <Text variant="ui" tone="muted" style={{ fontSize: 14, lineHeight: 20 }}>
           {label}
         </Text>
       ) : null}
@@ -100,7 +93,7 @@ export function TimeField({ label, value, onChange, disabled = false }: Props) {
             />
           </View>
         </View>
-        <Text variant="title" tone="faint" style={{ paddingTop: spacing.xs }}>
+        <Text variant="num" tone="muted" style={{ paddingTop: spacing.sm }}>
           :
         </Text>
         <View style={{ gap: spacing.sm, alignItems: 'center' }}>
@@ -123,7 +116,7 @@ export function TimeField({ label, value, onChange, disabled = false }: Props) {
           </View>
         </View>
       </View>
-      <Text variant="small" tone="muted" accessibilityLiveRegion="polite">
+      <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
         {formatTimeFriendly(value)}
       </Text>
     </View>
