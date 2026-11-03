@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-import { Button, Checkbox, Icon, IconButton, Input, Text } from '@/components';
+import { Button, Checkbox, FruitDot, Icon, IconButton, Input, Text } from '@/components';
+import { useFruits } from '@/features/couple';
 import { LIST_ITEM_MAX, doneByLabel, listItemError } from '@/lib/lists';
 import { useTheme } from '@/theme';
 
@@ -81,14 +82,17 @@ export function ListItemRow({
   onMoveDown,
 }: Props) {
   const { colors, spacing } = useTheme();
+  const fruits = useFruits();
   const [draft, setDraft] = useState(item.text);
   const [touched, setTouched] = useState(false);
   const error = touched ? listItemError(draft) : null;
   const by = doneByLabel(item, meId, partnerName);
+  // Quien tachó se ve con el punto de su fruta.
+  const byFruit = item.done_by && item.done_by === meId ? fruits.me : (fruits.partner ?? fruits.me);
 
   const rule = {
     borderBottomWidth: 1,
-    borderBottomColor: colors.ruled,
+    borderBottomColor: colors.line,
   } as const;
 
   if (editing) {
@@ -110,8 +114,8 @@ export function ListItemRow({
           onSubmitEditing={save}
         />
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-          <Button title="Guardar" onPress={save} />
-          <Button title="Cancelar" variant="ghost" onPress={onCancelEdit} />
+          <Button title="Guardar" size="sm" onPress={save} />
+          <Button title="Cancelar" size="sm" variant="ghost" onPress={onCancelEdit} />
           <View style={{ flex: 1 }} />
           <IconButton name="trash" accessibilityLabel="Borrar este renglón" onPress={onDelete} />
         </View>
@@ -122,6 +126,7 @@ export function ListItemRow({
   return (
     <View style={[{ flexDirection: 'row', alignItems: 'center' }, rule]}>
       <Checkbox
+        size="lg"
         checked={item.done}
         disabled={pending || arranging}
         onPress={onToggle}
@@ -142,9 +147,12 @@ export function ListItemRow({
           {item.text}
         </Text>
         {by ? (
-          <Text variant="caption" tone="muted">
-            {by}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+            <FruitDot fruit={byFruit} size={10} />
+            <Text variant="note" tone="muted">
+              {by}
+            </Text>
+          </View>
         ) : null}
       </Pressable>
       {arranging && !item.done ? (

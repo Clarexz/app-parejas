@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Monocromo adaptativo (Android lo tiñe): un solo color, ambas mitades con su rendija. -->
+  <g transform="translate(212 212) scale(6)" fill="#000000">
+    <path d="M46 4 A46 46 0 0 0 46 96 Z"/>
+    <path d="M54 4 A46 46 0 0 1 54 96 Z"/>
+  </g>
+</svg>

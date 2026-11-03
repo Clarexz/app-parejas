@@ -6,3 +6,9 @@ coverage
 package-lock.json
 supabase/migrations
 *.md
+
+# Manual de marca tal como lo entregó diseño (no es código)
+docs/rebranding/
+# Prototipo generado con fotos embebidas
+docs/design/ahorita-prototipo.html
+.claude/

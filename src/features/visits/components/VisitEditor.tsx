@@ -1,19 +1,17 @@
 import { useRouter } from 'expo-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, Platform, ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMemo, useState } from 'react';
+import { Alert, Platform, View } from 'react-native';
 
 import {
+  ArrivalOverlay,
   Button,
-  CloudOff,
   DateField,
-  EmptyPolaroid,
   EmptyState,
-  IconButton,
   Input,
-  LoadingLines,
-  Paper,
-  SealOverlay,
+  LoadingSymbol,
+  Notice,
+  Screen,
+  ScreenHeader,
   Text,
   Toggle,
 } from '@/components';
@@ -22,7 +20,6 @@ import { useToday } from '@/features/couple';
 import { useEvents } from '@/features/events';
 import { isoDateToParts, partsToIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
-import { haptic } from '@/lib/haptics';
 import {
   MAX_VISIT_DAYS,
   VISIT_NOTE_MAX,
@@ -78,10 +75,9 @@ function fieldErrors(args: {
 /** Pantalla `/visits/edit`: apuntar una visita, o editarla con `?id=`; `?eventId=` la prellena. */
 export function VisitEditor({ id, eventId }: Props) {
   const editing = !!id;
-  const { spacing, page } = useTheme();
+  const { spacing } = useTheme();
   const router = useRouter();
   const toast = useToast();
-  const insets = useSafeAreaInsets();
   const { today } = useToday();
   const { visits, isLoading, isError, refetch } = useVisits();
   const { events } = useEvents();
@@ -98,14 +94,6 @@ export function VisitEditor({ id, eventId }: Props) {
   const [prefilled, setPrefilled] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const [sealed, setSealed] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
 
   // Al editar: se llenan los campos una sola vez con la visita cargada.
   const loaded = useMemo(
@@ -169,11 +157,7 @@ export function VisitEditor({ id, eventId }: Props) {
         eventId: linkedEvent,
       },
       {
-        onSuccess: () => {
-          setSealed(true);
-          haptic.stamp();
-          timer.current = setTimeout(leave, 800);
-        },
+        onSuccess: () => setSealed(true),
         onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
       },
     );
@@ -190,159 +174,128 @@ export function VisitEditor({ id, eventId }: Props) {
       run();
       return;
     }
-    Alert.alert(
-      '¿Arrancar esta hoja?',
-      'Esta visita se borra para los dos y no se puede deshacer.',
-      [
-        { text: 'Mejor no', style: 'cancel' },
-        { text: 'Arrancarla', style: 'destructive', onPress: run },
-      ],
-    );
+    Alert.alert('¿Borrar esta visita?', 'Se borra para los dos y no se puede deshacer.', [
+      { text: 'Mejor no', style: 'cancel' },
+      { text: 'Borrar', style: 'destructive', onPress: run },
+    ]);
   };
 
   // --- estados al editar ---
   if (editing && !loaded) {
     return (
-      <View style={{ flex: 1 }}>
-        <Paper />
-        <View
-          style={{
-            flex: 1,
-            paddingTop: insets.top + spacing.md,
-            paddingLeft: page.contentLeft,
-            paddingRight: page.contentRight,
-            gap: spacing.lg,
-          }}
-        >
-          <View style={{ marginLeft: -spacing.sm }}>
-            <IconButton name="close" accessibilityLabel="Cerrar" onPress={leave} />
+      <Screen>
+        <ScreenHeader back="Visitas" onBack={leave} title="Visita" />
+        {isLoading ? (
+          <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+            <LoadingSymbol accessibilityLabel="Abriendo la visita" />
           </View>
-          {isLoading ? (
-            <LoadingLines count={4} accessibilityLabel="Abriendo la visita" />
-          ) : isError ? (
-            <EmptyState
-              illustration={<CloudOff />}
-              title="No pudimos abrir la visita"
-              body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-              actionLabel="Reintentar"
-              onAction={() => void refetch()}
-            />
-          ) : (
-            <EmptyState
-              illustration={<EmptyPolaroid />}
-              title="Esa hoja ya no está"
-              body="Quizá la arrancaron desde el otro celular."
-              actionLabel="Ir a Visitas"
-              onAction={() => router.replace('/visits')}
-            />
-          )}
-        </View>
-      </View>
+        ) : isError ? (
+          <View style={{ marginTop: spacing.xl }}>
+            <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+              No pudimos abrir la visita. Revisa tu señal e intenta otra vez.
+            </Notice>
+          </View>
+        ) : (
+          <EmptyState
+            art="symbol"
+            title="Esa visita ya no está"
+            body="Quizá la borraron desde el otro celular."
+            action={{ label: 'Ir a Visitas', onPress: () => router.replace('/visits') }}
+          />
+        )}
+      </Screen>
     );
   }
 
   return (
     <View style={{ flex: 1 }}>
-      <Paper />
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          paddingTop: insets.top + spacing.md,
-          paddingBottom: spacing.xxxl,
-          paddingLeft: page.contentLeft,
-          paddingRight: page.contentRight,
-          gap: spacing.xl,
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -spacing.sm }}>
-          <IconButton name="close" accessibilityLabel="Cerrar" onPress={leave} />
-          <Text variant="title" accessibilityRole="header" style={{ flex: 1 }}>
-            {editing ? 'Editar la visita' : 'Apuntar una visita'}
-          </Text>
-        </View>
-
-        <DateField
-          label={oneDay ? '¿Qué día se vieron?' : 'Llegada'}
-          value={start}
-          onChange={(parts) => {
-            setStart(parts);
-          }}
-          error={errors.start}
-          disabled={busy}
-        />
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-          <View style={{ flex: 1, gap: spacing.xxs }}>
-            <Text variant="bodyStrong">Fue un solo día</Text>
-            <Text variant="caption" tone="muted">
-              Llegada y despedida el mismo día.
-            </Text>
-          </View>
-          <Toggle
-            value={oneDay}
-            onValueChange={setOneDay}
-            accessibilityLabel="Fue un solo día"
-            disabled={busy}
+      <Screen scroll>
+        <View style={{ gap: spacing.xl }}>
+          <ScreenHeader
+            back="Visitas"
+            onBack={leave}
+            title={editing ? 'Editar la visita' : 'Apuntar una visita'}
           />
-        </View>
 
-        {oneDay ? null : (
           <DateField
-            label="Despedida"
-            value={end}
-            onChange={setEnd}
-            error={errors.end}
+            label={oneDay ? '¿Qué día se vieron?' : 'Llegada'}
+            value={start}
+            onChange={setStart}
+            error={errors.start}
             disabled={busy}
           />
-        )}
-        {oneDay && errors.end ? (
-          <Text variant="caption" tone="chile" accessibilityLiveRegion="polite">
-            {errors.end}
-          </Text>
-        ) : null}
 
-        <Input
-          label="¿Dónde fue? (opcional)"
-          value={place}
-          onChangeText={setPlace}
-          maxLength={VISIT_PLACE_MAX}
-          placeholder="Guadalajara"
-          editable={!busy}
-        />
-
-        <View style={{ gap: spacing.xs }}>
-          <Input
-            label="Una nota (opcional)"
-            variant="multiline"
-            value={note}
-            onChangeText={setNote}
-            maxLength={VISIT_NOTE_MAX}
-            placeholder="Lo que no quieren olvidar de esos días"
-            editable={!busy}
-          />
-          <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-            {note.length}/{VISIT_NOTE_MAX}
-          </Text>
-        </View>
-
-        <View style={{ alignItems: 'flex-start', gap: spacing.md }}>
-          <Button
-            title={editing ? 'Guardar los cambios' : 'Apuntar visita'}
-            onPress={submit}
-            loading={save.isPending}
-            disabled={busy}
-          />
-          {editing ? (
-            <Button
-              title="Arrancar esta hoja"
-              variant="ghost"
-              onPress={confirmDelete}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+            <View style={{ flex: 1, gap: spacing.xxs }}>
+              <Text variant="bodyStrong">Fue un solo día</Text>
+              <Text variant="note" tone="muted">
+                Llegada y despedida el mismo día.
+              </Text>
+            </View>
+            <Toggle
+              value={oneDay}
+              onValueChange={setOneDay}
+              accessibilityLabel="Fue un solo día"
               disabled={busy}
             />
-          ) : null}
+          </View>
+
+          {oneDay ? null : (
+            <DateField
+              label="Despedida"
+              value={end}
+              onChange={setEnd}
+              error={errors.end}
+              disabled={busy}
+            />
+          )}
+          {oneDay && errors.end ? <Notice tone="danger">{errors.end}</Notice> : null}
+
+          <Input
+            label="¿Dónde fue? (opcional)"
+            value={place}
+            onChangeText={setPlace}
+            maxLength={VISIT_PLACE_MAX}
+            placeholder="Guadalajara"
+            editable={!busy}
+          />
+
+          <View style={{ gap: spacing.xs }}>
+            <Input
+              label="Una nota (opcional)"
+              variant="multiline"
+              value={note}
+              onChangeText={setNote}
+              maxLength={VISIT_NOTE_MAX}
+              placeholder="Lo que no quieren olvidar de esos días"
+              editable={!busy}
+            />
+            <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+              {note.length}/{VISIT_NOTE_MAX}
+            </Text>
+          </View>
+
+          <View style={{ gap: spacing.sm }}>
+            <Button
+              title={editing ? 'Guardar los cambios' : 'Apuntar visita'}
+              onPress={submit}
+              loading={save.isPending}
+              disabled={busy}
+              fullWidth
+            />
+            {editing ? (
+              <Button
+                title="Borrar esta visita"
+                variant="danger"
+                onPress={confirmDelete}
+                disabled={busy}
+                fullWidth
+              />
+            ) : null}
+          </View>
         </View>
-      </ScrollView>
-      {sealed ? <SealOverlay label="APUNTADA" /> : null}
+      </Screen>
+      {sealed ? <ArrivalOverlay text="Apuntada." onDone={leave} /> : null}
     </View>
   );
 }

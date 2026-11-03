@@ -17,6 +17,10 @@ jest.mock('expo-router', () => ({
 }));
 jest.mock('@/lib/supabase', () => ({ supabase: {} }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', hex: '#FFC24B', on: '#1B1B1F', name: 'Mango' },
+    partner: { key: 'sandia', hex: '#F2495C', on: '#1B1B1F', name: 'Sandía' },
+  }),
   useCouple: () => ({
     couple: { id: 'c1', anniversary_date: '2026-03-12', timezone: 'America/Mexico_City' },
     me: { id: 'u1', display_name: 'Caleb', nickname: null },
@@ -134,7 +138,7 @@ describe('Estadísticas', () => {
     mockStats = parseRelationshipStats(null);
     await wrap(<StatsRoute />);
     expect(screen.getByText('Todavía no juegan ninguna ronda.')).toBeTruthy();
-    expect(screen.getByText(/Todavía no pegan ninguna memoria/)).toBeTruthy();
+    expect(screen.getByText(/Todavía no guardan ninguna memoria/)).toBeTruthy();
     expect(screen.getByText(/Todavía no contestan ninguna pregunta/)).toBeTruthy();
     expect(screen.getByText('Todavía no apuntan ninguna visita en persona.')).toBeTruthy();
     expect(screen.getByText('Todavía no comparten stories ni moods.')).toBeTruthy();

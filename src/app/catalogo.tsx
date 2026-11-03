@@ -5,96 +5,106 @@ import { View } from 'react-native';
 import {
   Avatar,
   AvatarPicker,
+  AnswerCard,
+  ArrivalOverlay,
   Button,
   Card,
   Checkbox,
   Chip,
-  CloudOff,
   CodeInput,
   DateField,
-  PermissionNote,
-  SoftAskNote,
-  TimeField,
   Divider,
-  Doodle,
-  EmptyPolaroid,
   EmptyState,
-  FoldedNote,
+  FruitDot,
+  FruitPicker,
   Icon,
   IconButton,
   ICON_NAMES,
   Input,
   InviteCode,
+  ListGroup,
   ListRow,
-  Note,
-  PencilNote,
-  Polaroid,
-  Scene,
+  LoadingSymbol,
+  MoodBubble,
+  Notice,
+  PermissionNote,
   Screen,
+  ScreenHeader,
+  Segmented,
   Sheet,
-  Stamp,
+  SoftAskNote,
+  StatTile,
   Sticker,
+  BrandSymbol,
   TabBar,
+  type EmptyArt,
   type TabBarProps,
-  Tally,
-  Tape,
   Text,
+  TimeField,
+  Toggle,
   useToast,
-  WaitingIllustration,
+  Wordmark,
 } from '@/components';
-import { StoriesRowView, StoryFrame, StoryProgress } from '@/features/stories';
-import { formatStampDate } from '@/lib/stampDate';
-import { useTheme, type Colors, type TypeVariant } from '@/theme';
+import { FRUITS, FRUIT_KEYS, type FruitKey } from '@/lib/fruits';
+import { ThemeProvider, useTheme, type Colors, type TypeVariant } from '@/theme';
 
-// Catálogo de diseño (DISENO §7): ruta oculta, solo para revisar el sistema en claro y oscuro.
+// Catálogo de diseño (DISENO §7): ruta oculta, solo para revisar el sistema en claro y oscuro y
+// con distintos pares de frutas.
+
+const PAIRS = {
+  default: { label: 'Sandía y Mango', me: 'sandia', partner: 'mango' },
+  cool: { label: 'Uva y Limón', me: 'uva', partner: 'limon' },
+  blue: { label: 'Arándano y Mandarina', me: 'arandano', partner: 'mandarina' },
+} as const satisfies Record<string, { label: string; me: FruitKey; partner: FruitKey }>;
+
+type PairKey = keyof typeof PAIRS;
 
 const SWATCHES: { token: keyof Colors; name: string }[] = [
-  { token: 'paper', name: 'Cuaderno' },
-  { token: 'paperRaised', name: 'Ficha' },
-  { token: 'ink', name: 'Tinta BIC' },
-  { token: 'inkMuted', name: 'Tinta seca' },
-  { token: 'inkFaint', name: 'Lápiz' },
-  { token: 'grid', name: 'Cuadrícula' },
-  { token: 'margin', name: 'Margen' },
-  { token: 'ruled', name: 'Renglón' },
-  { token: 'jamaica', name: 'Jamaica' },
-  { token: 'cempasuchil', name: 'Cempasúchil' },
-  { token: 'nopal', name: 'Nopal' },
-  { token: 'chile', name: 'Chile' },
-  { token: 'postit', name: 'Post-it' },
-  { token: 'polaroid', name: 'Polaroid' },
-  { token: 'tapeYellow', name: 'Cinta canario' },
-  { token: 'tapeMint', name: 'Cinta menta' },
-  { token: 'tapePink', name: 'Cinta rosa' },
-  { token: 'shadow', name: 'Sombra' },
-  { token: 'scrim', name: 'Velo' },
+  { token: 'bg', name: 'bg · Hueso / Noche' },
+  { token: 'surface', name: 'surface · Arena / Carbón' },
+  { token: 'surface2', name: 'surface2 · Arena 2 / Carbón 2' },
+  { token: 'ink', name: 'ink · Tinta / Hueso' },
+  { token: 'inkMuted', name: 'inkMuted · Grafito / Niebla' },
+  { token: 'line', name: 'line · 10 %' },
+  { token: 'action', name: 'action · botón principal' },
+  { token: 'danger', name: 'danger · Chile' },
+  { token: 'success', name: 'success · Nopal' },
+  { token: 'scrim', name: 'scrim · velo' },
 ];
 
 const TYPE_SAMPLES: { variant: TypeVariant; sample: string }[] = [
-  { variant: 'hero', sample: '1,284' },
-  { variant: 'display', sample: 'Nuestra libreta' },
-  { variant: 'title', sample: '¿Qué te hizo reír hoy?' },
-  { variant: 'hand', sample: 'Te toca, Ale' },
-  { variant: 'handSmall', sample: 'cena de viernes' },
-  { variant: 'heading', sample: 'Ajustes de ustedes' },
-  { variant: 'body', sample: 'Sam y Ale llevan 23 días seguidos contestando.' },
-  { variant: 'bodyStrong', sample: 'Ale ya escribió y la dobló.' },
-  { variant: 'small', sample: 'Hace 5 minutos' },
-  { variant: 'caption', sample: 'Solo lo ven ustedes dos' },
-  { variant: 'stamp', sample: 'NUEVO' },
-  { variant: 'mono', sample: 'pág. 1,284' },
+  { variant: 'display', sample: '12 días' },
+  { variant: 'h1', sample: 'Falta menos' },
+  { variant: 'h2', sample: '¿Qué te hizo reír hoy?' },
+  { variant: 'h3', sample: 'La próxima vez' },
+  { variant: 'num', sample: '412' },
+  { variant: 'body', sample: 'Ya contestó la pregunta de hoy. Ahora te toca a ti.' },
+  { variant: 'bodyStrong', sample: 'Cuentas regresivas' },
+  { variant: 'ui', sample: 'Contestar' },
+  { variant: 'note', sample: 'hace 5 min · CDMX' },
+  { variant: 'label', sample: 'De a dos' },
+];
+
+const EMPTY_ARTS: { art: EmptyArt; title: string; body: string }[] = [
+  { art: 'symbol', title: 'Aquí irá su primera memoria', body: '¿Cuál sería?' },
+  { art: 'heart', title: 'Todavía no hay días juntos', body: 'Pongan su fecha en ajustes.' },
+  {
+    art: 'bubble',
+    title: 'Sin moods por ahora',
+    body: 'Cuando alguien cambie el suyo, aparece aquí.',
+  },
+  { art: 'dome', title: 'Falta una fecha', body: '¿Cuándo se vuelven a ver?' },
+  { art: 'spark', title: 'Hoy empieza la racha', body: 'Contesten la pregunta de hoy.' },
+  { art: 'circles', title: 'Esperando a que llegue', body: 'En cuanto use el código, aparece.' },
 ];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   const { spacing } = useTheme();
   return (
-    <View style={{ gap: spacing.md, marginTop: spacing.xl }}>
-      <View style={{ gap: spacing.xs }}>
-        <Text variant="title" accessibilityRole="header">
-          {title}
-        </Text>
-        <Divider />
-      </View>
+    <View style={{ gap: spacing.md, marginTop: spacing.xxl }}>
+      <Text variant="h3" accessibilityRole="header">
+        {title}
+      </Text>
       {children}
     </View>
   );
@@ -111,7 +121,7 @@ function Row({ children }: { children: ReactNode }) {
 
 function Label({ children }: { children: string }) {
   return (
-    <Text variant="mono" muted>
+    <Text variant="note" muted>
       {children}
     </Text>
   );
@@ -121,8 +131,9 @@ function Label({ children }: { children: string }) {
 function fakeTabBar(index: number, setIndex: (i: number) => void): TabBarProps {
   const routes = [
     { key: 'index', name: 'index', title: 'Inicio' },
-    { key: 'questions', name: 'questions', title: 'Preguntas' },
-    { key: 'stories', name: 'stories', title: 'Fotos' },
+    { key: 'questions', name: 'questions', title: 'Pregunta' },
+    { key: 'stories', name: 'stories', title: 'Stories' },
+    { key: 'memories', name: 'memories', title: 'Memorias' },
     { key: 'more', name: 'more', title: 'Más' },
   ];
   return {
@@ -134,462 +145,432 @@ function fakeTabBar(index: number, setIndex: (i: number) => void): TabBarProps {
   } as unknown as TabBarProps;
 }
 
-export default function CatalogScreen() {
+function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void }) {
   const router = useRouter();
   const toast = useToast();
-  const { colors, spacing, radius, isDark } = useTheme();
-  const [folded, setFolded] = useState(false);
-  const [ticked, setTicked] = useState(true);
+  const { colors, spacing, radius, isDark, fruit } = useTheme();
   const [sheet, setSheet] = useState(false);
-  const [selected, setSelected] = useState('Cena');
+  const [arrival, setArrival] = useState(false);
+  const [chip, setChip] = useState('Cena');
+  const [segment, setSegment] = useState<'diario' | 'mapa'>('diario');
+  const [toggle, setToggle] = useState(true);
+  const [ticked, setTicked] = useState(true);
   const [date, setDate] = useState({ day: '14', month: '', year: '' });
   const [code, setCode] = useState('AB7');
-  const [tab, setTab] = useState(0);
   const [time, setTime] = useState('21:00');
+  const [tab, setTab] = useState(0);
+  const [picked, setPicked] = useState<FruitKey>(PAIRS[pair].me);
+  const partnerFruit = PAIRS[pair].partner;
 
   return (
-    <Screen scroll>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        <IconButton
-          name="back"
-          accessibilityLabel="Volver"
-          onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+    <View style={{ flex: 1 }}>
+      <Screen scroll>
+        <ScreenHeader
+          label={`Modo ${isDark ? 'noche' : 'día'}`}
+          title="Catálogo"
+          back="Volver"
+          onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))}
         />
-        <Stamp>{formatStampDate(new Date())}</Stamp>
-      </View>
-      <Text variant="display" accessibilityRole="header">
-        Catálogo de diseño
-      </Text>
-      <Text variant="body" muted>
-        Todo el sistema Bitácora de {isDark ? 'noche' : 'día'}, en una sola hoja.
-      </Text>
-
-      <Section title="Colores">
-        <View style={{ gap: spacing.sm }}>
-          {SWATCHES.map(({ token, name }) => (
-            <View
-              key={token}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
-            >
-              <View
-                style={{
-                  width: 44,
-                  height: 32,
-                  backgroundColor: colors[token],
-                  borderWidth: 1,
-                  borderColor: colors.ruled,
-                  borderRadius: radius.xs,
-                }}
-              />
-              <View style={{ flex: 1 }}>
-                <Text variant="bodyStrong">{name}</Text>
-                <Label>{token}</Label>
-              </View>
-            </View>
-          ))}
-        </View>
-      </Section>
-
-      <Section title="Tipografía">
-        <View style={{ gap: spacing.md }}>
-          {TYPE_SAMPLES.map(({ variant, sample }) => (
-            <View key={variant}>
-              <Label>{variant}</Label>
-              <Text variant={variant}>{sample}</Text>
-            </View>
-          ))}
-        </View>
-      </Section>
-
-      <Section title="Iconos">
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', rowGap: spacing.md }}>
-          {ICON_NAMES.map((name) => (
-            <View key={name} style={{ width: '25%', alignItems: 'center', gap: spacing.xs }}>
-              <Icon name={name} />
-              <Text variant="caption" muted numberOfLines={1}>
-                {name}
-              </Text>
-            </View>
-          ))}
-        </View>
-      </Section>
-
-      <Section title="Botones">
-        <Row>
-          <Button title="Pegar mi respuesta" />
-          <Button title="Deshabilitado" disabled />
-          <Button title="Guardando" loading />
-        </Row>
-        <Row>
-          <Button title="Reintentar" variant="secondary" />
-          <Button title="Deshabilitado" variant="secondary" disabled />
-          <Button title="Guardando" variant="secondary" loading />
-        </Row>
-        <Row>
-          <Button title="Ahora no" variant="ghost" />
-          <Button title="Deshabilitado" variant="ghost" disabled />
-          <Button title="Guardando" variant="ghost" loading />
-        </Row>
-        <Row>
-          <IconButton name="settings" accessibilityLabel="Ajustes" />
-          <IconButton name="settings" accessibilityLabel="Ajustes (deshabilitado)" disabled />
-          <IconButton name="plus" variant="sticker" accessibilityLabel="Agregar" />
-          <IconButton
-            name="plus"
-            variant="sticker"
-            accessibilityLabel="Agregar (deshabilitado)"
-            disabled
-          />
-        </Row>
-      </Section>
-
-      <Section title="Fichas">
-        <Card>
-          <Text variant="bodyStrong">Ficha lisa</Text>
-          <Text variant="small" muted>
-            Para datos sueltos, como la distancia entre ustedes.
-          </Text>
-        </Card>
-        <Card variant="ruled" tilt={1}>
-          <Text variant="bodyStrong">Ficha de renglones</Text>
+        <View style={{ marginTop: spacing.lg, gap: spacing.md }}>
           <Text variant="body" muted>
-            Para lo que se escribe largo.
+            Todo el sistema ahorita en una sola pantalla.
           </Text>
-        </Card>
-        <Card tilt={-1} onPress={() => toast.show({ message: 'Ficha tocada', tone: 'info' })}>
-          <Text variant="bodyStrong">Ficha tocable</Text>
-          <Text variant="small" muted>
-            Presiónala y se levanta.
-          </Text>
-        </Card>
-      </Section>
-
-      <Section title="Objetos">
-        <Note id="catalogo-nota">
-          <Text variant="hand" style={{ color: colors.onPostit }}>
-            No olvides la cena del viernes
-          </Text>
-        </Note>
-        <Note id="catalogo-sin-cinta" tape={false}>
-          <Text variant="hand" style={{ color: colors.onPostit }}>
-            Post-it sin cinta
-          </Text>
-        </Note>
-        <Row>
-          <Polaroid size="S" id="s" caption="Playa" tape="yellow">
-            <Scene kind="hill" />
-          </Polaroid>
-          <Polaroid size="M" id="m" caption="Sam y Ale" date="29 OCT" tape="mint">
-            <Scene kind="sea" />
-          </Polaroid>
-        </Row>
-        <Row>
-          <Polaroid size="L" id="l" caption="Primer viaje juntos" date="12 MAR" tape="pink">
-            <Scene kind="city" />
-          </Polaroid>
-          <Polaroid size="S" id="t" caption="Tacos" tape="mint">
-            <Scene kind="tacos" />
-          </Polaroid>
-        </Row>
-        <Row>
-          <Polaroid
-            size="M"
-            id="cargando"
-            caption="Foto que no carga"
-            source="https://invalido.invalid/foto.jpg"
-          />
-          <Polaroid size="M" id="error" caption="Sin foto" />
-        </Row>
-        <Row>
-          <Tape color="yellow" />
-          <Tape color="mint" />
-          <Tape color="pink" />
-        </Row>
-        <Row>
-          <Stamp tone="jamaica">NUEVO</Stamp>
-          <Stamp tone="ink">{formatStampDate(new Date())}</Stamp>
-          <Stamp tone="nopal">YA CONTESTÓ</Stamp>
-        </Row>
-        <Row>
-          <Sticker label="Sam" tone="jamaica" />
-          <Sticker icon="flame" tone="cempasuchil" />
-          <Sticker emoji="😴" tone="postit" />
-          <Sticker label="Ale" icon="check" tone="nopal" />
-        </Row>
-      </Section>
-
-      <Section title="Avatares">
-        <Row>
-          <Avatar name="Sam" variant="polaroid" size={72} />
-          <Avatar name="Ale" variant="polaroid" size={72} mood="😴" />
-          <Avatar name="Sam" variant="round" size={72} />
-          <Avatar name="Ale" variant="round" size={72} mood="😴" />
-        </Row>
-      </Section>
-
-      <Section title="Chips">
-        <Row>
-          <Chip
-            label="Cena"
-            color="yellow"
-            selected={selected === 'Cena'}
-            onPress={() => setSelected('Cena')}
-          />
-          <Chip
-            label="Viaje"
-            color="mint"
-            selected={selected === 'Viaje'}
-            onPress={() => setSelected('Viaje')}
-          />
-          <Chip label="Cita" color="pink" onPress={() => setSelected('Cita')} />
-          <Chip label="Pasado" color="pink" disabled />
-        </Row>
-      </Section>
-
-      <Section title="Inputs">
-        <Input label="Tu apodo" placeholder="Escribe algo" />
-        <Input label="Tu respuesta" variant="multiline" placeholder="Cuéntale a Ale" />
-        <Input label="Correo" defaultValue="sam@ejemplo" error="Ese correo no parece completo." />
-        <Input label="Código de pareja" defaultValue="ALE-2910" disabled />
-      </Section>
-
-      <Section title="Nota doblada">
-        <FoldedNote open={false} lockedLabel="Primero contesta tú">
-          <Text variant="body">Nunca se ve</Text>
-        </FoldedNote>
-        <FoldedNote open={folded} onPress={() => setFolded((v) => !v)}>
-          <Text variant="body">Me hizo reír que te quedaras dormido en el cine.</Text>
-        </FoldedNote>
-        <Row>
-          <Button
-            title={folded ? 'Doblar' : 'Desdoblar'}
-            variant="secondary"
-            onPress={() => setFolded((v) => !v)}
-          />
-        </Row>
-      </Section>
-
-      <Section title="Hoja (Sheet)">
-        <Row>
-          <Button title="Abrir hoja" variant="secondary" onPress={() => setSheet(true)} />
-        </Row>
-      </Section>
-
-      <Section title="Avisos (Toast)">
-        <Row>
-          <Button
-            title="Info"
-            variant="secondary"
-            onPress={() => toast.show({ message: 'Ale ya escribió. Te toca.', tone: 'info' })}
-          />
-          <Button
-            title="Éxito"
-            variant="secondary"
-            onPress={() => toast.show({ message: 'Respuesta pegada', tone: 'success' })}
-          />
-          <Button
-            title="Error"
-            variant="secondary"
-            onPress={() =>
-              toast.show({ message: 'No hay señal. Vuelve a intentar.', tone: 'error' })
-            }
-          />
-        </Row>
-      </Section>
-
-      <Section title="Estados vacíos">
-        <EmptyState
-          illustration={<EmptyPolaroid />}
-          title="Hoja en blanco"
-          body="Todavía no pegan ninguna foto. La primera siempre sale chueca, y está bien."
-          actionLabel="Pegar la primera"
-          onAction={() => undefined}
-        />
-        <EmptyState
-          illustration={<PencilNote />}
-          title="Nada escrito"
-          body="Hoy no han contestado la pregunta."
-        />
-        <EmptyState
-          illustration={<WaitingIllustration />}
-          title="Esperando a Ale"
-          body="Ya tienen su código. En cuanto Ale lo escriba, empiezan."
-          actionLabel="Compartir código"
-          onAction={() => undefined}
-        />
-        <EmptyState
-          illustration={<CloudOff />}
-          title="Sin señal"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={() => undefined}
-        />
-      </Section>
-
-      <Section title="Fecha (DateField)">
-        <DateField label="Su aniversario" value={date} onChange={setDate} />
-        <DateField
-          label="Tu cumpleaños"
-          value={{ day: '31', month: '02', year: '1995' }}
-          onChange={() => undefined}
-          error="Esa fecha no existe. Revisa el día y el mes."
-        />
-        <DateField
-          label="Fecha fija"
-          value={{ day: '12', month: '03', year: '2021' }}
-          onChange={() => undefined}
-          disabled
-        />
-      </Section>
-
-      <Section title="Casilla (Checkbox)">
-        <Row>
-          <Checkbox
-            checked={ticked}
-            onPress={() => setTicked((v) => !v)}
-            accessibilityLabel="Casilla de muestra"
-          />
-          <Checkbox checked={false} onPress={() => undefined} accessibilityLabel="Sin tachar" />
-          <Checkbox checked disabled onPress={() => undefined} accessibilityLabel="Deshabilitada" />
-        </Row>
-      </Section>
-
-      <Section title="Palitos (Tally)">
-        <Tally total={10} count={3} accessibilityLabel="3 de 10" />
-        <Tally total={10} count={10} accessibilityLabel="10 de 10" />
-        <Tally total={10} count={4} tone="chile" accessibilityLabel="4 intentos gastados de 10" />
-      </Section>
-
-      <Section title="Hora (TimeField)">
-        <TimeField label="A qué hora" value={time} onChange={setTime} />
-        <TimeField label="Apagado" value="08:45" onChange={() => undefined} disabled />
-      </Section>
-
-      <Section title="Permiso de avisos (PermissionNote)">
-        <PermissionNote
-          status="undetermined"
-          canAskAgain
-          onRequest={() => undefined}
-          onOpenSettings={() => undefined}
-        />
-        <PermissionNote
-          status="denied"
-          canAskAgain={false}
-          onRequest={() => undefined}
-          onOpenSettings={() => undefined}
-        />
-        <PermissionNote
-          status="granted"
-          canAskAgain={false}
-          onRequest={() => undefined}
-          onOpenSettings={() => undefined}
-        />
-        <PermissionNote
-          status="unavailable"
-          canAskAgain={false}
-          onRequest={() => undefined}
-          onOpenSettings={() => undefined}
-        />
-      </Section>
-
-      <Section title="Aviso previo (SoftAskNote)">
-        <SoftAskNote partnerName="Ale" onAccept={() => undefined} onDismiss={() => undefined} />
-      </Section>
-
-      <Section title="Código de invitación">
-        <InviteCode code="K7M2QX" onShare={() => undefined} onCopy={() => undefined} />
-        <InviteCode code="" loading />
-        <CodeInput value={code} onChangeText={setCode} />
-        <CodeInput value="ABC23" onChangeText={() => undefined} error="Ese código no existe." />
-        <CodeInput value="K7M2QX" onChangeText={() => undefined} disabled />
-      </Section>
-
-      <Section title="Foto de perfil (AvatarPicker)">
-        <Row>
-          <AvatarPicker name="Ale" onPick={() => undefined} />
-          <AvatarPicker name="Sam y Ale" variant="couple" onPick={() => undefined} />
-        </Row>
-        <AvatarPicker name="Sam" loading onPick={() => undefined} />
-      </Section>
-
-      <Section title="Renglones (ListRow)">
-        <View>
-          <ListRow icon="bell" label="Avisos" value="Activados" onPress={() => undefined} />
-          <ListRow icon="calendar" label="Nuestra fecha" onPress={() => undefined} />
-          <ListRow icon="settings" label="Ajustes de ustedes" onPress={() => undefined} />
-          <ListRow
-            icon="lock"
-            label="Cerrar sesión"
-            tone="destructive"
-            divider={false}
-            onPress={() => undefined}
+          <Segmented
+            fullWidth
+            accessibilityLabel="Par de frutas"
+            value={pair}
+            onChange={onPair}
+            options={[
+              { value: 'default', label: 'Sandía' },
+              { value: 'cool', label: 'Uva' },
+              { value: 'blue', label: 'Arándano' },
+            ]}
           />
         </View>
-      </Section>
 
-      <Section title="Pestañas (TabBar)">
-        <View>
-          <TabBar {...fakeTabBar(tab, setTab)} />
-        </View>
-      </Section>
+        <Section title="Símbolo y logo">
+          <Row>
+            <BrandSymbol size={96} />
+            <BrandSymbol size={48} />
+            <BrandSymbol size={24} />
+            <BrandSymbol size={96} animate="arrive" left="uva" right="limon" />
+            <LoadingSymbol />
+          </Row>
+          <Wordmark size={40} layout="name" />
+          <Wordmark size={28} layout="horizontal" />
+          <Wordmark size={22} layout="stacked" />
+        </Section>
 
-      <Section title="Stories (StoryFrame, StoriesRow, StoryProgress)">
-        <Row>
-          <StoryFrame
-            width={120}
-            story={{ kind: 'text', text: 'Hay café', bg: 'postit', font: 'hand' }}
+        <Section title="Frutas">
+          <Row>
+            {FRUIT_KEYS.map((key) => (
+              <View key={key} style={{ alignItems: 'center', gap: spacing.xs }}>
+                <View
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: radius.pill,
+                    backgroundColor: FRUITS[key].hex,
+                  }}
+                />
+                <Label>{FRUITS[key].name}</Label>
+              </View>
+            ))}
+          </Row>
+          <Row>
+            <FruitDot fruit={fruit.me} />
+            <Label>tuya</Label>
+            <FruitDot fruit={fruit.partner ?? fruit.me} />
+            <Label>de tu pareja</Label>
+          </Row>
+          <FruitPicker
+            value={picked}
+            partnerFruit={partnerFruit}
+            partnerName="Ximena"
+            onChange={setPicked}
           />
-          <StoryFrame
-            width={120}
-            story={{
-              kind: 'text',
-              text: 'Nos vemos a las 8',
-              bg: 'jamaica',
-              font: 'stamp',
-              stickers: [{ e: '🌮', x: 0.5, y: 0.8, s: 1.2, r: 8 }],
-            }}
-          />
-          <StoryFrame
-            width={120}
-            story={{
-              kind: 'drawing',
-              bg: 'paper',
-              strokes: [{ c: 'jamaica', w: 18, p: [150, 300, 450, 800, 750, 300] }],
-            }}
-          />
-        </Row>
-        <StoriesRowView
-          myName="Alita"
-          partnerName="Caleb"
-          mineCount={0}
-          partnerCount={2}
-          partnerUnseen={1}
-          onPressMine={() => {}}
-          onPressPartner={() => {}}
-        />
-        <StoryProgress count={3} index={1} durationMs={60000} paused onComplete={() => {}} />
-      </Section>
+        </Section>
 
-      <Section title="Garabatos y divisores">
-        <Row>
-          <View style={{ gap: spacing.xs }}>
-            <Text variant="hand">23 días</Text>
-            <Doodle kind="underline" width={90} />
+        <Section title="Color neutro">
+          <View style={{ gap: spacing.sm }}>
+            {SWATCHES.map(({ token, name }) => (
+              <View
+                key={token}
+                style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
+              >
+                <View
+                  style={{
+                    width: 44,
+                    height: 32,
+                    backgroundColor: colors[token],
+                    borderRadius: radius.sm,
+                    borderWidth: 1,
+                    borderColor: colors.line,
+                  }}
+                />
+                <Text variant="note">{name}</Text>
+              </View>
+            ))}
           </View>
-          <Doodle kind="circle" width={90} />
-          <Doodle kind="arrow" width={90} />
-          <Doodle kind="star" width={28} />
-        </Row>
-        <Divider />
-        <Divider variant="solid" />
-      </Section>
+        </Section>
 
-      <Sheet visible={sheet} onClose={() => setSheet(false)} title="Hoja de ejemplo">
-        <Text variant="body">
-          Así se ve una hoja que sube desde abajo. Aquí van los ajustes o las opciones.
+        <Section title="Tipografía">
+          <View style={{ gap: spacing.md }}>
+            {TYPE_SAMPLES.map(({ variant, sample }) => (
+              <View key={variant} style={{ gap: spacing.xxs }}>
+                <Label>{variant}</Label>
+                <Text variant={variant}>{sample}</Text>
+              </View>
+            ))}
+          </View>
+        </Section>
+
+        <Section title="Íconos">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.lg }}>
+            {ICON_NAMES.map((name) => (
+              <View key={name} style={{ alignItems: 'center', width: 64, gap: spacing.xs }}>
+                <Icon name={name} />
+                <Text variant="note" muted numberOfLines={1}>
+                  {name}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </Section>
+
+        <Section title="Botones">
+          <Row>
+            <Button title="Contestar" onPress={() => undefined} />
+            <Button title="Cancelar" variant="secondary" onPress={() => undefined} />
+            <Button title="Ahora no" variant="ghost" onPress={() => undefined} />
+            <Button title="Salir de la pareja" variant="danger" onPress={() => undefined} />
+          </Row>
+          <Row>
+            <Button title="Compartir" icon="send" onPress={() => undefined} />
+            <Button title="Chico" size="sm" onPress={() => undefined} />
+            <Button title="Deshabilitado" disabled />
+            <Button title="Cargando" loading />
+          </Row>
+          <Button title="Continuar" fullWidth onPress={() => undefined} />
+          <Row>
+            <IconButton name="plus" accessibilityLabel="Agregar" />
+            <IconButton name="plus" variant="filled" accessibilityLabel="Agregar" />
+            <IconButton name="settings" variant="soft" accessibilityLabel="Ajustes" />
+            <IconButton name="trash" accessibilityLabel="Borrar" disabled />
+          </Row>
+        </Section>
+
+        <Section title="Chips y segmentos">
+          <Row>
+            {['Cena', 'Viaje', 'Casa'].map((label) => (
+              <Chip
+                key={label}
+                label={label}
+                selected={chip === label}
+                onPress={() => setChip(label)}
+              />
+            ))}
+            <Chip label="47 días" icon="spark" iconColor={fruit.me.hex} onPress={() => undefined} />
+            <Chip label="Cerrado" disabled onPress={() => undefined} />
+          </Row>
+          <Segmented
+            accessibilityLabel="Vista"
+            value={segment}
+            onChange={setSegment}
+            options={[
+              { value: 'diario', label: 'Diario' },
+              { value: 'mapa', label: 'Mapa' },
+            ]}
+          />
+        </Section>
+
+        <Section title="Tarjetas">
+          <Card>
+            <Text variant="label" muted>
+              La próxima vez
+            </Text>
+            <Text variant="h3">Faltan</Text>
+            <Text variant="display">12 días</Text>
+            <Text variant="note" muted>
+              para el sábado 15 nov · CDMX
+            </Text>
+          </Card>
+          <Card tone="me">
+            <Text variant="ui">Tu tinte</Text>
+            <Text variant="body">Tarjeta con el tinte de tu fruta.</Text>
+          </Card>
+          <Card tone="partner" onPress={() => toast.show({ message: 'Tarjeta tocada' })}>
+            <Text variant="ui">Tinte de tu pareja, tocable</Text>
+            <Text variant="note" muted>
+              Se achica al presionar.
+            </Text>
+          </Card>
+          <View style={{ flexDirection: 'row', gap: spacing.md }}>
+            <StatTile value={412} label="días juntos" icon="love" />
+            <StatTile
+              value={47}
+              label="días de racha"
+              icon="spark"
+              iconColor={fruit.me.hex}
+              onPress={() => toast.show({ message: 'Ficha tocada' })}
+            />
+          </View>
+        </Section>
+
+        <Section title="Personas y moods">
+          <Row>
+            <Avatar name="Ximena" size={64} fruit={fruit.partner ?? fruit.me} ring newDot />
+            <Avatar name="Tú" size={64} fruit={fruit.me} ring />
+            <Avatar name="Ale" size={40} />
+            <Avatar name="Sam" size={28} />
+            <Avatar name="Ale" size={64} mood="😄" />
+          </Row>
+          <View style={{ flexDirection: 'row', gap: spacing.md }}>
+            <View style={{ flex: 1 }}>
+              <MoodBubble
+                fruit={fruit.partner ?? fruit.me}
+                emoji="😄"
+                mood="feliz"
+                note={'Ximena · hace 5 min\nAcábate el café antes de salir, que hace frío.'}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <MoodBubble fruit={fruit.me} empty onPress={() => undefined} />
+            </View>
+          </View>
+          <MoodBubble fruit={fruit.me} loading />
+        </Section>
+
+        <Section title="Respuestas">
+          <AnswerCard
+            fruit={fruit.partner ?? fruit.me}
+            name="Ximena"
+            text="Que nos veamos en una semana y no sepamos qué hacer de tanta emoción."
+          />
+          <AnswerCard fruit={fruit.partner ?? fruit.me} name="Ximena" locked />
+          <AnswerCard fruit={fruit.me} name="Tú" text="Una cena larga y caminar sin rumbo." />
+        </Section>
+
+        <Section title="Listas y avisos">
+          <ListGroup label="De a dos">
+            <ListRow icon="countdown" label="Cuentas regresivas" onPress={() => undefined} />
+            <ListRow icon="lists" label="Listas" value="3" onPress={() => undefined} />
+            <ListRow
+              icon="bell"
+              label="Avisos"
+              right={
+                <Toggle value={toggle} onValueChange={setToggle} accessibilityLabel="Avisos" />
+              }
+            />
+          </ListGroup>
+          <View style={{ height: spacing.md }} />
+          <ListGroup label="Cuenta">
+            <ListRow icon="door" label="Cerrar sesión" onPress={() => undefined} />
+            <ListRow
+              icon="leave"
+              label="Salir de la pareja"
+              tone="danger"
+              onPress={() => undefined}
+            />
+          </ListGroup>
+          <Notice>Ximena todavía no entra. Mientras, pueden ir armando sus listas.</Notice>
+          <Notice tone="success">Listo, guardamos su aniversario.</Notice>
+          <Notice>
+            Faltan <Text variant="bodyStrong">12 días</Text> para su visita.
+          </Notice>
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => undefined }}>
+            No pudimos mandarlo. Tu celular está sin señal; lo intentamos otra vez.
+          </Notice>
+        </Section>
+
+        <Section title="Campos">
+          <Input label="Apodo" placeholder="Cómo te dice tu pareja" />
+          <Input icon="search" placeholder="Buscar" accessibilityLabel="Buscar" />
+          <Input label="Con error" defaultValue="Ale!!" error="Usa solo letras y espacios." />
+          <Input label="Deshabilitado" defaultValue="No se puede editar" disabled />
+          <Input label="Tu respuesta" variant="multiline" placeholder="Escribe lo que sientes" />
+          <DateField label="Su aniversario" value={date} onChange={setDate} />
+          <DateField
+            label="Con error"
+            value={{ day: '31', month: '02', year: '2026' }}
+            onChange={() => undefined}
+            error="Esa fecha no existe."
+          />
+          <TimeField label="Hora del aviso" value={time} onChange={setTime} />
+          <CodeInput value={code} onChangeText={setCode} />
+          <InviteCode code="ABC234" onShare={() => undefined} onCopy={() => undefined} />
+          <InviteCode code="" loading />
+          <Row>
+            <Checkbox
+              checked={ticked}
+              onPress={() => setTicked((v) => !v)}
+              accessibilityLabel="Tachar"
+            />
+            <Checkbox checked={false} onPress={() => undefined} accessibilityLabel="Sin tachar" />
+            <Checkbox
+              size="lg"
+              checked={ticked}
+              onPress={() => setTicked((v) => !v)}
+              accessibilityLabel="Tachar, grande"
+            />
+            <Toggle value={toggle} onValueChange={setToggle} accessibilityLabel="Interruptor" />
+            <Toggle value={false} onValueChange={() => undefined} accessibilityLabel="Apagado" />
+            <Toggle value disabled onValueChange={() => undefined} accessibilityLabel="Bloqueado" />
+          </Row>
+          <AvatarPicker name="Ale" onPick={() => undefined} />
+        </Section>
+
+        <Section title="Permisos y avisos previos">
+          <PermissionNote
+            status="undetermined"
+            canAskAgain
+            onRequest={() => undefined}
+            onOpenSettings={() => undefined}
+          />
+          <PermissionNote
+            status="denied"
+            canAskAgain={false}
+            onRequest={() => undefined}
+            onOpenSettings={() => undefined}
+          />
+          <PermissionNote
+            status="granted"
+            canAskAgain
+            onRequest={() => undefined}
+            onOpenSettings={() => undefined}
+          />
+          <PermissionNote
+            kind="location"
+            status="denied"
+            canAskAgain={false}
+            onRequest={() => undefined}
+            onOpenSettings={() => undefined}
+          />
+          <SoftAskNote
+            partnerName="Ximena"
+            onAccept={() => undefined}
+            onDismiss={() => undefined}
+          />
+        </Section>
+
+        <Section title="Vacíos">
+          {EMPTY_ARTS.map(({ art, title, body }) => (
+            <Card key={art}>
+              <EmptyState
+                art={art}
+                title={title}
+                body={body}
+                action={{ label: 'Empezar', onPress: () => undefined }}
+              />
+            </Card>
+          ))}
+        </Section>
+
+        <Section title="Movimiento y feedback">
+          <Row>
+            <Button
+              title="Toast info"
+              variant="secondary"
+              onPress={() => toast.show({ message: 'Ximena cambió su mood.' })}
+            />
+            <Button
+              title="Toast listo"
+              variant="secondary"
+              onPress={() => toast.show({ message: 'Guardado', tone: 'success' })}
+            />
+            <Button
+              title="Toast error"
+              variant="secondary"
+              onPress={() => toast.show({ message: 'No pudimos mandarlo.', tone: 'danger' })}
+            />
+          </Row>
+          <Row>
+            <Button title="Abrir panel" variant="secondary" onPress={() => setSheet(true)} />
+            <Button title="Llegada" variant="secondary" onPress={() => setArrival(true)} />
+          </Row>
+          <Row>
+            <Sticker text="te extraño" />
+            <Sticker text="ya casi" fruit={fruit.partner ?? fruit.me} size={80} />
+          </Row>
+        </Section>
+
+        <Section title="Barra de pestañas">
+          <View
+            style={{
+              borderRadius: radius.card,
+              overflow: 'hidden',
+              borderWidth: 1,
+              borderColor: colors.line,
+            }}
+          >
+            <TabBar {...fakeTabBar(tab, setTab)} />
+          </View>
+        </Section>
+        <View style={{ marginTop: spacing.xl }}>
+          <Divider />
+        </View>
+      </Screen>
+
+      <Sheet visible={sheet} onClose={() => setSheet(false)} title="¿Cómo te sientes?">
+        <Text variant="body" muted>
+          Así se ve un panel inferior: radio 28, agarradera y sombra suave.
         </Text>
-        <Button title="Listo" onPress={() => setSheet(false)} />
+        <View style={{ marginTop: spacing.lg }}>
+          <Button title="Listo" fullWidth onPress={() => setSheet(false)} />
+        </View>
       </Sheet>
-    </Screen>
+      {arrival ? (
+        <ArrivalOverlay text="Ya contestaron los dos." onDone={() => setArrival(false)} />
+      ) : null}
+    </View>
+  );
+}
+
+export default function CatalogScreen() {
+  const [pair, setPair] = useState<PairKey>('default');
+  return (
+    <ThemeProvider fruits={{ me: PAIRS[pair].me, partner: PAIRS[pair].partner }}>
+      <Catalog pair={pair} onPair={setPair} />
+    </ThemeProvider>
   );
 }

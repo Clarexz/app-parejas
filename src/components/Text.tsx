@@ -2,7 +2,7 @@ import { Text as RNText, type TextProps } from 'react-native';
 
 import { useTheme, type TypeVariant } from '@/theme';
 
-export type TextTone = 'ink' | 'muted' | 'faint' | 'jamaica' | 'chile' | 'nopal';
+export type TextTone = 'ink' | 'muted' | 'danger' | 'success' | 'onFruit';
 
 type Props = TextProps & {
   variant?: TypeVariant;
@@ -11,6 +11,7 @@ type Props = TextProps & {
   muted?: boolean;
 };
 
+/** Texto con la escala de DISENO §2.4. `onFruit` = el texto de tu fruta (Tinta u Hueso). */
 export function Text({
   variant = 'body',
   tone,
@@ -19,17 +20,17 @@ export function Text({
   maxFontSizeMultiplier,
   ...rest
 }: Props) {
-  const { colors, type } = useTheme();
+  const { colors, type, fruit } = useTheme();
   const resolved: TextTone = tone ?? (muted ? 'muted' : 'ink');
   const color = {
     ink: colors.ink,
     muted: colors.inkMuted,
-    faint: colors.inkFaint,
-    jamaica: colors.jamaica,
-    chile: colors.chile,
-    nopal: colors.nopal,
+    danger: colors.danger,
+    success: colors.success,
+    onFruit: fruit.me.on,
   }[resolved];
-  const capped = variant === 'hero' || variant === 'display' ? 1.4 : undefined;
+  // Los números grandes no deben desbordar su tarjeta con la fuente del sistema muy grande.
+  const capped = variant === 'display' || variant === 'h1' ? 1.4 : undefined;
   return (
     <RNText
       {...rest}

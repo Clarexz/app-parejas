@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, Chip, Input, Sheet, Text } from '@/components';
+import { Button, Chip, Input, Notice, Sheet, Text } from '@/components';
 import { errorMessage } from '@/lib/errors';
 import {
   LIST_EMOJI_MAX,
@@ -24,7 +24,7 @@ type Props = {
   onSaved?: (id: string) => void;
 };
 
-/** Hoja para crear o editar una lista: título, tipo (chips de cinta) y emoji opcional. */
+/** Hoja para crear o editar una lista: título, tipo (chips) y emoji opcional. */
 export function ListEditorSheet({ visible, onClose, list, onSaved }: Props) {
   const { spacing } = useTheme();
   const save = useSaveList();
@@ -84,15 +84,14 @@ export function ListEditorSheet({ visible, onClose, list, onSaved }: Props) {
           onSubmitEditing={submit}
         />
         <View style={{ gap: spacing.sm }}>
-          <Text variant="hand" tone="muted">
+          <Text variant="label" tone="muted">
             ¿De qué es?
           </Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
-            {LIST_KINDS.map((k, i) => (
+            {LIST_KINDS.map((k) => (
               <Chip
                 key={k.kind}
                 label={k.label}
-                color={i % 2 === 0 ? 'yellow' : 'mint'}
                 selected={kind === k.kind}
                 onPress={() => setKind(k.kind)}
               />
@@ -106,18 +105,15 @@ export function ListEditorSheet({ visible, onClose, list, onSaved }: Props) {
           maxLength={LIST_EMOJI_MAX}
           placeholder="🛒"
         />
-        {error ? (
-          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-            {error}
-          </Text>
-        ) : null}
-        <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
+        {error ? <Notice tone="danger">{error}</Notice> : null}
+        <View style={{ gap: spacing.sm }}>
           <Button
             title={editing ? 'Guardar cambios' : 'Crear la lista'}
             onPress={submit}
             loading={save.isPending}
+            fullWidth
           />
-          <Button title="Mejor no" variant="ghost" onPress={onClose} />
+          <Button title="Mejor no" variant="ghost" onPress={onClose} fullWidth />
         </View>
       </View>
     </Sheet>

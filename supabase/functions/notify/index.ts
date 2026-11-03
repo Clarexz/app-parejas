@@ -6,6 +6,8 @@ import {
   buildJwtParts,
   buildNotification,
   classifyFcmResponse,
+  DEFAULT_NOTIFICATION_COLOR,
+  fruitColor,
   parseEvent,
   parseServiceAccount,
   pemToPkcs8,
@@ -117,6 +119,25 @@ async function deleteTokens(tokens: string[]): Promise<void> {
   }
 }
 
+// Color del aviso = fruta visible de quien lo manda (RPC solo para service_role). Si falla, Sandía.
+async function actorColor(actorId: string): Promise<string> {
+  const base = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  if (!base || !key) return DEFAULT_NOTIFICATION_COLOR;
+  try {
+    const res = await fetch(`${base}/rest/v1/rpc/notify_actor_fruit`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_user: actorId }),
+    });
+    if (!res.ok) return DEFAULT_NOTIFICATION_COLOR;
+    return fruitColor(await res.json().catch(() => null));
+  } catch (e) {
+    console.error('notify_actor_fruit falló:', e instanceof Error ? e.message : 'desconocido');
+    return DEFAULT_NOTIFICATION_COLOR;
+  }
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method !== 'POST') return json(405, { error: 'method_not_allowed' });
 
@@ -144,11 +165,13 @@ Deno.serve(async (req: Request) => {
     return json(500, { error: 'fcm_auth_failed' });
   }
 
+  const color = built.visible ? await actorColor(event.actor.id) : undefined;
+
   let sent = 0;
   let skipped = 0;
   const invalid: string[] = [];
   for (const token of event.tokens) {
-    const outcome = await sendOne(sa, access, token, buildFcmMessage(token, built));
+    const outcome = await sendOne(sa, access, token, buildFcmMessage(token, built, color));
     if (outcome === 'ok') sent++;
     else if (outcome === 'invalid_token') invalid.push(token);
     else skipped++;

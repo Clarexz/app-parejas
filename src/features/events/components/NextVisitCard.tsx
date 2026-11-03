@@ -1,51 +1,48 @@
 import { View } from 'react-native';
 
-import { Card, Doodle, Stamp, Text } from '@/components';
-import { formatStampIsoDate } from '@/lib/stampDate';
+import { Card, Text } from '@/components';
+import { formatLongDate } from '@/lib/dateParts';
 import type { Countdown } from '@/lib/events';
 import { countdownHeadline, countdownSpoken } from '@/lib/eventsView';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
+
+import { MoonFill } from './MoonFill';
 
 type Props = {
   countdown: Countdown;
-  /** Texto sobre el número, p. ej. "La próxima vez que nos vemos". */
+  /** Texto sobre el número; por defecto "Faltan" (o nada si es hoy). */
   heading?: string;
   onPress?: () => void;
 };
 
 /**
- * La cuenta regresiva destacada: ficha con los días en grande a mano (subrayados), la fecha en
- * sello y el título con su emoji (contenido de la pareja).
+ * La cuenta regresiva destacada, como la tarjeta de Inicio: "Faltan" (`h3`), los días en
+ * `display`, la fecha y el título, y la media luna que se llena con las dos frutas.
  */
 export function NextVisitCard({ countdown, heading, onPress }: Props) {
   const { spacing } = useTheme();
   const { value, unit } = countdownHeadline(countdown.daysUntil);
   const title = countdown.emoji ? `${countdown.emoji} ${countdown.title}` : countdown.title;
+  const lead = heading ?? (countdown.daysUntil > 0 ? 'Faltan' : null);
   return (
     <Card
-      tilt={tiltFor(countdown.key, 1) || 1}
       onPress={onPress}
       accessibilityLabel={`${heading ? `${heading}: ` : ''}${title}, ${countdownSpoken(countdown.daysUntil)}`}
     >
-      <View style={{ gap: spacing.sm }}>
-        {heading ? (
-          <Text variant="small" tone="muted">
-            {heading}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.lg }}>
+        <View style={{ flex: 1, gap: spacing.xs }}>
+          {lead ? <Text variant="h3">{lead}</Text> : null}
+          <Text variant="display" numberOfLines={1} adjustsFontSizeToFit>
+            {unit ? `${value} ${unit}` : value}
           </Text>
-        ) : null}
-        <View>
-          {/* El número y la unidad en el mismo renglón; el garabato subraya los dos. */}
-          <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
-            <Text variant="hero">{value}</Text>
-            {unit ? <Text variant="title">{unit}</Text> : null}
-          </View>
-          <Doodle kind="underline" width={96} />
+          <Text variant="ui" numberOfLines={2}>
+            {title}
+          </Text>
+          <Text variant="note" tone="muted">
+            {formatLongDate(countdown.date)}
+          </Text>
         </View>
-        <Text variant="hand" numberOfLines={2}>
-          {title}
-        </Text>
-        <Stamp tone="ink">{formatStampIsoDate(countdown.date)}</Stamp>
+        <MoonFill daysUntil={countdown.daysUntil} />
       </View>
     </Card>
   );

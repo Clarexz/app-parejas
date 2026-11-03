@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -7,9 +6,10 @@ import {
   Button,
   DateField,
   Divider,
-  IconButton,
   Input,
+  Notice,
   Screen,
+  ScreenHeader,
   Text,
   useToast,
 } from '@/components';
@@ -36,7 +36,6 @@ type Errors = { name?: string; nickname?: string; birthday?: string };
 
 export default function ProfileSettingsScreen() {
   const { spacing } = useTheme();
-  const router = useRouter();
   const toast = useToast();
   const { data: profile } = useProfile();
   const update = useUpdateProfile();
@@ -64,10 +63,10 @@ export default function ProfileSettingsScreen() {
       { display_name: name.trim(), nickname: nickname.trim() || null, birthday: parsed.value },
       {
         onSuccess: () => {
-          haptic.stamp();
+          haptic.success();
           toast.show({ message: 'Listo, guardado.', tone: 'success' });
         },
-        onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+        onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
       },
     );
   };
@@ -76,8 +75,8 @@ export default function ProfileSettingsScreen() {
     const uri = await pickImage();
     if (!uri) return;
     upload.mutate(uri, {
-      onSuccess: () => toast.show({ message: 'Foto nueva pegada.', tone: 'success' }),
-      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+      onSuccess: () => toast.show({ message: 'Foto nueva guardada.', tone: 'success' }),
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
     });
   };
 
@@ -99,13 +98,8 @@ export default function ProfileSettingsScreen() {
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
-        <Text variant="display" accessibilityRole="header">
-          Mi perfil
-        </Text>
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader title="Mi perfil" back="Más" />
         <View style={{ alignItems: 'center' }}>
           <AvatarPicker
             name={name.trim() || '?'}
@@ -127,10 +121,10 @@ export default function ProfileSettingsScreen() {
           onChange={setBirthday}
           error={errors.birthday}
         />
-        <Button title="Guardar" onPress={submit} loading={update.isPending} />
+        <Button title="Guardar" onPress={submit} loading={update.isPending} fullWidth />
 
         <Divider />
-        <Text variant="title" accessibilityRole="header">
+        <Text variant="h3" accessibilityRole="header">
           Cambiar contraseña
         </Text>
         <Input
@@ -153,15 +147,14 @@ export default function ProfileSettingsScreen() {
           onSubmitEditing={submitPassword}
         />
         {changePassword.isError ? (
-          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-            {errorMessage(changePassword.error)}
-          </Text>
+          <Notice tone="danger">{errorMessage(changePassword.error)}</Notice>
         ) : null}
         <Button
           title="Cambiar contraseña"
           variant="secondary"
           onPress={submitPassword}
           loading={changePassword.isPending}
+          fullWidth
         />
       </View>
     </Screen>

@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { Button, Card, LoadingLines, Text } from '@/components';
-import { tiltFor } from '@/lib/tilt';
+import { Button, Card, LoadingSymbol, Text } from '@/components';
 import { useTheme } from '@/theme';
 
 import { useCountdowns } from '../hooks';
@@ -21,30 +20,35 @@ export function CountdownHomeCard() {
 
   let body;
   if (isLoading) {
-    body = <LoadingLines count={2} accessibilityLabel="Cargando la cuenta regresiva" />;
+    body = (
+      <Card>
+        <View style={{ alignItems: 'center', paddingVertical: spacing.lg }}>
+          <LoadingSymbol size={40} accessibilityLabel="Cargando la cuenta regresiva" />
+        </View>
+      </Card>
+    );
   } else if (featured) {
     body = (
       <NextVisitCard
         countdown={featured}
-        heading={visit ? 'La próxima vez que nos vemos' : 'Lo próximo'}
+        heading={visit ? undefined : 'Lo próximo'}
         onPress={open}
       />
     );
   } else {
     body = (
-      <Card tilt={tiltFor('cuenta-regresiva', 1) || 1} onPress={open}>
-        <View style={{ gap: spacing.sm }}>
-          <Text variant="hand">¿Cuándo se vuelven a ver?</Text>
-          <Text variant="body" tone="muted">
-            Apunten la próxima visita y cuenten los días juntos.
-          </Text>
-          <View style={{ alignItems: 'flex-start' }}>
-            <Button
-              title="Apuntar la visita"
-              variant="secondary"
-              onPress={() => router.push({ pathname: '/events/edit', params: { kind: 'visit' } })}
-            />
-          </View>
+      <Card onPress={open}>
+        <Text variant="h3">¿Cuándo se vuelven a ver?</Text>
+        <Text variant="body" tone="muted">
+          Apunten la próxima visita y cuenten los días.
+        </Text>
+        <View style={{ alignItems: 'flex-start', marginTop: spacing.xs }}>
+          <Button
+            title="Apuntar la visita"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push({ pathname: '/events/edit', params: { kind: 'visit' } })}
+          />
         </View>
       </Card>
     );

@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { CloudOff, EmptyState, Screen } from '@/components';
+import { EmptyState, Screen } from '@/components';
 import { useOnboardingStage } from '@/features/onboarding';
 
 export default function ErrorScreen() {
@@ -9,11 +9,10 @@ export default function ErrorScreen() {
     <Screen scroll>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <EmptyState
-          illustration={<CloudOff />}
+          art="circles"
           title="Sin señal"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={retry}
+          body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
+          action={{ label: 'Reintentar', onPress: retry }}
         />
       </View>
     </Screen>

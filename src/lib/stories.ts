@@ -1,3 +1,4 @@
+import { FRUIT_KEYS, type FruitKey } from './fruits';
 import { parseIsoDate, todayIn } from './dates';
 import { DEFAULT_TIME_ZONE } from './timezone';
 
@@ -9,10 +10,14 @@ export const STORY_REPLY_MAX = 500;
 export const STORY_MAX_STICKERS = 10;
 
 export type StoryKind = 'photo' | 'text' | 'drawing';
-export type StoryBg = 'paper' | 'postit' | 'jamaica' | 'cempasuchil' | 'nopal' | 'ink';
+/** Fondos viejos (antes de las frutas); se siguen aceptando y pintando. */
+export type LegacyStoryBg = 'paper' | 'postit' | 'jamaica' | 'cempasuchil' | 'nopal' | 'ink';
+/** Fondo de una story: llave de fruta, `bone` (Hueso) o una clave vieja. */
+export type StoryBg = FruitKey | 'bone' | LegacyStoryBg;
 export type StoryFont = 'hand' | 'body' | 'stamp';
 
-export const STORY_BGS: readonly StoryBg[] = [
+/** Claves viejas de fondo (stories existentes; las nuevas ya no las usan). */
+export const LEGACY_STORY_BGS: readonly LegacyStoryBg[] = [
   'paper',
   'postit',
   'jamaica',
@@ -20,6 +25,8 @@ export const STORY_BGS: readonly StoryBg[] = [
   'nopal',
   'ink',
 ];
+/** Fondos que usan las stories nuevas: Hueso y las 7 frutas. */
+export const STORY_BGS: readonly StoryBg[] = ['bone', ...FRUIT_KEYS];
 export const STORY_FONTS: readonly StoryFont[] = ['hand', 'body', 'stamp'];
 export const STORY_FONT_LABELS: Record<StoryFont, string> = {
   hand: 'A mano',

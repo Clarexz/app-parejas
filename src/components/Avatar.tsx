@@ -4,15 +4,21 @@ import { View, type ImageSourcePropType } from 'react-native';
 
 import { useTheme } from '@/theme';
 
-import { Sticker } from './Sticker';
+import { fruitHex, type FruitLike } from './Symbol';
 import { Text } from './Text';
 
 type Props = {
-  variant?: 'polaroid' | 'round';
   name: string;
   source?: ImageSourcePropType | string | { uri: string };
+  /** Tamaño total (con aro, si lo lleva): 64 en Inicio, 40 en listas, 28 en comentarios. */
   size?: number;
-  /** Mood corto (emoji o frase); se pega como sticker en la esquina. */
+  /** Fruta de la persona: color del aro. */
+  fruit?: FruitLike;
+  /** Dibuja el aro de 3 dp con separación `bg` (el aro con punto es "story nueva"). */
+  ring?: boolean;
+  /** Punto de story nueva. */
+  newDot?: boolean;
+  /** Mood corto (emoji); se pone en una burbuja chica en la esquina. */
   mood?: string;
 };
 
@@ -22,79 +28,110 @@ export function initialOf(name: string): string {
   return first ? first.toLocaleUpperCase('es-MX') : '?';
 }
 
-/** Índice determinista 0..2 por nombre para elegir color de la paleta. */
-export function paletteIndex(name: string): number {
-  let h = 0;
-  for (const ch of name.trim().toLowerCase()) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h % 3;
-}
+const RING = 3;
+const GAP = 3;
 
-/** Mini polaroid o círculo con foto, o inicial a mano si no hay foto (DISENO §7). */
-export function Avatar({ variant = 'round', name, source, size = 56, mood }: Props) {
-  const { colors, radius, shadows, spacing } = useTheme();
+/** Foto o inicial sobre `surface2`, con aro de la fruta de su dueño (DISENO §7). */
+export function Avatar({
+  name,
+  source,
+  size = 56,
+  fruit,
+  ring = false,
+  newDot = false,
+  mood,
+}: Props) {
+  const { colors, radius } = useTheme();
   const [failed, setFailed] = useState(false);
-  const bg = [colors.jamaica, colors.cempasuchil, colors.nopal][paletteIndex(name)];
-  const fg = [colors.onJamaica, colors.onPolaroid, colors.onPolaroid][paletteIndex(name)];
   const hasPhoto = !!source && !failed;
-  const frame = variant === 'polaroid' ? 4 : 0;
-  const inner = size - frame * 2;
-
-  const face = (
-    <View
-      style={{
-        width: inner,
-        height: inner,
-        backgroundColor: bg,
-        borderRadius: variant === 'round' ? radius.pill : radius.none,
-        overflow: 'hidden',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {hasPhoto ? (
-        <Image
-          source={source as never}
-          style={{ width: inner, height: inner }}
-          contentFit="cover"
-          onError={() => setFailed(true)}
-          accessibilityIgnoresInvertColors
-        />
-      ) : (
-        <Text
-          variant="hand"
-          style={{
-            color: fg,
-            fontSize: Math.round(inner * 0.5),
-            lineHeight: Math.round(inner * 0.6),
-          }}
-        >
-          {initialOf(name)}
-        </Text>
-      )}
-    </View>
-  );
+  const color = fruitHex(fruit ?? 'sandia');
+  const inset = ring ? RING + GAP : 0;
+  const inner = size - inset * 2;
+  const dot = Math.max(12, Math.round(size / 4));
 
   return (
-    <View accessible accessibilityLabel={mood ? `${name}, ${mood}` : name} style={{ width: size }}>
-      {variant === 'polaroid' ? (
+    <View
+      accessible
+      accessibilityLabel={mood ? `${name}, ${mood}` : name}
+      style={{ width: size, height: size }}
+    >
+      <View
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius.pill,
+          borderWidth: ring ? RING : 0,
+          borderColor: color,
+          padding: ring ? GAP : 0,
+        }}
+      >
         <View
           style={{
-            width: size,
-            padding: frame,
-            paddingBottom: frame * 3,
-            backgroundColor: colors.polaroid,
-            boxShadow: shadows.object,
-            transform: [{ rotate: '-2deg' }],
+            width: inner - (ring ? 0 : 0),
+            height: inner,
+            borderRadius: radius.pill,
+            backgroundColor: colors.surface2,
+            overflow: 'hidden',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          {face}
+          {hasPhoto ? (
+            <Image
+              source={source as never}
+              style={{ width: inner, height: inner }}
+              contentFit="cover"
+              onError={() => setFailed(true)}
+              accessibilityIgnoresInvertColors
+            />
+          ) : (
+            <Text
+              variant="h3"
+              style={{
+                fontSize: Math.round(inner * 0.42),
+                lineHeight: Math.round(inner * 0.5),
+              }}
+            >
+              {initialOf(name)}
+            </Text>
+          )}
         </View>
-      ) : (
-        face
-      )}
+      </View>
+      {newDot ? (
+        <View
+          style={{
+            position: 'absolute',
+            right: -RING,
+            top: -RING,
+            width: dot,
+            height: dot,
+            borderRadius: dot / 2,
+            backgroundColor: color,
+            borderWidth: 3,
+            borderColor: colors.bg,
+          }}
+        />
+      ) : null}
       {mood ? (
-        <View style={{ position: 'absolute', right: -Math.round(size * 0.3), bottom: -spacing.sm }}>
-          <Sticker label={mood} tilt={4} />
+        <View
+          style={{
+            position: 'absolute',
+            right: -4,
+            bottom: -4,
+            minWidth: 24,
+            height: 24,
+            borderRadius: 12,
+            paddingHorizontal: 4,
+            backgroundColor: colors.surface,
+            borderWidth: 2,
+            borderColor: colors.bg,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text variant="note" style={{ lineHeight: 18 }}>
+            {mood}
+          </Text>
         </View>
       ) : null}
     </View>

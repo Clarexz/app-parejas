@@ -1,30 +1,25 @@
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   Button,
   Card,
   Chip,
-  CloudOff,
-  Divider,
-  Doodle,
-  EmptyPolaroid,
   EmptyState,
   Icon,
   IconButton,
-  LoadingLines,
-  Note,
-  PageHeader,
+  LoadingSymbol,
+  Notice,
   Screen,
-  Stamp,
+  ScreenHeader,
+  StatTile,
   Text,
 } from '@/components';
 import { useCouple } from '@/features/couple';
 import { useCountdowns } from '@/features/events';
 import { MONTH_NAMES } from '@/lib/dateParts';
 import { daysBetween, formatNumber, parseIsoDate } from '@/lib/dates';
-import { tiltFor } from '@/lib/tilt';
 import {
   pendingVisitEvents,
   visitLength,
@@ -46,30 +41,6 @@ function shortDate(iso: string): string {
   return p ? `${p.day} de ${MONTH_NAMES[p.month - 1]?.slice(0, 3)}` : '';
 }
 
-function StatRow({ label, value }: { label: string; value: string }) {
-  const { spacing } = useTheme();
-  return (
-    <View
-      accessible
-      accessibilityLabel={`${label}: ${value}`}
-      style={{
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        justifyContent: 'space-between',
-        gap: spacing.md,
-        paddingVertical: spacing.sm,
-      }}
-    >
-      <Text variant="body" tone="muted" style={{ flex: 1 }}>
-        {label}
-      </Text>
-      <Text variant="bodyStrong" style={{ fontVariant: ['tabular-nums'] }}>
-        {value}
-      </Text>
-    </View>
-  );
-}
-
 function VisitCard({
   visit,
   current,
@@ -84,41 +55,39 @@ function VisitCard({
   const range = visitRangeLabel(visit);
   return (
     <Card
-      tilt={tiltFor(visit.id, 1)}
       onPress={onPress}
       accessibilityLabel={`Visita ${range}, ${daysWord(length)}${visit.place ? `, ${visit.place}` : ''}`}
     >
-      <View style={{ gap: spacing.sm }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-          <Stamp tone={current ? 'nopal' : 'jamaica'}>{range.toUpperCase()}</Stamp>
-          {current ? (
-            <Text variant="caption" tone="nopal">
-              En curso
-            </Text>
-          ) : null}
-        </View>
-        <Text variant="hand">{daysWord(length)}</Text>
-        {visit.place ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
-            <Icon name="pin" size={16} />
-            <Text variant="small" style={{ flex: 1 }}>
-              {visit.place}
-            </Text>
-          </View>
-        ) : null}
-        {visit.note ? (
-          <Text variant="body" tone="muted" numberOfLines={3}>
-            {visit.note}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+        <View style={{ flex: 1, gap: spacing.xxs }}>
+          <Text variant="h3">{range}</Text>
+          <Text variant="note" tone="muted">
+            {daysWord(length)}
+            {current ? ' · en curso' : ''}
           </Text>
-        ) : null}
+        </View>
+        <Icon name="chevron" size={20} />
       </View>
+      {visit.place ? (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+          <Icon name="pin" size={16} />
+          <Text variant="ui" style={{ flex: 1 }}>
+            {visit.place}
+          </Text>
+        </View>
+      ) : null}
+      {visit.note ? (
+        <Text variant="body" tone="muted" numberOfLines={3}>
+          {visit.note}
+        </Text>
+      ) : null}
     </Card>
   );
 }
 
 /** Pantalla `/visits`: cuánto llevan sin verse, días juntos vs. separados, el año y la lista. */
 export function VisitsScreen() {
-  const { spacing, colors } = useTheme();
+  const { spacing } = useTheme();
   const router = useRouter();
   const { couple } = useCouple();
   useVisitsRealtime(couple?.id ?? null);
@@ -142,109 +111,104 @@ export function VisitsScreen() {
 
   let body;
   if (isLoading) {
-    body = <LoadingLines count={4} accessibilityLabel="Cargando las visitas" />;
+    body = (
+      <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+        <LoadingSymbol accessibilityLabel="Cargando las visitas" />
+      </View>
+    );
   } else if (isError) {
     body = (
-      <EmptyState
-        illustration={<CloudOff />}
-        title="No pudimos abrir las visitas"
-        body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-        actionLabel="Reintentar"
-        onAction={() => void refetch()}
-      />
+      <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+        No pudimos abrir las visitas. Revisa tu señal e intenta otra vez.
+      </Notice>
     );
   } else {
     const waiting = nextVisit ? nextVisit.daysUntil : null;
-    const pendingNotes = pending.slice(0, 2).map((e) => (
-      <Note key={e.id} id={e.id} tape={false}>
-        <View style={{ gap: spacing.sm, maxWidth: 260 }}>
-          <Text variant="hand" style={{ color: colors.onPostit }}>
-            ¿Ya se vieron el {shortDate(e.date.slice(0, 10))}?
-          </Text>
-          <Text variant="caption" style={{ color: colors.onPostit }}>
-            {e.title}
-          </Text>
-          <Button title="Apuntarla" variant="secondary" onNote onPress={() => fromEvent(e.id)} />
+    const pendingCards = pending.slice(0, 2).map((e) => (
+      <Card key={e.id}>
+        <Text variant="h3">¿Ya se vieron el {shortDate(e.date.slice(0, 10))}?</Text>
+        <Text variant="note" tone="muted">
+          {e.title}
+        </Text>
+        <View style={{ alignItems: 'flex-start', marginTop: spacing.xs }}>
+          <Button title="Apuntarla" variant="secondary" size="sm" onPress={() => fromEvent(e.id)} />
         </View>
-      </Note>
+      </Card>
     ));
+    const waitingLink =
+      waiting !== null ? (
+        <View style={{ alignItems: 'flex-start' }}>
+          <Button
+            title={waiting === 0 ? 'Se ven hoy' : `Faltan ${daysWord(waiting)} para la próxima`}
+            variant="ghost"
+            onPress={() => router.push('/events')}
+          />
+        </View>
+      ) : null;
 
     body =
       visits.length === 0 ? (
         <View style={{ gap: spacing.lg }}>
           <EmptyState
-            illustration={<EmptyPolaroid />}
-            title="Todavía no apuntan ninguna visita"
-            body="Cuando se vean, apúntenla aquí y vayan pintando el calendario. Cada cuadrito es un día que sí fue en persona."
-            actionLabel="Apuntar la primera"
-            onAction={create}
+            art="circles"
+            title="Aquí irá su primera visita"
+            body="Cuando se vean, apúntenla y vayan llenando el calendario. Cada círculo es un día en persona."
+            action={{ label: 'Apuntar la primera', onPress: create }}
           />
-          {pendingNotes}
-          {waiting !== null ? (
-            <Button
-              title={`Faltan ${daysWord(waiting)} para la próxima`}
-              variant="ghost"
-              onPress={() => router.push('/events')}
-            />
-          ) : null}
+          {pendingCards}
+          {waitingLink}
         </View>
       ) : (
         <View style={{ gap: spacing.xl }}>
-          <View style={{ gap: spacing.xs, alignItems: 'flex-start' }}>
+          <View style={{ gap: spacing.xs }}>
             {stats.current ? (
               <>
-                <Text variant="title">Están juntos</Text>
+                <Text variant="h1">Juntos</Text>
                 <Text variant="body" tone="muted">
                   Día {daysBetween(stats.current.start_date, today) + 1} de esta visita.
                 </Text>
               </>
             ) : stats.daysSinceLast !== null ? (
-              <Text variant="title">{daysWord(stats.daysSinceLast)} sin verse</Text>
-            ) : null}
-            {waiting !== null ? (
-              <Pressable
-                accessibilityRole="button"
-                onPress={() => router.push('/events')}
-                style={{ minHeight: 44, justifyContent: 'center' }}
-              >
-                <Text variant="bodyStrong" tone="jamaica">
-                  {waiting === 0 ? 'Se ven hoy' : `Faltan ${daysWord(waiting)} para la próxima`}
+              <View accessible accessibilityLabel={`${daysWord(stats.daysSinceLast)} sin verse`}>
+                <Text variant="display">{formatNumber(stats.daysSinceLast)}</Text>
+                <Text variant="h3">
+                  {stats.daysSinceLast === 1 ? 'día sin verse' : 'días sin verse'}
                 </Text>
-              </Pressable>
+              </View>
             ) : null}
+            {waitingLink}
           </View>
 
           <View style={{ gap: spacing.sm }}>
-            <View>
-              <View
-                accessible
-                accessibilityLabel={`${daysWord(stats.daysTogether)} juntos`}
-                style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}
-              >
-                <Text variant="hero">{formatNumber(stats.daysTogether)}</Text>
-                <Text variant="title">
-                  {stats.daysTogether === 1 ? 'día juntos' : 'días juntos'}
-                </Text>
-              </View>
-              <Doodle kind="underline" width={120} />
+            <View style={{ flexDirection: 'row', gap: spacing.md }}>
+              <StatTile
+                value={formatNumber(stats.daysTogether)}
+                label={stats.daysTogether === 1 ? 'día juntos' : 'días juntos'}
+                icon="couple"
+              />
+              <StatTile
+                value={formatNumber(stats.daysApart)}
+                label={stats.daysApart === 1 ? 'día separados' : 'días separados'}
+                icon="distance"
+              />
             </View>
-            <Text variant="body" tone="muted">
-              en persona, contra {daysWord(stats.daysApart)} separados
-              {stats.pctTogether !== null ? ` (${stats.pctTogether}% juntos)` : ''}.
-            </Text>
+            {stats.pctTogether !== null ? (
+              <Text variant="note" tone="muted">
+                {stats.pctTogether}% del tiempo han estado juntos en persona.
+              </Text>
+            ) : null}
           </View>
 
           <View style={{ gap: spacing.md }}>
-            <Text variant="title" accessibilityRole="header">
+            <Text variant="h3" accessibilityRole="header">
               Su año
             </Text>
             {years.length > 1 ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
-                {years.map((y, i) => (
+                {years.map((y) => (
                   <Chip
                     key={y}
                     label={String(y)}
-                    color={i % 2 === 0 ? 'yellow' : 'mint'}
                     selected={y === year}
                     onPress={() => setPickedYear(y)}
                   />
@@ -254,10 +218,10 @@ export function VisitsScreen() {
             <VisitCalendar visits={visits} year={year} today={today} />
           </View>
 
-          {pendingNotes.length > 0 ? <View style={{ gap: spacing.lg }}>{pendingNotes}</View> : null}
+          {pendingCards.length > 0 ? <View style={{ gap: spacing.md }}>{pendingCards}</View> : null}
 
-          <View style={{ gap: spacing.lg }}>
-            <Text variant="title" accessibilityRole="header">
+          <View style={{ gap: spacing.md }}>
+            <Text variant="h3" accessibilityRole="header">
               Todas las visitas
             </Text>
             {visits.map((v) => (
@@ -271,22 +235,32 @@ export function VisitsScreen() {
           </View>
 
           {stats.longestVisit !== null ? (
-            <View>
-              <Text variant="title" accessibilityRole="header">
+            <View style={{ gap: spacing.md }}>
+              <Text variant="h3" accessibilityRole="header">
                 En números
               </Text>
-              <StatRow label="Visita más larga" value={daysWord(stats.longestVisit)} />
-              {stats.longestGap !== null ? (
-                <>
-                  <Divider />
-                  <StatRow label="Separación más larga" value={daysWord(stats.longestGap)} />
-                </>
-              ) : null}
+              <View style={{ flexDirection: 'row', gap: spacing.md }}>
+                <StatTile
+                  value={formatNumber(stats.longestVisit)}
+                  label="días, su visita más larga"
+                />
+                {stats.longestGap !== null ? (
+                  <StatTile
+                    value={formatNumber(stats.longestGap)}
+                    label="días, su separación más larga"
+                  />
+                ) : (
+                  <View style={{ flex: 1 }} />
+                )}
+              </View>
               {stats.averageGap !== null ? (
-                <>
-                  <Divider />
-                  <StatRow label="Promedio entre visitas" value={daysWord(stats.averageGap)} />
-                </>
+                <View style={{ flexDirection: 'row', gap: spacing.md }}>
+                  <StatTile
+                    value={formatNumber(stats.averageGap)}
+                    label="días entre visitas, en promedio"
+                  />
+                  <View style={{ flex: 1 }} />
+                </View>
               ) : null}
             </View>
           ) : null}
@@ -296,25 +270,20 @@ export function VisitsScreen() {
 
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton
-            name="back"
-            accessibilityLabel="Volver"
-            onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
-          />
-        </View>
-        <PageHeader
-          stamp={
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader
+          back
+          onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+          label={
             visits.length === 0
-              ? 'SIN VISITAS'
-              : `${visits.length} ${visits.length === 1 ? 'VISITA' : 'VISITAS'}`
+              ? undefined
+              : `${visits.length} ${visits.length === 1 ? 'visita' : 'visitas'}`
           }
           title="Nuestras visitas"
           right={
             <IconButton
               name="plus"
-              variant="sticker"
+              variant="filled"
               accessibilityLabel="Apuntar una visita"
               onPress={create}
             />

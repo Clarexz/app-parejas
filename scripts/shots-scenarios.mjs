@@ -25,6 +25,7 @@ const profiles = {
     nickname: 'Alita',
     birthday: '1996-08-03',
     avatar_path: null,
+    fruit: 'mango',
     created_at: '2026-10-01T12:00:00Z',
   },
   partner: {
@@ -33,6 +34,7 @@ const profiles = {
     nickname: null,
     birthday: '1995-05-20',
     avatar_path: `${PARTNER_ID}/1.jpg`,
+    fruit: 'sandia',
     created_at: '2026-10-01T12:00:00Z',
   },
 };
@@ -707,7 +709,7 @@ export const SCENARIOS = {
       },
     },
   },
-  // Sheet "Pegar una story" abierto.
+  // Sheet "Crear una story" abierto.
   stories_hoja: {
     prefix: 'stories-hoja',
     me: profiles.me,
@@ -717,7 +719,7 @@ export const SCENARIOS = {
     routes: ['/stories'],
     actions: {
       '/stories': async (page) => {
-        await page.getByRole('button', { name: 'Pegar una story' }).click();
+        await page.getByRole('button', { name: 'Crear una story' }).click();
         await page.waitForTimeout(900);
       },
     },
@@ -760,7 +762,7 @@ export const SCENARIOS = {
         await page
           .getByLabel('Texto de la story')
           .fill('Cuando llegues hay café. Y si no hay, lo hago yo.');
-        await page.getByRole('radio', { name: 'Fondo cempasuchil' }).click();
+        await page.getByRole('radio', { name: 'Fondo Mango' }).click();
         await page.waitForTimeout(500);
       },
     },
@@ -794,7 +796,7 @@ export const SCENARIOS = {
           [0.7, 0.18],
           [0.85, 0.25],
         ]);
-        await page.getByRole('radio', { name: 'Color Jamaica' }).click();
+        await page.getByRole('radio', { name: 'Color Arándano' }).click();
         await page.getByText('Plumón', { exact: true }).click();
         await drag([
           [0.5, 0.6],
@@ -805,16 +807,16 @@ export const SCENARIOS = {
           [0.7, 0.45],
           [0.5, 0.6],
         ]);
-        await page.getByRole('radio', { name: 'Color Cempasúchil' }).click();
+        await page.getByRole('radio', { name: 'Color Mango' }).click();
         await page.getByText('Marcatextos', { exact: true }).click();
         await drag([
           [0.2, 0.88],
           [0.5, 0.9],
           [0.8, 0.88],
         ]);
-        await page.getByRole('button', { name: 'Pegar un sticker' }).click();
+        await page.getByRole('button', { name: 'Sumar un sticker' }).click();
         await page.waitForTimeout(700);
-        await page.getByRole('button', { name: 'Pegar ⭐' }).click();
+        await page.getByRole('button', { name: 'Poner ⭐' }).click();
         await page.waitForTimeout(800);
       },
     },
@@ -865,7 +867,7 @@ export const SCENARIOS = {
     routes: [`/story/view?story=${sid(3)}`],
     actions: {
       [`/story/view?story=${sid(3)}`]: async (page) => {
-        await page.getByRole('button', { name: 'Arrancar esta story' }).click();
+        await page.getByRole('button', { name: 'Borrar esta story' }).click();
         await page.waitForTimeout(900);
       },
     },
@@ -907,7 +909,7 @@ export const SCENARIOS = {
     routes: ['/memories'],
     actions: {
       '/memories': async (page) => {
-        await page.getByRole('button', { name: 'Mapa' }).click();
+        await page.getByRole('tab', { name: 'Mapa' }).click();
         await page.waitForTimeout(600);
       },
     },
@@ -940,7 +942,7 @@ export const SCENARIOS = {
     routes: [`/memory/${mid(2)}`],
     actions: {
       [`/memory/${mid(2)}`]: async (page) => {
-        await page.getByRole('button', { name: 'Arrancar esta hoja' }).click();
+        await page.getByRole('button', { name: 'Borrar esta memoria' }).click();
         await page.waitForTimeout(900);
       },
     },
@@ -956,7 +958,7 @@ export const SCENARIOS = {
     routes: ['/memory/edit'],
     actions: {
       '/memory/edit': async (page) => {
-        await page.getByRole('button', { name: 'Pegar memoria' }).click();
+        await page.getByRole('button', { name: 'Guardar memoria' }).click();
         await page.waitForTimeout(500);
       },
     },
@@ -1641,7 +1643,7 @@ export const SCENARIOS = {
     actions: {
       '/question': async (page) => {
         await page.getByLabel('Tu respuesta').fill('Cualquiera de Soda Stereo, sin pensarlo.');
-        await page.getByRole('button', { name: 'Pegar mi respuesta' }).click();
+        await page.getByRole('button', { name: 'Contestar' }).click();
         await page.waitForTimeout(1100);
       },
     },
@@ -1933,6 +1935,84 @@ export const SCENARIOS = {
       },
     };
   })(),
+  // Elegir fruta: ajustes (pareja = sandía, bloquea Sandía/Pitaya/Mandarina) y paso del onboarding.
+  fruta: {
+    prefix: 'fruta',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    routes: ['/settings/fruit'],
+  },
+  fruta_onboarding: {
+    prefix: 'fruta-onb',
+    me: { ...profiles.me, display_name: null, nickname: null, birthday: null, fruit: null },
+    members: [],
+    routes: ['/profile'],
+    actions: {
+      '/profile': async (page) => {
+        await page.getByLabel('Tu nombre').fill('Ale');
+        await page.getByRole('button', { name: 'Seguir' }).click();
+        await page.waitForTimeout(600);
+      },
+    },
+  },
+  // Fase 12A, Inicio completo: cuenta regresiva, pregunta, racha, mood y story nueva (prefijo `inicio-completo`).
+  ...(() => {
+    const day = (n) => new Date(Date.now() + n * 86_400_000).toISOString().slice(0, 10);
+    const visit = {
+      id: 'bbbbbbbb-bbbb-4bbb-8bbb-000000000099',
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      kind: 'visit',
+      title: 'Nos vemos en Guadalajara',
+      emoji: '✈️',
+      date: day(12),
+      recurring_yearly: false,
+      note: null,
+      created_at: new Date(Date.now() - 20 * 86_400_000).toISOString(),
+      updated_at: '2026-10-01T12:00:00Z',
+    };
+    const base = {
+      me: profiles.me,
+      partner: profiles.partner,
+      members: [member(ME_ID), member(PARTNER_ID)],
+      stories: sampleStories,
+      daily: () => todayCard('unanswered_partner_done'),
+      streak: () => streakWith(47, 47, []),
+      rest: (path, { route, json }) =>
+        path === '/rest/v1/events' ? json(route, [visit]) : undefined,
+    };
+    return {
+      inicio_completo: {
+        prefix: 'inicio-completo',
+        ...base,
+        moods: () => sampleMoods().filter((m) => m.user_id === PARTNER_ID),
+        routes: ['/'],
+      },
+      inicio_completo_mood: {
+        prefix: 'inicio-completo-hoja',
+        ...base,
+        moods: () => sampleMoods().filter((m) => m.user_id === PARTNER_ID),
+        routes: ['/'],
+        actions: {
+          '/': async (page) => {
+            await page.getByLabel('¿Y tú? Toca para elegir tu mood').click();
+            await page.waitForTimeout(900);
+          },
+        },
+      },
+    };
+  })(),
+  // Pregunta del día con la respuesta de tu pareja cerrada (antes de contestar).
+  pregunta_cerrada: {
+    prefix: 'pregunta-cerrada',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('unanswered_partner_done'),
+    streak: () => streakWith(12, 23, []),
+    routes: ['/question'],
+  },
 };
 
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');
@@ -2093,6 +2173,10 @@ export async function applyScenario(context, scenario) {
       return rows(route, request, scenario.prefs ?? []);
     }
     if (path === '/rest/v1/rpc/send_test_notification') return json(route, true);
+    if (path === '/rest/v1/rpc/set_fruit') {
+      const body = request.postDataJSON?.() ?? {};
+      return json(route, body.p_fruit ?? 'mango');
+    }
 
     // Stories (Fase 6)
     if (path === '/rest/v1/stories') {

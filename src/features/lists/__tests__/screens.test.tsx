@@ -32,6 +32,10 @@ jest.mock('expo-haptics', () => ({
   NotificationFeedbackType: { Success: 'success', Error: 'error' },
 }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', hex: '#FFC24B', on: '#1B1B1F', name: 'Mango' },
+    partner: { key: 'sandia', hex: '#F2495C', on: '#1B1B1F', name: 'Sandía' },
+  }),
   useCouple: () => ({
     couple: { id: 'c1' },
     me: { id: 'u1', display_name: 'Ale', nickname: null },
@@ -142,7 +146,7 @@ beforeEach(() => {
 describe('pantalla Listas', () => {
   it('vacía: invita a crear la primera', async () => {
     await wrap(<ListsScreen />);
-    expect(screen.getByText('Aquí todavía no hay nada apuntado')).toBeTruthy();
+    expect(screen.getByText('Aquí irá su primera lista')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Crear una lista' })).toBeTruthy();
   });
 
@@ -177,7 +181,7 @@ describe('detalle de lista', () => {
     ];
     await wrap(<ListDetail id="l1" />);
     expect(screen.getByText('Lo tachó Caleb')).toBeTruthy();
-    expect(screen.getByText('1 de 2')).toBeTruthy();
+    expect(screen.getByText(/1 de 2/)).toBeTruthy();
     await fireEvent.press(screen.getByRole('checkbox', { name: 'Tachar: Leche' }));
     expect(mockToggle).toHaveBeenCalledWith(
       { listId: 'l1', id: 'a', done: true },
@@ -228,15 +232,15 @@ describe('detalle de lista', () => {
   it('borra los tachados', async () => {
     mockItems.items = [item('a', 0, { done: true, done_by: 'u1' })];
     await wrap(<ListDetail id="l1" />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Borrar los tachados' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Quitar los tachados' }));
     expect(mockClear).toHaveBeenCalledWith('l1', expect.any(Object));
   });
 
-  it('arrancar la lista pide confirmación', async () => {
+  it('borrar la lista pide confirmación', async () => {
     await wrap(<ListDetail id="l1" />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Arrancar esta lista' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Borrar esta lista' }));
     expect(mockRemoveList).not.toHaveBeenCalled();
-    await fireEvent.press(screen.getByRole('button', { name: 'Arrancarla' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Borrar' }));
     expect(mockRemoveList).toHaveBeenCalledWith('l1', expect.any(Object));
     expect(mockBack).toHaveBeenCalled();
   });

@@ -15,7 +15,7 @@ describe('Chip', () => {
 
   it('no está seleccionado por defecto y llama onPress', async () => {
     const onPress = jest.fn();
-    await wrap(<Chip label="Comida" color="mint" onPress={onPress} />);
+    await wrap(<Chip label="Comida" onPress={onPress} />);
     const chip = screen.getByRole('button', { name: 'Comida' });
     expect(chip).not.toBeSelected();
     await fireEvent.press(chip);
@@ -24,7 +24,7 @@ describe('Chip', () => {
 
   it('deshabilitado no llama onPress', async () => {
     const onPress = jest.fn();
-    await wrap(<Chip label="Cine" color="pink" disabled onPress={onPress} />);
+    await wrap(<Chip label="Cine" disabled onPress={onPress} />);
     await fireEvent.press(screen.getByRole('button', { name: 'Cine' }));
     expect(onPress).not.toHaveBeenCalled();
   });

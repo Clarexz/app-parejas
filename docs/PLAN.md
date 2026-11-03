@@ -1018,6 +1018,30 @@ un respaldo en una BD temporal y endurecer Auth/Studio. Cierra con el protocolo 
 vez publica el release v1.0.0 como release normal (no pre-release).
 ```
 
+### Fase 12A — Rediseño "ahorita"
+
+Rebranding completo con el manual de `docs/rebranding/` (D97–D104). Se ejecuta antes de terminar la
+Fase 12 (pulido y v1.0.0).
+
+**Tareas:**
+1. Prototipo HTML (`docs/design/ahorita-prototipo.html`): Inicio, Pregunta del día, Memorias, Más y
+   selector de fruta en claro y oscuro, más los 6 widgets 1×1 sobre fondo claro, oscuro y foto.
+   Resolver ahí los huecos del manual (modo oscuro, acento de acción, semánticos, movimiento) y
+   **detenerse para la aprobación** del usuario y su novia. ✅ Aprobado el 2026-11-03.
+2. `docs/DISENO.md` v2.
+3. Frutas: migración `profiles.fruit` + RPC `set_fruit` con pares bloqueados, `src/lib/fruits.ts`
+   con tests y selector en el onboarding y el perfil.
+4. Tema y componentes nuevos (retirar los de "Bitácora") y set de íconos redibujado.
+5. Rediseñar todas las pantallas por bloques, con capturas en claro y oscuro.
+6. Nombre "ahorita" y auditoría del copy contra la voz del manual.
+7. Widgets 1×1 con forma y vidrio simulado (más el nuevo de Racha, snapshot v4), empezando por un
+   spike en el APK (v0.12.1).
+8. Ícono, splash y color de las notificaciones (la fruta de quien manda).
+9. Limpiar `docs/rebranding/`: quedan el PDF, el HTML del manual y `prev/`.
+
+**Entregable APK:** `v0.12.2` (spike de widgets en `v0.12.1`). Backend: migración de frutas y
+`notify` con color; el prompt del servidor incluye el deploy pendiente de las Fases 6–9 y 11B.
+
 ---
 
 ## 10. Estado del proyecto
@@ -1031,17 +1055,30 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 3 Preguntas y racha | ✅ Cerrada (2026-10-30) | #7 | Pregunta del día con respuestas ocultas, comentarios en tiempo real con reacciones, racha con reparación ≤ 7 días, historial con búsqueda, categorías, toques, picantes con opt-in de los dos y 300 preguntas (D48–D55). APK v0.3.0. Quedan correcciones de diseño menores (ver §10.1). |
 | 4 Push | ✅ Cerrada (2026-10-30) | #8 | Tokens FCM, `notify` (FCM HTTP v1) disparada por triggers pg_net en respuestas, comentarios, moods y toques; preferencias por tipo, recordatorio diario local, deep links y pantalla de Avisos (D56–D62). Firebase `app-par-946be`. APK v0.4.0. |
 | 5 Widgets Android | ✅ Cerrada (2026-10-30) | #9 | Widgets Días juntos, Mood de mi pareja y Cuenta regresiva (chico/mediano, responsivos), snapshot con entradas derivadas al dibujar, refresco periódico (30 min), al abrir la app y por push (tarea headless), pantalla "Cómo agregar widgets" (D63–D67). APK v0.5.0. |
-| 6 Stories | 🟡 Código listo, falta deploy (2026-10-31) | #10 | Stories de foto/texto/dibujo vectorial con stickers, visor con vistos/reacciones/respuestas, archivo personal, limpieza horaria con pg_cron + `stories-cleanup`, push, fila en Inicio y widget "Story de tu pareja" (D68–D72). CI verde. **Pendiente: desplegar en el VPS y publicar el APK v0.6.0** (ver §10.1). |
-| 7 Memorias y mapa | 🟡 Mergeada, falta deploy (2026-10-31) | #11 | Memorias con 1–10 fotos reordenables (drag & drop), diario por mes, detalle con carrusel, editar/borrar/descargar, ubicación por EXIF o mapa, mapa de Google con clusters (o "mapa de papel" sin key), "Un día como hoy" en Inicio y push (D73–D77). **Pendiente: desplegar en el VPS (junto con la Fase 6), cargar `GOOGLE_MAPS_API_KEY` y publicar el APK v0.7.0** (ver §10.1). |
-| 8 Eventos, listas, distancia | ✅ Cerrada (2026-10-31), deploy pendiente | #12 | Cuentas regresivas automáticas y propias con "la próxima vez que nos vemos" destacada (Inicio y widget), listas compartidas con tiempo real y quién tachó, distancia opt-in aproximada (~1 km) con modo en segundo plano de baja frecuencia, tarjeta en Inicio y widget Distancia (D78–D84). CI verde. **Pendiente: un solo deploy de `main` que incluya las Fases 6, 7 y 8, y publicar el APK v0.8.0** (ver §10.1). |
-| 9 Juegos | ✅ Cerrada (2026-10-31), deploy pendiente; APK v0.9.0 publicado | #15 | ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo o no en rondas asíncronas de 10 con % de coincidencia y variante picante, reto de dibujo con palabra secreta, push y 200 ítems + 80 palabras originales (D87–D91). **Pendiente: un solo deploy que incluya las Fases 6–9 y publicar el APK v0.9.0** (ver §10.1). |
+| 6 Stories | ✅ Cerrada y desplegada | #10 | Stories de foto/texto/dibujo vectorial con stickers, visor con vistos/reacciones/respuestas, archivo personal, limpieza horaria con pg_cron + `stories-cleanup`, push, fila en Inicio y widget "Story de tu pareja" (D68–D72). Desplegada y probada en los dos celulares antes de la Fase 12A. |
+| 7 Memorias y mapa | ✅ Cerrada y desplegada | #11 | Memorias con 1–10 fotos, diario por mes, mapa con clusters (o "mapa de papel" sin key), "Un día como hoy" y push (D73–D77). Desplegada y probada antes de la Fase 12A. |
+| 8 Eventos, listas, distancia | ✅ Cerrada y desplegada | #12 | Cuentas regresivas con "la próxima vez que nos vemos", listas compartidas, distancia opt-in aproximada y widget Distancia (D78–D84). Desplegada y probada antes de la Fase 12A. |
+| 9 Juegos | ✅ Cerrada y desplegada | #15 | Cuatro juegos en rondas asíncronas, reto de dibujo, push y 200 ítems + 80 palabras (D87–D91). Desplegada y probada antes de la Fase 12A. |
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
-| 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada (2026-10-31), deploy pendiente | #17 | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). APK v0.11.0 publicado **antes** del deploy a pedido del usuario. **Pendiente: un solo deploy de `main` que incluya las Fases 6–9 y 11B, y hasta entonces no instalar el APK** (ver §10.1). |
-| 12 Pulido y entrega | ⏳ Siguiente | | Sin las fases 10 y 11A. |
+| 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
+| 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Sigue después de la 12A. Sin las fases 10 y 11A. |
+| 12A Rediseño "ahorita" | ✅ Cerrada (2026-11-03) | #19 | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. Servidor desplegado (`2e800d5`), PR mergeado a `main` a pedido del usuario. Falta probar el APK v0.12.2 en los dos celulares (§10.1). |
 
 ### 10.1 Verificaciones pendientes en el celular
 
+- **Fase 12A:** servidor desplegado el 2026-11-03 (`deploy.sh claude/elegant-lovelace-tz2aqw` en
+  `2e800d5`, respaldo previo `pre-deploy-app-parejas-20261103-202923.dump`): solo se aplicaron
+  `20261108000000_fruits` y `20261109000000_stories_fruit_bg` (12 migraciones registradas), `notify`
+  sincronizada, `notify_actor_fruit` devuelve mango/sandía, `test-push` con `sent=1` y smoke test OK
+  sin avisos. PR #19 mergeado a `main` el 2026-11-03 a pedido del usuario. El clon del VPS quedó en
+  la rama de la fase: el siguiente deploy es `./scripts/server/deploy.sh main`. **Falta:** confirmar que el aviso de prueba (primero con el copy
+  nuevo) llegó al celular y probar el APK **v0.12.2** con `docs/releases/v0.12.2.md` (el spike
+  **v0.12.1** solo valida widgets).
+- **Deploy de las Fases 6–9 y 11B: ✅ hecho.** El usuario desplegó el servidor en la sesión de la
+  Fase 12 (parte 1), antes de la 12A, y probó la app con su novia en los dos celulares: todo
+  funciona, incluidas las notificaciones (confirmado el 2026-11-03). Las notas de abajo sobre esas
+  fases quedan como historial.
 - **Fases 0 y 0.5:** ✅ verificadas: la v0.0.3 instala y dice "conectados" (2026-10-30).
 - **Fase 1:** se cerró el 2026-10-30 con el servidor ya desplegado (migración `20261030010000`,
   bucket `avatars`, smoke test OK) mientras se compilaba el APK **v0.1.0**. Falta probarlo en los

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useTheme } from '@/theme';
 
 import { Button } from './Button';
-import { Note } from './Note';
+import { Card } from './Card';
 import { Text } from './Text';
 
 type Props = {
@@ -13,24 +13,29 @@ type Props = {
   onDismiss: () => void;
 };
 
-/** Aviso previo al permiso de notificaciones: post-it con dos salidas (DISENO §7). */
+/** Aviso previo al permiso de notificaciones: tarjeta con dos salidas (DISENO §7). */
 export function SoftAskNote({ partnerName, onAccept, onDismiss }: Props) {
-  const { colors, spacing } = useTheme();
+  const { spacing } = useTheme();
   const who = partnerName?.trim() || 'tu pareja';
   return (
-    <Note id="soft-ask" tape="mint" style={{ marginLeft: spacing.sm, maxWidth: '94%' }}>
+    <Card tone="partner">
       <View style={{ gap: spacing.sm }}>
-        <Text variant="hand" style={{ color: colors.onPostit }}>
-          {`¿Te aviso cuando ${who} conteste?`}
-        </Text>
-        <Text variant="small" style={{ color: colors.onPostit }}>
+        <Text variant="h3">{`¿Te aviso cuando ${who} conteste?`}</Text>
+        <Text variant="note" tone="muted">
           Solo lo importante, y lo puedes cambiar cuando quieras.
         </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: spacing.sm,
+            marginTop: spacing.xs,
+          }}
+        >
           <Button title="Sí, avísame" onPress={onAccept} />
           <Button title="Ahora no" variant="ghost" onPress={onDismiss} />
         </View>
       </View>
-    </Note>
+    </Card>
   );
 }

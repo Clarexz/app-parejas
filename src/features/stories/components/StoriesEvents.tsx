@@ -23,7 +23,7 @@ export function StoriesEvents() {
     const ids = new Set(stories.filter((s) => s.user_id === partnerId).map((s) => s.id));
     // La primera lectura solo registra lo que ya había: el aviso es para las que llegan después.
     if (known.current && [...ids].some((id) => !known.current?.has(id))) {
-      toast.show({ message: `${name} pegó una story.` });
+      toast.show({ message: `${name} subió una story.` });
     }
     known.current = ids;
   }, [stories, isLoading, partnerId, name, toast]);

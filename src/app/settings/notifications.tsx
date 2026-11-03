@@ -1,16 +1,14 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
 import {
   Button,
-  CloudOff,
   Divider,
   EmptyState,
-  IconButton,
-  LoadingLines,
+  LoadingSymbol,
   PermissionNote,
   Screen,
+  ScreenHeader,
   Text,
   TimeField,
   Toggle,
@@ -35,7 +33,7 @@ function kindRows(name: string | null): { key: KindKey; label: string; hint: str
     {
       key: 'answers',
       label: name ? `Cuando ${name} contesta` : 'Cuando tu pareja contesta',
-      hint: 'La pregunta del día, para que desdobles su respuesta.',
+      hint: 'La pregunta del día, para que veas su respuesta.',
     },
     {
       key: 'comments',
@@ -55,12 +53,12 @@ function kindRows(name: string | null): { key: KindKey; label: string; hint: str
     {
       key: 'stories',
       label: 'Stories nuevas y respuestas',
-      hint: `Cuando ${who} pega una story o responde a la tuya.`,
+      hint: `Cuando ${who} sube una story o responde a la tuya.`,
     },
     {
       key: 'memories',
       label: 'Memorias y visitas',
-      hint: `Cuando ${who} pega una memoria o apunta una visita.`,
+      hint: `Cuando ${who} guarda una memoria o apunta una visita.`,
     },
     {
       key: 'games',
@@ -72,7 +70,6 @@ function kindRows(name: string | null): { key: KindKey; label: string; hint: str
 
 export default function NotificationSettingsScreen() {
   const { spacing } = useTheme();
-  const router = useRouter();
   const toast = useToast();
   const { partner } = useCouple();
   const { prefs, isLoading, error, refetch } = useNotificationPrefs();
@@ -85,7 +82,7 @@ export default function NotificationSettingsScreen() {
 
   const change = (partial: Partial<NotificationPrefs>) =>
     update.mutate(partial, {
-      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
     });
 
   const request = async () => {
@@ -109,18 +106,13 @@ export default function NotificationSettingsScreen() {
                 tone: 'info',
               },
         ),
-      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
     });
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
-        <Text variant="display" accessibilityRole="header">
-          Avisos
-        </Text>
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader title="Avisos" back="Más" />
 
         <PermissionNote
           status={permission.status}
@@ -131,19 +123,19 @@ export default function NotificationSettingsScreen() {
         />
 
         {isLoading ? (
-          <LoadingLines count={5} />
+          <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+            <LoadingSymbol />
+          </View>
         ) : error ? (
           <EmptyState
-            illustration={<CloudOff />}
+            art="bubble"
             title="Sin señal"
-            body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-            actionLabel="Reintentar"
-            onAction={() => void refetch()}
+            body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
+            action={{ label: 'Reintentar', onPress: () => void refetch() }}
           />
         ) : (
           <>
-            <Divider />
-            <Text variant="title" accessibilityRole="header">
+            <Text variant="label" tone="muted" accessibilityRole="header">
               Qué te avisamos
             </Text>
             <View>
@@ -160,7 +152,7 @@ export default function NotificationSettingsScreen() {
                   >
                     <View style={{ flex: 1 }}>
                       <Text variant="body">{row.label}</Text>
-                      <Text variant="caption" tone="muted">
+                      <Text variant="note" tone="muted">
                         {row.hint}
                       </Text>
                     </View>
@@ -175,8 +167,7 @@ export default function NotificationSettingsScreen() {
               ))}
             </View>
 
-            <Divider />
-            <Text variant="title" accessibilityRole="header">
+            <Text variant="label" tone="muted" accessibilityRole="header">
               Recordatorio diario
             </Text>
             <View
@@ -189,7 +180,7 @@ export default function NotificationSettingsScreen() {
             >
               <View style={{ flex: 1 }}>
                 <Text variant="body">Recordarme la pregunta de hoy</Text>
-                <Text variant="caption" tone="muted">
+                <Text variant="note" tone="muted">
                   Solo suena si aún no la contestas.
                 </Text>
               </View>
@@ -206,17 +197,17 @@ export default function NotificationSettingsScreen() {
               disabled={!prefs.reminderEnabled}
             />
 
-            <Divider />
-            <View style={{ alignItems: 'flex-start', gap: spacing.sm }}>
+            <View style={{ gap: spacing.sm }}>
               <Button
                 title="Mandarme una de prueba"
                 variant="secondary"
                 onPress={sendTest}
                 loading={test.isPending}
                 disabled={permission.status !== 'granted'}
+                fullWidth
               />
               {permission.status !== 'granted' ? (
-                <Text variant="caption" tone="muted">
+                <Text variant="note" tone="muted">
                   Primero activa los avisos en este celular.
                 </Text>
               ) : null}

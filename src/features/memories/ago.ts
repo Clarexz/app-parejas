@@ -1,6 +1,6 @@
 import { daysBetween, parseIsoDate } from '@/lib/dates';
 import { memoryAgo } from '@/lib/memories';
-import { shortStamp } from '@/lib/questionsView';
+import { formatStampIsoDate } from '@/lib/stampDate';
 
 /**
  * Cuánto hace que pasó la memoria: "hace 2 años" desde el año, y para lo reciente
@@ -22,7 +22,7 @@ export function memoryWhen(happenedOn: string, today: string): string {
   return months === 1 ? 'hace 1 mes' : `hace ${months} meses`;
 }
 
-/** "29 OCT": día y mes para el sello de una polaroid. */
-export function dayMonthStamp(iso: string): string {
-  return shortStamp(iso).split(' ').slice(0, 2).join(' ');
+/** "jue 29 oct": día de la semana, día y mes en minúscula, para las fichas del diario. */
+export function memoryDate(iso: string): string {
+  return formatStampIsoDate(iso).split(' ').slice(0, 3).join(' ').toLowerCase();
 }

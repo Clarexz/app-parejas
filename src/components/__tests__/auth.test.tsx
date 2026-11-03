@@ -9,7 +9,6 @@ import { DateField, digitsOnly, type DateParts } from '../DateField';
 import { InviteCode, spokenCode } from '../InviteCode';
 import { ListRow } from '../ListRow';
 import { TabBar, TAB_ICONS, type TabBarProps } from '../TabBar';
-import { WaitingIllustration } from '../illustrations';
 
 const wrap = (ui: ReactElement) => render(<ThemeProvider>{ui}</ThemeProvider>);
 
@@ -153,15 +152,9 @@ describe('TabBar', () => {
     expect(TAB_ICONS).toMatchObject({
       index: 'home',
       more: 'more',
-      questions: 'ask',
-      stories: 'photo',
-      memories: 'map',
+      questions: 'question',
+      stories: 'stories',
+      memories: 'memories',
     });
-  });
-});
-
-describe('WaitingIllustration', () => {
-  it('renderiza', async () => {
-    await wrap(<WaitingIllustration />);
   });
 });

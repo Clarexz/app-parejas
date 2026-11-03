@@ -1,12 +1,13 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { Card, Polaroid, Text } from '@/components';
-import { memoryCountLabel, onThisDayLabel } from '@/lib/memories';
+import { Card, Text } from '@/components';
+import { memoryAgo, memoryCountLabel } from '@/lib/memories';
 import { useTheme } from '@/theme';
 
 import type { Memory } from '../api';
 import { useMemoryPhotoUrls, useOnThisDay } from '../hooks';
+import { MemoryPhotoTile } from './MemoryPhotoTile';
 
 type ViewProps = {
   memory: Memory;
@@ -17,35 +18,36 @@ type ViewProps = {
   onPress: () => void;
 };
 
-/** Presentación: ficha tocable con la polaroid de la memoria y "Un día como hoy, hace N años". */
+/** Texto de la etiqueta: "Un día como hoy · hace 1 año". */
+export function onThisDayCaption(yearsAgo: number): string {
+  return `Un día como hoy · ${memoryAgo(yearsAgo)}`;
+}
+
+/** Presentación: `Card` con la foto de la memoria a todo lo ancho (radio 24) y "Un día como hoy". */
 export function OnThisDayCardView({ memory, yearsAgo, extra = 0, url, onPress }: ViewProps) {
   const { spacing } = useTheme();
-  const label = onThisDayLabel(yearsAgo);
+  const caption = onThisDayCaption(yearsAgo);
   return (
-    <Card tilt={1} onPress={onPress} accessibilityLabel={`${label}: ${memory.title}`}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.lg }}>
-        <Polaroid
-          size="S"
-          id={memory.id}
-          source={url ? { uri: url } : undefined}
-          accessibilityLabel={`Foto de ${memory.title}`}
-        />
-        <View style={{ flex: 1, gap: spacing.xs }}>
-          <Text variant="bodyStrong">{label}</Text>
-          <Text variant="hand" numberOfLines={3}>
-            {memory.title}
+    <Card
+      onPress={onPress}
+      accessibilityLabel={`${caption}: ${memory.title}`}
+      style={{ padding: 0, gap: 0, overflow: 'hidden' }}
+    >
+      <MemoryPhotoTile url={url} aspectRatio={3 / 2} radius={0} />
+      <View style={{ padding: 18, gap: spacing.xs }}>
+        <Text variant="label" tone="muted">
+          {caption}
+        </Text>
+        <Text variant="h3" numberOfLines={2}>
+          {memory.title}
+        </Text>
+        {memory.place_name || extra > 0 ? (
+          <Text variant="note" tone="muted" numberOfLines={1}>
+            {[memory.place_name, extra > 0 ? `y ${memoryCountLabel(extra)} más ese día` : null]
+              .filter(Boolean)
+              .join(' · ')}
           </Text>
-          {memory.place_name ? (
-            <Text variant="caption" tone="muted" numberOfLines={1}>
-              {memory.place_name}
-            </Text>
-          ) : null}
-          {extra > 0 ? (
-            <Text variant="caption" tone="muted">
-              y {memoryCountLabel(extra)} más ese día
-            </Text>
-          ) : null}
-        </View>
+        ) : null}
       </View>
     </Card>
   );

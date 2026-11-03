@@ -58,3 +58,6 @@ dist-android/
 
 # Firebase (push): se inyecta en CI desde GOOGLE_SERVICES_JSON_BASE64
 google-services.json
+
+# Worktrees temporales de los agentes de Claude Code
+.claude/worktrees/

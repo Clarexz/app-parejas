@@ -1,12 +1,12 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { Card, Doodle, LoadingLines, Stamp, Text } from '@/components';
+import { Card, initialOf, LoadingSymbol, Text } from '@/components';
 import { spokenKm, type DistanceView } from '@/lib/distance';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 import { useDistance } from '../hooks';
+import { DistanceRoute } from './DistanceRoute';
 
 type ViewProps = {
   view: DistanceView;
@@ -14,36 +14,40 @@ type ViewProps = {
   onPress: () => void;
 };
 
-/** La ficha con sus estados (sin datos remotos: se prueba directo). */
+/** La tarjeta con sus estados (sin datos remotos: se prueba directo). */
 export function DistanceCardView({ view, partnerName, onPress }: ViewProps) {
   const { spacing } = useTheme();
-  const tilt = tiltFor('distancia', 1) || -1;
+  const route = (
+    <DistanceRoute
+      compact
+      meActive={view.kind === 'both' || view.kind === 'only_me'}
+      partnerActive={view.kind === 'both' || view.kind === 'only_partner'}
+      km={view.km}
+      meInitial="T"
+      partnerInitial={initialOf(partnerName)}
+    />
+  );
 
   if (view.kind === 'both' && view.kmText) {
-    const places = view.route || 'Toca para ver dónde están';
     return (
       <Card
-        tilt={tilt}
         onPress={onPress}
         accessibilityLabel={`Distancia: ${spokenKm(view.km)}. ${view.route ? `${view.route}. ` : ''}Toca para ver el detalle.`}
       >
         <View style={{ gap: spacing.sm }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-            <Stamp tone="ink">DISTANCIA</Stamp>
-            {view.partnerAgo ? (
-              <Text variant="caption" tone="muted">
-                {`${partnerName}: ${view.partnerAgo}`}
-              </Text>
-            ) : null}
-          </View>
-          <View style={{ alignSelf: 'flex-start' }}>
-            <Text variant="display">{view.kmText}</Text>
-            <Doodle kind="underline" />
-          </View>
-          <Text variant="small" tone="muted" numberOfLines={2}>
-            {places}
+          <Text variant="label" tone="muted">
+            Distancia
           </Text>
-          {view.phrase ? <Text variant="handSmall">{view.phrase}</Text> : null}
+          <Text variant="display">{view.kmText}</Text>
+          {route}
+          <Text variant="note" tone="muted" numberOfLines={2}>
+            {view.route || 'Toca para ver dónde están'}
+          </Text>
+          {view.partnerAgo ? (
+            <Text variant="note" tone="muted">
+              {`${partnerName} actualizó ${view.partnerAgo}`}
+            </Text>
+          ) : null}
         </View>
       </Card>
     );
@@ -58,33 +62,38 @@ export function DistanceCardView({ view, partnerName, onPress }: ViewProps) {
   const action = view.kind === 'only_me' ? 'Ver detalle' : 'Activar mi distancia';
   return (
     <Card
-      tilt={tilt}
       onPress={onPress}
       accessibilityLabel={`Distancia. ${text} Toca para ${action.toLowerCase()}.`}
     >
       <View style={{ gap: spacing.sm }}>
-        <Text variant="hand">Distancia</Text>
+        <Text variant="label" tone="muted">
+          Distancia
+        </Text>
+        {route}
         <Text variant="body" tone="muted">
           {text}
         </Text>
-        <Text variant="bodyStrong" tone="jamaica">
-          {action}
-        </Text>
+        <Text variant="ui">{action}</Text>
       </View>
     </Card>
   );
 }
 
-/** Distancia en Inicio: toca → pantalla Distancia (DISENO §7). */
+/** Distancia en Inicio: toca → pantalla Distancia (DISENO §8). */
 export function DistanceCard() {
   const router = useRouter();
+  const { spacing } = useTheme();
   const { isLoading, isError, partnerName, refetch, ...view } = useDistance();
 
   if (isLoading) {
     return (
-      <Card tilt={tiltFor('distancia', 1) || -1}>
-        <Text variant="hand">Distancia</Text>
-        <LoadingLines count={2} accessibilityLabel="Cargando la distancia" />
+      <Card>
+        <Text variant="label" tone="muted">
+          Distancia
+        </Text>
+        <View style={{ alignItems: 'center', paddingVertical: spacing.sm }}>
+          <LoadingSymbol size={32} accessibilityLabel="Cargando la distancia" />
+        </View>
       </Card>
     );
   }

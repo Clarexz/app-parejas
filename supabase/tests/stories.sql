@@ -441,10 +441,10 @@ reset role;
 -- Borrar la story quita el acceso de la pareja (la media sigue hasta la limpieza).
 update public.stories set deleted_at = now() where id = pg_temp.sid('photo');
 select pg_temp.as_user('B');
-select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name like '%f1%') = 0,
+select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name ~ '/f1(_thumb)?\.jpg$') = 0,
   'story borrada: Beto ya no ve su media');
 select pg_temp.as_user('A');
-select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name like '%f1%') = 2,
+select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name ~ '/f1(_thumb)?\.jpg$') = 2,
   'la autora aún ve su media hasta la limpieza');
 reset role;
 update public.stories set deleted_at = null where id = pg_temp.sid('photo');
@@ -598,6 +598,31 @@ select public.leave_couple();
 select pg_temp.assert((select count(*) from public.stories) = 0, 'Ana sin pareja no ve stories');
 select pg_temp.as_user('B');
 select pg_temp.assert((select count(*) from public.stories where user_id = pg_temp.u('A')) = 0, 'Beto ya no ve las stories de Ana');
+reset role;
+
+-- =============================================================================
+-- 14) Fondos con fruta (20261109000000_stories_fruit_bg): frutas y bone sí, claves viejas siguen
+--     y lo demás no. Las filas de prueba se descartan con un subbloque para no mover los conteos.
+--     Ana ya salió de la pareja (sección 13): prueba Beto, que sigue en ella.
+-- =============================================================================
+select pg_temp.as_user('B');
+do $$
+declare
+  v_bg text;
+begin
+  begin
+    foreach v_bg in array array['uva', 'arandano', 'bone', 'sandia', 'mango', 'mandarina', 'limon',
+      'pitaya', 'paper', 'postit', 'jamaica', 'cempasuchil', 'nopal', 'ink']
+    loop
+      perform public.create_story('text', null, null, 'hola', v_bg, 'hand');
+    end loop;
+    raise exception 'descartar_prueba' using errcode = 'P0001';
+  exception when sqlstate 'P0001' then
+    if sqlerrm <> 'descartar_prueba' then raise; end if;
+  end;
+end $$;
+select pg_temp.expect_error($q$select public.create_story('text', null, null, 'hola', 'fresa', 'hand')$q$, 'invalid_story');
+select pg_temp.expect_error($q$select public.create_story('text', null, null, 'hola', 'Uva', 'hand')$q$, 'invalid_story');
 reset role;
 
 rollback;

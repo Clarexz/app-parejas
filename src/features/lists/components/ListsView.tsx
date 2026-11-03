@@ -4,38 +4,49 @@ import { View } from 'react-native';
 
 import {
   Card,
-  CloudOff,
   EmptyState,
+  Icon,
   IconButton,
-  LoadingLines,
-  PageHeader,
-  PencilNote,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
   Text,
+  type IconName,
 } from '@/components';
 import { listKindLabel, progressLabel, progressRatio } from '@/lib/lists';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 import type { List } from '../api';
 import { useLists, useListsRealtime } from '../hooks';
 import { ListEditorSheet } from './ListEditorSheet';
 
-/** Línea de avance dibujada como un renglón de tinta (Nopal al completarse). */
-function ProgressLine({ done, total }: { done: number; total: number }) {
+/** Ícono del set por tipo de lista. */
+export const LIST_KIND_ICON: Record<string, IconName> = {
+  trip: 'suitcase',
+  groceries: 'lists',
+  bucket: 'spark',
+  watch: 'eye',
+  places: 'map',
+  other: 'list',
+};
+
+/** Barra de avance en `ink` (la fruta solo dice quién es quién). */
+export function ProgressBar({ done, total }: { done: number; total: number }) {
   const { colors } = useTheme();
   const ratio = progressRatio(done, total);
   return (
     <View
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
-      style={{ height: 3, backgroundColor: colors.ruled }}
+      style={{ height: 6, borderRadius: 3, backgroundColor: colors.surface2, overflow: 'hidden' }}
     >
       <View
         style={{
-          height: 3,
+          height: 6,
+          borderRadius: 3,
           width: `${Math.round(ratio * 100)}%`,
-          backgroundColor: ratio >= 1 ? colors.nopal : colors.ink,
+          backgroundColor: colors.ink,
         }}
       />
     </View>
@@ -47,23 +58,26 @@ function ListCard({ list, onPress }: { list: List; onPress: () => void }) {
   const kind = listKindLabel(list.kind);
   const progress = progressLabel(list.doneCount, list.itemCount);
   return (
-    <Card
-      tilt={tiltFor(list.id, 1)}
-      onPress={onPress}
-      accessibilityLabel={`${list.title}, ${kind}, ${progress}`}
-    >
-      <View style={{ gap: spacing.sm }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-          {list.emoji ? <Text variant="title">{list.emoji}</Text> : null}
-          <Text variant="title" style={{ flex: 1 }} numberOfLines={2}>
+    <Card onPress={onPress} accessibilityLabel={`${list.title}, ${kind}, ${progress}`}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+        <View style={{ width: 32, alignItems: 'center' }}>
+          {list.emoji ? (
+            <Text variant="h3">{list.emoji}</Text>
+          ) : (
+            <Icon name={LIST_KIND_ICON[list.kind] ?? 'list'} size={28} />
+          )}
+        </View>
+        <View style={{ flex: 1, gap: spacing.xxs }}>
+          <Text variant="h3" numberOfLines={2}>
             {list.title}
           </Text>
+          <Text variant="note" tone="muted">
+            {kind} · {progress}
+          </Text>
         </View>
-        <Text variant="small" tone="muted">
-          {kind} · {progress}
-        </Text>
-        {list.itemCount > 0 ? <ProgressLine done={list.doneCount} total={list.itemCount} /> : null}
+        <Icon name="chevron" size={20} />
       </View>
+      {list.itemCount > 0 ? <ProgressBar done={list.doneCount} total={list.itemCount} /> : null}
     </Card>
   );
 }
@@ -81,30 +95,29 @@ export function ListsView() {
 
   let body;
   if (isLoading) {
-    body = <LoadingLines count={4} accessibilityLabel="Cargando las listas" />;
+    body = (
+      <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+        <LoadingSymbol accessibilityLabel="Cargando las listas" />
+      </View>
+    );
   } else if (isError) {
     body = (
-      <EmptyState
-        illustration={<CloudOff />}
-        title="No pudimos abrir las listas"
-        body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-        actionLabel="Reintentar"
-        onAction={() => void refetch()}
-      />
+      <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+        No pudimos abrir las listas. Revisa tu señal e intenta otra vez.
+      </Notice>
     );
   } else if (lists.length === 0) {
     body = (
       <EmptyState
-        illustration={<PencilNote />}
-        title="Aquí todavía no hay nada apuntado"
-        body="El súper, los lugares que quieren conocer, las series que siempre dejan para después. Lo que no quieren que se les olvide, mejor en una lista."
-        actionLabel="Crear una lista"
-        onAction={create}
+        art="spark"
+        title="Aquí irá su primera lista"
+        body="El súper, los lugares que quieren conocer, las series que siempre dejan para después."
+        action={{ label: 'Crear una lista', onPress: create }}
       />
     );
   } else {
     body = (
-      <View style={{ gap: spacing.lg }}>
+      <View style={{ gap: spacing.md }}>
         {lists.map((list) => (
           <ListCard key={list.id} list={list} onPress={() => open(list.id)} />
         ))}
@@ -115,24 +128,19 @@ export function ListsView() {
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
       <View style={{ gap: spacing.xl }}>
-        <View style={{ marginLeft: -spacing.sm, alignItems: 'flex-start' }}>
-          <IconButton
-            name="back"
-            accessibilityLabel="Volver"
-            onPress={() => (router.canGoBack() ? router.back() : router.replace('/more'))}
-          />
-        </View>
-        <PageHeader
-          stamp={
+        <ScreenHeader
+          back
+          onBack={() => (router.canGoBack() ? router.back() : router.replace('/more'))}
+          label={
             lists.length > 0
-              ? `${lists.length} ${lists.length === 1 ? 'LISTA' : 'LISTAS'}`
-              : 'LISTAS'
+              ? `${lists.length} ${lists.length === 1 ? 'lista' : 'listas'}`
+              : undefined
           }
           title="Listas"
           right={
             <IconButton
               name="plus"
-              variant="sticker"
+              variant="filled"
               accessibilityLabel="Nueva lista"
               onPress={create}
             />

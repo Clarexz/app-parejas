@@ -5,25 +5,24 @@ import {
   BackHandler,
   Linking,
   Platform,
+  type LayoutChangeEvent,
   ScrollView,
   View,
   useWindowDimensions,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
+  ArrivalOverlay,
   Button,
-  CloudOff,
   DateField,
-  EmptyPolaroid,
   EmptyState,
+  FieldError,
   Icon,
-  IconButton,
   Input,
-  LoadingLines,
-  Note,
-  Paper,
-  SealOverlay,
+  LoadingSymbol,
+  Notice,
+  Screen,
+  ScreenHeader,
   Sheet,
   Text,
 } from '@/components';
@@ -33,7 +32,6 @@ import { addDays } from '@/lib/dates';
 import { isoDateToParts, partsToIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
 import type { LatLng } from '@/lib/geo';
-import { haptic } from '@/lib/haptics';
 import {
   MEMORY_BODY_MAX,
   MEMORY_PHOTOS_MAX,
@@ -71,7 +69,7 @@ export function memoryErrorMessages(
     place: errors.place ? `El lugar aguanta hasta ${MEMORY_PLACE_MAX} letras.` : undefined,
     photos:
       errors.photos === 'none'
-        ? 'Pega al menos una foto.'
+        ? 'Agrega al menos una foto.'
         : errors.photos === 'too_many'
           ? `Caben hasta ${MEMORY_PHOTOS_MAX} fotos por memoria.`
           : undefined,
@@ -101,16 +99,17 @@ function snapshotOf(v: {
 export function MemoryEditor({ id }: { id?: string }) {
   const editing = !!id;
   const theme = useTheme();
-  const { colors, spacing, page } = theme;
+  const { colors, spacing, radius, page } = theme;
   const router = useRouter();
   const toast = useToast();
-  const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
   const { today } = useToday();
   const save = useSaveMemory();
   const existing = useMemory(id);
 
-  const contentWidth = windowWidth - page.contentLeft - page.contentRight;
+  // El ancho real lo mide `onLayout`; mientras tanto, pantalla menos los dos gutters.
+  const [measured, setMeasured] = useState(0);
+  const contentWidth = measured || windowWidth - page.gutter * 2;
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -135,7 +134,7 @@ export function MemoryEditor({ id }: { id?: string }) {
   const [confirmClose, setConfirmClose] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [sealed, setSealed] = useState(false);
+  const [saved, setSaved] = useState(false);
   // La fecha de hoy es solo una sugerencia: el EXIF de la foto la puede reemplazar hasta que
   // la persona la toque (al editar, la fecha guardada ya cuenta como elegida).
   const dateTouched = useRef(editing);
@@ -217,10 +216,10 @@ export function MemoryEditor({ id }: { id?: string }) {
   }, [router]);
 
   const requestClose = useCallback(() => {
-    if (publishing || sealed) return;
+    if (publishing || saved) return;
     if (dirty) setConfirmClose(true);
     else leave();
-  }, [publishing, sealed, dirty, leave]);
+  }, [publishing, saved, dirty, leave]);
 
   useEffect(() => {
     if (Platform.OS === 'web') return;
@@ -345,8 +344,7 @@ export function MemoryEditor({ id }: { id?: string }) {
       },
       {
         onSuccess: (memory) => {
-          setSealed(true);
-          haptic.stamp();
+          setSaved(true);
           timer.current = setTimeout(() => {
             if (editing) leave();
             else router.replace({ pathname: '/memory/[id]', params: { id: memory.id } });
@@ -357,288 +355,266 @@ export function MemoryEditor({ id }: { id?: string }) {
     );
   };
 
-  const heading = editing ? 'Editar la memoria' : 'Pegar una memoria';
+  const heading = editing ? 'Editar memoria' : 'Nueva memoria';
 
   // --- estados al editar ---
   if (editing && !loaded) {
     return (
-      <View style={{ flex: 1 }}>
-        <Paper />
-        <View
-          style={{
-            flex: 1,
-            paddingTop: insets.top + spacing.md,
-            paddingLeft: page.contentLeft,
-            paddingRight: page.contentRight,
-            gap: spacing.lg,
-          }}
-        >
-          <View style={{ marginLeft: -spacing.sm }}>
-            <IconButton name="close" accessibilityLabel="Cerrar" onPress={leave} />
-          </View>
+      <Screen>
+        <ScreenHeader title={heading} back="Cancelar" onBack={leave} />
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           {existing.isLoading ? (
-            <LoadingLines count={4} accessibilityLabel="Abriendo la memoria" />
+            <View style={{ alignItems: 'center' }}>
+              <LoadingSymbol accessibilityLabel="Abriendo la memoria" />
+            </View>
           ) : existing.isError ? (
-            <EmptyState
-              illustration={<CloudOff />}
-              title="No pudimos abrir la memoria"
-              body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-              actionLabel="Reintentar"
-              onAction={() => void existing.refetch()}
-            />
+            <Notice
+              tone="danger"
+              action={{ label: 'Reintentar', onPress: () => void existing.refetch() }}
+            >
+              No pudimos abrir la memoria. Revisa tu internet y vuelve a intentar.
+            </Notice>
           ) : (
             <EmptyState
-              illustration={<EmptyPolaroid />}
-              title="Esa hoja ya no está"
-              body="Quizá la arrancaron desde el otro celular."
-              actionLabel="Ir a Memorias"
-              onAction={() => router.replace('/memories')}
+              art="symbol"
+              title="Esa memoria ya no está"
+              body="Quizá la borraron desde el otro celular."
+              action={{ label: 'Ir a Memorias', onPress: () => router.replace('/memories') }}
             />
           )}
         </View>
-      </View>
+      </Screen>
     );
   }
 
   return (
     <View style={{ flex: 1 }}>
-      <Paper />
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        scrollEnabled={!dragging}
-        contentContainerStyle={{
-          paddingTop: insets.top + spacing.md,
-          paddingBottom: spacing.xxxl,
-          paddingLeft: page.contentLeft,
-          paddingRight: page.contentRight,
-          gap: spacing.xl,
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -spacing.sm }}>
-          <IconButton name="close" accessibilityLabel="Cerrar" onPress={requestClose} />
-          <Text variant="title" accessibilityRole="header" style={{ flex: 1 }}>
-            {heading}
-          </Text>
-        </View>
+      <Screen>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          scrollEnabled={!dragging}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: spacing.xxxl }}
+        >
+          <View
+            style={{ gap: spacing.xl }}
+            onLayout={(e: LayoutChangeEvent) => setMeasured(Math.round(e.nativeEvent.layout.width))}
+          >
+            <ScreenHeader title={heading} back="Cancelar" onBack={requestClose} />
 
-        {/* Fotos */}
-        <View style={{ gap: spacing.md }}>
-          <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
-            <Text variant="hand" tone="muted" style={{ flex: 1 }}>
-              Fotos
-            </Text>
-            <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-              {photos.length}/{MEMORY_PHOTOS_MAX}
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row', gap: spacing.md, flexWrap: 'wrap' }}>
-            <Button
-              title="Galería"
-              variant="secondary"
-              icon="photo"
-              disabled={room <= 0 || publishing}
-              onPress={() => void fromLibrary()}
-            />
-            <Button
-              title="Cámara"
-              variant="secondary"
-              icon="camera"
-              disabled={room <= 0 || publishing}
-              onPress={() => void fromCamera()}
-            />
-          </View>
-          {cameraDenied ? (
+            {/* Fotos */}
             <View style={{ gap: spacing.md }}>
-              <Note tape={false}>
-                <Text variant="small" style={{ color: colors.onPostit }}>
-                  Para tomar la foto necesitamos permiso de cámara. Actívalo en los ajustes del
-                  celular, o elige una de la galería.
+              <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm }}>
+                <Text variant="label" tone="muted" style={{ flex: 1 }}>
+                  Fotos
                 </Text>
-              </Note>
-              <View style={{ alignItems: 'flex-start' }}>
+                <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+                  {photos.length}/{MEMORY_PHOTOS_MAX}
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row', gap: spacing.md, flexWrap: 'wrap' }}>
                 <Button
-                  title="Abrir ajustes"
-                  variant="ghost"
-                  onPress={() => void Linking.openSettings()}
+                  title="Galería"
+                  variant="secondary"
+                  icon="photo"
+                  disabled={room <= 0 || publishing}
+                  onPress={() => void fromLibrary()}
+                />
+                <Button
+                  title="Cámara"
+                  variant="secondary"
+                  icon="camera"
+                  disabled={room <= 0 || publishing}
+                  onPress={() => void fromCamera()}
                 />
               </View>
+              {cameraDenied ? (
+                <Notice
+                  action={{ label: 'Abrir ajustes', onPress: () => void Linking.openSettings() }}
+                >
+                  Para tomar la foto necesitamos permiso de cámara. Actívalo en los ajustes del
+                  celular, o elige una de la galería.
+                </Notice>
+              ) : null}
+              {photos.length > 0 ? (
+                <View style={{ gap: spacing.sm }}>
+                  <PhotoGrid
+                    items={gridItems}
+                    width={contentWidth}
+                    disabled={publishing}
+                    onMove={(from, to) => setPhotos((prev) => moveItem(prev, from, to))}
+                    onRemove={(key) => setPhotos((prev) => prev.filter((p) => p.key !== key))}
+                    onDragChange={setDragging}
+                  />
+                  <Text variant="note" tone="muted">
+                    {photos.length > 1
+                      ? 'Mantén presionada una foto y arrástrala para cambiar el orden. La primera es la portada.'
+                      : `${photoCountLabel(1)}: esa es la portada.`}
+                  </Text>
+                </View>
+              ) : null}
+              {messages.photos ? <FieldError>{messages.photos}</FieldError> : null}
             </View>
-          ) : null}
-          {photos.length > 0 ? (
-            <View style={{ gap: spacing.sm }}>
-              <PhotoGrid
-                items={gridItems}
-                width={contentWidth}
-                disabled={publishing}
-                onMove={(from, to) => setPhotos((prev) => moveItem(prev, from, to))}
-                onRemove={(key) => setPhotos((prev) => prev.filter((p) => p.key !== key))}
-                onDragChange={setDragging}
+
+            {/* Título */}
+            <View style={{ gap: spacing.xs }}>
+              <Input
+                label="Título"
+                value={title}
+                onChangeText={setTitle}
+                maxLength={MEMORY_TITLE_MAX}
+                placeholder="Como se llame ese día"
+                error={messages.title}
+                editable={!publishing}
               />
-              <Text variant="caption" tone="muted">
-                {photos.length > 1
-                  ? 'Mantén presionada una foto y arrástrala para cambiar el orden. La primera es la portada.'
-                  : `${photoCountLabel(1)}: esa es la portada.`}
+              <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+                {title.length}/{MEMORY_TITLE_MAX}
               </Text>
             </View>
-          ) : null}
-          {messages.photos ? (
-            <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-              {messages.photos}
-            </Text>
-          ) : null}
-        </View>
 
-        {/* Título */}
-        <View style={{ gap: spacing.xs }}>
-          <Input
-            label="Título"
-            value={title}
-            onChangeText={setTitle}
-            maxLength={MEMORY_TITLE_MAX}
-            placeholder="Como se llame ese día"
-            error={messages.title}
-            editable={!publishing}
-          />
-          <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-            {title.length}/{MEMORY_TITLE_MAX}
-          </Text>
-        </View>
-
-        <DateField
-          label="¿Cuándo fue?"
-          value={date}
-          onChange={(parts) => {
-            dateTouched.current = true;
-            setDateParts(parts);
-          }}
-          error={messages.date}
-          disabled={publishing}
-        />
-
-        {/* Texto */}
-        <View style={{ gap: spacing.xs }}>
-          <Input
-            label="Lo que quieras recordar (opcional)"
-            variant="multiline"
-            value={body}
-            onChangeText={setBody}
-            maxLength={MEMORY_BODY_MAX}
-            error={messages.body}
-            editable={!publishing}
-          />
-          <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-            {body.length}/{MEMORY_BODY_MAX}
-          </Text>
-        </View>
-
-        {/* Lugar */}
-        <View style={{ gap: spacing.md }}>
-          <Input
-            label="¿Dónde fue? (opcional)"
-            value={placeName}
-            onChangeText={setPlaceName}
-            maxLength={MEMORY_PLACE_MAX}
-            placeholder="Ej. La playa de Mazunte"
-            error={messages.place}
-            editable={!publishing}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: spacing.md,
-              flexWrap: 'wrap',
-            }}
-          >
-            <Button
-              title="Elegir en el mapa"
-              variant="secondary"
-              icon="pin"
+            <DateField
+              label="¿Cuándo fue?"
+              value={date}
+              onChange={(parts) => {
+                dateTouched.current = true;
+                setDateParts(parts);
+              }}
+              error={messages.date}
               disabled={publishing}
-              onPress={() => setPickerOpen(true)}
             />
-            {pin || placeName ? (
-              <Button
-                title="Quitar lugar"
-                variant="ghost"
-                disabled={publishing}
-                onPress={() => {
-                  setPin(null);
-                  setPlaceName('');
-                }}
+
+            {/* Texto */}
+            <View style={{ gap: spacing.xs }}>
+              <Input
+                label="Lo que quieras recordar (opcional)"
+                variant="multiline"
+                value={body}
+                onChangeText={setBody}
+                maxLength={MEMORY_BODY_MAX}
+                error={messages.body}
+                editable={!publishing}
               />
-            ) : null}
-          </View>
-          {pin ? (
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-              <Icon name="pin" size={16} color={colors.jamaica} />
-              <Text variant="mono" tone="muted">
-                {pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}
+              <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+                {body.length}/{MEMORY_BODY_MAX}
               </Text>
             </View>
-          ) : null}
-        </View>
 
-        {/* Guardar */}
-        <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
-          <Button
-            title={publishing ? 'Pegando…' : editing ? 'Guardar cambios' : 'Pegar memoria'}
-            onPress={publish}
-            loading={publishing}
-          />
-          {publishing ? (
-            <View
-              accessibilityRole="progressbar"
-              accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
-              style={{ width: contentWidth, height: 3, backgroundColor: colors.ruled }}
-            >
+            {/* Lugar */}
+            <View style={{ gap: spacing.md }}>
+              <Input
+                label="¿Dónde fue? (opcional)"
+                value={placeName}
+                onChangeText={setPlaceName}
+                maxLength={MEMORY_PLACE_MAX}
+                placeholder="Ej. La playa de Mazunte"
+                error={messages.place}
+                editable={!publishing}
+              />
               <View
                 style={{
-                  width: `${Math.round(progress * 100)}%`,
-                  height: 3,
-                  backgroundColor: colors.jamaica,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: spacing.md,
+                  flexWrap: 'wrap',
+                }}
+              >
+                <Button
+                  title="Elegir en el mapa"
+                  variant="secondary"
+                  icon="pin"
+                  disabled={publishing}
+                  onPress={() => setPickerOpen(true)}
+                />
+                {pin || placeName ? (
+                  <Button
+                    title="Quitar lugar"
+                    variant="ghost"
+                    disabled={publishing}
+                    onPress={() => {
+                      setPin(null);
+                      setPlaceName('');
+                    }}
+                  />
+                ) : null}
+              </View>
+              {pin ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+                  <Icon name="pin" size={16} color={colors.ink} />
+                  <Text variant="note" tone="muted">
+                    {pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+
+            {/* Guardar */}
+            <View style={{ gap: spacing.md }}>
+              <Button
+                title={publishing ? 'Guardando…' : editing ? 'Guardar cambios' : 'Guardar memoria'}
+                onPress={publish}
+                loading={publishing}
+                fullWidth
+              />
+              {publishing ? (
+                <View
+                  accessibilityRole="progressbar"
+                  accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
+                  style={{
+                    height: 4,
+                    borderRadius: radius.pill,
+                    backgroundColor: colors.surface2,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <View
+                    style={{
+                      width: `${Math.round(progress * 100)}%`,
+                      height: 4,
+                      backgroundColor: colors.ink,
+                    }}
+                  />
+                </View>
+              ) : null}
+            </View>
+          </View>
+        </ScrollView>
+
+        <PlacePicker
+          visible={pickerOpen}
+          initial={pin}
+          onClose={() => setPickerOpen(false)}
+          onConfirm={(point) => {
+            setPin(point);
+            setPickerOpen(false);
+          }}
+        />
+
+        <Sheet
+          visible={confirmClose}
+          onClose={() => setConfirmClose(false)}
+          title="¿Salir sin guardar?"
+        >
+          <View style={{ gap: spacing.lg }}>
+            <Text variant="body" tone="muted">
+              {editing
+                ? 'Los cambios que llevas en esta memoria se pierden.'
+                : 'Lo que llevas de esta memoria se pierde.'}
+            </Text>
+            <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
+              <Button
+                title="Salir"
+                variant="danger"
+                onPress={() => {
+                  setConfirmClose(false);
+                  leave();
                 }}
               />
+              <Button title="Seguir" variant="ghost" onPress={() => setConfirmClose(false)} />
             </View>
-          ) : null}
-        </View>
-      </ScrollView>
-
-      <PlacePicker
-        visible={pickerOpen}
-        initial={pin}
-        onClose={() => setPickerOpen(false)}
-        onConfirm={(point) => {
-          setPin(point);
-          setPickerOpen(false);
-        }}
-      />
-
-      <Sheet
-        visible={confirmClose}
-        onClose={() => setConfirmClose(false)}
-        title="¿Tirar esta hoja?"
-      >
-        <View style={{ gap: spacing.lg }}>
-          <Text variant="body" tone="muted">
-            {editing
-              ? 'Los cambios que llevas de esta memoria se van a la basura.'
-              : 'Lo que llevas de esta memoria se va a la basura.'}
-          </Text>
-          <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-            <Button
-              title="Tirarla"
-              onPress={() => {
-                setConfirmClose(false);
-                leave();
-              }}
-            />
-            <Button title="Seguir" variant="ghost" onPress={() => setConfirmClose(false)} />
           </View>
-        </View>
-      </Sheet>
-
-      {sealed ? <SealOverlay /> : null}
+        </Sheet>
+      </Screen>
+      {saved ? <ArrivalOverlay text="Memoria guardada" /> : null}
     </View>
   );
 }

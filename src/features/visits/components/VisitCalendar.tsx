@@ -5,11 +5,10 @@ import { Text } from '@/components';
 import { visitCalendar, type VisitLike } from '@/lib/visits';
 import { useTheme } from '@/theme';
 
-const COLUMNS = 3;
-const BLOCK_GAP = 8;
-const MAX_PITCH = 16;
+const COLUMNS = 2;
+const BLOCK_GAP = 24;
 /** Ancho de partida mientras llega la medida real (celular chico). */
-const DEFAULT_WIDTH = 296;
+const DEFAULT_WIDTH = 320;
 
 type Props = {
   visits: readonly VisitLike[];
@@ -17,32 +16,55 @@ type Props = {
   today: string;
 };
 
+/** Un día juntos: círculo partido a la mitad, tu fruta a la izquierda y la de tu pareja a la derecha. */
+function TogetherDot({ size, left, right }: { size: number; left: string; right: string }) {
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        overflow: 'hidden',
+        flexDirection: 'row',
+      }}
+    >
+      <View style={{ flex: 1, backgroundColor: left }} />
+      <View style={{ flex: 1, backgroundColor: right }} />
+    </View>
+  );
+}
+
 /**
- * El año como página de cuaderno: 12 mini meses en 3 columnas, una casilla por día (≤ 14 dp,
- * semana que empieza en lunes). Días juntos en Jamaica, hoy con contorno de tinta y los días que
- * todavía no llegan solo como cuadrícula.
+ * El año en 12 meses de días en círculos (semana que empieza en lunes). Día juntos = círculo con
+ * las dos frutas; separados = círculo vacío en `surface2`; hoy lleva un aro de `ink`; los días que
+ * todavía no llegan, solo un contorno tenue.
  */
 export function VisitCalendar({ visits, year, today }: Props) {
-  const { colors, spacing, radius } = useTheme();
+  const { colors, spacing, fruit } = useTheme();
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const months = visitCalendar(visits, year, today);
-  const pitch = Math.min(
-    MAX_PITCH,
-    Math.max(8, Math.floor((width - (COLUMNS - 1) * BLOCK_GAP) / (COLUMNS * 7))),
-  );
-  const cell = pitch - 2;
+  const monthWidth = Math.floor((width - (COLUMNS - 1) * BLOCK_GAP) / COLUMNS);
+  const pitch = Math.floor(monthWidth / 7);
+  const cell = Math.max(10, pitch - 6);
   const together = months.reduce((n, m) => n + m.days.filter((d) => d.together).length, 0);
+  const meHex = fruit.me.hex;
+  const partnerHex = (fruit.partner ?? fruit.me).hex;
 
   return (
     <View
       onLayout={(e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width)}
       accessible
       accessibilityLabel={`Calendario de ${year}: ${together} ${together === 1 ? 'día' : 'días'} juntos`}
-      style={{ flexDirection: 'row', flexWrap: 'wrap', columnGap: BLOCK_GAP, rowGap: spacing.md }}
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        columnGap: BLOCK_GAP,
+        rowGap: spacing.xl,
+      }}
     >
       {months.map((m) => (
-        <View key={m.month} style={{ width: pitch * 7, gap: spacing.xs }}>
-          <Text variant="mono" tone="muted">
+        <View key={m.month} style={{ width: pitch * 7, gap: spacing.sm }}>
+          <Text variant="label" tone="muted">
             {m.label}
           </Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -50,21 +72,41 @@ export function VisitCalendar({ visits, year, today }: Props) {
               <View key={`b${i}`} style={{ width: pitch, height: pitch }} />
             ))}
             {m.days.map((d) => (
-              <View key={d.iso} style={{ width: pitch, height: pitch }}>
+              <View
+                key={d.iso}
+                style={{
+                  width: pitch,
+                  height: pitch,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 <View
                   style={{
-                    width: cell,
-                    height: cell,
-                    borderRadius: radius.xs,
-                    backgroundColor: d.together
-                      ? colors.jamaica
-                      : d.future
-                        ? 'transparent'
-                        : colors.grid,
-                    borderWidth: d.today ? 1.5 : d.future ? 1 : 0,
-                    borderColor: d.today ? colors.ink : colors.grid,
+                    width: cell + 4,
+                    height: cell + 4,
+                    borderRadius: (cell + 4) / 2,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderWidth: d.today ? 2 : 0,
+                    borderColor: colors.ink,
                   }}
-                />
+                >
+                  {d.together ? (
+                    <TogetherDot size={cell} left={meHex} right={partnerHex} />
+                  ) : (
+                    <View
+                      style={{
+                        width: cell,
+                        height: cell,
+                        borderRadius: cell / 2,
+                        backgroundColor: d.future ? 'transparent' : colors.surface2,
+                        borderWidth: d.future ? 1 : 0,
+                        borderColor: colors.line,
+                      }}
+                    />
+                  )}
+                </View>
               </View>
             ))}
           </View>

@@ -6,6 +6,9 @@ import {
   buildJwtParts,
   buildNotification,
   classifyFcmResponse,
+  DEFAULT_NOTIFICATION_COLOR,
+  FRUIT_HEX,
+  fruitColor,
   parseEvent,
   parseServiceAccount,
   pemToPkcs8,
@@ -113,7 +116,8 @@ describe('buildNotification', () => {
     expect(b?.body).toBe('Hola');
     expect(b?.data).toEqual({ kind: 'story', url: '/story/view?user=u-1', story_id: 's1' });
     const photo = buildNotification(ev('story', { story_id: 's2', story_kind: 'photo' }));
-    expect(photo?.title).toBe('Ana pegó una story');
+    expect(photo?.title).toBe('Ana');
+    expect(photo?.body).toMatch(/story|foto/i);
   });
   it('story_reply: ruta a la story y copy según si quien recibe es el autor', () => {
     const toAuthor = buildNotification(
@@ -124,8 +128,8 @@ describe('buildNotification', () => {
         story_author_id: 'u-2',
       }),
     );
-    expect(toAuthor?.title).toMatch(/Ana.*tu story/);
-    expect(toAuthor?.body).toBe('Qué lindo');
+    expect(toAuthor?.title).toBe('Ana');
+    expect(toAuthor?.body).toContain('Qué lindo');
     expect(toAuthor?.data).toEqual({
       kind: 'story_reply',
       url: '/story/view?story=s1',
@@ -140,7 +144,7 @@ describe('buildNotification', () => {
         story_author_id: 'u-1',
       }),
     );
-    expect(toOther?.title).not.toMatch(/tu story/);
+    expect(toOther?.body).not.toMatch(/tu story/);
   });
   it('prefs.stories se interpreta como encendido si falta', () => {
     const e = parseEvent({ ...raw('story'), prefs: { answers: true } });
@@ -170,7 +174,7 @@ describe('buildNotification', () => {
     const s = buildNotification(ev('game', { round_id: 'r1', game: 'wyr', event: 'started' }));
     expect(s?.visible).toBe(true);
     expect(s?.title).toContain('Ana');
-    expect(s?.title).toMatch(/¿Qué prefieres\?|empezó|Reto/);
+    expect(s?.body).toMatch(/Qué prefieres|ronda|jugar/);
     expect(s?.data).toEqual({ kind: 'game', url: '/game/r1', round_id: 'r1' });
     const f = buildNotification(
       ev('game', { round_id: 'r1', game: 'agree', event: 'finished', match_pct: 70 }),
@@ -264,6 +268,34 @@ describe('buildNotification', () => {
   it('es determinista por id', () => {
     const d = { mood_id: 'abc', emoji: '😀' };
     expect(buildNotification(ev('mood', d))).toEqual(buildNotification(ev('mood', d)));
+  });
+});
+
+describe('color de la fruta', () => {
+  it('mapa llave -> hex de las 7 frutas', () => {
+    expect(FRUIT_HEX).toEqual({
+      sandia: '#F2495C',
+      mango: '#FFC24B',
+      mandarina: '#FF8A3D',
+      limon: '#C5DC3A',
+      uva: '#8B5CF6',
+      arandano: '#3F6BFF',
+      pitaya: '#E83E9C',
+    });
+  });
+  it('fruitColor cae en Sandía si la llave no existe', () => {
+    expect(fruitColor('uva')).toBe('#8B5CF6');
+    expect(fruitColor('kiwi')).toBe(DEFAULT_NOTIFICATION_COLOR);
+    expect(fruitColor('toString')).toBe(DEFAULT_NOTIFICATION_COLOR);
+    expect(fruitColor(null)).toBe('#F2495C');
+    expect(fruitColor({})).toBe('#F2495C');
+  });
+  it('el aviso visible lleva data.color; sin color no se agrega; el push de datos nunca', () => {
+    const built = buildNotification(ev('nudge', { nudge_id: 'n1' }))!;
+    expect(buildFcmMessage('tok', built, '#FFC24B').message.data.color).toBe('#FFC24B');
+    expect(buildFcmMessage('tok', built).message.data).not.toHaveProperty('color');
+    const silent = buildNotification(ev('mood', {}, { moods: false }))!;
+    expect(buildFcmMessage('tok', silent, '#FFC24B').message.data).not.toHaveProperty('color');
   });
 });
 

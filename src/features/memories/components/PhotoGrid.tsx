@@ -10,10 +10,9 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 
-import { Icon, Stamp } from '@/components';
+import { Icon, LoadingSymbol, Text } from '@/components';
 import { haptic } from '@/lib/haptics';
 import { indexFromOffset, offsetFromIndex, type GridSpec } from '@/lib/memories';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 export type GridItem = { key: string; uri?: string };
@@ -60,7 +59,7 @@ function Cell({
   onMove,
   disabled,
 }: CellProps) {
-  const { colors, motion, shadows } = useTheme();
+  const { colors, motion, radius } = useTheme();
   const reduced = useReducedMotion();
   const target = offsetFromIndex(index, grid);
   const x = useSharedValue(target.x);
@@ -73,8 +72,8 @@ function Cell({
       x.value = target.x;
       y.value = target.y;
     } else {
-      x.value = withTiming(target.x, { duration: motion.duration.fast });
-      y.value = withTiming(target.y, { duration: motion.duration.fast });
+      x.value = withTiming(target.x, { duration: motion.tap.duration });
+      y.value = withTiming(target.y, { duration: motion.tap.duration });
     }
   }, [target.x, target.y, reduced, motion, x, y]);
 
@@ -90,9 +89,8 @@ function Cell({
     };
   });
 
-  const photo = grid.cellWidth - gap - 8;
+  const photo = grid.cellWidth - gap;
   const label = `Foto ${index + 1} de ${count}${index === 0 ? ', portada' : ''}`;
-  const tilt = tiltFor(item.key, 2);
 
   return (
     <Animated.View
@@ -122,34 +120,41 @@ function Cell({
     >
       <View
         style={{
-          flex: 1,
-          backgroundColor: colors.polaroid,
-          padding: 4,
-          boxShadow: shadows.object,
-          transform: [{ rotate: `${tilt}deg` }],
+          width: photo,
+          height: photo,
+          borderRadius: radius.md,
+          backgroundColor: colors.surface,
+          overflow: 'hidden',
         }}
       >
-        <View style={{ width: photo, height: photo, backgroundColor: colors.photoEmpty }}>
-          {item.uri ? (
-            <Image
-              source={{ uri: item.uri }}
-              style={{ width: photo, height: photo }}
-              contentFit="cover"
-              accessibilityIgnoresInvertColors
-            />
-          ) : null}
-        </View>
+        {item.uri ? (
+          <Image
+            source={{ uri: item.uri }}
+            style={{ width: photo, height: photo }}
+            contentFit="cover"
+            accessibilityIgnoresInvertColors
+          />
+        ) : (
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <LoadingSymbol size={24} accessibilityLabel="Cargando la foto" />
+          </View>
+        )}
         {index === 0 ? (
-          <Stamp
+          <View
             style={{
               position: 'absolute',
-              left: -4,
+              left: 6,
               bottom: 6,
-              backgroundColor: colors.polaroid,
+              backgroundColor: colors.ink,
+              borderRadius: radius.pill,
+              paddingHorizontal: 10,
+              paddingVertical: 2,
             }}
           >
-            PORTADA
-          </Stamp>
+            <Text variant="note" style={{ color: colors.bg }}>
+              Portada
+            </Text>
+          </View>
         ) : null}
       </View>
       <Pressable
@@ -159,8 +164,8 @@ function Cell({
         onPress={() => onRemove(item.key)}
         style={{
           position: 'absolute',
-          right: -6,
-          top: -6,
+          right: -2,
+          top: -2,
           width: 44,
           height: 44,
           alignItems: 'center',
@@ -172,14 +177,12 @@ function Cell({
             width: 24,
             height: 24,
             borderRadius: 12,
-            backgroundColor: colors.paperRaised,
-            borderWidth: 1.5,
-            borderColor: colors.ink,
+            backgroundColor: colors.action,
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Icon name="close" size={16} color={colors.ink} />
+          <Icon name="close" size={16} color={colors.onAction} />
         </View>
       </Pressable>
     </Animated.View>
@@ -221,10 +224,10 @@ export function PhotoGrid({
     onMove,
     onDragChange,
     reduced,
-    duration: motion.duration.fast,
+    duration: motion.tap.duration,
   });
   useEffect(() => {
-    latest.current = { items, grid, onMove, onDragChange, reduced, duration: motion.duration.fast };
+    latest.current = { items, grid, onMove, onDragChange, reduced, duration: motion.tap.duration };
   });
   const clearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(

@@ -1,11 +1,8 @@
 import type { HistoryItem } from '../questions';
 import {
   answerExcerpt,
-  categoryColor,
   categoryRowState,
   historyPartnerLine,
-  historyStamp,
-  shortStamp,
   spicyCopy,
   streakHeadline,
 } from '../questionsView';
@@ -40,12 +37,6 @@ const item = (over: Partial<HistoryItem>): HistoryItem => ({
 });
 
 describe('questionsView', () => {
-  it('categoryColor es estable y rosa solo para picantes', () => {
-    expect(categoryColor('amor')).toBe(categoryColor('amor'));
-    expect(categoryColor('x', 'picante')).toBe('pink');
-    expect(categoryColor('amor')).not.toBe('pink');
-  });
-
   it('answerExcerpt recorta y usa la opción elegida', () => {
     expect(answerExcerpt(answer('a'.repeat(200)), { options: null }, 10)).toBe('aaaaaaaaaa…');
     expect(answerExcerpt(answer('con sol', 1), { options: ['Playa', 'Monte'] })).toBe(
@@ -62,12 +53,6 @@ describe('questionsView', () => {
       historyPartnerLine(item({ mine: answer('yo'), partner, partner_answered: true })),
     ).toEqual({ kind: 'answer', text: 'secreto' });
     expect(historyPartnerLine(item({ mine: answer('yo') }))).toEqual({ kind: 'pending' });
-  });
-
-  it('sellos de fecha', () => {
-    expect(shortStamp('2026-10-29')).toBe('29 OCT 2026');
-    expect(historyStamp(item({ day: '2026-10-20' }), 'America/Mexico_City')).toBe('20 OCT 2026');
-    expect(historyStamp(item({}), 'America/Mexico_City')).toBe('28 OCT 2026');
   });
 
   it('categoryRowState y streakHeadline', () => {

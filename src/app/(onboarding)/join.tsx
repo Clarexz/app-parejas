@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, CodeInput, Screen, Text } from '@/components';
+import { Button, CodeInput, Notice, Screen, ScreenHeader, Text } from '@/components';
 import { useJoinCouple } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
@@ -23,20 +23,20 @@ export default function JoinScreen() {
       return;
     }
     setError(undefined);
-    join.mutate(normalized, { onSuccess: () => haptic.stamp() });
+    join.mutate(normalized, { onSuccess: () => haptic.success() });
   };
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="display" accessibilityRole="header">
-            Tengo un código
-          </Text>
-          <Text variant="body" muted>
-            Escribe el código que te pasó tu pareja. No importa si va con mayúsculas o espacios.
-          </Text>
-        </View>
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader
+          title="Tengo un código"
+          back="Su pareja"
+          onBack={() => router.replace('/couple')}
+        />
+        <Text variant="body" tone="muted">
+          Escribe el código que te pasó tu pareja. No importa si va con mayúsculas o espacios.
+        </Text>
         <CodeInput
           value={code}
           onChangeText={(next) => {
@@ -46,16 +46,13 @@ export default function JoinScreen() {
           error={error}
           autoFocus
         />
-        {join.isError ? (
-          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-            {errorMessage(join.error)}
-          </Text>
-        ) : null}
-        <Button title="Unirme" onPress={submit} loading={join.isPending} fullWidth />
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.xl }}>
+        {join.isError ? <Notice tone="danger">{errorMessage(join.error)}</Notice> : null}
+        <View style={{ gap: spacing.sm, alignItems: 'center' }}>
+          <Button title="Unirme" onPress={submit} loading={join.isPending} fullWidth />
           <Button
-            title="Mejor creo la libreta yo"
+            title="Mejor lo creo yo"
             variant="ghost"
+            fullWidth
             onPress={() => router.replace('/couple')}
           />
         </View>

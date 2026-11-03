@@ -21,19 +21,18 @@ export {
   useSaveMemory,
   useSaveMemoryPhoto,
 } from './hooks';
-export { memoryWhen, dayMonthStamp } from './ago';
+export { memoryWhen, memoryDate } from './ago';
 export {
   MemoriesEvents,
   MemoriesMap,
   MemoriesTimeline,
   MemoryDetail,
   MemoryEditor,
-  MemoryPolaroid,
+  MemoryCard,
   OnThisDayCard,
   OnThisDayCardView,
   PaperMap,
   PhotoCarousel,
-  PhotoFrame,
   PhotoGrid,
   PlacePicker,
   memoryErrorMessages,

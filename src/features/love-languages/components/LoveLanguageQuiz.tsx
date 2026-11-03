@@ -1,93 +1,89 @@
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BackHandler, Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import {
+  ArrivalOverlay,
   Button,
-  Card,
-  PageHeader,
   Screen,
-  SealOverlay,
+  ScreenHeader,
   Sheet,
-  Tally,
   Text,
-  useStickIn,
+  useTapScale,
   useToast,
 } from '@/components';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
 import type { LoveLanguageOption } from '@/lib/loveLanguages';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 import { useSubmitLoveLanguageTest } from '../hooks';
 import { LOVE_QUIZ } from '../quiz';
-import { BackBar } from './ui';
 
-/** Respuesta como papelito (mismo estilo que las rondas de juegos). */
-function Papelito({
+/** Una de las dos opciones: tarjeta grande en `surface` que se achica al presionar. */
+function ChoiceCard({
   label,
-  tilt,
-  tone,
   disabled,
   onPress,
 }: {
   label: string;
-  tilt: number;
-  tone: 'postit' | 'mint';
   disabled: boolean;
   onPress: () => void;
 }) {
-  const { colors, spacing, radius, shadows } = useTheme();
+  const { colors, spacing, radius } = useTheme();
+  const tap = useTapScale();
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
       onPress={onPress}
-      style={{ transform: [{ rotate: `${tilt}deg` }] }}
+      onPressIn={tap.onPressIn}
+      onPressOut={tap.onPressOut}
     >
-      {({ pressed }) => (
-        <View
-          style={{
-            minHeight: 72,
+      <Animated.View
+        style={[
+          {
+            minHeight: 96,
             justifyContent: 'center',
-            backgroundColor: tone === 'postit' ? colors.postit : colors.tapeMint,
-            borderRadius: radius.none,
-            padding: spacing.lg,
-            boxShadow: pressed ? shadows.lifted : shadows.object,
-            opacity: disabled ? 0.7 : 1,
-            transform: [{ scale: pressed ? 0.97 : 1 }],
-          }}
-        >
-          <Text variant="hand" style={{ color: tone === 'postit' ? colors.onPostit : colors.ink }}>
-            {label}
-          </Text>
-        </View>
-      )}
+            backgroundColor: colors.surface,
+            borderRadius: radius.card,
+            padding: spacing.xl,
+            opacity: disabled ? 0.6 : 1,
+          },
+          tap.style,
+        ]}
+      >
+        <Text variant="bodyStrong">{label}</Text>
+      </Animated.View>
     </Pressable>
   );
 }
 
-/** La pregunta fija en una ficha que se "pega" al llegar. */
-function PromptCard({ id }: { id: string }) {
-  const { spacing } = useTheme();
-  const stick = useStickIn(tiltFor(id, 1));
+/** Progreso del test: barra en tu fruta. */
+function Progress({ count, total }: { count: number; total: number }) {
+  const { colors, fruit } = useTheme();
   return (
-    <Animated.View style={stick}>
-      <Card>
-        <View style={{ minHeight: spacing.xxxl * 1.5, justifyContent: 'center' }}>
-          <Text variant="title">¿Qué te llega más?</Text>
-        </View>
-      </Card>
-    </Animated.View>
+    <View
+      accessible
+      accessibilityRole="progressbar"
+      accessibilityLabel={`${count} de ${total} contestadas`}
+      style={{ height: 8, borderRadius: 4, backgroundColor: colors.surface2, overflow: 'hidden' }}
+    >
+      <View
+        style={{
+          height: 8,
+          borderRadius: 4,
+          width: `${Math.round((count / total) * 100)}%`,
+          backgroundColor: fruit.me.hex,
+        }}
+      />
+    </View>
   );
 }
 
-const SEAL_MS = 1100;
-
-/** Pantalla `/love-languages/quiz`: una pregunta por pantalla, dos papelitos. */
+/** Pantalla `/love-languages/quiz`: una pregunta por pantalla, dos opciones grandes. */
 export function LoveLanguageQuiz() {
   const { spacing } = useTheme();
   const router = useRouter();
@@ -99,18 +95,10 @@ export function LoveLanguageQuiz() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
   const [confirmExit, setConfirmExit] = useState(false);
-  const [sealed, setSealed] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [done, setDone] = useState(false);
 
   const item = items[Math.min(index, items.length - 1)]!;
-  const hasProgress = answers.length > 0 && !sealed;
-
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
+  const hasProgress = answers.length > 0 && !done;
 
   const leave = () => {
     if (router.canGoBack?.() ?? true) router.back();
@@ -132,19 +120,15 @@ export function LoveLanguageQuiz() {
     submit.mutate(
       { answers: all, quizVersion: LOVE_QUIZ.version },
       {
-        onSuccess: () => {
-          haptic.stamp();
-          setSealed(true);
-          timer.current = setTimeout(() => router.replace('/love-languages'), SEAL_MS);
-        },
+        onSuccess: () => setDone(true),
         onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
       },
     );
   };
 
   const choose = (option: LoveLanguageOption) => {
-    if (submit.isPending || sealed) return;
-    haptic.stick();
+    if (submit.isPending || done) return;
+    haptic.light();
     const next = [...answers.slice(0, index), option.language];
     setAnswers(next);
     if (index + 1 >= items.length) finish(next);
@@ -152,37 +136,30 @@ export function LoveLanguageQuiz() {
   };
 
   const options: [LoveLanguageOption, LoveLanguageOption] = [item.a, item.b];
-  const busy = submit.isPending || sealed;
+  const busy = submit.isPending || done;
 
   return (
     <View style={{ flex: 1 }}>
       <Screen scroll>
         <View style={{ gap: spacing.xl }}>
-          <BackBar onPress={requestExit} />
-          <PageHeader stamp="TEST" title="Lenguajes del amor" />
-          <View style={{ gap: spacing.sm }}>
-            <Text variant="small" muted>
-              {index + 1} de {items.length}
-            </Text>
-            <Tally
-              total={items.length}
-              count={index}
-              accessibilityLabel={`${index} de ${items.length} contestadas`}
-            />
-          </View>
-          <PromptCard key={item.id} id={item.id} />
-          <View style={{ gap: spacing.lg }}>
-            <Papelito
+          <ScreenHeader
+            back="Salir"
+            onBack={requestExit}
+            label={`${index + 1} de ${items.length}`}
+            title="Lenguajes del amor"
+          />
+          <Progress count={index} total={items.length} />
+          <Text key={item.id} variant="h2" accessibilityRole="header">
+            ¿Qué te llega más?
+          </Text>
+          <View style={{ gap: spacing.md }}>
+            <ChoiceCard
               label={options[0].text}
-              tone="postit"
-              tilt={-1.5}
               disabled={busy}
               onPress={() => choose(options[0])}
             />
-            <Papelito
+            <ChoiceCard
               label={options[1].text}
-              tone="mint"
-              tilt={1.5}
               disabled={busy}
               onPress={() => choose(options[1])}
             />
@@ -199,27 +176,27 @@ export function LoveLanguageQuiz() {
 
         <Sheet visible={confirmExit} onClose={() => setConfirmExit(false)} title="¿Salir del test?">
           <View style={{ gap: spacing.lg }}>
-            <Text variant="body" muted>
+            <Text variant="body" tone="muted">
               Si sales, se pierden las respuestas que llevas y empiezas de cero la próxima vez.
             </Text>
-            <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
+            <View style={{ gap: spacing.sm }}>
+              <Button title="Seguir con el test" onPress={() => setConfirmExit(false)} fullWidth />
               <Button
                 title="Salir"
+                variant="ghost"
                 onPress={() => {
                   setConfirmExit(false);
                   leave();
                 }}
-              />
-              <Button
-                title="Seguir con el test"
-                variant="ghost"
-                onPress={() => setConfirmExit(false)}
+                fullWidth
               />
             </View>
           </View>
         </Sheet>
       </Screen>
-      {sealed ? <SealOverlay label="LISTO" /> : null}
+      {done ? (
+        <ArrivalOverlay text="Listo." onDone={() => router.replace('/love-languages')} />
+      ) : null}
     </View>
   );
 }

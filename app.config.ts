@@ -19,14 +19,13 @@ const widgetPreview = (name: string) => {
   return existsSync(path) ? (path as `./${string}`) : undefined;
 };
 
+// Seis widgets 1×1 sin fondo (D103): 40 dp es el mínimo de una celda según Android.
 const WIDGET_DEFAULTS = {
-  minWidth: '110dp',
-  minHeight: '110dp',
-  targetCellWidth: 2,
-  targetCellHeight: 2,
-  maxResizeWidth: '320dp',
-  maxResizeHeight: '220dp',
-  resizeMode: 'horizontal|vertical',
+  minWidth: '40dp',
+  minHeight: '40dp',
+  targetCellWidth: 1,
+  targetCellHeight: 1,
+  resizeMode: 'none',
   updatePeriodMillis: 1800000,
   widgetCategory: 'home_screen',
 } as const;
@@ -51,9 +50,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: ANDROID_PACKAGE,
     versionCode,
     adaptiveIcon: {
-      backgroundColor: '#F7F4EC',
+      backgroundColor: '#FFFDF8',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
+      monochromeImage: './assets/images/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
     googleServicesFile,
@@ -71,10 +71,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#F7F4EC',
+        backgroundColor: '#FFFDF8',
         image: './assets/images/splash-icon.png',
-        imageWidth: 200,
-        dark: { backgroundColor: '#23201B', image: './assets/images/splash-icon.png' },
+        imageWidth: 288,
+        dark: { backgroundColor: '#141417', image: './assets/images/splash-icon-dark.png' },
       },
     ],
     'expo-secure-store',
@@ -105,7 +105,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         // Ícono pequeño de la barra de estado: blanco sobre transparente (npm run brand).
         icon: './assets/images/notification-icon.png',
-        color: '#1E3270',
+        color: '#F2495C',
         defaultChannel: 'actividad',
       },
     ],
@@ -113,12 +113,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'react-native-android-widget',
       {
         fonts: [
-          `${GOOGLE_FONTS}/gochi-hand/400Regular/GochiHand_400Regular.ttf`,
-          `${GOOGLE_FONTS}/figtree/400Regular/Figtree_400Regular.ttf`,
-          `${GOOGLE_FONTS}/figtree/600SemiBold/Figtree_600SemiBold.ttf`,
-          `${GOOGLE_FONTS}/figtree/700Bold/Figtree_700Bold.ttf`,
-          `${GOOGLE_FONTS}/courier-prime/400Regular/CourierPrime_400Regular.ttf`,
-          `${GOOGLE_FONTS}/courier-prime/700Bold/CourierPrime_700Bold.ttf`,
+          `${GOOGLE_FONTS}/bricolage-grotesque/800ExtraBold/BricolageGrotesque_800ExtraBold.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/400Regular/AlbertSans_400Regular.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/500Medium/AlbertSans_500Medium.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/600SemiBold/AlbertSans_600SemiBold.ttf`,
+          `${GOOGLE_FONTS}/albert-sans/700Bold/AlbertSans_700Bold.ttf`,
         ],
         widgets: [
           {
@@ -137,15 +136,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           },
           {
             name: 'Countdown',
-            label: 'Cuenta regresiva',
-            description: 'Cuánto falta para su próxima fecha especial.',
+            label: 'La próxima vez',
+            description: 'Cuánto falta para verse o para su próxima fecha.',
             previewImage: widgetPreview('Countdown'),
             ...WIDGET_DEFAULTS,
           },
           {
             name: 'PartnerStory',
             label: 'Story de tu pareja',
-            description: 'Lo último que pegó tu pareja, sin abrir la app.',
+            description: 'Lo último que subió tu pareja, sin abrir la app.',
             previewImage: widgetPreview('PartnerStory'),
             ...WIDGET_DEFAULTS,
           },
@@ -154,6 +153,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             label: 'Distancia',
             description: 'A cuántos kilómetros están ahorita.',
             previewImage: widgetPreview('Distance'),
+            ...WIDGET_DEFAULTS,
+          },
+          {
+            name: 'Streak',
+            label: 'Racha',
+            description: 'Cuántos días llevan contestando la pregunta del día.',
+            previewImage: widgetPreview('Streak'),
             ...WIDGET_DEFAULTS,
           },
         ],

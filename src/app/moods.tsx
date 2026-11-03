@@ -4,33 +4,39 @@ import { View } from 'react-native';
 
 import {
   Avatar,
-  CloudOff,
-  Divider,
-  EmptyPolaroid,
   EmptyState,
-  IconButton,
-  LoadingLines,
-  PageHeader,
+  LoadingSymbol,
+  MoodBubble,
+  Notice,
   Screen,
-  Stamp,
+  ScreenHeader,
   Text,
+  type FruitLike,
 } from '@/components';
-import { useCouple, useToday } from '@/features/couple';
+import { useCouple, useFruits, useToday } from '@/features/couple';
 import { useMoods } from '@/features/mood';
+import { dayTitle } from '@/features/mood/format';
 import { useSignedUrl, type Profile } from '@/features/profile';
 import { formatTimeIn, todayIn } from '@/lib/dates';
-import { dayHeading } from '@/lib/home';
-import { groupMoodsByDay } from '@/lib/mood';
-import { formatStampIsoDate } from '@/lib/stampDate';
+import { FRUITS } from '@/lib/fruits';
+import { groupMoodsByDay, moodLabel } from '@/lib/mood';
 import { useTheme } from '@/theme';
 
 function displayName(profile: Profile | null, fallback: string): string {
   return profile?.nickname || profile?.display_name || fallback;
 }
 
-function MoodAvatar({ profile, name }: { profile: Profile | null; name: string }) {
+function MoodAvatar({
+  profile,
+  name,
+  fruit,
+}: {
+  profile: Profile | null;
+  name: string;
+  fruit: FruitLike;
+}) {
   const url = useSignedUrl(profile?.avatar_path);
-  return <Avatar variant="round" size={32} name={name} source={url ?? undefined} />;
+  return <Avatar size={40} name={name} source={url ?? undefined} fruit={fruit} ring />;
 }
 
 export default function MoodsScreen() {
@@ -38,6 +44,7 @@ export default function MoodsScreen() {
   const router = useRouter();
   const { me, partner, refetch: refetchCouple } = useCouple();
   const { today, timeZone } = useToday();
+  const fruits = useFruits();
   const { moods, isLoading, isError, refetch } = useMoods();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -56,91 +63,71 @@ export default function MoodsScreen() {
   }, [refetchCouple, refetch]);
 
   const people = useMemo(() => {
-    const map = new Map<string, { profile: Profile | null; name: string }>();
-    if (me) map.set(me.id, { profile: me, name: displayName(me, 'Tú') });
-    if (partner) map.set(partner.id, { profile: partner, name: displayName(partner, 'Tu pareja') });
+    const map = new Map<string, { profile: Profile | null; name: string; fruit: FruitLike }>();
+    if (me) map.set(me.id, { profile: me, name: displayName(me, 'Tú'), fruit: fruits.me });
+    if (partner) {
+      map.set(partner.id, {
+        profile: partner,
+        name: displayName(partner, 'Tu pareja'),
+        fruit: fruits.partner ?? FRUITS[fruits.me.suggested],
+      });
+    }
     return map;
-  }, [me, partner]);
+  }, [me, partner, fruits]);
 
   return (
     <Screen scroll refreshing={refreshing} onRefresh={refresh}>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
-        <PageHeader stamp={formatStampIsoDate(today)} title="Así han andado" />
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader back title="Cómo han andado" />
 
         {isLoading ? (
-          <LoadingLines accessibilityLabel="Cargando los moods" />
+          <View style={{ paddingVertical: spacing.xxxl }}>
+            <LoadingSymbol accessibilityLabel="Cargando los moods" />
+          </View>
         ) : isError ? (
-          <EmptyState
-            illustration={<CloudOff />}
-            title="No pudimos traer los moods"
-            body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-            actionLabel="Reintentar"
-            onAction={() => void refetch()}
-          />
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos traer los moods. Revisa tu internet y vuelve a intentar.
+          </Notice>
         ) : groups.length === 0 ? (
           <EmptyState
-            illustration={<EmptyPolaroid />}
-            title="Todavía no hay moods"
-            body="Toca tu foto en el Inicio y pega el primero."
+            art="bubble"
+            title="Aquí irá su primer mood"
+            body="Toca tu burbuja en Inicio y cuéntale a tu pareja cómo estás."
+            action={{ label: 'Ir a Inicio', onPress: () => router.navigate('/') }}
           />
         ) : (
           <View style={{ gap: spacing.xl }}>
             {groups.map((group) => (
-              <View key={group.day} style={{ gap: spacing.xs }}>
-                <Stamp tone={group.day === today ? 'jamaica' : 'ink'}>
-                  {dayHeading(group.day, today)}
-                </Stamp>
-                <View>
-                  {group.moods.map((mood, i) => {
-                    const who = people.get(mood.user_id);
-                    const name = who?.name ?? 'Alguien';
-                    return (
-                      <View key={mood.id}>
-                        {i > 0 ? <Divider /> : null}
-                        <View
-                          accessible
-                          accessibilityLabel={`${name}, ${mood.emoji}${mood.note ? `: ${mood.note}` : ''}, ${formatTimeIn(timeZone, new Date(mood.created_at))}`}
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: spacing.md,
-                            paddingVertical: spacing.md,
-                          }}
-                        >
-                          <MoodAvatar profile={who?.profile ?? null} name={name} />
-                          <Text variant="display" style={{ minWidth: 44, textAlign: 'center' }}>
-                            {mood.emoji}
-                          </Text>
-                          <View style={{ flex: 1, minWidth: 0, gap: spacing.xxs }}>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'baseline',
-                                justifyContent: 'space-between',
-                                gap: spacing.sm,
-                              }}
-                            >
-                              <Text
-                                variant="bodyStrong"
-                                numberOfLines={1}
-                                style={{ flexShrink: 1 }}
-                              >
-                                {name}
-                              </Text>
-                              <Text variant="mono" tone="muted">
-                                {formatTimeIn(timeZone, new Date(mood.created_at))}
-                              </Text>
-                            </View>
-                            {mood.note ? <Text variant="hand">{mood.note}</Text> : null}
-                          </View>
-                        </View>
+              <View key={group.day} style={{ gap: spacing.md }}>
+                <Text variant="h3" accessibilityRole="header">
+                  {dayTitle(group.day, today)}
+                </Text>
+                {group.moods.map((mood) => {
+                  const who = people.get(mood.user_id);
+                  const name = who?.name ?? 'Alguien';
+                  const fruit = who?.fruit ?? FRUITS.sandia;
+                  const spoken = moodLabel(mood.emoji) ?? '';
+                  const time = formatTimeIn(timeZone, new Date(mood.created_at));
+                  return (
+                    <View
+                      key={mood.id}
+                      style={{ flexDirection: 'row', alignItems: 'flex-start', gap: spacing.md }}
+                    >
+                      <View style={{ paddingTop: spacing.xs }}>
+                        <MoodAvatar profile={who?.profile ?? null} name={name} fruit={fruit} />
                       </View>
-                    );
-                  })}
-                </View>
+                      <View style={{ flex: 1 }}>
+                        <MoodBubble
+                          fruit={fruit}
+                          emoji={mood.emoji}
+                          mood={spoken}
+                          note={[`${name} · ${time}`, mood.note].filter(Boolean).join('\n')}
+                          accessibilityLabel={`${name}, ${spoken || mood.emoji}${mood.note ? `: ${mood.note}` : ''}, ${time}`}
+                        />
+                      </View>
+                    </View>
+                  );
+                })}
               </View>
             ))}
           </View>

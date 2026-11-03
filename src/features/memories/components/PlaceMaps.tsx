@@ -35,13 +35,13 @@ export function PickerMap({
 
 /** Mini mapa del detalle: Google Maps en modo "lite" (imagen estática) con el pin. */
 export function LiteMap({ point, height }: { point: LatLng; height: number }) {
-  const { colors, shadows } = useTheme();
+  const { colors, radius } = useTheme();
   return (
     <View
       style={{
         height,
-        backgroundColor: colors.photoEmpty,
-        boxShadow: shadows.object,
+        backgroundColor: colors.surface,
+        borderRadius: radius.card,
         overflow: 'hidden',
       }}
     >

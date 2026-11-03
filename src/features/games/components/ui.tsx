@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
-import { CloudOff, EmptyState, IconButton, LoadingLines, Screen } from '@/components';
+import { EmptyState, Icon, LoadingSymbol, Screen, Text } from '@/components';
 import { errorMessage } from '@/lib/errors';
 import { useTheme } from '@/theme';
 
@@ -18,9 +18,24 @@ export function BackBar() {
   const { spacing } = useTheme();
   const goBack = useGoBack();
   return (
-    <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-      <IconButton name="back" accessibilityLabel="Volver" onPress={goBack} />
-    </View>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel="Atrás"
+      onPress={goBack}
+      hitSlop={spacing.sm}
+      style={({ pressed }) => ({
+        alignSelf: 'flex-start',
+        minHeight: 48,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: spacing.xs,
+        marginLeft: -spacing.xs,
+        opacity: pressed ? 0.6 : 1,
+      })}
+    >
+      <Icon name="back" size={24} />
+      <Text variant="ui">Atrás</Text>
+    </Pressable>
   );
 }
 
@@ -33,7 +48,9 @@ export function LoadingPage({ label }: { label: string }) {
   return (
     <Screen>
       <BackBar />
-      <LoadingLines count={5} accessibilityLabel={label} />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingSymbol accessibilityLabel={label} />
+      </View>
     </Screen>
   );
 }
@@ -57,19 +74,17 @@ export function ErrorPage({
       <BackBar />
       {gone ? (
         <EmptyState
-          illustration={<CloudOff />}
+          art="bubble"
           title={goneTitle}
           body={errorMessage(error)}
-          actionLabel="Ir a Juegos"
-          onAction={goBack}
+          action={{ label: 'Ir a Juegos', onPress: goBack }}
         />
       ) : (
         <EmptyState
-          illustration={<CloudOff />}
+          art="circles"
           title={loadTitle}
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={onRetry}
+          body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
+          action={{ label: 'Reintentar', onPress: onRetry }}
         />
       )}
     </Screen>

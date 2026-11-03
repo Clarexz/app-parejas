@@ -1,53 +1,49 @@
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { View, useWindowDimensions } from 'react-native';
+import { View, type LayoutChangeEvent } from 'react-native';
 
 import {
   Button,
-  CloudOff,
-  EmptyPolaroid,
   EmptyState,
+  FruitDot,
   Icon,
   IconButton,
-  LoadingLines,
+  LoadingSymbol,
+  Notice,
   Screen,
   Sheet,
-  Stamp,
   Text,
 } from '@/components';
 import { useToast } from '@/components/Toast';
 import { useCouple, useToday } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
+import { haptic } from '@/lib/haptics';
 import { mapsEnabled } from '@/lib/maps';
 import { photoCountLabel } from '@/lib/memories';
-import { formatStampIsoDate } from '@/lib/stampDate';
 import { useTheme } from '@/theme';
 
-import { memoryWhen } from '../ago';
+import { memoryDate, memoryWhen } from '../ago';
+import { useAuthorFruit } from '../authorFruit';
 import { useDeleteMemory, useMemory, useMemoryPhotoUrls, useSaveMemoryPhoto } from '../hooks';
-import { PhotoCarousel } from './PhotoCarousel';
 import { PaperMap } from './PaperMap';
+import { PhotoCarousel } from './PhotoCarousel';
 import { LiteMap } from './PlaceMaps';
 import { toPoints } from './mapShared';
 
-/** Coordenadas con 4 decimales ("19.4326, -99.1332") para el folio del lugar. */
-function coords(lat: number, lng: number): string {
-  return `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-}
-
 /** Detalle de una memoria (`/memory/<id>`): carrusel, fecha, texto, lugar y acciones. */
 export function MemoryDetail({ id }: { id: string }) {
-  const { spacing, colors, page } = useTheme();
+  const { spacing, colors } = useTheme();
   const router = useRouter();
   const toast = useToast();
-  const { width } = useWindowDimensions();
   const { today } = useToday();
   const { me, partner } = useCouple();
+  const fruitOf = useAuthorFruit();
   const { memory, isLoading, isError, refetch } = useMemory(id);
   const remove = useDeleteMemory();
   const save = useSaveMemoryPhoto();
   const [photoIndex, setPhotoIndex] = useState(0);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [width, setWidth] = useState(0);
 
   const paths = useMemo(
     () => (memory ? memory.photos.flatMap((p) => [p.path, p.thumb_path]) : []),
@@ -70,8 +66,8 @@ export function MemoryDetail({ id }: { id: string }) {
     return (
       <Screen>
         {back}
-        <View style={{ marginTop: spacing.xl }}>
-          <LoadingLines count={4} accessibilityLabel="Abriendo la memoria" />
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <LoadingSymbol accessibilityLabel="Abriendo la memoria" />
         </View>
       </Screen>
     );
@@ -80,13 +76,11 @@ export function MemoryDetail({ id }: { id: string }) {
     return (
       <Screen>
         {back}
-        <EmptyState
-          illustration={<CloudOff />}
-          title="No pudimos abrir la memoria"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={() => void refetch()}
-        />
+        <View style={{ marginTop: spacing.xl }}>
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos abrir la memoria. Revisa tu internet y vuelve a intentar.
+          </Notice>
+        </View>
       </Screen>
     );
   }
@@ -95,18 +89,18 @@ export function MemoryDetail({ id }: { id: string }) {
       <Screen>
         {back}
         <EmptyState
-          illustration={<EmptyPolaroid />}
-          title="Esa hoja ya no está"
-          body="Quizá la arrancaron desde el otro celular."
-          actionLabel="Ir a Memorias"
-          onAction={() => router.replace('/memories')}
+          art="symbol"
+          title="Esa memoria ya no está"
+          body="Quizá la borraron desde el otro celular."
+          action={{ label: 'Ir a Memorias', onPress: () => router.replace('/memories') }}
         />
       </Screen>
     );
   }
 
   const when = memoryWhen(memory.happened_on, today);
-  const author =
+  const authorFruit = fruitOf(memory.created_by);
+  const authorName =
     memory.created_by === me?.id
       ? 'ti'
       : memory.created_by === partner?.id
@@ -114,9 +108,6 @@ export function MemoryDetail({ id }: { id: string }) {
         : null;
   const current = memory.photos[Math.min(photoIndex, memory.photos.length - 1)];
   const hasPin = memory.lat != null && memory.lng != null;
-  // El carrusel invade el margen hasta 24 dp del borde (DISENO §2.3).
-  const bleed = page.contentLeft - 24;
-  const carouselWidth = width - 48;
 
   const download = () => {
     if (!current || save.isPending) return;
@@ -135,7 +126,12 @@ export function MemoryDetail({ id }: { id: string }) {
     });
   };
 
-  const tear = () => {
+  const confirmRemove = () => {
+    haptic.warning();
+    setConfirmDelete(true);
+  };
+
+  const removeNow = () => {
     setConfirmDelete(false);
     remove.mutate(memory.id, {
       onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
@@ -145,7 +141,10 @@ export function MemoryDetail({ id }: { id: string }) {
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
+      <View
+        style={{ gap: spacing.lg }}
+        onLayout={(e: LayoutChangeEvent) => setWidth(Math.round(e.nativeEvent.layout.width))}
+      >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ flex: 1 }}>{back}</View>
           <IconButton
@@ -161,86 +160,76 @@ export function MemoryDetail({ id }: { id: string }) {
           />
           <IconButton
             name="trash"
-            accessibilityLabel="Arrancar esta hoja"
-            onPress={() => setConfirmDelete(true)}
+            accessibilityLabel="Borrar esta memoria"
+            onPress={confirmRemove}
           />
         </View>
 
-        <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-            <Stamp>{formatStampIsoDate(memory.happened_on)}</Stamp>
-            {when ? (
-              <Text variant="small" tone="muted">
-                {when}
-              </Text>
-            ) : null}
-          </View>
-          <Text variant={memory.title.length > 26 ? 'title' : 'display'} accessibilityRole="header">
-            {memory.title}
-          </Text>
-        </View>
-
-        <View style={{ marginLeft: -bleed, paddingTop: spacing.sm }}>
+        {width > 0 ? (
           <PhotoCarousel
             photos={memory.photos}
             urls={urls}
-            width={carouselWidth}
+            width={width}
             title={memory.title}
             onIndexChange={setPhotoIndex}
           />
-        </View>
-        {memory.photos.length > 1 ? (
-          <Text variant="caption" tone="muted" style={{ textAlign: 'center' }}>
-            {photoCountLabel(memory.photos.length)}. Desliza para ver las demás.
-          </Text>
         ) : null}
+
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="h2" accessibilityRole="header">
+            {memory.title}
+          </Text>
+          <Text variant="note" tone="muted">
+            {memoryDate(memory.happened_on)}
+            {when ? ` · ${when}` : ''}
+            {memory.photos.length > 1 ? ` · ${photoCountLabel(memory.photos.length)}` : ''}
+          </Text>
+        </View>
 
         {memory.body ? <Text variant="body">{memory.body}</Text> : null}
 
         {memory.place_name || hasPin ? (
-          <View style={{ gap: spacing.sm }}>
+          <View style={{ gap: spacing.md }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-              <Icon name="pin" size={20} color={colors.jamaica} />
+              <Icon name="pin" size={20} color={colors.ink} />
               <Text variant="bodyStrong" style={{ flex: 1 }}>
                 {memory.place_name ?? 'Un lugar sin nombre'}
               </Text>
             </View>
             {hasPin ? (
-              <View style={{ gap: spacing.xs }}>
-                {mapsEnabled() ? (
-                  <LiteMap
-                    point={{ lat: memory.lat as number, lng: memory.lng as number }}
-                    height={150}
-                  />
-                ) : (
-                  <PaperMap points={toPoints([memory])} height={150} compact />
-                )}
-                <Text variant="mono" tone="muted">
-                  {coords(memory.lat as number, memory.lng as number)}
-                </Text>
-              </View>
+              mapsEnabled() ? (
+                <LiteMap
+                  point={{ lat: memory.lat as number, lng: memory.lng as number }}
+                  height={160}
+                />
+              ) : (
+                <PaperMap points={toPoints([memory])} height={160} compact />
+              )
             ) : null}
           </View>
         ) : null}
 
-        {author ? (
-          <Text variant="small" tone="muted">
-            Pegada por {author}.
-          </Text>
+        {authorName ? (
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+            {authorFruit ? <FruitDot fruit={authorFruit} /> : null}
+            <Text variant="note" tone="muted">
+              Subida por {authorName}.
+            </Text>
+          </View>
         ) : null}
       </View>
 
       <Sheet
         visible={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        title="¿Arrancar esta hoja?"
+        title="¿Borrar esta memoria?"
       >
         <View style={{ gap: spacing.lg }}>
           <Text variant="body" tone="muted">
             La memoria y sus fotos dejan de verse para los dos. No se puede deshacer.
           </Text>
           <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-            <Button title="Arrancarla" onPress={tear} />
+            <Button title="Borrar" variant="danger" onPress={removeNow} />
             <Button title="Mejor no" variant="ghost" onPress={() => setConfirmDelete(false)} />
           </View>
         </View>

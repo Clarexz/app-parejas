@@ -3,21 +3,19 @@ import { View } from 'react-native';
 
 import {
   Button,
-  CloudOff,
   Divider,
-  EmptyPolaroid,
   EmptyState,
   IconButton,
-  LoadingLines,
-  PageHeader,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
   Text,
 } from '@/components';
 import { daysBetween } from '@/lib/dates';
 import type { Countdown } from '@/lib/events';
 import { pastLabel } from '@/lib/eventsView';
 import { pendingVisitEvents } from '@/lib/visits';
-import { formatStampIsoDate } from '@/lib/stampDate';
 import { useVisits } from '@/features/visits/hooks';
 import { useTheme } from '@/theme';
 
@@ -55,52 +53,42 @@ export function CountdownsScreen() {
 
   let body;
   if (isLoading) {
-    body = <LoadingLines count={4} accessibilityLabel="Cargando las cuentas regresivas" />;
+    body = (
+      <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+        <LoadingSymbol accessibilityLabel="Cargando las cuentas regresivas" />
+      </View>
+    );
   } else if (isError) {
     body = (
-      <EmptyState
-        illustration={<CloudOff />}
-        title="No pudimos abrir las cuentas regresivas"
-        body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-        actionLabel="Reintentar"
-        onAction={() => void refetch()}
-      />
+      <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+        No pudimos abrir las cuentas regresivas. Revisa tu señal e intenta otra vez.
+      </Notice>
     );
   } else {
-    const upcoming = countdowns;
     body = (
       <View style={{ gap: spacing.xl }}>
         {visit ? (
-          <NextVisitCard
-            countdown={visit}
-            heading="La próxima vez que nos vemos"
-            onPress={() => visit.eventId && edit(visit.eventId)}
-          />
+          <NextVisitCard countdown={visit} onPress={() => visit.eventId && edit(visit.eventId)} />
         ) : (
-          <View style={{ gap: spacing.sm }}>
-            <EmptyState
-              illustration={<EmptyPolaroid />}
-              title="¿Cuándo se vuelven a ver?"
-              body="Apunten la próxima visita y cuenten los días juntos. Hasta la espera se siente más corta con fecha."
-            />
-            <View style={{ alignItems: 'flex-start' }}>
-              <Button title="Apuntar la próxima visita" onPress={createVisit} />
-            </View>
-          </View>
+          <EmptyState
+            art="circles"
+            title="¿Cuándo se vuelven a ver?"
+            body="Apunten la próxima visita y cuenten los días. La espera se siente más corta con fecha."
+            action={{ label: 'Apuntar la próxima visita', onPress: createVisit }}
+          />
         )}
 
         <View style={{ gap: spacing.sm }}>
-          <Text variant="title" accessibilityRole="header">
+          <Text variant="h3" accessibilityRole="header">
             Lo que viene
           </Text>
-          {upcoming.length === 0 ? (
+          {countdowns.length === 0 ? (
             <Text variant="body" tone="muted">
-              Nada en el horizonte todavía. Apunten un cumpleaños, un viaje o ese concierto que ya
-              quieren.
+              Nada en el horizonte. Apunten un cumpleaños, un viaje o ese concierto.
             </Text>
           ) : (
             <View>
-              {upcoming.map((c, i) => (
+              {countdowns.map((c, i) => (
                 <View key={c.key}>
                   {i > 0 ? <Divider /> : null}
                   <CountdownRow
@@ -111,14 +99,11 @@ export function CountdownsScreen() {
               ))}
             </View>
           )}
-          <View style={{ alignItems: 'flex-start' }}>
-            <Button title="Apuntar una fecha" variant="secondary" icon="plus" onPress={create} />
-          </View>
         </View>
 
         {past.length > 0 ? (
           <View style={{ gap: spacing.sm }}>
-            <Text variant="title" accessibilityRole="header">
+            <Text variant="h3" accessibilityRole="header">
               Ya pasaron
             </Text>
             {unlogged > 0 ? (
@@ -156,15 +141,20 @@ export function CountdownsScreen() {
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
       <EventsEvents />
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton
-            name="back"
-            accessibilityLabel="Volver"
-            onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
-          />
-        </View>
-        <PageHeader stamp={formatStampIsoDate(today)} title="Cuentas regresivas" />
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader
+          back
+          onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+          title="Cuentas regresivas"
+          right={
+            <IconButton
+              name="plus"
+              variant="filled"
+              accessibilityLabel="Apuntar una fecha"
+              onPress={create}
+            />
+          }
+        />
         {body}
       </View>
     </Screen>

@@ -1,165 +1,140 @@
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import {
   Button,
-  CloudOff,
-  Divider,
   EmptyState,
-  Icon,
+  FruitDot,
+  ListGroup,
   ListRow,
-  LoadingLines,
-  PageHeader,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
   Text,
 } from '@/components';
-import { useCouple, useToday } from '@/features/couple';
-import { NewStorySheet, StoryPolaroid, groupActive, useActiveStories } from '@/features/stories';
-import { storyAgo, storyTimeLeft } from '@/lib/stories';
-import { formatStampIsoDate } from '@/lib/stampDate';
+import { useCouple } from '@/features/couple';
+import { useSignedUrl } from '@/features/profile';
+import {
+  NewStorySheet,
+  StoriesRowView,
+  StoryThumb,
+  groupActive,
+  useActiveStories,
+} from '@/features/stories';
+import { storyAgo } from '@/lib/stories';
 import { useTheme } from '@/theme';
 
 export default function StoriesScreen() {
-  const { spacing, colors } = useTheme();
+  const { spacing, page, fruit } = useTheme();
   const router = useRouter();
-  const { today } = useToday();
+  const { width } = useWindowDimensions();
   const { me, partner } = useCouple();
   const { stories, isLoading, isError, refetch, isRefetching } = useActiveStories();
   const [sheetOpen, setSheetOpen] = useState(false);
+  const myAvatar = useSignedUrl(me?.avatar_path);
+  const partnerAvatar = useSignedUrl(partner?.avatar_path);
 
+  const myName = me?.nickname || me?.display_name || 'Tú';
   const partnerName = partner?.nickname || partner?.display_name || 'Tu pareja';
   const now = new Date();
   const groups = useMemo(
     () => groupActive(stories, me?.id, partner?.id),
     [stories, me?.id, partner?.id],
   );
-  const latest = groups.partner[groups.partner.length - 1] ?? null;
+
+  const gap = spacing.md;
+  const thumbW = Math.floor((Math.min(width, 520) - page.gutter * 2 - gap * 2) / 3);
 
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
-      <PageHeader stamp={formatStampIsoDate(today)} title="Stories" />
+      <ScreenHeader title="Stories" />
       <View style={{ gap: spacing.xl, marginTop: spacing.xl }}>
         {isLoading ? (
-          <LoadingLines count={4} accessibilityLabel="Cargando las stories" />
+          <View style={{ alignItems: 'center', paddingVertical: spacing.xxxl }}>
+            <LoadingSymbol />
+          </View>
         ) : isError ? (
-          <EmptyState
-            illustration={<CloudOff />}
-            title="No pudimos abrir las stories"
-            body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-            actionLabel="Reintentar"
-            onAction={() => void refetch()}
-          />
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos abrir las stories. Revisa tu internet y vuelve a intentar.
+          </Notice>
         ) : (
           <>
-            <View style={{ gap: spacing.md }}>
-              <Text variant="title" accessibilityRole="header">
-                De {partnerName}
-              </Text>
-              {latest && partner ? (
-                <View style={{ gap: spacing.md }}>
-                  <View style={{ paddingTop: spacing.sm }}>
-                    <StoryPolaroid
-                      story={latest}
-                      size="L"
-                      tape="mint"
-                      date={groups.partnerUnseen > 0 ? 'NUEVA' : undefined}
-                      onPress={() =>
-                        router.push({ pathname: '/story/view', params: { user: partner.id } })
-                      }
-                      accessibilityLabel={`Story de ${partnerName}${groups.partnerUnseen > 0 ? ', nueva' : ''}`}
-                      accessibilityHint="Toca para verla"
-                    />
-                  </View>
-                  <View style={{ gap: spacing.xs }}>
-                    <Text variant="bodyStrong">
-                      {`${partnerName} · ${storyAgo(latest.created_at, now)} · ${storyTimeLeft(latest.expires_at, now)}`}
-                    </Text>
-                    {groups.partner.length > 1 ? (
-                      <Text variant="small" tone="muted">
-                        {groups.partner.length} stories activas
-                        {groups.partnerUnseen > 0 ? `, ${groups.partnerUnseen} sin ver` : ''}.
-                      </Text>
-                    ) : null}
-                  </View>
-                </View>
-              ) : (
-                <Text variant="hand" tone="muted">
-                  {partnerName} no ha pegado nada hoy. Pégale tú una primero.
-                </Text>
-              )}
-            </View>
-
-            <Divider />
+            <StoriesRowView
+              myName={myName}
+              myAvatar={myAvatar}
+              partnerName={partnerName}
+              partnerAvatar={partnerAvatar}
+              mineCount={groups.mine.length}
+              partnerCount={groups.partner.length}
+              partnerUnseen={groups.partnerUnseen}
+              hasPartner={!!partner}
+              onPressMine={() => setSheetOpen(true)}
+              onPressPartner={() =>
+                partner && router.push({ pathname: '/story/view', params: { user: partner.id } })
+              }
+            />
 
             <View style={{ gap: spacing.md }}>
-              <Text variant="title" accessibilityRole="header">
-                Las tuyas
+              <Text variant="h3" accessibilityRole="header">
+                Las tuyas de hoy
               </Text>
               {groups.mine.length > 0 ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    gap: spacing.lg,
-                    paddingTop: spacing.sm,
-                  }}
-                >
-                  {groups.mine.map((s) => {
-                    const seenBy = s.views.some((v) => v.user_id === partner?.id);
-                    return (
-                      <View key={s.id} style={{ width: 104, gap: spacing.sm }}>
-                        <StoryPolaroid
-                          story={s}
-                          size="S"
-                          caption={storyAgo(s.created_at, now)}
-                          onPress={() =>
-                            router.push({ pathname: '/story/view', params: { story: s.id } })
-                          }
-                          accessibilityLabel={`Tu story de ${storyAgo(s.created_at, now)}`}
-                          accessibilityHint="Toca para verla"
-                        />
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: spacing.xs,
-                            paddingTop: spacing.xs,
-                          }}
-                        >
-                          <Icon
-                            name="eye"
-                            size={16}
-                            color={seenBy ? colors.nopal : colors.inkMuted}
+                <>
+                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap, rowGap: spacing.lg }}>
+                    {groups.mine.map((s) => {
+                      const seenBy = s.views.some((v) => v.user_id === partner?.id);
+                      return (
+                        <View key={s.id} style={{ width: thumbW, gap: spacing.sm }}>
+                          <StoryThumb
+                            story={s}
+                            width={thumbW}
+                            fruit={fruit.me}
+                            onPress={() =>
+                              router.push({ pathname: '/story/view', params: { story: s.id } })
+                            }
+                            accessibilityLabel={`Tu story de ${storyAgo(s.created_at, now)}`}
+                            accessibilityHint="Toca para verla"
                           />
-                          <Text
-                            variant="caption"
-                            tone={seenBy ? 'nopal' : 'muted'}
-                            style={{ flexShrink: 1 }}
+                          <View
+                            style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}
                           >
-                            {seenBy ? 'Visto' : 'Sin ver'}
-                          </Text>
+                            {seenBy && fruit.partner ? <FruitDot fruit={fruit.partner} /> : null}
+                            <Text variant="note" tone="muted" style={{ flexShrink: 1 }}>
+                              {seenBy ? 'Vista' : 'Sin ver'}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    );
-                  })}
-                </View>
+                      );
+                    })}
+                  </View>
+                  <View style={{ marginTop: spacing.sm }}>
+                    <Button
+                      title="Crear una story"
+                      icon="plus"
+                      onPress={() => setSheetOpen(true)}
+                      fullWidth
+                    />
+                  </View>
+                </>
               ) : (
-                <Text variant="hand" tone="muted">
-                  Todavía no pegas nada hoy.
-                </Text>
+                <EmptyState
+                  art="circles"
+                  title="Nada por aquí"
+                  body={`${partnerName} se está preguntando qué traes. Sube una foto, escribe algo o dibuja cualquier cosa.`}
+                  action={{ label: 'Crear una story', onPress: () => setSheetOpen(true) }}
+                />
               )}
-              <View style={{ alignItems: 'flex-start', marginTop: spacing.sm }}>
-                <Button title="Pegar una story" onPress={() => setSheetOpen(true)} />
-              </View>
             </View>
 
-            <ListRow
-              label="Mi archivo"
-              icon="archive"
-              onPress={() => router.push('/story/archive')}
-              divider={false}
-            />
+            <ListGroup>
+              <ListRow
+                label="Mi archivo"
+                icon="archive"
+                onPress={() => router.push('/story/archive')}
+              />
+            </ListGroup>
           </>
         )}
       </View>

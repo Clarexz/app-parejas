@@ -1,17 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-  <g transform="translate(512 512) rotate(-8)">
-    <rect x="-192" y="-224" width="400" height="480" rx="6" fill="#3C280A" fill-opacity="0.22"/>
-    <rect x="-200" y="-240" width="400" height="480" rx="6" fill="#FFFEFA" stroke="#1E3270" stroke-opacity="0.15" stroke-width="3"/>
-    <clipPath id="ph"><rect x="-166" y="-206" width="332" height="296"/></clipPath>
-    <g clip-path="url(#ph)">
-      <rect x="-166" y="-206" width="332" height="296" fill="#F6D6A8"/>
-      <circle cx="70" cy="-110" r="42" fill="#E8932A"/>
-      <path d="M-166 90V-10L-80 -90L-10 -20L50 -70L166 40V90Z" fill="#7D9A6A"/>
-      <path d="M-166 90V30L-90 -30L-20 40L60 -10L166 70V90Z" fill="#4F7A4A"/>
-      <circle cx="-95" cy="40" r="16" fill="#C23B6B"/>
-    </g>
-    <rect x="-110" y="130" width="220" height="14" rx="7" fill="#1E3270" fill-opacity="0.25"/>
-    <rect x="-70" y="165" width="140" height="14" rx="7" fill="#1E3270" fill-opacity="0.14"/>
-    <rect x="-90" y="-268" width="180" height="64" fill="#E8932A" fill-opacity="0.75" transform="rotate(-4)"/>
+  <!-- Splash apilado (manual pág. 15): símbolo arriba y "ahorita" abajo, sobre transparente.
+       El fondo (Hueso) lo pone el plugin de splash. Bricolage Grotesque 800, tracking -4.5 %
+       (letter-spacing = -0.045 × 160 = -7.2); scripts/gen-brand-assets.mjs inyecta la fuente.
+       La "o" va partida: el texto lleva la "o" invisible y encima se pinta cada mitad recortada,
+       con rendija de 8 % del ancho de la "o". Todo cabe en el círculo central de Android 12. -->
+  <defs>
+    <clipPath id="o-left"><rect x="400" y="560" width="76.5" height="220"/></clipPath>
+    <clipPath id="o-right"><rect x="483.5" y="560" width="100" height="220"/></clipPath>
+  </defs>
+  <g transform="translate(362 262) scale(3)">
+    <path d="M46 4 A46 46 0 0 0 46 96 Z" fill="#F2495C"/>
+    <path d="M54 4 A46 46 0 0 1 54 96 Z" fill="#FFC24B"/>
+  </g>
+  <g font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="160" letter-spacing="-7.2">
+    <text x="250" y="737" fill="#1B1B1F">ah<tspan fill="none">o</tspan>rita</text>
+    <text x="433.7" y="737" fill="#F2495C" clip-path="url(#o-left)">o</text>
+    <text x="433.7" y="737" fill="#FFC24B" clip-path="url(#o-right)">o</text>
   </g>
 </svg>

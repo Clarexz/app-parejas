@@ -99,18 +99,17 @@ beforeEach(() => {
 });
 
 describe('pestaña Stories', () => {
-  it('sin stories de tu pareja se lo dice con humor', async () => {
+  it('sin stories dice que no hay nada, con humor', async () => {
     await wrap(<StoriesScreen />);
-    expect(screen.getByText('Caleb no ha pegado nada hoy. Pégale tú una primero.')).toBeTruthy();
-    expect(screen.getByText('Todavía no pegas nada hoy.')).toBeTruthy();
+    expect(screen.getByText('Nada hoy')).toBeTruthy();
+    expect(screen.getByText('Nada por aquí')).toBeTruthy();
   });
 
-  it('con la story de tu pareja sin ver la marca como NUEVA y abre el visor', async () => {
+  it('con la story de tu pareja sin ver la marca como nueva y abre el visor', async () => {
     mockStories = [row('s1', 'u2')];
     await wrap(<StoriesScreen />);
-    expect(screen.getByText('NUEVA')).toBeTruthy();
-    expect(screen.getByText(/Caleb · hace 2 h · quedan (21|22) h/)).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Story de Caleb, nueva' }));
+    expect(screen.getByText('Nueva')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Story nueva de Caleb' }));
     expect(mockPush).toHaveBeenCalledWith({ pathname: '/story/view', params: { user: 'u2' } });
   });
 
@@ -120,13 +119,13 @@ describe('pestaña Stories', () => {
       row('s3', 'u1'),
     ];
     await wrap(<StoriesScreen />);
-    expect(screen.getByText('Visto')).toBeTruthy();
+    expect(screen.getByText('Vista')).toBeTruthy();
     expect(screen.getByText('Sin ver')).toBeTruthy();
   });
 
-  it('"Pegar una story" abre las opciones y manda a crear', async () => {
+  it('"Crear una story" abre las opciones y manda a crear', async () => {
     await wrap(<StoriesScreen />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Pegar una story' }));
+    await fireEvent.press(screen.getAllByRole('button', { name: 'Crear una story' })[0]);
     await fireEvent.press(screen.getByRole('button', { name: 'Dibujar' }));
     expect(mockPush).toHaveBeenCalledWith({
       pathname: '/story/new',
@@ -169,17 +168,17 @@ describe('visor de stories', () => {
       }),
     ];
     await wrap(<StoryViewer userId="u1" />);
-    expect(screen.getByText(/Visto por Caleb/)).toBeTruthy();
+    expect(screen.getByText(/Vista por Caleb/)).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Respuestas (1)' })).toBeTruthy();
     expect(screen.queryByRole('radio', { name: 'Reaccionar con 😂' })).toBeNull();
     expect(mockMarkSeen).not.toHaveBeenCalled();
   });
 
-  it('dibuja la story con el esquema del celular aunque el visor sea de noche', async () => {
+  it('dibuja la story con colores fijos aunque el visor sea de noche', async () => {
     mockStories = [row('s4', 'u2', { kind: 'drawing', text: null, bg: 'paper', strokes: [] })];
     await wrap(<StoryViewer userId="u2" />);
     const frame = screen.getByLabelText('Story con un dibujo');
-    expect(StyleSheet.flatten(frame.props.style).backgroundColor).toBe(lightColors.paper);
+    expect(StyleSheet.flatten(frame.props.style).backgroundColor).toBe(lightColors.bg);
   });
 
   it('sin stories dice que ya se borró', async () => {

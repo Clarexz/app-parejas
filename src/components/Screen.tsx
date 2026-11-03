@@ -4,35 +4,32 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/theme';
 
-import { Paper, type PaperVariant } from './Paper';
-
 type Props = {
   children: ReactNode;
   scroll?: boolean;
-  paper?: PaperVariant;
+  /** Gutter de 20 dp a los lados (por defecto sí). Sin él, el contenido llega al borde. */
+  padded?: boolean;
   /** Con `scroll`: activa el "jalar para refrescar" (DISENO §7). */
   refreshing?: boolean;
   onRefresh?: () => void;
 };
 
-/** Contenedor de pantalla: hoja + safe area + gutters de la página (DISENO §2.3). */
+/** Contenedor de pantalla: fondo `bg`, safe area y gutter de 20 dp (DISENO §7). */
 export function Screen({
   children,
   scroll = false,
-  paper = 'notebook',
+  padded = true,
   refreshing = false,
   onRefresh,
 }: Props) {
-  const { colors, page, spacing } = useTheme();
+  const { colors, page, spacing, fruit } = useTheme();
   const padding = {
-    paddingLeft: page.contentLeft,
-    paddingRight: page.contentRight,
+    paddingHorizontal: padded ? page.gutter : 0,
     paddingTop: spacing.lg,
     paddingBottom: spacing.xl,
   };
   return (
-    <View style={[styles.root, { backgroundColor: colors.paper }]}>
-      <Paper variant={paper} />
+    <View style={[styles.root, { backgroundColor: colors.bg }]}>
       <SafeAreaView style={styles.root}>
         {scroll ? (
           <ScrollView
@@ -43,9 +40,9 @@ export function Screen({
                 <RefreshControl
                   refreshing={refreshing}
                   onRefresh={onRefresh}
-                  tintColor={colors.jamaica}
-                  colors={[colors.jamaica]}
-                  progressBackgroundColor={colors.paperRaised}
+                  tintColor={fruit.me.hex}
+                  colors={[fruit.me.hex]}
+                  progressBackgroundColor={colors.surface}
                 />
               ) : undefined
             }

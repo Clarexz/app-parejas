@@ -1,102 +1,45 @@
-import { useState, type ReactNode } from 'react';
-import {
-  Pressable,
-  View,
-  type LayoutChangeEvent,
-  type StyleProp,
-  type ViewStyle,
-} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import type { ReactNode } from 'react';
+import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { useTheme } from '@/theme';
 
+import { useTapScale } from './motion';
+
 type Props = {
   children: ReactNode;
-  variant?: 'plain' | 'ruled';
-  /** Inclinación en grados (fichas ±1, DISENO §2.6). */
-  tilt?: number;
-  /** Si se pasa, la ficha es tocable y se "levanta" al presionar. */
+  /** `me`/`partner`: tinte de la fruta de quien lo escribió. */
+  tone?: 'surface' | 'me' | 'partner';
+  /** Si se pasa, la tarjeta es tocable y se achica al presionar. */
   onPress?: () => void;
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 };
 
-/** Ficha bibliográfica: papel recto, borde superior de margen y sombra de objeto (DISENO §7). */
-export function Card({
-  children,
-  variant = 'plain',
-  tilt = 0,
-  onPress,
-  accessibilityLabel,
-  style,
-}: Props) {
-  const { colors, spacing, radius, shadows, motion, type } = useTheme();
-  const ruleStep = type.body.lineHeight;
-  const reduced = useReducedMotion();
-  const press = useSharedValue(0);
-  const [lifted, setLifted] = useState(false);
-  const [height, setHeight] = useState(0);
-
-  const animated = useAnimatedStyle(() => ({ transform: [{ scale: 1 - 0.03 * press.value }] }));
-  const set = (v: number) => {
-    setLifted(v === 1);
-    press.value = reduced ? v : withTiming(v, { duration: motion.duration.fast });
-  };
-
-  const rules = variant === 'ruled' ? Math.floor((height - spacing.lg) / ruleStep) : 0;
+/** Superficie `surface`, radio 24, padding 18, sin sombra (DISENO §7). */
+export function Card({ children, tone = 'surface', onPress, accessibilityLabel, style }: Props) {
+  const { colors, spacing, radius, fruit, tint } = useTheme();
+  const tap = useTapScale();
+  const partner = fruit.partner;
+  const backgroundColor =
+    tone === 'me' ? tint(fruit.me) : tone === 'partner' && partner ? tint(partner) : colors.surface;
   const body = (
     <View
-      onLayout={(e: LayoutChangeEvent) => setHeight(e.nativeEvent.layout.height)}
-      style={[
-        {
-          backgroundColor: colors.paperRaised,
-          borderTopColor: colors.margin,
-          borderTopWidth: 2,
-          borderRadius: radius.none,
-          padding: spacing.lg,
-          gap: variant === 'ruled' ? 0 : spacing.sm,
-          boxShadow: lifted ? shadows.lifted : shadows.object,
-        },
-        style,
-      ]}
+      style={[{ backgroundColor, borderRadius: radius.card, padding: 18, gap: spacing.sm }, style]}
     >
-      {Array.from({ length: rules }, (_, i) => (
-        <View
-          key={i}
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            // El renglón queda ~4 dp bajo la línea base del texto, para que se "apoye" en él.
-            top: spacing.lg + ruleStep * (i + 1) - 4,
-            height: 1,
-            backgroundColor: colors.ruled,
-          }}
-        />
-      ))}
       {children}
     </View>
   );
-
-  const tiltStyle = { transform: [{ rotate: `${tilt}deg` }] };
-  if (!onPress) return <View style={tiltStyle}>{body}</View>;
+  if (!onPress) return body;
   return (
-    <View style={tiltStyle}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={accessibilityLabel}
-        onPress={onPress}
-        onPressIn={() => set(1)}
-        onPressOut={() => set(0)}
-      >
-        <Animated.View style={animated}>{body}</Animated.View>
-      </Pressable>
-    </View>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      onPress={onPress}
+      onPressIn={tap.onPressIn}
+      onPressOut={tap.onPressOut}
+    >
+      <Animated.View style={tap.style}>{body}</Animated.View>
+    </Pressable>
   );
 }

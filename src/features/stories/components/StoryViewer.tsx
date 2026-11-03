@@ -14,12 +14,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Avatar,
   Button,
+  FruitDot,
   Icon,
   IconButton,
   Input,
-  LoadingLines,
+  LoadingSymbol,
+  Notice,
   Sheet,
-  Stamp,
   Text,
 } from '@/components';
 import { useToast } from '@/components/Toast';
@@ -60,7 +61,7 @@ type Props = { userId?: string | null; storyId?: string | null };
 const CHROME_TOP = 96;
 const CHROME_BOTTOM = 150;
 
-/** Hilo de respuestas de una story: notitas mías a la derecha, de tu pareja a la izquierda. */
+/** Hilo de respuestas de una story: las mías a la derecha, las de tu pareja a la izquierda. */
 function Replies({
   story,
   myId,
@@ -76,13 +77,14 @@ function Replies({
   canReply: boolean;
   onSend: (body: string) => void;
 }) {
-  const { colors, spacing, shadows } = useTheme();
+  const { spacing, radius, fruit, tint } = useTheme();
   const [body, setBody] = useState('');
   const valid = validateReply(body) === null;
+  const partnerFruit = fruit.partner ?? fruit.me;
   return (
     <View style={{ gap: spacing.lg }}>
       {story.replies.length === 0 ? (
-        <Text variant="hand" tone="muted">
+        <Text variant="body" tone="muted">
           Nadie ha dicho nada todavía.
         </Text>
       ) : (
@@ -98,20 +100,20 @@ function Replies({
                 <View
                   style={{
                     maxWidth: '84%',
-                    backgroundColor: mine ? colors.postit : colors.paperRaised,
-                    borderTopWidth: mine ? 0 : 2,
-                    borderTopColor: colors.margin,
-                    padding: spacing.md,
-                    boxShadow: shadows.object,
+                    backgroundColor: tint(mine ? fruit.me : partnerFruit),
+                    borderRadius: radius.md,
+                    paddingVertical: spacing.sm,
+                    paddingHorizontal: spacing.md,
                   }}
                 >
-                  <Text variant="body" style={mine ? { color: colors.onPostit } : undefined}>
-                    {r.body}
+                  <Text variant="body">{r.body}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+                  <FruitDot fruit={mine ? fruit.me : partnerFruit} size={8} />
+                  <Text variant="note" tone="muted">
+                    {mine ? time : `${partnerName} · ${time}`}
                   </Text>
                 </View>
-                <Text variant="mono" tone="muted">
-                  {mine ? time : `${partnerName} · ${time}`}
-                </Text>
               </View>
             );
           })}
@@ -137,7 +139,7 @@ function Replies({
           </View>
           <IconButton
             name="send"
-            variant="sticker"
+            variant="filled"
             accessibilityLabel="Enviar respuesta"
             disabled={!valid}
             onPress={() => {
@@ -152,7 +154,7 @@ function Replies({
 }
 
 function ViewerBody({ userId, storyId }: Props) {
-  const { colors, spacing } = useTheme();
+  const { colors, spacing, radius, fruit } = useTheme();
   const router = useRouter();
   const toast = useToast();
   const insets = useSafeAreaInsets();
@@ -212,6 +214,7 @@ function ViewerBody({ userId, storyId }: Props) {
   const mine = !!story && story.user_id === me?.id;
   const isActive = !!story && isStoryActive(story, new Date());
   const authorName = mine ? 'Tú' : partnerName;
+  const authorFruit = mine ? fruit.me : (fruit.partner ?? fruit.me);
   const authorAvatar = useSignedUrl(mine ? me?.avatar_path : partner?.avatar_path);
   const { url: mediaUrl, isError: mediaFailed } = useStoryMediaUrl(
     story?.kind === 'photo' ? story.media_path : null,
@@ -261,8 +264,7 @@ function ViewerBody({ userId, storyId }: Props) {
     reply.mutate(
       { id: story.id, body },
       {
-        onSuccess: () =>
-          toast.show({ message: `Se la pegaste a ${partnerName}.`, tone: 'success' }),
+        onSuccess: () => toast.show({ message: `Ya le llegó a ${partnerName}.`, tone: 'success' }),
         onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
       },
     );
@@ -325,7 +327,7 @@ function ViewerBody({ userId, storyId }: Props) {
       <View
         style={{
           flex: 1,
-          backgroundColor: colors.paper,
+          backgroundColor: colors.bg,
           paddingTop: insets.top + spacing.lg,
           paddingHorizontal: spacing.xl,
           gap: spacing.lg,
@@ -335,30 +337,25 @@ function ViewerBody({ userId, storyId }: Props) {
           <IconButton name="close" accessibilityLabel="Cerrar" onPress={close} />
         </View>
         {loading ? (
-          <LoadingLines count={3} accessibilityLabel="Abriendo la story" />
-        ) : failed ? (
-          <View style={{ gap: spacing.md }}>
-            <Text variant="title" accessibilityRole="header">
-              No pudimos abrirla
-            </Text>
-            <Text variant="body" tone="muted">
-              No hay señal con el servidor. Revisa tu internet y vuelve a intentar.
-            </Text>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Button title="Reintentar" onPress={() => void refetch()} />
-            </View>
+          <View
+            accessibilityLabel="Abriendo la story"
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <LoadingSymbol />
           </View>
+        ) : failed ? (
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos abrirla. Revisa tu internet y vuelve a intentar.
+          </Notice>
         ) : (
           <View style={{ gap: spacing.md }}>
-            <Text variant="title" accessibilityRole="header">
+            <Text variant="h2" accessibilityRole="header">
               Esta story ya se borró
             </Text>
             <Text variant="body" tone="muted">
               Las stories duran 24 horas. Si era tuya, la encuentras en tu archivo.
             </Text>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Button title="Cerrar" onPress={close} />
-            </View>
+            <Button title="Cerrar" variant="secondary" onPress={close} fullWidth />
           </View>
         )}
       </View>
@@ -368,7 +365,7 @@ function ViewerBody({ userId, storyId }: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1, backgroundColor: colors.paper }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
     >
       <View
         style={{
@@ -382,21 +379,23 @@ function ViewerBody({ userId, storyId }: Props) {
             count={list.length}
             index={safeIndex}
             durationMs={storyDurationMs(story.kind as StoryKind)}
+            color={authorFruit.hex}
             paused={paused}
             onComplete={next}
           />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
             <Avatar
-              variant="round"
               name={authorName}
               source={authorAvatar ?? undefined}
-              size={36}
+              size={44}
+              fruit={authorFruit}
+              ring
             />
             <View style={{ flex: 1 }}>
-              <Text variant="bodyStrong" numberOfLines={1}>
+              <Text variant="ui" numberOfLines={1}>
                 {authorName}
               </Text>
-              <Text variant="caption" tone="muted" numberOfLines={1}>
+              <Text variant="note" tone="muted" numberOfLines={1}>
                 {storyAgo(story.created_at, new Date())}
                 {isActive
                   ? ` · ${storyTimeLeft(story.expires_at, new Date())}`
@@ -418,15 +417,13 @@ function ViewerBody({ userId, storyId }: Props) {
             }}
           >
             <View style={{ width: frameW }}>
-              {/* La story se dibuja con el esquema del celular, igual que al crearla; solo el cromo es de noche. */}
-              <ThemeProvider>
-                <StoryFrame
-                  story={story}
-                  width={frameW}
-                  mediaUrl={mediaUrl}
-                  caption={story.kind === 'photo' ? story.text : null}
-                />
-              </ThemeProvider>
+              <StoryFrame
+                story={story}
+                width={frameW}
+                mediaUrl={mediaUrl}
+                caption={story.kind === 'photo' ? story.text : null}
+                fruit={authorFruit}
+              />
               <View
                 style={{
                   position: 'absolute',
@@ -466,7 +463,7 @@ function ViewerBody({ userId, storyId }: Props) {
                     alignItems: 'center',
                   }}
                 >
-                  <Text variant="hand" tone="muted">
+                  <Text variant="note" tone="muted">
                     La foto no cargó.
                   </Text>
                 </View>
@@ -481,29 +478,27 @@ function ViewerBody({ userId, storyId }: Props) {
           {mine ? (
             <View style={{ gap: spacing.sm }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-                <Icon name="eye" size={20} color={seenByPartner ? colors.nopal : colors.inkMuted} />
-                <Text variant="small" tone={seenByPartner ? 'nopal' : 'muted'} style={{ flex: 1 }}>
+                {seenByPartner ? (
+                  <FruitDot fruit={fruit.partner ?? fruit.me} />
+                ) : (
+                  <Icon name="eye" size={20} color={colors.inkMuted} />
+                )}
+                <Text variant="note" tone={seenByPartner ? 'ink' : 'muted'} style={{ flex: 1 }}>
                   {seenByPartner
-                    ? `Visto por ${partnerName} · ${formatTimeIn(timeZone, new Date(seenByPartner.seen_at))}`
+                    ? `Vista por ${partnerName} · ${formatTimeIn(timeZone, new Date(seenByPartner.seen_at))}`
                     : `${partnerName} todavía no la ve`}
                   {partnerReaction ? `  ${partnerName} reaccionó ${partnerReaction}` : ''}
                 </Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={`Respuestas (${story.replies.length})`}
-                  onPress={() => setRepliesOpen(true)}
-                  style={{ minHeight: 44, justifyContent: 'center', flex: 1 }}
-                >
-                  <Text
-                    variant="hand"
-                    tone="jamaica"
-                    style={{ textDecorationLine: 'underline', textDecorationColor: colors.jamaica }}
-                  >
-                    Respuestas ({story.replies.length})
-                  </Text>
-                </Pressable>
+                <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                  <Button
+                    title={`Respuestas (${story.replies.length})`}
+                    variant="secondary"
+                    size="sm"
+                    onPress={() => setRepliesOpen(true)}
+                  />
+                </View>
                 {story.kind === 'photo' ? (
                   <IconButton
                     name="download"
@@ -514,7 +509,7 @@ function ViewerBody({ userId, storyId }: Props) {
                 ) : null}
                 <IconButton
                   name="trash"
-                  accessibilityLabel="Arrancar esta story"
+                  accessibilityLabel="Borrar esta story"
                   onPress={() => setConfirmDelete(true)}
                 />
               </View>
@@ -534,7 +529,7 @@ function ViewerBody({ userId, storyId }: Props) {
                       accessibilityLabel={`Reaccionar con ${emoji}`}
                       accessibilityState={{ selected }}
                       onPress={() => {
-                        if (!selected) haptic.stick();
+                        if (!selected) haptic.light();
                         react.mutate(
                           { id: story.id, emoji: selected ? null : emoji },
                           {
@@ -547,12 +542,13 @@ function ViewerBody({ userId, storyId }: Props) {
                         height: 48,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        borderWidth: 1.5,
-                        borderColor: selected ? colors.ink : 'transparent',
-                        borderRadius: 24,
+                        backgroundColor: selected ? colors.surface2 : 'transparent',
+                        borderWidth: 2,
+                        borderColor: selected ? fruit.me.hex : 'transparent',
+                        borderRadius: radius.pill,
                       }}
                     >
-                      <Text variant="heading">{emoji}</Text>
+                      <Text variant="h3">{emoji}</Text>
                     </Pressable>
                   );
                 })}
@@ -574,7 +570,7 @@ function ViewerBody({ userId, storyId }: Props) {
                 </View>
                 <IconButton
                   name="send"
-                  variant="sticker"
+                  variant="filled"
                   accessibilityLabel="Enviar respuesta"
                   disabled={validateReply(draft) !== null}
                   onPress={sendInline}
@@ -584,16 +580,18 @@ function ViewerBody({ userId, storyId }: Props) {
                 <Pressable
                   accessibilityRole="button"
                   onPress={() => setRepliesOpen(true)}
-                  style={{ minHeight: 32, justifyContent: 'center' }}
+                  style={{ minHeight: 48, justifyContent: 'center' }}
                 >
-                  <Text variant="small" tone="muted" style={{ textDecorationLine: 'underline' }}>
+                  <Text variant="note" tone="muted" style={{ textDecorationLine: 'underline' }}>
                     Ver respuestas ({story.replies.length})
                   </Text>
                 </Pressable>
               ) : null}
             </View>
           ) : (
-            <Stamp tone="ink">YA CADUCÓ</Stamp>
+            <Text variant="label" tone="muted">
+              Ya caducó
+            </Text>
           )}
         </View>
       </View>
@@ -616,15 +614,20 @@ function ViewerBody({ userId, storyId }: Props) {
       <Sheet
         visible={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        title="Arrancar esta story"
+        title="¿Borrar esta story?"
       >
         <View style={{ gap: spacing.lg }}>
           <Text variant="body" tone="muted">
             Deja de verse para los dos y no se puede deshacer.
           </Text>
-          <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-            <Button title="Arrancarla" onPress={tear} />
-            <Button title="Mejor no" variant="ghost" onPress={() => setConfirmDelete(false)} />
+          <View style={{ gap: spacing.sm }}>
+            <Button title="Borrar" variant="danger" fullWidth onPress={tear} />
+            <Button
+              title="Mejor no"
+              variant="secondary"
+              fullWidth
+              onPress={() => setConfirmDelete(false)}
+            />
           </View>
         </View>
       </Sheet>

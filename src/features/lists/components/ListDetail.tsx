@@ -4,19 +4,18 @@ import { KeyboardAvoidingView, RefreshControl, ScrollView, View } from 'react-na
 
 import {
   Button,
-  CloudOff,
   EmptyState,
   IconButton,
   Input,
-  LoadingLines,
-  PencilNote,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
   Sheet,
-  Stamp,
   Text,
 } from '@/components';
 import { useToast } from '@/components/Toast';
-import { useCouple } from '@/features/couple';
+import { useCouple, useFruits } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
 import {
@@ -26,7 +25,6 @@ import {
   listItemError,
   listKindLabel,
   progressLabel,
-  progressRatio,
   reorderedIds,
   splitItems,
 } from '@/lib/lists';
@@ -46,10 +44,12 @@ import {
 } from '../hooks';
 import { ListEditorSheet } from './ListEditorSheet';
 import { ListItemRow } from './ListItemRow';
+import { ProgressBar } from './ListsView';
 
 /** Una lista (`/lists/<id>`): renglones con casilla, agregar seguidos, acomodar y limpiar tachados. */
 export function ListDetail({ id }: { id: string }) {
   const { spacing, colors } = useTheme();
+  const fruits = useFruits();
   const router = useRouter();
   const toast = useToast();
   const { me, partner } = useCouple();
@@ -77,18 +77,13 @@ export function ListDetail({ id }: { id: string }) {
     if (router.canGoBack()) router.back();
     else router.replace('/lists');
   };
-  const back = (
-    <View style={{ marginLeft: -spacing.sm }}>
-      <IconButton name="back" accessibilityLabel="Volver" onPress={leave} />
-    </View>
-  );
 
   if (isLoading) {
     return (
       <Screen>
-        {back}
-        <View style={{ marginTop: spacing.xl }}>
-          <LoadingLines count={4} accessibilityLabel="Abriendo la lista" />
+        <ScreenHeader back="Listas" onBack={leave} title="Lista" />
+        <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+          <LoadingSymbol accessibilityLabel="Abriendo la lista" />
         </View>
       </Screen>
     );
@@ -96,27 +91,24 @@ export function ListDetail({ id }: { id: string }) {
   if (isError) {
     return (
       <Screen>
-        {back}
-        <EmptyState
-          illustration={<CloudOff />}
-          title="No pudimos abrir la lista"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={() => void refetch()}
-        />
+        <ScreenHeader back="Listas" onBack={leave} title="Lista" />
+        <View style={{ marginTop: spacing.xl }}>
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos abrir la lista. Revisa tu señal e intenta otra vez.
+          </Notice>
+        </View>
       </Screen>
     );
   }
   if (!list) {
     return (
       <Screen>
-        {back}
+        <ScreenHeader back="Listas" onBack={leave} title="Lista" />
         <EmptyState
-          illustration={<PencilNote />}
+          art="symbol"
           title="Esa lista ya no está"
-          body="Quizá la tacharon completita desde el otro celular."
-          actionLabel="Ir a Listas"
-          onAction={() => router.replace('/lists')}
+          body="Quizá la borraron desde el otro celular."
+          action={{ label: 'Ir a Listas', onPress: () => router.replace('/lists') }}
         />
       </Screen>
     );
@@ -141,7 +133,7 @@ export function ListDetail({ id }: { id: string }) {
   };
 
   const toggleItem = (itemId: string, next: boolean) => {
-    if (next) haptic.stick();
+    if (next) haptic.light();
     toggle.mutate({ listId: id, id: itemId, done: next }, { onError: fail });
   };
 
@@ -197,8 +189,6 @@ export function ListDetail({ id }: { id: string }) {
     />
   );
 
-  const ratio = progressRatio(done.length, total);
-
   return (
     <Screen>
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
@@ -213,88 +203,69 @@ export function ListDetail({ id }: { id: string }) {
                 void refetch();
                 void items.refetch();
               }}
-              tintColor={colors.jamaica}
-              colors={[colors.jamaica]}
-              progressBackgroundColor={colors.paperRaised}
+              tintColor={fruits.me.hex}
+              colors={[fruits.me.hex]}
+              progressBackgroundColor={colors.surface}
             />
           }
         >
           <View style={{ gap: spacing.lg }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ flex: 1 }}>{back}</View>
-              {pending.length > 1 ? (
-                <IconButton
-                  name="list"
-                  accessibilityLabel={arranging ? 'Terminar de acomodar' : 'Acomodar los renglones'}
-                  onPress={() => {
-                    setEditingId(null);
-                    setArranging((v) => !v);
-                  }}
-                />
-              ) : null}
-              <IconButton
-                name="pencil"
-                accessibilityLabel="Editar la lista"
-                onPress={() => setEditingList(true)}
-              />
-              <IconButton
-                name="trash"
-                accessibilityLabel="Arrancar esta lista"
-                onPress={() => setConfirmDelete(true)}
-              />
-            </View>
-
-            <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-                <Stamp>{listKindLabel(list.kind)}</Stamp>
-                <Text variant="small" tone="muted">
-                  {progress}
-                </Text>
-              </View>
-              <Text
-                variant={list.title.length > 22 || list.emoji ? 'title' : 'display'}
-                accessibilityRole="header"
-              >
-                {list.emoji ? `${list.emoji} ${list.title}` : list.title}
-              </Text>
-              {total > 0 ? (
-                <View
-                  accessibilityElementsHidden
-                  importantForAccessibility="no-hide-descendants"
-                  style={{ height: 3, alignSelf: 'stretch', backgroundColor: colors.ruled }}
-                >
-                  <View
-                    style={{
-                      height: 3,
-                      width: `${Math.round(ratio * 100)}%`,
-                      backgroundColor: ratio >= 1 ? colors.nopal : colors.ink,
-                    }}
+            <ScreenHeader
+              back="Listas"
+              onBack={leave}
+              label={`${listKindLabel(list.kind)} · ${progress}`}
+              title={list.emoji ? `${list.emoji} ${list.title}` : list.title}
+              right={
+                <View style={{ flexDirection: 'row' }}>
+                  {pending.length > 1 ? (
+                    <IconButton
+                      name="list"
+                      accessibilityLabel={
+                        arranging ? 'Terminar de acomodar' : 'Acomodar los renglones'
+                      }
+                      onPress={() => {
+                        setEditingId(null);
+                        setArranging((v) => !v);
+                      }}
+                    />
+                  ) : null}
+                  <IconButton
+                    name="pencil"
+                    accessibilityLabel="Editar la lista"
+                    onPress={() => setEditingList(true)}
+                  />
+                  <IconButton
+                    name="trash"
+                    accessibilityLabel="Borrar esta lista"
+                    onPress={() => setConfirmDelete(true)}
                   />
                 </View>
-              ) : null}
-            </View>
+              }
+            />
+            {total > 0 ? <ProgressBar done={done.length} total={total} /> : null}
 
             {arranging ? (
-              <Text variant="small" tone="muted">
+              <Text variant="note" tone="muted">
                 Usa las flechas para subir o bajar cada renglón. Los tachados se quedan abajo.
               </Text>
             ) : null}
 
             {items.isLoading ? (
-              <LoadingLines count={3} accessibilityLabel="Cargando los renglones" />
+              <View style={{ alignItems: 'center', paddingVertical: spacing.xl }}>
+                <LoadingSymbol accessibilityLabel="Cargando los renglones" />
+              </View>
             ) : items.isError ? (
-              <EmptyState
-                illustration={<CloudOff />}
-                title="No pudimos traer los renglones"
-                body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-                actionLabel="Reintentar"
-                onAction={() => void items.refetch()}
-              />
+              <Notice
+                tone="danger"
+                action={{ label: 'Reintentar', onPress: () => void items.refetch() }}
+              >
+                No pudimos traer los renglones. Revisa tu señal e intenta otra vez.
+              </Notice>
             ) : total === 0 ? (
               <EmptyState
-                illustration={<PencilNote />}
-                title="Una hoja en blanco"
-                body="Escribe el primer renglón aquí abajo. Con enter agregas otro."
+                art="spark"
+                title="Aquí va el primer renglón"
+                body="Escríbelo abajo. Con enter agregas otro."
               />
             ) : (
               <View>
@@ -308,12 +279,16 @@ export function ListDetail({ id }: { id: string }) {
                         justifyContent: 'space-between',
                       }}
                     >
-                      <Text variant="hand" tone="muted">
-                        Tachados ({done.length})
+                      <Text variant="h3">
+                        Tachados{' '}
+                        <Text variant="note" tone="muted">
+                          {done.length}
+                        </Text>
                       </Text>
                       <Button
-                        title="Borrar los tachados"
+                        title="Quitar los tachados"
                         variant="ghost"
+                        size="sm"
                         onPress={clearDone}
                         loading={clear.isPending}
                       />
@@ -349,7 +324,7 @@ export function ListDetail({ id }: { id: string }) {
             </View>
             <IconButton
               name="send"
-              variant="sticker"
+              variant="filled"
               accessibilityLabel="Agregar el renglón"
               disabled={draft.trim().length === 0}
               onPress={submit}
@@ -363,15 +338,20 @@ export function ListDetail({ id }: { id: string }) {
       <Sheet
         visible={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        title="¿Arrancar esta lista?"
+        title="¿Borrar esta lista?"
       >
         <View style={{ gap: spacing.lg }}>
           <Text variant="body" tone="muted">
             La lista y todos sus renglones dejan de verse para los dos. No se puede deshacer.
           </Text>
-          <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-            <Button title="Arrancarla" onPress={tear} />
-            <Button title="Mejor no" variant="ghost" onPress={() => setConfirmDelete(false)} />
+          <View style={{ gap: spacing.sm }}>
+            <Button title="Borrar" variant="danger" onPress={tear} fullWidth />
+            <Button
+              title="Mejor no"
+              variant="ghost"
+              onPress={() => setConfirmDelete(false)}
+              fullWidth
+            />
           </View>
         </View>
       </Sheet>

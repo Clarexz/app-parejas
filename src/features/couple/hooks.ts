@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { useSession } from '@/features/auth';
+import { FRUITS, resolveFruits, type Fruit } from '@/lib/fruits';
 import { supabase } from '@/lib/supabase';
 
 import {
@@ -42,6 +43,29 @@ export function useCouple() {
 
 export function usePartner() {
   return useCouple().partner;
+}
+
+/**
+ * Las frutas que se ven de verdad (mía y de mi pareja), con la misma regla que el servidor
+ * (`resolveFruits` = `private.effective_fruit`). Sin perfil cargado: Sandía y sin pareja.
+ */
+export function useFruits(): { me: Fruit; partner: Fruit | null } {
+  const { me, partner } = useCouple();
+  const meId = me?.id ?? null;
+  const meFruit = me?.fruit ?? null;
+  const partnerId = partner?.id ?? null;
+  const partnerFruit = partner?.fruit ?? null;
+  return useMemo(() => {
+    if (!meId) return { me: FRUITS.sandia, partner: null };
+    const resolved = resolveFruits(
+      { id: meId, fruit: meFruit },
+      partnerId ? { id: partnerId, fruit: partnerFruit } : null,
+    );
+    return {
+      me: FRUITS[resolved.me],
+      partner: resolved.partner ? FRUITS[resolved.partner] : null,
+    };
+  }, [meId, meFruit, partnerId, partnerFruit]);
 }
 
 function useInvalidateCoupleData() {

@@ -89,6 +89,27 @@ const KINDS: readonly string[] = [
   'love_language',
   'visit',
 ];
+// Color de cada fruta (Fase 12A). Duplicado a propósito de `src/lib/fruits.ts` (FRUITS[..].hex):
+// esta función corre en Deno y no importa de `src/`. Si cambia un color allá, cámbialo aquí.
+export const FRUIT_HEX: Record<string, string> = {
+  sandia: '#F2495C',
+  mango: '#FFC24B',
+  mandarina: '#FF8A3D',
+  limon: '#C5DC3A',
+  uva: '#8B5CF6',
+  arandano: '#3F6BFF',
+  pitaya: '#E83E9C',
+};
+// Avisos sin fruta (sistema, o si no se pudo consultar): Sandía.
+export const DEFAULT_NOTIFICATION_COLOR = FRUIT_HEX.sandia;
+
+/** Hex de la fruta de quien manda el aviso; Sandía si la llave no existe. */
+export function fruitColor(fruit: unknown): string {
+  return typeof fruit === 'string' && Object.prototype.hasOwnProperty.call(FRUIT_HEX, fruit)
+    ? FRUIT_HEX[fruit]
+    : DEFAULT_NOTIFICATION_COLOR;
+}
+
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
 export const TOKEN_AUDIENCE = 'https://oauth2.googleapis.com/token';
 
@@ -320,13 +341,22 @@ export function buildNotification(event: NotifyEvent): BuiltNotification | null 
 
 // Cuerpo de FCM HTTP v1 en el formato de expo-notifications en Android: todo va en
 // `data` (valores string) y la librería muestra la notificación. Sin bloque `notification`.
-export function buildFcmMessage(token: string, built: BuiltNotification): FcmMessage {
+// `color` (hex de la fruta de quien manda el aviso) va en `data.color`: expo-notifications lo lee
+// de ahí (RemoteNotificationContent) y pinta el acento de la notificación en Android. No se usa
+// `android.notification.color` porque exigiría un bloque `notification` (ver arriba). Los push de
+// solo datos no muestran nada, así que no llevan color.
+export function buildFcmMessage(
+  token: string,
+  built: BuiltNotification,
+  color?: string,
+): FcmMessage {
   const data: Record<string, string> = built.visible
     ? {
         title: built.title ?? '',
         message: built.body ?? '',
         body: JSON.stringify(built.data),
         channelId: built.channelId,
+        ...(color ? { color } : {}),
       }
     : { ...built.data };
   return { message: { token, data, android: { priority: 'high' } } };

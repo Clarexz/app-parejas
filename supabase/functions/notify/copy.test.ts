@@ -131,12 +131,12 @@ describe('copys', () => {
       emoji: '🥹',
       note: 'Día largo',
     });
-    expect(c.title).toContain('🥹');
-    expect(c.body).toBe('Día largo');
+    expect(c.title).toBe('Ale');
+    expect(c.body).toBe('🥹 Día largo');
   });
   it('storyCopy: título con el nombre y cuerpo según el tipo', () => {
     const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
-    expect(storyCopy({ ...b, storyKind: 'photo', text: null }).title).toBe('Ale pegó una story');
+    expect(storyCopy({ ...b, storyKind: 'photo', text: null }).title).toBe('Ale');
     const text = storyCopy({ ...b, storyKind: 'text', text: 'Te quiero harto' });
     expect(text.title).toContain('Ale');
     expect(text.body).toBe('Te quiero harto');
@@ -149,18 +149,17 @@ describe('copys', () => {
   it('storyReplyCopy distingue si quien recibe es el autor de la story', () => {
     const b = { actor: 'Ale', recipient: 'Beto', seed: 0, body: 'Qué bonita' };
     const toAuthor = storyReplyCopy({ ...b, toAuthor: true });
-    expect(toAuthor.title).toBe('Ale respondió tu story');
-    expect(toAuthor.body).toBe('Qué bonita');
-    for (const seed of seeds) {
-      expect(storyReplyCopy({ ...b, seed, toAuthor: true }).title).toMatch(/story/);
-      expect(storyReplyCopy({ ...b, seed, toAuthor: false }).title).not.toMatch(/tu story/);
-    }
+    expect(toAuthor.title).toBe('Ale');
+    expect(toAuthor.body).toBe('Respondió tu story: Qué bonita');
+    expect(storyReplyCopy({ ...b, toAuthor: false }).body).toBe('Qué bonita');
+    expect(storyReplyCopy({ ...b, body: '', toAuthor: true }).body).toMatch(/tu story/);
+    expect(storyReplyCopy({ ...b, body: '', toAuthor: false }).body).not.toMatch(/tu story/);
   });
   it('memoryCopy: título con el nombre y el título de la memoria en el cuerpo', () => {
     const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
     const c = memoryCopy({ ...b, title: 'Playa en Mazatlán', placeName: null });
-    expect(c.title).toBe('Ale pegó una memoria');
-    expect(c.body).toBe('Playa en Mazatlán');
+    expect(c.title).toBe('Ale');
+    expect(c.body).toContain('Playa en Mazatlán');
     for (const seed of seeds) {
       const v = memoryCopy({ ...b, seed, title: 'Playa en Mazatlán', placeName: 'Malecón' });
       expect(v.title).toContain('Ale');
@@ -169,15 +168,16 @@ describe('copys', () => {
     // Sin título cae a un cuerpo genérico.
     expect(memoryCopy({ ...b, title: null, placeName: null }).body.length).toBeGreaterThan(0);
     // Las tres variantes existen.
-    const titles = new Set(
-      [0, 1, 2].map((seed) => memoryCopy({ ...b, seed, title: 'x', placeName: null }).title),
+    const bodies = new Set(
+      [0, 1, 2].map((seed) => memoryCopy({ ...b, seed, title: 'x', placeName: null }).body),
     );
-    expect(titles.size).toBe(3);
+    expect(bodies.size).toBe(3);
   });
   it('gameCopy y drawingCopy: nombre del juego, porcentaje y palabra', () => {
     const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
     const g = gameCopy({ ...b, game: 'wyr', event: 'started', matchPct: null });
-    expect(g.title).toBe('Ale te retó a ¿Qué prefieres?');
+    expect(g.title).toBe('Ale');
+    expect(g.body).toBe('Te retó a «¿Qué prefieres?». ¿Le entras?');
     expect(gameCopy({ ...b, game: 'nhie', event: 'finished', matchPct: 70 }).body).toContain(
       '70 %',
     );
@@ -230,19 +230,19 @@ describe('copys', () => {
       endDate: '2026-10-18',
       place: 'Monterrey',
     });
-    expect(withPlace.body).toBe('Se vieron del 12 al 18 de octubre en Monterrey.');
+    expect(withPlace.body).toBe('Apuntó que se vieron del 12 al 18 de octubre en Monterrey.');
     const noPlace = visitCopy({
       ...b,
       startDate: '2026-10-12',
       endDate: '2026-10-12',
       place: null,
     });
-    expect(noPlace.body).toBe('Se vieron el 12 de octubre.');
+    expect(noPlace.body).toBe('Apuntó que se vieron el 12 de octubre.');
   });
   it('loveLanguageCopy: invita o invita a comparar, sin resultado', () => {
     const b = { actor: 'Ale', recipient: 'Beto', seed: 0 };
     expect(loveLanguageCopy({ ...b, recipientDone: false }).body).toMatch(
-      /Hazlo|el tuyo|Haz el tuyo/,
+      /el tuyo|Haz el tuyo|Haces el tuyo/,
     );
     expect(
       loveLanguageCopy({ ...b, recipientDone: true }).title +

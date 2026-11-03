@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/theme';
@@ -11,60 +12,66 @@ type Props = {
   icon?: IconName;
   /** Dato a la derecha (p. ej. el apodo actual). */
   value?: string;
+  /** Reemplaza al dato y al chevrón (un `Toggle`, por ejemplo). */
+  right?: ReactNode;
   onPress?: () => void;
-  /** `destructive` pinta el renglón en Chile (cerrar sesión, arrancar hojas). */
-  tone?: 'default' | 'destructive';
-  /** Línea punteada debajo; apágala en el último renglón. */
+  /** `danger` pinta el renglón en Chile (salir de la pareja, borrar). `destructive` es el nombre viejo. */
+  tone?: 'default' | 'danger' | 'destructive';
+  /** Divisor `line` abajo; apágalo en el último renglón (o usa `ListGroup`). */
   divider?: boolean;
   disabled?: boolean;
   accessibilityHint?: string;
 };
 
-/** Renglón tocable de listas y ajustes: icono + texto Figtree + flecha (DISENO §7). */
+/** Renglón de 52 dp: ícono, texto, dato y chevrón (DISENO §7). */
 export function ListRow({
   label,
   icon,
   value,
+  right,
   onPress,
   tone = 'default',
   divider = true,
   disabled = false,
   accessibilityHint,
 }: Props) {
-  const { colors, spacing } = useTheme();
-  const destructive = tone === 'destructive';
-  const color = disabled ? colors.inkFaint : destructive ? colors.chile : colors.ink;
+  const { colors, spacing, radius } = useTheme();
+  const danger = tone === 'danger' || tone === 'destructive';
+  const color = danger ? colors.danger : colors.ink;
+  const tappable = !!onPress && !disabled;
   return (
     <View>
       <Pressable
-        accessibilityRole="button"
+        accessibilityRole={onPress ? 'button' : undefined}
         accessibilityLabel={value ? `${label}, ${value}` : label}
         accessibilityHint={accessibilityHint}
         accessibilityState={{ disabled }}
-        disabled={disabled || !onPress}
+        disabled={!tappable}
         onPress={onPress}
         style={({ pressed }) => ({
-          minHeight: 56,
+          minHeight: 52,
           flexDirection: 'row',
           alignItems: 'center',
-          gap: spacing.md,
+          gap: 14,
           paddingVertical: spacing.sm,
-          opacity: pressed ? 0.6 : 1,
+          borderRadius: radius.sm,
+          backgroundColor: pressed ? colors.surface : 'transparent',
+          opacity: disabled ? 0.4 : 1,
         })}
       >
         {icon ? <Icon name={icon} size={24} color={color} /> : null}
         <Text variant="body" style={{ flex: 1, color }}>
           {label}
         </Text>
-        {value ? (
-          <Text variant="small" tone="muted" numberOfLines={1} style={{ maxWidth: '40%' }}>
-            {value}
-          </Text>
-        ) : null}
-        {destructive ? null : (
-          <View style={{ transform: [{ rotate: '180deg' }] }}>
-            <Icon name="back" size={20} color={disabled ? colors.inkFaint : colors.inkMuted} />
-          </View>
+        {right ?? (
+          <>
+            {value ? (
+              <Text variant="note" tone="muted" numberOfLines={1} style={{ maxWidth: '40%' }}>
+                {value}
+              </Text>
+            ) : null}
+            {danger || !onPress ? null : <Icon name="chevron" size={20} color={colors.inkMuted} />}
+          </>
         )}
       </Pressable>
       {divider ? <Divider /> : null}

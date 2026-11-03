@@ -18,13 +18,23 @@ jest.mock('@/features/couple', () => ({
     refetch: jest.fn(),
   }),
   useToday: () => ({ today: '2026-10-30', timeZone: 'America/Mexico_City' }),
+  useFruits: () => {
+    const { FRUITS } = jest.requireActual('@/lib/fruits');
+    return { me: FRUITS.mango, partner: FRUITS.sandia };
+  },
 }));
 jest.mock('@/features/profile', () => ({ useSignedUrl: () => null }));
 jest.mock('@/features/mood', () => ({
   useMoods: () => ({
     moods: [],
     latestByUser: {
-      u2: { id: 'm1', user_id: 'u2', emoji: '😴', note: 'Sin café', created_at: '' },
+      u2: {
+        id: 'm1',
+        user_id: 'u2',
+        emoji: '😴',
+        note: 'Sin café',
+        created_at: new Date().toISOString(),
+      },
     },
     isLoading: false,
     isError: false,
@@ -36,16 +46,20 @@ jest.mock('@/features/mood', () => ({
 jest.mock('@/features/notifications', () => ({
   usePushSoftAsk: () => ({ visible: false, accept: jest.fn(), dismiss: jest.fn() }),
 }));
-jest.mock('@/features/stories', () => ({ StoriesRow: () => null }));
-jest.mock('@/features/distance', () => ({
-  DistanceCard: () => null,
+jest.mock('@/features/stories', () => ({
+  useActiveStories: () => ({ stories: [], refetch: jest.fn() }),
+  groupActive: () => ({ mine: [], partner: [{ id: 's1' }], partnerUnseen: 1 }),
 }));
 
 jest.mock('@/features/events', () => ({
-  CountdownHomeCard: () => null,
+  EventsEvents: () => null,
   useCountdowns: () => {
     const { autoCountdowns } = jest.requireActual('@/lib/events');
     return {
+      events: [],
+      today: '2026-10-30',
+      isLoading: false,
+      featured: null,
       countdowns: mockAnniversary
         ? autoCountdowns({
             anniversary: mockAnniversary,
@@ -60,8 +74,20 @@ jest.mock('@/features/events', () => ({
 }));
 jest.mock('@/features/memories', () => ({ OnThisDayCard: () => null }));
 jest.mock('@/features/questions', () => ({
-  DailyQuestionCard: () => null,
-  StreakNote: () => null,
+  useDailyQuestion: () => ({
+    card: {
+      question: { text: '¿Qué extrañas más?' },
+      mine: null,
+      partner_answered: true,
+      comment_count: 0,
+    },
+    isLoading: false,
+    isError: false,
+    refetch: jest.fn(),
+  }),
+  useStreak: () => ({
+    streak: { current: 7, best: 9, today: '2026-10-30', today_done: false, missing_days: [] },
+  }),
 }));
 
 const renderScreen = () =>
@@ -82,21 +108,50 @@ describe('HomeScreen', () => {
     expect(mockPush).toHaveBeenCalledWith('/settings/couple');
   });
 
-  it('con aniversario muestra los días juntos y lo que viene', async () => {
+  it('con aniversario muestra los días juntos y su desglose al tocar', async () => {
     mockAnniversary = '2023-02-14';
     await renderScreen();
     expect(screen.getByText('1,355')).toBeTruthy();
+    expect(screen.queryByText(/desde el 14 de febrero de 2023/)).toBeNull();
+    await fireEvent.press(screen.getByRole('button', { name: '1,355 días juntos' }));
     expect(
       screen.getByText('3 años, 8 meses y 16 días desde el 14 de febrero de 2023'),
     ).toBeTruthy();
-    expect(screen.getByText('Lo que viene')).toBeTruthy();
   });
 
-  it('muestra el mood y la nota de la pareja, y avisa si no hay mood', async () => {
+  it('muestra la fecha corta, la pregunta con su estado y la racha', async () => {
     mockAnniversary = '2023-02-14';
     await renderScreen();
-    expect(screen.getByText('Sin café')).toBeTruthy();
-    expect(screen.getByLabelText('Ale')).toBeTruthy();
-    expect(screen.getByLabelText('Ale').props.accessibilityHint).toBe('Toca para cambiar tu mood');
+    expect(screen.getByText('viernes 30 oct')).toBeTruthy();
+    expect(screen.getByText('¿Qué extrañas más?')).toBeTruthy();
+    expect(screen.getByText('Ya contestó. Ahora tú.')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Contestar' }));
+    expect(mockPush).toHaveBeenCalledWith('/question');
+    expect(screen.getByRole('button', { name: '7 días de racha' })).toBeTruthy();
+  });
+
+  it('sin cuenta regresiva invita a apuntar la próxima vez', async () => {
+    mockAnniversary = null;
+    await renderScreen();
+    expect(screen.getByText('¿Cuándo se ven?')).toBeTruthy();
+  });
+
+  it('muestra el mood de tu pareja y la story nueva abre el visor', async () => {
+    mockAnniversary = '2023-02-14';
+    await renderScreen();
+    expect(screen.getByLabelText('Caleb, Con sueño: Sin café')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Story nueva de Caleb' }));
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: '/story/view',
+      params: { user: 'u2' },
+    });
+  });
+
+  it('tu burbuja vacía abre el selector y tu foto, las stories', async () => {
+    mockAnniversary = '2023-02-14';
+    await renderScreen();
+    expect(screen.getByLabelText('¿Y tú? Toca para elegir tu mood')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Sube una story' }));
+    expect(mockPush).toHaveBeenCalledWith('/stories');
   });
 });
