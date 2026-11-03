@@ -1935,6 +1935,16 @@ export const SCENARIOS = {
       },
     };
   })(),
+  // Pregunta del día con la respuesta de tu pareja cerrada (antes de contestar).
+  pregunta_cerrada: {
+    prefix: 'pregunta-cerrada',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    daily: () => todayCard('unanswered_partner_done'),
+    streak: () => streakWith(12, 23, []),
+    routes: ['/question'],
+  },
 };
 
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');

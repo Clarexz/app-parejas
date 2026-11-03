@@ -3,7 +3,6 @@ import { View } from 'react-native';
 
 import { Card, Icon, Text } from '@/components';
 import { GAMES, drawingTurn, roundTurn, type GameOverview } from '@/lib/games';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 import { useGameOverview } from '../hooks';
@@ -11,7 +10,7 @@ import { useNames } from './useNames';
 
 const GAMES_IDLE = '5 juegos para conocerse jugando';
 
-/** Resumen de una línea para la ficha de la pestaña Preguntas. */
+/** Resumen de una línea para la entrada de Juegos. */
 export function gamesSummary(
   overview: GameOverview | null,
   meId: string,
@@ -41,7 +40,7 @@ export function gamesSummary(
   return GAMES_IDLE;
 }
 
-/** Ficha "Juegos" de la pestaña Preguntas: abre `/games` aunque el resumen no cargue. */
+/** Entrada a Juegos: abre `/games` aunque el resumen no cargue. */
 export function GamesEntryCard() {
   const { spacing, colors } = useTheme();
   const router = useRouter();
@@ -51,22 +50,19 @@ export function GamesEntryCard() {
   const pending = summary !== GAMES_IDLE;
   return (
     <Card
-      tilt={tiltFor('games-entry', 1)}
+      tone={pending ? 'me' : 'surface'}
       onPress={() => router.push('/games')}
       accessibilityLabel={`Juegos. ${summary}`}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-        <View style={{ flex: 1, gap: spacing.xs }}>
-          <Text variant="hand" tone={pending ? 'jamaica' : 'ink'}>
+        <Icon name="games" size={28} />
+        <View style={{ flex: 1, gap: spacing.xxs }}>
+          <Text variant="h3">Juegos</Text>
+          <Text variant="note" tone="muted">
             {summary}
           </Text>
-          <Text variant="small" muted>
-            ¿Qué prefieres?, Yo nunca, dibujo y más
-          </Text>
         </View>
-        <View style={{ transform: [{ rotate: '180deg' }] }}>
-          <Icon name="back" size={20} color={colors.inkMuted} />
-        </View>
+        <Icon name="chevron" size={22} color={colors.inkMuted} />
       </View>
     </Card>
   );

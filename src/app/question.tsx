@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
-import { CloudOff, EmptyState, IconButton, LoadingLines, PencilNote, Screen } from '@/components';
+import { EmptyState, Icon, LoadingSymbol, Screen, Text } from '@/components';
 import { QuestionView, useDailyQuestion, useQuestion } from '@/features/questions';
 import { errorMessage } from '@/lib/errors';
 import { questionErrorKind } from '@/lib/questionCopy';
@@ -25,35 +25,50 @@ function QuestionPage({ source }: { source: Source }) {
   return (
     <Screen>
       <View style={{ flex: 1, gap: spacing.md }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Atrás"
+          onPress={() => router.back()}
+          hitSlop={spacing.sm}
+          style={({ pressed }) => ({
+            alignSelf: 'flex-start',
+            minHeight: 48,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: spacing.xs,
+            marginLeft: -spacing.xs,
+            opacity: pressed ? 0.6 : 1,
+          })}
+        >
+          <Icon name="back" size={24} />
+          <Text variant="ui">Atrás</Text>
+        </Pressable>
         <View style={{ flex: 1 }}>
           {card ? (
             <QuestionView card={card} />
           ) : isLoading ? (
-            <LoadingLines accessibilityLabel="Cargando la pregunta" />
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <LoadingSymbol accessibilityLabel="Cargando la pregunta" />
+            </View>
           ) : isError && kind === 'no_questions' ? (
             <EmptyState
-              illustration={<PencilNote />}
-              title="Se nos acabaron las preguntas"
+              art="bubble"
+              title="Hoy se nos acabaron las preguntas"
               body="Por hoy no hay pregunta para ustedes. Cuéntense algo sin que nadie pregunte, que también cuenta."
             />
           ) : isError && kind === 'not_found' ? (
             <EmptyState
-              illustration={<PencilNote />}
-              title="Esa hoja no está en el cuaderno"
+              art="bubble"
+              title="Esa pregunta ya no está"
               body={errorMessage({ code: 'question_not_found' })}
-              actionLabel="Volver"
-              onAction={() => router.back()}
+              action={{ label: 'Volver', onPress: () => router.back() }}
             />
           ) : (
             <EmptyState
-              illustration={<CloudOff />}
+              art="circles"
               title="No pudimos traer la pregunta"
               body={errorMessage(error)}
-              actionLabel="Reintentar"
-              onAction={() => void refetch()}
+              action={{ label: 'Reintentar', onPress: () => void refetch() }}
             />
           )}
         </View>

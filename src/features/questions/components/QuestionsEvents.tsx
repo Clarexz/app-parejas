@@ -24,7 +24,7 @@ export function QuestionsEvents() {
 
   useQuestionsRealtime(couple?.id ?? null, {
     onNudge: () => toast.show({ message: `${name} te está esperando para la pregunta de hoy.` }),
-    onPartnerAnswered: () => toast.show({ message: `${name} ya contestó y la dobló.` }),
+    onPartnerAnswered: () => toast.show({ message: `${name} ya contestó. Te toca.` }),
   });
 
   // La pareja completa el día: yo ya había contestado (waiting) y ahora están los dos.
