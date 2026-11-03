@@ -3,6 +3,7 @@ export {
   useCouple,
   useCoupleRealtime,
   useCreateCouple,
+  useFruits,
   useJoinCouple,
   useLeaveCouple,
   usePartner,

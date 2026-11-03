@@ -77,6 +77,10 @@ const BY_CODE: Record<string, string> = {
     'Esa visita no se pudo guardar. Revisa las fechas: no puede empezar en el futuro ni durar más de un año.',
   visit_overlap: 'Esas fechas se enciman con otra visita que ya apuntaron. Revisa el calendario.',
   visit_not_found: 'Esa visita ya no está. Quizá la borraron desde el otro celular.',
+  // RPC de frutas (Fase 12A)
+  invalid_fruit: 'Esa fruta no existe. Elige una de la lista.',
+  fruit_taken: 'Esa es la fruta de tu pareja.',
+  fruit_too_similar: 'Se parece mucho a la de tu pareja; elige otra.',
   // RPC de notificaciones
   invalid_token: 'No pudimos registrar este celular para los avisos. Vuelve a intentar.',
 };

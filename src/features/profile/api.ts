@@ -2,6 +2,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 
 import { base64ToArrayBuffer } from '@/lib/base64';
+import type { FruitKey } from '@/lib/fruits';
 import { supabase } from '@/lib/supabase';
 import type { Database } from '@/types/database';
 
@@ -35,6 +36,16 @@ export async function updateProfile(userId: string, patch: ProfilePatch): Promis
     .single();
   if (error) throw error;
   return data;
+}
+
+/**
+ * Elige tu fruta. Solo se cambia por RPC: el servidor rechaza la de tu pareja (`fruit_taken`) y las
+ * que se le parecen (`fruit_too_similar`).
+ */
+export async function setFruit(fruit: FruitKey): Promise<FruitKey> {
+  const { data, error } = await supabase.rpc('set_fruit', { p_fruit: fruit });
+  if (error) throw error;
+  return data as FruitKey;
 }
 
 /** Reduce a 512 px máx. y JPEG calidad 0.7; devuelve el contenido listo para subir. */
