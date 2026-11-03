@@ -1018,6 +1018,30 @@ un respaldo en una BD temporal y endurecer Auth/Studio. Cierra con el protocolo 
 vez publica el release v1.0.0 como release normal (no pre-release).
 ```
 
+### Fase 12A — Rediseño "ahorita"
+
+Rebranding completo con el manual de `docs/rebranding/` (D97–D104). Se ejecuta antes de terminar la
+Fase 12 (pulido y v1.0.0).
+
+**Tareas:**
+1. Prototipo HTML (`docs/design/ahorita-prototipo.html`): Inicio, Pregunta del día, Memorias, Más y
+   selector de fruta en claro y oscuro, más los 6 widgets 1×1 sobre fondo claro, oscuro y foto.
+   Resolver ahí los huecos del manual (modo oscuro, acento de acción, semánticos, movimiento) y
+   **detenerse para la aprobación** del usuario y su novia. ✅ Aprobado el 2026-11-03.
+2. `docs/DISENO.md` v2.
+3. Frutas: migración `profiles.fruit` + RPC `set_fruit` con pares bloqueados, `src/lib/fruits.ts`
+   con tests y selector en el onboarding y el perfil.
+4. Tema y componentes nuevos (retirar los de "Bitácora") y set de íconos redibujado.
+5. Rediseñar todas las pantallas por bloques, con capturas en claro y oscuro.
+6. Nombre "ahorita" y auditoría del copy contra la voz del manual.
+7. Widgets 1×1 con forma y vidrio simulado (más el nuevo de Racha, snapshot v4), empezando por un
+   spike en el APK (v0.12.1).
+8. Ícono, splash y color de las notificaciones (la fruta de quien manda).
+9. Limpiar `docs/rebranding/`: quedan el PDF, el HTML del manual y `prev/`.
+
+**Entregable APK:** `v0.12.2` (spike de widgets en `v0.12.1`). Backend: migración de frutas y
+`notify` con color; el prompt del servidor incluye el deploy pendiente de las Fases 6–9 y 11B.
+
 ---
 
 ## 10. Estado del proyecto
@@ -1038,7 +1062,8 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada (2026-10-31), deploy pendiente | #17 | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). APK v0.11.0 publicado **antes** del deploy a pedido del usuario. **Pendiente: un solo deploy de `main` que incluya las Fases 6–9 y 11B, y hasta entonces no instalar el APK** (ver §10.1). |
-| 12 Pulido y entrega | ⏳ Siguiente | | Sin las fases 10 y 11A. |
+| 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Sigue después de la 12A. Sin las fases 10 y 11A. |
+| 12A Rediseño "ahorita" | 🟡 En curso (2026-11-03) | | Prototipo aprobado; DISENO v2, frutas, tema, pantallas, widgets 1×1, ícono (D97–D104). |
 
 ### 10.1 Verificaciones pendientes en el celular
 
