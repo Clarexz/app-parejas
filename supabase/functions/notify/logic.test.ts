@@ -6,6 +6,9 @@ import {
   buildJwtParts,
   buildNotification,
   classifyFcmResponse,
+  DEFAULT_NOTIFICATION_COLOR,
+  FRUIT_HEX,
+  fruitColor,
   parseEvent,
   parseServiceAccount,
   pemToPkcs8,
@@ -264,6 +267,34 @@ describe('buildNotification', () => {
   it('es determinista por id', () => {
     const d = { mood_id: 'abc', emoji: '😀' };
     expect(buildNotification(ev('mood', d))).toEqual(buildNotification(ev('mood', d)));
+  });
+});
+
+describe('color de la fruta', () => {
+  it('mapa llave -> hex de las 7 frutas', () => {
+    expect(FRUIT_HEX).toEqual({
+      sandia: '#F2495C',
+      mango: '#FFC24B',
+      mandarina: '#FF8A3D',
+      limon: '#C5DC3A',
+      uva: '#8B5CF6',
+      arandano: '#3F6BFF',
+      pitaya: '#E83E9C',
+    });
+  });
+  it('fruitColor cae en Sandía si la llave no existe', () => {
+    expect(fruitColor('uva')).toBe('#8B5CF6');
+    expect(fruitColor('kiwi')).toBe(DEFAULT_NOTIFICATION_COLOR);
+    expect(fruitColor('toString')).toBe(DEFAULT_NOTIFICATION_COLOR);
+    expect(fruitColor(null)).toBe('#F2495C');
+    expect(fruitColor({})).toBe('#F2495C');
+  });
+  it('el aviso visible lleva data.color; sin color no se agrega; el push de datos nunca', () => {
+    const built = buildNotification(ev('nudge', { nudge_id: 'n1' }))!;
+    expect(buildFcmMessage('tok', built, '#FFC24B').message.data.color).toBe('#FFC24B');
+    expect(buildFcmMessage('tok', built).message.data).not.toHaveProperty('color');
+    const silent = buildNotification(ev('mood', {}, { moods: false }))!;
+    expect(buildFcmMessage('tok', silent, '#FFC24B').message.data).not.toHaveProperty('color');
   });
 });
 

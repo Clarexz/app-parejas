@@ -853,6 +853,7 @@ export type Database = {
           birthday: string | null;
           created_at: string | null;
           display_name: string | null;
+          fruit: string | null;
           id: string;
           nickname: string | null;
           story_archive: boolean;
@@ -863,6 +864,7 @@ export type Database = {
           birthday?: string | null;
           created_at?: string | null;
           display_name?: string | null;
+          fruit?: string | null;
           id: string;
           nickname?: string | null;
           story_archive?: boolean;
@@ -872,6 +874,7 @@ export type Database = {
           birthday?: string | null;
           created_at?: string | null;
           display_name?: string | null;
+          fruit?: string | null;
           id?: string;
           nickname?: string | null;
           story_archive?: boolean;
@@ -1419,6 +1422,7 @@ export type Database = {
       memory_path_readable: { Args: { p_name: string }; Returns: boolean };
       memory_path_writable: { Args: { p_name: string }; Returns: boolean };
       my_couple_id: { Args: Record<PropertyKey, never>; Returns: string };
+      notify_actor_fruit: { Args: { p_user: string }; Returns: string };
       pick_daily_question: { Args: { p_couple_id: string }; Returns: string };
       question_card: {
         Args: { p_couple_id: string; p_day: string; p_question_id: string };
@@ -1577,6 +1581,7 @@ export type Database = {
         };
       };
       send_test_notification: { Args: Record<PropertyKey, never>; Returns: boolean };
+      set_fruit: { Args: { p_fruit: string }; Returns: string };
       set_list_item_done: {
         Args: { p_done: boolean; p_id: string };
         Returns: {

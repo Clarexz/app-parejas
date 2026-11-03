@@ -25,6 +25,7 @@ const profiles = {
     nickname: 'Alita',
     birthday: '1996-08-03',
     avatar_path: null,
+    fruit: 'mango',
     created_at: '2026-10-01T12:00:00Z',
   },
   partner: {
@@ -33,6 +34,7 @@ const profiles = {
     nickname: null,
     birthday: '1995-05-20',
     avatar_path: `${PARTNER_ID}/1.jpg`,
+    fruit: 'sandia',
     created_at: '2026-10-01T12:00:00Z',
   },
 };
@@ -2093,6 +2095,10 @@ export async function applyScenario(context, scenario) {
       return rows(route, request, scenario.prefs ?? []);
     }
     if (path === '/rest/v1/rpc/send_test_notification') return json(route, true);
+    if (path === '/rest/v1/rpc/set_fruit') {
+      const body = request.postDataJSON?.() ?? {};
+      return json(route, body.p_fruit ?? 'mango');
+    }
 
     // Stories (Fase 6)
     if (path === '/rest/v1/stories') {

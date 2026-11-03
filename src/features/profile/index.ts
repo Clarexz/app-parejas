@@ -1,2 +1,2 @@
 export { pickImage, type Profile, type ProfileUpdate } from './api';
-export { useProfile, useSignedUrl, useUpdateProfile, useUploadAvatar } from './hooks';
+export { useProfile, useSetFruit, useSignedUrl, useUpdateProfile, useUploadAvatar } from './hooks';
