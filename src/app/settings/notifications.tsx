@@ -130,7 +130,7 @@ export default function NotificationSettingsScreen() {
           <EmptyState
             art="bubble"
             title="Sin señal"
-            body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
+            body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
             action={{ label: 'Reintentar', onPress: () => void refetch() }}
           />
         ) : (

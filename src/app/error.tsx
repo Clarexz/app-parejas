@@ -11,7 +11,7 @@ export default function ErrorScreen() {
         <EmptyState
           art="circles"
           title="Sin señal"
-          body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
+          body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
           action={{ label: 'Reintentar', onPress: retry }}
         />
       </View>

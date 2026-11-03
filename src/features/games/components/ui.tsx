@@ -83,7 +83,7 @@ export function ErrorPage({
         <EmptyState
           art="circles"
           title={loadTitle}
-          body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
+          body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
           action={{ label: 'Reintentar', onPress: onRetry }}
         />
       )}

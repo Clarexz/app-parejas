@@ -58,7 +58,7 @@ export default function QuestionsScreen() {
           <EmptyState
             art="circles"
             title="No pudimos abrir las preguntas"
-            body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
+            body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
             action={{ label: 'Reintentar', onPress: refetchAll }}
           />
         ) : (

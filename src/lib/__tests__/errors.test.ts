@@ -1,6 +1,6 @@
 import { errorMessage } from '../errors';
 
-const NET = 'Tu celular está sin señal. Revisa tu internet y vuelve a intentar.';
+const NET = 'No pudimos conectarnos. Revisa tu internet y vuelve a intentar.';
 
 describe('errorMessage', () => {
   it('traduce códigos de Auth', () => {

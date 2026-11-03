@@ -1,6 +1,6 @@
 /** Mensajes de error en español de México (docs/DISENO.md §6): qué pasó y qué hacer, sin culpas. */
 
-const NETWORK_MESSAGE = 'Tu celular está sin señal. Revisa tu internet y vuelve a intentar.';
+const NETWORK_MESSAGE = 'No pudimos conectarnos. Revisa tu internet y vuelve a intentar.';
 const GENERIC_MESSAGE = 'Algo no salió bien de nuestro lado. Intenta otra vez en un momento.';
 
 const BY_CODE: Record<string, string> = {

@@ -345,7 +345,7 @@ function ViewerBody({ userId, storyId }: Props) {
           </View>
         ) : failed ? (
           <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
-            No pudimos abrirla. Tu celular está sin señal; revisa tu internet y vuelve a intentar.
+            No pudimos abrirla. Revisa tu internet y vuelve a intentar.
           </Notice>
         ) : (
           <View style={{ gap: spacing.md }}>

@@ -37,7 +37,7 @@ describe('ConnectionScreen', () => {
     await renderScreen();
     expect(screen.getByText('Sin conexión')).toBeTruthy();
     expect(
-      screen.getByText('Tu celular está sin señal. Revisa tu internet y vuelve a intentar.'),
+      screen.getByText('No pudimos conectarnos. Revisa tu internet y vuelve a intentar.'),
     ).toBeTruthy();
     await fireEvent.press(screen.getByText('Reintentar'));
     expect(mockRefetch).toHaveBeenCalled();

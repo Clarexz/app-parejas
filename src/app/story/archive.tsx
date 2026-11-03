@@ -65,8 +65,7 @@ export default function StoryArchiveScreen() {
             tone="danger"
             action={{ label: 'Reintentar', onPress: () => void archive.refetch() }}
           >
-            No pudimos abrir tu archivo. Tu celular está sin señal; revisa tu internet y vuelve a
-            intentar.
+            No pudimos abrir tu archivo. Revisa tu internet y vuelve a intentar.
           </Notice>
         ) : groups.length === 0 ? (
           <EmptyState

@@ -57,8 +57,7 @@ export default function StoriesScreen() {
           </View>
         ) : isError ? (
           <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
-            No pudimos abrir las stories. Tu celular está sin señal; revisa tu internet y vuelve a
-            intentar.
+            No pudimos abrir las stories. Revisa tu internet y vuelve a intentar.
           </Notice>
         ) : (
           <>
