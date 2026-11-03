@@ -18,9 +18,10 @@ import {
   type StrokeColor,
 } from '@/lib/drawing';
 import type { StoryBg } from '@/lib/stories';
-import { useTheme } from '@/theme';
+import { lightColors, useTheme } from '@/theme';
 
-import { StrokesSvg, storyBgColor } from './StoryFrame';
+import { storyBgColor, strokeHex, strokeName, storyBgFruit } from './palette';
+import { StrokesSvg } from './StoryFrame';
 
 type Props = {
   strokes: Stroke[];
@@ -34,29 +35,18 @@ type Props = {
   children?: ReactNode;
 };
 
-const COLOR_NAMES: Record<StrokeColor, string> = {
-  ink: 'Tinta',
-  jamaica: 'Jamaica',
-  cempasuchil: 'Cempasúchil',
-  nopal: 'Nopal',
-  chile: 'Chile',
-  postit: 'Amarillo',
-  paper: 'Blanco',
-  tapeMint: 'Menta',
-};
-
 /** Color de trazo inicial que se ve sobre el fondo. */
 function defaultColor(bg: StoryBg): StrokeColor {
-  return bg === 'jamaica' || bg === 'nopal' || bg === 'ink' ? 'paper' : 'ink';
+  return storyBgFruit(bg)?.on === lightColors.bg ? 'paper' : 'ink';
 }
 
 /**
  * Lienzo para dibujar a mano alzada (DISENO §7). El trazo en curso se pinta con un throttle por
- * cuadro; al soltar se simplifica y se agrega. Barra: 3 pinceles, colores como puntitos de tinta,
+ * cuadro; al soltar se simplifica y se agrega. Herramientas: 3 pinceles, colores de fruta,
  * Deshacer y Borrar todo (con confirmación).
  */
 export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: Props) {
-  const { colors, spacing, radius } = useTheme();
+  const { colors, spacing, radius, fruit } = useTheme();
   const height = (width * CANVAS_H) / CANVAS_W;
   const k = CANVAS_W / width;
   const [color, setColor] = useState<StrokeColor>(() => defaultColor(bg));
@@ -128,18 +118,21 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
 
   return (
     <View style={{ gap: spacing.md }}>
-      <View style={{ width, height, boxShadow: `0 4px 8px -3px ${colors.shadow}` }}>
+      <View style={{ width, height }}>
         <GestureDetector gesture={pan}>
           <View
             accessibilityLabel="Lienzo para dibujar"
             style={{
               width,
               height,
-              backgroundColor: storyBgColor(bg, colors),
+              backgroundColor: storyBgColor(bg),
+              borderRadius: radius.md,
+              borderWidth: bg === 'paper' ? 1 : 0,
+              borderColor: colors.line,
               overflow: 'hidden',
             }}
           >
-            <StrokesSvg strokes={strokes} colors={colors} width={width} />
+            <StrokesSvg strokes={strokes} width={width} />
             {live ? (
               <Svg
                 style={{ position: 'absolute', left: 0, top: 0 }}
@@ -150,7 +143,7 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
               >
                 <Path
                   d={strokePath(live)}
-                  stroke={colors[color]}
+                  stroke={strokeHex(color)}
                   strokeOpacity={brush.o ?? 1}
                   strokeWidth={brush.w}
                   strokeLinecap="round"
@@ -169,7 +162,6 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
           <Chip
             key={b.id}
             label={b.label}
-            color={b.id === 'highlighter' ? 'mint' : 'yellow'}
             selected={b.id === brush.id}
             onPress={() => setBrush(b)}
           />
@@ -186,7 +178,7 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
             <Pressable
               key={c}
               accessibilityRole="radio"
-              accessibilityLabel={`Color ${COLOR_NAMES[c]}`}
+              accessibilityLabel={`Color ${strokeName(c)}`}
               accessibilityState={{ selected }}
               onPress={() => setColor(c)}
               style={{ width: 40, height: 44, alignItems: 'center', justifyContent: 'center' }}
@@ -197,7 +189,7 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
                   height: dot + 8,
                   borderRadius: radius.pill,
                   borderWidth: 1.5,
-                  borderColor: selected ? colors.ink : 'transparent',
+                  borderColor: selected ? fruit.me.hex : 'transparent',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -207,9 +199,9 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
                     width: dot,
                     height: dot,
                     borderRadius: radius.pill,
-                    backgroundColor: colors[c],
+                    backgroundColor: strokeHex(c),
                     borderWidth: 1,
-                    borderColor: colors.inkMuted,
+                    borderColor: colors.line,
                   }}
                 />
               </View>
@@ -220,12 +212,14 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
         <IconButton
+          variant="soft"
           name="undo"
           accessibilityLabel="Deshacer"
           disabled={!strokes.length}
           onPress={undo}
         />
         <IconButton
+          variant="soft"
           name="trash"
           accessibilityLabel="Borrar todo"
           disabled={!strokes.length}
@@ -244,13 +238,14 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
           </Text>
           <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
             <Button
+              variant="danger"
               title="Borrar todo"
               onPress={() => {
                 setConfirmClear(false);
                 onChange([]);
               }}
             />
-            <Button title="Mejor no" variant="ghost" onPress={() => setConfirmClear(false)} />
+            <Button title="Mejor no" variant="secondary" onPress={() => setConfirmClear(false)} />
           </View>
         </View>
       </Sheet>

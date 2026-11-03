@@ -21,6 +21,8 @@ type Props = {
   durationMs: number;
   /** Con `true` el tiempo se detiene (mantener pulsado, escribir, hoja abierta). */
   paused?: boolean;
+  /** Color (hex) de la fruta de quien publicó: el relleno de la barra. */
+  color: string;
   /** La actual terminó de llenarse. */
   onComplete: () => void;
 };
@@ -28,11 +30,18 @@ type Props = {
 const HEIGHT = 4;
 
 /**
- * Renglones de tinta arriba del visor: los vistos quedan llenos, el actual se llena con Jamaica
- * según el tiempo. Vive sobre el fondo de noche del visor, por eso usa la paleta nocturna.
+ * Barras arriba del visor: las vistas quedan llenas, la actual se llena en la fruta de quien
+ * publicó según el tiempo. Vive sobre el fondo de noche del visor, por eso usa la paleta nocturna.
  * Con "reducir movimiento" el actual no se anima: se resalta completo y el avance sigue en tiempo.
  */
-export function StoryProgress({ count, index, durationMs, paused = false, onComplete }: Props) {
+export function StoryProgress({
+  count,
+  index,
+  durationMs,
+  paused = false,
+  color,
+  onComplete,
+}: Props) {
   const reduced = useReducedMotion();
   const fill = useSharedValue(0);
   const elapsed = useRef(0);
@@ -91,20 +100,18 @@ export function StoryProgress({ count, index, durationMs, paused = false, onComp
           style={{
             flex: 1,
             height: HEIGHT,
-            backgroundColor: darkColors.inkFaint,
+            backgroundColor: darkColors.surface2,
             borderRadius: HEIGHT,
             overflow: 'hidden',
           }}
         >
           {i < index ? (
-            <View style={{ flex: 1, backgroundColor: darkColors.ink }} />
+            <View style={{ flex: 1, backgroundColor: color }} />
           ) : i === index ? (
             reduced ? (
-              <View style={{ flex: 1, backgroundColor: darkColors.jamaica }} />
+              <View style={{ flex: 1, backgroundColor: color }} />
             ) : (
-              <Animated.View
-                style={[{ height: HEIGHT, backgroundColor: darkColors.jamaica }, currentStyle]}
-              />
+              <Animated.View style={[{ height: HEIGHT, backgroundColor: color }, currentStyle]} />
             )
           ) : null}
         </View>

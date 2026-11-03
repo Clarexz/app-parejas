@@ -4,8 +4,20 @@ import { Text as RNText, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { CANVAS_H, CANVAS_W, strokePath, type Stroke } from '@/lib/drawing';
+import type { Fruit } from '@/lib/fruits';
 import type { StoryBg, StoryFont, StoryKind, StorySticker } from '@/lib/stories';
-import { lightColors, useTheme, type Colors, type Theme } from '@/theme';
+import { useTheme, type Theme } from '@/theme';
+
+import {
+  CAPTION_SCRIM,
+  CAPTION_TEXT,
+  NEUTRAL_BG,
+  storyBgColor,
+  storyTextColor,
+  strokeHex,
+} from './palette';
+
+export { storyBgColor, storyTextColor } from './palette';
 
 /** Lo mínimo de una story para dibujarla (la fila de la BD y el borrador de "crear" lo cumplen). */
 export type FrameStory = {
@@ -25,52 +37,13 @@ type Props = {
   mediaUrl?: string | null;
   /** Pie de la foto (si no se da, se usa el `text` de la story). */
   caption?: string | null;
+  /** Fruta de quien publicó: es el color de sus stickers. Por defecto, la tuya. */
+  fruit?: Fruit;
   /** En `text`, reemplaza al texto (el editor mete aquí su `TextInput`). */
   children?: ReactNode;
 };
 
 const REFERENCE_WIDTH = 360;
-
-/** Fondo del tema para cada fondo de story. */
-export function storyBgColor(bg: string | null | undefined, colors: Colors): string {
-  switch (bg) {
-    case 'postit':
-      return colors.postit;
-    case 'jamaica':
-      return colors.jamaica;
-    case 'cempasuchil':
-      return colors.cempasuchil;
-    case 'nopal':
-      return colors.nopal;
-    case 'ink':
-      return colors.ink;
-    case 'paper':
-    default:
-      return colors.paper;
-  }
-}
-
-/**
- * Color del texto sobre cada fondo, con contraste >= 4.5:1 en claro y oscuro (hay prueba):
- * tinta sobre papel; `onPostit`/`onJamaica` sobre su color; sobre cempasúchil, `onPolaroid`
- * (en la noche `ink` es claro y no alcanza); sobre `ink`, `onJamaica` (se invierte con el modo).
- */
-export function storyTextColor(bg: string | null | undefined, colors: Colors): string {
-  switch (bg) {
-    case 'postit':
-      return colors.onPostit;
-    case 'jamaica':
-    case 'nopal':
-    case 'ink':
-      return colors.onJamaica;
-    case 'cempasuchil':
-      // El fondo es el Mango de siempre (no cambia con el modo): su texto tampoco.
-      return lightColors.ink;
-    case 'paper':
-    default:
-      return colors.ink;
-  }
-}
 
 /** Tamaño de letra (a 360 dp de ancho) según el largo del texto: entre más, más chica. */
 export function storyFontSize(length: number): number {
@@ -85,22 +58,22 @@ export function storyTextStyle(
   story: Pick<FrameStory, 'bg' | 'font'>,
   length: number,
   width: number,
-  theme: { colors: Colors; fonts: Theme['fonts'] },
+  theme: { fonts: Theme['fonts'] },
 ) {
-  const { colors, fonts } = theme;
+  const { fonts } = theme;
   const family =
     story.font === 'body'
-      ? fonts.bodySemiBold
+      ? fonts.textSemi
       : story.font === 'stamp'
-        ? fonts.monoBold
-        : fonts.hand;
-  const factor = story.font === 'body' ? 0.78 : story.font === 'stamp' ? 0.68 : 1;
+        ? fonts.textBold
+        : fonts.display;
+  const factor = story.font === 'body' || story.font === 'stamp' ? 0.8 : 1;
   const fontSize = Math.round(storyFontSize(length) * (width / REFERENCE_WIDTH) * factor);
   return {
-    color: storyTextColor(story.bg, colors),
+    color: storyTextColor(story.bg),
     fontFamily: family,
     fontSize,
-    lineHeight: Math.round(fontSize * 1.25),
+    lineHeight: Math.round(fontSize * 1.2),
     textAlign: 'center' as const,
   };
 }
@@ -120,12 +93,12 @@ function asStrokes(value: unknown): Stroke[] {
 /** Trazos terminados: se memoriza para no repintar 300 paths en cada punto del trazo en curso. */
 export const StrokesSvg = memo(function StrokesSvg({
   strokes,
-  colors,
   width,
 }: {
   strokes: Stroke[];
-  colors: Colors;
   width: number;
+  /** @deprecated Los trazos usan colores fijos de fruta; se ignora. */
+  colors?: unknown;
 }) {
   return (
     <Svg
@@ -138,7 +111,7 @@ export const StrokesSvg = memo(function StrokesSvg({
         <Path
           key={i}
           d={strokePath(s.p)}
-          stroke={colors[s.c] ?? colors.ink}
+          stroke={strokeHex(s.c)}
           strokeOpacity={s.o ?? 1}
           strokeWidth={s.w}
           strokeLinecap="round"
@@ -150,14 +123,52 @@ export const StrokesSvg = memo(function StrokesSvg({
   );
 });
 
-/** Stickers (emojis) encima del marco: posición, escala y giro relativos. */
-export function StickersView({ stickers, width }: { stickers: StorySticker[]; width: number }) {
+/** Medida de un sticker (en dp) según el ancho del marco y su escala. */
+export function stickerSize(width: number, scale: number) {
+  const disc = width * 0.15 * scale;
+  return { disc, box: disc * 1.2 };
+}
+
+/** Un sticker: círculo de la fruta de quien lo pone con el emoji (contenido) al centro. */
+export function StickerDisc({ emoji, size, fruit }: { emoji: string; size: number; fruit: Fruit }) {
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: fruit.hex,
+        borderWidth: Math.max(2, size * 0.05),
+        borderColor: NEUTRAL_BG,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <RNText
+        style={{ fontSize: size * 0.56, lineHeight: size * 0.68, textAlign: 'center' }}
+        allowFontScaling={false}
+      >
+        {emoji}
+      </RNText>
+    </View>
+  );
+}
+
+/** Stickers encima del marco: posición, escala y giro relativos. */
+export function StickersView({
+  stickers,
+  width,
+  fruit,
+}: {
+  stickers: StorySticker[];
+  width: number;
+  fruit: Fruit;
+}) {
   const height = (width * CANVAS_H) / CANVAS_W;
   return (
     <>
       {stickers.map((s, i) => {
-        const size = width * 0.13 * s.s;
-        const box = size * 1.4;
+        const { disc, box } = stickerSize(width, s.s);
         return (
           <View
             key={`${s.e}-${i}`}
@@ -173,9 +184,7 @@ export function StickersView({ stickers, width }: { stickers: StorySticker[]; wi
               transform: [{ rotate: `${s.r}deg` }],
             }}
           >
-            <RNText style={{ fontSize: size, lineHeight: size * 1.2 }} allowFontScaling={false}>
-              {s.e}
-            </RNText>
+            <StickerDisc emoji={s.e} size={disc} fruit={fruit} />
           </View>
         );
       })}
@@ -184,14 +193,14 @@ export function StickersView({ stickers, width }: { stickers: StorySticker[]; wi
 }
 
 /**
- * Una story dibujada en un marco 9:16 a cualquier ancho: foto con pie a mano, texto sobre un
- * fondo de la paleta, o dibujo vectorial; con stickers encima (DISENO §7).
+ * Una story dibujada en un marco 9:16 a cualquier ancho: foto con pie, texto sobre una fruta, o
+ * dibujo vectorial; con stickers encima (DISENO §7).
  */
-export function StoryFrame({ story, width, mediaUrl, caption, children }: Props) {
-  const { colors, fonts, radius } = useTheme();
+export function StoryFrame({ story, width, mediaUrl, caption, fruit, children }: Props) {
+  const { fonts, radius, fruit: mine } = useTheme();
   const height = (width * CANVAS_H) / CANVAS_W;
   const scale = width / REFERENCE_WIDTH;
-  const bg = storyBgColor(story.bg, colors);
+  const bg = storyBgColor(story.bg);
   const stickers = asStickers(story.stickers);
   const text = story.text ?? '';
   const label = caption ?? (story.kind === 'photo' ? text || null : null);
@@ -209,9 +218,9 @@ export function StoryFrame({ story, width, mediaUrl, caption, children }: Props)
       style={{
         width,
         height,
-        backgroundColor: story.kind === 'photo' ? colors.photoEmpty : bg,
+        backgroundColor: story.kind === 'photo' ? CAPTION_SCRIM : bg,
         overflow: 'hidden',
-        borderRadius: radius.none,
+        borderRadius: Math.min(radius.card, width * 0.08),
       }}
     >
       {story.kind === 'photo' && mediaUrl ? (
@@ -225,7 +234,7 @@ export function StoryFrame({ story, width, mediaUrl, caption, children }: Props)
 
       {story.kind === 'drawing' ? (
         <View style={{ position: 'absolute', left: 0, top: 0 }}>
-          <StrokesSvg strokes={asStrokes(story.strokes)} colors={colors} width={width} />
+          <StrokesSvg strokes={asStrokes(story.strokes)} width={width} />
         </View>
       ) : null}
 
@@ -243,9 +252,7 @@ export function StoryFrame({ story, width, mediaUrl, caption, children }: Props)
           }}
         >
           {children ?? (
-            <RNText style={storyTextStyle(story, text.length, width, { colors, fonts })}>
-              {text}
-            </RNText>
+            <RNText style={storyTextStyle(story, text.length, width, { fonts })}>{text}</RNText>
           )}
         </View>
       ) : null}
@@ -262,20 +269,19 @@ export function StoryFrame({ story, width, mediaUrl, caption, children }: Props)
         >
           <View
             style={{
-              backgroundColor: colors.polaroid,
-              paddingHorizontal: 10 * scale,
-              paddingVertical: 6 * scale,
+              backgroundColor: CAPTION_SCRIM,
+              paddingHorizontal: 12 * scale,
+              paddingVertical: 8 * scale,
               maxWidth: '100%',
-              transform: [{ rotate: '-1deg' }],
-              boxShadow: `0 ${4 * scale}px ${8 * scale}px -${3 * scale}px ${colors.shadow}`,
+              borderRadius: 14 * scale,
             }}
           >
             <RNText
               style={{
-                color: colors.onPolaroid,
-                fontFamily: fonts.hand,
-                fontSize: Math.round(22 * scale),
-                lineHeight: Math.round(25 * scale),
+                color: CAPTION_TEXT,
+                fontFamily: fonts.textSemi,
+                fontSize: Math.max(14, Math.round(18 * scale)),
+                lineHeight: Math.max(20, Math.round(24 * scale)),
               }}
             >
               {label}
@@ -284,7 +290,7 @@ export function StoryFrame({ story, width, mediaUrl, caption, children }: Props)
         </View>
       ) : null}
 
-      <StickersView stickers={stickers} width={width} />
+      <StickersView stickers={stickers} width={width} fruit={fruit ?? mine.me} />
     </View>
   );
 }
