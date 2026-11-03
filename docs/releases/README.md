@@ -23,6 +23,19 @@ con este formato exacto (el workflow lo lee en pushes de tags):
 El resto es el cuerpo del release (requisitos previos, cómo instalar, qué probar).
 Si falta el archivo, el workflow falla con un mensaje claro.
 
+## Aviso dentro de la app (D107)
+
+Desde la v0.12.3, la app revisa GitHub Releases al abrir y avisa en Inicio cuando hay un APK más
+nuevo (y en **Más → Buscar versión nueva**). Se ofrece cualquier release `vN.N.N` con un `.apk`,
+incluidos los pre-releases, en cuanto se publica.
+
+- Si un APK **no debe instalarse todavía** (necesita un deploy del servidor que no se ha hecho, o es
+  un spike de prueba), pon `<!-- sin-aviso -->` en sus notas. Cuando ya se pueda, quita la marca
+  editando el release en GitHub (o `gh release edit vX.Y.Z --notes-file ...`): la app lo lee en
+  vivo, no hace falta recompilar.
+- El APK se descarga en el navegador del celular; Android lo instala encima (misma firma y
+  `versionCode` mayor), sin perder la sesión.
+
 ## Cómo lanzar
 
 - **Desde GitHub:** Actions → _Release APK_ → _Run workflow_; llena `ref` (rama o commit),
