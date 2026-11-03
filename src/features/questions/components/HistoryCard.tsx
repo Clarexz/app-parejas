@@ -1,15 +1,11 @@
 import { View } from 'react-native';
 
-import { Card, Chip, Stamp, Text } from '@/components';
-import {
-  answerExcerpt,
-  categoryColor,
-  historyPartnerLine,
-  historyStamp,
-} from '@/lib/questionsView';
+import { Card, FruitDot, Text } from '@/components';
+import { answerExcerpt, historyPartnerLine } from '@/lib/questionsView';
 import type { HistoryItem } from '@/lib/questions';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
+
+import { usePairFruits } from './usePairFruits';
 
 type Props = {
   item: HistoryItem;
@@ -18,48 +14,44 @@ type Props = {
   onPress: () => void;
 };
 
-/** Ficha del historial: pregunta, sello de fecha y extractos de las dos respuestas. */
-export function HistoryCard({ item, partnerName, timeZone, onPress }: Props) {
+/** Renglón del historial: la pregunta, la categoría y los dos `FruitDot` (llenos si ya contestó). */
+export function HistoryCard({ item, partnerName, onPress }: Props) {
   const { spacing } = useTheme();
+  const fruits = usePairFruits();
   const line = historyPartnerLine(item);
+  const status =
+    line.kind === 'answer'
+      ? 'Contestaron los dos.'
+      : line.kind === 'locked'
+        ? `${partnerName} contestó. Te toca para leerla.`
+        : item.mine
+          ? `Ya contestaste. Falta ${partnerName}.`
+          : 'Todavía sin contestar.';
   return (
-    <Card
-      tilt={tiltFor(item.question.id, 1)}
-      onPress={onPress}
-      accessibilityLabel={item.question.text}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-        <Stamp tone="ink">{historyStamp(item, timeZone)}</Stamp>
-        <Chip
-          label={item.question.category_name}
-          color={categoryColor(item.question.category)}
-          style={{ flexShrink: 1 }}
-        />
-      </View>
+    <Card onPress={onPress} accessibilityLabel={`${item.question.text}. ${status}`}>
       <Text variant="bodyStrong">{item.question.text}</Text>
       {item.mine ? (
-        <View>
-          <Text variant="caption" muted>
-            Tú
-          </Text>
-          <Text variant="body">{answerExcerpt(item.mine, item.question)}</Text>
-        </View>
-      ) : null}
-      <View>
-        <Text variant="caption" muted>
-          {partnerName}
+        <Text variant="body" tone="muted" numberOfLines={2}>
+          {answerExcerpt(item.mine, item.question)}
         </Text>
-        {line.kind === 'answer' ? (
-          <Text variant="body">{line.text}</Text>
-        ) : line.kind === 'locked' ? (
-          <Text variant="body" tone="jamaica">
-            {partnerName} contestó. Te toca para leerla.
-          </Text>
-        ) : (
-          <Text variant="body" muted>
-            Todavía no contesta.
-          </Text>
-        )}
+      ) : null}
+      {line.kind === 'answer' ? (
+        <Text variant="body" tone="muted" numberOfLines={2}>
+          {line.text}
+        </Text>
+      ) : null}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+        <Text variant="note" tone="muted" style={{ flex: 1 }} numberOfLines={1}>
+          {line.kind === 'answer' ? item.question.category_name : status}
+        </Text>
+        <View style={{ flexDirection: 'row', gap: spacing.xs }}>
+          <View style={{ opacity: item.mine ? 1 : 0.25 }}>
+            <FruitDot fruit={fruits.me} />
+          </View>
+          <View style={{ opacity: item.partner_answered ? 1 : 0.25 }}>
+            <FruitDot fruit={fruits.partner} />
+          </View>
+        </View>
       </View>
     </Card>
   );

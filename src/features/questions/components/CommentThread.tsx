@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import {
-  Button,
-  Divider,
+  Chip,
+  FruitDot,
   IconButton,
   Input,
   ListRow,
-  LoadingLines,
+  LoadingSymbol,
+  Notice,
   Sheet,
   Text,
 } from '@/components';
@@ -15,6 +16,7 @@ import { useToast } from '@/components/Toast';
 import { formatTimeIn } from '@/lib/dates';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
+import { commentCountLabel } from '@/lib/questionCopy';
 import {
   COMMENT_MAX_LENGTH,
   REACTION_OPTIONS,
@@ -25,6 +27,7 @@ import { useTheme } from '@/theme';
 
 import type { Comment } from '../api';
 import { useAddComment, useComments, useDeleteComment, useReactToComment } from '../hooks';
+import { usePairFruits } from './usePairFruits';
 
 const isOptimistic = (c: Comment) => c.id.startsWith('optimistic-');
 
@@ -33,11 +36,14 @@ type ListProps = {
   myId: string | null;
   partnerName: string;
   timeZone: string;
+  /** Para el encabezado mientras cargan los comentarios. */
+  commentCount?: number;
 };
 
-/** Hilo de comentarios: notitas mías a la derecha, de tu pareja a la izquierda (DISENO §8). */
-export function CommentList({ questionId, myId, partnerName, timeZone }: ListProps) {
-  const { colors, spacing, shadows } = useTheme();
+/** Comentarios en burbujas `surface` (radio 18) con el `FruitDot` de quien los escribió. */
+export function CommentList({ questionId, myId, partnerName, timeZone, commentCount }: ListProps) {
+  const { colors, spacing, radius, fruit } = useTheme();
+  const fruits = usePairFruits();
   const toast = useToast();
   const { comments, isLoading, isError, refetch } = useComments(questionId);
   const react = useReactToComment();
@@ -53,37 +59,35 @@ export function CommentList({ questionId, myId, partnerName, timeZone }: ListPro
   const reactTo = (comment: Comment, emoji: string | null) => {
     react.mutate(
       { commentId: comment.id, questionId, emoji },
-      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }) },
+      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }) },
     );
   };
   const remove = (comment: Comment) => {
     closeMenu();
     del.mutate(
       { commentId: comment.id, questionId },
-      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }) },
+      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }) },
     );
   };
 
+  const total = isLoading ? (commentCount ?? 0) : comments.length;
+
   return (
     <View style={{ gap: spacing.lg }}>
-      <View style={{ gap: spacing.xs }}>
-        <Text variant="title" accessibilityRole="header">
-          Lo que se dijeron
-        </Text>
-        <Divider />
-      </View>
+      <Text variant="label" tone="muted" accessibilityRole="header">
+        {commentCountLabel(total)}
+      </Text>
 
       {isLoading ? (
-        <LoadingLines count={2} accessibilityLabel="Cargando los comentarios" />
-      ) : isError ? (
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="body" tone="muted">
-            No pudimos traer los comentarios. Revisa tu internet y vuelve a intentar.
-          </Text>
-          <Button title="Reintentar" variant="ghost" onPress={() => void refetch()} />
+        <View style={{ alignItems: 'center', paddingVertical: spacing.lg }}>
+          <LoadingSymbol size={32} accessibilityLabel="Cargando los comentarios" />
         </View>
+      ) : isError ? (
+        <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+          No pudimos traer los comentarios. Revisa tu internet y vuelve a intentar.
+        </Notice>
       ) : comments.length === 0 ? (
-        <Text variant="hand" tone="muted">
+        <Text variant="body" tone="muted">
           Nadie ha dicho nada todavía. Empiecen ustedes.
         </Text>
       ) : (
@@ -92,73 +96,57 @@ export function CommentList({ questionId, myId, partnerName, timeZone }: ListPro
           const summary = reactionSummary(c.reactions, myId ?? '');
           const time = formatTimeIn(timeZone, new Date(c.created_at));
           return (
-            <View
-              key={c.id}
-              style={{ alignItems: mine ? 'flex-end' : 'flex-start', gap: spacing.xs }}
-            >
-              <Pressable
-                disabled={isOptimistic(c)}
-                onLongPress={() => {
-                  haptic.stick();
-                  openMenu(c);
-                }}
-                delayLongPress={350}
-                accessibilityLabel={`${mine ? 'Tú' : partnerName}, ${time}: ${c.body}`}
-                accessibilityHint="Mantén pulsado para reaccionar"
-                accessibilityActions={[{ name: 'activate', label: 'Reaccionar' }]}
-                onAccessibilityAction={() => openMenu(c)}
-                style={{ maxWidth: '84%' }}
-              >
-                <View
-                  style={{
-                    backgroundColor: mine ? colors.postit : colors.paperRaised,
-                    borderTopWidth: mine ? 0 : 2,
-                    borderTopColor: colors.margin,
-                    padding: spacing.md,
-                    opacity: isOptimistic(c) ? 0.7 : 1,
-                    boxShadow: shadows.object,
+            <View key={c.id} style={{ flexDirection: 'row', gap: spacing.sm }}>
+              <View style={{ paddingTop: 18 }}>
+                <FruitDot fruit={mine ? fruits.me : fruits.partner} />
+              </View>
+              <View style={{ flex: 1, alignItems: 'flex-start', gap: spacing.xs }}>
+                <Pressable
+                  disabled={isOptimistic(c)}
+                  onLongPress={() => {
+                    haptic.light();
+                    openMenu(c);
                   }}
+                  delayLongPress={350}
+                  accessibilityLabel={`${mine ? 'Tú' : partnerName}, ${time}: ${c.body}`}
+                  accessibilityHint="Mantén pulsado para reaccionar"
+                  accessibilityActions={[{ name: 'activate', label: 'Reaccionar' }]}
+                  onAccessibilityAction={() => openMenu(c)}
+                  style={{ maxWidth: '92%' }}
                 >
-                  <Text variant="body" style={mine ? { color: colors.onPostit } : undefined}>
-                    {c.body}
-                  </Text>
-                </View>
-              </Pressable>
-              <View
-                style={{
-                  flexDirection: mine ? 'row-reverse' : 'row',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: spacing.sm,
-                }}
-              >
-                <Text variant="mono" tone="muted">
-                  {mine ? time : `${partnerName} · ${time}`}
-                </Text>
-                {summary.map((r) => (
-                  <Pressable
-                    key={r.emoji}
-                    onPress={() => reactTo(c, r.mine ? null : r.emoji)}
-                    disabled={isOptimistic(c)}
-                    hitSlop={spacing.sm}
-                    accessibilityRole="button"
-                    accessibilityLabel={`Reacción ${r.emoji}, ${r.count}${r.mine ? ', tuya' : ''}`}
+                  <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: spacing.xs,
-                      paddingHorizontal: spacing.sm,
-                      paddingVertical: spacing.xxs,
-                      backgroundColor: colors.paperRaised,
-                      borderWidth: 1.5,
-                      borderColor: r.mine ? colors.ink : colors.ruled,
-                      borderRadius: 999,
+                      backgroundColor: colors.surface,
+                      borderRadius: radius.md,
+                      paddingVertical: spacing.md,
+                      paddingHorizontal: spacing.lg,
+                      opacity: isOptimistic(c) ? 0.7 : 1,
                     }}
                   >
-                    <Text variant="small">{r.emoji}</Text>
-                    {r.count > 1 ? <Text variant="caption">{r.count}</Text> : null}
-                  </Pressable>
-                ))}
+                    <Text variant="body">{c.body}</Text>
+                  </View>
+                </Pressable>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: spacing.sm,
+                  }}
+                >
+                  <Text variant="note" tone="muted">
+                    {mine ? time : `${partnerName} · ${time}`}
+                  </Text>
+                  {summary.map((r) => (
+                    <Chip
+                      key={r.emoji}
+                      label={r.count > 1 ? `${r.emoji} ${r.count}` : r.emoji}
+                      selected={r.mine}
+                      disabled={isOptimistic(c)}
+                      onPress={() => reactTo(c, r.mine ? null : r.emoji)}
+                    />
+                  ))}
+                </View>
               </View>
             </View>
           );
@@ -178,6 +166,7 @@ export function CommentList({ questionId, myId, partnerName, timeZone }: ListPro
                   <Pressable
                     key={emoji}
                     onPress={() => {
+                      haptic.light();
                       reactTo(menuComment, selected ? null : emoji);
                       closeMenu();
                     }}
@@ -189,21 +178,22 @@ export function CommentList({ questionId, myId, partnerName, timeZone }: ListPro
                       height: 52,
                       alignItems: 'center',
                       justifyContent: 'center',
-                      borderWidth: 1.5,
-                      borderColor: selected ? colors.ink : colors.ruled,
-                      backgroundColor: colors.paperRaised,
+                      borderRadius: radius.pill,
+                      borderWidth: 2,
+                      borderColor: selected ? fruit.me.hex : 'transparent',
+                      backgroundColor: colors.surface2,
                     }}
                   >
-                    <Text variant="title">{emoji}</Text>
+                    <Text variant="h3">{emoji}</Text>
                   </Pressable>
                 );
               })}
             </View>
             {menuComment.user_id === myId ? (
               <ListRow
-                label="Arrancar este comentario"
-                icon="close"
-                tone="destructive"
+                label="Borrar este comentario"
+                icon="trash"
+                tone="danger"
                 divider={false}
                 onPress={() => remove(menuComment)}
               />
@@ -235,36 +225,33 @@ export function CommentComposer({ questionId, onSent }: ComposerProps) {
       {
         onError: (e) => {
           setBody(text);
-          toast.show({ message: errorMessage(e), tone: 'error' });
+          toast.show({ message: errorMessage(e), tone: 'danger' });
         },
       },
     );
   };
 
   return (
-    <View style={{ gap: spacing.xs }}>
-      <Divider />
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        <View style={{ flex: 1 }}>
-          <Input
-            value={body}
-            onChangeText={setBody}
-            placeholder="Escribe un comentario"
-            accessibilityLabel="Escribe un comentario"
-            maxLength={COMMENT_MAX_LENGTH}
-            returnKeyType="send"
-            submitBehavior="submit"
-            onSubmitEditing={send}
-          />
-        </View>
-        <IconButton
-          name="send"
-          variant="sticker"
-          accessibilityLabel="Enviar comentario"
-          disabled={!valid}
-          onPress={send}
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+      <View style={{ flex: 1 }}>
+        <Input
+          value={body}
+          onChangeText={setBody}
+          placeholder="Escribe un comentario"
+          accessibilityLabel="Escribe un comentario"
+          maxLength={COMMENT_MAX_LENGTH}
+          returnKeyType="send"
+          submitBehavior="submit"
+          onSubmitEditing={send}
         />
       </View>
+      <IconButton
+        name="send"
+        variant="filled"
+        accessibilityLabel="Enviar comentario"
+        disabled={!valid}
+        onPress={send}
+      />
     </View>
   );
 }

@@ -1,23 +1,20 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, Share, View } from 'react-native';
-import Animated from 'react-native-reanimated';
 
 import {
   Button,
-  Card,
   Divider,
-  Doodle,
+  FruitDot,
   Icon,
+  LoadingSymbol,
   Screen,
   Sheet,
-  Stamp,
-  Tally,
   Text,
-  WaitingIllustration,
-  useStickIn,
+  useArrive,
   useToast,
 } from '@/components';
+import Animated from 'react-native-reanimated';
 import { errorMessage } from '@/lib/errors';
 import {
   GAMES,
@@ -32,118 +29,99 @@ import {
   type GameRound,
 } from '@/lib/games';
 import { haptic } from '@/lib/haptics';
-import { tiltFor } from '@/lib/tilt';
 import { useTheme } from '@/theme';
 
 import { useAnswerGameItem, useDeleteGameRound, useGameRound, useStartGameRound } from '../hooks';
+import { RoundProgress } from './RoundProgress';
 import { useNames } from './useNames';
 import { BackBar, ErrorPage, LoadingPage, isGone, useGoBack } from './ui';
 
-/** Ficha grande del ítem que se "pega" al llegar (DISENO §5). */
-function ItemCard({ item }: { item: GameItem }) {
-  const { spacing } = useTheme();
-  const stick = useStickIn(tiltFor(item.id, 1));
+/** La frase del ítem: llega con `spring` (§5) y va directo sobre el fondo. */
+function ItemText({ item }: { item: GameItem }) {
+  const arrive = useArrive();
   return (
-    <Animated.View style={stick}>
-      <Card>
-        <View style={{ minHeight: spacing.xxxl * 2, justifyContent: 'center' }}>
-          <Text variant={item.text.length > 120 ? 'heading' : 'title'}>{item.text}</Text>
-        </View>
-      </Card>
+    <Animated.View style={arrive}>
+      <View style={{ minHeight: 96, justifyContent: 'center' }}>
+        <Text variant={item.text.length > 120 ? 'h3' : 'h2'} accessibilityRole="header">
+          {item.text}
+        </Text>
+      </View>
     </Animated.View>
   );
 }
 
-/** Respuesta grande como papelito post-it. */
-function Papelito({
+/** Respuesta grande: botón `surface` de 72 dp. */
+function OptionButton({
   label,
-  tilt,
-  tone,
   disabled,
   onPress,
 }: {
   label: string;
-  tilt: number;
-  tone: 'postit' | 'mint';
   disabled: boolean;
   onPress: () => void;
 }) {
-  const { colors, spacing, radius, shadows } = useTheme();
+  const { colors, spacing, radius } = useTheme();
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
       onPress={onPress}
-      style={{ transform: [{ rotate: `${tilt}deg` }] }}
+      style={({ pressed }) => ({
+        minHeight: 72,
+        justifyContent: 'center',
+        backgroundColor: pressed ? colors.surface2 : colors.surface,
+        borderRadius: radius.card,
+        paddingVertical: spacing.md,
+        paddingHorizontal: spacing.xl - 4,
+        opacity: disabled ? 0.6 : 1,
+        transform: [{ scale: pressed ? 0.97 : 1 }],
+      })}
     >
-      {({ pressed }) => (
-        <View
-          style={{
-            minHeight: 72,
-            justifyContent: 'center',
-            backgroundColor: tone === 'postit' ? colors.postit : colors.tapeMint,
-            borderRadius: radius.none,
-            padding: spacing.lg,
-            boxShadow: pressed ? shadows.lifted : shadows.object,
-            opacity: disabled ? 0.7 : 1,
-            transform: [{ scale: pressed ? 0.97 : 1 }],
-          }}
-        >
-          <Text variant="hand" style={{ color: tone === 'postit' ? colors.onPostit : colors.ink }}>
-            {label}
-          </Text>
-        </View>
-      )}
+      <Text variant="bodyStrong">{label}</Text>
     </Pressable>
   );
+}
+
+function useProgressProps(round: GameRound) {
+  const { meName, partnerName, meFruit, partnerFruit } = useNames();
+  return {
+    total: round.total,
+    me: { fruit: meFruit, name: meName, count: round.my_count },
+    partner: { fruit: partnerFruit, name: partnerName, count: round.partner_count },
+  };
 }
 
 function Playing({ round }: { round: GameRound }) {
   const { spacing } = useTheme();
   const toast = useToast();
   const { partnerName } = useNames();
+  const progress = useProgressProps(round);
   const answer = useAnswerGameItem(round.id);
   const item = nextItem(round);
   if (!item) return null;
   const labels = answerLabels(round.game, item, partnerName);
 
   const choose = (choice: 0 | 1) => {
-    haptic.stick();
+    haptic.light();
     answer.mutate(
       { questionId: item.id, choice },
-      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }) },
+      { onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }) },
     );
   };
 
   return (
     <View style={{ gap: spacing.xl }}>
-      <View style={{ gap: spacing.sm }}>
-        <Text variant="small" muted>
+      <View style={{ gap: spacing.md }}>
+        <Text variant="label" tone="muted">
           {Math.min(round.my_count + 1, round.total)} de {round.total}
         </Text>
-        <Tally
-          total={round.total}
-          count={round.my_count}
-          accessibilityLabel={`${round.my_count} de ${round.total} contestadas`}
-        />
+        <RoundProgress {...progress} />
       </View>
-      <ItemCard key={item.id} item={item} />
-      <View style={{ gap: spacing.lg }}>
-        <Papelito
-          label={labels[0]}
-          tone="postit"
-          tilt={-1.5}
-          disabled={answer.isPending}
-          onPress={() => choose(0)}
-        />
-        <Papelito
-          label={labels[1]}
-          tone="mint"
-          tilt={1.5}
-          disabled={answer.isPending}
-          onPress={() => choose(1)}
-        />
+      <ItemText key={item.id} item={item} />
+      <View style={{ gap: spacing.md }}>
+        <OptionButton label={labels[0]} disabled={answer.isPending} onPress={() => choose(0)} />
+        <OptionButton label={labels[1]} disabled={answer.isPending} onPress={() => choose(1)} />
       </View>
     </View>
   );
@@ -152,28 +130,26 @@ function Playing({ round }: { round: GameRound }) {
 function Waiting({ round }: { round: GameRound }) {
   const { spacing } = useTheme();
   const { partnerName } = useNames();
+  const progress = useProgressProps(round);
   return (
     <View style={{ gap: spacing.lg, alignItems: 'flex-start' }}>
-      <WaitingIllustration />
-      <Text variant="title" accessibilityRole="header">
+      <LoadingSymbol size={64} accessibilityLabel={`Esperando a ${partnerName}`} />
+      <Text variant="h3" accessibilityRole="header">
         Ya quedó tu parte
       </Text>
-      <Text variant="body" muted>
-        Falta {partnerName} ({round.partner_count}/{round.total}). Cuando termine, aquí aparece
-        cuánto coincidieron.
+      <Text variant="body" tone="muted">
+        Falta {partnerName}. Cuando termine, aquí aparece cuánto coincidieron.
       </Text>
-      <Tally
-        total={round.total}
-        count={round.partner_count}
-        accessibilityLabel={`${partnerName} lleva ${round.partner_count} de ${round.total}`}
-      />
+      <View style={{ alignSelf: 'stretch' }}>
+        <RoundProgress {...progress} />
+      </View>
     </View>
   );
 }
 
 function ResultRow({ round, item }: { round: GameRound; item: GameItem }) {
   const { spacing, colors } = useTheme();
-  const { meName, partnerName } = useNames();
+  const { meName, partnerName, meFruit, partnerFruit } = useNames();
   const m = round.mine[item.id];
   const p = round.partner?.[item.id];
   if (m === undefined || p === undefined) return null;
@@ -193,23 +169,23 @@ function ResultRow({ round, item }: { round: GameRound; item: GameItem }) {
       accessibilityLabel={`${item.text}. ${hit ? 'Coincidieron.' : 'No coincidieron.'} Tú: ${mineText}. ${partnerName}: ${partnerText}.`}
       style={{ flexDirection: 'row', gap: spacing.md, paddingVertical: spacing.md }}
     >
-      <View style={{ flex: 1, gap: spacing.xs }}>
+      <View style={{ flex: 1, gap: spacing.sm }}>
         <Text variant="bodyStrong">{item.text}</Text>
-        <Text variant="small">
-          <Text variant="small" muted>
-            Tú:{' '}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+          <FruitDot fruit={meFruit} />
+          <Text variant="body" style={{ flex: 1 }}>
+            {mineText}
           </Text>
-          {mineText}
-        </Text>
-        <Text variant="small">
-          <Text variant="small" muted>
-            {partnerName}:{' '}
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+          <FruitDot fruit={partnerFruit} />
+          <Text variant="body" style={{ flex: 1 }}>
+            {partnerText}
           </Text>
-          {partnerText}
-        </Text>
+        </View>
       </View>
       <View style={{ width: 28, alignItems: 'center', paddingTop: spacing.xs }}>
-        {hit ? <Icon name="check" size={24} color={colors.nopal} /> : null}
+        {hit ? <Icon name="check" size={24} color={colors.success} /> : null}
       </View>
     </View>
   );
@@ -237,31 +213,25 @@ function Finished({ round }: { round: GameRound }) {
       { game: round.game, spicy: round.spicy },
       {
         onSuccess: (r) => {
-          haptic.stick();
+          haptic.light();
           router.replace({ pathname: '/game/[id]', params: { id: r.id } });
         },
-        onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+        onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
       },
     );
 
   return (
     <View style={{ gap: spacing.xl }}>
       {match ? (
-        <View style={{ gap: spacing.md, alignItems: 'flex-start' }}>
-          <View style={{ width: 160, height: 76, alignItems: 'center', justifyContent: 'center' }}>
-            <Text
-              variant="hero"
-              accessibilityLabel={`${match.pct} por ciento de coincidencia`}
-              style={{ fontVariant: ['tabular-nums'] }}
-            >
-              {match.pct}%
-            </Text>
-            <View pointerEvents="none" style={{ position: 'absolute', top: 0, left: 0 }}>
-              <Doodle kind="circle" width={160} height={76} />
-            </View>
-          </View>
-          <Text variant="hand">{matchHeadline(match.pct)}</Text>
-          <Text variant="small" muted>
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="label" tone="muted">
+            Coincidieron
+          </Text>
+          <Text variant="display" accessibilityLabel={`${match.pct} por ciento de coincidencia`}>
+            {match.pct}%
+          </Text>
+          <Text variant="h3">{matchHeadline(match.pct)}</Text>
+          <Text variant="note" tone="muted">
             Coincidieron en {match.matches} de {match.total}.
           </Text>
         </View>
@@ -277,9 +247,9 @@ function Finished({ round }: { round: GameRound }) {
         ))}
       </View>
 
-      <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-        <Button title="Compartir" variant="secondary" onPress={() => void share()} />
-        <Button title="Otra ronda" onPress={next} loading={again.isPending} />
+      <View style={{ gap: spacing.md }}>
+        <Button title="Otra ronda" fullWidth onPress={next} loading={again.isPending} />
+        <Button title="Compartir" variant="secondary" fullWidth onPress={() => void share()} />
       </View>
     </View>
   );
@@ -323,18 +293,18 @@ export function GameRoundView({ id }: { id: string }) {
         setConfirm(false);
         goBack();
       },
-      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
     });
 
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
       <View style={{ gap: spacing.lg }}>
         <BackBar />
-        <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
-          <Stamp tone={round.spicy ? 'jamaica' : 'ink'}>
-            {round.spicy ? 'VERSIÓN PICANTE' : turn === 'finished' ? 'RESULTADOS' : 'RONDA'}
-          </Stamp>
-          <Text variant="display" accessibilityRole="header">
+        <View style={{ gap: spacing.xs }}>
+          <Text variant="label" tone="muted">
+            {round.spicy ? 'Versión picante' : turn === 'finished' ? 'Resultados' : 'Ronda'}
+          </Text>
+          <Text variant="h1" accessibilityRole="header">
             {info.name}
           </Text>
         </View>
@@ -344,20 +314,18 @@ export function GameRoundView({ id }: { id: string }) {
         {turn === 'finished' ? <Finished round={round} /> : null}
 
         {turn !== 'finished' ? (
-          <Button title="Abandonar ronda" variant="ghost" onPress={() => setConfirm(true)} />
+          <Button title="Dejar la ronda" variant="ghost" onPress={() => setConfirm(true)} />
         ) : null}
       </View>
 
-      <Sheet visible={confirm} onClose={() => setConfirm(false)} title="¿Abandonar esta ronda?">
+      <Sheet visible={confirm} onClose={() => setConfirm(false)} title="¿Dejar esta ronda?">
         <View style={{ gap: spacing.lg }}>
-          <Text variant="body" muted>
+          <Text variant="body" tone="muted">
             La ronda se borra para los dos, con todo lo que han contestado. Después pueden empezar
             otra.
           </Text>
-          <View style={{ flexDirection: 'row', gap: spacing.md, alignItems: 'center' }}>
-            <Button title="Abandonar" onPress={abandon} loading={remove.isPending} />
-            <Button title="Mejor no" variant="ghost" onPress={() => setConfirm(false)} />
-          </View>
+          <Button title="Dejarla" variant="danger" onPress={abandon} loading={remove.isPending} />
+          <Button title="Mejor no" variant="ghost" onPress={() => setConfirm(false)} />
         </View>
       </Sheet>
     </Screen>

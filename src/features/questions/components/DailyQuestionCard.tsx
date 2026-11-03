@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { Card, LoadingLines, Stamp, Text } from '@/components';
+import { Card, Chip, LoadingSymbol, Text } from '@/components';
 import { useCouple } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
 import { commentCountLabel, questionErrorKind } from '@/lib/questionCopy';
@@ -20,39 +20,37 @@ type ViewProps = {
 export function DailyQuestionCardView({ card, partnerName, onPress }: ViewProps) {
   const { spacing } = useTheme();
   const state = cardState(card);
-  const stamp = {
-    unanswered: { tone: 'jamaica', text: 'TE TOCA' },
-    waiting: { tone: 'ink', text: 'ESPERANDO' },
-    both: { tone: 'nopal', text: 'LOS DOS CONTESTARON' },
-  }[state] as { tone: 'jamaica' | 'ink' | 'nopal'; text: string };
+  const status = {
+    unanswered: 'Te toca',
+    waiting: 'Esperando',
+    both: 'Contestaron los dos',
+  }[state];
 
   const footer =
     state === 'unanswered'
       ? card.partner_answered
-        ? `${partnerName} ya escribió y la dobló. Te toca.`
+        ? `${partnerName} ya contestó. Te toca.`
         : `${partnerName} todavía no contesta.`
       : state === 'waiting'
-        ? `Ya pegaste la tuya. ${partnerName} todavía no contesta.`
+        ? `Ya contestaste. Falta ${partnerName}.`
         : commentCountLabel(card.comment_count);
 
   return (
     <Card
-      variant="ruled"
-      tilt={-1}
       onPress={onPress}
-      accessibilityLabel={`La pregunta del día: ${card.question.text}. ${stamp.text.toLowerCase()}. ${footer}`}
+      accessibilityLabel={`La pregunta del día: ${card.question.text}. ${status}. ${footer}`}
     >
-      <View style={{ gap: spacing.sm }}>
+      <View style={{ gap: spacing.md }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-          <Stamp tone={stamp.tone}>{stamp.text}</Stamp>
-          <Text variant="small" tone="muted">
-            La pregunta del día
+          <Text variant="label" tone="muted" style={{ flex: 1 }}>
+            Pregunta del día
           </Text>
+          <Chip label={status} selected={state === 'unanswered'} />
         </View>
-        <Text variant="hand" numberOfLines={4}>
+        <Text variant="h3" numberOfLines={4}>
           {card.question.text}
         </Text>
-        <Text variant="small" tone="muted">
+        <Text variant="note" tone="muted">
           {footer}
         </Text>
       </View>
@@ -70,9 +68,13 @@ export function DailyQuestionCard() {
 
   if (isLoading) {
     return (
-      <Card variant="ruled" tilt={-1}>
-        <Text variant="title">La pregunta del día</Text>
-        <LoadingLines count={2} accessibilityLabel="Cargando la pregunta del día" />
+      <Card>
+        <Text variant="label" tone="muted">
+          Pregunta del día
+        </Text>
+        <View style={{ alignItems: 'center', paddingVertical: spacing.md }}>
+          <LoadingSymbol size={32} accessibilityLabel="Cargando la pregunta del día" />
+        </View>
       </Card>
     );
   }
@@ -81,16 +83,16 @@ export function DailyQuestionCard() {
     const none = questionErrorKind(error) === 'no_questions';
     return (
       <Card
-        variant="ruled"
-        tilt={-1}
         onPress={() => void refetch()}
         accessibilityLabel={`La pregunta del día. ${none ? 'Hoy no hay pregunta.' : 'No se pudo cargar.'} Toca para reintentar.`}
       >
         <View style={{ gap: spacing.sm }}>
-          <Text variant="title">La pregunta del día</Text>
+          <Text variant="label" tone="muted">
+            Pregunta del día
+          </Text>
           <Text variant="body" tone="muted">
             {none
-              ? 'Se nos acabaron las preguntas por hoy. Platiquen de lo que sea mientras vuelve el lápiz.'
+              ? 'Hoy se nos acabaron las preguntas. Platiquen de lo que sea mientras vuelven.'
               : `${errorMessage(error)} Toca para reintentar.`}
           </Text>
         </View>

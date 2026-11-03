@@ -23,7 +23,7 @@ export function SpicyOptIn() {
   const change = (enabled: boolean) =>
     setOptIn.mutate(enabled, {
       onSuccess: (active) => {
-        haptic.stamp();
+        haptic.light();
         toast.show({
           message: active
             ? 'Picantes activas para los dos.'
@@ -33,12 +33,12 @@ export function SpicyOptIn() {
           tone: 'success',
         });
       },
-      onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
+      onError: (e) => toast.show({ message: errorMessage(e), tone: 'danger' }),
     });
 
   return (
     <View style={{ gap: spacing.sm }}>
-      <Text variant="small" muted>
+      <Text variant="label" tone="muted">
         Preguntas picantes
       </Text>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
@@ -53,10 +53,14 @@ export function SpicyOptIn() {
         />
       </View>
       <Text variant="body">{copy.partnerLine}</Text>
-      <Text variant="body" tone={copy.active ? 'nopal' : 'muted'} accessibilityLiveRegion="polite">
+      <Text
+        variant="body"
+        tone={copy.active ? 'success' : 'muted'}
+        accessibilityLiveRegion="polite"
+      >
         {copy.result}
       </Text>
-      <Text variant="caption" muted>
+      <Text variant="note" tone="muted">
         Solo se activan si los dos quieren, y cualquiera las puede apagar cuando quiera.
       </Text>
     </View>

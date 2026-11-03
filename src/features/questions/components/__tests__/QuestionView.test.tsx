@@ -11,6 +11,7 @@ const mockMutateAsync = jest.fn();
 jest.mock('../../hooks', () => ({
   useSubmitAnswer: () => ({ mutateAsync: mockMutateAsync, isPending: false }),
   useDeleteAnswer: () => ({ mutateAsync: jest.fn(), isPending: false }),
+  useStreak: () => ({ streak: { current: 3, best: 5, missing_days: [] } }),
   useSendNudge: () => ({ mutate: jest.fn(), isPending: false }),
   useComments: () => ({
     comments: [],
@@ -78,19 +79,19 @@ describe('QuestionView', () => {
 
   it('sin contestar oculta la respuesta de tu pareja y no deja comentar', async () => {
     await renderView({ ...base, partner_answered: true, partner: answer('u2', 'A Oaxaca') });
-    expect(screen.getByText('Caleb ya escribió y la dobló. Te toca.')).toBeTruthy();
+    expect(screen.getByText('Caleb ya contestó')).toBeTruthy();
     expect(screen.queryByText('A Oaxaca')).toBeNull();
-    expect(screen.queryByText('Lo que se dijeron')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Pegar mi respuesta' })).toBeTruthy();
+    expect(screen.queryByText('Sin comentarios todavía')).toBeNull();
+    expect(screen.getByRole('button', { name: 'Contestar' })).toBeTruthy();
   });
 
   it('el botón de pegar espera a que haya algo escrito', async () => {
     mockMutateAsync.mockResolvedValue({ card: base, justCompleted: false });
     await renderView(base);
-    const button = screen.getByRole('button', { name: 'Pegar mi respuesta' });
+    const button = screen.getByRole('button', { name: 'Contestar' });
     expect(button.props.accessibilityState.disabled).toBe(true);
     await fireEvent.changeText(screen.getByLabelText('Tu respuesta'), 'A la playa');
-    await fireEvent.press(screen.getByRole('button', { name: 'Pegar mi respuesta' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Contestar' }));
     expect(mockMutateAsync).toHaveBeenCalledWith(
       expect.objectContaining({ text: 'A la playa', choice: null }),
     );
@@ -99,8 +100,8 @@ describe('QuestionView', () => {
   it('contestada, con la pareja pendiente: ofrece recordarle y abre los comentarios', async () => {
     await renderView({ ...base, mine: answer('u1', 'A la playa') });
     expect(screen.getByText('A la playa')).toBeTruthy();
-    expect(screen.getByText('Caleb todavía no contesta')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Recuérdale a Caleb' })).toBeTruthy();
+    expect(screen.getByText('Caleb todavía no contesta.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Pícale a Caleb' })).toBeTruthy();
     expect(screen.getByText('Nadie ha dicho nada todavía. Empiecen ustedes.')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Editar' })).toBeTruthy();
   });
@@ -113,6 +114,6 @@ describe('QuestionView', () => {
       partner_answered: true,
     });
     expect(screen.getByText('A Oaxaca')).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Recuérdale a Caleb' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Pícale a Caleb' })).toBeNull();
   });
 });

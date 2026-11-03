@@ -1,21 +1,19 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
-  Chip,
-  CloudOff,
-  Divider,
+  Card,
   EmptyState,
-  IconButton,
-  LoadingLines,
-  PencilNote,
+  FruitDot,
+  LoadingSymbol,
   Screen,
-  Stamp,
+  ScreenHeader,
   Text,
 } from '@/components';
 import { useCouple } from '@/features/couple';
 import { useCategories, useCategoryQuestions } from '@/features/questions';
-import { categoryColor, categoryRowState } from '@/lib/questionsView';
+import { usePairFruits } from '@/features/questions/components/usePairFruits';
+import { categoryRowState } from '@/lib/questionsView';
 import { useTheme } from '@/theme';
 
 export default function CategoryScreen() {
@@ -23,79 +21,81 @@ export default function CategoryScreen() {
   const router = useRouter();
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const { partner } = useCouple();
+  const fruits = usePairFruits();
   const { categories } = useCategories();
   const list = useCategoryQuestions(slug);
   const category = categories.find((c) => c.slug === slug);
   const partnerName = partner?.nickname || partner?.display_name || 'Tu pareja';
+  const done = list.questions.filter((q) => q.answered_by_me && q.answered_by_partner).length;
 
   return (
     <Screen scroll refreshing={list.isRefetching} onRefresh={() => void list.refetch()}>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
-        <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
+      <View style={{ gap: spacing.xl }}>
+        <View style={{ gap: spacing.sm }}>
+          <ScreenHeader title={category?.name ?? 'Preguntas'} back="Preguntas" />
           {category ? (
-            <Chip label={category.name} color={categoryColor(category.slug, category.intensity)} />
-          ) : null}
-          <Text variant="display" accessibilityRole="header">
-            Más preguntas
-          </Text>
-          {category ? (
-            <Text variant="body" muted>
+            <Text variant="body" tone="muted">
               {category.description}
+            </Text>
+          ) : null}
+          {list.questions.length > 0 ? (
+            <Text variant="note" tone="muted">
+              {list.questions.length === 1 ? '1 pregunta' : `${list.questions.length} preguntas`}
+              {` · ${done} contestadas por los dos`}
             </Text>
           ) : null}
         </View>
 
         {list.isLoading ? (
-          <LoadingLines count={5} accessibilityLabel="Cargando las preguntas" />
+          <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+            <LoadingSymbol accessibilityLabel="Cargando las preguntas" />
+          </View>
         ) : list.isError ? (
           <EmptyState
-            illustration={<CloudOff />}
+            art="circles"
             title="No pudimos abrir esta categoría"
-            body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-            actionLabel="Reintentar"
-            onAction={() => void list.refetch()}
+            body="Tu celular está sin señal con el servidor. Revisa tu internet y vuelve a intentar."
+            action={{ label: 'Reintentar', onPress: () => void list.refetch() }}
           />
         ) : list.questions.length === 0 ? (
           <EmptyState
-            illustration={<PencilNote />}
+            art="bubble"
             title="Aquí todavía no hay preguntas"
-            body="Cuando se agreguen, van a aparecer en este renglón."
+            body="Cuando se agreguen, van a aparecer aquí."
           />
         ) : (
-          <View>
-            {list.questions.map((q, i) => {
+          <View style={{ gap: spacing.sm }}>
+            {list.questions.map((q) => {
               const state = categoryRowState(q);
+              const note =
+                state === 'both'
+                  ? 'Contestaron los dos.'
+                  : state === 'mine'
+                    ? `Contestaste. Falta ${partnerName}.`
+                    : state === 'partner'
+                      ? `${partnerName} contestó. Te toca.`
+                      : null;
               return (
-                <View key={q.id}>
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel={q.text}
-                    onPress={() => router.push({ pathname: '/question', params: { id: q.id } })}
-                    style={({ pressed }) => ({
-                      minHeight: 64,
-                      paddingVertical: spacing.md,
-                      gap: spacing.sm,
-                      opacity: pressed ? 0.6 : 1,
-                    })}
-                  >
-                    <Text variant="body">{q.text}</Text>
-                    {state === 'both' ? (
-                      <Stamp tone="nopal">Contestaron los dos</Stamp>
-                    ) : state === 'mine' ? (
-                      <Text variant="small" muted>
-                        Contestaste. Falta {partnerName}.
-                      </Text>
-                    ) : state === 'partner' ? (
-                      <Text variant="small" tone="jamaica">
-                        {partnerName} contestó. Te toca.
-                      </Text>
-                    ) : null}
-                  </Pressable>
-                  {i < list.questions.length - 1 ? <Divider /> : null}
-                </View>
+                <Card
+                  key={q.id}
+                  accessibilityLabel={note ? `${q.text}. ${note}` : q.text}
+                  onPress={() => router.push({ pathname: '/question', params: { id: q.id } })}
+                >
+                  <Text variant="bodyStrong">{q.text}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+                    <Text variant="note" tone="muted" style={{ flex: 1 }}>
+                      {note ?? 'Sin contestar.'}
+                    </Text>
+                    <View style={{ flexDirection: 'row', gap: spacing.xs }}>
+                      <View style={{ opacity: q.answered_by_me ? 1 : 0.25 }}>
+                        <FruitDot fruit={fruits.me} />
+                      </View>
+                      <View style={{ opacity: q.answered_by_partner ? 1 : 0.25 }}>
+                        <FruitDot fruit={fruits.partner} />
+                      </View>
+                    </View>
+                  </View>
+                </Card>
               );
             })}
           </View>
