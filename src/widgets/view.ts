@@ -146,8 +146,8 @@ export function widgetView(name: WidgetName, model: WidgetModel): WidgetView {
         },
         text: story ? 'nueva' : 'ver',
         a11y: story
-          ? `${who} pegó una story ${story.ago}. Toca para verla.`
-          : `${who} no ha pegado nada hoy. Toca para abrir las stories.`,
+          ? `${who} subió una story ${story.ago}. Toca para verla.`
+          : `${who} no ha subido nada hoy. Toca para abrir las stories.`,
         route: story && model.partnerId ? `/story/view?user=${model.partnerId}` : '/stories',
         fruits,
       };

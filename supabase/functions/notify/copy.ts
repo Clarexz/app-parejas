@@ -49,30 +49,30 @@ function finish(title: string, body: string): Copy {
   };
 }
 
+// Las notificaciones llevan el nombre de quien escribe como título y una frase corta como cuerpo.
+
 export function answerCopy(
   i: CopyBase & { daily: boolean; recipientAnswered: boolean; questionText: string | null },
 ): Copy {
   const a = short(i.actor);
   const q = quoted(i.questionText);
-  const extra = i.daily ? '' : ' (pregunta extra)';
+  const extra = i.daily ? '' : ' la pregunta extra';
+  const tail = q ? ` ${q}` : '';
   if (i.recipientAnswered) {
     return pick(
       [
-        finish(`${a} ya contestó${extra}`, `Ya pueden ver las dos respuestas. ${q}`),
-        finish(`${a} ya pegó su respuesta`, `Ahora sí, a leerse las dos. ${q}`),
-        finish(`Ya hay dos respuestas${extra}`, `${a} también contestó. ${q}`),
+        finish(a, `Ya contestó${extra || ' la de hoy'}. Ya pueden leerse.${tail}`),
+        finish(a, `Contestó${extra || ' la pregunta'}. A ver qué pusieron los dos.${tail}`),
+        finish(a, `Ya están las dos respuestas. Entra a leerlas.${tail}`),
       ],
       i.seed,
     );
   }
   return pick(
     [
-      finish(
-        `${a} ya contestó${extra}`,
-        `Su respuesta está doblada. Contesta tú para ver qué escribió. ${q}`,
-      ),
-      finish(`${a} ya la dobló${extra}`, `Te toca. Contesta para desdoblar su respuesta. ${q}`),
-      finish(`${a} dejó su respuesta${extra}`, `Está doblada hasta que contestes tú. ${q}`),
+      finish(a, `Ya contestó${extra || ' la pregunta de hoy'}. Ahora te toca a ti.${tail}`),
+      finish(a, `Ya dejó su respuesta. Contesta tú para leerla.${tail}`),
+      finish(a, `Ya contestó. Su respuesta se abre cuando contestes.${tail}`),
     ],
     i.seed,
   );
@@ -86,42 +86,25 @@ export function commentCopy(
     // No se revela nada del comentario hasta que quien recibe conteste.
     return pick(
       [
-        finish(`${a} te dejó un comentario`, 'Contesta la pregunta para poder leerlo.'),
-        finish(`${a} comentó algo`, 'Contesta primero y lo lees.'),
-        finish(`Hay un comentario de ${a}`, 'Se desdobla cuando contestes la pregunta.'),
+        finish(a, 'Te dejó un comentario. Contesta la pregunta para leerlo.'),
+        finish(a, 'Comentó algo. Contesta primero y lo lees.'),
+        finish(a, 'Hay un comentario esperándote. Se abre cuando contestes.'),
       ],
       i.seed,
     );
   }
-  const text = truncate(i.body, 90);
-  return pick(
-    [
-      finish(`${a} comentó`, text),
-      finish(`${a} te escribió`, text),
-      finish(`Comentario de ${a}`, text),
-    ],
-    i.seed,
-  );
+  return finish(a, truncate(i.body, 90));
 }
 
 export function moodCopy(i: CopyBase & { emoji: string; note: string | null }): Copy {
   const a = short(i.actor, 14);
   const note = i.note ? truncate(i.note, 80) : '';
-  if (note) {
-    return pick(
-      [
-        finish(`${i.emoji} ${a} anda así hoy`, note),
-        finish(`${a} pegó su mood ${i.emoji}`, note),
-        finish(`${i.emoji} Mood de ${a}`, note),
-      ],
-      i.seed,
-    );
-  }
+  if (note) return finish(a, `${i.emoji} ${note}`);
   return pick(
     [
-      finish(`${i.emoji} ${a} anda así hoy`, 'Pásate a ver cómo amaneció.'),
-      finish(`${a} pegó su mood ${i.emoji}`, 'Un mensajito, un abrazo o lo que toque.'),
-      finish(`${i.emoji} Mood de ${a}`, 'Échale un ojo cuando puedas.'),
+      finish(a, `${i.emoji} Cambió su mood. Entra a ver cómo está.`),
+      finish(a, `${i.emoji} Hoy anda así. Pásate a ver.`),
+      finish(a, `${i.emoji} Actualizó su mood. Mándale algo bonito.`),
     ],
     i.seed,
   );
@@ -131,13 +114,10 @@ export function nudgeCopy(i: CopyBase): Copy {
   const a = short(i.actor);
   return pick(
     [
-      finish(
-        `${a} te está esperando`,
-        'Falta tu respuesta a la pregunta de hoy. Ándale, que no se enfríe.',
-      ),
-      finish(`${a} te dejó un recordatorio`, 'La pregunta de hoy sigue sin tu respuesta.'),
-      finish(`Te toca contestar`, `${a} ya quiere leer lo que piensas de la pregunta de hoy.`),
-      finish(`${a} tocó tu puerta`, 'Hay una pregunta de hoy esperando tu respuesta.'),
+      finish(a, 'Quiere saber qué contestaste hoy. Falta tu respuesta.'),
+      finish(a, 'La pregunta de hoy te está esperando.'),
+      finish(a, 'Ya quiere leer lo que piensas. Contesta cuando puedas.'),
+      finish(a, 'Te toca contestar la pregunta de hoy.'),
     ],
     i.seed,
   );
@@ -149,32 +129,27 @@ export function storyCopy(
   const a = short(i.actor);
   if (i.storyKind === 'text') {
     const text = i.text ? truncate(i.text, 100) : '';
-    if (text) {
-      return pick(
-        [
-          finish(`${a} pegó una story`, text),
-          finish(`${a} escribió una story`, text),
-          finish(`Nueva story de ${a}`, text),
-        ],
-        i.seed,
-      );
-    }
+    if (text) return finish(a, text);
+    return pick(
+      [finish(a, 'Subió una story.'), finish(a, 'Escribió una story. Dura 24 horas.')],
+      i.seed,
+    );
   }
   if (i.storyKind === 'drawing') {
     return pick(
       [
-        finish(`${a} pegó una story`, 'Hizo un dibujo para ti. Dura 24 horas.'),
-        finish(`${a} dibujó una story`, 'Pásate a verla antes de que se borre.'),
-        finish(`Nuevo dibujo de ${a}`, 'Está en sus stories, por si quieres verlo.'),
+        finish(a, 'Subió un dibujo a su story. Dura 24 horas.'),
+        finish(a, 'Hizo un dibujo para ti. Pásate a verlo.'),
+        finish(a, 'Dibujó una story. Se borra en 24 horas.'),
       ],
       i.seed,
     );
   }
   return pick(
     [
-      finish(`${a} pegó una story`, 'Una foto nueva. Dura 24 horas, no se te pase.'),
-      finish(`${a} subió una story`, 'Pásate a verla antes de que se borre.'),
-      finish(`Nueva story de ${a}`, 'Échale un ojo cuando puedas.'),
+      finish(a, 'Subió una story. Dura 24 horas.'),
+      finish(a, 'Nueva foto en su story. Échale un ojo.'),
+      finish(a, 'Subió una foto. Pásate a verla antes de que se borre.'),
     ],
     i.seed,
   );
@@ -183,37 +158,20 @@ export function storyCopy(
 export function storyReplyCopy(i: CopyBase & { body: string; toAuthor: boolean }): Copy {
   const a = short(i.actor);
   const text = truncate(i.body, 100);
-  const body = text || 'Pásate a leerla.';
-  if (i.toAuthor) {
-    return pick(
-      [
-        finish(`${a} respondió tu story`, body),
-        finish(`${a} te contestó en tu story`, body),
-        finish(`Respuesta de ${a} a tu story`, body),
-      ],
-      i.seed,
-    );
-  }
-  return pick(
-    [
-      finish(`${a} te escribió en su story`, body),
-      finish(`${a} respondió en su story`, body),
-      finish(`Mensaje de ${a} en su story`, body),
-    ],
-    i.seed,
-  );
+  if (text) return finish(a, i.toAuthor ? `Respondió tu story: ${text}` : text);
+  return finish(a, i.toAuthor ? 'Respondió tu story.' : 'Te escribió en su story.');
 }
 
 export function memoryCopy(i: CopyBase & { title: string | null; placeName: string | null }): Copy {
   const a = short(i.actor);
   const title = i.title ? truncate(i.title, 80) : '';
   const place = i.placeName ? truncate(i.placeName, 30) : '';
-  const fallback = 'Pásate a verla cuando puedas.';
+  const detail = title && place ? `${title} · ${place}` : title;
   return pick(
     [
-      finish(`${a} pegó una memoria`, title || fallback),
-      finish(`${a} guardó un recuerdo`, title || 'Pásate a verlo cuando quieras.'),
-      finish(`Nueva memoria de ${a}`, title && place ? `${title} · ${place}` : title || fallback),
+      finish(a, detail ? `Guardó una memoria: ${detail}` : 'Guardó una memoria nueva.'),
+      finish(a, detail ? `Nueva memoria: ${detail}` : 'Guardó una memoria. Pásate a verla.'),
+      finish(a, detail ? `Agregó ${detail} a sus memorias.` : 'Agregó una memoria nueva.'),
     ],
     i.seed,
   );
@@ -235,18 +193,18 @@ export function gameCopy(
     const pct = i.matchPct === null ? '' : `${Math.round(i.matchPct)} % de coincidencia. `;
     return pick(
       [
-        finish(`Ya están los resultados de ${name}`, `${pct}Entra a ver en qué coincidieron.`),
-        finish('Terminaron la ronda', `${pct}Vean quién pensó igual que quién.`),
-        finish(`Resultados de ${name}`, `${pct}A ver si se conocen tanto como creen.`),
+        finish(a, `Ya terminaron «${name}». ${pct}Entra a ver en qué coincidieron.`),
+        finish(a, `${pct}Vean quién pensó igual que quién.`),
+        finish(a, `Resultados de «${name}». ${pct}¿Se conocen tanto como creen?`),
       ],
       i.seed,
     );
   }
   return pick(
     [
-      finish(`${a} te retó a ${name}`, 'Entra a contestar cuando puedas.'),
-      finish(`${a} empezó una ronda`, `Toca jugar ${name}. ¿Le entras?`),
-      finish(`Reto de ${a}`, `${name}: te toca contestar tu parte.`),
+      finish(a, `Te retó a «${name}». ¿Le entras?`),
+      finish(a, `Empezó una ronda de «${name}». Te toca contestar.`),
+      finish(a, `Quiere jugar «${name}» contigo.`),
     ],
     i.seed,
   );
@@ -260,9 +218,9 @@ export function drawingCopy(
   if (i.event === 'solved') {
     return pick(
       [
-        finish('Adivinó tu dibujo', word ? `Era «${word}». Sí te entiende.` : 'Sí te entiende.'),
-        finish(`${a} le atinó`, word ? `Adivinó «${word}». Qué buen dibujo.` : 'Qué buen dibujo.'),
-        finish('Dibujo adivinado', word ? `La palabra era «${word}».` : 'Ya lo resolvió.'),
+        finish(a, word ? `Adivinó tu dibujo: «${word}». Sí te entiende.` : 'Adivinó tu dibujo.'),
+        finish(a, word ? `Le atinó a «${word}». Qué buen dibujo.` : 'Le atinó a tu dibujo.'),
+        finish(a, word ? `Era «${word}» y ya lo sacó.` : 'Ya sacó tu dibujo.'),
       ],
       i.seed,
     );
@@ -270,18 +228,21 @@ export function drawingCopy(
   if (i.event === 'gave_up') {
     return pick(
       [
-        finish(`${a} se rindió`, word ? `Era «${word}». Quizá faltó otro trazo.` : 'No lo sacó.'),
-        finish('Se les complicó', word ? `La palabra era «${word}».` : 'Pasó a mejor vida.'),
-        finish('Dibujo sin adivinar', word ? `Era «${word}». Va la revancha.` : 'Va la revancha.'),
+        finish(a, word ? `Se rindió. Era «${word}».` : 'Se rindió con tu dibujo.'),
+        finish(
+          a,
+          word ? `No lo sacó. Era «${word}». Va la revancha.` : 'No lo sacó. Va la revancha.',
+        ),
+        finish(a, word ? `Se les complicó «${word}». Otra ronda.` : 'Se les complicó. Otra ronda.'),
       ],
       i.seed,
     );
   }
   return pick(
     [
-      finish(`${a} te dejó un dibujo`, 'A ver si adivinas qué es.'),
-      finish('Te toca adivinar', `${a} hizo un dibujo para ti.`),
-      finish(`Dibujo de ${a}`, 'Entra y échale ojo: ¿qué será?'),
+      finish(a, 'Te dejó un dibujo. A ver si adivinas qué es.'),
+      finish(a, 'Hizo un dibujo para ti. Te toca adivinar.'),
+      finish(a, 'Dibujó algo. ¿Qué será?'),
     ],
     i.seed,
   );
@@ -291,12 +252,9 @@ export function testCopy(i: CopyBase): Copy {
   const r = short(i.recipient, 20);
   return pick(
     [
-      finish('Prueba de avisos', `${r}, si lees esto, los avisos sí llegan a este celular.`),
-      finish('Todo en orden', 'Los avisos están llegando bien a este celular.'),
-      finish(
-        'Aviso de prueba',
-        'Te lo mandaste tú mismo: las notificaciones funcionan en este celular.',
-      ),
+      finish('ahorita', `${r}, si ves esto, los avisos sí llegan a este celular.`),
+      finish('ahorita', 'Los avisos están llegando bien a este celular.'),
+      finish('ahorita', 'Prueba lista: las notificaciones funcionan en este celular.'),
     ],
     i.seed,
   );
@@ -307,21 +265,18 @@ export function loveLanguageCopy(i: CopyBase & { recipientDone: boolean }): Copy
   if (i.recipientDone) {
     return pick(
       [
-        finish(`${a} ya terminó el test`, 'Ya pueden comparar sus lenguajes del amor.'),
-        finish('Ya están los dos resultados', `Entra a ver qué idioma habla cada quien con ${a}.`),
-        finish('Lenguajes del amor', `${a} terminó su test. Comparen resultados cuando quieran.`),
+        finish(a, 'Ya terminó el test. Ya pueden comparar sus lenguajes del amor.'),
+        finish(a, 'Ya están los dos resultados. Entra a ver qué habla cada quien.'),
+        finish(a, 'Terminó su test de lenguajes del amor. Comparen cuando quieran.'),
       ],
       i.seed,
     );
   }
   return pick(
     [
-      finish(
-        `${a} hizo el test de lenguajes`,
-        'Hazlo tú y vean qué idioma del amor habla cada quien.',
-      ),
-      finish(`${a} ya terminó su test`, 'Te toca el tuyo para ver sus resultados.'),
-      finish('Lenguajes del amor', `${a} ya hizo el test. Haz el tuyo y los comparan.`),
+      finish(a, 'Hizo el test de lenguajes del amor. Haz el tuyo y comparan.'),
+      finish(a, 'Ya terminó su test. Te toca el tuyo.'),
+      finish(a, 'Ya hizo el test de lenguajes. ¿Haces el tuyo?'),
     ],
     i.seed,
   );
@@ -394,12 +349,9 @@ export function visitCopy(
   const sentence = (lead: string) => (when ? `${lead} ${when}.` : `${lead}.`);
   return pick(
     [
-      finish(`${a} apuntó una visita`, sentence('Se vieron')),
-      finish(
-        `${a} guardó cuándo se vieron`,
-        when ? `${when[0].toUpperCase()}${when.slice(1)}.` : 'Pásate a verla.',
-      ),
-      finish('Nueva visita en su historia', sentence(`${a} apuntó que se vieron`)),
+      finish(a, sentence('Apuntó que se vieron')),
+      finish(a, when ? `Guardó su visita ${when}.` : 'Guardó una visita. Pásate a verla.'),
+      finish(a, sentence('Nueva visita: se vieron')),
     ],
     i.seed,
   );

@@ -166,13 +166,13 @@ describe('renderWidget', () => {
     expect(tree.props.clickActionData).toEqual({
       uri: 'appparejas://story/view?user=11111111-1111-4111-8111-111111111111',
     });
-    expect(String(tree.props.accessibilityLabel)).toContain('Caleb pegó una story');
+    expect(String(tree.props.accessibilityLabel)).toContain('Caleb subió una story');
   });
 
   it('sin story invita a abrir las stories', () => {
     const tree = treeOf('PartnerStory', MODELS.ready);
     expect(tree.props.clickActionData).toEqual({ uri: 'appparejas://stories' });
-    expect(String(tree.props.accessibilityLabel)).toContain('Caleb no ha pegado nada hoy');
+    expect(String(tree.props.accessibilityLabel)).toContain('Caleb no ha subido nada hoy');
   });
 
   it('el estado cerrado invita a abrir la app', () => {

@@ -151,7 +151,7 @@ describe('HomeScreen', () => {
     mockAnniversary = '2023-02-14';
     await renderScreen();
     expect(screen.getByLabelText('¿Y tú? Toca para elegir tu mood')).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Pega una story' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Sube una story' }));
     expect(mockPush).toHaveBeenCalledWith('/stories');
   });
 });

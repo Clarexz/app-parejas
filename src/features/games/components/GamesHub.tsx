@@ -188,7 +188,7 @@ export function GamesHub() {
         <EmptyState
           art="circles"
           title="No pudimos abrir los juegos"
-          body="Tu celular está sin señal con el servidor. Revisa tu internet y vuelve a intentar."
+          body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
           action={{ label: 'Reintentar', onPress: () => void refetch() }}
         />
       </Screen>

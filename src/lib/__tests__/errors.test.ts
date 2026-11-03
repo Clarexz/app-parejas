@@ -1,6 +1,6 @@
 import { errorMessage } from '../errors';
 
-const NET = 'No hay señal con el servidor. Revisa tu internet y vuelve a intentar.';
+const NET = 'Tu celular está sin señal. Revisa tu internet y vuelve a intentar.';
 
 describe('errorMessage', () => {
   it('traduce códigos de Auth', () => {
@@ -21,7 +21,7 @@ describe('errorMessage', () => {
 
   it('traduce las claves de las RPC', () => {
     expect(errorMessage({ code: 'P0001', message: 'couple_full' })).toBe(
-      'Ese código ya tiene a sus dos personas. Pídele a tu pareja que revise el código.',
+      'Ese código ya tiene a sus dos personas. Revisa con tu pareja que sea el correcto.',
     );
     expect(errorMessage({ code: 'P0001', message: 'code_not_found' })).toBe(
       'No encontramos ese código. Revisa que esté bien escrito.',
@@ -47,7 +47,7 @@ describe('errorMessage', () => {
   });
 
   it('traduce las claves de mood', () => {
-    expect(errorMessage({ code: 'P0001', message: 'no_couple' })).toMatch(/vinculados/);
+    expect(errorMessage({ code: 'P0001', message: 'no_couple' })).toMatch(/juntos/);
     expect(errorMessage({ code: 'P0001', message: 'invalid_mood' })).toMatch(/emoji/);
   });
 
@@ -74,7 +74,7 @@ describe('errorMessage', () => {
   });
 
   it('cubre check_violation y genérico', () => {
-    expect(errorMessage({ code: '23514' })).toMatch(/no cumple/);
+    expect(errorMessage({ code: '23514' })).toMatch(/no cabe/);
     expect(errorMessage(new Error('boom'))).toMatch(/Algo no salió/);
     expect(errorMessage(null)).toMatch(/Algo no salió/);
     expect(errorMessage('texto')).toMatch(/Algo no salió/);

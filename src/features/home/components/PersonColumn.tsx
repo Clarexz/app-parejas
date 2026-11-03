@@ -109,7 +109,7 @@ export function PersonColumn({
     );
   }
 
-  const label = newStory ? `Story nueva de ${name}` : mine ? 'Pega una story' : `Story de ${name}`;
+  const label = newStory ? `Story nueva de ${name}` : mine ? 'Sube una story' : `Story de ${name}`;
 
   return (
     <View style={{ flex: 1, gap: spacing.md }}>

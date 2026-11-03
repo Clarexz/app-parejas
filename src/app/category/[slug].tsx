@@ -54,7 +54,7 @@ export default function CategoryScreen() {
           <EmptyState
             art="circles"
             title="No pudimos abrir esta categoría"
-            body="Tu celular está sin señal con el servidor. Revisa tu internet y vuelve a intentar."
+            body="Tu celular está sin señal. Revisa tu internet y vuelve a intentar."
             action={{ label: 'Reintentar', onPress: () => void list.refetch() }}
           />
         ) : list.questions.length === 0 ? (

@@ -35,7 +35,7 @@ function appVersion(): string {
 const MESSAGES: Record<ServerStatus, string> = {
   connected: 'Conectados con el servidor',
   degraded: 'El servidor responde a medias. Puede tardar un poco.',
-  offline: 'No hay señal con el servidor. Revisa tu internet y vuelve a intentar.',
+  offline: 'Tu celular está sin señal. Revisa tu internet y vuelve a intentar.',
   not_configured: 'Falta configurar el servidor en esta versión de la app.',
 };
 
