@@ -108,7 +108,7 @@ de la D16 en adelante se toman durante las fases. Cada fase agrega aquí lo que 
 | D101 | **Semánticos fuera del sistema de frutas**: Chile (`#B3261E` / `#FF8A80`) para errores y Nopal (`#1D7A4A` / `#6BD49A`) para "listo", siempre con ícono y texto; avisos en Tinta con ícono. | Una fruta es una persona: no puede decir "error". | 2026-11-03 |
 | D102 | **Movimiento**: la firma es la "rendija" (las mitades llegan con un resorte y no se tocan); cargando = el símbolo respira; toque 120 ms, base 220 ms, salida 160 ms, resorte damping 14 / stiffness 180; reducir movimiento = fundido de 150 ms. | Juguetón pero corto (manual §02). | 2026-11-03 |
 | D103 | **Pantallas y widgets**: Inicio sin fila de stories (el aro de fruta con punto en tu foto o la de tu pareja es la story nueva); Juegos pasa a la lista de Más. Seis widgets **1×1** con forma y vidrio simulado en SVG (Días juntos, Mood, La próxima vez, Distancia, Story y **Racha**, nuevo); snapshot de widgets **v4** con `streak` y las frutas. | Aprobado en el prototipo. | 2026-11-03 |
-| D104 | La Fase 12A se publica como **v0.12.2**; el spike de widgets en el APK sale antes como **v0.12.1** (pre-release de prueba). Incluye todo lo de las Fases 6–9 y 11B aún sin desplegar. | Convención `v0.N.P` (D32); la v0.12.0 fue la parte 1 de la Fase 12. | 2026-11-03 |
+| D104 | La Fase 12A se publica como **v0.12.2**; el spike de widgets en el APK sale antes como **v0.12.1** (pre-release de prueba). Las Fases 6–9 y 11B ya están desplegadas (el usuario lo hizo antes de la 12A); el servidor solo necesita la migración de frutas y `notify`. | Convención `v0.N.P` (D32); la v0.12.0 fue la parte 1 de la Fase 12. | 2026-11-03 |
 
 ## Pendientes
 
