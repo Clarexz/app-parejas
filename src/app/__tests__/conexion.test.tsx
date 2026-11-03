@@ -26,7 +26,7 @@ describe('ConnectionScreen', () => {
   it('muestra servidor conectado, host y latencia', async () => {
     mockData = { auth: 'ok', rest: 'ok', status: 'connected', latencyMs: 42 };
     await renderScreen();
-    expect(screen.getByText('Noviecitosfest')).toBeTruthy();
+    expect(screen.getByLabelText('ahorita')).toBeTruthy();
     expect(screen.getByText('Conectados con el servidor')).toBeTruthy();
     expect(screen.getByText('api.example.com')).toBeTruthy();
     expect(screen.getByText('42 ms')).toBeTruthy();
@@ -49,10 +49,10 @@ describe('ConnectionScreen', () => {
     expect(screen.getByText('Revisando el servidor…')).toBeTruthy();
   });
 
-  it('abre el catálogo con una pulsación larga sobre el título', async () => {
+  it('abre el catálogo con una pulsación larga sobre el nombre', async () => {
     mockData = { auth: 'ok', rest: 'ok', status: 'connected', latencyMs: 42 };
     await renderScreen();
-    await fireEvent(screen.getByText('Noviecitosfest'), 'longPress');
+    await fireEvent(screen.getByLabelText('ahorita'), 'longPress');
     expect(mockPush).toHaveBeenCalledWith('/catalogo');
   });
 });

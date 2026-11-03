@@ -1,10 +1,20 @@
 import { Alert, Share, View } from 'react-native';
 
-import { InviteCode, ListRow, Screen, Text, WaitingIllustration } from '@/components';
+import {
+  BrandSymbol,
+  InviteCode,
+  ListGroup,
+  ListRow,
+  Notice,
+  Screen,
+  ScreenHeader,
+  Text,
+} from '@/components';
 import { APP_NAME } from '@/constants/app';
 import { useSignOut } from '@/features/auth';
 import { useCouple, useLeaveCouple } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
+import { haptic } from '@/lib/haptics';
 import { formatInviteCode } from '@/lib/validation';
 import { useTheme } from '@/theme';
 
@@ -23,7 +33,8 @@ export default function WaitingScreen() {
     }).catch(() => {});
   };
 
-  const confirmLeave = () =>
+  const confirmLeave = () => {
+    haptic.warning();
     Alert.alert(
       'Salir de esta pareja',
       'Se borra el código que compartiste y vuelves a empezar. ¿Seguro?',
@@ -32,46 +43,38 @@ export default function WaitingScreen() {
         { text: 'Salir', style: 'destructive', onPress: () => leave.mutate() },
       ],
     );
+  };
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="display" accessibilityRole="header">
-            Ya casi
-          </Text>
-          <Text variant="body" muted>
-            Falta tu pareja. Pásale este código para que se una a su libreta.
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader label="Ya casi" title="Falta tu pareja" />
+        <View style={{ alignItems: 'center', gap: spacing.md }}>
+          <BrandSymbol size={96} animate="breathe" accessibilityLabel="Esperando a tu pareja" />
+          <Text variant="body" tone="muted" style={{ textAlign: 'center' }}>
+            Pásale este código para que se una. Esta pantalla cambia sola en cuanto llegue; no
+            tienes que hacer nada.
           </Text>
         </View>
         <InviteCode code={code} loading={!couple} onShare={share} />
-        <View style={{ alignItems: 'flex-start', gap: spacing.sm }}>
-          <WaitingIllustration />
-          <Text variant="small" muted>
-            Esta pantalla se actualiza sola cuando se una. No tienes que hacer nada.
-          </Text>
-        </View>
         {leave.isError || signOut.isError ? (
-          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-            {errorMessage(leave.error ?? signOut.error)}
-          </Text>
+          <Notice tone="danger">{errorMessage(leave.error ?? signOut.error)}</Notice>
         ) : null}
-        <View>
+        <ListGroup>
           <ListRow
             label="Cerrar sesión"
-            icon="lock"
+            icon="door"
             onPress={() => signOut.mutate()}
             disabled={signOut.isPending}
           />
           <ListRow
             label="Salir de esta pareja"
-            tone="destructive"
-            icon="close"
+            tone="danger"
+            icon="leave"
             onPress={confirmLeave}
             disabled={leave.isPending}
-            divider={false}
           />
-        </View>
+        </ListGroup>
       </View>
     </Screen>
   );

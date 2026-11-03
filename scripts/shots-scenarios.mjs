@@ -1935,6 +1935,27 @@ export const SCENARIOS = {
       },
     };
   })(),
+  // Elegir fruta: ajustes (pareja = sandía, bloquea Sandía/Pitaya/Mandarina) y paso del onboarding.
+  fruta: {
+    prefix: 'fruta',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    routes: ['/settings/fruit'],
+  },
+  fruta_onboarding: {
+    prefix: 'fruta-onb',
+    me: { ...profiles.me, display_name: null, nickname: null, birthday: null, fruit: null },
+    members: [],
+    routes: ['/profile'],
+    actions: {
+      '/profile': async (page) => {
+        await page.getByLabel('Tu nombre').fill('Ale');
+        await page.getByRole('button', { name: 'Seguir' }).click();
+        await page.waitForTimeout(600);
+      },
+    },
+  },
 };
 
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');
