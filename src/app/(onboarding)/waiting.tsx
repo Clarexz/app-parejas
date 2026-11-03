@@ -29,7 +29,7 @@ export default function WaitingScreen() {
     const who = me?.nickname || me?.display_name;
     const intro = who ? `${who} te invita a ${APP_NAME}.` : `Te invitan a ${APP_NAME}.`;
     void Share.share({
-      message: `${intro} Descarga la app, crea tu cuenta y escribe este código para unirte: ${formatInviteCode(code)}`,
+      message: `${intro} Descarga ahorita, crea tu cuenta y escribe este código para unirte: ${formatInviteCode(code)}`,
     }).catch(() => {});
   };
 

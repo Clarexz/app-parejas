@@ -1,8 +1,8 @@
 /**
- * Nombre visible de la app. Nombre definitivo (Fase 12); si cambia, se cambia aquí
+ * Nombre visible de la app (siempre en minúscula, manual de marca); si cambia, se cambia aquí
  * (y `app.config.ts` lo toma de este mismo archivo).
  */
-export const APP_NAME = 'Noviecitosfest';
+export const APP_NAME = 'ahorita';
 
 /** Identificador del paquete Android (provisional). */
 export const ANDROID_PACKAGE = 'com.appparejas.app';

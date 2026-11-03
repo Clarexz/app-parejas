@@ -1643,7 +1643,7 @@ export const SCENARIOS = {
     actions: {
       '/question': async (page) => {
         await page.getByLabel('Tu respuesta').fill('Cualquiera de Soda Stereo, sin pensarlo.');
-        await page.getByRole('button', { name: 'Pegar mi respuesta' }).click();
+        await page.getByRole('button', { name: 'Contestar' }).click();
         await page.waitForTimeout(1100);
       },
     },

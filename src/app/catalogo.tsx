@@ -501,7 +501,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
             />
           </Row>
           <Row>
-            <Button title="Abrir hoja" variant="secondary" onPress={() => setSheet(true)} />
+            <Button title="Abrir panel" variant="secondary" onPress={() => setSheet(true)} />
             <Button title="Llegada" variant="secondary" onPress={() => setArrival(true)} />
           </Row>
           <Row>
@@ -529,7 +529,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
 
       <Sheet visible={sheet} onClose={() => setSheet(false)} title="¿Cómo te sientes?">
         <Text variant="body" muted>
-          Así se ve una hoja: radio 28, agarradera y sombra suave.
+          Así se ve un panel inferior: radio 28, agarradera y sombra suave.
         </Text>
         <View style={{ marginTop: spacing.lg }}>
           <Button title="Listo" fullWidth onPress={() => setSheet(false)} />

@@ -144,7 +144,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           {
             name: 'PartnerStory',
             label: 'Story de tu pareja',
-            description: 'Lo último que pegó tu pareja, sin abrir la app.',
+            description: 'Lo último que subió tu pareja, sin abrir la app.',
             previewImage: widgetPreview('PartnerStory'),
             ...WIDGET_DEFAULTS,
           },

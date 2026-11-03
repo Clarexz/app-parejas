@@ -441,7 +441,7 @@ export function pointedAt(game: GameId, choice: number, isMine: boolean): 'me' |
 
 /** Frase cálida según el % de coincidencia (sin culpar a nadie). */
 export function matchHeadline(pct: number): string {
-  if (pct >= 100) return '¡Idénticos! Pensaron exactamente igual en todo.';
+  if (pct >= 100) return 'Idénticos. Pensaron exactamente igual en todo.';
   if (pct >= 85) return 'Casi leyéndose la mente. Qué conexión tan bonita.';
   if (pct >= 60) return 'Se entienden bien, y lo que cambia lo hace más interesante.';
   if (pct >= 30) return 'Cada quien con su estilo, y justo ahí está lo divertido de conocerse.';

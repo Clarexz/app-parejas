@@ -18,8 +18,7 @@ export default function ForgotPasswordScreen() {
         />
         <View style={{ gap: spacing.md }}>
           <Text variant="body">
-            Pasa que a todos nos gana la memoria. Esta app no manda correos, así que no podemos
-            mandarte un enlace.
+            A todos se nos olvida. ahorita no manda correos, así que no podemos mandarte un enlace.
           </Text>
           <Text variant="body">
             Pídele a quien cuida el servidor que te ponga una contraseña temporal. Sí, probablemente
