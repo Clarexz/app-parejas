@@ -603,8 +603,9 @@ reset role;
 -- =============================================================================
 -- 14) Fondos con fruta (20261109000000_stories_fruit_bg): frutas y bone sí, claves viejas siguen
 --     y lo demás no. Las filas de prueba se descartan con un subbloque para no mover los conteos.
+--     Ana ya salió de la pareja (sección 13): prueba Beto, que sigue en ella.
 -- =============================================================================
-select pg_temp.as_user('A');
+select pg_temp.as_user('B');
 do $$
 declare
   v_bg text;
