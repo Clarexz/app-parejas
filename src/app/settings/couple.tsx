@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -7,9 +6,9 @@ import {
   Button,
   DateField,
   Divider,
-  IconButton,
   InviteCode,
   Screen,
+  ScreenHeader,
   Text,
   useToast,
 } from '@/components';
@@ -24,7 +23,6 @@ import { useTheme } from '@/theme';
 
 export default function CoupleSettingsScreen() {
   const { spacing } = useTheme();
-  const router = useRouter();
   const toast = useToast();
   const { couple } = useCouple();
   const update = useUpdateCouple();
@@ -34,10 +32,10 @@ export default function CoupleSettingsScreen() {
   const [dateError, setDateError] = useState<string | undefined>();
 
   const saved = (message: string) => {
-    haptic.stamp();
+    haptic.success();
     toast.show({ message, tone: 'success' });
   };
-  const failed = (e: unknown) => toast.show({ message: errorMessage(e), tone: 'error' });
+  const failed = (e: unknown) => toast.show({ message: errorMessage(e), tone: 'danger' });
 
   const saveDate = () => {
     const parsed = optionalIsoDate(date, { notAfter: new Date() });
@@ -62,7 +60,7 @@ export default function CoupleSettingsScreen() {
     const uri = await pickImage();
     if (!uri) return;
     upload.mutate(uri, {
-      onSuccess: () => toast.show({ message: 'Foto nueva pegada.', tone: 'success' }),
+      onSuccess: () => toast.show({ message: 'Foto nueva guardada.', tone: 'success' }),
       onError: failed,
     });
   };
@@ -72,13 +70,8 @@ export default function CoupleSettingsScreen() {
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-          <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-        </View>
-        <Text variant="display" accessibilityRole="header">
-          Nuestra pareja
-        </Text>
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader title="Nuestra pareja" back="Más" />
         <View style={{ alignItems: 'center' }}>
           <AvatarPicker
             variant="couple"
@@ -90,15 +83,20 @@ export default function CoupleSettingsScreen() {
         </View>
 
         <DateField label="Su aniversario" value={date} onChange={setDate} error={dateError} />
-        <Button title="Guardar aniversario" onPress={saveDate} loading={update.isPending} />
+        <Button
+          title="Guardar aniversario"
+          onPress={saveDate}
+          loading={update.isPending}
+          fullWidth
+        />
 
         <Divider />
         <View style={{ gap: spacing.xs }}>
-          <Text variant="small" muted>
+          <Text variant="ui" tone="muted">
             Zona horaria
           </Text>
           <Text variant="body">{couple ? timeZoneLabel(couple.timezone) : ''}</Text>
-          <Text variant="caption" muted>
+          <Text variant="note" tone="muted">
             Con ella se decide cuándo empieza cada día para ustedes dos.
           </Text>
         </View>
@@ -108,6 +106,7 @@ export default function CoupleSettingsScreen() {
           onPress={useDeviceZone}
           disabled={!couple || sameZone}
           loading={update.isPending}
+          fullWidth
         />
 
         <Divider />
@@ -115,7 +114,7 @@ export default function CoupleSettingsScreen() {
 
         <Divider />
         <View style={{ gap: spacing.sm }}>
-          <Text variant="small" muted>
+          <Text variant="ui" tone="muted">
             Código de su pareja
           </Text>
           <InviteCode code={couple?.invite_code ?? ''} loading={!couple} />

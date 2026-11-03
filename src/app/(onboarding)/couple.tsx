@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, DateField, Divider, Screen, Text } from '@/components';
+import { Button, DateField, Divider, Notice, Screen, ScreenHeader, Text } from '@/components';
 import { useCreateCouple } from '@/features/couple';
 import { optionalIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
@@ -25,50 +25,47 @@ export default function OnboardingCoupleScreen() {
       return;
     }
     setDateError(undefined);
-    create.mutate({ anniversaryDate: parsed.value, timezone }, { onSuccess: () => haptic.stamp() });
+    create.mutate(
+      { anniversaryDate: parsed.value, timezone },
+      { onSuccess: () => haptic.success() },
+    );
   };
 
   return (
     <Screen scroll>
-      <View style={{ gap: spacing.lg }}>
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="display" accessibilityRole="header">
-            Su pareja
-          </Text>
-          <Text variant="body" muted>
-            Una persona abre la libreta y la otra se une con un código.
-          </Text>
+      <View style={{ gap: spacing.xl }}>
+        <ScreenHeader label="De a dos" title="Su pareja" />
+        <Text variant="body" tone="muted">
+          Una persona crea su espacio y la otra se une con un código.
+        </Text>
+        <View style={{ gap: spacing.lg }}>
+          <DateField
+            label="Su aniversario (opcional)"
+            value={date}
+            onChange={setDate}
+            error={dateError}
+          />
+          <View style={{ gap: spacing.xs }}>
+            <Text variant="ui" tone="muted">
+              Zona horaria
+            </Text>
+            <Text variant="body">{timeZoneLabel(timezone)}</Text>
+            <Text variant="note" tone="muted">
+              La tomamos de este celular. Después pueden cambiarla en Más → Nuestra pareja.
+            </Text>
+          </View>
         </View>
-        <DateField
-          label="Su aniversario (opcional)"
-          value={date}
-          onChange={setDate}
-          error={dateError}
-        />
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="small" muted>
-            Zona horaria
-          </Text>
-          <Text variant="body">{timeZoneLabel(timezone)}</Text>
-          <Text variant="caption" muted>
-            La tomamos de este celular. Después pueden cambiarla en Más → Nuestra pareja.
-          </Text>
-        </View>
-        {create.isError ? (
-          <Text variant="small" tone="chile" accessibilityLiveRegion="polite">
-            {errorMessage(create.error)}
-          </Text>
-        ) : null}
+        {create.isError ? <Notice tone="danger">{errorMessage(create.error)}</Notice> : null}
         <Button
-          title="Crear nuestra libreta"
+          title="Crear nuestro espacio"
           onPress={submit}
           loading={create.isPending}
           fullWidth
         />
         <Divider />
-        <View style={{ gap: spacing.xs }}>
-          <Text variant="body" muted>
-            ¿Tu pareja ya la abrió y te pasó un código?
+        <View style={{ gap: spacing.sm }}>
+          <Text variant="body" tone="muted">
+            ¿Tu pareja ya lo creó y te pasó un código?
           </Text>
           <Button
             title="Tengo un código"
