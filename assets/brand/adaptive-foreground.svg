@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Primer plano adaptativo: símbolo de 600 px dentro del 66 % central (676 px de 1024). -->
+  <g transform="translate(212 212) scale(6)">
+    <path d="M46 4 A46 46 0 0 0 46 96 Z" fill="#F2495C"/>
+    <path d="M54 4 A46 46 0 0 1 54 96 Z" fill="#FFC24B"/>
+  </g>
+</svg>
