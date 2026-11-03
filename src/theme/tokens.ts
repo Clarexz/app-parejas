@@ -2,8 +2,6 @@
 // radios, elevación y movimiento: las pantallas y componentes solo los consumen vía useTheme().
 // Las frutas viven en `src/lib/fruits.ts` (dominio) y llegan al tema como `theme.fruit`.
 
-import { FRUITS } from '@/lib/fruits';
-
 // ---------------------------------------------------------------------------------------------
 // Color neutro (§2.1)
 
@@ -52,83 +50,10 @@ const baseDark: BaseColors = {
   successOnInk: '#1D7A4A',
 };
 
-/**
- * Nombres de la Bitácora que las pantallas actuales todavía usan. Apuntan al valor nuevo más
- * cercano; se borran cuando se rediseñe la última pantalla que los consuma.
- */
-export type LegacyColors = {
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `bg`). */
-  paper: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface`). */
-  paperRaised: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `inkMuted`). */
-  inkFaint: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `line`). */
-  grid: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `line`). */
-  margin: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `line`). */
-  ruled: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `action`). */
-  jamaica: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `onAction`). */
-  onJamaica: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa una fruta). */
-  cempasuchil: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `success`). */
-  nopal: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `danger`). */
-  chile: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface2`). */
-  postit: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `ink`). */
-  onPostit: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface`). */
-  polaroid: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `ink`). */
-  onPolaroid: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface2`). */
-  photoEmpty: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface2`). */
-  tapeYellow: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface2`). */
-  tapeMint: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `surface2`). */
-  tapePink: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `scrim`). */
-  shadow: string;
-};
+export type Colors = BaseColors;
 
-export type Colors = BaseColors & LegacyColors;
-
-function withLegacy(base: BaseColors): Colors {
-  return {
-    ...base,
-    paper: base.bg,
-    paperRaised: base.surface,
-    inkFaint: base.inkMuted,
-    grid: base.line,
-    margin: base.line,
-    ruled: base.line,
-    jamaica: base.action,
-    onJamaica: base.onAction,
-    cempasuchil: FRUITS.mango.hex,
-    nopal: base.success,
-    chile: base.danger,
-    postit: base.surface2,
-    onPostit: base.ink,
-    polaroid: base.surface,
-    onPolaroid: base.ink,
-    photoEmpty: base.surface2,
-    tapeYellow: base.surface2,
-    tapeMint: base.surface2,
-    tapePink: base.surface2,
-    shadow: base.scrim,
-  };
-}
-
-export const lightColors: Colors = withLegacy(baseLight);
-export const darkColors: Colors = withLegacy(baseDark);
+export const lightColors: Colors = baseLight;
+export const darkColors: Colors = baseDark;
 
 /** Mezcla de la fruta sobre `bg` para respuestas y burbujas (§2.2): 22 % claro, 16 % oscuro. */
 export const TINT_AMOUNT = { light: 0.22, dark: 0.16 } as const;
@@ -144,21 +69,6 @@ export const fonts = {
   textMedium: 'AlbertSans_500Medium',
   textSemi: 'AlbertSans_600SemiBold',
   textBold: 'AlbertSans_700Bold',
-
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `display`). */
-  hand: 'BricolageGrotesque_800ExtraBold',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `text`). */
-  body: 'AlbertSans_400Regular',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `textMedium`). */
-  bodyMedium: 'AlbertSans_500Medium',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `textSemi`). */
-  bodySemiBold: 'AlbertSans_600SemiBold',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `textBold`). */
-  bodyBold: 'AlbertSans_700Bold',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `text`). */
-  mono: 'AlbertSans_400Regular',
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `textBold`). */
-  monoBold: 'AlbertSans_700Bold',
 } as const;
 
 export type FontName = (typeof fonts)[keyof typeof fonts];
@@ -205,29 +115,7 @@ const scale = {
   },
 } satisfies Record<string, TypeStyle>;
 
-/** Variantes de la Bitácora → la más cercana del sistema nuevo. */
-const legacyType = {
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `display`). */
-  hero: scale.display,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `h2`). */
-  title: scale.h2,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `ui`). */
-  hand: scale.ui,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `ui`). */
-  handSmall: { ...scale.ui, fontSize: 14, lineHeight: 20 },
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `h3`). */
-  heading: scale.h3,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `note`). */
-  small: scale.note,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `note`). */
-  caption: scale.note,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `label`). */
-  stamp: scale.label,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `note`). */
-  mono: scale.note,
-} satisfies Record<string, TypeStyle>;
-
-export const type = { ...scale, ...legacyType };
+export const type = scale;
 
 export type TypeVariant = keyof typeof type;
 
@@ -249,14 +137,6 @@ export const spacing = {
 export const page = {
   gutter: 20,
   block: 24,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `gutter`). */
-  grid: 14,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas. */
-  marginX: 32,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `gutter`). */
-  contentLeft: 20,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `gutter`). */
-  contentRight: 20,
 };
 
 export const radius = {
@@ -270,16 +150,7 @@ export const radius = {
   sheet: 28,
   /** Botones, segmentos, avatares. */
   pill: 999,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `card`). */
-  none: 24,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `sm`). */
-  xs: 12,
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `pill`). */
-  hand: { tl: 999, tr: 999, br: 999, bl: 999 },
 };
-
-/** Inclinaciones de la Bitácora. @deprecated Bitácora: ya nada se inclina. */
-export const tilt = [-3, -2, -1, 0, 1, 2, 3] as const;
 
 // ---------------------------------------------------------------------------------------------
 // Movimiento (§5)
@@ -295,29 +166,12 @@ export const motion = {
   spring: { damping: 14, stiffness: 180 },
   /** Con "reducir movimiento" todo es un fundido de esta duración. */
   reduced: 150,
-
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `tap`/`base`/`exit`). */
-  duration: { fast: 120, base: 220, slow: 420 },
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `spring`). */
-  springStick: { damping: 12, stiffness: 180, mass: 0.8 },
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `spring`). */
-  springSoft: { damping: 18, stiffness: 140 },
 };
 
-/**
- * Sin sombras en tarjetas (§2.5): solo `Sheet` y `Toast` flotan (`float`). Los demás nombres son
- * de la Bitácora y no pintan nada.
- */
+/** Sin sombras en tarjetas (§2.5): solo `Sheet` y `Toast` flotan (`float`). */
 export function makeShadows(colors: Colors) {
-  const none = '0 0 0 0 transparent';
   return {
     float: `0 8px 24px -8px ${colors.scrim}`,
-    /** @deprecated Bitácora: se quita al rediseñar pantallas. */
-    object: none,
-    /** @deprecated Bitácora: se quita al rediseñar pantallas. */
-    lifted: none,
-    /** @deprecated Bitácora: se quita al rediseñar pantallas. */
-    ink: none,
   };
 }
 

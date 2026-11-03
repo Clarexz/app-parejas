@@ -29,6 +29,7 @@ export default function HistoryScreen() {
     <View style={{ gap: spacing.lg, paddingBottom: spacing.md }}>
       <ScreenHeader title="Historial" back="Preguntas" />
       <Input
+        icon="search"
         value={text}
         onChangeText={setText}
         placeholder="Buscar en lo que han contestado"

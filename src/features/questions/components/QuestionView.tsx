@@ -294,12 +294,14 @@ export function QuestionView({ card }: { card: QuestionCard }) {
         {mine && !card.partner_answered ? (
           <View style={{ gap: spacing.md }}>
             <Notice tone="info">{`${partnerName} todavía no contesta.`}</Notice>
-            <Button
-              title={`Pícale a ${partnerName}`}
-              variant="secondary"
-              loading={nudge.isPending}
-              onPress={onNudge}
-            />
+            <View style={{ alignItems: 'flex-start' }}>
+              <Button
+                title={`Pícale a ${partnerName}`}
+                variant="secondary"
+                loading={nudge.isPending}
+                onPress={onNudge}
+              />
+            </View>
           </View>
         ) : null}
 
@@ -332,8 +334,14 @@ export function QuestionView({ card }: { card: QuestionCard }) {
             La pregunta vuelve a quedar sin contestar y {partnerName} deja de ver la tuya.
           </Text>
           {deleteError ? <Notice tone="danger">{deleteError}</Notice> : null}
-          <Button title="Borrar" variant="danger" loading={remove.isPending} onPress={onDelete} />
-          <Button title="Mejor no" variant="ghost" onPress={() => setConfirming(false)} />
+          <Button
+            title="Borrar"
+            variant="danger"
+            fullWidth
+            loading={remove.isPending}
+            onPress={onDelete}
+          />
+          <Button title="Mejor no" variant="ghost" fullWidth onPress={() => setConfirming(false)} />
         </View>
       </Sheet>
 

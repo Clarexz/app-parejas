@@ -176,6 +176,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
             Todo el sistema ahorita en una sola pantalla.
           </Text>
           <Segmented
+            fullWidth
             accessibilityLabel="Par de frutas"
             value={pair}
             onChange={onPair}
@@ -309,7 +310,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
                 onPress={() => setChip(label)}
               />
             ))}
-            <Chip label="47 días" icon="spark" onPress={() => undefined} />
+            <Chip label="47 días" icon="spark" iconColor={fruit.me.hex} onPress={() => undefined} />
             <Chip label="Cerrado" disabled onPress={() => undefined} />
           </Row>
           <Segmented
@@ -346,7 +347,13 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
           </Card>
           <View style={{ flexDirection: 'row', gap: spacing.md }}>
             <StatTile value={412} label="días juntos" icon="love" />
-            <StatTile value={47} label="días de racha" icon="spark" />
+            <StatTile
+              value={47}
+              label="días de racha"
+              icon="spark"
+              iconColor={fruit.me.hex}
+              onPress={() => toast.show({ message: 'Ficha tocada' })}
+            />
           </View>
         </Section>
 
@@ -364,7 +371,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
                 fruit={fruit.partner ?? fruit.me}
                 emoji="😄"
                 mood="feliz"
-                note="Ximena · hace 5 min"
+                note={'Ximena · hace 5 min\nAcábate el café antes de salir, que hace frío.'}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -408,6 +415,9 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
           </ListGroup>
           <Notice>Ximena todavía no entra. Mientras, pueden ir armando sus listas.</Notice>
           <Notice tone="success">Listo, guardamos su aniversario.</Notice>
+          <Notice>
+            Faltan <Text variant="bodyStrong">12 días</Text> para su visita.
+          </Notice>
           <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => undefined }}>
             No pudimos mandarlo. Tu celular está sin señal; lo intentamos otra vez.
           </Notice>
@@ -415,6 +425,7 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
 
         <Section title="Campos">
           <Input label="Apodo" placeholder="Cómo te dice tu pareja" />
+          <Input icon="search" placeholder="Buscar" accessibilityLabel="Buscar" />
           <Input label="Con error" defaultValue="Ale!!" error="Usa solo letras y espacios." />
           <Input label="Deshabilitado" defaultValue="No se puede editar" disabled />
           <Input label="Tu respuesta" variant="multiline" placeholder="Escribe lo que sientes" />
@@ -436,6 +447,12 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
               accessibilityLabel="Tachar"
             />
             <Checkbox checked={false} onPress={() => undefined} accessibilityLabel="Sin tachar" />
+            <Checkbox
+              size="lg"
+              checked={ticked}
+              onPress={() => setTicked((v) => !v)}
+              accessibilityLabel="Tachar, grande"
+            />
             <Toggle value={toggle} onValueChange={setToggle} accessibilityLabel="Interruptor" />
             <Toggle value={false} onValueChange={() => undefined} accessibilityLabel="Apagado" />
             <Toggle value disabled onValueChange={() => undefined} accessibilityLabel="Bloqueado" />
@@ -459,6 +476,13 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
           <PermissionNote
             status="granted"
             canAskAgain
+            onRequest={() => undefined}
+            onOpenSettings={() => undefined}
+          />
+          <PermissionNote
+            kind="location"
+            status="denied"
+            canAskAgain={false}
             onRequest={() => undefined}
             onOpenSettings={() => undefined}
           />

@@ -314,7 +314,9 @@ export function GameRoundView({ id }: { id: string }) {
         {turn === 'finished' ? <Finished round={round} /> : null}
 
         {turn !== 'finished' ? (
-          <Button title="Dejar la ronda" variant="ghost" onPress={() => setConfirm(true)} />
+          <View style={{ alignItems: 'flex-start' }}>
+            <Button title="Dejar la ronda" variant="ghost" onPress={() => setConfirm(true)} />
+          </View>
         ) : null}
       </View>
 
@@ -324,8 +326,14 @@ export function GameRoundView({ id }: { id: string }) {
             La ronda se borra para los dos, con todo lo que han contestado. Después pueden empezar
             otra.
           </Text>
-          <Button title="Dejarla" variant="danger" onPress={abandon} loading={remove.isPending} />
-          <Button title="Mejor no" variant="ghost" onPress={() => setConfirm(false)} />
+          <Button
+            title="Dejarla"
+            variant="danger"
+            fullWidth
+            onPress={abandon}
+            loading={remove.isPending}
+          />
+          <Button title="Mejor no" variant="ghost" fullWidth onPress={() => setConfirm(false)} />
         </View>
       </Sheet>
     </Screen>

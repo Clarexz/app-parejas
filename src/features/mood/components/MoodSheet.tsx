@@ -57,7 +57,7 @@ function MoodForm({
                 })}
               >
                 <Text
-                  variant="display"
+                  variant="h2"
                   maxFontSizeMultiplier={1.2}
                   style={{ fontSize: 32, lineHeight: 38 }}
                 >

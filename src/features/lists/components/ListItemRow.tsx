@@ -126,6 +126,7 @@ export function ListItemRow({
   return (
     <View style={[{ flexDirection: 'row', alignItems: 'center' }, rule]}>
       <Checkbox
+        size="lg"
         checked={item.done}
         disabled={pending || arranging}
         onPress={onToggle}

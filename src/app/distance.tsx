@@ -5,10 +5,12 @@ import {
   Button,
   Card,
   Icon,
+  initialOf,
   ListGroup,
   ListRow,
   LoadingSymbol,
   Notice,
+  PermissionNote,
   Screen,
   ScreenHeader,
   Segmented,
@@ -17,7 +19,6 @@ import {
   Toggle,
   useToast,
 } from '@/components';
-import { initialOf } from '@/components/Avatar';
 import { useCouple } from '@/features/couple';
 import { useDistance, useShareLocation } from '@/features/distance';
 import { DistanceRoute } from '@/features/distance/components/DistanceRoute';
@@ -214,11 +215,13 @@ export default function DistanceScreen() {
           </View>
           {view.kind === 'only_me' ? <Place who="Tú" city={view.myCity} /> : null}
           {!sharing && supported ? (
-            <Button
-              title="Activar mi distancia"
-              loading={isPending}
-              onPress={() => void apply('foreground')}
-            />
+            <View style={{ alignItems: 'flex-start' }}>
+              <Button
+                title="Activar mi distancia"
+                loading={isPending}
+                onPress={() => void apply('foreground')}
+              />
+            </View>
           ) : null}
         </View>
       </Card>
@@ -265,6 +268,7 @@ export default function DistanceScreen() {
                   else void apply(key);
                 }}
                 accessibilityLabel="Cuándo se actualiza tu ubicación"
+                fullWidth
               />
               <Text variant="note" tone="muted">
                 {MODE_COPY[mode === 'background' ? 'background' : 'foreground']}
@@ -273,16 +277,13 @@ export default function DistanceScreen() {
           ) : null}
 
           {showDenied ? (
-            <Notice
-              tone="danger"
-              action={{
-                label: 'Abrir ajustes del celular',
-                onPress: () => void Linking.openSettings(),
-              }}
-            >
-              La ubicación está apagada para esta app. Se activa en Ajustes, Permisos, Ubicación,
-              “Permitir solo mientras se usa la app”.
-            </Notice>
+            <PermissionNote
+              kind="location"
+              status="denied"
+              canAskAgain={false}
+              onRequest={() => undefined}
+              onOpenSettings={() => void Linking.openSettings()}
+            />
           ) : null}
 
           {bgRevoked ? (

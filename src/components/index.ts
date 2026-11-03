@@ -15,7 +15,7 @@ export {
   type SymbolAnimation,
 } from './Symbol';
 export { Wordmark } from './Wordmark';
-export { Avatar } from './Avatar';
+export { Avatar, initialOf } from './Avatar';
 export { MoodBubble } from './MoodBubble';
 export { FruitDot } from './FruitDot';
 export { FruitPicker, blockedReason } from './FruitPicker';
@@ -24,6 +24,7 @@ export { StatTile } from './StatTile';
 export { Chip } from './Chip';
 export { Segmented, type SegmentedOption } from './Segmented';
 export { Input } from './Input';
+export { FieldError } from './FieldError';
 export { ListRow } from './ListRow';
 export { ListGroup } from './ListGroup';
 export { Sheet } from './Sheet';
@@ -40,31 +41,8 @@ export { TimeField } from './TimeField';
 export { CodeInput, normalizeCode, CODE_ALPHABET, CODE_LENGTH } from './CodeInput';
 export { InviteCode, spokenCode } from './InviteCode';
 export { AvatarPicker } from './AvatarPicker';
-export { PermissionNote, type PermissionStatus } from './PermissionNote';
+export { PermissionNote, type PermissionKind, type PermissionStatus } from './PermissionNote';
 export { SoftAskNote } from './SoftAskNote';
 export { Divider } from './Divider';
 export { Sticker } from './Sticker';
-export { useArrive, useStickIn, useTapScale } from './motion';
-
-// Adaptadores de la Bitácora: se quitan al rediseñar las pantallas que aún los usan.
-export {
-  CloudOff,
-  EmptyPolaroid,
-  PencilNote,
-  Scene,
-  WaitingIllustration,
-  type SceneKind,
-} from './illustrations';
-export { Paper, type PaperVariant } from './Paper';
-export { Stamp, type StampTone } from './Stamp';
-export { Tape, type TapeColor } from './Tape';
-export { Doodle } from './Doodle';
-export { FoldedNote } from './FoldedNote';
-export { Note } from './Note';
-export { Polaroid } from './Polaroid';
-export { PageHeader } from './PageHeader';
-export { LoadingLines } from './LoadingLines';
-export { SealOverlay } from './SealOverlay';
-export { Tally, TallyLine } from './Tally';
-export { GridScore } from './GridScore';
-export { GridColumns, filledCells, type GridColumn } from './GridColumns';
+export { useArrive, useTapScale } from './motion';

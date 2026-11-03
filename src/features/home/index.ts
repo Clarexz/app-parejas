@@ -6,7 +6,6 @@ export {
   NextTimeCard,
   NextTimeCardView,
   PersonColumn,
-  PulseView,
   QuestionCardView,
   StatsRow,
   questionStatus,

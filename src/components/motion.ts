@@ -62,10 +62,3 @@ export function useArrive() {
     transform: [{ translateY: (1 - progress.value) * 12 }],
   }));
 }
-
-/**
- * @deprecated Bitácora: se quita al rediseñar pantallas (usa `useArrive`). Ya no inclina nada.
- */
-export function useStickIn(_tilt?: number) {
-  return useArrive();
-}

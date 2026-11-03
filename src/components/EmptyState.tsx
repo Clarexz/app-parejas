@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { View } from 'react-native';
 import Svg, { ClipPath, Defs, Path, Rect, Circle } from 'react-native-svg';
 
@@ -17,12 +16,6 @@ type Props = {
   title: string;
   body?: string;
   action?: { label: string; onPress: () => void };
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `art`). */
-  illustration?: ReactNode;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `action`). */
-  actionLabel?: string;
-  /** @deprecated Bitácora: se quita al rediseñar pantallas (usa `action`). */
-  onAction?: () => void;
 };
 
 const HEART =
@@ -72,21 +65,13 @@ function Art({ art, size = 96 }: { art: EmptyArt; size?: number }) {
 }
 
 /** Estado vacío con humor y una acción clara (DISENO §7). */
-export function EmptyState({
-  art = 'symbol',
-  title,
-  body,
-  action,
-  illustration,
-  actionLabel,
-  onAction,
-}: Props) {
+export function EmptyState({ art = 'symbol', title, body, action }: Props) {
   const { spacing } = useTheme();
-  const resolved =
-    action ?? (actionLabel && onAction ? { label: actionLabel, onPress: onAction } : null);
   return (
     <View style={{ alignItems: 'center', gap: spacing.md, paddingVertical: spacing.xl }}>
-      <View style={{ marginBottom: spacing.sm }}>{illustration ?? <Art art={art} />}</View>
+      <View style={{ marginBottom: spacing.sm }}>
+        <Art art={art} />
+      </View>
       <Text variant="h3" accessibilityRole="header" style={{ textAlign: 'center' }}>
         {title}
       </Text>
@@ -95,9 +80,9 @@ export function EmptyState({
           {body}
         </Text>
       ) : null}
-      {resolved ? (
+      {action ? (
         <View style={{ marginTop: spacing.sm }}>
-          <Button title={resolved.label} onPress={resolved.onPress} variant="secondary" />
+          <Button title={action.label} onPress={action.onPress} variant="secondary" />
         </View>
       ) : null}
     </View>

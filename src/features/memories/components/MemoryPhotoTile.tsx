@@ -46,7 +46,7 @@ export function MemoryPhotoTile({
           placeholder={placeholderUrl ? { uri: placeholderUrl } : undefined}
           style={{ width: '100%', height: '100%' }}
           contentFit="cover"
-          transition={motion.duration.base}
+          transition={motion.base.duration}
           accessibilityLabel={label}
           accessibilityIgnoresInvertColors
         />
