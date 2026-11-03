@@ -1,38 +1,27 @@
-// Paleta, tipografías y utilidades compartidas de los widgets. Los widgets se dibujan fuera de
-// React / ThemeProvider, así que importan los tokens directo (docs/DISENO.md §2).
+// Utilidades compartidas de los widgets. Los widgets se dibujan fuera de React / ThemeProvider;
+// con el vidrio simulado ya no necesitan la paleta del tema: solo saber si el sistema está en oscuro.
 import type { ColorProp } from 'react-native-android-widget';
 
 import { APP_SCHEME } from '@/constants/app';
-import { darkColors, lightColors, fonts, type Colors } from '@/theme/tokens';
-
 import type { WidgetName } from '@/lib/widgets';
 import { WIDGET_ROUTES } from '@/lib/widgets';
-
-/** Ancho (dp) a partir del cual un widget se considera "mediano" (≈4×2). */
-export const MEDIUM_MIN_WIDTH = 220;
+import { fonts } from '@/theme/tokens';
 
 export type WidgetSize = { width: number; height: number };
 
-export type WidgetPalette = Colors & { isDark: boolean };
+export type WidgetPalette = { isDark: boolean };
 
 export const palettes: { light: WidgetPalette; dark: WidgetPalette } = {
-  light: { ...lightColors, isDark: false },
-  dark: { ...darkColors, isDark: true },
+  light: { isDark: false },
+  dark: { isDark: true },
 };
 
-/** La librería tipa los colores con plantillas estrictas; los tokens ya son hex o rgba válidos. */
+/** La librería tipa los colores con plantillas estrictas; aquí todos son hex o rgba válidos. */
 export const col = (value: string): ColorProp => value as ColorProp;
 
 export const FONT = {
-  hand: fonts.hand,
-  body: fonts.body,
-  bodyMedium: fonts.bodyMedium,
-  bodySemiBold: fonts.bodySemiBold,
-  bodyBold: fonts.bodyBold,
-  monoBold: fonts.monoBold,
+  semiBold: fonts.bodySemiBold,
 } as const;
-
-export const isMedium = (size: WidgetSize): boolean => size.width >= MEDIUM_MIN_WIDTH;
 
 /** Deep link de un widget: `appparejas://moods`, o `appparejas://` para el inicio. */
 export function widgetUri(name: WidgetName, routeOverride?: string): string {

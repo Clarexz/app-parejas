@@ -1,4 +1,5 @@
-// Android: dibuja el widget real con `renderWidget` dentro de `WidgetPreview` de la librería.
+// Android: dibuja el widget real con `renderWidget` dentro de `WidgetPreview` de la librería,
+// sobre un fondo de pantalla simulado (los widgets no tienen fondo propio).
 import { useCallback } from 'react';
 import { View } from 'react-native';
 import { WidgetPreview as LibraryPreview } from 'react-native-android-widget';
@@ -6,7 +7,7 @@ import { WidgetPreview as LibraryPreview } from 'react-native-android-widget';
 import { useTheme } from '@/theme';
 import { renderWidget } from '@/widgets/render';
 
-import type { WidgetPreviewProps } from './types';
+import { WALLPAPER, type WidgetPreviewProps } from './types';
 
 export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps) {
   const { isDark } = useTheme();
@@ -19,7 +20,11 @@ export function WidgetPreview({ name, model, width, height }: WidgetPreviewProps
     [name, model, isDark],
   );
   return (
-    <View accessible accessibilityLabel={`Vista previa del widget ${name}`}>
+    <View
+      accessible
+      accessibilityLabel={`Vista previa del widget ${name}`}
+      style={{ borderRadius: 16, overflow: 'hidden', backgroundColor: WALLPAPER }}
+    >
       <LibraryPreview renderWidget={render} width={width} height={height} />
     </View>
   );

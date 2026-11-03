@@ -5,6 +5,7 @@ import { useCouple } from '@/features/couple';
 import { useLocations } from '@/features/distance';
 import { useEvents } from '@/features/events';
 import { useMoods } from '@/features/mood';
+import { useStreak } from '@/features/questions';
 import { useActiveStories } from '@/features/stories';
 import { snapshotDistance } from '@/lib/distance';
 import type { OnboardingStage } from '@/lib/onboarding';
@@ -12,6 +13,8 @@ import {
   buildWidgetSnapshot,
   emptyWidgetSnapshot,
   latestActiveStory,
+  profileFruit,
+  snapshotFruits,
   type WidgetSnapshot,
 } from '@/lib/widgets';
 import { pickPartnerStory } from '@/widgets/partnerStory';
@@ -32,6 +35,7 @@ export function useWidgetSync(stage: OnboardingStage): void {
   const { stories, isLoading: storiesLoading, isError: storiesError } = useActiveStories();
   const { events, isLoading: eventsLoading, isError: eventsError } = useEvents();
   const { rows: locations, isLoading: locationsLoading, isError: locationsError } = useLocations();
+  const { streak, isLoading: streakLoading, isError: streakError } = useStreak();
   const latest = useRef<WidgetSnapshot | null>(null);
 
   const mood = (partner && latestByUser[partner.id]) || null;
@@ -45,6 +49,10 @@ export function useWidgetSync(stage: OnboardingStage): void {
   const distance = locationsPending
     ? null
     : snapshotDistance(locations, me?.id ?? null, partner?.id ?? null);
+
+  // La racha, igual: mientras no carga se conserva la del snapshot anterior.
+  const streakValue = streakLoading || streakError ? null : streak;
+  const fruits = snapshotFruits(profileFruit(me), profileFruit(partner));
 
   const key = JSON.stringify([
     stage,
@@ -64,6 +72,8 @@ export function useWidgetSync(stage: OnboardingStage): void {
       : events.map((e) => [e.id, e.kind, e.title, e.emoji, e.date, e.recurring_yearly]),
     locationsPending,
     distance,
+    fruits,
+    streakValue ? [streakValue.current, streakValue.today_done] : null,
   ]);
 
   useEffect(() => {
@@ -88,6 +98,10 @@ export function useWidgetSync(stage: OnboardingStage): void {
             partnerStory: story,
             events: eventsPending ? (previous?.events ?? []) : events,
             distance: locationsPending ? (previous?.distance ?? null) : distance,
+            fruits,
+            streak: streakValue
+              ? { current: streakValue.current, answeredToday: streakValue.today_done }
+              : (previous?.streak ?? null),
           });
           if (storiesPending && previous?.partnerStory) {
             snapshot = { ...snapshot, partnerStory: previous.partnerStory };
