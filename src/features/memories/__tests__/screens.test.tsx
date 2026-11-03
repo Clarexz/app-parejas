@@ -42,6 +42,10 @@ jest.mock('expo-image-picker', () => ({
   requestCameraPermissionsAsync: jest.fn(),
 }));
 jest.mock('@/features/couple', () => ({
+  useFruits: () => ({
+    me: { key: 'mango', name: 'Mango', hex: '#FFC24B', on: '#1B1B1F', suggested: 'sandia' },
+    partner: { key: 'sandia', name: 'Sandía', hex: '#F2495C', on: '#1B1B1F', suggested: 'mango' },
+  }),
   useCouple: () => ({
     couple: { id: 'c1', timezone: 'America/Mexico_City' },
     me: { id: 'u1', display_name: 'Ale', nickname: null, avatar_path: null },
@@ -128,14 +132,11 @@ beforeEach(() => {
 });
 
 describe('pestaña Memorias', () => {
-  it('vacía: copy con humor y botón para pegar la primera', async () => {
+  it('vacía: invita a agregar la primera y no repite la acción en el encabezado', async () => {
     await wrap(<MemoriesScreen />);
-    expect(
-      screen.getByText(
-        'Todavía no pegan ninguna foto. La primera siempre sale chueca, y está bien.',
-      ),
-    ).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Pegar una memoria' }));
+    expect(screen.getByText('Aquí irá su primera memoria')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Agregar memoria' })).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar memoria' }));
     expect(mockPush).toHaveBeenCalledWith('/memory/edit');
   });
 
@@ -146,14 +147,16 @@ describe('pestaña Memorias', () => {
     expect(mockList.refetch).toHaveBeenCalled();
   });
 
-  it('agrupa por mes con sello y abre la memoria', async () => {
+  it('agrupa por mes con conteo, la más reciente grande, y abre la memoria', async () => {
     mockList.memories = [
       memory('m1', 'Atardecer en Mazunte'),
       memory('m2', 'Tacos', { happened_on: '2026-10-03' }),
     ];
     await wrap(<MemoriesScreen />);
-    expect(screen.getByText('AGOSTO 2026')).toBeTruthy();
-    expect(screen.getByText('OCTUBRE 2026')).toBeTruthy();
+    expect(screen.getByText('agosto')).toBeTruthy();
+    expect(screen.getByText('octubre')).toBeTruthy();
+    expect(screen.getAllByText('1 memoria')).toHaveLength(2);
+    expect(screen.getByText('vie 14 ago')).toBeTruthy();
     await fireEvent.press(
       screen.getByRole('button', { name: /^Atardecer en Mazunte, 14 de agosto/ }),
     );
@@ -166,7 +169,7 @@ describe('pestaña Memorias', () => {
       memory('m2', 'Sin pin'),
     ];
     await wrap(<MemoriesScreen />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Mapa' }));
+    await fireEvent.press(screen.getByRole('tab', { name: 'Mapa' }));
     expect(screen.getByText(/1 memoria sin lugar/)).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: 'Memoria: Con pin' }));
     expect(mockPush).toHaveBeenCalledWith({ pathname: '/memory/[id]', params: { id: 'm1' } });
@@ -189,7 +192,7 @@ describe('mapa de papel', () => {
 describe('detalle de memoria', () => {
   it('no encontrada', async () => {
     await wrap(<MemoryDetail id="x" />);
-    expect(screen.getByText('Esa hoja ya no está')).toBeTruthy();
+    expect(screen.getByText('Esa memoria ya no está')).toBeTruthy();
   });
 
   it('muestra fecha, título, texto, lugar y autor', async () => {
@@ -202,17 +205,17 @@ describe('detalle de memoria', () => {
     expect(screen.getByText('Atardecer en Mazunte')).toBeTruthy();
     expect(screen.getByText('Un día padrísimo')).toBeTruthy();
     expect(screen.getByText('Playa Mazunte')).toBeTruthy();
-    expect(screen.getByText('hace 2 meses')).toBeTruthy();
-    expect(screen.getByText('Pegada por Caleb.')).toBeTruthy();
+    expect(screen.getByText('vie 14 ago · hace 2 meses')).toBeTruthy();
+    expect(screen.getByText('Subida por Caleb.')).toBeTruthy();
   });
 
-  it('arrancar pide confirmación y borra', async () => {
+  it('borrar pide confirmación y borra', async () => {
     mockOne.memory = memory('m1', 'Tacos');
     await wrap(<MemoryDetail id="m1" />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Arrancar esta hoja' }));
-    expect(screen.getByText('¿Arrancar esta hoja?')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Borrar esta memoria' }));
+    expect(screen.getByText('¿Borrar esta memoria?')).toBeTruthy();
     expect(mockRemove).not.toHaveBeenCalled();
-    await fireEvent.press(screen.getByRole('button', { name: 'Arrancarla' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Borrar' }));
     expect(mockRemove).toHaveBeenCalledWith('m1', expect.anything());
     expect(mockBack).toHaveBeenCalled();
   });
@@ -230,8 +233,8 @@ describe('detalle de memoria', () => {
 describe('editor de memoria', () => {
   it('sin foto ni título marca los errores y no guarda', async () => {
     await wrap(<MemoryEditor />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Pegar memoria' }));
-    expect(screen.getByText('Pega al menos una foto.')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar memoria' }));
+    expect(screen.getByText('Agrega al menos una foto.')).toBeTruthy();
     expect(screen.getByText('Ponle un título a la memoria.')).toBeTruthy();
     expect(mockSave).not.toHaveBeenCalled();
   });
@@ -262,12 +265,12 @@ describe('editor de memoria', () => {
     expect(vars.photos).toHaveLength(1);
   });
 
-  it('cerrar con cambios pregunta si tirar la hoja', async () => {
+  it('cancelar con cambios pregunta si salir sin guardar', async () => {
     await wrap(<MemoryEditor />);
     await fireEvent.changeText(screen.getByLabelText('Título'), 'Algo');
-    await fireEvent.press(screen.getByRole('button', { name: 'Cerrar' }));
-    expect(screen.getByText('¿Tirar esta hoja?')).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Tirarla' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Cancelar' }));
+    expect(screen.getByText('¿Salir sin guardar?')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Salir' }));
     expect(mockBack).toHaveBeenCalled();
   });
 });
@@ -283,10 +286,10 @@ describe('Un día como hoy', () => {
         onPress={onPress}
       />,
     );
-    expect(screen.getByText('Un día como hoy, hace 2 años')).toBeTruthy();
+    expect(screen.getByText('Un día como hoy · hace 2 años')).toBeTruthy();
     expect(screen.getByText('y 1 memoria más ese día')).toBeTruthy();
     await fireEvent.press(
-      screen.getByRole('button', { name: 'Un día como hoy, hace 2 años: Teotihuacán' }),
+      screen.getByRole('button', { name: 'Un día como hoy · hace 2 años: Teotihuacán' }),
     );
     expect(onPress).toHaveBeenCalled();
   });

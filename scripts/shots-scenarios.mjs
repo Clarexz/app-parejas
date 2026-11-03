@@ -909,7 +909,7 @@ export const SCENARIOS = {
     routes: ['/memories'],
     actions: {
       '/memories': async (page) => {
-        await page.getByRole('button', { name: 'Mapa' }).click();
+        await page.getByRole('tab', { name: 'Mapa' }).click();
         await page.waitForTimeout(600);
       },
     },
@@ -942,7 +942,7 @@ export const SCENARIOS = {
     routes: [`/memory/${mid(2)}`],
     actions: {
       [`/memory/${mid(2)}`]: async (page) => {
-        await page.getByRole('button', { name: 'Arrancar esta hoja' }).click();
+        await page.getByRole('button', { name: 'Borrar esta memoria' }).click();
         await page.waitForTimeout(900);
       },
     },
@@ -958,7 +958,7 @@ export const SCENARIOS = {
     routes: ['/memory/edit'],
     actions: {
       '/memory/edit': async (page) => {
-        await page.getByRole('button', { name: 'Pegar memoria' }).click();
+        await page.getByRole('button', { name: 'Guardar memoria' }).click();
         await page.waitForTimeout(500);
       },
     },
