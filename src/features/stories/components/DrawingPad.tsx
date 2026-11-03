@@ -127,7 +127,7 @@ export function DrawingPad({ strokes, onChange, bg, width, onLimit, children }: 
               height,
               backgroundColor: storyBgColor(bg),
               borderRadius: radius.md,
-              borderWidth: bg === 'paper' ? 1 : 0,
+              borderWidth: storyBgFruit(bg) ? 0 : 1,
               borderColor: colors.line,
               overflow: 'hidden',
             }}

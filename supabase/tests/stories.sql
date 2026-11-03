@@ -600,6 +600,30 @@ select pg_temp.as_user('B');
 select pg_temp.assert((select count(*) from public.stories where user_id = pg_temp.u('A')) = 0, 'Beto ya no ve las stories de Ana');
 reset role;
 
+-- =============================================================================
+-- 14) Fondos con fruta (20261109000000_stories_fruit_bg): frutas y bone sí, claves viejas siguen
+--     y lo demás no. Las filas de prueba se descartan con un subbloque para no mover los conteos.
+-- =============================================================================
+select pg_temp.as_user('A');
+do $$
+declare
+  v_bg text;
+begin
+  begin
+    foreach v_bg in array array['uva', 'arandano', 'bone', 'sandia', 'mango', 'mandarina', 'limon',
+      'pitaya', 'paper', 'postit', 'jamaica', 'cempasuchil', 'nopal', 'ink']
+    loop
+      perform public.create_story('text', null, null, 'hola', v_bg, 'hand');
+    end loop;
+    raise exception 'descartar_prueba' using errcode = 'P0001';
+  exception when sqlstate 'P0001' then
+    if sqlerrm <> 'descartar_prueba' then raise; end if;
+  end;
+end $$;
+select pg_temp.expect_error($q$select public.create_story('text', null, null, 'hola', 'fresa', 'hand')$q$, 'invalid_story');
+select pg_temp.expect_error($q$select public.create_story('text', null, null, 'hola', 'Uva', 'hand')$q$, 'invalid_story');
+reset role;
+
 rollback;
 
 select 'stories: OK' as resultado;

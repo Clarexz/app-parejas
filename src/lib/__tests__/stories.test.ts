@@ -43,7 +43,16 @@ describe('constantes', () => {
     expect(new Set(STORY_REACTIONS).size).toBe(6);
     expect(STORY_STICKERS).toHaveLength(16);
     expect(new Set(STORY_STICKERS).size).toBe(16);
-    expect(STORY_BGS).toHaveLength(6);
+    expect(STORY_BGS).toEqual([
+      'bone',
+      'sandia',
+      'mango',
+      'mandarina',
+      'limon',
+      'uva',
+      'arandano',
+      'pitaya',
+    ]);
     expect(STORY_FONTS.map((f) => STORY_FONT_LABELS[f])).toEqual(['A mano', 'Imprenta', 'Máquina']);
   });
 });

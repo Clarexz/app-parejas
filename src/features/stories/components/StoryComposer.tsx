@@ -127,9 +127,7 @@ export function StoryComposer({ kind }: { kind: ComposerKind }) {
   const [photoUri, setPhotoUri] = useState<string | null>(null);
   const [caption, setCaption] = useState('');
   const [text, setText] = useState('');
-  const [bg, setBg] = useState<StoryBg>(
-    kind === 'text' ? (bgForFruit(fruit.me) ?? 'cempasuchil') : 'paper',
-  );
+  const [bg, setBg] = useState<StoryBg>(kind === 'text' ? bgForFruit(fruit.me) : 'bone');
   const [font, setFont] = useState<StoryFont>('hand');
   const [strokes, setStrokes] = useState<Stroke[]>([]);
   const [inputHeight, setInputHeight] = useState(0);
