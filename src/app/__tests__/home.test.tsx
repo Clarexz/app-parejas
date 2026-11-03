@@ -73,6 +73,7 @@ jest.mock('@/features/events', () => ({
   },
 }));
 jest.mock('@/features/memories', () => ({ OnThisDayCard: () => null }));
+jest.mock('@/features/updates', () => ({ UpdateNotice: () => null }));
 jest.mock('@/features/questions', () => ({
   useDailyQuestion: () => ({
     card: {

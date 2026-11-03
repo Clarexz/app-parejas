@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { Alert, View } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 
 import {
   Avatar,
@@ -15,6 +15,7 @@ import {
 import { useSignOut } from '@/features/auth';
 import { useCouple, useFruits, useLeaveCouple } from '@/features/couple';
 import { useSignedUrl } from '@/features/profile';
+import { openUpdateDownload, useAppUpdate } from '@/features/updates';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
 import { useTheme } from '@/theme';
@@ -27,6 +28,22 @@ export default function MoreScreen() {
   const avatarUrl = useSignedUrl(me?.avatar_path);
   const signOut = useSignOut();
   const leave = useLeaveCouple();
+  const appUpdate = useAppUpdate();
+
+  const checkUpdate = async () => {
+    if (appUpdate.update) {
+      void openUpdateDownload(appUpdate.update);
+      return;
+    }
+    const { data, isError } = await appUpdate.refetch();
+    if (isError) {
+      Alert.alert('No pudimos revisar', 'Revisa tu internet y vuelve a intentar.');
+    } else if (data) {
+      void openUpdateDownload(data);
+    } else {
+      Alert.alert('Estás al día', `Ya tienes la versión más nueva (v${appUpdate.installed}).`);
+    }
+  };
 
   const myName = me?.nickname || me?.display_name || 'Tú';
   const partnerName = partner?.nickname || partner?.display_name;
@@ -125,6 +142,19 @@ export default function MoreScreen() {
             icon="signal"
             onPress={() => router.push('/conexion')}
           />
+          {Platform.OS === 'android' ? (
+            <ListRow
+              label={
+                appUpdate.update
+                  ? `Descargar la v${appUpdate.update.version}`
+                  : 'Buscar versión nueva'
+              }
+              icon="download"
+              value={appUpdate.update ? undefined : `v${appUpdate.installed ?? '?'}`}
+              onPress={() => void checkUpdate()}
+              disabled={appUpdate.isFetching}
+            />
+          ) : null}
           <ListRow label="Cerrar sesión" icon="door" onPress={confirmSignOut} />
           <ListRow
             label="Salir de la pareja"

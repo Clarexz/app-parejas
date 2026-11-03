@@ -17,6 +17,7 @@ import { OnThisDayCard } from '@/features/memories';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
 import { usePushSoftAsk } from '@/features/notifications';
 import { groupActive, useActiveStories } from '@/features/stories';
+import { UpdateNotice } from '@/features/updates';
 import { FRUITS } from '@/lib/fruits';
 import { haptic } from '@/lib/haptics';
 import { homeSummary } from '@/lib/home';
@@ -66,6 +67,8 @@ export default function HomeScreen() {
       <EventsEvents />
       <View style={{ gap: spacing.xl }}>
         <HomeHeader date={shortDate(today)} />
+
+        <UpdateNotice />
 
         <View style={{ gap: spacing.md }}>
           <View style={{ flexDirection: 'row', gap: spacing.lg, alignItems: 'flex-start' }}>
