@@ -51,9 +51,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: ANDROID_PACKAGE,
     versionCode,
     adaptiveIcon: {
-      backgroundColor: '#F7F4EC',
+      backgroundColor: '#FFFDF8',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
+      monochromeImage: './assets/images/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
     googleServicesFile,
@@ -71,10 +72,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#F7F4EC',
+        backgroundColor: '#FFFDF8',
         image: './assets/images/splash-icon.png',
-        imageWidth: 200,
-        dark: { backgroundColor: '#23201B', image: './assets/images/splash-icon.png' },
+        imageWidth: 288,
+        dark: { backgroundColor: '#141417', image: './assets/images/splash-icon-dark.png' },
       },
     ],
     'expo-secure-store',
@@ -105,7 +106,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         // Ícono pequeño de la barra de estado: blanco sobre transparente (npm run brand).
         icon: './assets/images/notification-icon.png',
-        color: '#1E3270',
+        color: '#F2495C',
         defaultChannel: 'actividad',
       },
     ],
