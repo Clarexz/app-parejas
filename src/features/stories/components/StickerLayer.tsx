@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Pressable, Text as RNText, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 
 import { Chip, Sheet, Text } from '@/components';
@@ -7,6 +7,8 @@ import { CANVAS_H, CANVAS_W } from '@/lib/drawing';
 import { haptic } from '@/lib/haptics';
 import { STORY_MAX_STICKERS, STORY_STICKERS, clampSticker, type StorySticker } from '@/lib/stories';
 import { useTheme } from '@/theme';
+
+import { StickerDisc, stickerSize } from './StoryFrame';
 
 type Props = {
   stickers: StorySticker[];
@@ -28,7 +30,7 @@ type ItemProps = {
 };
 
 function DraggableSticker({ sticker, width, selected, onSelect, onMove, onRemove }: ItemProps) {
-  const { colors, radius } = useTheme();
+  const { colors, radius, fruit } = useTheme();
   const height = (width * CANVAS_H) / CANVAS_W;
   const [drag, setDrag] = useState<{ dx: number; dy: number } | null>(null);
   const latest = useRef({ sticker, onMove, width, height });
@@ -53,8 +55,7 @@ function DraggableSticker({ sticker, width, selected, onSelect, onMove, onRemove
     },
   });
 
-  const size = width * 0.13 * sticker.s;
-  const box = size * 1.4;
+  const { disc, box } = stickerSize(width, sticker.s);
   return (
     <GestureDetector gesture={pan}>
       <View
@@ -84,13 +85,11 @@ function DraggableSticker({ sticker, width, selected, onSelect, onMove, onRemove
             justifyContent: 'center',
             borderWidth: selected ? 1.5 : 0,
             borderStyle: 'dashed',
-            borderColor: colors.jamaica,
-            borderRadius: radius.xs,
+            borderColor: colors.ink,
+            borderRadius: radius.sm,
           }}
         >
-          <RNText style={{ fontSize: size, lineHeight: size * 1.2 }} allowFontScaling={false}>
-            {sticker.e}
-          </RNText>
+          <StickerDisc emoji={sticker.e} size={disc} fruit={fruit.me} />
         </Pressable>
       </View>
     </GestureDetector>
@@ -98,12 +97,12 @@ function DraggableSticker({ sticker, width, selected, onSelect, onMove, onRemove
 }
 
 /**
- * Stickers sobre el lienzo (DISENO §7): se eligen de `STORY_STICKERS` en un `Sheet`, aparecen al
+ * Stickers sobre el lienzo (DISENO §7, círculos de tu fruta): se eligen de `STORY_STICKERS` en un `Sheet`, aparecen al
  * centro, se arrastran, se tocan para ajustar (tamaño, giro, quitar) y con pulsación larga se
  * quitan. Va con `position: absolute` encima del `StoryFrame` del mismo ancho.
  */
 export function StickerLayer({ stickers, onChange, width, pickerVisible, onPickerClose }: Props) {
-  const { colors, spacing } = useTheme();
+  const { colors, spacing, radius, fruit } = useTheme();
   const [selected, setSelected] = useState<number | null>(null);
   const full = stickers.length >= STORY_MAX_STICKERS;
 
@@ -151,8 +150,8 @@ export function StickerLayer({ stickers, onChange, width, pickerVisible, onPicke
               flexWrap: 'wrap',
               gap: spacing.sm,
               padding: spacing.sm,
-              backgroundColor: colors.paperRaised,
-              boxShadow: `0 4px 8px -3px ${colors.shadow}`,
+              backgroundColor: colors.bg,
+              borderRadius: radius.md,
             }}
           >
             <Chip label="Más grande" onPress={() => update(selected, { s: current.s + 0.25 })} />
@@ -161,15 +160,15 @@ export function StickerLayer({ stickers, onChange, width, pickerVisible, onPicke
               label="Girar"
               onPress={() => update(selected, { r: current.r >= 45 ? -45 : current.r + 15 })}
             />
-            <Chip label="Quitar" color="pink" onPress={() => remove(selected)} />
+            <Chip label="Quitar" icon="trash" onPress={() => remove(selected)} />
           </View>
         ) : null}
       </View>
 
-      <Sheet visible={pickerVisible} onClose={onPickerClose} title="Pega un sticker">
+      <Sheet visible={pickerVisible} onClose={onPickerClose} title="Sumar un sticker">
         {full ? (
           <Text variant="body" tone="muted">
-            Ya pegaste {STORY_MAX_STICKERS}. Quita alguno para poner otro.
+            Ya pusieron {STORY_MAX_STICKERS}. Quita alguno para poner otro.
           </Text>
         ) : (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs }}>
@@ -177,17 +176,17 @@ export function StickerLayer({ stickers, onChange, width, pickerVisible, onPicke
               <Pressable
                 key={e}
                 accessibilityRole="button"
-                accessibilityLabel={`Pegar ${e}`}
+                accessibilityLabel={`Poner ${e}`}
                 onPress={() => add(e)}
                 style={({ pressed }) => ({
-                  width: 56,
-                  height: 56,
+                  width: 64,
+                  height: 64,
                   alignItems: 'center',
                   justifyContent: 'center',
                   opacity: pressed ? 0.6 : 1,
                 })}
               >
-                <RNText style={{ fontSize: 32 }}>{e}</RNText>
+                <StickerDisc emoji={e} size={52} fruit={fruit.me} />
               </Pressable>
             ))}
           </View>

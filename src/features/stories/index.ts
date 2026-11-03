@@ -38,7 +38,7 @@ export {
   StoriesRow,
   StoriesRowView,
   StoryFrame,
-  StoryPolaroid,
+  StoryThumb,
   StoryProgress,
   StoryViewer,
 } from './components';

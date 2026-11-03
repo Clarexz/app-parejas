@@ -14,7 +14,7 @@ export {
   storyTextStyle,
   type FrameStory,
 } from './StoryFrame';
-export { StoryPolaroid } from './StoryPolaroid';
+export { StoryThumb } from './StoryThumb';
 export { StoryProgress } from './StoryProgress';
 export { StoryComposer, parseComposerKind, type ComposerKind } from './StoryComposer';
 export { StoryViewer } from './StoryViewer';

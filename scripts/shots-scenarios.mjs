@@ -709,7 +709,7 @@ export const SCENARIOS = {
       },
     },
   },
-  // Sheet "Pegar una story" abierto.
+  // Sheet "Crear una story" abierto.
   stories_hoja: {
     prefix: 'stories-hoja',
     me: profiles.me,
@@ -719,7 +719,7 @@ export const SCENARIOS = {
     routes: ['/stories'],
     actions: {
       '/stories': async (page) => {
-        await page.getByRole('button', { name: 'Pegar una story' }).click();
+        await page.getByRole('button', { name: 'Crear una story' }).click();
         await page.waitForTimeout(900);
       },
     },
@@ -762,7 +762,7 @@ export const SCENARIOS = {
         await page
           .getByLabel('Texto de la story')
           .fill('Cuando llegues hay café. Y si no hay, lo hago yo.');
-        await page.getByRole('radio', { name: 'Fondo cempasuchil' }).click();
+        await page.getByRole('radio', { name: 'Fondo Mango' }).click();
         await page.waitForTimeout(500);
       },
     },
@@ -796,7 +796,7 @@ export const SCENARIOS = {
           [0.7, 0.18],
           [0.85, 0.25],
         ]);
-        await page.getByRole('radio', { name: 'Color Jamaica' }).click();
+        await page.getByRole('radio', { name: 'Color Arándano' }).click();
         await page.getByText('Plumón', { exact: true }).click();
         await drag([
           [0.5, 0.6],
@@ -807,16 +807,16 @@ export const SCENARIOS = {
           [0.7, 0.45],
           [0.5, 0.6],
         ]);
-        await page.getByRole('radio', { name: 'Color Cempasúchil' }).click();
+        await page.getByRole('radio', { name: 'Color Mango' }).click();
         await page.getByText('Marcatextos', { exact: true }).click();
         await drag([
           [0.2, 0.88],
           [0.5, 0.9],
           [0.8, 0.88],
         ]);
-        await page.getByRole('button', { name: 'Pegar un sticker' }).click();
+        await page.getByRole('button', { name: 'Sumar un sticker' }).click();
         await page.waitForTimeout(700);
-        await page.getByRole('button', { name: 'Pegar ⭐' }).click();
+        await page.getByRole('button', { name: 'Poner ⭐' }).click();
         await page.waitForTimeout(800);
       },
     },
@@ -867,7 +867,7 @@ export const SCENARIOS = {
     routes: [`/story/view?story=${sid(3)}`],
     actions: {
       [`/story/view?story=${sid(3)}`]: async (page) => {
-        await page.getByRole('button', { name: 'Arrancar esta story' }).click();
+        await page.getByRole('button', { name: 'Borrar esta story' }).click();
         await page.waitForTimeout(900);
       },
     },

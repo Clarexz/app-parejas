@@ -1,6 +1,6 @@
 import { Pressable, View } from 'react-native';
 
-import { Avatar, Icon, Stamp, Text } from '@/components';
+import { Avatar, Icon, Text } from '@/components';
 import { useCouple } from '@/features/couple';
 import { useSignedUrl } from '@/features/profile';
 import { useTheme } from '@/theme';
@@ -18,17 +18,17 @@ type Props = {
   /** Cuántas stories activas tiene mi pareja y cuántas no he visto. */
   partnerCount: number;
   partnerUnseen: number;
-  /** Sin pareja todavía: no se muestra su polaroid. */
+  /** Sin pareja todavía: no se muestra su círculo. */
   hasPartner?: boolean;
   loading?: boolean;
-  /** Sin tener story activa abre "crear"; si tienes, el visor con las tuyas. */
+  /** Tu círculo (lleva el "+"): abre "crear" o, si tienes stories, el visor con las tuyas. */
   onPressMine: () => void;
   onPressPartner: () => void;
 };
 
 /**
- * La fila de stories de Inicio (DISENO §8): dos mini polaroids. "Tú" lleva un sticker `plus` si
- * no tienes story activa; tu pareja, un sello NUEVA si tiene sin ver, o se apaga ("sin story").
+ * Los dos círculos de stories (DISENO §8): tu pareja con el aro de su fruta (y punto si hay una
+ * nueva) y tú con el aro de la tuya y un "+" para crear.
  */
 export function StoriesRowView({
   myName,
@@ -43,13 +43,14 @@ export function StoriesRowView({
   onPressMine,
   onPressPartner,
 }: Props) {
-  const { colors, spacing, radius, shadows } = useTheme();
+  const { colors, spacing, radius, fruit } = useTheme();
   const partnerHas = partnerCount > 0;
   const mineHas = mineCount > 0;
+  const partnerFruit = fruit.partner ?? fruit.me;
 
   const mineLabel = mineHas
     ? `Tu story, ${mineCount === 1 ? '1 activa' : `${mineCount} activas`}`
-    : 'Pega una story';
+    : 'Crear una story';
   const partnerLabel = partnerHas
     ? partnerUnseen > 0
       ? `Story nueva de ${partnerName}`
@@ -57,91 +58,91 @@ export function StoriesRowView({
     : `${partnerName} no tiene story`;
 
   return (
-    <View style={{ gap: spacing.md }}>
-      <Text variant="heading" accessibilityRole="header">
-        Stories de hoy
-      </Text>
-      <View style={{ flexDirection: 'row', gap: spacing.xl, alignItems: 'flex-start' }}>
+    <View style={{ flexDirection: 'row', gap: spacing.xl, alignItems: 'flex-start' }}>
+      {hasPartner ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={mineLabel}
-          accessibilityHint={mineHas ? 'Ver tus stories' : 'Abre la hoja para pegar una story'}
-          onPress={onPressMine}
-          disabled={loading}
-          style={({ pressed }) => ({ width: 84, gap: spacing.sm, opacity: pressed ? 0.7 : 1 })}
+          accessibilityLabel={partnerLabel}
+          accessibilityState={{ disabled: !partnerHas }}
+          onPress={onPressPartner}
+          disabled={!partnerHas || loading}
+          style={({ pressed }) => ({
+            width: 88,
+            alignItems: 'center',
+            gap: spacing.xs,
+            opacity: partnerHas ? (pressed ? 0.7 : 1) : 0.6,
+          })}
         >
-          <View>
-            <Avatar variant="polaroid" name={myName} source={myAvatar ?? undefined} size={76} />
-            {!mineHas && !loading ? (
-              <View
-                style={{
-                  position: 'absolute',
-                  right: -6,
-                  bottom: 14,
-                  width: 28,
-                  height: 28,
-                  borderRadius: radius.pill,
-                  backgroundColor: colors.jamaica,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderWidth: 2,
-                  borderColor: colors.polaroid,
-                  boxShadow: shadows.object,
-                }}
-              >
-                <Icon name="plus" size={16} color={colors.onJamaica} />
-              </View>
-            ) : null}
-          </View>
-          <Text variant="handSmall" numberOfLines={2} tone={mineHas ? 'ink' : 'muted'}>
-            {mineHas ? 'Tu story' : 'Pega la tuya'}
+          <Avatar
+            name={partnerName}
+            source={partnerAvatar ?? undefined}
+            size={80}
+            fruit={partnerFruit}
+            ring={partnerHas}
+            newDot={partnerUnseen > 0}
+          />
+          <Text variant="ui" numberOfLines={1} style={{ marginTop: spacing.xs }}>
+            {partnerName}
+          </Text>
+          <Text variant="note" tone="muted" numberOfLines={1}>
+            {partnerHas ? (partnerUnseen > 0 ? 'Nueva' : 'Ya la viste') : 'Nada hoy'}
           </Text>
         </Pressable>
+      ) : null}
 
-        {hasPartner ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={partnerLabel}
-            accessibilityState={{ disabled: !partnerHas }}
-            onPress={onPressPartner}
-            disabled={!partnerHas || loading}
-            style={({ pressed }) => ({
-              width: 84,
-              gap: spacing.sm,
-              opacity: partnerHas ? (pressed ? 0.7 : 1) : 0.5,
-            })}
-          >
-            <View>
-              <Avatar
-                variant="polaroid"
-                name={partnerName}
-                source={partnerAvatar ?? undefined}
-                size={76}
-              />
-              {partnerUnseen > 0 ? (
-                <Stamp
-                  style={{
-                    position: 'absolute',
-                    right: -10,
-                    top: -6,
-                    backgroundColor: colors.paper,
-                  }}
-                >
-                  NUEVA
-                </Stamp>
-              ) : null}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={mineLabel}
+        accessibilityHint={mineHas ? 'Ver tus stories' : 'Abre las opciones para crear una story'}
+        onPress={onPressMine}
+        disabled={loading}
+        style={({ pressed }) => ({
+          width: 88,
+          alignItems: 'center',
+          gap: spacing.xs,
+          opacity: pressed ? 0.7 : 1,
+        })}
+      >
+        <View>
+          <Avatar
+            name={myName}
+            source={myAvatar ?? undefined}
+            size={80}
+            fruit={fruit.me}
+            ring={mineHas}
+          />
+          {!loading ? (
+            <View
+              style={{
+                position: 'absolute',
+                right: -2,
+                bottom: -2,
+                width: 32,
+                height: 32,
+                borderRadius: radius.pill,
+                backgroundColor: colors.action,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 3,
+                borderColor: colors.bg,
+              }}
+            >
+              <Icon name="plus" size={18} color={colors.onAction} />
             </View>
-            <Text variant="handSmall" numberOfLines={1} tone={partnerHas ? 'ink' : 'muted'}>
-              {partnerHas ? partnerName : 'sin story'}
-            </Text>
-          </Pressable>
-        ) : null}
-      </View>
+          ) : null}
+        </View>
+        <Text variant="ui" numberOfLines={1} style={{ marginTop: spacing.xs }}>
+          Tú
+        </Text>
+        <Text variant="note" tone="muted" numberOfLines={1}>
+          {mineHas ? (mineCount === 1 ? '1 activa' : `${mineCount} activas`) : 'Crear'}
+        </Text>
+      </Pressable>
     </View>
   );
 }
 
-/** La fila conectada a las stories activas y a la pareja. */
+/** Los círculos conectados a las stories activas y a la pareja. */
 export function StoriesRow({
   onOpen,
   onCreate,
