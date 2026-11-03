@@ -3,10 +3,18 @@ import { fetchCoupleState } from '@/features/couple/api';
 import { fetchLocations } from '@/features/distance/api';
 import { fetchEvents } from '@/features/events/api';
 import { fetchMoods } from '@/features/mood/api';
+import { fetchStreak } from '@/features/questions/api';
 import { supabase } from '@/lib/supabase';
 import { snapshotDistance } from '@/lib/distance';
 import { latestMoodByUser } from '@/lib/mood';
-import { buildWidgetSnapshot, emptyWidgetSnapshot, type WidgetSnapshot } from '@/lib/widgets';
+import {
+  buildWidgetSnapshot,
+  emptyWidgetSnapshot,
+  profileFruit,
+  snapshotFruits,
+  type SnapshotStreak,
+  type WidgetSnapshot,
+} from '@/lib/widgets';
 
 import { fetchPartnerStory } from './partnerStory';
 import { readSnapshot } from './storage';
@@ -14,6 +22,16 @@ import { readSnapshot } from './storage';
 export const FETCH_TIMEOUT_MS = 8000;
 
 class TimeoutError extends Error {}
+
+/** Racha de preguntas; si falla la lectura se conserva la del snapshot anterior. */
+async function readStreak(fallback: SnapshotStreak | null): Promise<SnapshotStreak | null> {
+  try {
+    const s = await fetchStreak();
+    return { current: s.current, answeredToday: s.today_done };
+  } catch {
+    return fallback;
+  }
+}
 
 async function read(): Promise<WidgetSnapshot> {
   // getSession() refresca el token con el refresh token persistido si ya venció.
@@ -25,16 +43,16 @@ async function read(): Promise<WidgetSnapshot> {
   const state = await fetchCoupleState(userId);
   if (!state.couple) return emptyWidgetSnapshot('no_couple');
 
-  const [moods, events, locations] = await Promise.all([
+  const previous = await readSnapshot();
+  const [moods, events, locations, streak] = await Promise.all([
     fetchMoods(state.couple.id, 20),
     fetchEvents(state.couple.id),
     fetchLocations(state.couple.id),
+    readStreak(previous?.streak ?? null),
   ]);
   const partnerMood = state.partner ? (latestMoodByUser(moods)[state.partner.id] ?? null) : null;
   // La miniatura de la story se reutiliza del snapshot anterior si no cambió la story.
-  const partnerStory = state.partner
-    ? await fetchPartnerStory(state.partner.id, await readSnapshot())
-    : null;
+  const partnerStory = state.partner ? await fetchPartnerStory(state.partner.id, previous) : null;
   const nameOf = (p: typeof state.me) =>
     p ? { name: p.nickname || p.display_name, birthday: p.birthday } : null;
 
@@ -47,6 +65,9 @@ async function read(): Promise<WidgetSnapshot> {
     partnerId: state.partner?.id ?? null,
     partnerStory,
     events,
+    // `profiles.fruit` puede no existir todavía en el servidor: sin ella caen Sandía / Mango.
+    fruits: snapshotFruits(profileFruit(state.me), profileFruit(state.partner)),
+    streak,
     distance: snapshotDistance(locations, userId, state.partner?.id),
   });
 }

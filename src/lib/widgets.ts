@@ -16,14 +16,14 @@ import {
 } from './dates';
 import { simplifyStroke, type Stroke } from './drawing';
 import { featuredCountdown, type CountdownKind, type EventInput } from './events';
-
+import { DEFAULT_FRUITS, resolveFruits, type FruitKey } from './fruits';
 import { moodLabel } from './mood';
 import { isStoryActive, storyAgo, type StoryBg, type StoryFont, type StoryKind } from './stories';
 import { DEFAULT_TIME_ZONE } from './timezone';
 
 export { nextBirthday } from './events';
 
-export const WIDGET_SNAPSHOT_VERSION = 3;
+export const WIDGET_SNAPSHOT_VERSION = 4;
 
 /** Nombres con los que se registran los widgets (app.config.ts y el task handler). */
 export const WIDGET_NAMES = [
@@ -32,6 +32,7 @@ export const WIDGET_NAMES = [
   'Countdown',
   'PartnerStory',
   'Distance',
+  'Streak',
 ] as const;
 export type WidgetName = (typeof WIDGET_NAMES)[number];
 
@@ -42,6 +43,7 @@ export const WIDGET_ROUTES: Record<WidgetName, string> = {
   Countdown: '/events',
   PartnerStory: '/stories',
   Distance: '/distance',
+  Streak: '/questions',
 };
 
 /** Pasado este tiempo el snapshot se considera viejo y el widget intenta refrescar del servidor. */
@@ -79,6 +81,15 @@ export type SnapshotDistance = {
   km: number | null;
 };
 
+/** Evento guardado en el snapshot: `createdAt` sirve para el avance de La próxima vez. */
+export type SnapshotEvent = EventInput & { createdAt?: string | null };
+
+/** Fase 12A: racha de preguntas (null = aún no se lee). */
+export type SnapshotStreak = { current: number; answeredToday: boolean };
+
+/** Fruta de cada quien, ya resuelta con `resolveFruits` (partner null = sin pareja). */
+export type SnapshotFruits = { me: FruitKey; partner: FruitKey | null };
+
 export type WidgetStatus = 'ready' | 'signed_out' | 'no_couple';
 
 export type WidgetSnapshot = {
@@ -90,13 +101,17 @@ export type WidgetSnapshot = {
   partner: SnapshotPerson | null;
   partnerMood: SnapshotMood | null;
   /** Fase 8: eventos de la pareja (fechas propias y visitas) para la cuenta regresiva. */
-  events: EventInput[];
+  events: SnapshotEvent[];
   /** Fase 8: distancia (null si nadie comparte o aún no se lee). */
   distance: SnapshotDistance | null;
   /** Id de tu pareja (para abrir su story desde el widget). */
   partnerId: string | null;
   /** Fase 6: la story activa más nueva de tu pareja. */
   partnerStory: SnapshotStory | null;
+  /** Fase 12A: frutas de los dos (v4). */
+  fruits: SnapshotFruits;
+  /** Fase 12A: racha de preguntas (v4). */
+  streak: SnapshotStreak | null;
   /** ISO del momento en que se armó el snapshot. */
   updatedAt: string;
 };
@@ -108,6 +123,8 @@ export type WidgetCountdown = {
   emoji: string | null;
   date: IsoDate;
   daysUntil: number;
+  /** 0 a 1: qué tanto de la espera ya pasó (0.5 si no hay de dónde medir). */
+  progress: number;
 };
 
 export type WidgetDistance = {
@@ -135,6 +152,8 @@ export type WidgetModel = {
   daysUntilStart: number | null;
   partnerName: string;
   partnerMood: { emoji: string; label: string | null; note: string | null; ago: string } | null;
+  fruits: SnapshotFruits;
+  streak: SnapshotStreak | null;
   nextEvent: WidgetCountdown | null;
   distance: WidgetDistance | null;
   partnerId: string | null;
@@ -149,8 +168,10 @@ export type SnapshotInput = {
   me: { name: string | null | undefined; birthday: string | null | undefined } | null;
   partner: { name: string | null | undefined; birthday: string | null | undefined } | null;
   partnerMood: { emoji: string; note: string | null; created_at: string } | null;
-  events?: readonly EventInput[];
+  events?: readonly (EventInput & { created_at?: string | null })[];
   distance?: SnapshotDistance | null;
+  fruits?: SnapshotFruits;
+  streak?: SnapshotStreak | null;
   partnerId?: string | null;
   partnerStory?: {
     id: string;
@@ -208,6 +229,40 @@ export function latestActiveStory<
   return best;
 }
 
+const defaultFruits = (hasPartner: boolean): SnapshotFruits => ({
+  me: DEFAULT_FRUITS[0],
+  partner: hasPartner ? DEFAULT_FRUITS[1] : null,
+});
+
+function cleanStreak(v: SnapshotStreak | null | undefined): SnapshotStreak | null {
+  if (!v || !Number.isFinite(v.current)) return null;
+  return { current: Math.max(0, Math.trunc(v.current)), answeredToday: Boolean(v.answeredToday) };
+}
+
+type FruitProfile = { id: string; fruit?: string | null };
+
+/**
+ * Frutas de los dos con `resolveFruits`. `profiles.fruit` puede no existir aún en el servidor:
+ * se lee de forma defensiva y, si falta, caen Sandía / Mango.
+ */
+export function snapshotFruits(
+  me: FruitProfile | null | undefined,
+  partner: FruitProfile | null | undefined,
+): SnapshotFruits {
+  if (!me) return { me: DEFAULT_FRUITS[0], partner: partner ? DEFAULT_FRUITS[1] : null };
+  return resolveFruits(
+    { id: me.id, fruit: me.fruit },
+    partner ? { id: partner.id, fruit: partner.fruit } : null,
+  );
+}
+
+/** Lee `fruit` de una fila de `profiles` sin depender de que el tipo ya lo traiga. */
+export function profileFruit(row: object | null | undefined): FruitProfile | null {
+  if (!row || !('id' in row) || typeof row.id !== 'string') return null;
+  const fruit = (row as { fruit?: unknown }).fruit;
+  return { id: row.id, fruit: typeof fruit === 'string' ? fruit : null };
+}
+
 /** Snapshot de una sesión con pareja lista. */
 export function buildWidgetSnapshot(input: SnapshotInput): WidgetSnapshot {
   return {
@@ -231,8 +286,11 @@ export function buildWidgetSnapshot(input: SnapshotInput): WidgetSnapshot {
       emoji: e.emoji,
       date: e.date.slice(0, 10),
       recurring_yearly: e.recurring_yearly,
+      createdAt: e.created_at ?? null,
     })),
     distance: input.distance ?? null,
+    fruits: input.fruits ?? defaultFruits(input.partner !== null),
+    streak: cleanStreak(input.streak),
     partnerId: input.partnerId ?? null,
     partnerStory: cleanStory(input.partnerStory),
     updatedAt: (input.now ?? new Date()).toISOString(),
@@ -251,6 +309,8 @@ export function emptyWidgetSnapshot(status: Exclude<WidgetStatus, 'ready'>, now 
     partnerMood: null,
     events: [],
     distance: null,
+    fruits: defaultFruits(false),
+    streak: null,
     partnerId: null,
     partnerStory: null,
     updatedAt: now.toISOString(),
@@ -293,9 +353,41 @@ export function nextCountdown(s: WidgetSnapshot, today: IsoDate): WidgetCountdow
     events: s.events ?? [],
     today,
   });
-  return c
-    ? { kind: c.kind, title: c.title, emoji: c.emoji, date: c.date, daysUntil: c.daysUntil }
-    : null;
+  if (!c) return null;
+  const events = s.events ?? [];
+  const own = c.key.startsWith('event:') ? events.find((e) => `event:${e.id}` === c.key) : null;
+  const lastVisit = events
+    .filter((e) => e.kind === 'visit' && e.date <= today && e.date < c.date)
+    .reduce<IsoDate | null>((best, e) => (best === null || e.date > best ? e.date : best), null);
+  return {
+    kind: c.kind,
+    title: c.title,
+    emoji: c.emoji,
+    date: c.date,
+    daysUntil: c.daysUntil,
+    progress: countdownProgress({
+      today,
+      target: c.date,
+      since: lastVisit ?? (own?.createdAt ? own.createdAt.slice(0, 10) : null),
+    }),
+  };
+}
+
+/**
+ * Avance de la espera, de 0 a 1: días transcurridos desde `since` (la última visita o el día en
+ * que se creó la cuenta regresiva) entre el total hasta `target`. Sin dato válido: 0.5.
+ */
+export function countdownProgress(input: {
+  today: IsoDate;
+  target: IsoDate;
+  since: IsoDate | null;
+}): number {
+  const { today, target, since } = input;
+  if (!parseIsoDate(since) || !parseIsoDate(target)) return 0.5;
+  const total = daysBetween(since as IsoDate, target);
+  if (total <= 0) return 0.5;
+  const elapsed = daysBetween(since as IsoDate, today);
+  return Math.min(1, Math.max(0, elapsed / total));
 }
 
 /** "ahorita", "hace 5 min", "hace 2 h", "ayer", "hace 3 días". */
@@ -346,6 +438,8 @@ export function widgetModel(s: WidgetSnapshot | null, now: Date = new Date()): W
           ago: formatAgo(mood.at, now),
         }
       : null,
+    fruits: snap.fruits,
+    streak: ready ? snap.streak : null,
     nextEvent: ready ? nextCountdown(snap, today) : null,
     distance: ready && snap.distance ? distanceModel(snap.distance, now) : null,
     partnerId: ready ? snap.partnerId : null,

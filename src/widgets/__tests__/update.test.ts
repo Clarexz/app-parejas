@@ -52,6 +52,7 @@ describe('refreshWidgets', () => {
       'Distance',
       'PartnerMood',
       'PartnerStory',
+      'Streak',
     ]);
   });
 

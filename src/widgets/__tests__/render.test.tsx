@@ -24,6 +24,7 @@ const ready = buildWidgetSnapshot({
     created_at: '2026-10-30T17:35:00Z',
   },
   partnerId: '11111111-1111-4111-8111-111111111111',
+  streak: { current: 47, answeredToday: true },
   now: NOW,
 });
 
@@ -92,13 +93,34 @@ Object.assign(MODELS, {
 });
 
 const SIZES = [
+  { width: 57, height: 57 },
+  { width: 73, height: 90 },
   { width: 110, height: 110 },
-  { width: 160, height: 160 },
-  { width: 250, height: 110 },
-  { width: 320, height: 130 },
+  { width: 24, height: 24 },
 ];
 
+Object.assign(MODELS, {
+  sinRacha: widgetModel({ ...ready, streak: { current: 0, answeredToday: false } }, NOW),
+  sinDatoDeRacha: widgetModel({ ...ready, streak: null }, NOW),
+});
+
+const treeOf = (name: (typeof WIDGET_NAMES)[number], model: WidgetModel, size = SIZES[1]) => {
+  const { light } = renderWidget(name, model, size) as { light: React.JSX.Element };
+  return buildWidgetTree(light) as { props: Record<string, unknown> };
+};
+
 describe('renderWidget', () => {
+  it('hay seis widgets', () => {
+    expect([...WIDGET_NAMES]).toEqual([
+      'DaysTogether',
+      'PartnerMood',
+      'Countdown',
+      'PartnerStory',
+      'Distance',
+      'Streak',
+    ]);
+  });
+
   for (const name of WIDGET_NAMES) {
     for (const [modelName, model] of Object.entries(MODELS)) {
       for (const size of SIZES) {
@@ -121,10 +143,10 @@ describe('renderWidget', () => {
       Countdown: 'appparejas://events',
       PartnerStory: 'appparejas://stories',
       Distance: 'appparejas://distance',
+      Streak: 'appparejas://questions',
     };
     for (const name of WIDGET_NAMES) {
-      const { light } = renderWidget(name, MODELS.ready, SIZES[2]) as { light: React.JSX.Element };
-      const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
+      const tree = treeOf(name, MODELS.ready);
       expect(tree.props.clickAction).toBe('OPEN_URI');
       expect(tree.props.clickActionData).toEqual({ uri: expected[name] });
       expect(typeof tree.props.accessibilityLabel).toBe('string');
@@ -132,64 +154,53 @@ describe('renderWidget', () => {
     }
   });
 
+  it('el widget no tiene fondo propio', () => {
+    for (const name of WIDGET_NAMES) {
+      const tree = treeOf(name, MODELS.ready);
+      expect(JSON.stringify(tree)).not.toContain('backgroundColor');
+    }
+  });
+
   it('la story abre la de tu pareja', () => {
-    const { light } = renderWidget('PartnerStory', MODELS.storyFoto, SIZES[2]) as {
-      light: React.JSX.Element;
-    };
-    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
+    const tree = treeOf('PartnerStory', MODELS.storyFoto);
     expect(tree.props.clickActionData).toEqual({
       uri: 'appparejas://story/view?user=11111111-1111-4111-8111-111111111111',
     });
-    expect(String(tree.props.accessibilityLabel)).toContain('una foto');
+    expect(String(tree.props.accessibilityLabel)).toContain('Caleb pegó una story');
   });
 
-  it('sin story invita a pegar una', () => {
-    const { light } = renderWidget('PartnerStory', MODELS.ready, SIZES[0]) as {
-      light: React.JSX.Element;
-    };
-    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
+  it('sin story invita a abrir las stories', () => {
+    const tree = treeOf('PartnerStory', MODELS.ready);
+    expect(tree.props.clickActionData).toEqual({ uri: 'appparejas://stories' });
     expect(String(tree.props.accessibilityLabel)).toContain('Caleb no ha pegado nada hoy');
   });
 
   it('el estado cerrado invita a abrir la app', () => {
-    const { light } = renderWidget('Countdown', MODELS.cerrado, SIZES[0]) as {
-      light: React.JSX.Element;
-    };
-    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
-    expect(String(tree.props.accessibilityLabel)).toContain('Abre la app para empezar');
+    expect(String(treeOf('Countdown', MODELS.cerrado).props.accessibilityLabel)).toContain(
+      'para empezar',
+    );
   });
 
-  it('la distancia dice los kilómetros y las ciudades', () => {
-    const { light } = renderWidget('Distance', MODELS.distanciaLosDos, SIZES[2]) as {
-      light: React.JSX.Element;
-    };
-    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
-    const label = String(tree.props.accessibilityLabel);
-    expect(label).toContain('704 kilómetros');
-    expect(label).toContain('Ciudad de México ↔ Monterrey');
-  });
-
-  it('la distancia sin ciudades usa los nombres', () => {
-    const { light } = renderWidget('Distance', MODELS.distanciaSinCiudades, SIZES[0]) as {
-      light: React.JSX.Element;
-    };
-    const tree = buildWidgetTree(light) as { props: Record<string, unknown> };
-    const label = String(tree.props.accessibilityLabel);
-    expect(label).toContain('1,240 kilómetros');
-    expect(label).toContain('Tú ↔ Caleb');
+  it('la distancia dice los kilómetros', () => {
+    expect(String(treeOf('Distance', MODELS.distanciaLosDos).props.accessibilityLabel)).toContain(
+      '704 kilómetros',
+    );
+    expect(
+      String(treeOf('Distance', MODELS.distanciaSinCiudades).props.accessibilityLabel),
+    ).toContain('1,240 kilómetros');
   });
 
   it('si solo uno comparte, explica qué falta', () => {
-    const draw = (m: WidgetModel) =>
-      String(
-        (
-          buildWidgetTree(
-            (renderWidget('Distance', m, SIZES[0]) as { light: React.JSX.Element }).light,
-          ) as { props: Record<string, unknown> }
-        ).props.accessibilityLabel,
-      );
-    expect(draw(MODELS.distanciaSoloYo)).toContain('Cuando Caleb active su distancia');
-    expect(draw(MODELS.distanciaSoloEl)).toContain('Caleb ya la comparte');
-    expect(draw(MODELS.ready)).toContain('Activen su distancia');
+    const label = (m: WidgetModel) => String(treeOf('Distance', m).props.accessibilityLabel);
+    expect(label(MODELS.distanciaSoloYo)).toContain('Cuando Caleb active su distancia');
+    expect(label(MODELS.distanciaSoloEl)).toContain('Activa tu distancia');
+    expect(label(MODELS.ready)).toContain('Activen su distancia');
+  });
+
+  it('la racha dice los días', () => {
+    expect(String(treeOf('Streak', MODELS.ready).props.accessibilityLabel)).toContain('47 días');
+    expect(String(treeOf('Streak', MODELS.sinRacha).props.accessibilityLabel)).toContain(
+      'No tienen racha',
+    );
   });
 });

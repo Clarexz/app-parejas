@@ -19,14 +19,13 @@ const widgetPreview = (name: string) => {
   return existsSync(path) ? (path as `./${string}`) : undefined;
 };
 
+// Seis widgets 1×1 sin fondo (D103): 40 dp es el mínimo de una celda según Android.
 const WIDGET_DEFAULTS = {
-  minWidth: '110dp',
-  minHeight: '110dp',
-  targetCellWidth: 2,
-  targetCellHeight: 2,
-  maxResizeWidth: '320dp',
-  maxResizeHeight: '220dp',
-  resizeMode: 'horizontal|vertical',
+  minWidth: '40dp',
+  minHeight: '40dp',
+  targetCellWidth: 1,
+  targetCellHeight: 1,
+  resizeMode: 'none',
   updatePeriodMillis: 1800000,
   widgetCategory: 'home_screen',
 } as const;
@@ -137,8 +136,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           },
           {
             name: 'Countdown',
-            label: 'Cuenta regresiva',
-            description: 'Cuánto falta para su próxima fecha especial.',
+            label: 'La próxima vez',
+            description: 'Cuánto falta para verse o para su próxima fecha.',
             previewImage: widgetPreview('Countdown'),
             ...WIDGET_DEFAULTS,
           },
@@ -154,6 +153,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             label: 'Distancia',
             description: 'A cuántos kilómetros están ahorita.',
             previewImage: widgetPreview('Distance'),
+            ...WIDGET_DEFAULTS,
+          },
+          {
+            name: 'Streak',
+            label: 'Racha',
+            description: 'Cuántos días llevan contestando la pregunta del día.',
+            previewImage: widgetPreview('Streak'),
             ...WIDGET_DEFAULTS,
           },
         ],

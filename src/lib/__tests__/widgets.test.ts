@@ -4,12 +4,15 @@ import {
   WIDGET_ROUTES,
   WIDGET_SNAPSHOT_VERSION,
   buildWidgetSnapshot,
+  countdownProgress,
   emptyWidgetSnapshot,
   formatAgo,
   nextBirthday,
   nextCountdown,
   parseWidgetSnapshot,
+  profileFruit,
   snapshotChanged,
+  snapshotFruits,
   widgetModel,
   type SnapshotInput,
   type WidgetSnapshot,
@@ -48,6 +51,25 @@ describe('buildWidgetSnapshot', () => {
     expect(s.updatedAt).toBe(NOW.toISOString());
     expect(s.distance).toBeNull();
     expect(s.events).toEqual([]);
+    expect(s.streak).toBeNull();
+    expect(s.fruits).toEqual({ me: 'sandia', partner: 'mango' });
+  });
+
+  it('v4 guarda frutas y racha', () => {
+    const s = buildWidgetSnapshot(
+      input({
+        fruits: { me: 'uva', partner: 'limon' },
+        streak: { current: 47.9, answeredToday: true },
+      }),
+    );
+    expect(WIDGET_SNAPSHOT_VERSION).toBe(4);
+    expect(s.fruits).toEqual({ me: 'uva', partner: 'limon' });
+    expect(s.streak).toEqual({ current: 47, answeredToday: true });
+  });
+
+  it('sin pareja la fruta de pareja es null', () => {
+    const s = buildWidgetSnapshot(input({ partner: null }));
+    expect(s.fruits).toEqual({ me: 'sandia', partner: null });
   });
 
   it('limpia nombres y fechas inválidas', () => {
@@ -114,6 +136,7 @@ describe('buildWidgetSnapshot', () => {
         emoji: null,
         date: '2026-07-01',
         recurring_yearly: false,
+        createdAt: null,
       },
     ]);
   });
@@ -293,6 +316,7 @@ describe('nextCountdown', () => {
       emoji: null,
       date: '2026-06-20',
       daysUntil: 5,
+      progress: 0.5,
     });
   });
   it('hoy cuenta con daysUntil 0 y gana el aniversario en un empate', () => {
@@ -432,5 +456,100 @@ describe('widgetModel', () => {
     const s = snap({ updatedAt: NOW.toISOString() });
     expect(widgetModel(s, NOW).stale).toBe(false);
     expect(widgetModel(s, new Date(NOW.getTime() + SNAPSHOT_STALE_MS + 1)).stale).toBe(true);
+  });
+});
+
+describe('frutas y racha (v4)', () => {
+  it('snapshotFruits usa resolveFruits y cae a Sandía / Mango sin elegir', () => {
+    expect(snapshotFruits({ id: 'a' }, { id: 'b' })).toEqual({ me: 'sandia', partner: 'mango' });
+    expect(snapshotFruits({ id: 'b' }, { id: 'a' })).toEqual({ me: 'mango', partner: 'sandia' });
+    expect(snapshotFruits({ id: 'a', fruit: 'uva' }, { id: 'b' })).toEqual({
+      me: 'uva',
+      partner: 'limon',
+    });
+    expect(snapshotFruits({ id: 'a', fruit: 'uva' }, null)).toEqual({ me: 'uva', partner: null });
+    expect(snapshotFruits(null, null)).toEqual({ me: 'sandia', partner: null });
+  });
+
+  it('profileFruit lee la columna aunque el tipo aún no la tenga', () => {
+    expect(profileFruit({ id: 'a', fruit: 'pitaya' })).toEqual({ id: 'a', fruit: 'pitaya' });
+    expect(profileFruit({ id: 'a' })).toEqual({ id: 'a', fruit: null });
+    expect(profileFruit(null)).toBeNull();
+  });
+
+  it('el modelo trae frutas y racha solo si está listo', () => {
+    const s = snap({
+      fruits: { me: 'arandano', partner: 'mandarina' },
+      streak: { current: 3, answeredToday: false },
+    });
+    const m = widgetModel(s, NOW);
+    expect(m.fruits).toEqual({ me: 'arandano', partner: 'mandarina' });
+    expect(m.streak).toEqual({ current: 3, answeredToday: false });
+    expect(widgetModel({ ...s, status: 'no_couple' }, NOW).streak).toBeNull();
+  });
+});
+
+describe('countdownProgress', () => {
+  it('días transcurridos entre el total', () => {
+    expect(
+      countdownProgress({ today: '2026-06-15', target: '2026-06-25', since: '2026-06-05' }),
+    ).toBe(0.5);
+    expect(
+      countdownProgress({ today: '2026-06-08', target: '2026-06-28', since: '2026-06-01' }),
+    ).toBeCloseTo(7 / 27);
+  });
+  it('sin dato, 0.5; acotado de 0 a 1', () => {
+    expect(countdownProgress({ today: '2026-06-15', target: '2026-06-25', since: null })).toBe(0.5);
+    expect(
+      countdownProgress({ today: '2026-06-15', target: '2026-06-15', since: '2026-06-15' }),
+    ).toBe(0.5);
+    expect(
+      countdownProgress({ today: '2026-06-30', target: '2026-06-25', since: '2026-06-05' }),
+    ).toBe(1);
+    expect(
+      countdownProgress({ today: '2026-06-01', target: '2026-06-25', since: '2026-06-05' }),
+    ).toBe(0);
+  });
+  it('mide desde la última visita pasada', () => {
+    const visit = (id: string, date: string) => ({
+      id,
+      kind: 'visit' as const,
+      title: 'Nos vemos',
+      emoji: null,
+      date,
+      recurring_yearly: false,
+    });
+    const s = snap({
+      anniversary: null,
+      me: null,
+      partner: null,
+      events: [
+        visit('old', '2026-05-01'),
+        visit('last', '2026-06-05'),
+        visit('next', '2026-06-25'),
+      ],
+    });
+    const c = nextCountdown(s, '2026-06-15');
+    expect(c?.date).toBe('2026-06-25');
+    expect(c?.progress).toBe(0.5);
+  });
+  it('un evento propio mide desde que se creó', () => {
+    const s = snap({
+      anniversary: null,
+      me: null,
+      partner: null,
+      events: [
+        {
+          id: 'c1',
+          kind: 'custom',
+          title: 'Concierto',
+          emoji: null,
+          date: '2026-06-25',
+          recurring_yearly: false,
+          createdAt: '2026-06-05T12:00:00Z',
+        },
+      ],
+    });
+    expect(nextCountdown(s, '2026-06-20')?.progress).toBe(0.75);
   });
 });

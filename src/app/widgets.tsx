@@ -15,7 +15,7 @@ const STEPS = [
   'Mantén presionado un espacio vacío de tu pantalla de inicio.',
   'Elige “Widgets” y busca Noviecitosfest.',
   'Arrastra el widget que quieras a tu pantalla.',
-  'Para el tamaño mediano, mantenlo presionado y estira los bordes hasta que ocupe 4 columnas.',
+  'Cada widget ocupa un solo cuadro: acomoda los que quieras sobre tu fondo de pantalla.',
 ];
 
 const INFO: Record<WidgetName, { title: string; text: string }> = {
@@ -28,8 +28,8 @@ const INFO: Record<WidgetName, { title: string; text: string }> = {
     text: 'Cómo se siente, justo ahora. Toca para ver los moods de los dos.',
   },
   Countdown: {
-    title: 'Cuenta regresiva',
-    text: 'Lo próximo que viene: su aniversario, sus cumples y sus hitos.',
+    title: 'La próxima vez',
+    text: 'Una media luna que se llena conforme se acerca lo próximo: su visita, su aniversario o sus cumples.',
   },
   PartnerStory: {
     title: 'Story de tu pareja',
@@ -38,6 +38,10 @@ const INFO: Record<WidgetName, { title: string; text: string }> = {
   Distance: {
     title: 'Distancia',
     text: 'A cuántos kilómetros están ahorita. Solo se ve si los dos activan su distancia.',
+  },
+  Streak: {
+    title: 'Racha',
+    text: 'Cuántos días seguidos llevan contestando la pregunta del día. Toca para contestar.',
   },
 };
 
