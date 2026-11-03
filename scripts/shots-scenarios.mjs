@@ -1935,6 +1935,53 @@ export const SCENARIOS = {
       },
     };
   })(),
+  // Fase 12A, Inicio completo: cuenta regresiva, pregunta, racha, mood y story nueva (prefijo `inicio-completo`).
+  ...(() => {
+    const day = (n) => new Date(Date.now() + n * 86_400_000).toISOString().slice(0, 10);
+    const visit = {
+      id: 'bbbbbbbb-bbbb-4bbb-8bbb-000000000099',
+      couple_id: COUPLE_ID,
+      created_by: ME_ID,
+      kind: 'visit',
+      title: 'Nos vemos en Guadalajara',
+      emoji: '✈️',
+      date: day(12),
+      recurring_yearly: false,
+      note: null,
+      created_at: new Date(Date.now() - 20 * 86_400_000).toISOString(),
+      updated_at: '2026-10-01T12:00:00Z',
+    };
+    const base = {
+      me: profiles.me,
+      partner: profiles.partner,
+      members: [member(ME_ID), member(PARTNER_ID)],
+      stories: sampleStories,
+      daily: () => todayCard('unanswered_partner_done'),
+      streak: () => streakWith(47, 47, []),
+      rest: (path, { route, json }) =>
+        path === '/rest/v1/events' ? json(route, [visit]) : undefined,
+    };
+    return {
+      inicio_completo: {
+        prefix: 'inicio-completo',
+        ...base,
+        moods: () => sampleMoods().filter((m) => m.user_id === PARTNER_ID),
+        routes: ['/'],
+      },
+      inicio_completo_mood: {
+        prefix: 'inicio-completo-hoja',
+        ...base,
+        moods: () => sampleMoods().filter((m) => m.user_id === PARTNER_ID),
+        routes: ['/'],
+        actions: {
+          '/': async (page) => {
+            await page.getByLabel('¿Y tú? Toca para elegir tu mood').click();
+            await page.waitForTimeout(900);
+          },
+        },
+      },
+    };
+  })(),
 };
 
 const b64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');
