@@ -1,5 +1,9 @@
 # Sistema de diseño — "Bitácora"
 
+> ⚠️ **Se reemplaza en la Fase 12A.** La app cambia a la marca **"ahorita"** (D97–D103, manual en
+> `docs/rebranding/`). Este documento sigue vigente para el código actual hasta que la 12A publique
+> el `DISENO.md` v2; no se crean pantallas nuevas con "Bitácora" mientras tanto.
+
 > **Este documento es ley** (PLAN §8.5). Toda pantalla nueva lo sigue. Si una fase necesita algo
 > que no está aquí, primero se extiende el sistema (tokens o componente, con su entrada en este
 > archivo) y después se usa en la pantalla. Nunca se improvisan estilos sueltos en una pantalla.

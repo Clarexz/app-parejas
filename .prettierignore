@@ -6,3 +6,4 @@ coverage
 package-lock.json
 supabase/migrations
 *.md
+docs/rebranding

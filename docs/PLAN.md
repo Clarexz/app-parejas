@@ -472,13 +472,18 @@ agentes, correr la verificación final y cerrar la fase (§8.2); hablar contigo.
 | 9 | Juegos | Qué prefieres, Yo nunca, Quién es más probable, dibujo | 3 |
 | 10 | Banco de contenido completo | 3,000+ preguntas e ítems de juegos | 3, 9 |
 | 11 | Extras más allá de Couple Joy (11A y 11B) | Pienso en ti, cápsula, cupones, ruleta de citas, lenguajes del amor, visitas, estadísticas | 2, 8, 9 |
-| 12 | Pulido, rendimiento y entrega | Diseño final, audio, APK definitivo | todas |
+| 12A | Rediseño "ahorita" | Marca nueva, frutas, app minimalista y widgets 1×1 con forma | todas |
+| 12B | Pulido, rendimiento y entrega | Audio, rendimiento, robustez, APK definitivo | 12A |
 
 Las fases 7, 8, 9 y 11 son bastante independientes y se pueden reordenar.
 
 **Orden acordado desde el 2026-10-31 (D86):** 9 → 11B → 12. Las fases **10** (banco de 3,000+
 preguntas) y **11A** (Pienso en ti, cápsula, cupones, ruleta) quedan **pospuestas** para después de
 la 12 por tiempo; se retoman con sus mismos prompts de arranque.
+
+**Desde el 2026-11-03 (D97–D98):** el **rediseño "ahorita" (12A)** es la siguiente prioridad, antes
+de todo lo pendiente: 12A → 12B → 10 → 11A. El deploy pendiente de las Fases 6–9 y 11B se hace
+junto con el servidor de la 12A (o antes, si se quiere instalar ya la v0.12.0).
 
 ---
 
@@ -986,12 +991,163 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 ---
 
-### Fase 12 — Pulido, rendimiento y entrega
+### Fase 12A — Rediseño "ahorita"
+
+**Por qué:** a la usuaria principal el sistema "Bitácora" (cuaderno, cinta washi, post-its, sellos,
+letra a mano, inclinaciones) la **abrumó**. Pidió algo **minimalista** y widgets **1×1 con forma**,
+sin fondo, translúcidos tipo vidrio, con el dato debajo (la idea del corazón de días juntos de
+Couple Joy, solo la idea). Con eso se hizo un manual de marca nuevo y la app **cambia de nombre a
+"ahorita"** (D97). Esta fase va **antes** de todo lo pendiente (resto de la 12 → 12B, 10 y 11A).
+
+**Fuente de verdad:** `docs/rebranding/ahorita-brand-guidelines.pdf` (17 págs.) y su versión HTML en
+`docs/rebranding/noviecitos-brand/html/` (`guidelines.html`, una página por `gNN.html`, previas en
+`prev/gNN.png`, fuentes en `fonts/`, constantes en `build/common.py`). El manual es **de marca**: no
+trae pantallas de la app ni tokens completos (modo oscuro, grises, estados, semánticos). Esta fase
+convierte el manual en el sistema de diseño de la app (`docs/DISENO.md` v2) y lo aplica en todo.
+
+**Resumen del manual (lo que manda):**
+
+| Tema | Regla |
+|---|---|
+| Nombre y lema | **ahorita**, siempre en minúsculas. "Falta menos de lo que parece." Misión: hacer que la distancia se sienta más chiquita, un día a la vez. |
+| Personalidad | Chiquito (si estorba, se quita) · Juguetón · De a dos (sin anuncios ni premium) · Honesto. "Si dudas, quita algo." |
+| Símbolo | Un círculo partido en **dos medias lunas** (las dos personas) con una **rendija de 8 %**; nunca se tocan. En la app se dibuja en código con las frutas de la pareja; el **ícono de la app es fijo** Sandía + Mango. Tamaños mínimos 64/32/16; en la app 24, 48 y 96 dp. Espacio libre = media media luna. |
+| Wordmark | Bricolage Grotesque ExtraBold, tracking −4.5 %, minúsculas; la "o" partida en las dos frutas. Versiones horizontal, apilada, solo nombre y reverso sobre Tinta. Prohibido: estirar, girar, sombras/3D, colores que no son frutas, otra tipografía o mayúsculas. |
+| Color base | Hueso `#FFFDF8` (fondo), Tinta `#1B1B1F` (texto), Humo `#6B6B72` (secundario), Arena `#F4EFE3` (tarjetas), líneas `#EAE3D3`. |
+| Sistema de frutas | 7 frutas: Sandía `#F2495C`, Mango `#FFC24B`, Mandarina `#FF8A3D`, Limón `#C5DC3A`, Uva `#8B5CF6`, Arándano `#3F6BFF`, Pitaya `#E83E9C`. **Cada quien elige la suya**: es su color en el símbolo, widgets, respuestas, stories y notificaciones. Default Sandía + Mango. Pares bloqueados por parecerse: Sandía–Pitaya, Sandía–Mandarina, Mango–Limón, Mango–Mandarina, Uva–Arándano, Uva–Pitaya. Texto encima: Tinta (Sandía, Mango, Mandarina, Limón, Pitaya) u Hueso (Uva, Arándano). |
+| Tipografía | Display **Bricolage Grotesque ExtraBold** (números siempre en display) + texto **Albert Sans** 400/500/600. Escala: Display 56/58, H1 40/44, H2 28/32, H3 22/28, Cuerpo 18/26, Nota 14/20. Mayúscula inicial; MAYÚSCULAS solo en etiquetas; mínimo 14 sp. |
+| Íconos | Redondos, parejos: trazo 2 dp en retícula 24, puntas y uniones redondas, círculos y arcos primero. Tinta en reposo; **activo = círculo relleno con tu fruta** (pestaña activa). 12 propios (Inicio, Pregunta, Mood, Stories, Memorias, Cuenta regresiva, Distancia, Listas, Juegos, Lenguajes, Estadísticas, Avisos); el resto **Material Symbols Rounded peso 500**. |
+| Forma | Esquinas 24 dp en tarjetas y 28 dp en hojas. Aire: mínimo "una media luna" alrededor de todo. Sin cuadrícula, washi, post-its ni texturas. |
+| Widgets | **Seis, todos 1×1**, la forma ocupa ~60 % del cuadro, **sin fondo** (vidrio translúcido con contorno oscuro fino), **un dato debajo**; en oscuro el vidrio gana opacidad; una fruta eres tú y la otra tu pareja. Días juntos = corazón partido en las dos frutas · Mood = burbuja de diálogo con su emoji y la palabra · La próxima vez = media luna que se llena como sol saliendo ("faltan 12") · Distancia = dos círculos con ruta punteada (más cerca, menos espacio) · Story = foto circular con aro de las dos frutas y punto si es nueva · **Racha (nuevo)** = chispa encendida ("47 días"). |
+| Voz | Como le escribirías a quien quieres: juguetona, cálida, breve, directa. Nunca "usuario", "premium", "desbloquear", "conectar con tu pareja", "experiencia", ni signos de admiración en cadena. Error: "No pudimos mandarlo. Tu celular está sin señal; lo intentamos otra vez." Vacío: "Aquí irá su primera memoria. ¿Cuál sería?" |
+| Aplicaciones | Ícono adaptativo (símbolo en el 66 % central sobre Hueso), splash = símbolo + nombre sobre Hueso, notificaciones = nombre de quien escribe + frase corta con el color de su fruta, stickers de stories circulares con frase en display ("ya casi", "te extraño", "buen día"). |
+| Fuera de la app | Fotografía de calle con sol, mundo visual, merch, redes y sitio: **no aplican** a esta fase (no hay sitio ni redes). |
+
+**Huecos del manual que esta fase decide** (proponerlos en el paso 1 y registrarlos en DECISIONS):
+- **Modo oscuro** de toda la app (el manual solo lo define para widgets): fondo casi Tinta (cerca de
+  `#141416`/`#1B1B1F`), tarjetas `#2B2B30`-ish, texto Hueso, frutas iguales o un punto más claras;
+  validar contraste.
+- **Acento de acción**: tu fruta (como la pestaña activa) vs. Sandía fija. Recomendado: **tu fruta**
+  para lo tuyo (pestaña activa, tu respuesta, tu mood) y **Tinta** para botones primarios (pastilla
+  Tinta con texto Hueso), así ninguna combinación de frutas rompe el contraste.
+- **Semánticos**: error/destructivo y éxito sin robar una fruta (p. ej. error = rojo profundo
+  distinto de Sandía con ícono + texto; éxito = Tinta con check). Limón y Arándano no llegan a 4.5:1
+  con texto encima: solo rellenos o texto grande.
+- **Qué fruta toca cuando no hay pareja** (sin pareja: tu fruta + Arena) y qué pasa si alguien cambia
+  a una fruta bloqueada con la de su pareja (no se permite; el selector las muestra deshabilitadas
+  con "Se parece mucho a la de {pareja}").
+- **Movimiento**: reemplaza "pegar/desdoblar" por transiciones suaves y cortas (fundido + escala
+  leve; las medias lunas que se acercan como momento de marca, p. ej. al contestar los dos).
 
 **Tareas:**
-1. Revisión de diseño completa (consistencia, micro-interacciones, haptics, modo oscuro), icono y
-   *splash* propios; aplicar el **nombre definitivo** si ya existe.
-2. Respuestas en **audio** (preguntas), tarjeta compartible (imagen) de racha/días juntos
+1. **Prototipo y aprobación (bloqueante).** Prototipo HTML (`docs/design/ahorita-app.html`) con el
+   sistema aplicado a **Inicio, Pregunta del día, Memorias, Más y el selector de fruta**, en claro y
+   oscuro, más los 6 widgets sobre fondo claro, oscuro y foto. Se presenta y **se espera el visto
+   bueno de los dos** antes de tocar código (es justo lo que falló con "Bitácora").
+2. **`docs/DISENO.md` v2 "ahorita"** (reemplaza a "Bitácora"; lo de antes queda en el historial de
+   git): principios, tokens (color claro/oscuro con frutas, tipografía, espaciado, radios, sombras
+   mínimas, movimiento), iconografía, símbolo y wordmark, sistema de widgets, voz y tono, componentes
+   con estados, patrones de pantalla, prohibidos y checklist. Actualizar `docs/CONTENT.md` con la voz.
+3. **Frutas (datos + lógica):**
+   - Migración: `profiles.fruit` (`text not null default` según orden de llegada, `check` con las 7
+     claves) y RPC `set_fruit(p_fruit)` que valida que no sea igual ni bloqueada con la de tu pareja
+     (`fruit_taken`/`fruit_clash`); al unirse a una pareja, si choca, se le asigna la sugerida. Tests
+     en `supabase/tests/` y `npm run db:types`.
+   - `src/lib/fruits.ts` (puro, con tests): catálogo, pares bloqueados, pareja sugerida, color de
+     texto encima, `fruitsFor(me, partner)`.
+   - Selector de fruta en onboarding (después de crear/unirse) y en Más → Perfil. Realtime: si tu
+     pareja cambia de fruta, se repinta todo.
+4. **Tema y base en código:** `src/theme/tokens.ts` nuevo (Hueso/Tinta/Humo/Arena + frutas +
+   oscuro); `useTheme()` expone `myFruit`/`partnerFruit`. Fuentes con `npx expo install
+   @expo-google-fonts/bricolage-grotesque @expo-google-fonts/albert-sans` y fuera Gochi Hand, Figtree
+   y Courier Prime. Componentes nuevos: `Symbol` (medias lunas SVG con rendija 8 %, frutas por
+   props), `Wordmark`. Rediseñar `Screen`, `Text`, `Button` (pastilla), `Card` (Arena, 24 dp),
+   `Sheet` (28 dp), `Input`, `Chip`, `Avatar` (aro de su fruta), `ListRow`, `EmptyState`, `Toast`,
+   `TabBar` (círculo de tu fruta en la activa), `PageHeader`, `IconButton`. **Retirar** `Paper`
+   (cuadrícula), `Tape`, `Stamp`, `Sticker`, `Doodle`, `Polaroid`, `Note`/post-it, `FoldedNote`,
+   `SealOverlay`, `tiltFor` y las ilustraciones de pluma, reemplazando sus usos. Actualizar el
+   Catálogo de diseño (`/catalogo`).
+5. **Íconos:** redibujar el set en `src/components/icons/paths.ts` con el estilo nuevo (los 12 del
+   manual + los que ya usa la app). Los que no estén se toman como **paths SVG** de Material Symbols
+   Rounded 500 (licencia Apache 2.0, sin fuente de íconos ni librería en runtime).
+6. **Pantallas (las 45 rutas)**, en este orden, con capturas claro/oscuro en cada bloque:
+   a) Pestañas + Inicio (días en display, mood de los dos con sus frutas, pregunta, racha, próxima
+   vez, distancia) · b) Pregunta del día, revelado de la respuesta (sin notita doblada), comentarios,
+   historial, categorías · c) Mood, stories (visor, creador; stickers de frase circulares además de
+   los emojis) · d) Memorias, mapa (el "mapa de papel" pasa a mapa minimalista), cuentas regresivas,
+   listas, distancia · e) Juegos, reto de dibujo, lenguajes del amor, visitas (calendario sin
+   cuadrícula de cuaderno), estadísticas · f) Auth, onboarding (con selector de fruta), Más, ajustes,
+   avisos, pantalla de error, `/widgets`.
+7. **Copy:** cambiar "Noviecitosfest" por "ahorita" (`APP_NAME`, widgets, compartir) y auditar
+   todos los textos y notificaciones contra la voz del manual (sin "usuario", "experiencia",
+   "conectar con tu pareja", sin "¡¡"). `ANDROID_PACKAGE` y `APP_SCHEME` **no cambian** (se instala
+   encima sin perder sesión).
+8. **Widgets 1×1 (rehacer los 5 + Racha):**
+   - Spike primero en el APK: forma en `SvgWidget` con vidrio simulado (relleno de fruta ~55–65 %
+     de opacidad, brillo con degradado blanco arriba, contorno oscuro fino 1 dp a ~25 %), y el dato
+     debajo legible sobre cualquier fondo (texto con contorno/sombra; si `TextWidget` no lo permite,
+     dibujarlo dentro del SVG con la fuente del sistema o como imagen). En oscuro, más opacidad.
+     `react-native-android-widget` **no tiene blur real**: el "liquid glass" es simulado.
+   - Formas: corazón partido (días), burbuja con emoji (mood), media luna que se llena según lo que
+     falta para la próxima vez (de la última visita/creación del evento a la fecha), dos círculos
+     cuya separación baja con los km (escala log), foto circular con aro de las dos frutas y punto si
+     no la has visto (story) y chispa (racha, "47 días"; apagada si hoy nadie contesta y en riesgo).
+   - Config en `app.config.ts`: `targetCellWidth/Height` 1, `minWidth/minHeight` ~`57dp`, sin
+     redimensionar; mismos nombres para que los widgets ya puestos se conviertan solos; nuevo
+     `Streak`. Snapshot **v4** con frutas de los dos y racha; push de datos (`scope: 'fruit'` y
+     `'streak'`) al cambiar fruta y al completar el día. Previas nuevas en `assets/widgets/*.png`.
+   - Estados vacíos (sin sesión, sin pareja, sin evento, sin story) también con forma + una palabra.
+9. **Ícono, splash y notificaciones:** ícono adaptativo con el símbolo fijo Sandía + Mango en el
+   66 % central sobre Hueso, capa **monocroma** (íconos temáticos de Android) y ícono de
+   notificación = silueta del símbolo; splash = símbolo + wordmark sobre Hueso (oscuro: sobre Tinta).
+   Fuentes en `assets/brand/*.svg` y `npm run brand`. La foto de la pareja deja de ser el ícono (se
+   puede usar como foto de la pareja dentro de la app). En `notify`, `android.notification.color` =
+   fruta de quien manda el aviso.
+10. **Limpieza de `docs/rebranding/`:** quitar `build/__pycache__/` y los `img/*_raw.png`
+    intermedios (pesan; la carpeta ocupa ~61 MB) si el usuario está de acuerdo; el PDF, el HTML y
+    `prev/` se quedan como referencia.
+
+**Orquestación (§8.4):** el orquestador hace el paso 1 (con `disenador-ui`) y decide los huecos;
+`implementador` hace frutas (migración, RPC, tests, snapshot) y widgets; `disenador-ui` hace tema,
+componentes, íconos y pantallas por bloques en paralelo (worktrees si se pisan); `contenido` hace
+el copy y los stickers de frase; `mecanico` renombres, docs y notas de release. El orquestador
+revisa cada bloque con capturas de `npm run shots` contra el manual.
+
+**Servidor:** migración de `profiles.fruit` + `set_fruit`, `notify` con color por fruta y push de
+datos `fruit`/`streak`. Va en el **mismo deploy** que lo pendiente de las Fases 6–9 y 11B.
+
+**Entregable APK (`v0.12.x`):** la app completa con la identidad "ahorita": nombre, ícono, splash,
+frutas elegibles, todas las pantallas minimalistas en claro/oscuro y los 6 widgets 1×1 con forma.
+Se puede adelantar un APK intermedio solo con tema + Inicio + widgets para que ella lo pruebe.
+
+**Prompt de arranque:**
+```
+Lee CLAUDE.md, docs/PLAN.md (§8 y la Fase 12A completa), docs/DECISIONS.md y el manual de marca
+en docs/rebranding/ (PDF y noviecitos-brand/html/guidelines.html; previas en prev/). Actúa como
+orquestador según §8.4. Ejecuta la **Fase 12A — Rediseño "ahorita"**. Empieza por el prototipo
+HTML (Inicio, Pregunta del día, Memorias, Más y selector de fruta en claro y oscuro, más los 6
+widgets 1×1 sobre fondo claro, oscuro y foto), resolviendo los huecos del manual que lista la fase,
+y DETENTE para que lo aprobemos. Con el visto bueno: reescribe docs/DISENO.md v2, implementa las
+frutas (migración profiles.fruit + set_fruit con pares bloqueados, lib pura con tests, selector),
+el tema y los componentes nuevos (retirando los de "Bitácora"), el set de íconos, rediseña todas
+las pantallas por bloques con capturas, cambia el nombre a "ahorita" y audita el copy, rehaz los
+widgets como 1×1 con forma y vidrio simulado (más el nuevo de Racha, snapshot v4) y el ícono,
+splash y color de notificaciones. Verifica lint, typecheck, test, format:check y expo export, dame
+el prompt del servidor y cierra con el protocolo de §8.2.
+```
+
+---
+
+### Fase 12B — Pulido, rendimiento y entrega
+
+> Es lo que queda de la Fase 12 después del rediseño (12A). La parte 1 (nombre Noviecitosfest,
+> ícono con foto y textos, v0.12.0) ya se publicó; el nombre, el ícono y el splash ahora los
+> resuelve la 12A. Todo lo de esta fase sigue el `docs/DISENO.md` v2.
+
+**Tareas:**
+1. Revisión de diseño completa sobre el sistema "ahorita" (consistencia, micro-interacciones,
+   haptics, modo oscuro). Ícono, splash y nombre ya quedaron en la 12A.
+2. Respuestas en **audio** (preguntas), tarjeta compartible (imagen, con la marca nueva) de racha/días juntos
    (`react-native-view-shot`), bloqueo biométrico opcional.
 3. Rendimiento: listas virtualizadas (FlashList), caché de imágenes, persistencia offline de
    TanStack Query.
@@ -1007,10 +1163,9 @@ APK en GitHub Releases, §10, DECISIONS.md y PR).
 
 **Prompt de arranque:**
 ```
-Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/SERVIDOR.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 12 — Pulido,
-rendimiento y entrega**. Haz una revisión de diseño de toda la app (consistencia, haptics,
-animaciones, modo oscuro), icono y splash propios [y aplica el nombre definitivo: NOMBRE si ya lo
-tengo]; agrega respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico
+Lee CLAUDE.md, docs/PLAN.md, docs/DECISIONS.md y docs/SERVIDOR.md. Actúa como orquestador según §8.4 y sigue docs/DISENO.md. Ejecuta la **Fase 12B — Pulido,
+rendimiento y entrega** (el rediseño "ahorita" de la 12A ya está hecho). Haz una revisión de diseño
+de toda la app (consistencia, haptics, animaciones, modo oscuro); agrega respuestas en audio, tarjeta compartible de racha/días juntos y bloqueo biométrico
 opcional; mejora rendimiento (FlashList, caché de imágenes) y modo offline de lectura; agrega error
 boundaries y reintentos; audita todas las políticas RLS y RPC; agrega el aviso de versión nueva
 (tabla app_versions). Dame el prompt de servidor para aplicar cambios, probar la restauración de
@@ -1035,10 +1190,12 @@ vez publica el release v1.0.0 como release normal (no pre-release).
 | 7 Memorias y mapa | 🟡 Mergeada, falta deploy (2026-10-31) | #11 | Memorias con 1–10 fotos reordenables (drag & drop), diario por mes, detalle con carrusel, editar/borrar/descargar, ubicación por EXIF o mapa, mapa de Google con clusters (o "mapa de papel" sin key), "Un día como hoy" en Inicio y push (D73–D77). **Pendiente: desplegar en el VPS (junto con la Fase 6), cargar `GOOGLE_MAPS_API_KEY` y publicar el APK v0.7.0** (ver §10.1). |
 | 8 Eventos, listas, distancia | ✅ Cerrada (2026-10-31), deploy pendiente | #12 | Cuentas regresivas automáticas y propias con "la próxima vez que nos vemos" destacada (Inicio y widget), listas compartidas con tiempo real y quién tachó, distancia opt-in aproximada (~1 km) con modo en segundo plano de baja frecuencia, tarjeta en Inicio y widget Distancia (D78–D84). CI verde. **Pendiente: un solo deploy de `main` que incluya las Fases 6, 7 y 8, y publicar el APK v0.8.0** (ver §10.1). |
 | 9 Juegos | ✅ Cerrada (2026-10-31), deploy pendiente; APK v0.9.0 publicado | #15 | ¿Qué prefieres?, Yo nunca, ¿Quién es más probable? y De acuerdo o no en rondas asíncronas de 10 con % de coincidencia y variante picante, reto de dibujo con palabra secreta, push y 200 ítems + 80 palabras originales (D87–D91). **Pendiente: un solo deploy que incluya las Fases 6–9 y publicar el APK v0.9.0** (ver §10.1). |
-| 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
-| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
+| 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12B. |
+| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12B. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada (2026-10-31), deploy pendiente | #17 | Test propio de lenguajes del amor (30 ítems, resultado de tu pareja visible al hacer el tuyo, ideas para quererse a distancia), calendario de visitas en la cuadrícula del cuaderno ligado a "la próxima vez que nos vemos" (días juntos vs. separados) y estadísticas de la relación; push `love_language` y `visit` (D92–D96). APK v0.11.0 publicado **antes** del deploy a pedido del usuario. **Pendiente: un solo deploy de `main` que incluya las Fases 6–9 y 11B, y hasta entonces no instalar el APK** (ver §10.1). |
-| 12 Pulido y entrega | ⏳ Siguiente | | Sin las fases 10 y 11A. |
+| 12 parte 1 (Noviecitosfest) | ✅ Mergeada (2026-11-03) | #18 | Nombre Noviecitosfest, ícono con la foto de la pareja y textos apachurrados. APK v0.12.0. El nombre y el ícono los reemplaza la 12A. |
+| 12A Rediseño "ahorita" | ⏳ Siguiente | | Manual en `docs/rebranding/` (D97–D103). Arranca con prototipo HTML y aprobación. |
+| 12B Pulido y entrega | ⏸️ Después de la 12A | | Sin las fases 10 y 11A. |
 
 ### 10.1 Verificaciones pendientes en el celular
 
