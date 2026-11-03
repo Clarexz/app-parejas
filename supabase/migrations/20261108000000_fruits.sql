@@ -6,7 +6,7 @@
 --     solo se cambia con public.set_fruit().
 --   * private.fruit_clash / private.suggested_fruit / private.effective_fruit
 --     replican src/lib/fruits.ts (fruitClash, FRUITS[..].suggested, resolveFruits).
---   * public.set_fruit(p_fruit): rechaza la fruta (efectiva) de tu pareja
+--   * public.set_fruit(p_fruit): rechaza la fruta que ELIGIÓ tu pareja
 --     ('fruit_taken') y los pares que se parecen ('fruit_too_similar'), y avisa
 --     con un push de datos (scope `profile`) para refrescar los widgets del otro.
 --   * public.notify_actor_fruit(p_user): solo service_role; la usa la función
@@ -151,8 +151,12 @@ begin
     limit 1;
   end if;
 
+  -- Solo bloquea la fruta que tu pareja ELIGIÓ: si no ha elegido, toma la sugerida de la tuya.
   if v_partner is not null then
-    v_clash := private.fruit_clash(p_fruit, private.effective_fruit(v_partner));
+    v_clash := private.fruit_clash(
+      p_fruit,
+      (select p.fruit from public.profiles p where p.id = v_partner)
+    );
     if v_clash = 'same' then
       raise exception 'fruit_taken' using errcode = 'P0001';
     elsif v_clash = 'similar' then
@@ -171,7 +175,7 @@ begin
   return p_fruit;
 end;
 $$;
-comment on function public.set_fruit(text) is 'Elige la fruta de auth.uid(); rechaza la de su pareja y las que se le parecen.';
+comment on function public.set_fruit(text) is 'Elige la fruta de auth.uid(); rechaza la que eligió su pareja y las que se le parecen.';
 
 -- Solo para la Edge Function notify (service_role): fruta visible de quien manda el aviso.
 create or replace function public.notify_actor_fruit(p_user uuid)

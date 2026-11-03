@@ -300,10 +300,12 @@ select pg_temp.assert((select fruit from public.profiles where id = pg_temp.u('A
 select pg_temp.assert(pg_temp.try_set('A', 'uva') = 'uva', 'uva sí convive con mango');
 select pg_temp.assert((select fruit from public.profiles where id = pg_temp.u('A')) = 'uva', 'se guardó uva');
 
--- Se compara contra la fruta EFECTIVA de la pareja: Beto no eligió y ve la sugerida de la de Ana.
+-- Solo se bloquea lo que la pareja ELIGIÓ: Beto no eligió, así que Ana puede tomar la mango
+-- que él veía por defecto y Beto pasa a la sugerida (sandía).
 select pg_temp.raw('A', 'sandia'); select pg_temp.raw('B', null);
 select pg_temp.assert(pg_temp.eff('B') = 'mango', 'Beto sin elegir ve mango');
-select pg_temp.assert(pg_temp.try_set('A', 'mango') = 'ERR:fruit_taken', 'Ana no puede tomar la mango que Beto está viendo');
+select pg_temp.assert(pg_temp.try_set('A', 'mango') = 'mango', 'Ana puede tomar la mango por defecto de Beto');
+select pg_temp.assert(pg_temp.eff('B') = 'sandia', 'Beto pasa a la sugerida de mango');
 
 -- Caro, sola en su pareja, elige libremente.
 select pg_temp.assert(pg_temp.try_set('C', 'pitaya') = 'pitaya', 'Caro sin pareja elige pitaya');
