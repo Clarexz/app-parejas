@@ -74,9 +74,13 @@ describe('useMemory', () => {
   it('arranca con la memoria de la lista en caché y luego la carga', async () => {
     const { client, wrapper } = setup();
     client.setQueryData(memoryKeys.list('c1'), [memory('a', '2026-10-01')]);
-    mockFetchMemory.mockResolvedValue({ ...memory('a', '2026-10-01'), title: 'Fresca' });
+    // La carga se resuelve a mano: `renderHook` es asíncrono y, con la promesa ya resuelta,
+    // a veces alcanzaba a pintar "Fresca" antes de revisar el valor en caché.
+    let resolveFetch: (value: unknown) => void = () => {};
+    mockFetchMemory.mockReturnValue(new Promise((resolve) => (resolveFetch = resolve)));
     const { result } = await renderHook(() => useMemory('a'), { wrapper });
     expect(result.current.memory?.title).toBe('a');
+    await act(async () => resolveFetch({ ...memory('a', '2026-10-01'), title: 'Fresca' }));
     await waitFor(() => expect(result.current.memory?.title).toBe('Fresca'));
   });
 

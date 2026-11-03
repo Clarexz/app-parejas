@@ -441,10 +441,10 @@ reset role;
 -- Borrar la story quita el acceso de la pareja (la media sigue hasta la limpieza).
 update public.stories set deleted_at = now() where id = pg_temp.sid('photo');
 select pg_temp.as_user('B');
-select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name like '%f1%') = 0,
+select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name ~ '/f1(_thumb)?\.jpg$') = 0,
   'story borrada: Beto ya no ve su media');
 select pg_temp.as_user('A');
-select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name like '%f1%') = 2,
+select pg_temp.assert((select count(*) from storage.objects where bucket_id = 'stories' and name ~ '/f1(_thumb)?\.jpg$') = 2,
   'la autora aún ve su media hasta la limpieza');
 reset role;
 update public.stories set deleted_at = null where id = pg_temp.sid('photo');
