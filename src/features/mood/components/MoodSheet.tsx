@@ -30,7 +30,7 @@ function MoodForm({
 
   return (
     <View style={{ gap: spacing.lg }}>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -spacing.xs }}>
         {MOOD_OPTIONS.map((option) => {
           const selected = option.emoji === emoji;
           return (
@@ -39,24 +39,36 @@ function MoodForm({
                 accessibilityRole="button"
                 accessibilityLabel={option.label}
                 accessibilityState={{ selected }}
-                onPress={() => setEmoji(option.emoji)}
+                onPress={() => {
+                  haptic.light();
+                  setEmoji(option.emoji);
+                }}
                 style={({ pressed }) => ({
-                  minHeight: 76,
+                  minHeight: 92,
                   alignItems: 'center',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'center',
                   paddingVertical: spacing.sm,
-                  paddingHorizontal: spacing.xs,
-                  gap: spacing.xs,
-                  borderRadius: radius.sm,
-                  borderWidth: 1.5,
+                  gap: spacing.xxs,
+                  borderRadius: radius.md,
+                  backgroundColor: colors.surface,
+                  borderWidth: 2,
                   borderColor: selected ? colors.ink : 'transparent',
                   opacity: pressed ? 0.7 : 1,
                 })}
               >
-                <Text variant="display" maxFontSizeMultiplier={1.2} style={{ textAlign: 'center' }}>
+                <Text
+                  variant="display"
+                  maxFontSizeMultiplier={1.2}
+                  style={{ fontSize: 32, lineHeight: 38 }}
+                >
                   {option.emoji}
                 </Text>
-                <Text variant="caption" tone="muted" style={{ textAlign: 'center' }}>
+                <Text
+                  variant="note"
+                  tone="muted"
+                  numberOfLines={2}
+                  style={{ fontSize: 12, lineHeight: 15, textAlign: 'center' }}
+                >
                   {option.label}
                 </Text>
               </Pressable>
@@ -72,18 +84,21 @@ function MoodForm({
           maxLength={MOOD_NOTE_MAX}
           returnKeyType="done"
         />
-        <Text variant="caption" tone="muted" style={{ textAlign: 'right' }}>
+        <Text variant="note" tone="muted" style={{ textAlign: 'right' }}>
           {Array.from(note).length}/{MOOD_NOTE_MAX}
         </Text>
       </View>
-      <View style={{ alignItems: 'flex-start' }}>
-        <Button title="Pegar mi mood" disabled={!emoji} onPress={() => onSubmit({ emoji, note })} />
-      </View>
+      <Button
+        title="Compartir mi mood"
+        fullWidth
+        disabled={!emoji}
+        onPress={() => onSubmit({ emoji, note })}
+      />
     </View>
   );
 }
 
-/** Selector de mood: rejilla 4×4 + nota opcional sobre un `Sheet` (DISENO §7). */
+/** Selector de mood: rejilla 4×4 en `surface` + nota opcional sobre un `Sheet` (DISENO §7). */
 export function MoodSheet({ visible, onClose, current }: Props) {
   const toast = useToast();
   const setMood = useSetMood();
@@ -95,7 +110,7 @@ export function MoodSheet({ visible, onClose, current }: Props) {
         toast.show({ message: errorMessage(e), tone: 'error' });
       },
     });
-    haptic.stick();
+    haptic.light();
     onClose();
   };
 
