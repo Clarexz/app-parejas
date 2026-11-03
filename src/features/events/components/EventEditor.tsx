@@ -1,19 +1,17 @@
 import { useRouter } from 'expo-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, Platform, ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMemo, useState } from 'react';
+import { Alert, Platform, View } from 'react-native';
 
 import {
+  ArrivalOverlay,
   Button,
-  CloudOff,
   DateField,
-  EmptyPolaroid,
   EmptyState,
-  IconButton,
   Input,
-  LoadingLines,
-  Paper,
-  SealOverlay,
+  LoadingSymbol,
+  Notice,
+  Screen,
+  ScreenHeader,
   Text,
   Toggle,
 } from '@/components';
@@ -28,7 +26,6 @@ import {
   eventErrorMessages,
   validateEventDraft,
 } from '@/lib/eventsView';
-import { haptic } from '@/lib/haptics';
 import { useTheme } from '@/theme';
 
 import { useDeleteEvent, useEvents, useSaveEvent } from '../hooks';
@@ -59,7 +56,7 @@ function ToggleRow({
       <View style={{ flex: 1, gap: spacing.xxs }}>
         <Text variant="bodyStrong">{label}</Text>
         {hint ? (
-          <Text variant="caption" tone="muted">
+          <Text variant="note" tone="muted">
             {hint}
           </Text>
         ) : null}
@@ -77,10 +74,9 @@ function ToggleRow({
 /** Pantalla `/events/edit`: crear, o editar con `?id=`; `?kind=visit` precarga una visita. */
 export function EventEditor({ id, kind }: Props) {
   const editing = !!id;
-  const { spacing, page } = useTheme();
+  const { spacing } = useTheme();
   const router = useRouter();
   const toast = useToast();
-  const insets = useSafeAreaInsets();
   const { today } = useToday();
   const { events, isLoading, isError, refetch } = useEvents();
   const save = useSaveEvent();
@@ -95,14 +91,6 @@ export function EventEditor({ id, kind }: Props) {
   const [loadedId, setLoadedId] = useState<string | null>(null);
   const [showErrors, setShowErrors] = useState(false);
   const [sealed, setSealed] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
 
   // Al editar: se llenan los campos una sola vez con el evento cargado.
   const loaded = useMemo(
@@ -147,11 +135,7 @@ export function EventEditor({ id, kind }: Props) {
         note: note.trim() || null,
       },
       {
-        onSuccess: () => {
-          setSealed(true);
-          haptic.stamp();
-          timer.current = setTimeout(leave, 800);
-        },
+        onSuccess: () => setSealed(true),
         onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
       },
     );
@@ -168,54 +152,36 @@ export function EventEditor({ id, kind }: Props) {
       run();
       return;
     }
-    Alert.alert(
-      '¿Arrancar esta hoja?',
-      'Esta fecha se borra para los dos y no se puede deshacer.',
-      [
-        { text: 'Mejor no', style: 'cancel' },
-        { text: 'Arrancarla', style: 'destructive', onPress: run },
-      ],
-    );
+    Alert.alert('¿Borrar esta fecha?', 'Se borra para los dos y no se puede deshacer.', [
+      { text: 'Mejor no', style: 'cancel' },
+      { text: 'Borrar', style: 'destructive', onPress: run },
+    ]);
   };
 
   // --- estados al editar ---
   if (editing && !loaded) {
     return (
-      <View style={{ flex: 1 }}>
-        <Paper />
-        <View
-          style={{
-            flex: 1,
-            paddingTop: insets.top + spacing.md,
-            paddingLeft: page.contentLeft,
-            paddingRight: page.contentRight,
-            gap: spacing.lg,
-          }}
-        >
-          <View style={{ marginLeft: -spacing.sm }}>
-            <IconButton name="close" accessibilityLabel="Cerrar" onPress={leave} />
+      <Screen>
+        <ScreenHeader back="Cuentas regresivas" onBack={leave} title="Fecha" />
+        {isLoading ? (
+          <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+            <LoadingSymbol accessibilityLabel="Abriendo la fecha" />
           </View>
-          {isLoading ? (
-            <LoadingLines count={4} accessibilityLabel="Abriendo la fecha" />
-          ) : isError ? (
-            <EmptyState
-              illustration={<CloudOff />}
-              title="No pudimos abrir la fecha"
-              body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-              actionLabel="Reintentar"
-              onAction={() => void refetch()}
-            />
-          ) : (
-            <EmptyState
-              illustration={<EmptyPolaroid />}
-              title="Esa hoja ya no está"
-              body="Quizá la arrancaron desde el otro celular."
-              actionLabel="Ir a Cuentas regresivas"
-              onAction={() => router.replace('/events')}
-            />
-          )}
-        </View>
-      </View>
+        ) : isError ? (
+          <View style={{ marginTop: spacing.xl }}>
+            <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+              No pudimos abrir la fecha. Revisa tu señal e intenta otra vez.
+            </Notice>
+          </View>
+        ) : (
+          <EmptyState
+            art="symbol"
+            title="Esa fecha ya no está"
+            body="Quizá la borraron desde el otro celular."
+            action={{ label: 'Ir a Cuentas regresivas', onPress: () => router.replace('/events') }}
+          />
+        )}
+      </Screen>
     );
   }
 
@@ -229,109 +195,98 @@ export function EventEditor({ id, kind }: Props) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Paper />
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          paddingTop: insets.top + spacing.md,
-          paddingBottom: spacing.xxxl,
-          paddingLeft: page.contentLeft,
-          paddingRight: page.contentRight,
-          gap: spacing.xl,
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -spacing.sm }}>
-          <IconButton name="close" accessibilityLabel="Cerrar" onPress={leave} />
-          <Text variant="title" accessibilityRole="header" style={{ flex: 1 }}>
-            {heading}
-          </Text>
-        </View>
+      <Screen scroll>
+        <View style={{ gap: spacing.xl }}>
+          <ScreenHeader back="Cuentas regresivas" onBack={leave} title={heading} />
 
-        <View style={{ gap: spacing.xs }}>
+          <View style={{ gap: spacing.xs }}>
+            <Input
+              label="¿Qué es?"
+              value={title}
+              onChangeText={setTitle}
+              maxLength={EVENT_TITLE_MAX}
+              placeholder={isVisit ? 'Nos vemos en Guadalajara' : 'Nuestro concierto'}
+              error={messages.title}
+              editable={!busy}
+            />
+            <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+              {title.length}/{EVENT_TITLE_MAX}
+            </Text>
+          </View>
+
           <Input
-            label="¿Qué es?"
-            value={title}
-            onChangeText={setTitle}
-            maxLength={EVENT_TITLE_MAX}
-            placeholder={isVisit ? 'Nos vemos en Guadalajara' : 'Nuestro concierto'}
-            error={messages.title}
+            label="Emoji (opcional)"
+            value={emoji}
+            onChangeText={setEmoji}
+            maxLength={EVENT_EMOJI_MAX}
+            placeholder="✈️"
+            error={messages.emoji}
             editable={!busy}
           />
-          <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-            {title.length}/{EVENT_TITLE_MAX}
-          </Text>
-        </View>
 
-        <Input
-          label="Emoji (opcional)"
-          value={emoji}
-          onChangeText={setEmoji}
-          maxLength={EVENT_EMOJI_MAX}
-          placeholder="✈️"
-          error={messages.emoji}
-          editable={!busy}
-        />
-
-        <ToggleRow
-          label="Es una visita"
-          hint="La próxima vez que se ven. Sale destacada arriba, en Inicio y en el widget."
-          value={isVisit}
-          onValueChange={setIsVisit}
-          disabled={busy}
-        />
-
-        <DateField
-          label={isVisit ? '¿Cuándo se ven?' : '¿Cuándo es?'}
-          value={date}
-          onChange={setDate}
-          error={messages.date}
-          disabled={busy}
-        />
-
-        {isVisit ? null : (
           <ToggleRow
-            label="Se repite cada año"
-            hint="Para cumpleaños, aniversarios y fechas que vuelven."
-            value={yearly}
-            onValueChange={setYearly}
+            label="Es una visita"
+            hint="La próxima vez que se ven. Sale destacada arriba, en Inicio y en el widget."
+            value={isVisit}
+            onValueChange={setIsVisit}
             disabled={busy}
           />
-        )}
 
-        <View style={{ gap: spacing.xs }}>
-          <Input
-            label="Una nota (opcional)"
-            variant="multiline"
-            value={note}
-            onChangeText={setNote}
-            maxLength={EVENT_NOTE_MAX}
-            placeholder="Lo que no se les vaya a olvidar"
-            error={messages.note}
-            editable={!busy}
-          />
-          <Text variant="caption" tone="muted" accessibilityLiveRegion="polite">
-            {note.length}/{EVENT_NOTE_MAX}
-          </Text>
-        </View>
-
-        <View style={{ alignItems: 'flex-start', gap: spacing.md }}>
-          <Button
-            title={editing ? 'Guardar los cambios' : 'Apuntar'}
-            onPress={submit}
-            loading={save.isPending}
+          <DateField
+            label={isVisit ? '¿Cuándo se ven?' : '¿Cuándo es?'}
+            value={date}
+            onChange={setDate}
+            error={messages.date}
             disabled={busy}
           />
-          {editing ? (
-            <Button
-              title="Arrancar esta hoja"
-              variant="ghost"
-              onPress={confirmDelete}
+
+          {isVisit ? null : (
+            <ToggleRow
+              label="Cada año"
+              hint="Para cumpleaños, aniversarios y fechas que vuelven."
+              value={yearly}
+              onValueChange={setYearly}
               disabled={busy}
             />
-          ) : null}
+          )}
+
+          <View style={{ gap: spacing.xs }}>
+            <Input
+              label="Una nota (opcional)"
+              variant="multiline"
+              value={note}
+              onChangeText={setNote}
+              maxLength={EVENT_NOTE_MAX}
+              placeholder="Lo que no se les vaya a olvidar"
+              error={messages.note}
+              editable={!busy}
+            />
+            <Text variant="note" tone="muted" accessibilityLiveRegion="polite">
+              {note.length}/{EVENT_NOTE_MAX}
+            </Text>
+          </View>
+
+          <View style={{ gap: spacing.sm }}>
+            <Button
+              title={editing ? 'Guardar los cambios' : 'Apuntar'}
+              onPress={submit}
+              loading={save.isPending}
+              disabled={busy}
+              fullWidth
+            />
+            {editing ? (
+              <Button
+                title="Borrar esta fecha"
+                variant="danger"
+                onPress={confirmDelete}
+                disabled={busy}
+                fullWidth
+              />
+            ) : null}
+          </View>
         </View>
-      </ScrollView>
-      {sealed ? <SealOverlay label="APUNTADA" /> : null}
+      </Screen>
+      {sealed ? <ArrivalOverlay text="Apuntada." onDone={leave} /> : null}
     </View>
   );
 }

@@ -4,20 +4,17 @@ import { View } from 'react-native';
 
 import {
   Button,
-  CloudOff,
-  Divider,
-  Doodle,
-  EmptyState,
-  GridColumns,
-  GridScore,
+  Card,
+  FruitDot,
   Icon,
-  IconButton,
-  LoadingLines,
-  PageHeader,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
+  StatTile,
   Text,
 } from '@/components';
-import { useCouple } from '@/features/couple';
+import { useCouple, useFruits } from '@/features/couple';
 import { useNames } from '@/features/games/components/useNames';
 import { useLoveLanguages } from '@/features/love-languages';
 import { LOVE_QUIZ } from '@/features/love-languages/quiz';
@@ -41,31 +38,13 @@ import {
 import { useTheme } from '@/theme';
 
 import { useRelationshipStats } from '../hooks';
-
-/** Renglón de la hoja: concepto a la izquierda, cifra a la derecha (Figtree, cifras alineadas). */
-function Row({ label, value }: { label: string; value: string }) {
-  const { spacing } = useTheme();
-  return (
-    <View
-      accessible
-      accessibilityLabel={`${label}: ${value}`}
-      style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.md }}
-    >
-      <Text variant="body" style={{ flex: 1 }}>
-        {label}
-      </Text>
-      <Text variant="bodyStrong" style={{ fontVariant: ['tabular-nums'] }}>
-        {value}
-      </Text>
-    </View>
-  );
-}
+import { BarChart, MeterBar } from './Charts';
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   const { spacing } = useTheme();
   return (
     <View style={{ gap: spacing.md }}>
-      <Text variant="title" accessibilityRole="header">
+      <Text variant="h3" accessibilityRole="header">
         {title}
       </Text>
       {children}
@@ -73,9 +52,15 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+/** Dos números lado a lado (rejilla de 2). */
+function Pair({ children }: { children: ReactNode }) {
+  const { spacing } = useTheme();
+  return <View style={{ flexDirection: 'row', gap: spacing.md }}>{children}</View>;
+}
+
 function Empty({ children }: { children: string }) {
   return (
-    <Text variant="body" muted>
+    <Text variant="body" tone="muted">
       {children}
     </Text>
   );
@@ -83,34 +68,50 @@ function Empty({ children }: { children: string }) {
 
 function QuestionsSection({ s }: { s: RelationshipStats['questions'] }) {
   const { spacing } = useTheme();
+  const fruits = useFruits();
   const { partnerName } = useNames();
   const none = s.answeredMe + s.answeredPartner === 0;
+  const most = Math.max(s.answeredMe, s.answeredPartner, 1);
   return (
     <Section title="Preguntas">
       {none ? (
         <Empty>Todavía no contestan ninguna pregunta. La de hoy es buen momento.</Empty>
       ) : (
         <>
-          <View
-            accessible
-            accessibilityLabel={`${plural(s.dailyComplete, 'día', 'días')} que contestaron los dos`}
-            style={{ alignSelf: 'flex-start', gap: spacing.xs }}
-          >
-            <View style={{ alignSelf: 'flex-start' }}>
-              <Text variant="hero" style={{ fontVariant: ['tabular-nums'] }}>
-                {formatNumber(s.dailyComplete)}
+          <Card>
+            <View
+              accessible
+              accessibilityLabel={`${plural(s.dailyComplete, 'día', 'días')} que contestaron los dos`}
+              style={{ gap: spacing.xs }}
+            >
+              <Text variant="display">{formatNumber(s.dailyComplete)}</Text>
+              <Text variant="ui">
+                {s.dailyComplete === 1 ? 'día contestaron los dos' : 'días contestaron los dos'}
               </Text>
-              <Doodle kind="underline" width={96} style={{ marginTop: -spacing.xs }} />
             </View>
-            <Text variant="hand">
-              {s.dailyComplete === 1 ? 'día contestaron los dos' : 'días contestaron los dos'}
-            </Text>
-          </View>
-          <View style={{ gap: spacing.sm }}>
-            <Row label="Contestadas por ti" value={formatNumber(s.answeredMe)} />
-            <Row label={`Contestadas por ${partnerName}`} value={formatNumber(s.answeredPartner)} />
-            <Row label="Comentarios" value={formatNumber(s.comments)} />
-          </View>
+          </Card>
+          <Card>
+            <View style={{ gap: spacing.md }}>
+              <MeterBar
+                label="Contestadas por ti"
+                value={s.answeredMe}
+                max={most}
+                color={fruits.me.hex}
+                dot={<FruitDot fruit={fruits.me} />}
+              />
+              <MeterBar
+                label={`Contestadas por ${partnerName}`}
+                value={s.answeredPartner}
+                max={most}
+                color={(fruits.partner ?? fruits.me).hex}
+                dot={<FruitDot fruit={fruits.partner ?? fruits.me} />}
+              />
+            </View>
+          </Card>
+          <Pair>
+            <StatTile value={formatNumber(s.comments)} label="comentarios" icon="smile" />
+            <View style={{ flex: 1 }} />
+          </Pair>
         </>
       )}
     </Section>
@@ -118,18 +119,24 @@ function QuestionsSection({ s }: { s: RelationshipStats['questions'] }) {
 }
 
 function StreakSection({ s }: { s: RelationshipStats['streak'] }) {
-  const { colors, spacing } = useTheme();
+  const { spacing } = useTheme();
   return (
     <Section title="Racha">
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        {s.current > 0 ? <Icon name="flame" size={28} color={colors.cempasuchil} draw /> : null}
-        <Text variant="hand" style={{ flex: 1 }}>
-          {streakSentence(s.current)}
+      <Pair>
+        <StatTile value={formatNumber(s.current)} label="días de racha" icon="flame" />
+        <StatTile value={formatNumber(s.best)} label="días, su récord" icon="spark" />
+      </Pair>
+      <View style={{ gap: spacing.xxs }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+          {s.current > 0 ? <Icon name="flame" size={20} /> : null}
+          <Text variant="ui" style={{ flex: 1 }}>
+            {streakSentence(s.current)}
+          </Text>
+        </View>
+        <Text variant="note" tone="muted">
+          {bestStreakSentence(s.best)}
         </Text>
       </View>
-      <Text variant="body" muted>
-        {bestStreakSentence(s.best)}
-      </Text>
     </Section>
   );
 }
@@ -142,6 +149,7 @@ function GamesSection({
   drawings: RelationshipStats['drawings'];
 }) {
   const { spacing } = useTheme();
+  const { colors } = useTheme();
   const line = matchLine(s.avgPct);
   return (
     <Section title="Juegos">
@@ -149,42 +157,40 @@ function GamesSection({
         <Empty>Todavía no juegan ninguna ronda.</Empty>
       ) : (
         <>
-          {line ? <Text variant="hand">{line}</Text> : null}
-          <View style={{ gap: spacing.sm }}>
-            <Row label="Rondas terminadas" value={formatNumber(s.rounds)} />
+          <Pair>
+            <StatTile value={formatNumber(s.rounds)} label="rondas terminadas" icon="games" />
             {s.avgPct !== null ? (
-              <Row label="Coincidencia promedio" value={`${s.avgPct} %`} />
-            ) : null}
-            {s.bestPct !== null ? <Row label="Su mejor ronda" value={`${s.bestPct} %`} /> : null}
-          </View>
+              <StatTile value={`${s.avgPct} %`} label="coincidencia promedio" icon="couple" />
+            ) : (
+              <View style={{ flex: 1 }} />
+            )}
+          </Pair>
+          {line ? <Text variant="ui">{line}</Text> : null}
+          {s.bestPct !== null ? (
+            <Text variant="note" tone="muted">
+              Su mejor ronda: {s.bestPct} %.
+            </Text>
+          ) : null}
           <View style={{ gap: spacing.md }}>
             {s.byGame.map((g) => (
-              <View
+              <MeterBar
                 key={g.game}
-                style={{ gap: spacing.xs }}
-                accessible
+                label={GAMES[g.game].name}
+                value={g.avgPct ?? 0}
+                max={100}
+                color={colors.ink}
+                trailing={`${plural(g.rounds, 'ronda', 'rondas')}${
+                  g.avgPct !== null ? ` · ${g.avgPct} %` : ''
+                }`}
                 accessibilityLabel={`${GAMES[g.game].name}: ${plural(g.rounds, 'ronda', 'rondas')}${
                   g.avgPct !== null ? `, coinciden en ${g.avgPct} %` : ''
                 }`}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: spacing.md }}>
-                  <Text variant="body" style={{ flex: 1 }}>
-                    {GAMES[g.game].name}
-                  </Text>
-                  <Text variant="small" muted style={{ fontVariant: ['tabular-nums'] }}>
-                    {plural(g.rounds, 'ronda', 'rondas')}
-                    {g.avgPct !== null ? ` · ${g.avgPct} %` : ''}
-                  </Text>
-                </View>
-                {g.avgPct !== null ? (
-                  <GridScore value={Math.round(g.avgPct / 10)} total={10} tone="jamaica" />
-                ) : null}
-              </View>
+              />
             ))}
           </View>
         </>
       )}
-      <Text variant="body" muted>
+      <Text variant="note" tone="muted">
         {drawings.finished === 0
           ? 'Todavía no terminan ningún reto de dibujo.'
           : `Dibujos adivinados: ${formatNumber(drawings.solved)} de ${formatNumber(drawings.finished)}.`}
@@ -201,28 +207,30 @@ function MemoriesSection({ s, today }: { s: RelationshipStats['memories']; today
     <Section title="Memorias por mes">
       {s.total === 0 ? (
         <Empty>
-          Todavía no pegan ninguna memoria. La primera siempre sale chueca, y está bien.
+          Todavía no guardan ninguna memoria. La primera siempre sale chueca, y está bien.
         </Empty>
       ) : (
         <>
-          <GridColumns
-            columns={months.map((m) => ({ label: m.label, value: m.count }))}
-            accessibilityLabel={`Memorias de los últimos 12 meses: ${months
-              .filter((m) => m.count > 0)
-              .map((m) => `${m.label} ${m.count}`)
-              .join(', ')}`}
-          />
-          <View style={{ gap: spacing.xs }}>
-            <Text variant="body">
-              {plural(s.total, 'memoria', 'memorias')} y {plural(s.photos, 'foto', 'fotos')} en
-              total.
-            </Text>
-            {best ? (
-              <Text variant="body" muted>
+          <Card>
+            <BarChart
+              bars={months.map((m) => ({ label: m.label, value: m.count }))}
+              accessibilityLabel={`Memorias de los últimos 12 meses: ${months
+                .filter((m) => m.count > 0)
+                .map((m) => `${m.label} ${m.count}`)
+                .join(', ')}`}
+            />
+          </Card>
+          <Pair>
+            <StatTile value={formatNumber(s.total)} label="memorias" icon="memories" />
+            <StatTile value={formatNumber(s.photos)} label="fotos" icon="photo" />
+          </Pair>
+          {best ? (
+            <View style={{ gap: spacing.xs }}>
+              <Text variant="note" tone="muted">
                 {best}.
               </Text>
-            ) : null}
-          </View>
+            </View>
+          ) : null}
         </>
       )}
     </Section>
@@ -231,7 +239,7 @@ function MemoriesSection({ s, today }: { s: RelationshipStats['memories']; today
 
 function VisitsSection() {
   const router = useRouter();
-  const { spacing } = useTheme();
+  const { spacing, colors } = useTheme();
   const stats = useVisitStats();
   const open = () => router.push('/visits');
   const since = sinceLastVisitLine(stats.daysSinceLast);
@@ -246,26 +254,40 @@ function VisitsSection() {
         </>
       ) : (
         <>
-          {since ? <Text variant="hand">{since}</Text> : null}
-          <View style={{ gap: spacing.sm }}>
-            <Row label="Visitas" value={formatNumber(stats.count)} />
-            <Row label="Días juntos en persona" value={formatNumber(stats.daysTogether)} />
-            <Row label="Días separados" value={formatNumber(stats.daysApart)} />
+          {since ? <Text variant="ui">{since}</Text> : null}
+          <Pair>
+            <StatTile value={formatNumber(stats.count)} label="visitas" icon="suitcase" />
+            <StatTile
+              value={formatNumber(stats.daysTogether)}
+              label="días juntos en persona"
+              icon="couple"
+            />
+          </Pair>
+          <Pair>
+            <StatTile
+              value={formatNumber(stats.daysApart)}
+              label="días separados"
+              icon="distance"
+            />
             {stats.longestVisit !== null ? (
-              <Row label="Su visita más larga" value={plural(stats.longestVisit, 'día', 'días')} />
-            ) : null}
-          </View>
+              <StatTile
+                value={formatNumber(stats.longestVisit)}
+                label="días, su visita más larga"
+              />
+            ) : (
+              <View style={{ flex: 1 }} />
+            )}
+          </Pair>
           {stats.pctTogether !== null ? (
             <View style={{ gap: spacing.xs }}>
-              <GridScore
-                value={Math.round(stats.pctTogether / 5)}
-                total={20}
-                tone="jamaica"
+              <MeterBar
+                label="Del tiempo juntos en persona"
+                value={stats.pctTogether}
+                max={100}
+                color={colors.ink}
+                trailing={`${stats.pctTogether} %`}
                 accessibilityLabel={`${stats.pctTogether} % del tiempo juntos en persona`}
               />
-              <Text variant="caption" muted>
-                {stats.pctTogether} % del tiempo juntos en persona
-              </Text>
             </View>
           ) : null}
           <View style={{ alignItems: 'flex-start' }}>
@@ -294,11 +316,11 @@ function LoveLanguagesSection() {
           Tú: {label(mine.scores)} · {partnerName}: {label(partner.scores)}
         </Text>
       ) : mine ? (
-        <Text variant="body" muted>
+        <Text variant="body" tone="muted">
           Tú: {label(mine.scores)}. Cuando {partnerName} haga el test, aquí aparece el suyo.
         </Text>
       ) : (
-        <Text variant="body" muted>
+        <Text variant="body" tone="muted">
           {partnerDone
             ? `${partnerName} ya lo hizo. Haz el tuyo para ver sus resultados.`
             : 'Todavía no hacen el test de los lenguajes del amor.'}
@@ -311,23 +333,15 @@ function LoveLanguagesSection() {
   );
 }
 
-function BackBar() {
+function useGoBack() {
   const router = useRouter();
-  const { spacing } = useTheme();
-  return (
-    <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-      <IconButton
-        name="back"
-        accessibilityLabel="Volver"
-        onPress={() => ((router.canGoBack?.() ?? true) ? router.back() : router.replace('/more'))}
-      />
-    </View>
-  );
+  return () => ((router.canGoBack?.() ?? true) ? router.back() : router.replace('/more'));
 }
 
-/** Pantalla `/stats`: la relación contada como páginas de diario, sin tableros (DISENO §1). */
+/** Pantalla `/stats`: la relación en números grandes y gráficas simples. */
 export function StatsScreen() {
   const { spacing } = useTheme();
+  const goBack = useGoBack();
   const { couple } = useCouple();
   const { stats, isLoading, isError, refetch, isRefetching } = useRelationshipStats();
   const visits = useVisits();
@@ -336,22 +350,22 @@ export function StatsScreen() {
   if (isLoading) {
     return (
       <Screen>
-        <BackBar />
-        <LoadingLines count={6} accessibilityLabel="Cargando las estadísticas" />
+        <ScreenHeader back onBack={goBack} title="Estadísticas" />
+        <View style={{ alignItems: 'center', paddingVertical: spacing.xxl }}>
+          <LoadingSymbol accessibilityLabel="Cargando las estadísticas" />
+        </View>
       </Screen>
     );
   }
   if (isError || !stats) {
     return (
       <Screen>
-        <BackBar />
-        <EmptyState
-          illustration={<CloudOff />}
-          title="No pudimos abrir las estadísticas"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={() => void refetch()}
-        />
+        <ScreenHeader back onBack={goBack} title="Estadísticas" />
+        <View style={{ marginTop: spacing.xl }}>
+          <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+            No pudimos abrir las estadísticas. Revisa tu señal e intenta otra vez.
+          </Notice>
+        </View>
       </Screen>
     );
   }
@@ -367,24 +381,21 @@ export function StatsScreen() {
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={refresh}>
       <View style={{ gap: spacing.xl }}>
-        <BackBar />
-        <PageHeader
-          stamp={sinceStamp(stats.since ?? couple?.anniversary_date ?? null)}
+        <ScreenHeader
+          back
+          onBack={goBack}
+          label={sinceStamp(stats.since ?? couple?.anniversary_date ?? null)}
           title="Estadísticas"
         />
         <QuestionsSection s={stats.questions} />
-        <Divider />
         <StreakSection s={stats.streak} />
-        <Divider />
         <GamesSection s={stats.games} drawings={stats.drawings} />
-        <Divider />
         <MemoriesSection s={stats.memories} today={today} />
-        <Divider />
         <VisitsSection />
-        <Divider />
         <LoveLanguagesSection />
-        <Divider />
-        <Text variant="hand">{shared ?? 'Todavía no comparten stories ni moods.'}</Text>
+        <Text variant="ui" tone="muted">
+          {shared ?? 'Todavía no comparten stories ni moods.'}
+        </Text>
       </View>
     </Screen>
   );
