@@ -95,7 +95,9 @@ export function resolveFruits(
   const a = mine as FruitKey;
   const b = theirs as FruitKey;
   if (!fruitClash(a, b)) return { me: a, partner: b };
-  return meFirst ? { me: a, partner: FRUITS[a].suggested } : { me: FRUITS[b].suggested, partner: b };
+  return meFirst
+    ? { me: a, partner: FRUITS[a].suggested }
+    : { me: FRUITS[b].suggested, partner: b };
 }
 
 export type FruitOption = {
