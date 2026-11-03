@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Modal, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button, IconButton, Note, Paper, Text } from '@/components';
+import { Button, IconButton, Notice, Text } from '@/components';
 import type { LatLng } from '@/lib/geo';
 import { mapsEnabled } from '@/lib/maps';
 import { useTheme } from '@/theme';
@@ -18,39 +18,34 @@ type Props = {
 };
 
 function PickerBody({ initial, onConfirm, onClose }: Omit<Props, 'visible'>) {
-  const { colors, spacing, shadows, page } = useTheme();
+  const { colors, spacing, radius, shadows, page } = useTheme();
   const insets = useSafeAreaInsets();
   const [pin, setPin] = useState<LatLng | null>(initial);
 
   // Sin API key de Google Maps (o en web) no hay mapa: se explica y solo queda el nombre.
   if (!mapsEnabled()) {
     return (
-      <View style={{ flex: 1 }}>
-        <Paper />
+      <View style={{ flex: 1, backgroundColor: colors.bg }}>
         <View
           style={{
             flex: 1,
             paddingTop: insets.top + spacing.md,
-            paddingLeft: page.contentLeft,
-            paddingRight: page.contentRight,
+            paddingHorizontal: page.gutter,
             gap: spacing.lg,
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -spacing.sm }}>
             <IconButton name="close" accessibilityLabel="Cerrar" onPress={onClose} />
-            <Text variant="title" accessibilityRole="header" style={{ flex: 1 }}>
+            <Text variant="h2" accessibilityRole="header" style={{ flex: 1 }}>
               Elegir en el mapa
             </Text>
           </View>
-          <Note tape="yellow">
-            <Text variant="hand" style={{ color: colors.onPostit }}>
-              El mapa llega cuando esta versión de la app se compile con la llave de Google Maps.
-              Mientras, puedes escribir el nombre del lugar. Si la foto trae ubicación, la tomamos
-              sola.
-            </Text>
-          </Note>
+          <Notice>
+            El mapa llega cuando esta versión de la app se compile con la llave de Google Maps.
+            Mientras, escribe el nombre del lugar. Si la foto trae ubicación, la tomamos sola.
+          </Notice>
           <View style={{ alignItems: 'flex-start' }}>
-            <Button title="Entendido" onPress={onClose} />
+            <Button title="Entendido" variant="secondary" onPress={onClose} />
           </View>
         </View>
       </View>
@@ -58,7 +53,7 @@ function PickerBody({ initial, onConfirm, onClose }: Omit<Props, 'visible'>) {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.photoEmpty }}>
+    <View style={{ flex: 1, backgroundColor: colors.surface }}>
       <PickerMap initial={initial} pin={pin} onPick={setPin} />
       <View
         style={{ position: 'absolute', left: spacing.sm, top: insets.top + spacing.sm }}
@@ -66,9 +61,9 @@ function PickerBody({ initial, onConfirm, onClose }: Omit<Props, 'visible'>) {
       >
         <View
           style={{
-            backgroundColor: colors.paperRaised,
-            borderRadius: 22,
-            boxShadow: shadows.object,
+            backgroundColor: colors.bg,
+            borderRadius: radius.pill,
+            boxShadow: shadows.float,
           }}
         >
           <IconButton name="close" accessibilityLabel="Cerrar sin elegir" onPress={onClose} />
@@ -85,20 +80,19 @@ function PickerBody({ initial, onConfirm, onClose }: Omit<Props, 'visible'>) {
       >
         <View
           style={{
-            backgroundColor: colors.paperRaised,
-            borderTopWidth: 2,
-            borderTopColor: colors.margin,
+            backgroundColor: colors.bg,
+            borderRadius: radius.card,
             padding: spacing.lg,
             gap: spacing.md,
-            boxShadow: shadows.object,
+            boxShadow: shadows.float,
           }}
         >
-          <Text variant="hand" tone={pin ? undefined : 'muted'} accessibilityLiveRegion="polite">
-            {pin ? 'Pin puesto. Toca otra parte para moverlo.' : 'Toca el mapa para poner el pin.'}
+          <Text variant="ui" tone={pin ? 'ink' : 'muted'} accessibilityLiveRegion="polite">
+            {pin
+              ? 'Ya está el lugar. Toca otra parte para moverlo.'
+              : 'Toca el mapa para marcar el lugar.'}
           </Text>
-          <View style={{ alignItems: 'flex-start' }}>
-            <Button title="Aquí fue" disabled={!pin} onPress={() => pin && onConfirm(pin)} />
-          </View>
+          <Button title="Aquí fue" disabled={!pin} onPress={() => pin && onConfirm(pin)} />
         </View>
       </View>
     </View>

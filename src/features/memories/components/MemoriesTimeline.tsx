@@ -1,65 +1,86 @@
-import { View, useWindowDimensions } from 'react-native';
+import { View } from 'react-native';
 
-import { Stamp } from '@/components';
-import { groupByMonth, type MemoryMonthGroup } from '@/lib/memories';
+import { Text } from '@/components';
+import { useToday } from '@/features/couple';
+import { groupByMonth, memoryCountLabel, type MemoryMonthGroup } from '@/lib/memories';
 import { useTheme } from '@/theme';
 
+import { useAuthorFruit } from '../authorFruit';
 import type { Memory } from '../api';
 import { useMemoryPhotoUrls } from '../hooks';
-import { MemoryPolaroid } from './MemoryPolaroid';
+import { MemoryCard } from './MemoryCard';
 
 type Props = { memories: Memory[]; onOpen: (id: string) => void };
 
 function MonthSection({
   group,
+  currentYear,
   onOpen,
 }: {
   group: MemoryMonthGroup<Memory>;
+  currentYear: number | null;
   onOpen: (id: string) => void;
 }) {
-  const { spacing, page } = useTheme();
-  const { width } = useWindowDimensions();
+  const { spacing } = useTheme();
+  const fruitOf = useAuthorFruit();
   const paths = group.items.flatMap((m) => (m.photos[0] ? [m.photos[0].thumb_path] : []));
   const { urls } = useMemoryPhotoUrls(paths);
-  const gap = spacing.lg;
-  const column = (width - page.contentLeft - page.contentRight - gap) / 2;
-  const size = column >= 150 ? 'M' : 'S';
-  const left = group.items.filter((_, i) => i % 2 === 0);
-  const right = group.items.filter((_, i) => i % 2 === 1);
-
-  const renderColumn = (items: Memory[], offset: number) => (
-    <View style={{ flex: 1, alignItems: 'center', gap: spacing.xl, marginTop: offset }}>
-      {items.map((m) => (
-        <MemoryPolaroid
-          key={m.id}
-          memory={m}
-          size={size}
-          url={m.photos[0] ? urls[m.photos[0].thumb_path] : undefined}
-          onPress={() => onOpen(m.id)}
-        />
-      ))}
-    </View>
-  );
+  const urlOf = (m: Memory) => (m.photos[0] ? urls[m.photos[0].thumb_path] : undefined);
+  const [first, ...rest] = group.items;
+  const rows: Memory[][] = [];
+  for (let i = 0; i < rest.length; i += 2) rows.push(rest.slice(i, i + 2));
+  // El año solo se dice cuando no es el actual: "noviembre" o "octubre 2025".
+  const title = group.year === currentYear ? group.label.replace(/ \d{4}$/, '') : group.label;
 
   return (
     <View style={{ gap: spacing.lg }}>
-      <Stamp tone="ink">{group.label.toUpperCase()}</Stamp>
-      <View style={{ flexDirection: 'row', gap }}>
-        {renderColumn(left, 0)}
-        {renderColumn(right, spacing.xl)}
+      <View
+        style={{ flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between' }}
+      >
+        <Text variant="h3" accessibilityRole="header">
+          {title}
+        </Text>
+        <Text variant="note" tone="muted">
+          {memoryCountLabel(group.items.length)}
+        </Text>
       </View>
+      <MemoryCard
+        memory={first}
+        size="featured"
+        url={urlOf(first)}
+        fruit={fruitOf(first.created_by)}
+        onPress={() => onOpen(first.id)}
+      />
+      {rows.map((row) => (
+        <View key={row[0].id} style={{ flexDirection: 'row', gap: spacing.lg }}>
+          {row.map((m) => (
+            <View key={m.id} style={{ flex: 1 }}>
+              <MemoryCard
+                memory={m}
+                size="grid"
+                url={urlOf(m)}
+                fruit={fruitOf(m.created_by)}
+                onPress={() => onOpen(m.id)}
+              />
+            </View>
+          ))}
+          {row.length === 1 ? <View style={{ flex: 1 }} /> : null}
+        </View>
+      ))}
     </View>
   );
 }
 
-/** Diario: memorias agrupadas por mes, polaroids en 2 columnas con su tilt (DISENO §8). */
+/** Diario: agrupado por mes; la memoria más reciente grande y las demás en rejilla de 2 (DISENO §8). */
 export function MemoriesTimeline({ memories, onOpen }: Props) {
   const { spacing } = useTheme();
+  const { today } = useToday();
+  const currentYear = Number(today.slice(0, 4)) || null;
   const groups = groupByMonth(memories);
   return (
-    <View style={{ gap: spacing.xxl }}>
+    <View style={{ gap: spacing.xl }}>
       {groups.map((g) => (
-        <MonthSection key={g.key} group={g} onOpen={onOpen} />
+        <MonthSection key={g.key} group={g} currentYear={currentYear} onOpen={onOpen} />
       ))}
     </View>
   );

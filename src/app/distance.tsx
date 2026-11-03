@@ -1,63 +1,79 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Linking, View } from 'react-native';
 
 import {
   Button,
-  Chip,
-  CloudOff,
-  Divider,
-  Doodle,
-  EmptyState,
+  Card,
   Icon,
-  IconButton,
-  LoadingLines,
-  Note,
-  PageHeader,
+  ListGroup,
+  ListRow,
+  LoadingSymbol,
+  Notice,
   Screen,
+  ScreenHeader,
+  Segmented,
   Sheet,
   Text,
   Toggle,
   useToast,
 } from '@/components';
-import { useCouple, useToday } from '@/features/couple';
+import { initialOf } from '@/components/Avatar';
+import { useCouple } from '@/features/couple';
 import { useDistance, useShareLocation } from '@/features/distance';
+import { DistanceRoute } from '@/features/distance/components/DistanceRoute';
 import { spokenKm, type ShareMode } from '@/lib/distance';
 import { errorMessage } from '@/lib/errors';
-import { formatStampIsoDate } from '@/lib/stampDate';
 import { useTheme } from '@/theme';
 
-const MODE_COPY: Record<Exclude<ShareMode, 'off'>, { label: string; text: string }> = {
-  foreground: {
-    label: 'Al abrir la app',
-    text: 'Tu ubicación se actualiza cuando abres la app. No usa batería con la app cerrada.',
-  },
-  background: {
-    label: 'También en segundo plano',
-    text: 'Se actualiza sola de vez en cuando, aunque la app esté cerrada. Android la limita a unas pocas veces por hora, así que casi no gasta batería. Necesita el permiso “Permitir todo el tiempo”.',
-  },
+const MODES = [
+  { value: 'foreground', label: 'Al abrir la app' },
+  { value: 'background', label: 'En segundo plano' },
+] as const;
+
+const MODE_COPY: Record<Exclude<ShareMode, 'off'>, string> = {
+  foreground: 'Tu ubicación se actualiza cuando abres la app. No usa batería con la app cerrada.',
+  background:
+    'Se actualiza sola de vez en cuando, aunque la app esté cerrada. Android la limita a unas pocas veces por hora, así que casi no gasta batería. Necesita el permiso “Permitir todo el tiempo”.',
 };
 
-function PlaceRow({ who, city, extra }: { who: string; city: string | null; extra?: string }) {
-  const { spacing } = useTheme();
+const PRIVACY = [
+  'Solo se guarda tu última ubicación, redondeada a más o menos 1 km y con el nombre de tu ciudad. No hay historial ni rutas.',
+  'Solo la ve tu pareja. Se borra cuando apagas la distancia o cuando salen de la pareja.',
+  'La app pide ubicación aproximada, nunca la exacta, y no te la pide hasta que tú la activas aquí.',
+  'En segundo plano Android entrega pocas actualizaciones por hora, por eso el gasto de batería es mínimo. Si lo notas, vuelve a “Al abrir la app”.',
+];
+
+/** Quién es quién bajo los círculos: nombre, ciudad y, de tu pareja, cuándo se actualizó. */
+function Place({
+  who,
+  city,
+  extra,
+  end = false,
+}: {
+  who: string;
+  city: string | null;
+  extra?: string;
+  end?: boolean;
+}) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-      <Icon name="pin" size={20} />
-      <Text variant="body" style={{ flex: 1 }}>
-        <Text variant="bodyStrong">{`${who}: `}</Text>
+    <View style={{ flex: 1, alignItems: end ? 'flex-end' : 'flex-start' }}>
+      <Text variant="ui">{who}</Text>
+      <Text variant="note" tone="muted" style={{ textAlign: end ? 'right' : 'left' }}>
         {city ?? 'sin ciudad'}
-        {extra ? ` · ${extra}` : ''}
       </Text>
+      {extra ? (
+        <Text variant="note" tone="muted">
+          {extra}
+        </Text>
+      ) : null}
     </View>
   );
 }
 
 export default function DistanceScreen() {
   const { spacing, colors } = useTheme();
-  const router = useRouter();
   const toast = useToast();
   const { refetch: refetchCouple } = useCouple();
-  const { today } = useToday();
   const { isLoading, isError, partnerName, refetch, ...view } = useDistance();
   const { supported, mode, permission, setMode, isPending } = useShareLocation();
   const [refreshing, setRefreshing] = useState(false);
@@ -115,187 +131,185 @@ export default function DistanceScreen() {
     }
   };
 
+  const meInitial = 'T';
   const hero = () => {
-    if (isLoading) return <LoadingLines count={3} accessibilityLabel="Cargando la distancia" />;
+    if (isLoading) {
+      return (
+        <View style={{ alignItems: 'center', paddingVertical: spacing.xxxl }}>
+          <LoadingSymbol accessibilityLabel="Cargando la distancia" />
+        </View>
+      );
+    }
     if (isError) {
       return (
-        <EmptyState
-          illustration={<CloudOff />}
-          title="No pudimos traer la distancia"
-          body="No hay señal con el servidor. Revisa tu internet y vuelve a intentar."
-          actionLabel="Reintentar"
-          onAction={() => void refetch()}
-        />
+        <Notice tone="danger" action={{ label: 'Reintentar', onPress: () => void refetch() }}>
+          No pudimos traer la distancia. Revisa tu internet y vuelve a intentar.
+        </Notice>
       );
     }
     if (!supported && view.kind === 'none') {
       return (
-        <Text variant="body" tone="muted">
+        <Notice>
           La distancia solo funciona en el celular. Ábrela desde la app para activarla.
-        </Text>
+        </Notice>
       );
     }
+    const route = (
+      <DistanceRoute
+        meActive={view.kind === 'both' || view.kind === 'only_me'}
+        partnerActive={view.kind === 'both' || view.kind === 'only_partner'}
+        km={view.km}
+        meInitial={meInitial}
+        partnerInitial={initialOf(partnerName)}
+      />
+    );
     if (view.kind === 'both') {
       return (
-        <View style={{ gap: spacing.md }}>
-          <View
-            style={{ alignSelf: 'flex-start' }}
-            accessible
-            accessibilityLabel={`Están a ${spokenKm(view.km)}`}
-          >
-            <Text variant="hero">{view.kmText}</Text>
-            <Doodle kind="underline" />
+        <Card>
+          <View style={{ gap: spacing.lg }}>
+            <View
+              style={{ gap: spacing.xs }}
+              accessible
+              accessibilityLabel={`Están a ${spokenKm(view.km)}`}
+            >
+              <Text variant="label" tone="muted">
+                Están a
+              </Text>
+              <Text variant="display">{view.kmText}</Text>
+              {view.phrase ? (
+                <Text variant="body" tone="muted">
+                  {view.phrase}
+                </Text>
+              ) : null}
+            </View>
+            {route}
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between', gap: spacing.lg }}
+            >
+              <Place who="Tú" city={view.myCity} />
+              <Place who={partnerName} city={view.partnerCity} extra={view.partnerAgo} end />
+            </View>
           </View>
-          <Text variant="hand">{view.phrase}</Text>
-          <View style={{ gap: spacing.sm }}>
-            <PlaceRow who="Tú" city={view.myCity} />
-            <PlaceRow who={partnerName} city={view.partnerCity} extra={view.partnerAgo} />
-          </View>
-        </View>
+        </Card>
       );
     }
-    if (view.kind === 'only_me') {
-      return (
-        <View style={{ gap: spacing.md }}>
-          <Text variant="title">Falta {partnerName}</Text>
-          <Text variant="body" tone="muted">
-            {`Cuando ${partnerName} active su distancia, aquí verán cuántos kilómetros hay entre ustedes.`}
-          </Text>
-          <PlaceRow who="Tú" city={view.myCity} />
-        </View>
-      );
-    }
+    const title = view.kind === 'only_me' ? `Falta ${partnerName}` : '¿A cuántos kilómetros están?';
+    const text =
+      view.kind === 'only_me'
+        ? `Cuando ${partnerName} active su distancia, aquí verán cuántos kilómetros hay entre ustedes.`
+        : view.kind === 'only_partner'
+          ? `${partnerName} ya comparte su distancia. Activa la tuya para ver cuántos kilómetros hay entre ustedes.`
+          : 'Cada quien decide si comparte su ubicación aproximada. Cuando los dos la activen, aquí aparece la distancia.';
     return (
-      <View style={{ gap: spacing.md }}>
-        <Text variant="title">¿A cuántos kilómetros están?</Text>
-        <Text variant="body" tone="muted">
-          {view.kind === 'only_partner'
-            ? `${partnerName} ya comparte su distancia. Activa la tuya para ver cuántos kilómetros hay entre ustedes.`
-            : `Cada quien decide si comparte su ubicación aproximada. Cuando los dos la activen, aquí aparece la distancia.`}
-        </Text>
-        {!sharing && supported ? (
-          <View style={{ alignItems: 'flex-start' }}>
+      <Card>
+        <View style={{ gap: spacing.lg }}>
+          {route}
+          <View style={{ gap: spacing.xs }}>
+            <Text variant="h3" accessibilityRole="header">
+              {title}
+            </Text>
+            <Text variant="body" tone="muted">
+              {text}
+            </Text>
+          </View>
+          {view.kind === 'only_me' ? <Place who="Tú" city={view.myCity} /> : null}
+          {!sharing && supported ? (
             <Button
               title="Activar mi distancia"
               loading={isPending}
               onPress={() => void apply('foreground')}
             />
-          </View>
-        ) : null}
-      </View>
+          ) : null}
+        </View>
+      </Card>
     );
   };
 
   return (
     <Screen scroll refreshing={refreshing} onRefresh={() => void refresh()}>
       <View style={{ gap: spacing.xl }}>
-        <View style={{ gap: spacing.sm }}>
-          <View style={{ alignItems: 'flex-start', marginLeft: -spacing.sm }}>
-            <IconButton name="back" accessibilityLabel="Volver" onPress={() => router.back()} />
-          </View>
-          <PageHeader stamp={formatStampIsoDate(today)} title="Distancia" />
-        </View>
+        <ScreenHeader title="Distancia" back="Atrás" />
 
         {hero()}
 
-        <Divider />
-
         <View style={{ gap: spacing.md }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-            <View style={{ flex: 1, gap: spacing.xxs }}>
-              <Text variant="heading" accessibilityRole="header">
-                Compartir mi distancia
-              </Text>
-              <Text variant="small" tone="muted">
-                {supported
-                  ? 'Tú decides: puedes apagarla cuando quieras.'
-                  : 'Se activa desde el celular.'}
-              </Text>
-            </View>
-            <Toggle
-              value={sharing}
-              disabled={!supported || isPending}
-              accessibilityLabel="Compartir mi distancia"
-              onValueChange={(on) => void apply(on ? 'foreground' : 'off')}
+          <ListGroup label="Compartir">
+            <ListRow
+              label="Compartir mi distancia"
+              icon="distance"
+              divider={false}
+              right={
+                <Toggle
+                  value={sharing}
+                  disabled={!supported || isPending}
+                  accessibilityLabel="Compartir mi distancia"
+                  onValueChange={(on) => void apply(on ? 'foreground' : 'off')}
+                />
+              }
             />
-          </View>
+          </ListGroup>
+          <Text variant="note" tone="muted">
+            {supported
+              ? 'Tú decides: puedes apagarla cuando quieras.'
+              : 'Se activa desde el celular.'}
+          </Text>
 
           {sharing ? (
             <View style={{ gap: spacing.sm }}>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
-                {(['foreground', 'background'] as const).map((key) => (
-                  <Chip
-                    key={key}
-                    label={MODE_COPY[key].label}
-                    color={key === 'foreground' ? 'yellow' : 'mint'}
-                    selected={mode === key}
-                    disabled={isPending}
-                    onPress={() => {
-                      if (mode === key) return;
-                      if (key === 'background') setAskBackground(true);
-                      else void apply(key);
-                    }}
-                  />
-                ))}
-              </View>
-              <Text variant="small" tone="muted">
-                {MODE_COPY[mode === 'background' ? 'background' : 'foreground'].text}
+              <Segmented
+                options={MODES}
+                value={mode === 'background' ? 'background' : 'foreground'}
+                onChange={(key) => {
+                  if (isPending || mode === key) return;
+                  if (key === 'background') setAskBackground(true);
+                  else void apply(key);
+                }}
+                accessibilityLabel="Cuándo se actualiza tu ubicación"
+              />
+              <Text variant="note" tone="muted">
+                {MODE_COPY[mode === 'background' ? 'background' : 'foreground']}
               </Text>
             </View>
           ) : null}
 
           {showDenied ? (
-            <View style={{ gap: spacing.md, alignItems: 'flex-start' }}>
-              <Note id="permiso-ubicacion" tape={false} style={{ alignSelf: 'stretch' }}>
-                <Text variant="hand" style={{ color: colors.onPostit }}>
-                  La ubicación está apagada para esta app. Se activa en Ajustes → Permisos →
-                  Ubicación → Permitir solo mientras se usa la app.
-                </Text>
-              </Note>
-              <Button
-                title="Abrir ajustes del celular"
-                variant="secondary"
-                onPress={() => void Linking.openSettings()}
-              />
-            </View>
+            <Notice
+              tone="danger"
+              action={{
+                label: 'Abrir ajustes del celular',
+                onPress: () => void Linking.openSettings(),
+              }}
+            >
+              La ubicación está apagada para esta app. Se activa en Ajustes, Permisos, Ubicación,
+              “Permitir solo mientras se usa la app”.
+            </Notice>
           ) : null}
 
           {bgRevoked ? (
-            <View style={{ gap: spacing.md, alignItems: 'flex-start' }}>
-              <Text variant="small" tone="muted">
-                Para el segundo plano falta el permiso “Permitir todo el tiempo”. Mientras tanto la
-                distancia se actualiza al abrir la app.
-              </Text>
-              <Button
-                title="Abrir ajustes del celular"
-                variant="secondary"
-                onPress={() => void Linking.openSettings()}
-              />
-            </View>
+            <Notice
+              action={{
+                label: 'Abrir ajustes del celular',
+                onPress: () => void Linking.openSettings(),
+              }}
+            >
+              Para el segundo plano falta el permiso “Permitir todo el tiempo”. Mientras, la
+              distancia se actualiza al abrir la app.
+            </Notice>
           ) : null}
         </View>
 
-        <Divider />
-
-        <View style={{ gap: spacing.sm }} accessible={false}>
-          <Text variant="heading" accessibilityRole="header">
+        <View style={{ gap: spacing.md }} accessible={false}>
+          <Text variant="label" tone="muted" accessibilityRole="header">
             Qué se guarda y qué gasta
           </Text>
-          <Text variant="small" tone="muted">
-            • Solo se guarda tu última ubicación, redondeada a más o menos 1 km y con el nombre de
-            tu ciudad. No hay historial ni rutas.
-          </Text>
-          <Text variant="small" tone="muted">
-            • Solo la ve tu pareja. Se borra cuando apagas la distancia o cuando salen de la pareja.
-          </Text>
-          <Text variant="small" tone="muted">
-            • La app pide ubicación aproximada, nunca la exacta, y no te la pide hasta que tú la
-            activas aquí.
-          </Text>
-          <Text variant="small" tone="muted">
-            • En segundo plano Android entrega pocas actualizaciones por hora, por eso el gasto de
-            batería es mínimo. Si lo notas, vuelve a “Al abrir la app”.
-          </Text>
+          {PRIVACY.map((line) => (
+            <View key={line} style={{ flexDirection: 'row', gap: spacing.md }}>
+              <Icon name="lock" size={20} color={colors.inkMuted} />
+              <Text variant="note" tone="muted" style={{ flex: 1 }}>
+                {line}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
 

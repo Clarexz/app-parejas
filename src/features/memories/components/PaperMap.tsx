@@ -2,34 +2,63 @@ import { useMemo, useState } from 'react';
 import { Pressable, View, type LayoutChangeEvent } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { Button, Icon, Stamp, Text } from '@/components';
+import { Button, Text } from '@/components';
 import { clusterPoints, projectEquirect, regionForPoints } from '@/lib/geo';
 import { memoryCountLabel } from '@/lib/memories';
 import { useTheme } from '@/theme';
 
-import { ClusterSheet, canSplitCluster, type MapPoint } from './mapShared';
+import {
+  ClusterSheet,
+  MapMarker,
+  canSplitCluster,
+  useMarkerFruit,
+  type MapPoint,
+} from './mapShared';
 
 type Props = {
   points: MapPoint[];
-  /** Sin esto los pines no son tocables (mini mapa del detalle). */
+  /** Sin esto los marcadores no son tocables (mini mapa del detalle). */
   onOpen?: (id: string) => void;
   height?: number;
   /** Mini mapa: sin textos de ayuda ni ruta. */
   compact?: boolean;
 };
 
-const PADDING = 36;
-const PIN = 28;
-const HIT = 44;
+const PADDING = 44;
+const HIT = 48;
 const DEFAULT_WIDTH = 348;
 
+/** Contornos sueltos y suaves (islas de un mapa dibujado a mano), en proporción al lienzo. */
+function contours(width: number, height: number): string {
+  const blob = (cx: number, cy: number, rx: number, ry: number, wobble: number) => {
+    const x = cx * width;
+    const y = cy * height;
+    const a = rx * width;
+    const b = ry * height;
+    return (
+      `M${x - a} ${y}` +
+      `C${x - a} ${y - b * (1 + wobble)} ${x - a * 0.3} ${y - b} ${x + a * 0.2} ${y - b * 0.9}` +
+      `C${x + a} ${y - b * 0.8} ${x + a * (1 + wobble)} ${y - b * 0.1} ${x + a} ${y + b * 0.3}` +
+      `C${x + a * 0.9} ${y + b * 1.1} ${x + a * 0.1} ${y + b} ${x - a * 0.4} ${y + b * 0.9}` +
+      `C${x - a * (1 + wobble)} ${y + b * 0.8} ${x - a} ${y + b * 0.4} ${x - a} ${y}Z`
+    );
+  };
+  return [
+    blob(0.3, 0.38, 0.34, 0.26, 0.25),
+    blob(0.3, 0.38, 0.22, 0.16, 0.2),
+    blob(0.74, 0.7, 0.3, 0.22, 0.3),
+    blob(0.74, 0.7, 0.17, 0.12, 0.2),
+  ].join('');
+}
+
 /**
- * "Mapa de papel": una hoja cuadriculada con los lugares proyectados (sin Google Maps), pines
- * de tinta Jamaica tocables y una línea punteada que une los lugares en el orden en que pasaron.
- * Tocar un grupo de pines lo abre: la hoja se acerca a ese grupo ("Ver todo" regresa).
+ * "Mapa de papel" (sin Google Maps ni key): fondo `surface`, contornos suaves en `line`, los
+ * lugares proyectados con los mismos marcadores del mapa de Google y una línea punteada que los
+ * une en el orden en que pasaron. Tocar un grupo lo abre: el mapa se acerca ("Ver todo" regresa).
  */
 export function PaperMap({ points, onOpen, height = 380, compact = false }: Props) {
-  const { colors, spacing, shadows, page } = useTheme();
+  const { colors, spacing, radius } = useTheme();
+  const markerFruit = useMarkerFruit();
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const [focus, setFocus] = useState<string[] | null>(null);
   const [listed, setListed] = useState<MapPoint[] | null>(null);
@@ -71,12 +100,7 @@ export function PaperMap({ points, onOpen, height = 380, compact = false }: Prop
       .join(' ');
   }, [layout, compact]);
 
-  const gridLines = useMemo(() => {
-    let d = '';
-    for (let x = page.grid; x < width; x += page.grid) d += `M${x} 0V${height}`;
-    for (let y = page.grid; y < height; y += page.grid) d += `M0 ${y}H${width}`;
-    return d;
-  }, [width, height, page.grid]);
+  const shapes = useMemo(() => contours(width, height), [width, height]);
 
   const open = (m: (typeof layout.marks)[number]) => {
     if (m.items.length === 1) {
@@ -91,25 +115,29 @@ export function PaperMap({ points, onOpen, height = 380, compact = false }: Prop
   return (
     <View style={{ gap: spacing.sm }}>
       <View
-        accessibilityLabel="Mapa de papel con los lugares de sus memorias"
+        accessibilityLabel="Mapa con los lugares de sus memorias"
         onLayout={(e: LayoutChangeEvent) => setWidth(Math.round(e.nativeEvent.layout.width))}
         style={{
           height,
-          backgroundColor: colors.paperRaised,
-          borderTopWidth: 2,
-          borderTopColor: colors.margin,
-          boxShadow: shadows.object,
+          backgroundColor: colors.surface,
+          borderRadius: radius.card,
           overflow: 'hidden',
         }}
       >
         <Svg width={width} height={height} style={{ position: 'absolute', left: 0, top: 0 }}>
-          <Path d={gridLines} stroke={colors.grid} strokeWidth={1} />
+          <Path
+            d={shapes}
+            stroke={colors.line}
+            strokeWidth={2}
+            fill="none"
+            strokeLinejoin="round"
+          />
           {route ? (
             <Path
               d={route}
               stroke={colors.inkMuted}
-              strokeWidth={1.5}
-              strokeDasharray={[4, 6]}
+              strokeWidth={2}
+              strokeDasharray={[2, 8]}
               strokeLinecap="round"
               fill="none"
             />
@@ -120,7 +148,7 @@ export function PaperMap({ points, onOpen, height = 380, compact = false }: Prop
           <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl }}
           >
-            <Text variant="hand" tone="muted" style={{ textAlign: 'center' }}>
+            <Text variant="body" tone="muted" style={{ textAlign: 'center' }}>
               Aquí van a aparecer sus lugares.
             </Text>
           </View>
@@ -143,7 +171,7 @@ export function PaperMap({ points, onOpen, height = 380, compact = false }: Prop
                 style={{
                   position: 'absolute',
                   left: layout.xy[i].x - HIT / 2,
-                  top: layout.xy[i].y - (HIT / 2 + PIN / 2 - 1),
+                  top: layout.xy[i].y - HIT / 2,
                   width: HIT,
                   height: HIT,
                   zIndex: count > 1 ? 2 : 1,
@@ -151,21 +179,7 @@ export function PaperMap({ points, onOpen, height = 380, compact = false }: Prop
                   justifyContent: 'center',
                 }}
               >
-                <Icon name="pin" size={PIN} color={colors.jamaica} />
-                {count > 1 ? (
-                  <Stamp
-                    tone="ink"
-                    rotate={-2}
-                    style={{
-                      position: 'absolute',
-                      right: -10,
-                      top: -12,
-                      backgroundColor: colors.paperRaised,
-                    }}
-                  >
-                    {String(count)}
-                  </Stamp>
-                ) : null}
+                <MapMarker fruit={markerFruit(m.items)} count={count} />
               </Pressable>
             );
           })
