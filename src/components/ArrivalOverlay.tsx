@@ -53,7 +53,6 @@ export function ArrivalOverlay({ text, onDone }: Props) {
   const veilStyle = useAnimatedStyle(() => ({ opacity: veil.value }));
   const phraseStyle = useAnimatedStyle(() => ({
     opacity: phrase.value,
-    transform: reduced ? [] : [{ translateY: 8 * (1 - phrase.value) }],
   }));
 
   return (

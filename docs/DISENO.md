@@ -165,15 +165,16 @@ Juguetón pero corto. Tokens en `theme.motion`:
 | `tap` | 120 ms, escala 0.97 | Presionar botones y tarjetas |
 | `base` | 220 ms, `Easing.bezier(.2,.8,.2,1)` | Cambios de estado, fundidos |
 | `exit` | 160 ms, ease-in | Salidas |
-| `spring` | damping 14, stiffness 180 (un rebote) | Lo que "llega": pestaña activa, símbolo, racha |
 
-- **Firma — la rendija:** las dos mitades llegan desde fuera (±26 dp) con `spring` y se quedan sin
+**Sin rebotes y sin entradas desde abajo:** no hay `spring` ni elementos que suban al aparecer. Todo es fundido o timing corto con `base`; la `Sheet` se desliza con `base` sin sobrepaso y las pantallas modales entran con `fade`.
+
+- **Firma — la rendija:** las dos mitades llegan desde fuera (±26 dp) con timing `base` (sin rebote) y se quedan sin
   tocarse. Se usa en el splash animado, al contestar la pregunta (cuando ya contestaron los dos) y
   al completar algo "de a dos" (`ArrivalOverlay`, reemplaza a `SealOverlay`).
 - **Cargando:** `LoadingSymbol`, las mitades respiran (se separan 4 dp y regresan, 1.2 s). No hay
   spinners ni esqueletos de renglones.
-- **Pestaña activa:** el círculo de fruta crece de 0.6 a 1 con `spring`.
-- **Se abre la respuesta:** de desenfoque/opacidad 0.3 y +8 dp a nítida, 320 ms.
+- **Pestaña activa:** el círculo de fruta crece de 0.6 a 1 con timing `base`.
+- **Se abre la respuesta:** de opacidad 0.3 a nítida (fundido, sin desplazamiento), 320 ms.
 - **La racha se enciende:** la chispa escala de 0.4 a 1 girando −12° → 0°.
 - **Reducir movimiento** (`useReducedMotion`): todo se vuelve un fundido de 150 ms.
 - Háptica: `light` al tocar mood, pestañas y reacciones; `success` al contestar y al completar algo
@@ -232,7 +233,7 @@ en el Catálogo de diseño (`/catalogo`).
 | `EmptyState` | `Symbol` (o forma de widget) + `h3` + nota + acción opcional; con humor | `art`: `symbol`·`heart`·`bubble`·`dome`·`spark`·`circles`, `title`, `body`, `action` | — |
 | `LoadingSymbol` | Símbolo que respira (§5) | `size` | — |
 | `ArrivalOverlay` | Las mitades llegan y aparece una frase corta | `text`, `onDone` | — |
-| `TabBar` | 5 pestañas solo ícono (con `accessibilityLabel`); activa = círculo de tu fruta (`on` encima) | — | activa (`spring`) |
+| `TabBar` | 5 pestañas solo ícono (con `accessibilityLabel`); activa = círculo de tu fruta (`on` encima) | — | activa (timing `base`) |
 | `Checkbox` | Casilla redonda; marcada = círculo de tu fruta con palomita | `size`: `md` (26) · `lg` (círculo de 32, detalle de listas) | — |
 | `PermissionNote` | Estado de un permiso: activo, por pedir, bloqueado o solo-celular | `kind`: `notifications` · `location` (cada uno con sus textos) | — |
 | `Toggle`, `DateField`, `TimeField`, `CodeInput`, `InviteCode`, `AvatarPicker`, `SoftAskNote`, `Divider`, `FieldError` | Mismos contratos que antes, redibujados con estos tokens (Toggle encendido = tu fruta) | — | — |

@@ -4,7 +4,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -60,7 +59,7 @@ export function MoodBubble({
       return;
     }
     scale.value = 0.94;
-    scale.value = withSpring(1, motion.spring);
+    scale.value = withTiming(1, { duration: motion.base.duration });
   }, [pulse, reduced, scale, fade, motion]);
   const pulseStyle = useAnimatedStyle(() => ({
     opacity: fade.value,

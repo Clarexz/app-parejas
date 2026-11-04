@@ -36,7 +36,7 @@ import { RoundProgress } from './RoundProgress';
 import { useNames } from './useNames';
 import { BackBar, ErrorPage, LoadingPage, isGone, useGoBack } from './ui';
 
-/** La frase del ítem: llega con `spring` (§5) y va directo sobre el fondo. */
+/** La frase del ítem: llega con un fundido corto (§5) y va directo sobre el fondo. */
 function ItemText({ item }: { item: GameItem }) {
   const arrive = useArrive();
   return (

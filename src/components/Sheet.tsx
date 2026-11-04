@@ -5,7 +5,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -40,7 +39,7 @@ export function Sheet({ visible, onClose, title, children }: Props) {
       veil.value = withTiming(1, { duration: reduced ? motion.reduced : motion.base.duration });
       y.value = reduced
         ? withTiming(0, { duration: motion.reduced })
-        : withSpring(0, { ...motion.spring, damping: 20 });
+        : withTiming(0, { duration: motion.base.duration, easing: bezierOf(motion.base) });
     } else if (mounted) {
       veil.value = withTiming(0, { duration: reduced ? motion.reduced : motion.exit.duration });
       y.value = withTiming(

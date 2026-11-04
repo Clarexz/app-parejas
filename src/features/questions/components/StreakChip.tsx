@@ -4,7 +4,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -21,7 +20,7 @@ export function StreakChip({ days }: { days: number }) {
       progress.value = withTiming(1, { duration: motion.reduced });
       return;
     }
-    progress.value = withSpring(1, motion.spring);
+    progress.value = withTiming(1, { duration: motion.base.duration });
   }, [reduced, progress, motion]);
   const spark = useAnimatedStyle(() => ({
     opacity: reduced ? progress.value : 1,

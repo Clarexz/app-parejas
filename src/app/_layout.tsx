@@ -95,7 +95,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="category/[slug]" />
             <Stack.Screen
               name="story/new"
-              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
             />
             <Stack.Screen
               name="story/view"
@@ -105,7 +105,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="memory/[id]" />
             <Stack.Screen
               name="memory/edit"
-              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
             />
             <Stack.Screen name="events/index" />
             <Stack.Screen name="events/edit" />

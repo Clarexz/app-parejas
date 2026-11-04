@@ -48,7 +48,6 @@ export function AnswerCard({
   }, [reveal, reduced, progress, motion]);
   const style = useAnimatedStyle(() => ({
     opacity: 0.3 + 0.7 * progress.value,
-    transform: reduced ? [] : [{ translateY: 8 * (1 - progress.value) }],
   }));
 
   return (
