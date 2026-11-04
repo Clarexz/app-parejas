@@ -1064,9 +1064,18 @@ Fase 12 (pulido y v1.0.0).
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
 | 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Aviso de versión nueva dentro de la app (D107, APK v0.12.3, PR #20 mergeado a `main`). Sigue después de la 12A. Sin las fases 10 y 11A. |
 | 12A Rediseño "ahorita" | ✅ Cerrada (2026-11-03) | #19 | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. Servidor desplegado (`2e800d5`), PR mergeado a `main` a pedido del usuario. Falta probar el APK v0.12.2 en los dos celulares (§10.1). |
+| Ajustes post-12A (cambios menores) | ✅ Cerrada (2026-11-04) | #21 | Racha estilo TikTok (5 recuperaciones/mes, solo ayer), opción "Otra", teclado, Inicio con distancia/listas/lenguaje del amor/tiempo juntos, Preguntas + Juegos, memorias con visitas, Más → "Otros ajustes", "mesario", sin rebotes (D108–D111). Migración `20261110000000_streak_repairs_other_choice_memory_visits.sql`: **requiere deploy antes de instalar el APK** (notas en `docs/releases/v0.12.4.md`). Mergeada a `main` y APK **v0.12.4** lanzado a pedido del usuario, sin desplegar todavía. |
 
 ### 10.1 Verificaciones pendientes en el celular
 
+- **Ajustes post-12A (D108–D111, v0.12.4):** mergeados a `main` el 2026-11-04 a pedido del
+  usuario y APK **v0.12.4** lanzado con `<!-- sin-aviso -->` (la app no lo anuncia). **Falta el
+  deploy:** `./scripts/server/deploy.sh main` debe aplicar solo
+  `20261110000000_streak_repairs_other_choice_memory_visits.sql` (13 migraciones registradas);
+  luego `select public.get_streak();` como usuario con pareja (trae `repair_day`, `repairs_left`,
+  `today_is_repair`), `\df public.set_memory_visit` y smoke test. Sin secretos nuevos. Después,
+  quitar `<!-- sin-aviso -->` del release en GitHub y probar con `docs/releases/v0.12.4.md` (sobre
+  todo el teclado en la pregunta y la recuperación de racha).
 - **Aviso de versión nueva (D107):** mergeado a `main` el 2026-11-03 a pedido del usuario y APK
   **v0.12.3** lanzado desde `main` (incluye todo lo de la v0.12.2). No toca el servidor. Es la
   **última instalación a mano**: desde aquí la app revisa GitHub Releases al abrir, muestra una

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { Button, Notice, Screen, SoftAskNote } from '@/components';
 import { useCouple, useFruits, useToday } from '@/features/couple';
+import { DistanceCardView, isLocationSupported, useDistance } from '@/features/distance';
 import { EventsEvents, useCountdowns } from '@/features/events';
 import {
   HomeHeader,
@@ -11,8 +12,11 @@ import {
   NextTimeCard,
   PersonColumn,
   StatsRow,
+  TimeTogetherCard,
   shortDate,
 } from '@/features/home';
+import { HomeLoveLanguagesCard, useLoveLanguages } from '@/features/love-languages';
+import { HomeListsCard, useLists, useListsRealtime } from '@/features/lists';
 import { OnThisDayCard } from '@/features/memories';
 import { MoodSheet, useMoodRealtime, useMoods } from '@/features/mood';
 import { usePushSoftAsk } from '@/features/notifications';
@@ -45,6 +49,14 @@ export default function HomeScreen() {
   const summary = useMemo(() => homeSummary(anniversary, today), [anniversary, today]);
   const { refetch: refetchEvents } = useCountdowns();
 
+  const { lists, refetch: refetchLists } = useLists();
+  useListsRealtime();
+  const { overview: loveOverview, refetch: refetchLove } = useLoveLanguages();
+  const distance = useDistance();
+  const { refetch: refetchDistance } = distance;
+  const showDistance = distance.kind !== 'none' || isLocationSupported();
+  const partnerName = partner?.nickname || partner?.display_name || 'Tu pareja';
+
   const myMood = (me && latestByUser[me.id]) || null;
   const partnerMood = (partner && latestByUser[partner.id]) || null;
   const groups = groupActive(stories, me?.id, partner?.id);
@@ -56,11 +68,27 @@ export default function HomeScreen() {
   const refresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      await Promise.all([refetchCouple(), refetchMoods(), refetchEvents(), refetchStories()]);
+      await Promise.all([
+        refetchCouple(),
+        refetchMoods(),
+        refetchEvents(),
+        refetchStories(),
+        refetchLists(),
+        refetchLove(),
+        refetchDistance(),
+      ]);
     } finally {
       setRefreshing(false);
     }
-  }, [refetchCouple, refetchMoods, refetchEvents, refetchStories]);
+  }, [
+    refetchCouple,
+    refetchMoods,
+    refetchEvents,
+    refetchStories,
+    refetchLists,
+    refetchLove,
+    refetchDistance,
+  ]);
 
   return (
     <Screen scroll refreshing={refreshing} onRefresh={refresh}>
@@ -111,7 +139,18 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        <StatsRow summary={summary} />
+
         <NextTimeCard />
+
+        {showDistance ? (
+          <DistanceCardView
+            view={distance.isError ? { ...distance, kind: 'none' } : distance}
+            partnerName={distance.partnerName}
+            loading={distance.isLoading}
+            onPress={() => router.push('/distance')}
+          />
+        ) : null}
 
         <View style={{ gap: spacing.md }}>
           <HomeQuestionCard />
@@ -124,9 +163,21 @@ export default function HomeScreen() {
           ) : null}
         </View>
 
-        <StatsRow summary={summary} anniversary={anniversary} />
+        <HomeListsCard
+          lists={lists}
+          onOpenList={(id) => router.push({ pathname: '/lists/[id]', params: { id } })}
+          onOpenAll={() => router.push('/lists')}
+        />
 
         <OnThisDayCard />
+
+        <HomeLoveLanguagesCard
+          overview={loveOverview}
+          partnerName={partnerName}
+          onOpen={() => router.push('/love-languages')}
+        />
+
+        <TimeTogetherCard summary={summary} anniversary={anniversary} />
       </View>
       <MoodSheet visible={sheetOpen} onClose={() => setSheetOpen(false)} current={myMood} />
     </Screen>

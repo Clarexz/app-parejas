@@ -31,4 +31,4 @@ export {
 export { DrawingView } from './components/DrawingView';
 export { GameRoundView } from './components/GameRoundView';
 export { GamesEntryCard, gamesSummary } from './components/GamesEntryCard';
-export { GamesHub } from './components/GamesHub';
+export { GamesHub, GamesSection } from './components/GamesHub';

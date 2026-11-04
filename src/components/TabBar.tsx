@@ -5,7 +5,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -26,7 +25,7 @@ export const TAB_ICONS: Record<string, IconName> = {
   more: 'more',
 };
 
-/** El círculo de fruta crece de 0.6 a 1 con `spring` al activarse (DISENO §5). */
+/** El círculo de fruta crece de 0.6 a 1 con timing corto (sin rebote) al activarse (DISENO §5). */
 function ActiveCircle({ active }: { active: boolean }) {
   const { fruit, motion, radius } = useTheme();
   const reduced = useReducedMotion();
@@ -39,7 +38,7 @@ function ActiveCircle({ active }: { active: boolean }) {
       return;
     }
     fade.value = withTiming(active ? 1 : 0, { duration: motion.tap.duration });
-    scale.value = active ? withSpring(1, motion.spring) : 0.6;
+    scale.value = active ? withTiming(1, { duration: motion.base.duration }) : 0.6;
   }, [active, reduced, scale, fade, motion]);
   const style = useAnimatedStyle(() => ({
     opacity: fade.value,

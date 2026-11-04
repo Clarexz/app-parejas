@@ -255,7 +255,7 @@ describe('upcomingMilestones', () => {
     ]);
   });
 
-  it('cumplemés omite múltiplos de 12 (salen como aniversario)', () => {
+  it('mesario omite múltiplos de 12 (salen como aniversario)', () => {
     const months = upcomingMilestones('2025-01-15', '2025-01-15', {
       kinds: ['monthiversary'],
       limit: 13,
@@ -270,7 +270,7 @@ describe('upcomingMilestones', () => {
     expect(all[1].label).toBe('1 año');
   });
 
-  it('label del cumplemés con 12 meses o más usa años y meses', () => {
+  it('label del mesario con 12 meses o más usa años y meses', () => {
     const l = upcomingMilestones('2025-01-15', '2026-02-01', {
       kinds: ['monthiversary'],
       limit: 2,
@@ -299,9 +299,9 @@ describe('upcomingMilestones', () => {
     expect(years.map((m) => m.label)).toEqual(['1 año', '2 años', '3 años']);
   });
 
-  it('empate real entre días y cumplemés', () => {
-    // Día 100 = start + 99. Con start 2026-01-01 → 2026-04-10; cumplemés 3 = 2026-04-01.
-    // Con start 2025-12-31 y cumplemés 4 = 2026-04-30; día 100 = 2026-04-08. Se busca por fuerza bruta.
+  it('empate real entre días y mesario', () => {
+    // Día 100 = start + 99. Con start 2026-01-01 → 2026-04-10; mesario 3 = 2026-04-01.
+    // Con start 2025-12-31 y mesario 4 = 2026-04-30; día 100 = 2026-04-08. Se busca por fuerza bruta.
     let found = false;
     for (let i = 0; i < 400 && !found; i++) {
       const s = addDays('2024-01-01', i);

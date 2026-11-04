@@ -161,7 +161,7 @@ function yearsLabel(n: number): string {
   return n === 1 ? '1 año' : `${formatNumber(n)} años`;
 }
 
-/** Próximos hitos con fecha >= today, ordenados por fecha (empate: aniversario, días, cumplemés). */
+/** Próximos hitos con fecha >= today, ordenados por fecha (empate: aniversario, días, mesario). */
 export function upcomingMilestones(
   start: IsoDate,
   today: IsoDate,

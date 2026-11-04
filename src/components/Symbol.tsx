@@ -6,7 +6,6 @@ import Animated, {
   useSharedValue,
   withRepeat,
   withSequence,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
@@ -66,7 +65,7 @@ export function BrandSymbol({
         fade.value = withTiming(1, { duration: motion.reduced });
       } else {
         t.value = 1;
-        t.value = withSpring(0, motion.spring);
+        t.value = withTiming(0, { duration: motion.base.duration });
       }
     } else if (animate === 'breathe' && !reduced) {
       t.value = withRepeat(

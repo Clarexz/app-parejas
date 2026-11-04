@@ -245,6 +245,68 @@ select pg_temp.expect_error($q$select public.delete_visit(pg_temp.id('v2'))$q$, 
 reset role;
 
 -- =============================================================================
+-- 3b) Memorias que también son visitas (set_memory_visit)
+-- =============================================================================
+set local role anon;
+select pg_temp.expect_denied($q$select public.set_memory_visit(gen_random_uuid(), true)$q$);
+reset role;
+
+-- Las memorias se insertan directo (create_memory exige fotos en Storage).
+insert into public.memories (couple_id, created_by, title, happened_on, place_name)
+values (pg_temp.cid('A'), pg_temp.u('A'), 'Fin de semana en Puebla', current_date - 40, 'Puebla'),
+       (pg_temp.cid('A'), pg_temp.u('A'), 'Sin lugar', current_date - 60, null);
+insert into t_ids select 'm1', id from public.memories where title = 'Fin de semana en Puebla';
+insert into t_ids select 'm2', id from public.memories where title = 'Sin lugar';
+select pg_temp.as_user('A');
+select pg_temp.expect_error($q$select public.set_memory_visit(gen_random_uuid(), true)$q$, 'memory_not_found');
+-- Fechas inválidas: fin antes del inicio o más de 365 días.
+select pg_temp.expect_error($q$select public.set_memory_visit(pg_temp.id('m1'), true, current_date - 41)$q$, 'invalid_visit');
+select pg_temp.expect_error($q$select public.set_memory_visit(pg_temp.id('m1'), true, current_date + 400)$q$, 'invalid_visit');
+
+-- Marcar: una sola fecha por omisión, lugar = place_name, aviso push y liga en la memoria.
+insert into t_ids select 'mv1', (public.set_memory_visit(pg_temp.id('m1'), true) ->> 'visit_id')::uuid;
+select pg_temp.assert((select v.start_date = current_date - 40 and v.end_date = current_date - 40 and v.place = 'Puebla'
+  and v.created_by = pg_temp.u('A') from public.visits v where v.id = pg_temp.id('mv1')), 'memoria -> visita de un día');
+select pg_temp.assert((select visit_id = pg_temp.id('mv1') from public.memories where id = pg_temp.id('m1')), 'la memoria queda ligada');
+reset role;
+select pg_temp.assert((select count(*) from pg_temp.queued() e where e ->> 'kind' = 'visit') = 3, 'marcar como visita avisa');
+
+-- Beto la extiende a un rango: actualiza la misma visita (sin duplicar ni avisar de nuevo).
+select pg_temp.as_user('B');
+select pg_temp.assert((public.set_memory_visit(pg_temp.id('m1'), true, current_date - 38) ->> 'visit_id')::uuid = pg_temp.id('mv1'),
+  'misma visita al repetir');
+select pg_temp.assert((select count(*) = 1 and bool_and(end_date = current_date - 38) from public.visits where place = 'Puebla'), 'rango actualizado');
+-- Si el rango choca con otra visita (v1: hace 21..18 días), el error es el de visitas.
+select pg_temp.expect_error($q$select public.set_memory_visit(pg_temp.id('m1'), true, current_date - 19)$q$, 'visit_overlap');
+reset role;
+select pg_temp.assert((select count(*) from pg_temp.queued() e where e ->> 'kind' = 'visit') = 3, 'editar no avisa');
+
+-- Sin lugar: place null.
+select pg_temp.as_user('A');
+insert into t_ids select 'mv2', (public.set_memory_visit(pg_temp.id('m2'), true, current_date - 59) ->> 'visit_id')::uuid;
+select pg_temp.assert((select place is null and end_date - start_date = 1 from public.visits where id = pg_temp.id('mv2')), 'visita sin lugar');
+
+-- Otra pareja no puede usarla.
+select pg_temp.as_user('C');
+select pg_temp.expect_error($q$select public.set_memory_visit(pg_temp.id('m1'), true)$q$, 'memory_not_found');
+select pg_temp.expect_error($q$select public.set_memory_visit(pg_temp.id('m1'), false)$q$, 'memory_not_found');
+select pg_temp.assert((select count(*) from public.visits where id in (pg_temp.id('mv1'), pg_temp.id('mv2'))) = 0, 'Caro no ve esas visitas');
+reset role;
+select pg_temp.assert((select count(*) from public.visits where id in (pg_temp.id('mv1'), pg_temp.id('mv2'))) = 2, 'siguen intactas');
+
+-- Desmarcar: borra la visita y deja visit_id en null (idempotente).
+select pg_temp.as_user('A');
+select pg_temp.assert((public.set_memory_visit(pg_temp.id('m1'), false) ->> 'visit_id') is null, 'desmarcar devuelve null');
+select pg_temp.assert(not exists (select 1 from public.visits where id = pg_temp.id('mv1')), 'la visita se borró');
+select pg_temp.assert((select visit_id is null from public.memories where id = pg_temp.id('m1')), 'visit_id en null');
+select public.set_memory_visit(pg_temp.id('m1'), false);
+-- Borrar la visita desde el calendario suelta la liga (on delete set null).
+select public.delete_visit(pg_temp.id('mv2'));
+select pg_temp.assert((select visit_id is null from public.memories where id = pg_temp.id('m2')), 'delete_visit suelta la memoria');
+reset role;
+delete from public.memories where id in (pg_temp.id('m1'), pg_temp.id('m2'));
+
+-- =============================================================================
 -- 4) Estadísticas
 -- =============================================================================
 select pg_temp.as_user('A');

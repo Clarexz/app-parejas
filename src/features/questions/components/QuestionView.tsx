@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react';
+import { Pressable, View } from 'react-native';
 import {
   KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  View,
-  type ScrollViewInstance,
-} from 'react-native';
+  KeyboardAwareScrollView,
+  type KeyboardAwareScrollViewRef,
+} from 'react-native-keyboard-controller';
 
 import {
   AnswerCard,
@@ -24,9 +23,11 @@ import { useCouple, useToday } from '@/features/couple';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
 import { sameChoice } from '@/lib/questionCopy';
+import { answerDisplay } from '@/lib/questionsView';
 import {
   ANSWER_MAX_LENGTH,
   CHOICE_NOTE_MAX_LENGTH,
+  OTHER_CHOICE,
   validateAnswerInput,
   type AnswerInfo,
   type QuestionCard,
@@ -42,15 +43,6 @@ import { usePairFruits } from './usePairFruits';
 
 const LONG_QUESTION_CHARS = 140;
 
-/** Texto de una respuesta: la opción elegida (si es de opciones) y lo que escribió. */
-function answerText(question: QuestionInfo, answer: AnswerInfo): string {
-  const option =
-    question.type === 'choice' && answer.choice !== null
-      ? (question.options?.[answer.choice] ?? null)
-      : null;
-  return [option, answer.text].filter((p): p is string => !!p).join(' · ');
-}
-
 type FormProps = {
   question: QuestionInfo;
   initial: AnswerInfo | null;
@@ -63,13 +55,22 @@ type FormProps = {
 /** Formulario de respuesta: tu `Input` con foco en tu fruta, u opciones para elegir. */
 function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCancel }: FormProps) {
   const { colors, spacing, radius, fruit } = useTheme();
-  const [text, setText] = useState(initial?.text ?? '');
-  const [choice, setChoice] = useState<number | null>(initial?.choice ?? null);
   const isChoice = question.type === 'choice';
+  const [text, setText] = useState(
+    !isChoice || initial?.choice === OTHER_CHOICE ? (initial?.text ?? '') : '',
+  );
+  const [choice, setChoice] = useState<number | null>(initial?.choice ?? null);
+  const isOther = isChoice && choice === OTHER_CHOICE;
+  // Respuestas viejas con opción + nota: la nota ya no se edita, pero se conserva tal cual.
+  const legacyNote = isChoice && initial && initial.choice !== OTHER_CHOICE ? initial.text : null;
+  const showInput = !isChoice || isOther;
   const max = isChoice ? CHOICE_NOTE_MAX_LENGTH : ANSWER_MAX_LENGTH;
   const length = Array.from(text).length;
   const over = length - max;
-  const validation = validateAnswerInput(question, { text, choice });
+  const validation = validateAnswerInput(question, {
+    text: !isChoice || isOther ? text : legacyNote,
+    choice,
+  });
 
   return (
     <View style={{ gap: spacing.md }}>
@@ -79,14 +80,17 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
       </View>
       {isChoice ? (
         <View accessibilityRole="radiogroup" style={{ gap: spacing.sm }}>
-          {(question.options ?? []).map((option, i) => {
-            const selected = choice === i;
+          {[
+            ...(question.options ?? []).map((option, i) => ({ option, value: i })),
+            { option: 'Otra', value: OTHER_CHOICE },
+          ].map(({ option, value }) => {
+            const selected = choice === value;
             return (
               <Pressable
-                key={option}
+                key={value}
                 onPress={() => {
                   haptic.light();
-                  setChoice(i);
+                  setChoice(value);
                 }}
                 accessibilityRole="radio"
                 accessibilityLabel={option}
@@ -113,24 +117,30 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
           })}
         </View>
       ) : null}
-      <Input
-        variant="multiline"
-        label={isChoice ? 'Algo más que quieras decir (opcional)' : undefined}
-        accessibilityLabel={isChoice ? 'Algo más que quieras decir' : 'Tu respuesta'}
-        value={text}
-        onChangeText={setText}
-        placeholder={isChoice ? undefined : 'Escribe con calma, aquí nadie te apura.'}
-        error={over > 0 ? `Te pasaste por ${over} ${over === 1 ? 'letra' : 'letras'}.` : undefined}
-      />
-      {length > max * 0.8 ? (
-        <Text
-          variant="note"
-          tone={over > 0 ? 'danger' : 'muted'}
-          style={{ alignSelf: 'flex-end' }}
-          accessibilityLabel={`${length} de ${max} caracteres`}
-        >
-          {length}/{max}
-        </Text>
+      {showInput ? (
+        <>
+          <Input
+            variant="multiline"
+            label={isChoice ? 'Escribe tu opción' : undefined}
+            accessibilityLabel={isChoice ? 'Tu opción' : 'Tu respuesta'}
+            value={text}
+            onChangeText={setText}
+            placeholder={isChoice ? undefined : 'Escribe con calma, aquí nadie te apura.'}
+            error={
+              over > 0 ? `Te pasaste por ${over} ${over === 1 ? 'letra' : 'letras'}.` : undefined
+            }
+          />
+          {length > max * 0.8 ? (
+            <Text
+              variant="note"
+              tone={over > 0 ? 'danger' : 'muted'}
+              style={{ alignSelf: 'flex-end' }}
+              accessibilityLabel={`${length} de ${max} caracteres`}
+            >
+              {length}/{max}
+            </Text>
+          ) : null}
+        </>
       ) : null}
       <Button
         title={submitLabel}
@@ -158,7 +168,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
   const nudge = useSendNudge();
   const { streak } = useStreak();
   const celebrate = useCelebrationStore((s) => s.celebrate);
-  const scrollRef = useRef<ScrollViewInstance>(null);
+  const scrollRef = useRef<KeyboardAwareScrollViewRef>(null);
   const [editing, setEditing] = useState(false);
   const [justRevealed, setJustRevealed] = useState(false);
   const [arrived, setArrived] = useState(false);
@@ -216,7 +226,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-      <ScrollView
+      <KeyboardAwareScrollView
         ref={scrollRef}
         style={{ flex: 1 }}
         contentContainerStyle={{ gap: spacing.xl, paddingBottom: spacing.xl }}
@@ -248,7 +258,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
           <AnswerCard
             fruit={fruits.partner}
             name={partnerName}
-            text={answerText(question, card.partner)}
+            text={answerDisplay(card.partner, question)}
             reveal={justRevealed}
           />
         ) : card.partner_answered ? (
@@ -275,7 +285,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
           />
         ) : mine ? (
           <View style={{ gap: spacing.md }}>
-            <AnswerCard fruit={fruits.me} name="Tú" text={answerText(question, mine)} />
+            <AnswerCard fruit={fruits.me} name="Tú" text={answerDisplay(mine, question)} />
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md }}>
               <Button title="Editar" variant="ghost" onPress={() => setEditing(true)} />
               <Button
@@ -315,7 +325,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
             commentCount={card.comment_count}
           />
         ) : null}
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
       {mine ? (
         <CommentComposer

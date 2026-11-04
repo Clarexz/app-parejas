@@ -3,16 +3,25 @@ import { act, renderHook, waitFor } from '@testing-library/react-native';
 import type { ReactNode } from 'react';
 
 import type { Memory } from '../api';
-import { memoryKeys, useDeleteMemory, useMemories, useMemory, useOnThisDay } from '../hooks';
+import {
+  memoryKeys,
+  useDeleteMemory,
+  useMemories,
+  useMemory,
+  useOnThisDay,
+  useSetMemoryVisit,
+} from '../hooks';
 
 const mockFetchMemories = jest.fn();
 const mockFetchMemory = jest.fn();
 const mockDeleteMemory = jest.fn();
+const mockSetMemoryVisit = jest.fn();
 jest.mock('../api', () => ({
   fetchMemories: (...a: unknown[]) => mockFetchMemories(...a),
   fetchMemory: (...a: unknown[]) => mockFetchMemory(...a),
   deleteMemory: (...a: unknown[]) => mockDeleteMemory(...a),
   saveMemory: jest.fn(),
+  setMemoryVisit: (...a: unknown[]) => mockSetMemoryVisit(...a),
   savePhotoToGallery: jest.fn(),
   memoryMediaUrls: jest.fn(),
 }));
@@ -32,6 +41,7 @@ const memory = (id: string, happened_on: string): Memory => ({
   lat: null,
   lng: null,
   place_name: null,
+  visit_id: null,
   created_at: '2026-01-01T00:00:00Z',
   updated_at: '2026-01-01T00:00:00Z',
   photos: [],
@@ -106,6 +116,20 @@ describe('useOnThisDay', () => {
       ['a', 1],
       ['c', 2],
     ]);
+  });
+});
+
+describe('useSetMemoryVisit', () => {
+  it('llama al RPC e invalida memorias y visitas', async () => {
+    mockSetMemoryVisit.mockResolvedValue('v1');
+    const { client, wrapper } = setup();
+    const spy = jest.spyOn(client, 'invalidateQueries');
+    const { result } = await renderHook(() => useSetMemoryVisit(), { wrapper });
+    result.current.mutate({ memoryId: 'm1', isVisit: true, endDate: '2026-10-03' });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(mockSetMemoryVisit).toHaveBeenCalledWith('m1', true, '2026-10-03');
+    const keys = spy.mock.calls.map((c) => (c[0] as { queryKey: string[] }).queryKey[0]);
+    expect(keys).toEqual(expect.arrayContaining(['memories', 'visits', 'events']));
   });
 });
 

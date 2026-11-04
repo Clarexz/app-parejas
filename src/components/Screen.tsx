@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/theme';
@@ -32,7 +33,7 @@ export function Screen({
     <View style={[styles.root, { backgroundColor: colors.bg }]}>
       <SafeAreaView style={styles.root}>
         {scroll ? (
-          <ScrollView
+          <KeyboardAwareScrollView
             contentContainerStyle={padding}
             keyboardShouldPersistTaps="handled"
             refreshControl={
@@ -48,7 +49,7 @@ export function Screen({
             }
           >
             {children}
-          </ScrollView>
+          </KeyboardAwareScrollView>
         ) : (
           <View style={[styles.root, padding]}>{children}</View>
         )}

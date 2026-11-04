@@ -1,5 +1,5 @@
 /** Textos y decisiones de presentación de las preguntas (funciones puras, es-MX). */
-import type { QuestionCard, Streak } from '@/lib/questions';
+import { OTHER_CHOICE, type QuestionCard, type Streak } from '@/lib/questions';
 
 export function pluralDays(n: number): string {
   return n === 1 ? '1 día' : `${n} días`;
@@ -11,8 +11,38 @@ export function streakLine(current: number): string {
   return `${current === 1 ? '1 día seguido' : `${current} días seguidos`} contestando.`;
 }
 
-export function repairLine(missing: number): string {
-  return missing === 1 ? 'Les falta 1 día por reparar' : `Les faltan ${missing} días por reparar`;
+/** Aviso de la racha en riesgo: ayer quedó sin contestar y todavía se puede recuperar. */
+export function repairPrompt(current: number): string {
+  return `Se les pasó ayer. Contesten la de ayer hoy para salvar su racha de ${pluralDays(current)}; hoy ya no suma.`;
+}
+
+/** "Les quedan 3 de 5 recuperaciones este mes". */
+export function repairsLeftLine(left: number, perMonth: number): string {
+  if (left <= 0) return 'Ya no les quedan recuperaciones este mes.';
+  return `${left === 1 ? 'Les queda' : 'Les quedan'} ${left} de ${perMonth} ${left === 1 ? 'recuperación' : 'recuperaciones'} este mes`;
+}
+
+/** Hoy se recuperó ayer: la pregunta de hoy cuenta como hecha pero no suma a la racha. */
+export const REPAIR_TODAY_NOTE = 'Hoy recuperaron ayer; hoy no suma a la racha.';
+
+export type RepairView =
+  | { kind: 'repair'; day: string; current: number; left: number; perMonth: number }
+  | { kind: 'repaired_today' }
+  | { kind: 'none' };
+
+/** Qué mostrar de la recuperación: nada si no hay día por recuperar o ya no queda cupo. */
+export function repairView(streak: Streak): RepairView {
+  if (streak.today_is_repair) return { kind: 'repaired_today' };
+  if (streak.repair_day && streak.repairs_left > 0) {
+    return {
+      kind: 'repair',
+      day: streak.repair_day,
+      current: streak.current,
+      left: streak.repairs_left,
+      perMonth: streak.repairs_per_month,
+    };
+  }
+  return { kind: 'none' };
 }
 
 export function commentCountLabel(n: number): string {
@@ -31,7 +61,8 @@ export function partnerFoldedLabel(name: string, partnerAnswered: boolean): stri
 export function sameChoice(card: Pick<QuestionCard, 'mine' | 'partner'>): boolean {
   const a = card.mine?.choice;
   const b = card.partner?.choice;
-  return typeof a === 'number' && a === b;
+  // "Otra" (-1) nunca es coincidencia: cada quien escribió algo distinto.
+  return typeof a === 'number' && a !== OTHER_CHOICE && a === b;
 }
 
 export type QuestionErrorKind = 'no_questions' | 'not_found' | 'other';

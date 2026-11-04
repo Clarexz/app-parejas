@@ -98,31 +98,13 @@ export default function MoreScreen() {
           </View>
         </Card>
 
-        <ListGroup label="De a dos">
-          <ListRow
-            label="Cuentas regresivas"
-            icon="countdown"
-            onPress={() => router.push('/events')}
-          />
-          <ListRow label="Listas" icon="lists" onPress={() => router.push('/lists')} />
-          <ListRow label="Juegos" icon="games" onPress={() => router.push('/games')} />
-          <ListRow label="Distancia" icon="distance" onPress={() => router.push('/distance')} />
-          <ListRow label="Visitas" icon="suitcase" onPress={() => router.push('/visits')} />
-          <ListRow
-            label="Lenguajes del amor"
-            icon="love"
-            onPress={() => router.push('/love-languages')}
-          />
-          <ListRow label="Estadísticas" icon="stats" onPress={() => router.push('/stats')} />
-        </ListGroup>
-
-        <ListGroup label="Ustedes">
-          <ListRow label="Tu fruta" icon="fruit" onPress={() => router.push('/settings/fruit')} />
+        <ListGroup label="Otros ajustes">
           <ListRow
             label="Mi perfil"
             icon="person"
             onPress={() => router.push('/settings/profile')}
           />
+          <ListRow label="Tu fruta" icon="fruit" onPress={() => router.push('/settings/fruit')} />
           <ListRow
             label="Nuestra pareja"
             icon="couple"
@@ -133,7 +115,23 @@ export default function MoreScreen() {
             icon="bell"
             onPress={() => router.push('/settings/notifications')}
           />
+          <ListRow
+            label="Ubicación y distancia"
+            icon="distance"
+            onPress={() => router.push('/distance')}
+          />
           <ListRow label="Widgets" icon="widgets" onPress={() => router.push('/widgets')} />
+          <ListRow
+            label="Cuentas regresivas"
+            icon="countdown"
+            onPress={() => router.push('/events')}
+          />
+          <ListRow label="Estadísticas" icon="stats" onPress={() => router.push('/stats')} />
+          <ListRow
+            label="Historial de preguntas"
+            icon="question"
+            onPress={() => router.push('/history')}
+          />
         </ListGroup>
 
         <ListGroup label="Cuenta">

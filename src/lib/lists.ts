@@ -119,6 +119,41 @@ export function doneByLabel(
 }
 
 // ---------------------------------------------------------------------------
+// Inicio
+// ---------------------------------------------------------------------------
+
+export type ListSummaryLike = {
+  id: string;
+  updated_at: string;
+  created_at: string;
+  itemCount: number;
+  doneCount: number;
+};
+
+export const HOME_LISTS_MAX = 3;
+
+/**
+ * Las listas que salen en Inicio: primero las que aún tienen pendientes, luego las vacías y al
+ * final las ya tachadas; dentro de cada grupo, la de actividad más reciente primero. `hidden`
+ * cuenta las que no caben.
+ */
+export function homeLists<T extends ListSummaryLike>(
+  lists: readonly T[],
+  max: number = HOME_LISTS_MAX,
+): { shown: T[]; hidden: number } {
+  const rank = (l: T) => (l.itemCount === 0 ? 1 : l.doneCount >= l.itemCount ? 2 : 0);
+  const sorted = [...lists].sort(
+    (a, b) =>
+      rank(a) - rank(b) ||
+      b.updated_at.localeCompare(a.updated_at) ||
+      b.created_at.localeCompare(a.created_at) ||
+      a.id.localeCompare(b.id),
+  );
+  const shown = sorted.slice(0, Math.max(0, max));
+  return { shown, hidden: Math.max(0, sorted.length - shown.length) };
+}
+
+// ---------------------------------------------------------------------------
 // Reordenar
 // ---------------------------------------------------------------------------
 

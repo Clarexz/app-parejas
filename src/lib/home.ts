@@ -33,12 +33,12 @@ const KINDS: MilestoneKind[] = ['days', 'monthiversary', 'anniversary'];
 export function milestoneStamp(m: Milestone): string {
   if (m.kind === 'days') return `HOY: ${formatNumber(m.value)} DÍAS`;
   if (m.kind === 'anniversary') return `HOY: ${m.value === 1 ? '1 AÑO' : `${m.value} AÑOS`}`;
-  return 'HOY: CUMPLEMÉS';
+  return 'HOY: MESARIO';
 }
 
-/** Renglón de "Lo que viene": el cumplemés antepone la palabra. */
+/** Renglón de "Lo que viene": el mesario antepone la palabra. */
 export function milestoneLabel(m: Milestone): string {
-  return m.kind === 'monthiversary' ? `Cumplemés: ${m.label}` : m.label;
+  return m.kind === 'monthiversary' ? `Mesario: ${m.label}` : m.label;
 }
 
 /** Resumen del Inicio; tolera fechas ausentes o inválidas (→ `none`). */
@@ -57,7 +57,7 @@ export function homeSummary(anniversary: string | null | undefined, today: IsoDa
     if (next) upcoming.push(next);
   }
   upcoming.sort((a, b) => a.daysUntil - b.daysUntil);
-  // Si coinciden varios hitos hoy, el sello prefiere aniversario > días > cumplemés.
+  // Si coinciden varios hitos hoy, el sello prefiere aniversario > días > mesario.
   const todayPick =
     todays.find((m) => m.kind === 'anniversary') ??
     todays.find((m) => m.kind === 'days') ??

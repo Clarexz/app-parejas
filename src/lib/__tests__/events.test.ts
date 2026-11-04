@@ -101,7 +101,7 @@ describe('autoCountdowns', () => {
     });
     expect(out.map((c) => c.kind).sort()).toEqual(['anniversary', 'days', 'monthiversary']);
     expect(out.every((c) => c.date >= TODAY && c.eventId === null)).toBe(true);
-    expect(out.find((c) => c.kind === 'monthiversary')?.title.startsWith('Cumplemés')).toBe(true);
+    expect(out.find((c) => c.kind === 'monthiversary')?.title.startsWith('Mesario')).toBe(true);
     expect(out.find((c) => c.kind === 'days')?.recurring).toBe(false);
     expect(out.find((c) => c.kind === 'anniversary')?.recurring).toBe(true);
     const days = out.map((c) => c.daysUntil);
@@ -196,7 +196,7 @@ describe('buildCountdowns', () => {
     expect(out.find((c) => c.key === 'birthday:me')?.daysUntil).toBe(5);
   });
 
-  it('desempate a igual fecha: visita > aniversario > cumpleaños > propio > días > cumplemés', () => {
+  it('desempate a igual fecha: visita > aniversario > cumpleaños > propio > días > mesario', () => {
     // Todos caen el 2026-11-05.
     const date = '2026-11-05';
     const out = buildCountdowns({

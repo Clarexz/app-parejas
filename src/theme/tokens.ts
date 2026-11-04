@@ -162,8 +162,6 @@ export const motion = {
   base: { duration: 220, bezier: [0.2, 0.8, 0.2, 1] as const },
   /** Salidas. */
   exit: { duration: 160, bezier: [0.42, 0, 1, 1] as const },
-  /** Lo que "llega": pestaña activa, símbolo, racha (un rebote). */
-  spring: { damping: 14, stiffness: 180 },
   /** Con "reducir movimiento" todo es un fundido de esta duración. */
   reduced: 150,
 };

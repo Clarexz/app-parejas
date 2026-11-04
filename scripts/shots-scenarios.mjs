@@ -415,6 +415,7 @@ const memoryRow = (n, title, happenedOn, o = {}) => {
     lat: o.lat ?? null,
     lng: o.lng ?? null,
     place_name: o.place ?? null,
+    visit_id: o.visit ?? null,
     created_at: hoursAgo(24 * (30 - n)),
     updated_at: hoursAgo(24 * (30 - n)),
     photos: Array.from({ length: count }, (_, k) => {
@@ -434,6 +435,36 @@ const memoryRow = (n, title, happenedOn, o = {}) => {
   };
 };
 
+// Visitas ligadas a memorias (Memorias + visitas): la 2 y la 3 son visita, el resto no.
+const MEMORY_VISIT_1 = 'dddddddd-dddd-4ddd-8ddd-000000000101';
+const MEMORY_VISIT_2 = 'dddddddd-dddd-4ddd-8ddd-000000000102';
+const memoryVisits = () => [
+  {
+    id: MEMORY_VISIT_1,
+    couple_id: COUPLE_ID,
+    created_by: ME_ID,
+    start_date: isoDaysAgo(20),
+    end_date: isoDaysAgo(20),
+    place: 'Coyoacán, CDMX',
+    note: null,
+    event_id: null,
+    created_at: '2026-10-01T12:00:00Z',
+    updated_at: '2026-10-01T12:00:00Z',
+  },
+  {
+    id: MEMORY_VISIT_2,
+    couple_id: COUPLE_ID,
+    created_by: ME_ID,
+    start_date: '2026-08-14',
+    end_date: '2026-08-17',
+    place: 'Playa Mazunte, Oaxaca',
+    note: null,
+    event_id: null,
+    created_at: '2026-10-01T12:00:00Z',
+    updated_at: '2026-10-01T12:00:00Z',
+  },
+];
+
 const sampleMemories = () => [
   memoryRow(1, 'Tacos de pastor a las 2 am', isoDaysAgo(3), {
     place: 'Condesa, CDMX',
@@ -442,6 +473,7 @@ const sampleMemories = () => [
     body: 'Salimos de la fiesta con hambre y el señor del trompo ya nos conocía. Le pedimos doble de piña y nos sentamos en la banqueta a platicar de todo.',
   }),
   memoryRow(2, 'Domingo en Coyoacán', isoDaysAgo(20), {
+    visit: MEMORY_VISIT_1,
     photos: 3,
     place: 'Coyoacán, CDMX',
     lat: 19.3467,
@@ -449,6 +481,7 @@ const sampleMemories = () => [
     body: 'Helado de mamey, el mercado y la tarde entera sin reloj.',
   }),
   memoryRow(3, 'Atardecer en Mazunte', '2026-08-14', {
+    visit: MEMORY_VISIT_2,
     photos: 5,
     place: 'Playa Mazunte, Oaxaca',
     lat: 15.6669,
@@ -485,6 +518,12 @@ const memoriesSession = {
   partner: profiles.partner,
   members: [member(ME_ID), member(PARTNER_ID)],
   memories: sampleMemories,
+  rest: (path, { route, json }) => {
+    if (path === '/rest/v1/visits') return json(route, memoryVisits());
+    if (path === '/rest/v1/events') return json(route, []);
+    if (path === '/rest/v1/rpc/set_memory_visit') return json(route, { visit_id: MEMORY_VISIT_1 });
+    return undefined;
+  },
 };
 
 /** Escenarios: qué datos devuelve el "servidor" y qué rutas se capturan. */
@@ -920,6 +959,27 @@ export const SCENARIOS = {
     memories: () => [],
     routes: ['/memories'],
   },
+  // Sin visitas apuntadas: el bloque de arriba invita a apuntar la primera.
+  memorias_sin_visitas: {
+    prefix: 'memorias-sin-visitas',
+    ...memoriesSession,
+    memories: () => sampleMemories().map((m) => ({ ...m, visit_id: null })),
+    rest: (path, { route, json }) =>
+      path === '/rest/v1/visits' || path === '/rest/v1/events' ? json(route, []) : undefined,
+    routes: ['/memories'],
+  },
+  // Editor con "Fue una visita" marcado (con "Hasta" abierto).
+  memorias_nueva_visita: {
+    prefix: 'memorias-nueva-visita',
+    ...memoriesSession,
+    routes: ['/memory/edit'],
+    actions: {
+      '/memory/edit': async (page) => {
+        await page.getByRole('checkbox', { name: 'Fue una visita, nos vimos en persona' }).click();
+        await page.waitForTimeout(400);
+      },
+    },
+  },
   memorias_error: {
     prefix: 'memorias-error',
     ...memoriesSession,
@@ -1179,7 +1239,7 @@ export const SCENARIOS = {
         prefix: 'listas',
         ...session,
         rest: full,
-        routes: ['/lists', `/lists/${lid(1)}`, `/lists/${lid(3)}`],
+        routes: ['/', '/lists', `/lists/${lid(1)}`, `/lists/${lid(3)}`],
       },
       listas_acomodar: {
         prefix: 'listas-acomodar',

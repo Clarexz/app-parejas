@@ -1,6 +1,7 @@
 import quizJson from '../../../content/love-languages.json';
 import {
   comparisonHeadline,
+  homeLoveLanguages,
   compareLoveLanguages,
   parseLoveLanguagesOverview,
   primaryLabel,
@@ -82,5 +83,46 @@ describe('loveLanguages', () => {
     });
     expect(o.mine?.scores.time).toBe(2);
     expect(o.partnerDone).toBe(true);
+  });
+});
+
+describe('homeLoveLanguages', () => {
+  const result = (scores: LoveLanguageScores) => ({
+    user_id: 'u',
+    quiz_version: 1,
+    answers: [],
+    scores,
+    created_at: '',
+    updated_at: '',
+  });
+  const time = result(s({ time: 12, words: 6 }));
+  const words = result(s({ words: 10 }));
+
+  it('sin nadie, invita', () => {
+    expect(homeLoveLanguages(null, quiz.languages).state).toBe('none');
+    expect(
+      homeLoveLanguages({ mine: null, partner: null, partnerDone: false }, quiz.languages).state,
+    ).toBe('none');
+  });
+
+  it('solo yo / solo mi pareja / los dos', () => {
+    const onlyMe = homeLoveLanguages(
+      { mine: time, partner: null, partnerDone: false },
+      quiz.languages,
+    );
+    expect(onlyMe.state).toBe('only_me');
+    expect(onlyMe.mine).toBe('Tiempo de calidad');
+    expect(
+      homeLoveLanguages({ mine: null, partner: null, partnerDone: true }, quiz.languages).state,
+    ).toBe('only_partner');
+    const both = homeLoveLanguages(
+      { mine: time, partner: words, partnerDone: true },
+      quiz.languages,
+    );
+    expect(both).toEqual({
+      state: 'both',
+      mine: 'Tiempo de calidad',
+      partner: 'Palabras de afirmación',
+    });
   });
 });

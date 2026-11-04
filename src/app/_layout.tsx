@@ -11,6 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -95,7 +96,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="category/[slug]" />
             <Stack.Screen
               name="story/new"
-              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
             />
             <Stack.Screen
               name="story/view"
@@ -105,7 +106,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="memory/[id]" />
             <Stack.Screen
               name="memory/edit"
-              options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+              options={{ presentation: 'fullScreenModal', animation: 'fade' }}
             />
             <Stack.Screen name="events/index" />
             <Stack.Screen name="events/edit" />
@@ -154,17 +155,19 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <ThemeProvider>
-          <QueryProvider>
-            <FruitThemeBridge>
-              <ToastProvider>
-                <ThemedStack fontsReady={ready} />
-              </ToastProvider>
-            </FruitThemeBridge>
-          </QueryProvider>
-        </ThemeProvider>
-      </SafeAreaProvider>
+      <KeyboardProvider>
+        <SafeAreaProvider>
+          <ThemeProvider>
+            <QueryProvider>
+              <FruitThemeBridge>
+                <ToastProvider>
+                  <ThemedStack fontsReady={ready} />
+                </ToastProvider>
+              </FruitThemeBridge>
+            </QueryProvider>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </KeyboardProvider>
     </GestureHandlerRootView>
   );
 }

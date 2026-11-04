@@ -1,5 +1,5 @@
 export type { LocationRow } from './api';
-export { DistanceCard, DistanceCardView } from './components/DistanceCard';
+export { DistanceCardView } from './components/DistanceCard';
 export {
   distanceKeys,
   useDistance,

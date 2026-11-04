@@ -1,5 +1,6 @@
 import type { HistoryItem } from '../questions';
 import {
+  answerDisplay,
   answerExcerpt,
   categoryRowState,
   historyPartnerLine,
@@ -42,6 +43,13 @@ describe('questionsView', () => {
     expect(answerExcerpt(answer('con sol', 1), { options: ['Playa', 'Monte'] })).toBe(
       'Monte · con sol',
     );
+  });
+
+  it('"Otra" muestra la opción propia y un índice raro no truena', () => {
+    const q = { options: ['Playa', 'Monte'] };
+    expect(answerExcerpt(answer('Un crucero', -1), q)).toBe('Otra: Un crucero');
+    expect(answerDisplay(answer(null, -1), q)).toBe('Otra');
+    expect(answerDisplay(answer('x', 9), q)).toBe('x');
   });
 
   it('oculta la respuesta de la pareja si yo no contesté', () => {

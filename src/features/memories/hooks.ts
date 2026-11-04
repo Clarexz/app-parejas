@@ -18,6 +18,7 @@ import {
   memoryMediaUrls,
   savePhotoToGallery,
   saveMemory,
+  setMemoryVisit,
   type Memory,
   type SaveMemoryInput,
 } from './api';
@@ -126,6 +127,20 @@ export function useSaveMemory() {
     onSuccess: (memory) => {
       qc.setQueryData(memoryKeys.one(memory.id), memory);
       invalidateMemories(qc);
+    },
+  });
+}
+
+/** Marca o desmarca una memoria como visita; refresca memorias, visitas y cuentas regresivas. */
+export function useSetMemoryVisit() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (v: { memoryId: string; isVisit: boolean; endDate?: string | null }) =>
+      setMemoryVisit(v.memoryId, v.isVisit, v.endDate),
+    onSettled: () => {
+      invalidateMemories(qc);
+      void qc.invalidateQueries({ queryKey: ['visits'] });
+      void qc.invalidateQueries({ queryKey: ['events'] });
     },
   });
 }

@@ -21,6 +21,7 @@ import {
   sortItems,
   splitItems,
   type ItemLike,
+  homeLists,
 } from '../lists';
 
 const item = (
@@ -163,5 +164,34 @@ describe('actualizaciones optimistas', () => {
     expect(replaceItem(base, 'tmp-1', real).map((i) => i.id)).toEqual(['a', 'b', 'real']);
     expect(isTempId('tmp-1')).toBe(true);
     expect(isTempId('real')).toBe(false);
+  });
+});
+
+describe('listas en Inicio', () => {
+  const l = (id: string, updated: string, doneCount: number, itemCount: number) => ({
+    id,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: updated,
+    itemCount,
+    doneCount,
+  });
+
+  it('primero las que tienen pendientes, luego vacías y tachadas', () => {
+    const { shown } = homeLists([
+      l('done', '2026-10-05T00:00:00Z', 4, 4),
+      l('empty', '2026-10-04T00:00:00Z', 0, 0),
+      l('open-old', '2026-10-01T00:00:00Z', 1, 5),
+      l('open-new', '2026-10-03T00:00:00Z', 3, 8),
+    ]);
+    expect(shown.map((x) => x.id)).toEqual(['open-new', 'open-old', 'empty']);
+  });
+
+  it('cuenta las que no caben y respeta el máximo', () => {
+    const all = [1, 2, 3, 4, 5].map((n) => l(`l${n}`, `2026-10-0${n}T00:00:00Z`, 0, 2));
+    const out = homeLists(all);
+    expect(out.shown.map((x) => x.id)).toEqual(['l5', 'l4', 'l3']);
+    expect(out.hidden).toBe(2);
+    expect(homeLists(all, 10).hidden).toBe(0);
+    expect(homeLists([])).toEqual({ shown: [], hidden: 0 });
   });
 });

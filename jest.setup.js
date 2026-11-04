@@ -46,3 +46,8 @@ jest.mock('react-native-maps', () => {
     PROVIDER_DEFAULT: null,
   };
 });
+
+// react-native-keyboard-controller trae módulos nativos: se usa su mock oficial.
+jest.mock('react-native-keyboard-controller', () =>
+  require('react-native-keyboard-controller/jest'),
+);

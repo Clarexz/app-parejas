@@ -642,6 +642,7 @@ export type Database = {
           place_name: string | null;
           title: string;
           updated_at: string;
+          visit_id: string | null;
         };
         ComputedFields: never;
         Insert: {
@@ -656,6 +657,7 @@ export type Database = {
           place_name?: string | null;
           title: string;
           updated_at?: string;
+          visit_id?: string | null;
         };
         Update: {
           body?: string | null;
@@ -669,6 +671,7 @@ export type Database = {
           place_name?: string | null;
           title?: string;
           updated_at?: string;
+          visit_id?: string | null;
         };
         Relationships: [
           {
@@ -676,6 +679,13 @@ export type Database = {
             columns: ['couple_id'];
             isOneToOne: false;
             referencedRelation: 'couples';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'memories_visit_id_fkey';
+            columns: ['visit_id'];
+            isOneToOne: false;
+            referencedRelation: 'visits';
             referencedColumns: ['id'];
           },
         ];
@@ -1312,6 +1322,7 @@ export type Database = {
           place_name: string | null;
           title: string;
           updated_at: string;
+          visit_id: string | null;
         };
         SetofOptions: {
           from: '*';
@@ -1604,6 +1615,10 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      set_memory_visit: {
+        Args: { p_end_date?: string; p_is_visit: boolean; p_memory_id: string };
+        Returns: Json;
+      };
       set_mood: {
         Args: { p_emoji: string; p_note?: string };
         Returns: {
@@ -1702,6 +1717,7 @@ export type Database = {
           place_name: string | null;
           title: string;
           updated_at: string;
+          visit_id: string | null;
         };
         SetofOptions: {
           from: '*';

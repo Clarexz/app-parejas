@@ -1,15 +1,33 @@
 /** Lógica pura de presentación de las preguntas (pestaña, categorías, historial, picantes). */
-import { spicyState, type AnswerInfo, type HistoryItem, type QuestionInfo } from './questions';
+import {
+  OTHER_CHOICE,
+  spicyState,
+  type AnswerInfo,
+  type HistoryItem,
+  type QuestionInfo,
+} from './questions';
 
-/** Texto corto de una respuesta: la opción elegida (y su nota) o el texto, recortado. */
+/**
+ * Texto completo de una respuesta: la opción elegida y su nota (respuestas viejas), la opción
+ * propia ("Otra: …") o el texto abierto. Un índice fuera de rango nunca devuelve `undefined`.
+ */
+export function answerDisplay(
+  answer: Pick<AnswerInfo, 'text' | 'choice'>,
+  question: Pick<QuestionInfo, 'options'>,
+): string {
+  const text = answer.text?.trim() || null;
+  if (answer.choice === OTHER_CHOICE) return text ? `Otra: ${text}` : 'Otra';
+  const option = answer.choice !== null ? question.options?.[answer.choice] : undefined;
+  return [option, text].filter((p): p is string => !!p).join(' · ');
+}
+
+/** Texto corto de una respuesta (ver `answerDisplay`), sin saltos de línea y recortado. */
 export function answerExcerpt(
   answer: Pick<AnswerInfo, 'text' | 'choice'>,
   question: Pick<QuestionInfo, 'options'>,
   max = 140,
 ): string {
-  const option = answer.choice !== null ? question.options?.[answer.choice] : undefined;
-  const parts = [option, answer.text?.trim()].filter((p): p is string => !!p);
-  const full = parts.join(' · ').replace(/\s+/g, ' ');
+  const full = answerDisplay(answer, question).replace(/\s+/g, ' ');
   const chars = Array.from(full);
   return chars.length > max ? `${chars.slice(0, max).join('').trimEnd()}…` : full;
 }

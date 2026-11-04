@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import type { AnswerInfo, QuestionCard } from '@/lib/questions';
+import type { AnswerInfo, QuestionCard, Streak } from '@/lib/questions';
 import { ThemeProvider } from '@/theme';
 
 import { QuestionView } from '../QuestionView';
@@ -11,7 +11,20 @@ const mockMutateAsync = jest.fn();
 jest.mock('../../hooks', () => ({
   useSubmitAnswer: () => ({ mutateAsync: mockMutateAsync, isPending: false }),
   useDeleteAnswer: () => ({ mutateAsync: jest.fn(), isPending: false }),
-  useStreak: () => ({ streak: { current: 3, best: 5, missing_days: [] } }),
+  useStreak: () => ({
+    streak: {
+      current: 3,
+      best: 5,
+      today: '2026-10-30',
+      today_done: false,
+      today_is_repair: false,
+      repair_day: null,
+      repairs_used: 0,
+      repairs_left: 5,
+      repairs_per_month: 5,
+      missing_days: [],
+    } satisfies Streak,
+  }),
   useSendNudge: () => ({ mutate: jest.fn(), isPending: false }),
   useComments: () => ({
     comments: [],
@@ -115,5 +128,68 @@ describe('QuestionView', () => {
     });
     expect(screen.getByText('A Oaxaca')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Pícale a Caleb' })).toBeNull();
+  });
+
+  describe('pregunta de opciones', () => {
+    const choiceCard: QuestionCard = {
+      ...base,
+      question: { ...base.question, type: 'choice', options: ['Playa', 'Monte'] },
+    };
+
+    it('agrega "Otra" al final y pide escribir la opción propia', async () => {
+      mockMutateAsync.mockResolvedValue({ card: choiceCard, justCompleted: false });
+      await renderView(choiceCard);
+      expect(screen.getAllByRole('radio').map((r) => r.props.accessibilityLabel)).toEqual([
+        'Playa',
+        'Monte',
+        'Otra',
+      ]);
+      expect(screen.queryByLabelText('Tu opción')).toBeNull();
+      expect(screen.queryByText('Algo más que quieras decir (opcional)')).toBeNull();
+
+      await fireEvent.press(screen.getByRole('radio', { name: 'Otra' }));
+      expect(
+        screen.getByRole('button', { name: 'Contestar' }).props.accessibilityState.disabled,
+      ).toBe(true);
+      await fireEvent.changeText(screen.getByLabelText('Tu opción'), 'Un crucero');
+      await fireEvent.press(screen.getByRole('button', { name: 'Contestar' }));
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({ text: 'Un crucero', choice: -1 }),
+      );
+    });
+
+    it('una opción normal se manda sin texto', async () => {
+      mockMutateAsync.mockResolvedValue({ card: choiceCard, justCompleted: false });
+      await renderView(choiceCard);
+      await fireEvent.press(screen.getByRole('radio', { name: 'Monte' }));
+      await fireEvent.press(screen.getByRole('button', { name: 'Contestar' }));
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({ text: null, choice: 1 }),
+      );
+    });
+
+    it('muestra "Otra: …" y conserva la nota vieja de las respuestas con opción', async () => {
+      const other: AnswerInfo = { ...answer('u1', 'Un crucero'), choice: -1 };
+      const old: AnswerInfo = { ...answer('u2', 'con sol'), choice: 0 };
+      await renderView({
+        ...choiceCard,
+        mine: other,
+        partner: old,
+        partner_answered: true,
+      });
+      expect(screen.getByText('Otra: Un crucero')).toBeTruthy();
+      expect(screen.getByText('Playa · con sol')).toBeTruthy();
+    });
+
+    it('al editar una respuesta vieja con nota, la manda tal cual', async () => {
+      mockMutateAsync.mockResolvedValue({ card: choiceCard, justCompleted: false });
+      await renderView({ ...choiceCard, mine: { ...answer('u1', 'con sol'), choice: 0 } });
+      await fireEvent.press(screen.getByRole('button', { name: 'Editar' }));
+      await fireEvent.press(screen.getByRole('radio', { name: 'Monte' }));
+      await fireEvent.press(screen.getByRole('button', { name: 'Guardar cambios' }));
+      expect(mockMutateAsync).toHaveBeenCalledWith(
+        expect.objectContaining({ text: 'con sol', choice: 1 }),
+      );
+    });
   });
 });

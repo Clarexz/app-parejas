@@ -3,6 +3,8 @@ import type { Json } from '@/types/database';
 
 export const ANSWER_MAX_LENGTH = 2000;
 export const CHOICE_NOTE_MAX_LENGTH = 500;
+/** `choice` de la opción "Otra": el texto es la opción propia (obligatorio). */
+export const OTHER_CHOICE = -1;
 export const COMMENT_MAX_LENGTH = 1000;
 
 export type QuestionType = 'open' | 'choice';
@@ -46,6 +48,14 @@ export type Streak = {
   best: number;
   today: string;
   today_done: boolean;
+  /** Hoy es el día de una recuperación: cuenta como hecho pero no suma. */
+  today_is_repair: boolean;
+  /** Ayer pendiente que todavía se puede recuperar hoy (la racha está en riesgo). */
+  repair_day: string | null;
+  repairs_used: number;
+  repairs_left: number;
+  repairs_per_month: number;
+  /** Compatibilidad con APKs viejos: `[repair_day]` o `[]`. */
   missing_days: string[];
 };
 
@@ -180,6 +190,13 @@ export function parseStreak(json: Json): Streak {
     best: num(json, 'best', 'streak'),
     today: str(json, 'today', 'streak'),
     today_done: bool(json, 'today_done', 'streak'),
+    today_is_repair:
+      json.today_is_repair === undefined ? false : bool(json, 'today_is_repair', 'streak'),
+    repair_day: strOrNull(json, 'repair_day', 'streak'),
+    repairs_used: json.repairs_used === undefined ? 0 : num(json, 'repairs_used', 'streak'),
+    repairs_left: json.repairs_left === undefined ? 5 : num(json, 'repairs_left', 'streak'),
+    repairs_per_month:
+      json.repairs_per_month === undefined ? 5 : num(json, 'repairs_per_month', 'streak'),
     missing_days: missing as string[],
   };
 }
@@ -251,9 +268,16 @@ export function validateAnswerInput(
   }
   const choice = input.choice;
   const count = question.options?.length ?? 0;
-  if (typeof choice !== 'number' || !Number.isInteger(choice) || choice < 0 || choice >= count) {
+  if (
+    typeof choice !== 'number' ||
+    !Number.isInteger(choice) ||
+    choice < OTHER_CHOICE ||
+    choice >= count
+  ) {
     return { ok: false, error: 'choice_required' };
   }
+  // "Otra": el texto es la opción propia y es obligatorio.
+  if (choice === OTHER_CHOICE && text === null) return { ok: false, error: 'empty' };
   if (text !== null && charLength(text) > CHOICE_NOTE_MAX_LENGTH) {
     return { ok: false, error: 'too_long' };
   }

@@ -4,7 +4,6 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -33,7 +32,7 @@ export function Toggle({ value, onValueChange, accessibilityLabel, disabled = fa
     const target = value ? 1 : 0;
     on.value = reduced
       ? withTiming(target, { duration: motion.reduced })
-      : withSpring(target, motion.spring);
+      : withTiming(target, { duration: motion.base.duration });
   }, [value, reduced, on, motion]);
 
   const thumb = useAnimatedStyle(() => ({

@@ -5,6 +5,7 @@ import {
   BackHandler,
   Linking,
   Platform,
+  Pressable,
   type LayoutChangeEvent,
   ScrollView,
   View,
@@ -14,6 +15,7 @@ import {
 import {
   ArrivalOverlay,
   Button,
+  Checkbox,
   DateField,
   EmptyState,
   FieldError,
@@ -28,8 +30,9 @@ import {
 } from '@/components';
 import { useToast } from '@/components/Toast';
 import { useToday } from '@/features/couple';
+import { useVisits } from '@/features/visits';
 import { addDays } from '@/lib/dates';
-import { isoDateToParts, partsToIsoDate, type DateParts } from '@/lib/dateParts';
+import { isoDateToParts, optionalIsoDate, partsToIsoDate, type DateParts } from '@/lib/dateParts';
 import { errorMessage } from '@/lib/errors';
 import type { LatLng } from '@/lib/geo';
 import {
@@ -44,10 +47,11 @@ import {
   validateMemoryDraft,
   type MemoryDraftErrors,
 } from '@/lib/memories';
+import { memoryVisitAction, memoryVisitEndParam, validateMemoryVisitEnd } from '@/lib/visits';
 import { useTheme } from '@/theme';
 
 import type { MemoryPhotoInput } from '../api';
-import { useMemory, useMemoryPhotoUrls, useSaveMemory } from '../hooks';
+import { useMemory, useMemoryPhotoUrls, useSaveMemory, useSetMemoryVisit } from '../hooks';
 import { PhotoGrid } from './PhotoGrid';
 import { PlacePicker } from './PlacePicker';
 
@@ -88,8 +92,19 @@ function snapshotOf(v: {
   pin: LatLng | null;
   date: DateParts;
   photos: EditorPhoto[];
+  isVisit: boolean;
+  untilDate: DateParts;
 }): string {
-  return JSON.stringify([v.title, v.body, v.placeName, v.pin, v.date, v.photos.map((p) => p.key)]);
+  return JSON.stringify([
+    v.title,
+    v.body,
+    v.placeName,
+    v.pin,
+    v.date,
+    v.photos.map((p) => p.key),
+    v.isVisit,
+    v.isVisit ? v.untilDate : null,
+  ]);
 }
 
 /**
@@ -105,6 +120,8 @@ export function MemoryEditor({ id }: { id?: string }) {
   const { width: windowWidth } = useWindowDimensions();
   const { today } = useToday();
   const save = useSaveMemory();
+  const setVisit = useSetMemoryVisit();
+  const { visits } = useVisits();
   const existing = useMemory(id);
 
   // El ancho real lo mide `onLayout`; mientras tanto, pantalla menos los dos gutters.
@@ -117,6 +134,14 @@ export function MemoryEditor({ id }: { id?: string }) {
   const [pin, setPin] = useState<LatLng | null>(null);
   const [date, setDateParts] = useState<DateParts>(() => isoDateToParts(today));
   const [photos, setPhotos] = useState<EditorPhoto[]>([]);
+  const [isVisit, setIsVisit] = useState(false);
+  const [untilDate, setUntilDate] = useState<DateParts>({ day: '', month: '', year: '' });
+  // Id de la visita ligada al abrir (`null` = no era visita) y memoria ya guardada cuya visita
+  // falló: el reintento solo repite la parte de la visita, sin volver a subir las fotos.
+  const [hadVisit, setHadVisit] = useState(false);
+  const [visitRetryId, setVisitRetryId] = useState<string | null>(null);
+  const [visitError, setVisitError] = useState<string | null>(null);
+  const [untilLoaded, setUntilLoaded] = useState(false);
   const [loadedId, setLoadedId] = useState<string | null>(null);
   const [baseline, setBaseline] = useState(() =>
     snapshotOf({
@@ -126,6 +151,8 @@ export function MemoryEditor({ id }: { id?: string }) {
       pin: null,
       date: isoDateToParts(today),
       photos: [],
+      isVisit: false,
+      untilDate: { day: '', month: '', year: '' },
     }),
   );
   const [showErrors, setShowErrors] = useState(false);
@@ -162,7 +189,11 @@ export function MemoryEditor({ id }: { id?: string }) {
       pin: loaded.lat != null && loaded.lng != null ? { lat: loaded.lat, lng: loaded.lng } : null,
       date: isoDateToParts(loaded.happened_on),
       photos: initialPhotos,
+      isVisit: loaded.visit_id != null,
+      untilDate: { day: '', month: '', year: '' },
     };
+    setIsVisit(initial.isVisit);
+    setHadVisit(initial.isVisit);
     setTitle(initial.title);
     setBody(initial.body);
     setPlaceName(initial.placeName);
@@ -170,6 +201,31 @@ export function MemoryEditor({ id }: { id?: string }) {
     setDateParts(initial.date);
     setPhotos(initialPhotos);
     setBaseline(snapshotOf(initial));
+  }
+
+  // El "Hasta" sale de la visita ligada (si ya cargó): se llena una sola vez y sin ensuciar.
+  const linkedVisit = loaded?.visit_id ? visits.find((v) => v.id === loaded.visit_id) : undefined;
+  if (editing && linkedVisit && !untilLoaded) {
+    setUntilLoaded(true);
+    if (linkedVisit.end_date.slice(0, 10) !== linkedVisit.start_date.slice(0, 10)) {
+      const until = isoDateToParts(linkedVisit.end_date.slice(0, 10));
+      setUntilDate(until);
+      setBaseline(
+        snapshotOf({
+          title: loaded?.title ?? '',
+          body: loaded?.body ?? '',
+          placeName: loaded?.place_name ?? '',
+          pin:
+            loaded?.lat != null && loaded?.lng != null
+              ? { lat: loaded.lat, lng: loaded.lng }
+              : null,
+          date: isoDateToParts(loaded?.happened_on),
+          photos,
+          isVisit: true,
+          untilDate: until,
+        }),
+      );
+    }
   }
 
   useEffect(
@@ -189,8 +245,9 @@ export function MemoryEditor({ id }: { id?: string }) {
     uri: p.input.kind === 'new' ? p.input.uri : urls[p.input.thumbPath],
   }));
 
-  const dirty = snapshotOf({ title, body, placeName, pin, date, photos }) !== baseline;
-  const publishing = save.isPending;
+  const dirty =
+    snapshotOf({ title, body, placeName, pin, date, photos, isVisit, untilDate }) !== baseline;
+  const publishing = save.isPending || setVisit.isPending;
   const room = MEMORY_PHOTOS_MAX - photos.length;
 
   const parsedDate = partsToIsoDate(date);
@@ -209,6 +266,20 @@ export function MemoryEditor({ id }: { id?: string }) {
   const messages: Partial<ReturnType<typeof memoryErrorMessages>> = errors
     ? memoryErrorMessages(errors, parsedDate.ok ? undefined : parsedDate.error)
     : {};
+  const parsedUntil = optionalIsoDate(untilDate);
+  const untilIssue =
+    isVisit && parsedDate.ok && parsedUntil.ok
+      ? validateMemoryVisitEnd({ start: parsedDate.value, end: parsedUntil.value })
+      : null;
+  const untilError = !isVisit
+    ? undefined
+    : !parsedUntil.ok
+      ? parsedUntil.error
+      : untilIssue === 'before_start'
+        ? 'Esa fecha es antes de que empezara la visita.'
+        : untilIssue === 'too_long'
+          ? 'Una visita no puede durar más de un año.'
+          : undefined;
 
   const leave = useCallback(() => {
     if (router.canGoBack()) router.back();
@@ -217,9 +288,10 @@ export function MemoryEditor({ id }: { id?: string }) {
 
   const requestClose = useCallback(() => {
     if (publishing || saved) return;
-    if (dirty) setConfirmClose(true);
+    if (visitRetryId) leave();
+    else if (dirty) setConfirmClose(true);
     else leave();
-  }, [publishing, saved, dirty, leave]);
+  }, [publishing, saved, dirty, leave, visitRetryId]);
 
   useEffect(() => {
     if (Platform.OS === 'web') return;
@@ -316,6 +388,44 @@ export function MemoryEditor({ id }: { id?: string }) {
 
   // --- guardar ---
 
+  const finish = (memoryId: string) => {
+    setSaved(true);
+    timer.current = setTimeout(() => {
+      if (editing) leave();
+      else router.replace({ pathname: '/memory/[id]', params: { id: memoryId } });
+    }, 900);
+  };
+
+  /** Sincroniza la visita ligada; si falla, la memoria ya quedó guardada y se puede reintentar. */
+  const syncVisit = (memoryId: string, start: string) => {
+    const action = memoryVisitAction(isVisit, hadVisit);
+    if (action === 'none') {
+      finish(memoryId);
+      return;
+    }
+    setVisitError(null);
+    setVisit.mutate(
+      {
+        memoryId,
+        isVisit: action === 'set',
+        endDate:
+          action === 'set'
+            ? memoryVisitEndParam(start, parsedUntil.ok ? parsedUntil.value : null)
+            : null,
+      },
+      {
+        onSuccess: () => {
+          setVisitRetryId(null);
+          finish(memoryId);
+        },
+        onError: (e) => {
+          setVisitRetryId(memoryId);
+          setVisitError(errorMessage(e));
+        },
+      },
+    );
+  };
+
   const publish = () => {
     if (publishing) return;
     setShowErrors(true);
@@ -329,12 +439,17 @@ export function MemoryEditor({ id }: { id?: string }) {
       },
       today,
     );
-    if (issues || !parsedDate.ok) return;
+    if (issues || !parsedDate.ok || (isVisit && (!parsedUntil.ok || untilIssue))) return;
+    const start = parsedDate.value;
+    if (visitRetryId) {
+      syncVisit(visitRetryId, start);
+      return;
+    }
     save.mutate(
       {
         id,
         title: title.trim(),
-        happenedOn: parsedDate.value,
+        happenedOn: start,
         body: body.trim() || null,
         lat: pin?.lat ?? null,
         lng: pin?.lng ?? null,
@@ -343,13 +458,7 @@ export function MemoryEditor({ id }: { id?: string }) {
         onProgress: setProgress,
       },
       {
-        onSuccess: (memory) => {
-          setSaved(true);
-          timer.current = setTimeout(() => {
-            if (editing) leave();
-            else router.replace({ pathname: '/memory/[id]', params: { id: memory.id } });
-          }, 900);
-        },
+        onSuccess: (memory) => syncVisit(memory.id, start),
         onError: (e) => toast.show({ message: errorMessage(e), tone: 'error' }),
       },
     );
@@ -483,6 +592,45 @@ export function MemoryEditor({ id }: { id?: string }) {
               disabled={publishing}
             />
 
+            {/* Visita */}
+            <View style={{ gap: spacing.sm }}>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: spacing.xs }}>
+                <Checkbox
+                  checked={isVisit}
+                  onPress={() => setIsVisit((v) => !v)}
+                  disabled={publishing || visitRetryId !== null}
+                  accessibilityLabel="Fue una visita, nos vimos en persona"
+                />
+                <Pressable
+                  accessibilityRole="none"
+                  importantForAccessibility="no"
+                  disabled={publishing || visitRetryId !== null}
+                  onPress={() => setIsVisit((v) => !v)}
+                  style={{ flex: 1, minHeight: 48, justifyContent: 'center', gap: spacing.xxs }}
+                >
+                  <Text variant="ui">Fue una visita (nos vimos en persona)</Text>
+                  <Text variant="note" tone="muted">
+                    Se guarda también en Visitas. Una videollamada o algo que les pasó por separado
+                    no cuenta como visita.
+                  </Text>
+                </Pressable>
+              </View>
+              {isVisit ? (
+                <View style={{ paddingLeft: 48 + spacing.xs, gap: spacing.xs }}>
+                  <DateField
+                    label="Hasta (si duró varios días)"
+                    value={untilDate}
+                    onChange={setUntilDate}
+                    error={untilError}
+                    disabled={publishing || visitRetryId !== null}
+                  />
+                  <Text variant="note" tone="muted">
+                    Déjalo vacío si fue un solo día.
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+
             {/* Texto */}
             <View style={{ gap: spacing.xs }}>
               <Input
@@ -550,12 +698,28 @@ export function MemoryEditor({ id }: { id?: string }) {
             {/* Guardar */}
             <View style={{ gap: spacing.md }}>
               <Button
-                title={publishing ? 'Guardando…' : editing ? 'Guardar cambios' : 'Guardar memoria'}
+                title={
+                  publishing
+                    ? 'Guardando…'
+                    : visitRetryId
+                      ? 'Reintentar la visita'
+                      : editing
+                        ? 'Guardar cambios'
+                        : 'Guardar memoria'
+                }
                 onPress={publish}
                 loading={publishing}
                 fullWidth
               />
-              {publishing ? (
+              {visitError ? (
+                <Notice
+                  tone="danger"
+                  action={{ label: 'Dejar así', onPress: () => finish(visitRetryId as string) }}
+                >
+                  {`La memoria ya quedó guardada, pero la visita no. ${visitError}`}
+                </Notice>
+              ) : null}
+              {save.isPending ? (
                 <View
                   accessibilityRole="progressbar"
                   accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
