@@ -1,7 +1,7 @@
 /**
  * Lógica pura de las cuentas regresivas (Fase 8).
  *
- * Hay dos fuentes: los **automáticos** (aniversario, cumplemés, hitos de días y cumpleaños), que
+ * Hay dos fuentes: los **automáticos** (aniversario, mesario, hitos de días y cumpleaños), que
  * se derivan de la pareja y los perfiles sin guardarse en la BD, y los **eventos** de la tabla
  * `events` (fechas propias y visitas). Todo se calcula contra "hoy" en la zona de la pareja.
  */
@@ -53,7 +53,7 @@ export type CountdownInput = {
   today: IsoDate;
 };
 
-/** Desempate a igual fecha: visita, aniversario, cumpleaños, propio, días, cumplemés. */
+/** Desempate a igual fecha: visita, aniversario, cumpleaños, propio, días, mesario. */
 const KIND_RANK: Record<CountdownKind, number> = {
   visit: 0,
   anniversary: 1,

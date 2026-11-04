@@ -38,20 +38,20 @@ describe('homeSummary', () => {
     expect(s.upcoming.every((m) => m.daysUntil > 0)).toBe(true);
   });
 
-  it('cumpleaños de relación y cumplemés tienen su sello', () => {
+  it('cumpleaños de relación y mesario tienen su sello', () => {
     const a = homeSummary('2023-02-14', '2026-02-14');
     const m = homeSummary('2023-02-14', '2026-10-14');
     if (a.state !== 'counting' || m.state !== 'counting') throw new Error('esperaba counting');
     expect(a.todayStamp).toBe('HOY: 3 AÑOS');
-    expect(m.todayStamp).toBe('HOY: CUMPLEMÉS');
+    expect(m.todayStamp).toBe('HOY: MESARIO');
   });
 });
 
 describe('rótulos', () => {
-  it('milestoneLabel antepone Cumplemés', () => {
+  it('milestoneLabel antepone Mesario', () => {
     expect(
       milestoneLabel({ kind: 'monthiversary', value: 8, date: '', daysUntil: 1, label: '8 meses' }),
-    ).toBe('Cumplemés: 8 meses');
+    ).toBe('Mesario: 8 meses');
     expect(
       milestoneLabel({ kind: 'days', value: 1500, date: '', daysUntil: 1, label: '1,500 días' }),
     ).toBe('1,500 días');

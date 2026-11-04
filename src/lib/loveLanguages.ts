@@ -139,6 +139,30 @@ export function comparisonHeadline(
   return `Tú hablas ${primaryLabel(c.minePrimary, languages)}; ${partnerName}, ${primaryLabel(c.partnerPrimary, languages)}`;
 }
 
+export type HomeLoveLanguages = {
+  /** Quién ya hizo el test: los dos, solo yo, solo mi pareja o ninguno. */
+  state: 'both' | 'only_me' | 'only_partner' | 'none';
+  /** Lenguaje(s) principal(es) ya redactados ("Tiempo de calidad y Detalles"). */
+  mine: string | null;
+  partner: string | null;
+};
+
+/** Lo que muestra la tarjeta de Inicio a partir del resumen del servidor. */
+export function homeLoveLanguages(
+  overview: LoveLanguagesOverview | null | undefined,
+  languages: readonly LoveLanguageInfo[],
+): HomeLoveLanguages {
+  const label = (r: LoveLanguageResult | null | undefined) =>
+    r ? primaryLabel(primaryLanguages(r.scores), languages) || null : null;
+  const mine = label(overview?.mine);
+  const partner = label(overview?.partner);
+  const partnerDone = !!overview?.partnerDone || partner !== null;
+  if (mine && partner) return { state: 'both', mine, partner };
+  if (mine) return { state: 'only_me', mine, partner: null };
+  if (partnerDone) return { state: 'only_partner', mine: null, partner };
+  return { state: 'none', mine: null, partner: null };
+}
+
 /** Valida el JSON del test: 5 lenguajes, 30 ítems, cada par de lenguajes exactamente 3 veces. */
 export function validateLoveLanguageQuiz(quiz: LoveLanguageQuiz): string[] {
   const errors: string[] = [];
