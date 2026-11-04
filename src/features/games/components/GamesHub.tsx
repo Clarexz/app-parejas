@@ -98,14 +98,17 @@ function GameBadge({ icon }: { icon: IconName }) {
   );
 }
 
-/** Hub "Juegos": lo que te toca, los juegos como tarjetas y las últimas rondas (DISENO §8). */
-export function GamesHub() {
+/**
+ * Contenido del hub de juegos sin pantalla alrededor: lo que te toca, los juegos como tarjetas y
+ * las últimas rondas (DISENO §8). Lo usan la pestaña Preguntas y la ruta `/games`.
+ */
+export function GamesSection() {
   const { spacing } = useTheme();
   const router = useRouter();
   const toast = useToast();
   const { today, timeZone } = useToday();
   const { meId, partnerName, members } = useNames();
-  const { overview, isLoading, isError, refetch, isRefetching } = useGameOverview();
+  const { overview, isLoading, isError, refetch } = useGameOverview();
   const startRound = useStartGameRound();
   const startDrawing = useStartDrawing();
   const [target, setTarget] = useState<Target | null>(null);
@@ -169,29 +172,21 @@ export function GamesHub() {
   );
   const hasTurn = myTurnRounds.length + myTurnDrawings.length > 0;
 
-  const header = <ScreenHeader title="Juegos" back="Atrás" />;
-
   if (isLoading) {
     return (
-      <Screen scroll>
-        {header}
-        <View style={{ alignItems: 'center', marginTop: spacing.xxxl }}>
-          <LoadingSymbol accessibilityLabel="Cargando los juegos" />
-        </View>
-      </Screen>
+      <View style={{ alignItems: 'center', paddingVertical: spacing.xl }}>
+        <LoadingSymbol accessibilityLabel="Cargando los juegos" />
+      </View>
     );
   }
   if (isError || !overview) {
     return (
-      <Screen scroll>
-        {header}
-        <EmptyState
-          art="circles"
-          title="No pudimos abrir los juegos"
-          body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
-          action={{ label: 'Reintentar', onPress: () => void refetch() }}
-        />
-      </Screen>
+      <EmptyState
+        art="circles"
+        title="No pudimos abrir los juegos"
+        body="No pudimos conectarnos. Revisa tu internet y vuelve a intentar."
+        action={{ label: 'Reintentar', onPress: () => void refetch() }}
+      />
     );
   }
 
@@ -205,9 +200,8 @@ export function GamesHub() {
     overview.drawings.active.length > 0;
 
   return (
-    <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
-      {header}
-      <View style={{ gap: spacing.xl, marginTop: spacing.xl }}>
+    <>
+      <View style={{ gap: spacing.xl }}>
         {hasTurn ? (
           <View style={{ gap: spacing.md }}>
             <Text variant="h3" accessibilityRole="header">
@@ -424,6 +418,20 @@ export function GamesHub() {
           ) : null}
         </View>
       </Sheet>
+    </>
+  );
+}
+
+/** Pantalla `/games` (deep links): el mismo contenido con su encabezado. */
+export function GamesHub() {
+  const { spacing } = useTheme();
+  const { refetch, isRefetching } = useGameOverview();
+  return (
+    <Screen scroll refreshing={isRefetching} onRefresh={() => void refetch()}>
+      <ScreenHeader title="Juegos" back="Atrás" />
+      <View style={{ marginTop: spacing.xl }}>
+        <GamesSection />
+      </View>
     </Screen>
   );
 }

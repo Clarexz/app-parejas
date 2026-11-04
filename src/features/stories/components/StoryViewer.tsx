@@ -1,13 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -363,10 +357,7 @@ function ViewerBody({ userId, storyId }: Props) {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1, backgroundColor: colors.bg }}
-    >
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1, backgroundColor: colors.bg }}>
       <View
         style={{
           flex: 1,

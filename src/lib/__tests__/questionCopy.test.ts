@@ -3,7 +3,10 @@ import {
   commentCountLabel,
   partnerFoldedLabel,
   questionErrorKind,
-  repairLine,
+  repairPrompt,
+  repairsLeftLine,
+  repairView,
+  REPAIR_TODAY_NOTE,
   sameChoice,
   streakLine,
   streakView,
@@ -23,8 +26,44 @@ describe('questionCopy', () => {
     expect(streakLine(23)).toBe('23 días seguidos contestando.');
     expect(streakLine(1)).toBe('1 día seguido contestando.');
     expect(streakLine(0)).toMatch(/Contesten hoy/);
-    expect(repairLine(1)).toBe('Les falta 1 día por reparar');
-    expect(repairLine(3)).toBe('Les faltan 3 días por reparar');
+  });
+
+  it('escribe el aviso de recuperar ayer', () => {
+    expect(repairPrompt(12)).toBe(
+      'Se les pasó ayer. Contesten la de ayer hoy para salvar su racha de 12 días; hoy ya no suma.',
+    );
+    expect(repairPrompt(1)).toContain('racha de 1 día;');
+    expect(repairsLeftLine(3, 5)).toBe('Les quedan 3 de 5 recuperaciones este mes');
+    expect(repairsLeftLine(1, 5)).toBe('Les queda 1 de 5 recuperación este mes');
+    expect(repairsLeftLine(0, 5)).toMatch(/Ya no les quedan/);
+  });
+
+  it('decide qué mostrar de la recuperación', () => {
+    const s: Streak = {
+      current: 4,
+      best: 9,
+      today: '2026-11-04',
+      today_done: false,
+      today_is_repair: false,
+      repair_day: '2026-11-03',
+      repairs_used: 1,
+      repairs_left: 4,
+      repairs_per_month: 5,
+      missing_days: ['2026-11-03'],
+    };
+    expect(repairView(s)).toEqual({
+      kind: 'repair',
+      day: '2026-11-03',
+      current: 4,
+      left: 4,
+      perMonth: 5,
+    });
+    expect(repairView({ ...s, repairs_left: 0 })).toEqual({ kind: 'none' });
+    expect(repairView({ ...s, repair_day: null })).toEqual({ kind: 'none' });
+    expect(repairView({ ...s, today_is_repair: true, repair_day: null })).toEqual({
+      kind: 'repaired_today',
+    });
+    expect(REPAIR_TODAY_NOTE).toMatch(/no suma/);
   });
 
   it('cuenta comentarios', () => {

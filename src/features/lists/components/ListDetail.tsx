@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, RefreshControl, ScrollView, View } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 import {
   Button,

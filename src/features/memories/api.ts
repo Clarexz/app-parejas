@@ -189,6 +189,26 @@ export async function deleteMemory(id: string): Promise<void> {
   if (error) throw error;
 }
 
+/**
+ * Marca o desmarca una memoria como visita. Marcada: crea o actualiza la visita ligada (rango
+ * de la fecha de la memoria a `endDate`); desmarcada: borra la visita ligada. Devuelve el id de
+ * la visita o `null`.
+ */
+export async function setMemoryVisit(
+  memoryId: string,
+  isVisit: boolean,
+  endDate?: string | null,
+): Promise<string | null> {
+  const { data, error } = await supabase.rpc('set_memory_visit', {
+    p_memory_id: memoryId,
+    p_is_visit: isVisit,
+    ...(isVisit && endDate ? { p_end_date: endDate } : {}),
+  });
+  if (error) throw error;
+  const visitId = (data as { visit_id?: string | null } | null)?.visit_id;
+  return visitId ?? null;
+}
+
 // ---------------------------------------------------------------------------
 // Media
 // ---------------------------------------------------------------------------

@@ -1,13 +1,17 @@
 import {
   findOverlap,
   maxVisitEnd,
+  memoryVisitAction,
+  memoryVisitEndParam,
   pendingVisitEvents,
   rangesOverlap,
+  validateMemoryVisitEnd,
   validateVisit,
   visitCalendar,
   visitLength,
   visitRangeLabel,
   visitStats,
+  visitsHighlight,
   visitYears,
   type VisitLike,
 } from '../visits';
@@ -251,5 +255,44 @@ describe('visitRangeLabel', () => {
     expect(visitRangeLabel(v('a', '2026-09-28', '2026-10-02'))).toBe('28 sep – 2 oct 2026');
     expect(visitRangeLabel(v('a', '2026-10-12', '2026-10-12'))).toBe('12 oct 2026');
     expect(visitRangeLabel(v('a', '2026-12-28', '2027-01-03'))).toBe('28 dic 2026 – 3 ene 2027');
+  });
+});
+
+describe('visitas ligadas a memorias', () => {
+  it('decide la acción de sincronización', () => {
+    expect(memoryVisitAction(true, false)).toBe('set');
+    expect(memoryVisitAction(true, true)).toBe('set');
+    expect(memoryVisitAction(false, true)).toBe('remove');
+    expect(memoryVisitAction(false, false)).toBe('none');
+  });
+
+  it('valida el "Hasta"', () => {
+    expect(validateMemoryVisitEnd({ start: '2026-10-10', end: null })).toBeNull();
+    expect(validateMemoryVisitEnd({ start: '2026-10-10', end: '2026-10-10' })).toBeNull();
+    expect(validateMemoryVisitEnd({ start: '2026-10-10', end: '2026-10-14' })).toBeNull();
+    expect(validateMemoryVisitEnd({ start: '2026-10-10', end: '2026-10-09' })).toBe('before_start');
+    expect(validateMemoryVisitEnd({ start: '2024-01-01', end: '2026-01-01' })).toBe('too_long');
+  });
+
+  it('manda null cuando no hay rango de varios días', () => {
+    expect(memoryVisitEndParam('2026-10-10', null)).toBeNull();
+    expect(memoryVisitEndParam('2026-10-10', '2026-10-10')).toBeNull();
+    expect(memoryVisitEndParam('2026-10-10', '2026-10-12')).toBe('2026-10-12');
+  });
+
+  it('resume las visitas para el bloque de Memorias', () => {
+    const base = { count: 0, current: null, daysSinceLast: null, daysTogether: 0 };
+    expect(visitsHighlight(base, '2026-10-10')).toBeNull();
+    const current = { id: 'v', start_date: '2026-10-08', end_date: '2026-10-12' };
+    expect(visitsHighlight({ ...base, count: 1, current, daysSinceLast: 0 }, '2026-10-10')).toEqual(
+      { value: 'Juntos', label: 'Día 3 de esta visita' },
+    );
+    expect(visitsHighlight({ ...base, count: 2, daysSinceLast: 1 }, '2026-10-10')?.label).toBe(
+      'día sin verse',
+    );
+    expect(visitsHighlight({ ...base, count: 2, daysSinceLast: 12 }, '2026-10-10')).toMatchObject({
+      value: '12',
+      label: 'días sin verse',
+    });
   });
 });

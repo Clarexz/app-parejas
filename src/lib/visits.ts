@@ -261,3 +261,57 @@ export function visitRangeLabel(v: Pick<VisitLike, 'start_date' | 'end_date'>): 
 export function maxVisitEnd(start: string): string {
   return addDays(day(start), MAX_VISIT_DAYS - 1);
 }
+
+/** Qué hacer con la visita ligada a una memoria al guardarla (`set_memory_visit`). */
+export type MemoryVisitAction = 'set' | 'remove' | 'none';
+
+/**
+ * Marcada = se crea o se actualiza (así fecha y lugar quedan al día); desmarcada = se borra la
+ * visita ligada solo si había una; desmarcada y sin visita previa no hay nada que llamar.
+ */
+export function memoryVisitAction(isVisit: boolean, hadVisit: boolean): MemoryVisitAction {
+  if (isVisit) return 'set';
+  return hadVisit ? 'remove' : 'none';
+}
+
+/**
+ * Valida el "Hasta" opcional de una memoria marcada como visita. `end` null = visita de un día.
+ * `before_start`: termina antes de empezar; `too_long`: pasa del máximo de días de una visita.
+ */
+export function validateMemoryVisitEnd(input: {
+  start: string;
+  end: string | null;
+}): 'before_start' | 'too_long' | null {
+  const { start, end } = input;
+  if (!end) return null;
+  if (day(end) < day(start)) return 'before_start';
+  if (daysBetween(day(start), day(end)) + 1 > MAX_VISIT_DAYS) return 'too_long';
+  return null;
+}
+
+/** Fecha final que se manda al servidor: `null` si no hay "Hasta" o es el mismo día. */
+export function memoryVisitEndParam(start: string, end: string | null): string | null {
+  return end && day(end) !== day(start) ? day(end) : null;
+}
+
+export type VisitsHighlight = { value: string; label: string };
+
+/**
+ * El dato protagonista del bloque de visitas en Memorias: "Juntos" si están en una visita,
+ * los días sin verse si ya se vieron alguna vez, o nada si aún no hay visitas.
+ */
+export function visitsHighlight(
+  stats: Pick<VisitStats, 'count' | 'current' | 'daysSinceLast' | 'daysTogether'>,
+  today: string,
+): VisitsHighlight | null {
+  if (stats.count === 0) return null;
+  if (stats.current) {
+    const n = daysBetween(day(stats.current.start_date), today) + 1;
+    return { value: 'Juntos', label: `Día ${n} de esta visita` };
+  }
+  const since = stats.daysSinceLast ?? 0;
+  return {
+    value: String(since),
+    label: since === 1 ? 'día sin verse' : 'días sin verse',
+  };
+}

@@ -184,6 +184,14 @@ export function MemoryDetail({ id }: { id: string }) {
             {when ? ` · ${when}` : ''}
             {memory.photos.length > 1 ? ` · ${photoCountLabel(memory.photos.length)}` : ''}
           </Text>
+          {memory.visit_id ? (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+              <Icon name="couple" size={16} color={colors.inkMuted} />
+              <Text variant="note" tone="muted">
+                Fue una visita: también está en Visitas
+              </Text>
+            </View>
+          ) : null}
         </View>
 
         {memory.body ? <Text variant="body">{memory.body}</Text> : null}

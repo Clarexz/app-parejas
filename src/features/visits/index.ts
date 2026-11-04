@@ -8,4 +8,4 @@ export {
   useVisits,
   useVisitsRealtime,
 } from './hooks';
-export { VisitCalendar, VisitEditor, VisitsScreen } from './components';
+export { VisitCalendar, VisitEditor, VisitsScreen, VisitsSummary } from './components';

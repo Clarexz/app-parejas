@@ -13,6 +13,7 @@ import {
   Text,
 } from '@/components';
 import { MemoriesMap, MemoriesTimeline, toPoints, useMemories } from '@/features/memories';
+import { VisitsSummary } from '@/features/visits';
 import { memoryCountLabel } from '@/lib/memories';
 import { useTheme } from '@/theme';
 
@@ -111,6 +112,7 @@ export default function MemoriesScreen() {
             )
           }
         />
+        <VisitsSummary />
         {body}
       </View>
     </Screen>

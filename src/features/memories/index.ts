@@ -8,6 +8,7 @@ export {
   memoryMediaUrls,
   saveMemory,
   savePhotoToGallery,
+  setMemoryVisit,
 } from './api';
 export type { SaveMemoryVars } from './hooks';
 export {
@@ -20,6 +21,7 @@ export {
   useOnThisDay,
   useSaveMemory,
   useSaveMemoryPhoto,
+  useSetMemoryVisit,
 } from './hooks';
 export { memoryWhen, memoryDate } from './ago';
 export {

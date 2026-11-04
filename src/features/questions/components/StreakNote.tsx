@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
 import { Button, Text } from '@/components';
-import { repairLine, streakView } from '@/lib/questionCopy';
+import { repairView, streakView } from '@/lib/questionCopy';
 import { useTheme } from '@/theme';
 
 import { useStreak } from '../hooks';
@@ -16,6 +16,7 @@ export function StreakNote() {
 
   if (!streak || isLoading || isError) return null;
   const view = streakView(streak);
+  const repair = repairView(streak);
 
   return (
     <View style={{ gap: spacing.sm, alignItems: 'flex-start' }}>
@@ -26,9 +27,9 @@ export function StreakNote() {
           Todavía no hay racha. Contesten hoy y empieza.
         </Text>
       )}
-      {view.missing > 0 ? (
+      {repair.kind === 'repair' ? (
         <Button
-          title={repairLine(view.missing)}
+          title="Recuperar ayer"
           variant="ghost"
           size="sm"
           onPress={() => router.navigate('/questions')}

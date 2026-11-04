@@ -65,6 +65,7 @@ const memory = (id: string, title: string, extra: Partial<Memory> = {}): Memory 
   lat: null,
   lng: null,
   place_name: null,
+  visit_id: null,
   created_at: '2026-08-15T10:00:00Z',
   updated_at: '2026-08-15T10:00:00Z',
   photos: [
@@ -97,6 +98,15 @@ let mockOne = {
   refetch: jest.fn(),
 };
 const mockSave = jest.fn();
+const mockSetVisit = jest.fn();
+let mockVisits: { id: string; start_date: string; end_date: string }[] = [];
+jest.mock('@/features/visits', () => {
+  const { Text: T } = jest.requireActual('react-native');
+  return {
+    useVisits: () => ({ visits: mockVisits }),
+    VisitsSummary: () => <T>Resumen de visitas</T>,
+  };
+});
 const mockRemove = jest.fn();
 const mockDownload = jest.fn();
 jest.mock('../hooks', () => ({
@@ -104,6 +114,7 @@ jest.mock('../hooks', () => ({
   useMemory: () => mockOne,
   useMemoryPhotoUrls: () => ({ urls: {}, isLoading: false, isError: false }),
   useSaveMemory: () => ({ mutate: mockSave, isPending: false }),
+  useSetMemoryVisit: () => ({ mutate: mockSetVisit, isPending: false }),
   useDeleteMemory: () => ({ mutate: mockRemove }),
   useSaveMemoryPhoto: () => ({ mutate: mockDownload, isPending: false }),
   useOnThisDay: () => ({ items: [], isLoading: false }),
@@ -121,6 +132,7 @@ const wrap = (ui: React.ReactElement) =>
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockVisits = [];
   mockList = {
     memories: [],
     isLoading: false,
@@ -138,6 +150,18 @@ describe('pestaña Memorias', () => {
     expect(screen.queryByRole('button', { name: 'Agregar memoria' })).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar memoria' }));
     expect(mockPush).toHaveBeenCalledWith('/memory/edit');
+  });
+
+  it('pone el resumen de visitas arriba de las memorias', async () => {
+    mockList.memories = [memory('m1', 'Atardecer en Mazunte')];
+    await wrap(<MemoriesScreen />);
+    expect(screen.getByText('Resumen de visitas')).toBeTruthy();
+  });
+
+  it('marca discretamente las memorias que son visita', async () => {
+    mockList.memories = [memory('m1', 'Atardecer en Mazunte', { visit_id: 'v1' })];
+    await wrap(<MemoriesScreen />);
+    expect(screen.getByText(/^Visita · /)).toBeTruthy();
   });
 
   it('error: permite reintentar', async () => {
@@ -263,6 +287,52 @@ describe('editor de memoria', () => {
     expect(vars.id).toBe('m1');
     expect(vars.happenedOn).toBe('2026-08-14');
     expect(vars.photos).toHaveLength(1);
+  });
+
+  it('marcar "Fue una visita" guarda la memoria y luego la visita con el rango', async () => {
+    mockOne.memory = memory('m1', 'Tacos');
+    mockSave.mockImplementation((_vars, opts) => opts.onSuccess({ id: 'm1' }));
+    await wrap(<MemoryEditor id="m1" />);
+    await fireEvent.press(
+      screen.getByRole('checkbox', { name: 'Fue una visita, nos vimos en persona' }),
+    );
+    const day = screen.getAllByLabelText('Día')[1];
+    const month = screen.getAllByLabelText('Mes')[1];
+    const year = screen.getAllByLabelText('Año')[1];
+    await fireEvent.changeText(day, '16');
+    await fireEvent.changeText(month, '08');
+    await fireEvent.changeText(year, '2026');
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar cambios' }));
+    expect(mockSetVisit).toHaveBeenCalledTimes(1);
+    expect(mockSetVisit.mock.calls[0][0]).toEqual({
+      memoryId: 'm1',
+      isVisit: true,
+      endDate: '2026-08-16',
+    });
+  });
+
+  it('una memoria con visita arranca marcada, y desmarcarla borra la visita', async () => {
+    mockOne.memory = memory('m1', 'Tacos', { visit_id: 'v1' });
+    mockVisits = [{ id: 'v1', start_date: '2026-08-14', end_date: '2026-08-14' }];
+    mockSave.mockImplementation((_vars, opts) => opts.onSuccess({ id: 'm1' }));
+    await wrap(<MemoryEditor id="m1" />);
+    const box = screen.getByRole('checkbox', { name: 'Fue una visita, nos vimos en persona' });
+    expect(box.props.accessibilityState.checked).toBe(true);
+    await fireEvent.press(box);
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar cambios' }));
+    expect(mockSetVisit.mock.calls[0][0]).toEqual({
+      memoryId: 'm1',
+      isVisit: false,
+      endDate: null,
+    });
+  });
+
+  it('sin marcar y sin visita previa no llama a set_memory_visit', async () => {
+    mockOne.memory = memory('m1', 'Tacos');
+    mockSave.mockImplementation((_vars, opts) => opts.onSuccess({ id: 'm1' }));
+    await wrap(<MemoryEditor id="m1" />);
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar cambios' }));
+    expect(mockSetVisit).not.toHaveBeenCalled();
   });
 
   it('cancelar con cambios pregunta si salir sin guardar', async () => {

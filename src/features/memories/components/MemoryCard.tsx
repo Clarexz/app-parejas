@@ -1,6 +1,6 @@
 import { Pressable, View } from 'react-native';
 
-import { FruitDot, Text } from '@/components';
+import { FruitDot, Icon, Text } from '@/components';
 import { formatLongDate } from '@/lib/dateParts';
 import type { Fruit } from '@/lib/fruits';
 import { useTheme } from '@/theme';
@@ -25,7 +25,8 @@ type Props = {
  * "fecha · lugar" en `note` y el punto de la fruta de quien la subió.
  */
 export function MemoryCard({ memory, url, size = 'grid', fruit, onPress }: Props) {
-  const { spacing } = useTheme();
+  const { spacing, colors } = useTheme();
+  const isVisit = memory.visit_id != null;
   const featured = size === 'featured';
   const place = memory.place_name;
   const date = memoryDate(memory.happened_on);
@@ -33,7 +34,7 @@ export function MemoryCard({ memory, url, size = 'grid', fruit, onPress }: Props
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${memory.title}, ${formatLongDate(memory.happened_on)}${place ? `, ${place}` : ''}`}
+      accessibilityLabel={`${memory.title}${isVisit ? ', fue una visita' : ''}, ${formatLongDate(memory.happened_on)}${place ? `, ${place}` : ''}`}
       accessibilityHint="Toca para abrir la memoria"
       onPress={onPress}
       style={({ pressed }) => ({ gap: spacing.sm, opacity: pressed ? 0.85 : 1 })}
@@ -44,9 +45,12 @@ export function MemoryCard({ memory, url, size = 'grid', fruit, onPress }: Props
           <Text variant="bodyStrong" numberOfLines={2}>
             {memory.title}
           </Text>
-          <Text variant="note" tone="muted" numberOfLines={1}>
-            {meta}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+            {isVisit ? <Icon name="couple" size={16} color={colors.inkMuted} /> : null}
+            <Text variant="note" tone="muted" numberOfLines={1} style={{ flex: 1 }}>
+              {isVisit ? `Visita · ${meta}` : meta}
+            </Text>
+          </View>
         </View>
         {fruit ? (
           <View style={{ paddingTop: spacing.sm }}>

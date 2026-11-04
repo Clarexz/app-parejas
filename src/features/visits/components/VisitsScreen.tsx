@@ -273,7 +273,7 @@ export function VisitsScreen() {
       <View style={{ gap: spacing.xl }}>
         <ScreenHeader
           back
-          onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+          onBack={() => (router.canGoBack() ? router.back() : router.replace('/memories'))}
           label={
             visits.length === 0
               ? undefined
