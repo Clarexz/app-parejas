@@ -44,6 +44,7 @@ describe('questionCopy', () => {
     expect(sameChoice({ ...base, partner: ans(2) })).toBe(false);
     expect(sameChoice({ mine: ans(null), partner: ans(null) })).toBe(false);
     expect(sameChoice({ mine: null, partner: null })).toBe(false);
+    expect(sameChoice({ mine: ans(-1), partner: ans(-1) })).toBe(false);
   });
 
   it('clasifica los errores de pregunta', () => {
@@ -54,7 +55,18 @@ describe('questionCopy', () => {
   });
 
   it('resume la racha', () => {
-    const s: Streak = { current: 4, best: 9, today: '', today_done: true, missing_days: ['a'] };
+    const s: Streak = {
+      current: 4,
+      best: 9,
+      today: '',
+      today_done: true,
+      today_is_repair: false,
+      repair_day: 'a',
+      repairs_used: 0,
+      repairs_left: 5,
+      repairs_per_month: 5,
+      missing_days: ['a'],
+    };
     expect(streakView(s)).toEqual({ kind: 'streak', current: 4, missing: 1 });
     expect(streakView({ ...s, current: 0, missing_days: [] })).toEqual({
       kind: 'start',

@@ -7,3 +7,4 @@ export {
 } from './hooks';
 export { LoveLanguagesHome } from './components/LoveLanguagesHome';
 export { LoveLanguageQuiz } from './components/LoveLanguageQuiz';
+export { HomeLoveLanguagesCard } from './components/HomeLoveLanguagesCard';

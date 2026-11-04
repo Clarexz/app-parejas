@@ -77,7 +77,12 @@ export function computeStreak(input: StreakInput): StreakResult {
         run += 1;
         repairs.push(addDays(d, 1));
         neutral = addDays(d, 1);
-      } else if (d === addDays(today, -1) && run > 0 && memberCount === 2 && used < REPAIRS_PER_MONTH) {
+      } else if (
+        d === addDays(today, -1) &&
+        run > 0 &&
+        memberCount === 2 &&
+        used < REPAIRS_PER_MONTH
+      ) {
         repairDay = d; // ayer pendiente: todavía se puede recuperar hoy
       } else {
         run = 0;

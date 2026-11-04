@@ -324,17 +324,31 @@ update public.couple_members set joined_at = now() - interval '10 days'
 where couple_id = pg_temp.cid(pg_temp.u('A'));
 
 select pg_temp.as_user('A');
--- Mañana y hoy-8 (aunque la pareja ya existía) son inválidos.
+-- Mañana, hoy-2 y más viejos (aunque la pareja ya existía) son inválidos: solo ayer y hoy.
 select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() + 1), 'invalid_day');
+select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 2), 'invalid_day');
 select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 8), 'invalid_day');
 select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 11), 'invalid_day');
--- Se asignan de la más vieja (hoy-7, válido) a hoy, para fijar el orden de rotación.
+-- Los días hoy-7..hoy-2 ya no se pueden pedir: se asignan directo (como si hubieran pasado),
+-- en orden, para fijar la rotación; ayer y hoy sí van por la RPC.
+reset role;
+do $$
+declare
+  i integer;
+  c uuid := pg_temp.cid(pg_temp.u('A'));
+begin
+  for i in 0..5 loop
+    insert into public.daily_questions (couple_id, day, question_id)
+    values (c, pg_temp.today() - 7 + i, public.pick_daily_question(c));
+  end loop;
+end $$;
+select pg_temp.as_user('A');
 do $$
 declare
   i integer;
   card jsonb;
 begin
-  for i in 0..7 loop
+  for i in 6..7 loop
     card := public.get_daily_question(pg_temp.today() - 7 + i);
     assert (card->>'day')::date = pg_temp.today() - 7 + i, 'día de la tarjeta';
   end loop;
@@ -375,12 +389,13 @@ begin
     'al agotar el banco repite la asignada hace más tiempo';
 end $$;
 
--- hoy-7 sigue siendo válido al pedirlo de nuevo (idempotente).
+-- Ayer sigue siendo válido al pedirlo de nuevo (idempotente); hoy-7 ya no se puede pedir.
 select pg_temp.as_user('A');
 do $$
 begin
-  assert (public.get_daily_question(pg_temp.today() - 7)->>'day')::date = pg_temp.today() - 7, 'hoy-7 es válido';
+  assert (public.get_daily_question(pg_temp.today() - 1)->>'day')::date = pg_temp.today() - 1, 'ayer es válido';
 end $$;
+select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 7), 'invalid_day');
 reset role;
 
 -- =============================================================================
@@ -461,6 +476,11 @@ select pg_temp.expect_error(format('select public.submit_answer(%L, %L)', pg_tem
 select pg_temp.expect_error(format('select public.submit_answer(%L)', pg_temp.qid('test-a-4')), 'invalid_answer');
 select pg_temp.expect_error(format('select public.submit_answer(%L, %L)', pg_temp.qid('test-a-4'), 'solo texto'), 'invalid_answer');
 select pg_temp.expect_error(format('select public.submit_answer(%L, null, -1)', pg_temp.qid('test-a-4')), 'invalid_answer');
+select pg_temp.expect_error(format('select public.submit_answer(%L, null, -2)', pg_temp.qid('test-a-4')), 'invalid_answer');
+-- "Otra" (-1): el texto es obligatorio (1..500) y solo en preguntas de opciones.
+select pg_temp.expect_error(format('select public.submit_answer(%L, %L, -1)', pg_temp.qid('test-a-4'), '   '), 'invalid_answer');
+select pg_temp.expect_error(format('select public.submit_answer(%L, %L, -1)', pg_temp.qid('test-a-4'), repeat('x', 501)), 'invalid_answer');
+select pg_temp.expect_error(format('select public.submit_answer(%L, %L, -1)', pg_temp.qid('test-a-1'), 'hola'), 'invalid_answer');
 select pg_temp.expect_error(format('select public.submit_answer(%L, null, 3)', pg_temp.qid('test-a-4')), 'invalid_answer');
 select pg_temp.expect_error(format('select public.submit_answer(%L, null, 99)', pg_temp.qid('test-a-4')), 'invalid_answer');
 select pg_temp.expect_error(format('select public.submit_answer(%L, %L, 1)', pg_temp.qid('test-a-4'), repeat('x', 501)), 'invalid_answer');
@@ -475,6 +495,13 @@ begin
   perform public.submit_answer(pg_temp.qid('test-a-4'), null, 0);
   assert (select choice from public.answers where question_id = pg_temp.qid('test-a-4')) = 0, 'choice sin texto';
   assert (select text from public.answers where question_id = pg_temp.qid('test-a-4')) is null, 'texto opcional en choice';
+  perform public.delete_answer(pg_temp.qid('test-a-4'));
+  -- "Otra" con texto válido (1 y 500 caracteres).
+  perform public.submit_answer(pg_temp.qid('test-a-4'), repeat('x', 500), -1);
+  assert (select choice from public.answers where question_id = pg_temp.qid('test-a-4')) = -1, 'Otra se guarda como -1';
+  perform public.submit_answer(pg_temp.qid('test-a-4'), ' Mi opción ', -1);
+  assert (select text from public.answers where question_id = pg_temp.qid('test-a-4')) = 'Mi opción', 'Otra guarda el texto sin espacios';
+  assert (public.get_question_with_answers(pg_temp.qid('test-a-4'))->'mine'->>'choice')::int = -1, 'la tarjeta devuelve -1';
   perform public.delete_answer(pg_temp.qid('test-a-4'));
   perform public.submit_answer(pg_temp.qid('test-a-1'), repeat('x', 2000));
   perform public.delete_answer(pg_temp.qid('test-a-1'));
@@ -964,18 +991,19 @@ $$;
 update public.couple_members set joined_at = now() - interval '10 days' where user_id = pg_temp.u('H');
 update public.couple_members set joined_at = now() - interval '3 days' where user_id = pg_temp.u('I');
 select pg_temp.as_user('H');
-select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 4), 'invalid_day');
+-- Solo ayer y hoy se pueden pedir (la ventana ya no es de 7 días).
+select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 3), 'invalid_day');
+select pg_temp.expect_error(format('select public.get_daily_question(%L)', pg_temp.today() - 2), 'invalid_day');
 do $$
 begin
-  assert (public.get_daily_question(pg_temp.today() - 3)->>'day')::date = pg_temp.today() - 3,
-    'el día en que se unió el segundo es válido';
-  assert (public.get_streak()->'missing_days') = to_jsonb(array[pg_temp.today() - 3, pg_temp.today() - 2, pg_temp.today() - 1]),
-    'missing_days solo desde que se unieron';
+  assert (public.get_daily_question(pg_temp.today() - 1)->>'day')::date = pg_temp.today() - 1,
+    'ayer es válido (posterior al inicio)';
 end $$;
 reset role;
+delete from public.daily_questions where couple_id = pg_temp.cid(pg_temp.u('H'));
 update public.couple_members set joined_at = now() - interval '10 days' where user_id = pg_temp.u('I');
 
--- Sin nada: racha 0.
+-- Sin nada: racha 0, sin día por recuperar y con todo el cupo.
 select pg_temp.clear_p4();
 select pg_temp.as_user('H');
 do $$
@@ -986,7 +1014,11 @@ begin
   assert (s->>'current')::int = 0 and (s->>'best')::int = 0, 'sin días: racha 0';
   assert (s->>'today')::date = t, 'today';
   assert (s->>'today_done')::boolean = false, 'hoy sin completar';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5, t-4, t-3, t-2, t-1]), 'faltan los 7 (sin hoy)';
+  assert (s->>'today_is_repair')::boolean = false, 'hoy no es recuperación';
+  assert pg_temp.isnull(s->'repair_day'), 'sin racha no hay día por recuperar';
+  assert (s->>'repairs_used')::int = 0 and (s->>'repairs_left')::int = 5 and (s->>'repairs_per_month')::int = 5,
+    'cupo completo';
+  assert s->'missing_days' = '[]'::jsonb, 'missing_days vacío';
 end $$;
 
 -- S1: 3 días completos seguidos; hoy incompleto no rompe.
@@ -999,18 +1031,15 @@ select pg_temp.as_user('H');
 do $$
 declare
   s jsonb := public.get_streak();
-  t date := pg_temp.today();
 begin
   assert (s->>'current')::int = 3 and (s->>'best')::int = 3, 'S1: racha de 3 hasta ayer';
   assert (s->>'today_done')::boolean = false, 'S1: hoy incompleto';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5, t-4]), 'S1: faltantes dentro de los últimos 7, sin hoy';
+  assert pg_temp.isnull(s->'repair_day') and s->'missing_days' = '[]'::jsonb, 'S1: nada por recuperar';
 end $$;
 select pg_temp.as_user('I');
 do $$
 begin
   assert (public.get_streak()->>'current')::int = 3, 'S1: Ines ve la misma racha';
-  -- Ines completa hoy: la racha crece.
-  perform public.get_daily_question(); -- ya existe la fila de hoy: idempotente
 end $$;
 reset role;
 insert into public.answers (couple_id, question_id, user_id, day, text)
@@ -1019,14 +1048,12 @@ select pg_temp.as_user('H');
 do $$
 declare
   s jsonb := public.get_streak();
-  t date := pg_temp.today();
 begin
   assert (s->>'current')::int = 4 and (s->>'best')::int = 4, 'S1: con hoy completo, 4';
   assert (s->>'today_done')::boolean, 'S1: hoy listo';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5, t-4]), 'S1: faltantes igual';
 end $$;
 
--- S2: best vs current: racha vieja de 4 y racha actual de 2, con hueco en medio.
+-- S2: best vs current: racha vieja de 4 y racha actual de 2, con hueco de 3 días en medio.
 reset role;
 select pg_temp.clear_p4();
 select pg_temp.mk_day(-9, -9, -9);
@@ -1039,14 +1066,13 @@ select pg_temp.as_user('H');
 do $$
 declare
   s jsonb := public.get_streak();
-  t date := pg_temp.today();
 begin
   assert (s->>'current')::int = 2, 'S2: actual 2';
   assert (s->>'best')::int = 4, 'S2: récord 4';
-  assert s->'missing_days' = to_jsonb(array[t-5, t-4, t-3]), 'S2: faltantes (los completos no aparecen)';
+  assert pg_temp.isnull(s->'repair_day'), 'S2: nada por recuperar';
 end $$;
 
--- S3: un hueco ayer rompe la racha (aunque hoy esté pendiente); contestar uno solo no completa el día.
+-- S3: ayer sin completar con racha en curso: queda pendiente (repair_day), hoy no suma.
 reset role;
 select pg_temp.clear_p4();
 select pg_temp.mk_day(-3, -3, -3);
@@ -1058,44 +1084,129 @@ declare
   s jsonb := public.get_streak();
   t date := pg_temp.today();
 begin
-  assert (s->>'current')::int = 0, 'S3: el hueco de ayer rompe la racha actual';
-  assert (s->>'best')::int = 2, 'S3: el récord se conserva';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5, t-4, t-1]), 'S3: ayer sigue pendiente (reparable)';
+  assert (s->>'current')::int = 2 and (s->>'best')::int = 2, 'S3: la racha sigue "en riesgo" con 2';
+  assert (s->>'repair_day')::date = t - 1, 'S3: ayer se puede recuperar';
+  assert s->'missing_days' = to_jsonb(array[t - 1]), 'S3: missing_days = [repair_day]';
+  assert (s->>'today_done')::boolean = false and (s->>'today_is_repair')::boolean = false, 'S3: hoy no cuenta';
+  assert (s->>'repairs_left')::int = 5, 'S3: pendiente no gasta cupo';
+end $$;
+-- Contestar hoy a tiempo no suma mientras ayer siga pendiente.
+reset role;
+select pg_temp.mk_day(0, 0, 0);
+select pg_temp.as_user('H');
+do $$
+declare
+  s jsonb := public.get_streak();
+begin
+  assert (s->>'current')::int = 2, 'S3: hoy contestado no suma con ayer pendiente';
+  assert (s->>'repair_day')::date = pg_temp.today() - 1 and (s->>'today_done')::boolean = false,
+    'S3: sigue pendiente y hoy no está hecho';
 end $$;
 
--- S4: reparar un día faltante contestándolo después (<= 7 días) lo cuenta.
+-- S3b: Ines contesta ayer HOY: recuperación. Cuenta ayer, hoy queda neutral (no suma).
+reset role;
+insert into public.answers (couple_id, question_id, user_id, day, text, created_at)
+values (pg_temp.cid(pg_temp.u('H')), pg_temp.qid('test-st-9'), pg_temp.u('I'), pg_temp.today() - 1, 'i', pg_temp.at(pg_temp.today()));
+select pg_temp.as_user('H');
+do $$
+declare
+  s jsonb := public.get_streak();
+begin
+  assert (s->>'current')::int = 3 and (s->>'best')::int = 3, 'S3b: ayer recuperado cuenta (3)';
+  assert pg_temp.isnull(s->'repair_day') and s->'missing_days' = '[]'::jsonb, 'S3b: ya no hay pendiente';
+  assert (s->>'today_done')::boolean and (s->>'today_is_repair')::boolean, 'S3b: hoy es neutral';
+  assert (s->>'repairs_used')::int = 1 and (s->>'repairs_left')::int = 4, 'S3b: gastó 1 de 5';
+end $$;
+
+-- S4: dos días perdidos seguidos: la racha se pierde (y no hay nada que recuperar).
 reset role;
 select pg_temp.clear_p4();
 select pg_temp.mk_day(-4, -4, -4);
-select pg_temp.mk_day(-3, -3, -1); -- Ines lo contestó 2 días después
+select pg_temp.mk_day(-3, -3, -3);
+select pg_temp.as_user('H');
+do $$
+declare
+  s jsonb := public.get_streak();
+begin
+  assert (s->>'current')::int = 0 and (s->>'best')::int = 2, 'S4: dos días perdidos rompen; récord 2';
+  assert pg_temp.isnull(s->'repair_day'), 'S4: nada por recuperar';
+end $$;
+
+-- S4b: contestar 2 días después no recupera (solo el día inmediato anterior).
+reset role;
+select pg_temp.clear_p4();
+select pg_temp.mk_day(-4, -4, -4);
+select pg_temp.mk_day(-3, -3, -1); -- Ines lo contestó 2 días después: no cuenta
 select pg_temp.mk_day(-2, -2, -2);
 select pg_temp.mk_day(-1, -1, -1);
 select pg_temp.as_user('H');
 do $$
 declare
   s jsonb := public.get_streak();
-  t date := pg_temp.today();
 begin
-  assert (s->>'current')::int = 4 and (s->>'best')::int = 4, 'S4: el día reparado cuenta';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5]), 'S4: el reparado ya no falta';
+  assert (s->>'current')::int = 2 and (s->>'best')::int = 2, 'S4b: el -3 no cuenta y rompe; quedan -2 y -1';
 end $$;
 
--- S4b: contestar 7 días después aún cuenta; 8 días después ya no.
+-- S4c: recuperar sin racha (run 0) no cuenta.
 reset role;
 select pg_temp.clear_p4();
-select pg_temp.mk_day(-10, -10, -2); -- 8 días después: no cuenta
-select pg_temp.mk_day(-9, -9, -2);   -- 7 días después: cuenta
+select pg_temp.mk_day(-2, -2, -1); -- primer día, contestado al siguiente: sin racha que salvar
+select pg_temp.mk_day(-1, -1, -1);
 select pg_temp.as_user('H');
 do $$
 declare
   s jsonb := public.get_streak();
-  t date := pg_temp.today();
 begin
-  assert (s->>'best')::int = 1, 'S4b: solo cuenta el reparado en 7 días';
-  assert (s->>'current')::int = 0, 'S4b: sin días recientes';
-  assert s->'missing_days' = to_jsonb(array[t-7, t-6, t-5, t-4, t-3, t-2, t-1]),
-    'S4b: missing_days limitado a los últimos 7';
+  assert (s->>'current')::int = 1 and (s->>'best')::int = 1, 'S4c: solo cuenta ayer';
+  assert (s->>'repairs_used')::int = 0, 'S4c: no gastó recuperación';
 end $$;
+reset role;
+
+-- S4d: cálculo con fechas fijas (límite de 5 por mes, cambio de mes, cadenas).
+-- private.compute_streak es el cálculo puro: se ejercita directo y con días del calendario.
+do $$
+declare
+  s jsonb;
+  m jsonb;
+begin
+  -- Mayo: 1 completo; 2,4,6,8,10 contestados al día siguiente (5 recuperaciones); 12 completo;
+  -- 13 contestado el 14 (la 6.ª no cuenta y rompe); 15 completo.
+  m := '{"2026-05-01":"2026-05-01","2026-05-02":"2026-05-03","2026-05-04":"2026-05-05","2026-05-06":"2026-05-07",
+         "2026-05-08":"2026-05-09","2026-05-10":"2026-05-11","2026-05-12":"2026-05-12","2026-05-13":"2026-05-14",
+         "2026-05-15":"2026-05-15"}'::jsonb;
+  s := private.compute_streak(date '2026-05-16', date '2026-05-01', 2, m);
+  assert (s->>'best')::int = 7, 'límite: 1 + 5 recuperados + 12 = 7';
+  assert (s->>'current')::int = 1, 'límite: la 6.ª recuperación no cuenta y rompe';
+  assert (s->>'repairs_used')::int = 5 and (s->>'repairs_left')::int = 0, 'límite: cupo agotado';
+
+  -- Sin cupo, ayer pendiente ya no es recuperable.
+  s := private.compute_streak(date '2026-05-14', date '2026-05-01', 2, m - '2026-05-13' - '2026-05-15');
+  assert (s->>'current')::int = 0 and pg_temp.isnull(s->'repair_day'), 'sin cupo: ayer se pierde';
+
+  -- Cambio de mes: el 31 de mayo contestado el 1 de junio usa el cupo de junio.
+  s := private.compute_streak(date '2026-06-01', date '2026-05-01', 2,
+    m - '2026-05-13' - '2026-05-15' || '{"2026-05-31":"2026-06-01"}'::jsonb
+    || (select jsonb_object_agg(d::date::text, d::date::text) from generate_series(date '2026-05-12', date '2026-05-30', interval '1 day') d));
+  assert (s->>'today_is_repair')::boolean and (s->>'repairs_used')::int = 1 and (s->>'repairs_left')::int = 4,
+    'mes nuevo: cupo renovado';
+  -- ...y ayer pendiente el 1 de junio sí es recuperable aunque mayo haya agotado el cupo.
+  s := private.compute_streak(date '2026-06-02', date '2026-05-01', 2,
+    m - '2026-05-13' - '2026-05-15'
+    || (select jsonb_object_agg(d::date::text, d::date::text) from generate_series(date '2026-05-12', date '2026-05-31', interval '1 day') d));
+  assert (s->>'repair_day')::date = date '2026-06-01' and (s->>'repairs_left')::int = 5, 'mes nuevo: pendiente recuperable';
+
+  -- Cadena de recuperaciones en días alternos.
+  s := private.compute_streak(date '2026-10-30', date '2026-10-01', 2,
+    '{"2026-10-24":"2026-10-24","2026-10-25":"2026-10-26","2026-10-27":"2026-10-28","2026-10-29":"2026-10-29","2026-10-30":"2026-10-30"}'::jsonb);
+  assert (s->>'current')::int = 5 and (s->>'repairs_used')::int = 2 and (s->>'today_done')::boolean, 'cadena de recuperaciones';
+
+  -- Un solo miembro: nada pendiente.
+  s := private.compute_streak(date '2026-10-30', date '2026-10-01', 1, '{"2026-10-28":"2026-10-28"}'::jsonb);
+  assert (s->>'current')::int = 0 and pg_temp.isnull(s->'repair_day'), 'un miembro: sin pendiente';
+end $$;
+select pg_temp.as_user('H');
+select pg_temp.expect_denied($q$select private.compute_streak(current_date, current_date, 2, '{}'::jsonb)$q$);
+reset role;
 
 -- S5: las respuestas de un ex miembro no cuentan; missing_days solo con 2 miembros.
 reset role;
@@ -1148,7 +1259,7 @@ do $$
 declare
   t date := pg_temp.today();
 begin
-  assert public.get_streak()->'missing_days' = to_jsonb(array[t-3, t-2, t-1]), 'S5: faltantes desde que entró Jaime';
+  assert public.get_streak()->'missing_days' = '[]'::jsonb, 'S5: sin racha no hay día por recuperar';
 end $$;
 select pg_temp.as_user('J');
 do $$

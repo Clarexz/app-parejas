@@ -9,6 +9,7 @@ import {
   justCompleted,
   parseCategoryQuestion,
   parseHistoryItem,
+  OTHER_CHOICE,
   parseQuestionCard,
   parseStreak,
   reactionSummary,
@@ -106,7 +107,26 @@ describe('validateAnswerInput', () => {
       ok: false,
       error: 'choice_required',
     });
-    expect(validateAnswerInput(choice, { choice: -1 }).ok).toBe(false);
+    expect(validateAnswerInput(choice, { choice: -2 }).ok).toBe(false);
+    // "Otra": solo con texto.
+    expect(validateAnswerInput(choice, { choice: OTHER_CHOICE })).toEqual({
+      ok: false,
+      error: 'empty',
+    });
+    expect(validateAnswerInput(choice, { choice: OTHER_CHOICE, text: '  ' })).toEqual({
+      ok: false,
+      error: 'empty',
+    });
+    expect(validateAnswerInput(choice, { choice: OTHER_CHOICE, text: ' Mi opción ' })).toEqual({
+      ok: true,
+      value: { text: 'Mi opción', choice: -1 },
+    });
+    expect(
+      validateAnswerInput(choice, {
+        choice: OTHER_CHOICE,
+        text: 'a'.repeat(CHOICE_NOTE_MAX_LENGTH + 1),
+      }),
+    ).toEqual({ ok: false, error: 'too_long' });
     expect(validateAnswerInput(choice, { choice: 3 }).ok).toBe(false);
     expect(validateAnswerInput(choice, { choice: 1.5 }).ok).toBe(false);
     expect(validateAnswerInput({ type: 'choice', options: null }, { choice: 0 }).ok).toBe(false);
@@ -247,6 +267,11 @@ describe('parseStreak / parseCategoryQuestion', () => {
         best: 5,
         today: '2026-10-30',
         today_done: true,
+        today_is_repair: false,
+        repair_day: '2026-10-29',
+        repairs_used: 2,
+        repairs_left: 3,
+        repairs_per_month: 5,
         missing_days: ['2026-10-29'],
       }),
     ).toEqual({
@@ -254,8 +279,27 @@ describe('parseStreak / parseCategoryQuestion', () => {
       best: 5,
       today: '2026-10-30',
       today_done: true,
+      today_is_repair: false,
+      repair_day: '2026-10-29',
+      repairs_used: 2,
+      repairs_left: 3,
+      repairs_per_month: 5,
       missing_days: ['2026-10-29'],
     });
+    // Servidor sin migrar: valores por omisión.
+    expect(
+      parseStreak({ current: 0, best: 0, today: 'x', today_done: false, missing_days: [] }),
+    ).toMatchObject({ repair_day: null, repairs_used: 0, repairs_left: 5, repairs_per_month: 5 });
+    expect(() =>
+      parseStreak({
+        current: 0,
+        best: 0,
+        today: 'x',
+        today_done: false,
+        missing_days: [],
+        repair_day: 3,
+      }),
+    ).toThrow();
     expect(() => parseStreak({ current: 1 })).toThrow();
     expect(() =>
       parseStreak({ current: 1, best: 1, today: 'x', today_done: true, missing_days: [1] }),

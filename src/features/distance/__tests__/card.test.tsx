@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/theme';
 import { DistanceCardView } from '../components/DistanceCard';
 
 jest.mock('expo-router', () => ({ useRouter: () => ({ push: jest.fn() }) }));
-jest.mock('../hooks', () => ({ useDistance: jest.fn() }));
 
 const NOW = new Date('2026-10-30T18:00:00Z');
 const row = (id: string, lat: number, lng: number, city: string): LocationRowLike => ({
@@ -43,16 +42,16 @@ describe('DistanceCardView', () => {
 
   it('sin nadie: invita a activar', async () => {
     await show([]);
-    expect(await screen.findByText('Activar mi distancia')).toBeTruthy();
+    expect(await screen.findByText('Vean cuántos kilómetros hay entre ustedes')).toBeTruthy();
   });
 
   it('solo yo: espera a la pareja', async () => {
     await show([me]);
-    expect(await screen.findByText(/Cuando Caleb active la suya/)).toBeTruthy();
+    expect(await screen.findByText(/Falta que Caleb active su distancia/)).toBeTruthy();
   });
 
   it('solo mi pareja: me invita a activar la mía', async () => {
     await show([her]);
-    expect(await screen.findByText(/Caleb ya comparte su distancia/)).toBeTruthy();
+    expect(await screen.findByText(/Caleb ya comparte su distancia. Activa la tuya/)).toBeTruthy();
   });
 });

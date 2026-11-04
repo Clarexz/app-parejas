@@ -1179,7 +1179,7 @@ export const SCENARIOS = {
         prefix: 'listas',
         ...session,
         rest: full,
-        routes: ['/lists', `/lists/${lid(1)}`, `/lists/${lid(3)}`],
+        routes: ['/', '/lists', `/lists/${lid(1)}`, `/lists/${lid(3)}`],
       },
       listas_acomodar: {
         prefix: 'listas-acomodar',

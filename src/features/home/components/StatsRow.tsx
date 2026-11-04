@@ -69,11 +69,7 @@ export function StatsRow({ summary }: Props) {
   return (
     <View style={{ gap: spacing.sm }}>
       <View style={{ flexDirection: 'row', gap: spacing.md }}>
-        <StatTile
-          value={daysValue}
-          label={daysLabel}
-          icon="love"
-        />
+        <StatTile value={daysValue} label={daysLabel} icon="love" />
         <StatTile
           value={formatNumber(current)}
           label={current === 1 ? 'día de racha' : 'días de racha'}

@@ -31,7 +31,11 @@ export function TimeTogetherCard({ summary, anniversary }: Props) {
 
   return (
     <Card style={{ padding: 20 }}>
-      <View accessible accessibilityLabel={`${label}: ${headline}, ${note}`} style={{ gap: spacing.xxs }}>
+      <View
+        accessible
+        accessibilityLabel={`${label}: ${headline}, ${note}`}
+        style={{ gap: spacing.xxs }}
+      >
         <Text variant="label" tone="muted">
           {label}
         </Text>

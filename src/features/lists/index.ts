@@ -27,4 +27,4 @@ export {
   useToggleListItem,
   useUpdateListItem,
 } from './hooks';
-export { ListDetail, ListEditorSheet, ListsView } from './components';
+export { HomeListsCard, ListDetail, ListEditorSheet, ListsView } from './components';

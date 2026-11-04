@@ -1,5 +1,5 @@
 /** Textos y decisiones de presentación de las preguntas (funciones puras, es-MX). */
-import type { QuestionCard, Streak } from '@/lib/questions';
+import { OTHER_CHOICE, type QuestionCard, type Streak } from '@/lib/questions';
 
 export function pluralDays(n: number): string {
   return n === 1 ? '1 día' : `${n} días`;
@@ -31,7 +31,8 @@ export function partnerFoldedLabel(name: string, partnerAnswered: boolean): stri
 export function sameChoice(card: Pick<QuestionCard, 'mine' | 'partner'>): boolean {
   const a = card.mine?.choice;
   const b = card.partner?.choice;
-  return typeof a === 'number' && a === b;
+  // "Otra" (-1) nunca es coincidencia: cada quien escribió algo distinto.
+  return typeof a === 'number' && a !== OTHER_CHOICE && a === b;
 }
 
 export type QuestionErrorKind = 'no_questions' | 'not_found' | 'other';

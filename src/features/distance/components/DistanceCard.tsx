@@ -1,22 +1,37 @@
-import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
 import { Card, initialOf, LoadingSymbol, Text } from '@/components';
+import { HomePrompt } from '@/features/home/components/HomePrompt';
 import { spokenKm, type DistanceView } from '@/lib/distance';
 import { useTheme } from '@/theme';
 
-import { useDistance } from '../hooks';
 import { DistanceRoute } from './DistanceRoute';
 
 type ViewProps = {
   view: DistanceView;
   partnerName: string;
+  loading?: boolean;
   onPress: () => void;
 };
 
-/** La tarjeta con sus estados (sin datos remotos: se prueba directo). */
-export function DistanceCardView({ view, partnerName, onPress }: ViewProps) {
+/**
+ * Distancia en Inicio (toca → pantalla Distancia). Con los dos compartiendo es la tarjeta con los
+ * kilómetros; si falta alguien, una invitación de una línea. Sin datos remotos: se prueba directo.
+ */
+export function DistanceCardView({ view, partnerName, loading = false, onPress }: ViewProps) {
   const { spacing } = useTheme();
+  if (loading) {
+    return (
+      <Card>
+        <Text variant="label" tone="muted">
+          Distancia
+        </Text>
+        <View style={{ alignItems: 'center', paddingVertical: spacing.sm }}>
+          <LoadingSymbol size={32} accessibilityLabel="Cargando la distancia" />
+        </View>
+      </Card>
+    );
+  }
   const route = (
     <DistanceRoute
       compact
@@ -55,55 +70,9 @@ export function DistanceCardView({ view, partnerName, onPress }: ViewProps) {
 
   const text =
     view.kind === 'only_me'
-      ? `Ya compartes tu distancia. Cuando ${partnerName} active la suya, aquí verán cuántos kilómetros hay entre ustedes.`
+      ? `Falta que ${partnerName} active su distancia`
       : view.kind === 'only_partner'
-        ? `${partnerName} ya comparte su distancia. Activa la tuya para ver cuántos kilómetros hay entre ustedes.`
-        : 'Vean cuántos kilómetros hay entre ustedes. Cada quien decide si la comparte.';
-  const action = view.kind === 'only_me' ? 'Ver detalle' : 'Activar mi distancia';
-  return (
-    <Card
-      onPress={onPress}
-      accessibilityLabel={`Distancia. ${text} Toca para ${action.toLowerCase()}.`}
-    >
-      <View style={{ gap: spacing.sm }}>
-        <Text variant="label" tone="muted">
-          Distancia
-        </Text>
-        {route}
-        <Text variant="body" tone="muted">
-          {text}
-        </Text>
-        <Text variant="ui">{action}</Text>
-      </View>
-    </Card>
-  );
-}
-
-/** Distancia en Inicio: toca → pantalla Distancia (DISENO §8). */
-export function DistanceCard() {
-  const router = useRouter();
-  const { spacing } = useTheme();
-  const { isLoading, isError, partnerName, refetch, ...view } = useDistance();
-
-  if (isLoading) {
-    return (
-      <Card>
-        <Text variant="label" tone="muted">
-          Distancia
-        </Text>
-        <View style={{ alignItems: 'center', paddingVertical: spacing.sm }}>
-          <LoadingSymbol size={32} accessibilityLabel="Cargando la distancia" />
-        </View>
-      </Card>
-    );
-  }
-
-  // Si falla la lectura no se estorba en Inicio: la tarjeta invita a abrir la pantalla.
-  return (
-    <DistanceCardView
-      view={isError ? { ...view, kind: 'none' } : view}
-      partnerName={partnerName}
-      onPress={() => router.push('/distance')}
-    />
-  );
+        ? `${partnerName} ya comparte su distancia. Activa la tuya`
+        : 'Vean cuántos kilómetros hay entre ustedes';
+  return <HomePrompt icon="distance" text={text} onPress={onPress} />;
 }
