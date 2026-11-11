@@ -165,6 +165,19 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
+    // Respuestas en audio (Fase 12): solo RECORD_AUDIO; nada de grabar en segundo plano.
+    [
+      'expo-audio',
+      {
+        recordAudioAndroid: true,
+        enableBackgroundRecording: false,
+        enableBackgroundPlayback: false,
+      },
+    ],
+    // Compartir la tarjeta-imagen de racha / tiempo juntos / juegos.
+    'expo-sharing',
+    // Bloqueo con huella o rostro (opcional, Otros ajustes).
+    'expo-local-authentication',
     './plugins/with-android-signing',
     ...(googleMapsApiKey
       ? [['react-native-maps', { androidGoogleMapsApiKey: googleMapsApiKey }] as [string, object]]
