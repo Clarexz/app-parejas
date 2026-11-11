@@ -1,3 +1,4 @@
+import { clearAppLock } from '@/features/appLock/store';
 import { cleanupPushForSignOut } from '@/features/notifications/cleanup';
 import { queryClient } from '@/lib/query';
 import { supabase } from '@/lib/supabase';
@@ -24,6 +25,8 @@ export async function signOut() {
   void saveAndRefresh(emptyWidgetSnapshot('signed_out'));
   const { error } = await supabase.auth.signOut();
   queryClient.clear();
+  // El bloqueo con huella es de la persona: se quita de este celular.
+  await clearAppLock();
   if (error) throw error;
 }
 
