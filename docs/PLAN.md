@@ -1062,12 +1062,19 @@ Fase 12 (pulido y v1.0.0).
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
-| 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Aviso de versión nueva dentro de la app (D107, APK v0.12.3, PR #20 mergeado a `main`). Sigue después de la 12A. Sin las fases 10 y 11A. |
+| 12 Pulido y entrega | 🟡 Parte 2 (v0.12.5) | #18, (PR de la parte 2) | Parte 1: nombre, icono y textos (v0.12.0); aviso de versión nueva (D107, v0.12.3). **Parte 2** (D112–D117): respuestas en audio, tarjeta compartible, bloqueo con huella, caché offline, reintentos, error boundary, FlashList y auditoría de RLS/RPC con prueba permanente. Falta: deploy (prompt en el PR), prueba de restauración y endurecimiento del servidor, probar v0.12.5 en los celulares y el release **v1.0.0**. Sin las fases 10 y 11A.
 | 12A Rediseño "ahorita" | ✅ Cerrada (2026-11-03) | #19 | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. Servidor desplegado (`2e800d5`), PR mergeado a `main` a pedido del usuario. Falta probar el APK v0.12.2 en los dos celulares (§10.1). |
 | Ajustes post-12A (cambios menores) | ✅ Cerrada (2026-11-04) | #21 | Racha estilo TikTok (5 recuperaciones/mes, solo ayer), opción "Otra", teclado, Inicio con distancia/listas/lenguaje del amor/tiempo juntos, Preguntas + Juegos, memorias con visitas, Más → "Otros ajustes", "mesario", sin rebotes (D108–D111). Migración `20261110000000_streak_repairs_other_choice_memory_visits.sql`: **requiere deploy antes de instalar el APK** (notas en `docs/releases/v0.12.4.md`). Mergeada a `main` y APK **v0.12.4** lanzado a pedido del usuario, sin desplegar todavía. |
 
 ### 10.1 Verificaciones pendientes en el celular
 
+- **Fase 12 parte 2 (D112–D117, v0.12.5):** código en la rama `claude/sharp-pasteur-xo4lz6`.
+  **Falta el deploy**: un solo `./scripts/server/deploy.sh <rama o main>` aplica
+  `20261110000000` (pendiente de v0.12.4), `20261111000000_audio_answers` y
+  `20261111000001_security_hardening` (16 migraciones registradas), crea el bucket `answer-audio` y
+  sincroniza `stories-cleanup`. Además: prueba de restauración con `restore.sh` y cerrar el registro
+  (`DISABLE_SIGNUP=true`). El prompt completo está en el PR. Después, lanzar `release-apk.yml` con
+  `docs/releases/v0.12.5.md`, quitar `<!-- sin-aviso -->` y probar. Si todo sale bien, **v1.0.0**.
 - **Ajustes post-12A (D108–D111, v0.12.4):** mergeados a `main` el 2026-11-04 a pedido del
   usuario y APK **v0.12.4** lanzado con `<!-- sin-aviso -->` (la app no lo anuncia). **Falta el
   deploy:** `./scripts/server/deploy.sh main` debe aplicar solo
