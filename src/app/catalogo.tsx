@@ -31,6 +31,7 @@ import {
   Screen,
   ScreenHeader,
   Segmented,
+  ShareCard,
   Sheet,
   SoftAskNote,
   StatTile,
@@ -504,6 +505,44 @@ function Catalog({ pair, onPair }: { pair: PairKey; onPair: (p: PairKey) => void
               />
             </Card>
           ))}
+        </Section>
+
+        <Section title="Tarjeta compartible">
+          <Text variant="note" muted>
+            Siempre en tema claro, sin importar el modo del celular. Lienzo de 1080×1350.
+          </Text>
+          <View style={{ gap: spacing.lg }}>
+            <View style={{ borderWidth: 1, borderColor: colors.line, alignSelf: 'flex-start' }}>
+              <ShareCard
+                scale={0.3}
+                meName="Ximena"
+                partnerName="Diego"
+                data={{ kind: 'streak', days: 12 }}
+              />
+            </View>
+            <View style={{ borderWidth: 1, borderColor: colors.line, alignSelf: 'flex-start' }}>
+              <ShareCard
+                scale={0.3}
+                meName="Ximena"
+                partnerName="Diego"
+                data={{ kind: 'together', days: 1284, breakdown: '3 años, 6 meses y 2 días' }}
+              />
+            </View>
+            <View style={{ borderWidth: 1, borderColor: colors.line, alignSelf: 'flex-start' }}>
+              <ShareCard
+                scale={0.3}
+                meName="Ximena"
+                partnerName="Diego"
+                data={{
+                  kind: 'game',
+                  pct: 88,
+                  matches: 7,
+                  total: 8,
+                  gameName: 'Quién es más probable',
+                }}
+              />
+            </View>
+          </View>
         </Section>
 
         <Section title="Movimiento y feedback">

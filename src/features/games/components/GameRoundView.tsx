@@ -29,6 +29,7 @@ import {
   type GameRound,
 } from '@/lib/games';
 import { haptic } from '@/lib/haptics';
+import { useShareCard } from '@/features/share';
 import { useTheme } from '@/theme';
 
 import { useAnswerGameItem, useDeleteGameRound, useGameRound, useStartGameRound } from '../hooks';
@@ -199,7 +200,20 @@ function Finished({ round }: { round: GameRound }) {
   const again = useStartGameRound();
   const match = round.match;
 
+  const cardShare = useShareCard();
+
+  // Con resultado se manda la tarjeta-imagen; sin ella (o sin hoja de archivos) va el texto.
   const share = async () => {
+    if (match) {
+      await cardShare.share({
+        kind: 'game',
+        pct: match.pct,
+        matches: match.matches,
+        total: match.total,
+        gameName: GAMES[round.game].name,
+      });
+      return;
+    }
     try {
       await Share.share({
         message: roundShareText(round, { me: meName, partner: partnerName }),
@@ -249,8 +263,15 @@ function Finished({ round }: { round: GameRound }) {
 
       <View style={{ gap: spacing.md }}>
         <Button title="Otra ronda" fullWidth onPress={next} loading={again.isPending} />
-        <Button title="Compartir" variant="secondary" fullWidth onPress={() => void share()} />
+        <Button
+          title="Compartir"
+          variant="secondary"
+          fullWidth
+          loading={cardShare.sharing}
+          onPress={() => void share()}
+        />
       </View>
+      {cardShare.host}
     </View>
   );
 }
