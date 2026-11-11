@@ -6,7 +6,7 @@ import {
 } from '@expo-google-fonts/albert-sans';
 import { BricolageGrotesque_800ExtraBold } from '@expo-google-fonts/bricolage-grotesque';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, router, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
@@ -15,8 +15,9 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { LoadingSymbol } from '@/components';
+import { ErrorFallback, LoadingSymbol } from '@/components';
 import { ToastProvider } from '@/components/Toast';
+import { AppLockGate } from '@/features/appLock';
 import { initSessionListener } from '@/features/auth';
 import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
@@ -29,6 +30,17 @@ import { useLocationSync } from '@/features/distance';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 import { FruitThemeBridge } from '@/theme/FruitThemeBridge';
+
+/** Pantalla de error de expo-router para cualquier ruta que lance al pintarse. */
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return (
+    <ErrorFallback
+      error={error}
+      onRetry={() => void retry()}
+      onGoHome={() => void retry().then(() => router.replace('/'))}
+    />
+  );
+}
 
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -160,9 +172,11 @@ export default function RootLayout() {
           <ThemeProvider>
             <QueryProvider>
               <FruitThemeBridge>
-                <ToastProvider>
-                  <ThemedStack fontsReady={ready} />
-                </ToastProvider>
+                <AppLockGate>
+                  <ToastProvider>
+                    <ThemedStack fontsReady={ready} />
+                  </ToastProvider>
+                </AppLockGate>
               </FruitThemeBridge>
             </QueryProvider>
           </ThemeProvider>

@@ -175,7 +175,7 @@ export function useStreak() {
 /** URL firmada del audio de una respuesta (1 h; se reutiliza mientras no caduque). */
 export function useAnswerAudioUrl(path: string | null) {
   const query = useQuery({
-    queryKey: ['answer-audio-url', path],
+    queryKey: ['answers', 'audio', path],
     queryFn: () => answerAudioUrl(path as string),
     enabled: !!path,
     staleTime: 50 * 60 * 1000,

@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { View } from 'react-native';
 
 import { LoadingSymbol } from '@/components';
+import { imageCacheKey, remoteImageSource } from '@/lib/imageCache';
 import { useTheme } from '@/theme';
 
 type Props = {
@@ -42,8 +43,10 @@ export function MemoryPhotoTile({
     >
       {url ? (
         <Image
-          source={{ uri: url }}
-          placeholder={placeholderUrl ? { uri: placeholderUrl } : undefined}
+          source={remoteImageSource(url)}
+          placeholder={placeholderUrl ? remoteImageSource(placeholderUrl) : undefined}
+          cachePolicy="memory-disk"
+          recyclingKey={imageCacheKey(url)}
           style={{ width: '100%', height: '100%' }}
           contentFit="cover"
           transition={motion.base.duration}

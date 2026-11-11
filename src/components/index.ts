@@ -48,3 +48,4 @@ export { Divider } from './Divider';
 export { Sticker } from './Sticker';
 export { useArrive, useTapScale } from './motion';
 export { ShareCard, SHARE_CARD_WIDTH, SHARE_CARD_HEIGHT } from './ShareCard';
+export { ErrorFallback } from './ErrorFallback';

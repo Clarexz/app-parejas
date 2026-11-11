@@ -1,6 +1,6 @@
 import { clearAppLock } from '@/features/appLock/store';
 import { cleanupPushForSignOut } from '@/features/notifications/cleanup';
-import { queryClient } from '@/lib/query';
+import { clearQueryCache } from '@/lib/query';
 import { supabase } from '@/lib/supabase';
 import { emptyWidgetSnapshot } from '@/lib/widgets';
 import { saveAndRefresh } from '@/widgets/update';
@@ -24,7 +24,8 @@ export async function signOut() {
   // Los widgets pasan a invitar a iniciar sesión (best effort, sin bloquear).
   void saveAndRefresh(emptyWidgetSnapshot('signed_out'));
   const { error } = await supabase.auth.signOut();
-  queryClient.clear();
+  // Memoria y disco: la caché persistida no debe sobrevivir a la sesión.
+  await clearQueryCache().catch(() => {});
   // El bloqueo con huella es de la persona: se quita de este celular.
   await clearAppLock();
   if (error) throw error;

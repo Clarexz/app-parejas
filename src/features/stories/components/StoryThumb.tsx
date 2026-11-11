@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { Pressable, View } from 'react-native';
 
 import { CANVAS_H, CANVAS_W } from '@/lib/drawing';
+import { imageCacheKey, remoteImageSource } from '@/lib/imageCache';
 import type { Fruit } from '@/lib/fruits';
 import { useTheme } from '@/theme';
 
@@ -54,7 +55,9 @@ export function StoryThumb({
         >
           {url ? (
             <Image
-              source={{ uri: url }}
+              source={remoteImageSource(url)}
+              cachePolicy="memory-disk"
+              recyclingKey={imageCacheKey(url)}
               style={{ width, height }}
               contentFit="cover"
               accessibilityIgnoresInvertColors
