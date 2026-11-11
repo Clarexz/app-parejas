@@ -870,6 +870,7 @@ export type Database = {
           id: string;
           nickname: string | null;
           story_archive: boolean;
+          timezone: string | null;
         };
         ComputedFields: never;
         Insert: {
@@ -881,6 +882,7 @@ export type Database = {
           id: string;
           nickname?: string | null;
           story_archive?: boolean;
+          timezone?: string | null;
         };
         Update: {
           avatar_path?: string | null;
@@ -891,6 +893,7 @@ export type Database = {
           id?: string;
           nickname?: string | null;
           story_archive?: boolean;
+          timezone?: string | null;
         };
         Relationships: [];
       };
@@ -1659,6 +1662,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      set_my_timezone: { Args: { p_timezone: string }; Returns: undefined };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };
