@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { FlatList, RefreshControl, ScrollView, View } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
+import { RefreshControl, ScrollView, View } from 'react-native';
 
 import { Chip, EmptyState, Input, LoadingSymbol, Screen, ScreenHeader, Text } from '@/components';
 import { useCouple, useToday } from '@/features/couple';
@@ -131,9 +132,10 @@ export default function HistoryScreen() {
 
   return (
     <Screen>
-      <FlatList
+      <FlashList
         data={rows}
         keyExtractor={(row) => row.key}
+        getItemType={(row) => row.kind}
         renderItem={renderRow}
         ListHeaderComponent={header}
         ListEmptyComponent={empty}

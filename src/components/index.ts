@@ -46,3 +46,4 @@ export { SoftAskNote } from './SoftAskNote';
 export { Divider } from './Divider';
 export { Sticker } from './Sticker';
 export { useArrive, useTapScale } from './motion';
+export { ErrorFallback } from './ErrorFallback';

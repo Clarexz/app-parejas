@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { useState } from 'react';
 import { View, type ImageSourcePropType } from 'react-native';
 
+import { imageCacheKey, remoteImageSource } from '@/lib/imageCache';
 import { useTheme } from '@/theme';
 
 import { fruitHex, type FruitLike } from './Symbol';
@@ -26,6 +27,15 @@ type Props = {
 export function initialOf(name: string): string {
   const first = Array.from(name.trim())[0];
   return first ? first.toLocaleUpperCase('es-MX') : '?';
+}
+
+/** Fotos remotas con llave de caché estable (la URL firmada cambia de token). */
+function resolveSource(source: Props['source']) {
+  if (typeof source === 'string') return remoteImageSource(source);
+  if (source && typeof source === 'object' && 'uri' in source && typeof source.uri === 'string') {
+    return remoteImageSource(source.uri);
+  }
+  return source;
 }
 
 const RING = 3;
@@ -78,7 +88,9 @@ export function Avatar({
         >
           {hasPhoto ? (
             <Image
-              source={source as never}
+              source={resolveSource(source) as never}
+              cachePolicy="memory-disk"
+              recyclingKey={typeof source === 'string' ? imageCacheKey(source) : undefined}
               style={{ width: inner, height: inner }}
               contentFit="cover"
               onError={() => setFailed(true)}
