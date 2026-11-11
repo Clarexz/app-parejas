@@ -7,8 +7,10 @@ import { useEvents } from '@/features/events';
 import { useMoods } from '@/features/mood';
 import { useStreak } from '@/features/questions';
 import { useActiveStories } from '@/features/stories';
+import { coupleDayZone } from '@/lib/coupleDay';
 import { snapshotDistance } from '@/lib/distance';
 import type { OnboardingStage } from '@/lib/onboarding';
+import { detectTimeZone } from '@/lib/timezone';
 import {
   buildWidgetSnapshot,
   emptyWidgetSnapshot,
@@ -58,6 +60,7 @@ export function useWidgetSync(stage: OnboardingStage): void {
     stage,
     couple?.anniversary_date ?? null,
     couple?.timezone ?? null,
+    partner?.timezone ?? null,
     me?.nickname || me?.display_name || null,
     me?.birthday ?? null,
     partner?.nickname || partner?.display_name || null,
@@ -88,7 +91,7 @@ export function useWidgetSync(stage: OnboardingStage): void {
             : await pickPartnerStory(stories, partner?.id, previous);
           snapshot = buildWidgetSnapshot({
             anniversary: couple.anniversary_date,
-            timezone: couple.timezone,
+            timezone: coupleDayZone([detectTimeZone(), partner?.timezone], couple.timezone),
             me: me ? { name: me.nickname || me.display_name, birthday: me.birthday } : null,
             partner: partner
               ? { name: partner.nickname || partner.display_name, birthday: partner.birthday }

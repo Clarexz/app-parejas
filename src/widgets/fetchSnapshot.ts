@@ -5,7 +5,9 @@ import { fetchEvents } from '@/features/events/api';
 import { fetchMoods } from '@/features/mood/api';
 import { fetchStreak } from '@/features/questions/api';
 import { supabase } from '@/lib/supabase';
+import { coupleDayZone } from '@/lib/coupleDay';
 import { snapshotDistance } from '@/lib/distance';
+import { detectTimeZone } from '@/lib/timezone';
 import { latestMoodByUser } from '@/lib/mood';
 import {
   buildWidgetSnapshot,
@@ -58,7 +60,8 @@ async function read(): Promise<WidgetSnapshot> {
 
   return buildWidgetSnapshot({
     anniversary: state.couple.anniversary_date,
-    timezone: state.couple.timezone,
+    // El día de la pareja es el de quien va más atrás (este celular o la pareja).
+    timezone: coupleDayZone([detectTimeZone(), state.partner?.timezone], state.couple.timezone),
     me: nameOf(state.me),
     partner: nameOf(state.partner),
     partnerMood,

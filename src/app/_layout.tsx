@@ -27,6 +27,7 @@ import { QuestionsEvents } from '@/features/questions';
 import { StoriesEvents } from '@/features/stories';
 import { WidgetsBridge } from '@/features/widgets';
 import { useLocationSync } from '@/features/distance';
+import { useTimezoneSync } from '@/features/profile';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 import { FruitThemeBridge } from '@/theme/FruitThemeBridge';
@@ -61,6 +62,12 @@ function LoadingView() {
       <LoadingSymbol size={48} />
     </View>
   );
+}
+
+/** Sin UI: manda la zona horaria de este celular cuando cambia. */
+function TimezoneSyncBridge() {
+  useTimezoneSync();
+  return null;
 }
 
 /** Sin UI: manda mi ubicación al abrir la app si activé la distancia (Fase 8). */
@@ -146,6 +153,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       {stage === 'ready' ? <QuestionsEvents /> : null}
       {stage === 'ready' ? <StoriesEvents /> : null}
       {stage === 'ready' ? <MemoriesEvents /> : null}
+      {stage === 'ready' ? <TimezoneSyncBridge /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <LocationSyncBridge /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
       {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
