@@ -17,6 +17,8 @@ const ans = (choice: number | null) => ({
   user_id: 'u',
   text: null,
   choice,
+  audio_path: null,
+  audio_ms: null,
   created_at: '',
   updated_at: '',
 });

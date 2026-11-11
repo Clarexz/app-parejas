@@ -36,6 +36,8 @@ const answer = (text: string) => ({
   user_id: 'u',
   text,
   choice: null,
+  audio_path: null,
+  audio_ms: null,
   created_at: '',
   updated_at: '',
 });

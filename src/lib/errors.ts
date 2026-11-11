@@ -29,6 +29,7 @@ const BY_CODE: Record<string, string> = {
   no_questions: 'Ya no quedan preguntas por ahora. Vuelve más tarde.',
   question_not_found: 'No encontramos esa pregunta. Regresa y elige otra.',
   invalid_answer: 'No pudimos guardar tu respuesta. Revisa que no esté vacía ni muy larga.',
+  audio_too_short: 'Ese audio quedó muy corto. Grábalo otra vez.',
   not_answered: 'Para comentar, primero contesta la pregunta.',
   invalid_comment: 'No pudimos mandar el comentario. Hazlo más cortito e intenta otra vez.',
   comment_not_found: 'Ese comentario ya no está. Actualiza para ver lo más reciente.',

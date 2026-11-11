@@ -11,6 +11,7 @@ const mockMutateAsync = jest.fn();
 jest.mock('../../hooks', () => ({
   useSubmitAnswer: () => ({ mutateAsync: mockMutateAsync, isPending: false }),
   useDeleteAnswer: () => ({ mutateAsync: jest.fn(), isPending: false }),
+  useAnswerAudioUrl: () => ({ url: null, isError: false }),
   useStreak: () => ({
     streak: {
       current: 3,
@@ -50,6 +51,8 @@ const answer = (user: string, text: string): AnswerInfo => ({
   user_id: user,
   text,
   choice: null,
+  audio_path: null,
+  audio_ms: null,
   created_at: '2026-10-30T10:00:00Z',
   updated_at: '2026-10-30T10:00:00Z',
 });
@@ -108,6 +111,33 @@ describe('QuestionView', () => {
     expect(mockMutateAsync).toHaveBeenCalledWith(
       expect.objectContaining({ text: 'A la playa', choice: null }),
     );
+  });
+
+  it('en preguntas abiertas ofrece grabar audio; en las de opciones no', async () => {
+    await renderView(base);
+    expect(screen.getByRole('button', { name: 'Grabar audio' })).toBeTruthy();
+    await renderView({
+      ...base,
+      question: { ...base.question, type: 'choice', options: ['Playa', 'Montaña'] },
+    });
+    expect(screen.queryByRole('button', { name: 'Grabar audio' })).toBeNull();
+  });
+
+  it('muestra el audio de tu pareja (sin texto) una vez que contestaste', async () => {
+    const partner: AnswerInfo = {
+      ...answer('u2', ''),
+      text: null,
+      audio_path: 'c/u2/q1/x.m4a',
+      audio_ms: 7000,
+    };
+    await renderView({
+      ...base,
+      mine: answer('u1', 'A la playa'),
+      partner,
+      partner_answered: true,
+    });
+    expect(screen.getByRole('button', { name: /Escuchar audio de Caleb/ })).toBeTruthy();
+    expect(screen.getByText('0:07')).toBeTruthy();
   });
 
   it('contestada, con la pareja pendiente: ofrece recordarle y abre los comentarios', async () => {

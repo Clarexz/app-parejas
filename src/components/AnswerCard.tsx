@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -18,6 +18,8 @@ type Props = {
   fruit: FruitLike;
   name: string;
   text?: string;
+  /** Audio de la respuesta (un `AudioBubble`): se muestra debajo del texto, si lo hay. */
+  audio?: ReactNode;
   /** Respuesta de tu pareja mientras no contestes: renglones borrosos. */
   locked?: boolean;
   lockedText?: string;
@@ -32,6 +34,7 @@ export function AnswerCard({
   fruit,
   name,
   text,
+  audio,
   locked = false,
   lockedText = 'Se abre cuando contestes.',
   reveal = false,
@@ -52,7 +55,8 @@ export function AnswerCard({
 
   return (
     <Animated.View
-      accessible
+      // Con audio los botones de reproducir deben poder enfocarse solos.
+      accessible={!audio || locked}
       accessibilityLabel={
         locked ? `Respuesta de ${name}. ${lockedText}` : `Respuesta de ${name}: ${text ?? ''}`
       }
@@ -90,7 +94,10 @@ export function AnswerCard({
           </Text>
         </View>
       ) : (
-        <Text variant="body">{text}</Text>
+        <>
+          {text ? <Text variant="body">{text}</Text> : null}
+          {audio}
+        </>
       )}
     </Animated.View>
   );

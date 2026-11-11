@@ -2,6 +2,7 @@ export type { Comment, Nudge, QuestionCategory } from './api';
 export {
   questionKeys,
   useAddComment,
+  useAnswerAudioUrl,
   useCategories,
   useCategoryQuestions,
   useComments,
@@ -22,5 +23,6 @@ export { useCelebrationStore } from './celebration';
 export { Celebration } from './components/Celebration';
 export { DailyQuestionCard, DailyQuestionCardView } from './components/DailyQuestionCard';
 export { QuestionsEvents } from './components/QuestionsEvents';
+export { AnswerAudio } from './components/AnswerAudio';
 export { StreakNote } from './components/StreakNote';
 export { QuestionView } from './components/QuestionView';

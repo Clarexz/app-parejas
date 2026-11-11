@@ -9,7 +9,7 @@ import { Text } from './Text';
 
 export type PermissionStatus = 'granted' | 'denied' | 'undetermined' | 'unavailable';
 
-export type PermissionKind = 'notifications' | 'location';
+export type PermissionKind = 'notifications' | 'location' | 'microphone';
 
 const COPY: Record<
   PermissionKind,
@@ -29,6 +29,19 @@ const COPY: Record<
     blocked:
       'La ubicación está apagada para esta app. Se activa en Ajustes, Permisos, Ubicación, “Permitir solo mientras se usa la app”.',
   },
+  microphone: {
+    granted: 'El micrófono está activo en este celular.',
+    unavailable: 'Grabar audios solo funciona en el celular.',
+    ask: 'Para grabar tu respuesta necesitamos usar el micrófono.',
+    blocked:
+      'El micrófono está apagado para esta app. Se activa en Ajustes, Permisos, Micrófono, “Permitir solo mientras se usa la app”.',
+  },
+};
+
+const ASK_TITLE: Record<PermissionKind, string> = {
+  notifications: 'Activar avisos',
+  location: 'Activar ubicación',
+  microphone: 'Activar micrófono',
 };
 
 type Props = {
@@ -82,11 +95,7 @@ export function PermissionNote({
         <Notice>{canAsk ? copy.ask : copy.blocked}</Notice>
       </View>
       {canAsk ? (
-        <Button
-          title={kind === 'location' ? 'Activar ubicación' : 'Activar avisos'}
-          onPress={onRequest}
-          loading={loading}
-        />
+        <Button title={ASK_TITLE[kind]} onPress={onRequest} loading={loading} />
       ) : (
         <Button title="Abrir ajustes del celular" variant="secondary" onPress={onOpenSettings} />
       )}
