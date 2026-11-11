@@ -6,6 +6,7 @@ import { Button, Card, EmptyState, Icon, LoadingSymbol, Screen, Sheet, Text } fr
 import { useCouple } from '@/features/couple';
 import { GamesSection, useGameOverview } from '@/features/games';
 import { DailyQuestionCard, useCategories, useStreak } from '@/features/questions';
+import { ShareCardButton } from '@/features/share';
 import { StreakChip } from '@/features/questions/components/StreakChip';
 import { REPAIR_TODAY_NOTE, repairPrompt, repairView, repairsLeftLine } from '@/lib/questionCopy';
 import { spicyState } from '@/lib/questions';
@@ -69,6 +70,9 @@ export default function QuestionsScreen() {
                         ? `Récord: ${streak.streak.best} ${streak.streak.best === 1 ? 'día' : 'días'}`
                         : streakHeadline(0)}
                     </Text>
+                    {streak.streak.current > 0 ? (
+                      <ShareCardButton data={{ kind: 'streak', days: streak.streak.current }} />
+                    ) : null}
                   </View>
                 </View>
               ) : null}
