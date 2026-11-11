@@ -207,6 +207,11 @@ pg_cron (cada hora, minuto 23)  select private.run_stories_cleanup()
 - **Push:** una memoria nueva avisa a la otra persona (preferencia `memories`, por omisión
   encendida) con el mecanismo de §5.1; editarla no avisa. No hay push de datos porque no hay widget.
 - **Respaldos:** `backup.sh --storage` (§6) incluye ya el bucket `memories`, que es el que más pesa.
+- **Respuestas en audio (Fase 12):** bucket `answer-audio` (privado, `audio/mp4`, 3 MB, en
+  `server/buckets.json`) con rutas `<couple_id>/<user_id>/<question_id>/<uuid>.m4a`. Subir solo a tu
+  carpeta; leer lo tuyo o lo de tu pareja **si ya contestaste esa pregunta**. Los audios sin respuesta
+  que los referencie (más de 24 h) los borra `stories-cleanup` con `answer_audio_cleanup_batch()` y
+  lo informa como `answerAudioRemoved`. Requiere `deploy.sh` para crear el bucket y recargar la función.
 
 ## 6. Respaldos (cron)
 

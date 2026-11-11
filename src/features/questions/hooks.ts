@@ -9,6 +9,7 @@ import { useEffect, useRef } from 'react';
 
 import { useSession } from '@/features/auth';
 import { useCouple, useToday } from '@/features/couple';
+import type { AudioDraft } from '@/lib/audio';
 import {
   applyReaction,
   justCompleted,
@@ -23,6 +24,7 @@ import { supabase } from '@/lib/supabase';
 
 import {
   addComment,
+  answerAudioUrl,
   deleteAnswer,
   deleteComment,
   fetchCategories,
@@ -170,6 +172,18 @@ export function useStreak() {
   return { streak: query.data ?? null, ...viewState(query, coupleId) };
 }
 
+/** URL firmada del audio de una respuesta (1 h; se reutiliza mientras no caduque). */
+export function useAnswerAudioUrl(path: string | null) {
+  const query = useQuery({
+    queryKey: ['answer-audio-url', path],
+    queryFn: () => answerAudioUrl(path as string),
+    enabled: !!path,
+    staleTime: 50 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
+  });
+  return { url: query.data ?? null, isError: query.isError };
+}
+
 export function useCategories() {
   const { couple } = useCouple();
   const coupleId = couple?.id ?? null;
@@ -238,6 +252,8 @@ export type SubmitAnswerInput = {
   question: QuestionInfo;
   text?: string | null;
   choice?: number | null;
+  /** Audio de una pregunta abierta (guardado o grabación nueva). */
+  audio?: AudioDraft | null;
 };
 export type SubmitAnswerResult = { card: QuestionCard; justCompleted: boolean };
 
@@ -247,11 +263,12 @@ export function useSubmitAnswer() {
   const coupleId = couple?.id ?? null;
   return useMutation({
     mutationFn: async (input: SubmitAnswerInput): Promise<SubmitAnswerResult> => {
-      const result = validateAnswerInput(input.question, input);
+      const audio = input.question.type === 'open' ? (input.audio ?? null) : null;
+      const result = validateAnswerInput(input.question, { ...input, hasAudio: !!audio });
       if (!result.ok) throw new Error(result.error);
       markOwnMutation();
       const prev = findCachedCard(qc, coupleId, input.question.id);
-      const card = await submitAnswer({ questionId: input.question.id, ...result.value });
+      const card = await submitAnswer({ questionId: input.question.id, ...result.value, audio });
       return { card, justCompleted: justCompleted(prev, card) };
     },
     onSuccess: ({ card }) => {

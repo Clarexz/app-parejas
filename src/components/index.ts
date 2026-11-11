@@ -20,6 +20,7 @@ export { MoodBubble } from './MoodBubble';
 export { FruitDot } from './FruitDot';
 export { FruitPicker, blockedReason } from './FruitPicker';
 export { AnswerCard } from './AnswerCard';
+export { AudioBubble } from './AudioBubble';
 export { StatTile } from './StatTile';
 export { Chip } from './Chip';
 export { Segmented, type SegmentedOption } from './Segmented';

@@ -27,6 +27,10 @@ export type AnswerInfo = {
   user_id: string;
   text: string | null;
   choice: number | null;
+  /** Ruta del audio en el bucket `answer-audio` (solo preguntas abiertas), o null. */
+  audio_path: string | null;
+  /** Duración del audio en milisegundos, o null. */
+  audio_ms: number | null;
   created_at: string;
   updated_at: string;
 };
@@ -157,6 +161,8 @@ function parseAnswer(v: Json | undefined, what: string): AnswerInfo | null {
     user_id: str(v, 'user_id', what),
     text: strOrNull(v, 'text', what),
     choice: numOrNull(v, 'choice', what),
+    audio_path: strOrNull(v, 'audio_path', what),
+    audio_ms: numOrNull(v, 'audio_ms', what),
     created_at: str(v, 'created_at', what),
     updated_at: str(v, 'updated_at', what),
   };
@@ -255,15 +261,20 @@ export type AnswerInputResult =
   | { ok: true; value: { text: string | null; choice: number | null } }
   | { ok: false; error: AnswerInputError };
 
-/** Mismas reglas que `submit_answer`. */
+/**
+ * Mismas reglas que `submit_answer`. En una pregunta abierta basta con texto o con audio
+ * (`hasAudio`); el audio no aplica a las de opciones.
+ */
 export function validateAnswerInput(
   question: Pick<QuestionInfo, 'type' | 'options'>,
-  input: { text?: string | null; choice?: number | null },
+  input: { text?: string | null; choice?: number | null; hasAudio?: boolean },
 ): AnswerInputResult {
   const text = (input.text ?? '').trim() || null;
   if (question.type === 'open') {
-    if (text === null) return { ok: false, error: 'empty' };
-    if (charLength(text) > ANSWER_MAX_LENGTH) return { ok: false, error: 'too_long' };
+    if (text === null && !input.hasAudio) return { ok: false, error: 'empty' };
+    if (text !== null && charLength(text) > ANSWER_MAX_LENGTH) {
+      return { ok: false, error: 'too_long' };
+    }
     return { ok: true, value: { text, choice: null } };
   }
   const choice = input.choice;

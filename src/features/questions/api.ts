@@ -1,3 +1,7 @@
+import * as FileSystem from 'expo-file-system';
+
+import { AUDIO_BUCKET, audioAnswerPath, normalizeAudioMs, type AudioDraft } from '@/lib/audio';
+import { randomUuid } from '@/lib/ids';
 import {
   parseCategoryQuestion,
   parseHistoryItem,
@@ -31,18 +35,76 @@ export async function fetchQuestion(questionId: string): Promise<QuestionCard> {
   return parseQuestionCard(data);
 }
 
+async function currentIds(): Promise<{ userId: string; coupleId: string }> {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const userId = sessionData.session?.user.id;
+  if (!userId) throw new Error('not_authenticated');
+  const { data: coupleId, error } = await supabase.rpc('my_couple_id');
+  if (error) throw error;
+  if (!coupleId) throw new Error('no_couple');
+  return { userId, coupleId };
+}
+
+/**
+ * Sube una grabación (m4a) a `answer-audio` en `<pareja>/<yo>/<pregunta>/<uuid>.m4a`. Si luego
+ * `submit_answer` falla, el archivo queda huérfano y la limpieza horaria lo borra.
+ */
+export async function uploadAnswerAudio(questionId: string, uri: string): Promise<string> {
+  const { userId, coupleId } = await currentIds();
+  const path = audioAnswerPath(coupleId, userId, questionId, randomUuid());
+  const body = await new FileSystem.File(uri).arrayBuffer();
+  const { error } = await supabase.storage
+    .from(AUDIO_BUCKET)
+    .upload(path, body, { contentType: 'audio/mp4', upsert: false });
+  if (error) throw error;
+  return path;
+}
+
 export async function submitAnswer(input: {
   questionId: string;
   text: string | null;
   choice: number | null;
+  /** Solo preguntas abiertas: audio guardado (se conserva) o grabación nueva (se sube antes). */
+  audio?: AudioDraft | null;
 }): Promise<QuestionCard> {
+  let audioPath: string | undefined;
+  let audioMs: number | undefined;
+  if (input.audio) {
+    const ms = normalizeAudioMs(input.audio.ms);
+    if (ms === null) throw new Error('audio_too_short');
+    audioPath =
+      input.audio.kind === 'existing'
+        ? input.audio.path
+        : await uploadAnswerAudio(input.questionId, input.audio.uri);
+    audioMs = ms;
+  }
   const { data, error } = await supabase.rpc('submit_answer', {
     p_question_id: input.questionId,
     p_text: input.text ?? undefined,
     p_choice: input.choice ?? undefined,
+    p_audio_path: audioPath,
+    p_audio_ms: audioMs,
   });
   if (error) throw error;
   return parseQuestionCard(data);
+}
+
+const SIGNED_URL_SECONDS = 3600;
+// Se reutiliza la URL firmada hasta 10 minutos antes de que caduque.
+const SIGNED_URL_REUSE_MS = (SIGNED_URL_SECONDS - 600) * 1000;
+const audioUrlCache = new Map<string, { url: string; expiresAt: number }>();
+
+/** URL firmada (1 h) de un audio del bucket `answer-audio`. */
+export async function answerAudioUrl(path: string): Promise<string> {
+  const cached = audioUrlCache.get(path);
+  if (cached && cached.expiresAt > Date.now()) return cached.url;
+  const { data, error } = await supabase.storage
+    .from(AUDIO_BUCKET)
+    .createSignedUrl(path, SIGNED_URL_SECONDS);
+  if (error) throw error;
+  if (!data?.signedUrl) throw new Error('audio_unavailable');
+  audioUrlCache.set(path, { url: data.signedUrl, expiresAt: Date.now() + SIGNED_URL_REUSE_MS });
+  return data.signedUrl;
 }
 
 export async function deleteAnswer(questionId: string): Promise<void> {

@@ -38,6 +38,8 @@ const answer = (userId: string): AnswerInfo => ({
   user_id: userId,
   text: 'hola',
   choice: null,
+  audio_path: null,
+  audio_ms: null,
   created_at: '2026-10-30T10:00:00Z',
   updated_at: '2026-10-30T10:00:00Z',
 });
@@ -87,6 +89,14 @@ describe('validateAnswerInput', () => {
 
   it('abierta: máximo 2000 y descarta choice', () => {
     expect(validateAnswerInput(open, { text: 'a'.repeat(ANSWER_MAX_LENGTH) }).ok).toBe(true);
+    // Con audio basta (el texto es opcional).
+    expect(validateAnswerInput(open, { hasAudio: true })).toEqual({
+      ok: true,
+      value: { text: null, choice: null },
+    });
+    expect(
+      validateAnswerInput(open, { text: 'a'.repeat(ANSWER_MAX_LENGTH + 1), hasAudio: true }),
+    ).toEqual({ ok: false, error: 'too_long' });
     expect(validateAnswerInput(open, { text: 'a'.repeat(ANSWER_MAX_LENGTH + 1) })).toEqual({
       ok: false,
       error: 'too_long',
@@ -223,6 +233,19 @@ describe('parseQuestionCard', () => {
     expect(parsed.mine?.user_id).toBe('u1');
     expect(parsed.partner).toBeNull();
     expect(parsed.comment_count).toBe(2);
+  });
+
+  it('parsea el audio de una respuesta (y lo toma como null si el servidor no lo manda)', () => {
+    const withAudio = parseQuestionCard({
+      ...(raw as object),
+      mine: { ...answer('u1'), text: null, audio_path: 'c/u/q/x.m4a', audio_ms: 7000 },
+    } as Json);
+    expect(withAudio.mine?.audio_path).toBe('c/u/q/x.m4a');
+    expect(withAudio.mine?.audio_ms).toBe(7000);
+    const { audio_path: _p, audio_ms: _m, ...old } = answer('u1');
+    const legacy = parseQuestionCard({ ...(raw as object), mine: old } as Json);
+    expect(legacy.mine?.audio_path).toBeNull();
+    expect(legacy.mine?.audio_ms).toBeNull();
   });
 
   it('acepta day nulo y opciones', () => {

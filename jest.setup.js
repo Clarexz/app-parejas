@@ -51,3 +51,42 @@ jest.mock('react-native-maps', () => {
 jest.mock('react-native-keyboard-controller', () =>
   require('react-native-keyboard-controller/jest'),
 );
+
+// expo-audio trae módulos nativos: en Jest se simula lo mínimo (sin sonido ni micrófono). Las pruebas
+// que lo necesitan ajustan los mocks con jest.requireMock('expo-audio').
+jest.mock('expo-audio', () => ({
+  RecordingPresets: {
+    HIGH_QUALITY: { extension: '.m4a', sampleRate: 44100, numberOfChannels: 2, bitRate: 128000 },
+  },
+  useAudioPlayer: jest.fn(() => ({
+    play: jest.fn(),
+    pause: jest.fn(),
+    seekTo: jest.fn(async () => undefined),
+  })),
+  useAudioPlayerStatus: jest.fn(() => ({
+    playing: false,
+    currentTime: 0,
+    duration: 0,
+    didJustFinish: false,
+    isLoaded: true,
+  })),
+  useAudioRecorder: jest.fn(() => ({
+    uri: null,
+    prepareToRecordAsync: jest.fn(async () => undefined),
+    record: jest.fn(),
+    stop: jest.fn(async () => undefined),
+    getStatus: jest.fn(() => ({ durationMillis: 0 })),
+  })),
+  useAudioRecorderState: jest.fn(() => ({
+    canRecord: true,
+    isRecording: false,
+    durationMillis: 0,
+  })),
+  requestRecordingPermissionsAsync: jest.fn(async () => ({
+    granted: false,
+    status: 'denied',
+    canAskAgain: false,
+    expires: 'never',
+  })),
+  setAudioModeAsync: jest.fn(async () => undefined),
+}));
