@@ -1199,7 +1199,7 @@
       "slug": "gustos-prefieres-compartir-gustos-descubrir-otro",
       "type": "choice",
       "intensity": "profunda",
-      "text": "¿Qué prefieres? Compartir gustos o descubrir los del otro",
+      "text": "¿Prefieres compartir tus gustos o descubrir los de la otra persona?",
       "options": [
         "Compartirlos",
         "Descubrir los del otro",
