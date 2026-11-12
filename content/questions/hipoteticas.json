@@ -917,6 +917,528 @@
         "Dormir en hoteles",
         "Jugar videojuegos"
       ]
+    },
+    {
+      "slug": "hipoteticas-microondas-superpoder",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Con un día de superpoder doméstico, ¿qué harías?",
+      "options": [
+        "Limpiar la casa en un chasquido",
+        "Cocinar para veinte",
+        "Reparar cualquier cosa",
+        "Que los trastes se laven solos"
+      ]
+    },
+    {
+      "slug": "hipoteticas-carta-misteriosa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Recibes una carta anónima. ¿Qué esperas que diga?",
+      "options": [
+        "Una felicitación",
+        "Un tesoro escondido",
+        "Una invitación a una aventura",
+        "Un mensaje de mi futuro yo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-rincon-secreto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Puedes tener un rincón secreto en casa. ¿Cómo sería?",
+      "options": [
+        "Biblioteca acogedora",
+        "Cine privado",
+        "Taller de inventos",
+        "Cocina de panadería"
+      ]
+    },
+    {
+      "slug": "hipoteticas-semana-cero-gastos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una semana donde todo es gratis. ¿Qué haces más?",
+      "options": [
+        "Comer fuera",
+        "Viajar",
+        "Comprar ropa",
+        "Ir a conciertos"
+      ]
+    },
+    {
+      "slug": "hipoteticas-amigo-imaginario",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras tener un amigo imaginario por un día, ¿cómo sería?",
+      "options": [
+        "Un dinosaurio",
+        "Un hada",
+        "Un robot",
+        "Un conejo gigante"
+      ]
+    },
+    {
+      "slug": "hipoteticas-avion-privado",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieras un avión privado, ¿cuál sería el primer destino?",
+      "options": [
+        "Un pueblito remoto",
+        "Una playa desierta",
+        "Una gran ciudad",
+        "La casa de alguien querido"
+      ]
+    },
+    {
+      "slug": "hipoteticas-reloj-magico",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un reloj mágico adelanta o atrasa tu día. ¿Qué haces?",
+      "options": [
+        "Lo atraso para dormir más",
+        "Lo adelanto para ver el fin de semana",
+        "Lo uso para llegar temprano",
+        "Lo guardo, no lo necesito"
+      ]
+    },
+    {
+      "slug": "hipoteticas-elixir-extrano",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te dan una poción desconocida. ¿La tomas?",
+      "options": [
+        "Sin pensarlo",
+        "Primero la huelo",
+        "La guardo de recuerdo",
+        "Le pido a alguien que la pruebe antes"
+      ]
+    },
+    {
+      "slug": "hipoteticas-tienda-deseo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Hay una tienda donde todo cuesta un recuerdo. ¿Qué compras?",
+      "options": [
+        "Una cena perfecta",
+        "Un día de playa",
+        "Una canción nueva",
+        "Una noche de estrellas"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-pasaporte",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu pasaporte te deja entrar a cualquier época. ¿A cuál vas?",
+      "options": [
+        "A los años ochenta",
+        "A la época colonial",
+        "A la prehistoria",
+        "Al futuro lejano"
+      ]
+    },
+    {
+      "slug": "hipoteticas-mano-magica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si todo lo que tocas se convierte en algo, ¿qué quisieras que fuera?",
+      "options": [
+        "Comida deliciosa",
+        "Flores",
+        "Dinero",
+        "Música"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-celular",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu celular puede hacer una función imposible. ¿Cuál escoges?",
+      "options": [
+        "Traducir animales",
+        "Imprimir comida",
+        "Cargarse con luz",
+        "Teletransportarte"
+      ]
+    },
+    {
+      "slug": "hipoteticas-cuento-de-hadas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si fueras personaje de un cuento clásico, ¿cuál serías?",
+      "options": [
+        "El héroe",
+        "La criatura mágica",
+        "El villano simpático",
+        "El narrador"
+      ]
+    },
+    {
+      "slug": "hipoteticas-dia-al-reves",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un día al revés donde duermes de día y trabajas de noche. ¿Cómo lo vives?",
+      "options": [
+        "Encantado",
+        "Cansado pero curioso",
+        "Solo si hay café",
+        "Me rindo a la primera hora"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-color",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si todo lo que ves tuviera un solo color por un día, ¿cuál?",
+      "options": [
+        "Amarillo",
+        "Azul",
+        "Verde",
+        "Rosa mexicano"
+      ]
+    },
+    {
+      "slug": "hipoteticas-tren-aventura",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un tren mágico te lleva a donde quieras. ¿Qué vagón eliges?",
+      "options": [
+        "El comedor",
+        "El de dormir",
+        "El de música",
+        "La cabina del maquinista"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-desierto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Estás en el desierto con una sola cosa útil. ¿Cuál escoges?",
+      "options": [
+        "Un sombrero enorme",
+        "Una cantimplora infinita",
+        "Un camello",
+        "Un GPS"
+      ]
+    },
+    {
+      "slug": "hipoteticas-volver-a-elegir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras volver a una decisión importante de tu vida, ¿cuál tomarías de nuevo y por qué?"
+    },
+    {
+      "slug": "hipoteticas-mensaje-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras recibir un mensaje de ti mismo o misma dentro de diez años, ¿qué te gustaría que dijera?"
+    },
+    {
+      "slug": "hipoteticas-vida-perfecta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras vivir un día de tu vida ideal, ¿cómo sería de principio a fin?"
+    },
+    {
+      "slug": "hipoteticas-miedo-quitar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras borrar un miedo que tienes, ¿cuál sería y cómo cambiaría tu vida?"
+    },
+    {
+      "slug": "hipoteticas-conversacion-imposible",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras tener una última conversación con alguien que ya no está, ¿qué le dirías?"
+    },
+    {
+      "slug": "hipoteticas-cambio-pasado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras cambiar una sola cosa de tu pasado, ¿lo harías? ¿Qué sería?"
+    },
+    {
+      "slug": "hipoteticas-sin-miedo-fallar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si supieras que no puedes fracasar, ¿qué intentarías mañana mismo?"
+    },
+    {
+      "slug": "hipoteticas-elegir-recuerdos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Solo puedes conservar cinco recuerdos de toda tu vida. ¿Cuáles escoges?"
+    },
+    {
+      "slug": "hipoteticas-ser-otra-persona",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras vivir un día en la piel de alguien más, ¿de quién y qué querrías entender?"
+    },
+    {
+      "slug": "hipoteticas-dinero-y-sentido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si el dinero no importara, ¿cómo cambiaría lo que haces con tu tiempo y con tu vida?"
+    },
+    {
+      "slug": "hipoteticas-ultimo-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si mañana fuera el último día de tu vida, ¿con quién y cómo lo pasarías?"
+    },
+    {
+      "slug": "hipoteticas-mensaje-al-mundo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tuvieras un micrófono para decirle algo al mundo entero, ¿qué dirías?"
+    },
+    {
+      "slug": "hipoteticas-rescatar-recuerdo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tuvieras que rescatar solo tres objetos de tu casa, ¿cuáles serían y qué significan?"
+    },
+    {
+      "slug": "hipoteticas-elegir-habilidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras ser excelente en algo que hoy te cuesta mucho, ¿qué sería y por qué?"
+    },
+    {
+      "slug": "hipoteticas-otro-lugar-otro-tiempo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Imagina que nos hubiéramos conocido en otra ciudad y otra época. ¿Dónde crees que habríamos coincidido?"
+    },
+    {
+      "slug": "hipoteticas-regalo-del-futuro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras recibir un regalo del futuro, ¿cuál escogerías?",
+      "options": [
+        "Una respuesta que hoy no tengo",
+        "Un abrazo de alguien que extraño",
+        "Un recuerdo que aún no vivo",
+        "Una carta mía mayor"
+      ]
+    },
+    {
+      "slug": "hipoteticas-elegir-don",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si te dieran un don para toda la vida, ¿cuál sería el más valioso?",
+      "options": [
+        "Paciencia infinita",
+        "Confianza total",
+        "Memoria perfecta",
+        "Ver lo bueno en todo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-renunciar-una",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para estar tranquilo, ¿a cuál de estas cosas renunciarías?",
+      "options": [
+        "A la ambición",
+        "A la comodidad",
+        "A la fama",
+        "A la rutina"
+      ]
+    },
+    {
+      "slug": "hipoteticas-reencuentro-ideal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras reencontrarte con algo perdido, ¿qué elegirías?",
+      "options": [
+        "Una amistad",
+        "Un lugar",
+        "Un objeto",
+        "Una versión de ti"
+      ]
+    },
+    {
+      "slug": "hipoteticas-decision-dificil",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si te dieran un solo consejo para decidir en momentos difíciles, ¿cuál preferirías?",
+      "options": [
+        "Escucha tu intuición",
+        "Cuenta hasta diez",
+        "Pregunta a alguien que quieres",
+        "Haz lo que no te dé miedo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-carta-final",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras dejar una sola carta al mundo, ¿para qué sería?",
+      "options": [
+        "Dar gracias",
+        "Pedir perdón",
+        "Compartir un consejo",
+        "Contar un secreto"
+      ]
+    },
+    {
+      "slug": "hipoteticas-quitar-peso",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras quitarte un peso de encima hoy, ¿cuál sería?",
+      "options": [
+        "Una preocupación de dinero",
+        "Una culpa",
+        "Un miedo",
+        "Una expectativa ajena"
+      ]
+    },
+    {
+      "slug": "hipoteticas-saber-verdad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras conocer la verdad sobre algo, ¿qué escogerías?",
+      "options": [
+        "El sentido de la vida",
+        "Lo que piensan de mí",
+        "Qué hay después",
+        "Cómo será mi futuro"
+      ]
+    },
+    {
+      "slug": "hipoteticas-cuando-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tu yo de niño o niña te viera hoy, ¿qué sentiría?",
+      "options": [
+        "Orgullo",
+        "Sorpresa",
+        "Curiosidad",
+        "Ganas de abrazarme"
+      ]
+    },
+    {
+      "slug": "hipoteticas-hogar-mas-importante",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas para sentir un lugar como hogar?",
+      "options": [
+        "Personas que quiero",
+        "Mi cama y mis cosas",
+        "Mi rutina",
+        "Un olor familiar"
+      ]
+    },
+    {
+      "slug": "hipoteticas-dar-todo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras darle un regalo para siempre a alguien que amas, ¿cuál sería?",
+      "options": [
+        "Salud",
+        "Tiempo",
+        "Seguridad",
+        "Alegría"
+      ]
+    },
+    {
+      "slug": "hipoteticas-ultima-comida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Tu última comida tiene que ser con una persona. ¿Cómo la quieres?",
+      "options": [
+        "En silencio acompañado",
+        "Entre risas",
+        "Recordando cosas",
+        "Planeando el futuro"
+      ]
+    },
+    {
+      "slug": "hipoteticas-revivir-sentimiento",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué sentimiento te gustaría volver a sentir por primera vez?",
+      "options": [
+        "Enamorarme",
+        "Salir de casa por primera vez",
+        "Ganar algo importante",
+        "Ver el mar"
+      ]
+    },
+    {
+      "slug": "hipoteticas-renacer",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras empezar de nuevo en otra parte, ¿qué te importaría más?",
+      "options": [
+        "La gente",
+        "El clima",
+        "La oportunidad de trabajo",
+        "La tranquilidad"
+      ]
+    },
+    {
+      "slug": "hipoteticas-oportunidad-unica",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Se te aparece una oportunidad única pero lejos de casa. ¿Qué haces?",
+      "options": [
+        "La tomo sin pensarlo",
+        "La pienso mucho",
+        "La hablo con quien quiero",
+        "Dudo hasta que se vaya"
+      ]
+    },
+    {
+      "slug": "hipoteticas-valentia-un-dia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras tener valentía total por un día, ¿qué harías?",
+      "options": [
+        "Decir lo que callo",
+        "Cambiar de rumbo",
+        "Pedir perdón",
+        "Declararme otra vez"
+      ]
+    },
+    {
+      "slug": "hipoteticas-primer-paso",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para empezar un cambio grande, ¿qué necesitas?",
+      "options": [
+        "Apoyo de alguien",
+        "Un plan claro",
+        "Una señal",
+        "Un empujón"
+      ]
+    },
+    {
+      "slug": "hipoteticas-mundo-mejor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras cambiar una cosa del mundo que te preocupa, ¿cuál sería?",
+      "options": [
+        "La desigualdad",
+        "El tiempo que perdemos en pantallas",
+        "La falta de cariño",
+        "La contaminación"
+      ]
+    },
+    {
+      "slug": "hipoteticas-vida-larga",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si vivieras muchísimos años, ¿qué te importaría conservar?",
+      "options": [
+        "Mis amistades",
+        "Mi curiosidad",
+        "Mi salud",
+        "Mis recuerdos"
+      ]
     }
   ]
 }

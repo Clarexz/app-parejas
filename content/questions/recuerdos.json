@@ -36,7 +36,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál era tu juego favorito de niñez?",
-      "options": ["Las escondidas", "Videojuegos", "Muñecos o carritos", "Inventar historias"]
+      "options": [
+        "Las escondidas",
+        "Videojuegos",
+        "Muñecos o carritos",
+        "Inventar historias"
+      ]
     },
     {
       "slug": "recuerdos-vacaciones-de-nino",
@@ -133,14 +138,24 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué recuerdo nuestro se parece más a una película?",
-      "options": ["Una comedia", "Un romance", "Una aventura", "Un documental de cosas random"]
+      "options": [
+        "Una comedia",
+        "Un romance",
+        "Una aventura",
+        "Un documental de cosas random"
+      ]
     },
     {
       "slug": "recuerdos-sabados-de-ninez",
       "type": "choice",
       "intensity": "ligera",
       "text": "En tu niñez, ¿qué hacías los sábados por la mañana?",
-      "options": ["Ver caricaturas", "Jugar en la calle", "Ayudar en casa", "Seguir dormido"]
+      "options": [
+        "Ver caricaturas",
+        "Jugar en la calle",
+        "Ayudar en casa",
+        "Seguir dormido"
+      ]
     },
     {
       "slug": "recuerdos-platillo-irrepetible",
@@ -171,6 +186,384 @@
       "type": "open",
       "intensity": "ligera",
       "text": "¿Cuál fue nuestro momento más torpe o vergonzoso que hoy te da risa?"
+    },
+    {
+      "slug": "recuerdos-primer-cel",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu primer celular y qué era lo que más usabas en él?"
+    },
+    {
+      "slug": "recuerdos-caricatura-de-las-mananas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué caricatura veías antes de ir a la escuela?"
+    },
+    {
+      "slug": "recuerdos-comida-de-la-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comías en el recreo de la primaria?"
+    },
+    {
+      "slug": "recuerdos-primer-concierto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer concierto o evento masivo al que fuiste?"
+    },
+    {
+      "slug": "recuerdos-apodo-de-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tuviste algún apodo en la escuela y cómo te lo ganaste?"
+    },
+    {
+      "slug": "recuerdos-regalo-de-navidad-inolvidable",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué regalo de Navidad o Día de Reyes te hizo brincar de emoción?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-que-me-vi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Dónde estabas parada o parado la primera vez que nos vimos?"
+    },
+    {
+      "slug": "recuerdos-primera-cita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "De nuestra primera cita, ¿qué detalle se te quedó grabado?"
+    },
+    {
+      "slug": "recuerdos-lo-que-no-te-dije",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pensaste de mí en ese momento y nunca me dijiste?"
+    },
+    {
+      "slug": "recuerdos-primer-regalo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que te regalé y qué hiciste con él?"
+    },
+    {
+      "slug": "recuerdos-primera-pelea-tonta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue nuestra primera discusión tonta y cómo la arreglamos?"
+    },
+    {
+      "slug": "recuerdos-foto-vieja-de-ti",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras enseñarme una foto tuya de niño o niña, ¿cuál sería y qué estaba pasando?"
+    },
+    {
+      "slug": "recuerdos-primera-mascota",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se llamaba tu primera mascota, o la que hubieras querido tener?"
+    },
+    {
+      "slug": "recuerdos-el-juguete-que-amabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juguete amabas tanto que lo cuidabas como un tesoro?"
+    },
+    {
+      "slug": "recuerdos-primer-trabajo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu primer trabajo o chamba y qué aprendiste?"
+    },
+    {
+      "slug": "recuerdos-merienda-con-abuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué merendabas en casa de tus abuelos o de quien te cuidaba?"
+    },
+    {
+      "slug": "recuerdos-materia-que-odiabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué materia se te hacía imposible en la escuela y por qué?"
+    },
+    {
+      "slug": "recuerdos-maestro-que-recuerdas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué maestro o maestra recuerdas con cariño?"
+    },
+    {
+      "slug": "recuerdos-primer-viaje-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo mejor de nuestro primer viaje o salida larga juntos?"
+    },
+    {
+      "slug": "recuerdos-chiste-interno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es nuestro chiste interno más viejo y de dónde salió?"
+    },
+    {
+      "slug": "recuerdos-cancion-de-verano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te recuerda a un verano en particular?"
+    },
+    {
+      "slug": "recuerdos-olor-de-la-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te lleva directo a tu salón de clases?"
+    },
+    {
+      "slug": "recuerdos-primer-ruido-que-reconoci",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ruido de tu infancia puedes reconocer en un segundo?"
+    },
+    {
+      "slug": "recuerdos-disfraz-de-halloween",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿De qué te disfrazaste que todavía lo recuerdas con risa?"
+    },
+    {
+      "slug": "recuerdos-cuento-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cuento o libro te leían de niño o niña?"
+    },
+    {
+      "slug": "recuerdos-la-primera-vez-que-cocinaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que aprendiste a cocinar solo o sola?"
+    },
+    {
+      "slug": "recuerdos-el-primer-mensaje-que-guarde",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mensaje mío conservas desde el principio?"
+    },
+    {
+      "slug": "recuerdos-el-dia-que-nos-conocimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ropa traías el día que nos conocimos? A ver si coincidimos."
+    },
+    {
+      "slug": "recuerdos-lo-primero-que-me-hiciste-reir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que hice que te hizo reír de verdad?"
+    },
+    {
+      "slug": "recuerdos-primer-lugar-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer lugar que sentimos como \"nuestro\"?"
+    },
+    {
+      "slug": "recuerdos-travesura-con-primos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué travesura hacías con tus primos o hermanos?"
+    },
+    {
+      "slug": "recuerdos-primera-fiesta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo fue tu primera fiesta de adolescente?"
+    },
+    {
+      "slug": "recuerdos-ropa-que-ya-no-usarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué moda de tu adolescencia te da risa ahora?"
+    },
+    {
+      "slug": "recuerdos-mejor-cumple",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido tu mejor cumpleaños hasta hoy y qué lo hizo especial?"
+    },
+    {
+      "slug": "recuerdos-desayuno-con-abuelos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué desayuno de fin de semana de tu infancia extrañas?"
+    },
+    {
+      "slug": "recuerdos-miedo-de-nino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué le tenías miedo de niño o niña y todavía te da cosquillas?"
+    },
+    {
+      "slug": "recuerdos-la-primera-cancion-que-me-mandaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la primera canción que me mandaste y por qué esa?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-te-extrano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo fue la primera vez que escribimos \"te extraño\" y cómo se sintió?"
+    },
+    {
+      "slug": "recuerdos-nuestra-primera-foto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "De nuestra primera foto juntos, ¿qué recuerdas del momento?"
+    },
+    {
+      "slug": "recuerdos-cosa-que-coleccionabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué coleccionabas cuando eras chico o chica?"
+    },
+    {
+      "slug": "recuerdos-la-casa-de-tu-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Descríbeme la casa donde creciste, empezando por la puerta."
+    },
+    {
+      "slug": "recuerdos-el-sabor-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dulce o golosina de la tiendita de tu escuela extrañas?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-baile",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Hemos bailado alguna vez juntos y qué recuerdas?"
+    },
+    {
+      "slug": "recuerdos-paseo-de-domingo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué paseo familiar de domingo recuerdas con más cariño?"
+    },
+    {
+      "slug": "recuerdos-el-momento-de-risa-tonta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué momento de risa tonta con tus amigos de la infancia recuerdas?"
+    },
+    {
+      "slug": "recuerdos-primer-ex-sin-morbo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué aprendiste de tu primer enamoramiento, sin entrar en detalles?"
+    },
+    {
+      "slug": "recuerdos-primer-tatuaje-o-corte",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer cambio de look que te hiciste y qué tal te salió?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-aniversario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo recuerdas nuestro primer mes, o primer aniversario, y qué hicimos?"
+    },
+    {
+      "slug": "recuerdos-lo-que-nunca-olvidas-de-hoy-hace-un-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hacíamos hace un año por estas fechas?"
+    },
+    {
+      "slug": "recuerdos-primer-cafe-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Dónde fue la primera vez que tomamos algo juntos?"
+    },
+    {
+      "slug": "recuerdos-momento-de-pelicula",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué momento nuestro sentiste como escena de película?"
+    },
+    {
+      "slug": "recuerdos-el-apodo-que-te-puse",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer apodo cariñoso que nos pusimos y cómo salió?"
+    },
+    {
+      "slug": "recuerdos-travesura-de-adolescente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu travesura de adolescente más inocente?"
+    },
+    {
+      "slug": "recuerdos-la-platica-que-no-olvido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue nuestra primera plática larga y de qué hablamos?"
+    },
+    {
+      "slug": "recuerdos-tu-primer-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu recuerdo más antiguo?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-en-el-mar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo fue la primera vez que viste el mar o un lugar que te dejó sin palabras?"
+    },
+    {
+      "slug": "recuerdos-vecino-de-tu-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién fue tu vecino, vecina o amistad de la cuadra más memorable?"
+    },
+    {
+      "slug": "recuerdos-los-juegos-de-patio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué jugabas en el patio de la escuela o en la calle?"
+    },
+    {
+      "slug": "recuerdos-la-vez-que-me-sorprendiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo me sorprendiste por primera vez con un detalle?"
+    },
+    {
+      "slug": "recuerdos-primera-playlist",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canciones tenía tu primera playlist?"
+    },
+    {
+      "slug": "recuerdos-comida-que-no-comias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida odiabas de niño o niña y ahora te encanta?"
+    },
+    {
+      "slug": "recuerdos-fiesta-infantil",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu fiesta de cumpleaños de niñez, con piñata y todo?"
+    },
+    {
+      "slug": "recuerdos-que-te-gusto-primero-de-mi-voz",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te llamó la atención de mi forma de ser desde el inicio?"
     }
   ]
 }

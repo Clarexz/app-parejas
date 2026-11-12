@@ -1088,7 +1088,7 @@
       "text": "¿Qué juego mecánico jamás subirías y cuál subirías diez veces?"
     },
     {
-      "slug": "divertidas-hora-extraña",
+      "slug": "divertidas-hora-extrana",
       "type": "open",
       "intensity": "ligera",
       "text": "¿Qué es lo más raro que has hecho a las tres de la mañana?"
@@ -1358,7 +1358,7 @@
       ]
     },
     {
-      "slug": "divertidas-suerte-lotería",
+      "slug": "divertidas-suerte-loteria",
       "type": "choice",
       "intensity": "ligera",
       "text": "Compras un boleto de lotería. ¿Qué haces mientras esperas el resultado?",

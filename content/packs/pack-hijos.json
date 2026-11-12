@@ -1,1 +1,209 @@
-{ "pack": "pack-hijos", "questions": [] }
+{
+  "pack": "pack-hijos",
+  "questions": [
+    {
+      "slug": "pack-hijos-quiero-hijos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Pensando en el futuro, ¿qué piensas de tener hijos?",
+      "options": [
+        "Sí quiero",
+        "No quiero",
+        "Estoy en duda",
+        "Depende de cómo vaya todo"
+      ]
+    },
+    {
+      "slug": "pack-hijos-domingo-con-ninos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te imaginas un domingo con niños en casa?"
+    },
+    {
+      "slug": "pack-hijos-edad-ideal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si llegara el momento, ¿cuándo te gustaría empezar?",
+      "options": [
+        "Antes de los 30",
+        "Entre los 30 y 35",
+        "Después de los 35",
+        "No tengo fecha"
+      ]
+    },
+    {
+      "slug": "pack-hijos-cuantos-hijos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuántos hijos imaginas?",
+      "options": [
+        "Uno",
+        "Dos",
+        "Tres o más",
+        "Aún no lo sé"
+      ]
+    },
+    {
+      "slug": "pack-hijos-primero-que-viene",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Perro, gato o hijos: ¿qué te gustaría que fuera primero?",
+      "options": [
+        "Perro",
+        "Gato",
+        "Hijos",
+        "Un tiempo solo nosotros"
+      ]
+    },
+    {
+      "slug": "pack-hijos-primera-ensenanza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo primero que le enseñarías a un hijo?"
+    },
+    {
+      "slug": "pack-hijos-repetir-crianza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué costumbre de cómo te criaron te gustaría repetir con tus hijos?"
+    },
+    {
+      "slug": "pack-hijos-no-repetir-crianza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría hacer distinto a como lo hicieron contigo cuando te criaron?"
+    },
+    {
+      "slug": "pack-hijos-elegir-nombre",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para elegir el nombre, ¿cómo lo harías?",
+      "options": [
+        "Tradición familiar",
+        "Algo único",
+        "Que suene bien con los apellidos",
+        "Votación con la familia"
+      ]
+    },
+    {
+      "slug": "pack-hijos-nombre-que-gusta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué nombre te gusta, aunque no lo usaríamos?"
+    },
+    {
+      "slug": "pack-hijos-repartir-cuidado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que nos repartiéramos el cuidado de los hijos?"
+    },
+    {
+      "slug": "pack-hijos-disciplina",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para poner límites, ¿qué estilo te late más?",
+      "options": [
+        "Reglas claras",
+        "Hablar mucho",
+        "Premios y reconocimiento",
+        "Aprender con consecuencias"
+      ]
+    },
+    {
+      "slug": "pack-hijos-miedo-ser-madre-padre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te da más miedo de ser madre o padre?"
+    },
+    {
+      "slug": "pack-hijos-emociona-idea",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te emociona más de la idea de tener hijos?"
+    },
+    {
+      "slug": "pack-hijos-escuela",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Pensando en la escuela, ¿qué sería lo más importante?",
+      "options": [
+        "Que sea feliz",
+        "Buena formación académica",
+        "Que aprenda idiomas",
+        "Que tenga amigos"
+      ]
+    },
+    {
+      "slug": "pack-hijos-tiempo-de-pareja",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo cuidaríamos nuestro tiempo de pareja con hijos en casa?"
+    },
+    {
+      "slug": "pack-hijos-papel-abuelos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué papel quieres que tengan los abuelos?"
+    },
+    {
+      "slug": "pack-hijos-adopcion",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Sobre la forma de formar familia, tú estás…",
+      "options": [
+        "Pensando en hijos biológicos",
+        "Abierto a la adopción",
+        "Abierto a ambas",
+        "Abierto a lo que se dé"
+      ]
+    },
+    {
+      "slug": "pack-hijos-tradicion-infancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tradición de tu infancia quieres que vivan tus hijos?"
+    },
+    {
+      "slug": "pack-hijos-donde-crecer",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Dónde te gustaría que creciera nuestra familia?",
+      "options": [
+        "En la ciudad",
+        "En un pueblo",
+        "Cerca de la playa",
+        "Donde estén los abuelos"
+      ]
+    },
+    {
+      "slug": "pack-hijos-sentirnos-listos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tendría que pasar para que sintamos que estamos listos?"
+    },
+    {
+      "slug": "pack-hijos-valores-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué valores quieres que se noten en nuestra familia?"
+    },
+    {
+      "slug": "pack-hijos-definir-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo definirías \"familia\" para nosotros, tengamos hijos o no?"
+    },
+    {
+      "slug": "pack-hijos-sin-hijos-sueno",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si decidiéramos no tener hijos, ¿qué sueño nos tocaría perseguir con más tiempo?"
+    },
+    {
+      "slug": "pack-hijos-frase-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Termina la frase: \"La familia que quiero formar contigo se parece a…\""
+    }
+  ]
+}

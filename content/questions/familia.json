@@ -114,7 +114,12 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si algún día cuidáramos a alguien pequeño, ¿qué valor pondrías primero?",
-      "options": ["Respeto", "Curiosidad", "Alegría", "Responsabilidad"]
+      "options": [
+        "Respeto",
+        "Curiosidad",
+        "Alegría",
+        "Responsabilidad"
+      ]
     },
     {
       "slug": "familia-fiesta-grande-o-chica",
@@ -139,6 +144,294 @@
       "type": "open",
       "intensity": "profunda",
       "text": "¿Qué pareja de tu familia o de tu entorno te ha enseñado cómo sí querer?"
+    },
+    {
+      "slug": "familia-comida-de-tu-casa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida de tu casa te hace sentir niño o niña al primer bocado?"
+    },
+    {
+      "slug": "familia-apodo-de-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué apodo te pusieron en tu familia y quién lo inventó?"
+    },
+    {
+      "slug": "familia-abuela-frases",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de tu abuela o abuelo te sabes de memoria?"
+    },
+    {
+      "slug": "familia-foto-de-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la foto familiar más graciosa que existe de ti?"
+    },
+    {
+      "slug": "familia-tio-o-tia-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién es ese tío o tía que todos adoran y por qué?"
+    },
+    {
+      "slug": "familia-cumple-de-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu fiesta de cumpleaños de niñez: piñata, pastel, payasos, o algo distinto?"
+    },
+    {
+      "slug": "familia-cena-de-nochebuena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué no puede faltar en tu cena de Nochebuena?"
+    },
+    {
+      "slug": "familia-posada-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdo tienes de las posadas de tu infancia?"
+    },
+    {
+      "slug": "familia-dia-de-muertos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo celebran el Día de Muertos en tu familia, o cómo te gustaría hacerlo?"
+    },
+    {
+      "slug": "familia-regano-de-mama",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el regaño más legendario que te hicieron de chico o chica?"
+    },
+    {
+      "slug": "familia-juego-de-la-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juego de mesa o de cartas no puede faltar en una reunión de tu familia?"
+    },
+    {
+      "slug": "familia-musica-de-casa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción ponían en tu casa cuando limpiaban o cocinaban?"
+    },
+    {
+      "slug": "familia-mejor-vacacion-familiar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu mejor vacación en familia?"
+    },
+    {
+      "slug": "familia-vacacion-desastre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué paseo familiar salió completamente mal y hoy da risa?"
+    },
+    {
+      "slug": "familia-lo-que-hace-tu-mama",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es esa costumbre de tu casa que a ti te parecía normal y luego descubriste que no lo era?"
+    },
+    {
+      "slug": "familia-olor-de-la-cocina",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué huele la cocina de tu casa un domingo?"
+    },
+    {
+      "slug": "familia-grupo-de-whatsapp",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es el grupo de WhatsApp de tu familia: cuál es el mensaje que nunca falta?"
+    },
+    {
+      "slug": "familia-mejor-parte-reunion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo mejor de juntarte con tu familia y qué es lo más cansado?"
+    },
+    {
+      "slug": "familia-comida-prohibida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo familiar te quedaba mal cuando intentabas hacerlo tú?"
+    },
+    {
+      "slug": "familia-mascota-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tuviste mascota de niñez? Cuéntame cómo era."
+    },
+    {
+      "slug": "familia-herencia-pequena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué objeto de tu familia te gustaría heredar algún día?"
+    },
+    {
+      "slug": "familia-vecinos-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu calle o tu barrio cuando eras niño o niña?"
+    },
+    {
+      "slug": "familia-tradicion-chiquita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición chiquita de tu familia te da ternura?"
+    },
+    {
+      "slug": "familia-familiar-chistoso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién es la persona más chistosa de tu familia y con qué te hace reír?"
+    },
+    {
+      "slug": "familia-dia-de-la-madre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se celebran en tu casa los días de la madre y del padre?"
+    },
+    {
+      "slug": "familia-receta-secreta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Hay alguna receta que se guarda como secreto de familia?"
+    },
+    {
+      "slug": "familia-platillo-que-no-sabes-hacer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo de tu familia quisieras que nos enseñaran a los dos?"
+    },
+    {
+      "slug": "familia-compartir-con-mi-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría que mi familia supiera de ti antes de conocerte en persona?"
+    },
+    {
+      "slug": "familia-domingo-en-familia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un domingo en tu familia es principalmente...",
+      "options": [
+        "Comer rico",
+        "Ver futbol",
+        "Platicar en la sobremesa",
+        "Descansar cada quien"
+      ]
+    },
+    {
+      "slug": "familia-celebracion-favorita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué celebración familiar disfrutas más?",
+      "options": [
+        "Navidad",
+        "Cumpleaños",
+        "Año Nuevo",
+        "Día de Muertos"
+      ]
+    },
+    {
+      "slug": "familia-lugar-de-la-mesa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la mesa familiar, ¿dónde te sientas?",
+      "options": [
+        "Cerca de la cocina",
+        "En la cabecera",
+        "Con los primos",
+        "Lo más lejos posible del tío"
+      ]
+    },
+    {
+      "slug": "familia-rol-en-la-familia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu familia, tú eres...",
+      "options": [
+        "El que organiza",
+        "El que hace reír",
+        "El que ayuda a cocinar",
+        "El que escucha a todos"
+      ]
+    },
+    {
+      "slug": "familia-llamadas-a-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cada cuánto hablas con tu familia?",
+      "options": [
+        "Todos los días",
+        "Varias veces a la semana",
+        "Una vez por semana",
+        "Cuando hace falta"
+      ]
+    },
+    {
+      "slug": "familia-comida-de-tu-abuela",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La comida de tu abuela que más extrañas es...",
+      "options": [
+        "Los guisados",
+        "Los dulces",
+        "Las tortillas recién hechas",
+        "El caldo"
+      ]
+    },
+    {
+      "slug": "familia-fiesta-grande",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una fiesta familiar tiene que tener...",
+      "options": [
+        "Música alta",
+        "Pastel",
+        "Mucha comida",
+        "Baile"
+      ]
+    },
+    {
+      "slug": "familia-tradicion-navidena",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Nochebuena es sinónimo de...",
+      "options": [
+        "Tamales",
+        "Pavo o bacalao",
+        "Ponche",
+        "Regalos a medianoche"
+      ]
+    },
+    {
+      "slug": "familia-hermano-o-unico",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras elegir, tu familia sería...",
+      "options": [
+        "Muy grande",
+        "Mediana",
+        "Chiquita",
+        "Como la tengo"
+      ]
+    },
+    {
+      "slug": "familia-carino-familiar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu casa el cariño se demostraba con...",
+      "options": [
+        "Comida",
+        "Abrazos",
+        "Regalos",
+        "Consejos"
+      ]
     }
   ]
 }

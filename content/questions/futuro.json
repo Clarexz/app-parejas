@@ -581,7 +581,7 @@
       "slug": "futuro-que-podemos-ceder",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué cedes sin problema por estar juntos y qué no estás dispuesto a soltar?"
+      "text": "¿Qué cedes sin problema por estar juntos y qué no sueltas por nada?"
     },
     {
       "slug": "futuro-lo-que-no-negocias",
@@ -1236,6 +1236,18 @@
         "Que me acompañes",
         "Que me recuerdes por qué empecé"
       ]
+    },
+    {
+      "slug": "futuro-lo-que-no-te-han-preguntado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué quisieras que alguien te preguntara sobre tus planes y nunca lo hace?"
+    },
+    {
+      "slug": "futuro-el-futuro-que-te-sorprenderia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te sorprendería de verdad que pasara en tu vida en los próximos cinco años?"
     }
   ]
 }

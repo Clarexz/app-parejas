@@ -1,1 +1,215 @@
-{ "pack": "pack-dinero", "questions": [] }
+{
+  "pack": "pack-dinero",
+  "questions": [
+    {
+      "slug": "pack-dinero-primer-dinero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo ganaste dinero propio por primera vez y en qué lo gastaste?"
+    },
+    {
+      "slug": "pack-dinero-llega-la-quincena",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando llega la quincena, ¿qué haces primero?",
+      "options": [
+        "Pagar lo que debo",
+        "Darme un gusto",
+        "Apartar el ahorro",
+        "Revisar la cuenta y respirar"
+      ]
+    },
+    {
+      "slug": "pack-dinero-ahorrar-o-disfrutar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Con el dinero, ¿eres más de…?",
+      "options": [
+        "Ahorrar",
+        "Disfrutar",
+        "Mitad y mitad",
+        "Depende del mes"
+      ]
+    },
+    {
+      "slug": "pack-dinero-mejor-compra",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál ha sido tu mejor compra, esa que volverías a hacer sin pensarlo?"
+    },
+    {
+      "slug": "pack-dinero-compra-impulsiva",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué compra impulsiva te cuesta más trabajo resistir?"
+    },
+    {
+      "slug": "pack-dinero-dinero-del-cielo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Te caen del cielo veinte mil pesos. ¿Qué haces con ellos?",
+      "options": [
+        "Los ahorro",
+        "Me voy de viaje",
+        "Pago deudas",
+        "Me doy un antojo caro"
+      ]
+    },
+    {
+      "slug": "pack-dinero-ensenanza-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseñaron en tu casa sobre el dinero, aunque nadie lo dijera en voz alta?"
+    },
+    {
+      "slug": "pack-dinero-numero-tranquilidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuánto dinero ahorrado te haría sentir tranquilidad?"
+    },
+    {
+      "slug": "pack-dinero-hablar-de-dinero",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Hablar de dinero en pareja se siente…",
+      "options": [
+        "Sin problema",
+        "Un poco incómodo",
+        "Con pena",
+        "Mejor lo evito"
+      ]
+    },
+    {
+      "slug": "pack-dinero-gasto-inversion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gasto consideras una inversión y no un gasto?"
+    },
+    {
+      "slug": "pack-dinero-tarjetas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Tu relación con las tarjetas de crédito es…",
+      "options": [
+        "Las uso con cuidado",
+        "Las uso mucho",
+        "Las evito",
+        "Mi talón de Aquiles"
+      ]
+    },
+    {
+      "slug": "pack-dinero-vale-pagar-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué cosas vale la pena gastar más para tener calidad?"
+    },
+    {
+      "slug": "pack-dinero-cuenta-compartida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Sobre cuentas bancarias de pareja, tú prefieres…",
+      "options": [
+        "Todo junto",
+        "Una compartida y otras personales",
+        "Todo separado",
+        "Depende de la etapa"
+      ]
+    },
+    {
+      "slug": "pack-dinero-decidir-gasto-grande",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que decidamos en qué gastar un dinero grande?"
+    },
+    {
+      "slug": "pack-dinero-sueno-con-precio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño tuyo tiene un precio que ya has investigado?"
+    },
+    {
+      "slug": "pack-dinero-gastos-de-viaje",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando viajas, ¿cómo gastas?",
+      "options": [
+        "Presupuesto estricto",
+        "Me doy mis gustos",
+        "Solo lo básico",
+        "Ya veré al regresar"
+      ]
+    },
+    {
+      "slug": "pack-dinero-saber-del-otro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que supiéramos el uno del otro sobre el dinero para evitar malentendidos?"
+    },
+    {
+      "slug": "pack-dinero-trabajo-ideal",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo sería tu trabajo ideal pensando en dinero y en tiempo?"
+    },
+    {
+      "slug": "pack-dinero-regalos-limite",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Con los regalos, ¿cuánto se vale gastar?",
+      "options": [
+        "Lo que sea por amor",
+        "Un límite que acordemos",
+        "Hechos a mano",
+        "Detalles pequeños pero frecuentes"
+      ]
+    },
+    {
+      "slug": "pack-dinero-dinero-cinco-anos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo imaginas nuestro dinero dentro de cinco años?"
+    },
+    {
+      "slug": "pack-dinero-colchon-emergencias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tan importante es para ti tener un colchón para emergencias?"
+    },
+    {
+      "slug": "pack-dinero-apoyar-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Apoyar con dinero a la familia es algo que…",
+      "options": [
+        "Hago siempre que puedo",
+        "Hago con límites claros",
+        "Solo en emergencias",
+        "Prefiero apoyar de otras formas"
+      ]
+    },
+    {
+      "slug": "pack-dinero-gasto-hormiga",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gasto pequeño de todos los días sabes que podrías dejar pero no lo dejas?"
+    },
+    {
+      "slug": "pack-dinero-metodo-ahorro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para ahorrar juntos, ¿qué método te late más?",
+      "options": [
+        "Apartar apenas llega el pago",
+        "Sobres por categoría",
+        "Metas por viaje",
+        "Una app de presupuesto"
+      ]
+    },
+    {
+      "slug": "pack-dinero-frase-dinero-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Termina la frase: \"Con el dinero, lo que más quiero para nosotros es…\""
+    }
+  ]
+}

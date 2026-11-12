@@ -1,1 +1,209 @@
-{ "pack": "pack-antes-de-vernos", "questions": [] }
+{
+  "pack": "pack-antes-de-vernos",
+  "questions": [
+    {
+      "slug": "pack-antes-de-vernos-cuenta-regresiva",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Ya casi nos vemos: ¿cómo va tu cuenta regresiva?",
+      "options": [
+        "Con la emoción hasta el cuello",
+        "Tachando días en el calendario",
+        "Todavía no lo proceso",
+        "Con mil pendientes antes"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-primera-cosa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Apenas nos veamos, ¿qué es lo primero que quieres hacer?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-primer-saludo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando por fin estemos frente a frente, el saludo será…",
+      "options": [
+        "Un abrazo que dure minutos",
+        "Beso y luego abrazo",
+        "Corriendo a abrazarnos",
+        "Llorando de felicidad"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-comida-llegada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida quieres que pidamos o cocinemos apenas lleguemos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-primera-cosa-maleta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que metes a la maleta antes de verme?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-camino-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Durante el camino para vernos, ¿qué haces?",
+      "options": [
+        "Playlist y mirar por la ventana",
+        "Dormir todo el trayecto",
+        "Mensajes sin parar",
+        "Snacks sin culpa"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-estomago-nervios",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sientes en el estómago en los días antes de vernos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-primer-dia-plan",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Arma nuestro primer día juntos, hora por hora."
+    },
+    {
+      "slug": "pack-antes-de-vernos-estilo-de-plan",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para este reencuentro, ¿cómo prefieres los planes?",
+      "options": [
+        "Todo planeado",
+        "Algunos planes y espacio libre",
+        "Cero planes",
+        "Quedarnos en casa"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-detalle-ciudad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras traerme una cosa pequeña de tu ciudad, ¿cuál sería?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-detalle-extrano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle mío extrañas más y estás por tener enfrente otra vez?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-outfit-reencuentro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te vas a arreglar para vernos?",
+      "options": [
+        "Mi mejor outfit",
+        "Cómodo, como siempre",
+        "Lo que me toque",
+        "Mi sudadera favorita"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-foto-reencuentro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué foto quieres que nos tomemos apenas nos veamos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-noche-antes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La noche antes de verme, ¿qué tal duermes?",
+      "options": [
+        "Como bebé",
+        "Casi nada",
+        "Me desvelo pensando en ti",
+        "Me desvelo viendo series"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-mejor-ultima-visita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo mejor de la última vez que nos vimos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-lugar-ensenar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Hay algún lugar de tu ciudad que quieras enseñarme esta vez?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-historia-guardada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué chisme o historia te estás guardando para contármela en persona?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-primeras-palabras",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué crees que será lo primero que hagamos al vernos?",
+      "options": [
+        "Decir un \"te extrañé\" bajito",
+        "Gritar de emoción",
+        "Nada, puro abrazo",
+        "Burlarnos con cariño"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-hacer-pasar-tiempo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué haces para que se te pase rápido el tiempo mientras llega el día?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-cancion-reencuentro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción pondrías de fondo cuando nos veamos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-noche-de-peli",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Noche en casa durante la visita, ¿qué toca?",
+      "options": [
+        "Maratón de serie",
+        "Película y palomitas",
+        "Documentales raros",
+        "Lo que salga"
+      ]
+    },
+    {
+      "slug": "pack-antes-de-vernos-tres-pendientes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dime tres cosas pendientes que quieras hacer juntos en esta visita."
+    },
+    {
+      "slug": "pack-antes-de-vernos-ritual-despedida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ritual pequeño podemos hacer para que la despedida duela menos?"
+    },
+    {
+      "slug": "pack-antes-de-vernos-frase-visita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Termina la frase: \"Lo que más espero de esta visita es…\""
+    },
+    {
+      "slug": "pack-antes-de-vernos-genero-visita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si esta visita fuera una película, ¿de qué género sería?",
+      "options": [
+        "Comedia romántica",
+        "Aventura",
+        "Drama de lágrimas",
+        "Musical"
+      ]
+    }
+  ]
+}

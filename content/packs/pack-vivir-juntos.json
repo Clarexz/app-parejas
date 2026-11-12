@@ -1,1 +1,251 @@
-{ "pack": "pack-vivir-juntos", "questions": [] }
+{
+  "pack": "pack-vivir-juntos",
+  "questions": [
+    {
+      "slug": "pack-vivir-juntos-despertar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Por las mañanas, tú eres de…",
+      "options": [
+        "Levantarte de una vez",
+        "Dormir un poco más",
+        "Despertador cada diez minutos",
+        "Nunca poner alarma"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-nivel-orden",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Tu relación con el orden en casa es…",
+      "options": [
+        "Todo en su lugar",
+        "Desorden organizado",
+        "Caos creativo",
+        "Ya lo recojo mañana"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-quehacer-odiado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué quehacer de la casa odias más y cuál no te importa hacer?"
+    },
+    {
+      "slug": "pack-vivir-juntos-reparto-tareas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para repartir las tareas de la casa, ¿qué crees que funcionaría mejor?",
+      "options": [
+        "Lista por días",
+        "Cada quien lo que le gusta",
+        "Turnarnos",
+        "Rolar cada semana"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-espacio-propio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas para sentir que tu casa también es tu espacio?"
+    },
+    {
+      "slug": "pack-vivir-juntos-tiempo-a-solas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuánto tiempo a solas necesitas viviendo con alguien?",
+      "options": [
+        "Poquito, me gusta la compañía",
+        "Un rato cada día",
+        "Mis fines de semana",
+        "Bastante, soy de espacio propio"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-manias-tuyas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué manía tuya crees que me podría sacar de onda al vivir juntos?"
+    },
+    {
+      "slug": "pack-vivir-juntos-habito-mio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hábito mío imaginas que te va a costar trabajo aceptar?"
+    },
+    {
+      "slug": "pack-vivir-juntos-temperatura",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En casa, el clima ideal es…",
+      "options": [
+        "Frío polar",
+        "Ventilador y ya",
+        "Calorcito soportable",
+        "Me adapto a todo"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-quien-cocina",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En las comidas diarias, ¿cómo nos repartimos?",
+      "options": [
+        "Por turnos",
+        "Cocina quien tenga más hambre",
+        "Pedimos a domicilio",
+        "Cocinamos juntos"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-resolver-desacuerdos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que resolviéramos un desacuerdo en casa?"
+    },
+    {
+      "slug": "pack-vivir-juntos-reglas-basicas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué reglas básicas de convivencia te parecen importantes desde el principio?"
+    },
+    {
+      "slug": "pack-vivir-juntos-visitas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Las visitas en casa deberían ser…",
+      "options": [
+        "Casa abierta siempre",
+        "Con aviso previo",
+        "Solo en ocasiones especiales",
+        "Mejor salimos"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-cosa-que-viene",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa tuya sí o sí tiene que venir con nosotros?"
+    },
+    {
+      "slug": "pack-vivir-juntos-noche-entre-semana",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo imaginas una noche cualquiera entre semana viviendo juntos?"
+    },
+    {
+      "slug": "pack-vivir-juntos-rutina-propia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué rutina tuya no quieres perder cuando vivamos juntos?"
+    },
+    {
+      "slug": "pack-vivir-juntos-decoracion",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo quieres que se vea la casa?",
+      "options": [
+        "Minimalista",
+        "Plantas por todos lados",
+        "Llena de recuerdos y cuadros",
+        "Lo que sea cómodo"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-ansiedad-mudanza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te daría ansiedad de mudarnos juntos y cómo podemos prevenirlo?"
+    },
+    {
+      "slug": "pack-vivir-juntos-bano-compartido",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En el baño compartido, lo que más te preocupa es…",
+      "options": [
+        "El tiempo en la regadera",
+        "Los productos de todos",
+        "La limpieza",
+        "Los tiempos de la mañana"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-cuartos-separados",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te parece la idea de dormir en cuartos separados alguna noche si hace falta?"
+    },
+    {
+      "slug": "pack-vivir-juntos-mascotas-plantas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué mascotas o plantas imaginas en nuestra casa?"
+    },
+    {
+      "slug": "pack-vivir-juntos-tradicion-semanal",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que fuera nuestra tradición semanal en casa?"
+    },
+    {
+      "slug": "pack-vivir-juntos-pedir-espacio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo podemos pedirnos espacio sin que el otro lo tome a mal?"
+    },
+    {
+      "slug": "pack-vivir-juntos-super",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para las compras del súper, lo nuestro sería…",
+      "options": [
+        "App compartida",
+        "Lista pegada en el refri",
+        "Voy y compro lo que haga falta",
+        "Ir juntos cada semana"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-casa-infancia-traer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo de tu casa de la infancia quieres traer a la nuestra?"
+    },
+    {
+      "slug": "pack-vivir-juntos-senal-de-listos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sería una señal clara para ti de que ya estamos listos para dar el paso?"
+    },
+    {
+      "slug": "pack-vivir-juntos-mejor-de-vivir-juntos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que va a ser lo mejor de vivir juntos?"
+    },
+    {
+      "slug": "pack-vivir-juntos-trabajo-en-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo nos organizamos si uno trabaja desde casa y necesita silencio?"
+    },
+    {
+      "slug": "pack-vivir-juntos-domingo-en-casa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un domingo en casa, ¿qué ambiente prefieres?",
+      "options": [
+        "Serie y cobija",
+        "Limpieza general",
+        "Cocina larga",
+        "Cada quien en lo suyo"
+      ]
+    },
+    {
+      "slug": "pack-vivir-juntos-regla-nuestra",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Inventa una regla de la casa que sea solo nuestra."
+    }
+  ]
+}
