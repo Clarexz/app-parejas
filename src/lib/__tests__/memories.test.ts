@@ -15,6 +15,7 @@ import {
   onThisDay,
   onThisDayLabel,
   photoCountLabel,
+  timelineRows,
   validateMemoryDraft,
 } from '../memories';
 
@@ -128,6 +129,42 @@ describe('groupByMonth', () => {
   it('etiquetas de enero y diciembre', () => {
     const groups = groupByMonth([mem('a', '2026-01-05'), mem('b', '2025-12-25')]);
     expect(groups.map((g) => g.label)).toEqual(['enero 2026', 'diciembre 2025']);
+  });
+});
+
+describe('timelineRows', () => {
+  it('aplana por mes: título, destacada y filas de 2', () => {
+    const rows = timelineRows(
+      [
+        mem('a', '2026-10-05'),
+        mem('b', '2026-10-04'),
+        mem('c', '2026-10-03'),
+        mem('d', '2026-10-02'),
+        mem('e', '2025-03-01'),
+      ],
+      2026,
+    );
+    expect(rows.map((r) => r.kind)).toEqual([
+      'month',
+      'featured',
+      'grid',
+      'grid',
+      'month',
+      'featured',
+    ]);
+    expect(rows[0]).toMatchObject({ title: 'octubre', count: 4, first: true });
+    expect(rows[2]).toMatchObject({ kind: 'grid' });
+    expect((rows[2] as { memories: { id: string }[] }).memories.map((m) => m.id)).toEqual([
+      'b',
+      'c',
+    ]);
+    expect((rows[3] as { memories: unknown[] }).memories).toHaveLength(1);
+    expect(rows[4]).toMatchObject({ title: 'marzo 2025', first: false });
+    expect(new Set(rows.map((r) => r.key)).size).toBe(rows.length);
+  });
+
+  it('sin memorias no hay filas', () => {
+    expect(timelineRows([], 2026)).toEqual([]);
   });
 });
 

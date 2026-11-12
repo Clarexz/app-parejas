@@ -6,7 +6,7 @@ import {
 } from '@expo-google-fonts/albert-sans';
 import { BricolageGrotesque_800ExtraBold } from '@expo-google-fonts/bricolage-grotesque';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, router, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
@@ -15,8 +15,9 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { LoadingSymbol } from '@/components';
+import { ErrorFallback, LoadingSymbol } from '@/components';
 import { ToastProvider } from '@/components/Toast';
+import { AppLockGate } from '@/features/appLock';
 import { initSessionListener } from '@/features/auth';
 import { useCouple, useCoupleRealtime } from '@/features/couple';
 import { homeHrefFor, useOnboardingStage } from '@/features/onboarding';
@@ -26,9 +27,21 @@ import { QuestionsEvents } from '@/features/questions';
 import { StoriesEvents } from '@/features/stories';
 import { WidgetsBridge } from '@/features/widgets';
 import { useLocationSync } from '@/features/distance';
+import { useTimezoneSync } from '@/features/profile';
 import { QueryProvider } from '@/lib/query';
 import { ThemeProvider, useTheme } from '@/theme';
 import { FruitThemeBridge } from '@/theme/FruitThemeBridge';
+
+/** Pantalla de error de expo-router para cualquier ruta que lance al pintarse. */
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return (
+    <ErrorFallback
+      error={error}
+      onRetry={() => void retry()}
+      onGoHome={() => void retry().then(() => router.replace('/'))}
+    />
+  );
+}
 
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -49,6 +62,12 @@ function LoadingView() {
       <LoadingSymbol size={48} />
     </View>
   );
+}
+
+/** Sin UI: manda la zona horaria de este celular cuando cambia. */
+function TimezoneSyncBridge() {
+  useTimezoneSync();
+  return null;
 }
 
 /** Sin UI: manda mi ubicación al abrir la app si activé la distancia (Fase 8). */
@@ -134,6 +153,7 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
       {stage === 'ready' ? <QuestionsEvents /> : null}
       {stage === 'ready' ? <StoriesEvents /> : null}
       {stage === 'ready' ? <MemoriesEvents /> : null}
+      {stage === 'ready' ? <TimezoneSyncBridge /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <LocationSyncBridge /> : null}
       {stage === 'ready' && Platform.OS === 'android' ? <NotificationsBridge /> : null}
       {Platform.OS === 'android' ? <WidgetsBridge stage={stage} /> : null}
@@ -160,9 +180,11 @@ export default function RootLayout() {
           <ThemeProvider>
             <QueryProvider>
               <FruitThemeBridge>
-                <ToastProvider>
-                  <ThemedStack fontsReady={ready} />
-                </ToastProvider>
+                <AppLockGate>
+                  <ToastProvider>
+                    <ThemedStack fontsReady={ready} />
+                  </ToastProvider>
+                </AppLockGate>
               </FruitThemeBridge>
             </QueryProvider>
           </ThemeProvider>

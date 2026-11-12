@@ -24,7 +24,7 @@ import { useTheme } from '@/theme';
 export default function CoupleSettingsScreen() {
   const { spacing } = useTheme();
   const toast = useToast();
-  const { couple } = useCouple();
+  const { couple, partner } = useCouple();
   const update = useUpdateCouple();
   const upload = useUploadCouplePhoto();
   const photoUrl = useSignedUrl(couple?.photo_path);
@@ -50,12 +50,6 @@ export default function CoupleSettingsScreen() {
     );
   };
 
-  const useDeviceZone = () =>
-    update.mutate(
-      { timezone: detectTimeZone() },
-      { onSuccess: () => saved('Zona horaria actualizada.'), onError: failed },
-    );
-
   const changePhoto = async () => {
     const uri = await pickImage();
     if (!uri) return;
@@ -65,8 +59,7 @@ export default function CoupleSettingsScreen() {
     });
   };
 
-  const deviceZone = detectTimeZone();
-  const sameZone = couple?.timezone === deviceZone;
+  const partnerName = partner?.nickname || partner?.display_name || 'tu pareja';
 
   return (
     <Screen scroll>
@@ -95,19 +88,15 @@ export default function CoupleSettingsScreen() {
           <Text variant="ui" tone="muted">
             Zona horaria
           </Text>
-          <Text variant="body">{couple ? timeZoneLabel(couple.timezone) : ''}</Text>
+          <Text variant="body">Tu zona: {timeZoneLabel(detectTimeZone())}</Text>
+          <Text variant="body">
+            La de {partnerName}:{' '}
+            {partner?.timezone ? timeZoneLabel(partner.timezone) : 'todavía no se sabe'}
+          </Text>
           <Text variant="note" tone="muted">
-            Con ella se decide cuándo empieza cada día para ustedes dos.
+            El día cambia cuando es medianoche para los dos.
           </Text>
         </View>
-        <Button
-          title="Usar la de este celular"
-          variant="secondary"
-          onPress={useDeviceZone}
-          disabled={!couple || sameZone}
-          loading={update.isPending}
-          fullWidth
-        />
 
         <Divider />
         <SpicyOptIn />

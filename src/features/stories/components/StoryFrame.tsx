@@ -5,6 +5,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { CANVAS_H, CANVAS_W, strokePath, type Stroke } from '@/lib/drawing';
 import type { Fruit } from '@/lib/fruits';
+import { imageCacheKey, remoteImageSource } from '@/lib/imageCache';
 import type { StoryBg, StoryFont, StoryKind, StorySticker } from '@/lib/stories';
 import { useTheme, type Theme } from '@/theme';
 
@@ -225,7 +226,9 @@ export function StoryFrame({ story, width, mediaUrl, caption, fruit, children }:
     >
       {story.kind === 'photo' && mediaUrl ? (
         <Image
-          source={{ uri: mediaUrl }}
+          source={remoteImageSource(mediaUrl)}
+          cachePolicy="memory-disk"
+          recyclingKey={imageCacheKey(mediaUrl)}
           style={{ position: 'absolute', width, height }}
           contentFit="cover"
           accessibilityIgnoresInvertColors

@@ -4,6 +4,7 @@
 // con stories_cleanup_commit para que Postgres borre las filas.
 // También limpia el bucket `memories`: memories_cleanup_batch lista los archivos huérfanos
 // (más de 24 h sin fila en memory_photos) y aquí se borran; no hay nada que confirmar.
+// Igual con el bucket `answer-audio` (answer_audio_cleanup_batch: audios sin respuesta).
 // Protegida con el secreto compartido `x-notify-secret` (JWT desactivado en el servidor).
 import {
   BATCH_LIMIT,
@@ -102,34 +103,46 @@ Deno.serve(async (req: Request) => {
     storiesFailed = true;
   }
 
-  // Archivos huérfanos del bucket `memories`. Va aparte para que un fallo no frene a las stories.
-  let memoriesRemoved = 0;
-  let memoriesFailed = 0;
-  let memoriesError = false;
-  try {
-    for (let b = 0; b < MAX_BATCHES; b++) {
-      const paths = parsePaths(await rpc('memories_cleanup_batch', { p_limit: BATCH_LIMIT }));
-      if (!paths) throw new Error('memories_cleanup_batch devolvió una forma inesperada');
-      if (paths.length === 0) break;
-      let removedNow = 0;
-      for (const part of chunk(paths, REMOVE_CHUNK_SIZE)) {
-        if (await removeChunk('memories', part)) removedNow += part.length;
-        else memoriesFailed += part.length;
+  // Archivos huérfanos de un bucket (`memories`, `answer-audio`). Va aparte para que un fallo
+  // no frene a las stories ni al otro bucket. Devuelve { removed, failed, error }.
+  const cleanOrphans = async (bucket: string, rpcName: string) => {
+    let removedTotal = 0;
+    let failedTotal = 0;
+    let error = false;
+    try {
+      for (let b = 0; b < MAX_BATCHES; b++) {
+        const paths = parsePaths(await rpc(rpcName, { p_limit: BATCH_LIMIT }));
+        if (!paths) throw new Error(`${rpcName} devolvió una forma inesperada`);
+        if (paths.length === 0) break;
+        let removedNow = 0;
+        for (const part of chunk(paths, REMOVE_CHUNK_SIZE)) {
+          if (await removeChunk(bucket, part)) removedNow += part.length;
+          else failedTotal += part.length;
+        }
+        removedTotal += removedNow;
+        // Sin avance, el siguiente lote traería lo mismo: se reintenta en la próxima hora.
+        if (removedNow === 0) break;
       }
-      memoriesRemoved += removedNow;
-      // Sin avance, el siguiente lote traería lo mismo: se reintenta en la próxima hora.
-      if (removedNow === 0) break;
+    } catch (e) {
+      console.error(`${bucket}-cleanup falló:`, errText(e));
+      error = true;
     }
-  } catch (e) {
-    console.error('memories-cleanup falló:', errText(e));
-    memoriesError = true;
-  }
+    return { removed: removedTotal, failed: failedTotal, error };
+  };
+
+  const memories = await cleanOrphans('memories', 'memories_cleanup_batch');
+  const audio = await cleanOrphans('answer-audio', 'answer_audio_cleanup_batch');
+  const memoriesRemoved = memories.removed;
+  const memoriesFailed = memories.failed;
+  const answerAudioRemoved = audio.removed;
+  const answerAudioFailed = audio.failed;
 
   console.log(
     `stories-cleanup: removed=${removed} committed=${committed} failed=${failed}` +
-      ` memories_removed=${memoriesRemoved} memories_failed=${memoriesFailed}`,
+      ` memories_removed=${memoriesRemoved} memories_failed=${memoriesFailed}` +
+      ` answer_audio_removed=${answerAudioRemoved} answer_audio_failed=${answerAudioFailed}`,
   );
-  if (storiesFailed || memoriesError) {
+  if (storiesFailed || memories.error || audio.error) {
     return json(500, {
       error: 'cleanup_failed',
       removed,
@@ -137,7 +150,18 @@ Deno.serve(async (req: Request) => {
       failed,
       memoriesRemoved,
       memoriesFailed,
+      answerAudioRemoved,
+      answerAudioFailed,
     });
   }
-  return json(200, { removed, committed, failed, batches, memoriesRemoved, memoriesFailed });
+  return json(200, {
+    removed,
+    committed,
+    failed,
+    batches,
+    memoriesRemoved,
+    memoriesFailed,
+    answerAudioRemoved,
+    answerAudioFailed,
+  });
 });

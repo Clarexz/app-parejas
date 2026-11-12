@@ -6,6 +6,8 @@ import { PREVIEW_SIZE, WidgetPreview } from '@/components/widget-preview';
 import { pinWidget } from '@/components/widget-preview/requestPin';
 import { APP_NAME } from '@/constants/app';
 import { useCouple } from '@/features/couple';
+import { coupleDayZone } from '@/lib/coupleDay';
+import { detectTimeZone } from '@/lib/timezone';
 import { previewModel } from '@/lib/widgetPreview';
 import { WIDGET_NAMES, type WidgetName } from '@/lib/widgets';
 import { useTheme } from '@/theme';
@@ -105,7 +107,9 @@ export default function WidgetsScreen() {
   const { couple, me, partner } = useCouple();
   const model = previewModel({
     anniversary: couple?.anniversary_date,
-    timezone: couple?.timezone,
+    timezone: couple
+      ? coupleDayZone([detectTimeZone(), partner?.timezone], couple.timezone)
+      : undefined,
     meName: me?.nickname || me?.display_name,
     meBirthday: me?.birthday,
     partnerName: partner?.nickname || partner?.display_name,

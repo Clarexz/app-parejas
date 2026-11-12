@@ -14,6 +14,8 @@ const answer = (user: string): AnswerInfo => ({
   user_id: user,
   text: 'hola',
   choice: null,
+  audio_path: null,
+  audio_ms: null,
   created_at: '',
   updated_at: '',
 });

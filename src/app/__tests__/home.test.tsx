@@ -99,6 +99,8 @@ jest.mock('@/features/distance', () => ({
   },
 }));
 jest.mock('@/lib/supabase', () => ({ supabase: {} }));
+// La tarjeta compartible necesita Toast y captura de vista: no se prueba aquí.
+jest.mock('@/features/share', () => ({ ShareCardButton: () => null }));
 let mockLists: unknown[] = [];
 jest.mock('@/features/lists', () => ({
   useLists: () => ({ lists: mockLists, refetch: jest.fn() }),

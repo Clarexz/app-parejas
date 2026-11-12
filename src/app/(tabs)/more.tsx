@@ -12,6 +12,7 @@ import {
   ScreenHeader,
   Text,
 } from '@/components';
+import { AppLockOptions, AppLockRow } from '@/features/appLock';
 import { useSignOut } from '@/features/auth';
 import { useCouple, useFruits, useLeaveCouple } from '@/features/couple';
 import { useSignedUrl } from '@/features/profile';
@@ -132,7 +133,9 @@ export default function MoreScreen() {
             icon="question"
             onPress={() => router.push('/history')}
           />
+          {Platform.OS === 'android' ? <AppLockRow /> : null}
         </ListGroup>
+        {Platform.OS === 'android' ? <AppLockOptions /> : null}
 
         <ListGroup label="Cuenta">
           <ListRow

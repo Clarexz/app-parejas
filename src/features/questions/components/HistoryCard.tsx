@@ -1,8 +1,9 @@
 import { View } from 'react-native';
 
-import { Card, FruitDot, Text } from '@/components';
+import { Card, FruitDot, Icon, Text } from '@/components';
 import { answerExcerpt, historyPartnerLine } from '@/lib/questionsView';
-import type { HistoryItem } from '@/lib/questions';
+import { formatAudioDuration } from '@/lib/audio';
+import type { AnswerInfo, HistoryItem } from '@/lib/questions';
 import { useTheme } from '@/theme';
 
 import { usePairFruits } from './usePairFruits';
@@ -13,6 +14,30 @@ type Props = {
   timeZone: string;
   onPress: () => void;
 };
+
+/** Texto de una respuesta en el renglón; con audio, una marca "Audio · 0:07" (se escucha al abrirla). */
+function AnswerLine({ answer, item }: { answer: AnswerInfo; item: HistoryItem }) {
+  const { colors, spacing } = useTheme();
+  const excerpt = answerExcerpt(answer, item.question);
+  const hasAudio = !!answer.audio_path && !!answer.audio_ms;
+  return (
+    <View style={{ gap: spacing.xs }}>
+      {excerpt ? (
+        <Text variant="body" tone="muted" numberOfLines={2}>
+          {excerpt}
+        </Text>
+      ) : null}
+      {hasAudio ? (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xs }}>
+          <Icon name="mic" size={20} color={colors.inkMuted} />
+          <Text variant="body" tone="muted">
+            Audio · {formatAudioDuration(answer.audio_ms ?? 0)}
+          </Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
 
 /** Renglón del historial: la pregunta, la categoría y los dos `FruitDot` (llenos si ya contestó). */
 export function HistoryCard({ item, partnerName, onPress }: Props) {
@@ -30,15 +55,9 @@ export function HistoryCard({ item, partnerName, onPress }: Props) {
   return (
     <Card onPress={onPress} accessibilityLabel={`${item.question.text}. ${status}`}>
       <Text variant="bodyStrong">{item.question.text}</Text>
-      {item.mine ? (
-        <Text variant="body" tone="muted" numberOfLines={2}>
-          {answerExcerpt(item.mine, item.question)}
-        </Text>
-      ) : null}
-      {line.kind === 'answer' ? (
-        <Text variant="body" tone="muted" numberOfLines={2}>
-          {line.text}
-        </Text>
+      {item.mine ? <AnswerLine answer={item.mine} item={item} /> : null}
+      {line.kind === 'answer' && item.partner ? (
+        <AnswerLine answer={item.partner} item={item} />
       ) : null}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
         <Text variant="note" tone="muted" style={{ flex: 1 }} numberOfLines={1}>

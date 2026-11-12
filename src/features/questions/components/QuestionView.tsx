@@ -20,6 +20,7 @@ import {
 } from '@/components';
 import { useToast } from '@/components/Toast';
 import { useCouple, useToday } from '@/features/couple';
+import type { AudioDraft } from '@/lib/audio';
 import { errorMessage } from '@/lib/errors';
 import { haptic } from '@/lib/haptics';
 import { sameChoice } from '@/lib/questionCopy';
@@ -37,18 +38,28 @@ import { useTheme } from '@/theme';
 
 import { useCelebrationStore } from '../celebration';
 import { useDeleteAnswer, useSendNudge, useStreak, useSubmitAnswer } from '../hooks';
+import { AnswerAudio } from './AnswerAudio';
+import { AUDIO_RECORDING_SUPPORTED, AudioRecorderField } from './AudioRecorderField';
 import { CommentComposer, CommentList } from './CommentThread';
 import { StreakChip } from './StreakChip';
 import { usePairFruits } from './usePairFruits';
 
 const LONG_QUESTION_CHARS = 140;
 
+type AnswerValue = { text: string | null; choice: number | null; audio: AudioDraft | null };
+
+/** Audio de una respuesta guardada (si lo tiene), para el `AnswerCard`. */
+function answerAudio(answer: AnswerInfo, label: string) {
+  if (!answer.audio_path || !answer.audio_ms) return undefined;
+  return <AnswerAudio path={answer.audio_path} durationMs={answer.audio_ms} label={label} />;
+}
+
 type FormProps = {
   question: QuestionInfo;
   initial: AnswerInfo | null;
   submitting: boolean;
   submitLabel: string;
-  onSubmit: (value: { text: string | null; choice: number | null }) => void;
+  onSubmit: (value: AnswerValue) => void;
   onCancel?: () => void;
 };
 
@@ -60,6 +71,12 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
     !isChoice || initial?.choice === OTHER_CHOICE ? (initial?.text ?? '') : '',
   );
   const [choice, setChoice] = useState<number | null>(initial?.choice ?? null);
+  const [audio, setAudio] = useState<AudioDraft | null>(
+    !isChoice && initial?.audio_path && initial.audio_ms
+      ? { kind: 'existing', path: initial.audio_path, ms: initial.audio_ms }
+      : null,
+  );
+  const [recording, setRecording] = useState(false);
   const isOther = isChoice && choice === OTHER_CHOICE;
   // Respuestas viejas con opción + nota: la nota ya no se edita, pero se conserva tal cual.
   const legacyNote = isChoice && initial && initial.choice !== OTHER_CHOICE ? initial.text : null;
@@ -70,6 +87,7 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
   const validation = validateAnswerInput(question, {
     text: !isChoice || isOther ? text : legacyNote,
     choice,
+    hasAudio: !isChoice && !!audio,
   });
 
   return (
@@ -142,13 +160,25 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
           ) : null}
         </>
       ) : null}
+      {!isChoice && (AUDIO_RECORDING_SUPPORTED || audio) ? (
+        AUDIO_RECORDING_SUPPORTED ? (
+          <AudioRecorderField
+            value={audio}
+            onChange={setAudio}
+            disabled={submitting}
+            onBusyChange={setRecording}
+          />
+        ) : audio?.kind === 'existing' ? (
+          <AnswerAudio path={audio.path} durationMs={audio.ms} label="Tu audio" />
+        ) : null
+      ) : null}
       <Button
         title={submitLabel}
         fullWidth
-        disabled={!validation.ok}
+        disabled={!validation.ok || recording}
         loading={submitting}
         onPress={() => {
-          if (validation.ok) onSubmit(validation.value);
+          if (validation.ok) onSubmit({ ...validation.value, audio: isChoice ? null : audio });
         }}
       />
       {onCancel ? <Button title="Cancelar" variant="ghost" fullWidth onPress={onCancel} /> : null}
@@ -181,7 +211,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
   const showForm = !mine || editing;
   const long = Array.from(question.text).length > LONG_QUESTION_CHARS;
 
-  const onSubmit = async (value: { text: string | null; choice: number | null }) => {
+  const onSubmit = async (value: AnswerValue) => {
     try {
       const result = await submit.mutateAsync({ question, ...value });
       setEditing(false);
@@ -259,6 +289,7 @@ export function QuestionView({ card }: { card: QuestionCard }) {
             fruit={fruits.partner}
             name={partnerName}
             text={answerDisplay(card.partner, question)}
+            audio={answerAudio(card.partner, `Audio de ${partnerName}`)}
             reveal={justRevealed}
           />
         ) : card.partner_answered ? (
@@ -285,7 +316,12 @@ export function QuestionView({ card }: { card: QuestionCard }) {
           />
         ) : mine ? (
           <View style={{ gap: spacing.md }}>
-            <AnswerCard fruit={fruits.me} name="Tú" text={answerDisplay(mine, question)} />
+            <AnswerCard
+              fruit={fruits.me}
+              name="Tú"
+              text={answerDisplay(mine, question)}
+              audio={answerAudio(mine, 'Tu audio')}
+            />
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md }}>
               <Button title="Editar" variant="ghost" onPress={() => setEditing(true)} />
               <Button

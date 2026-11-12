@@ -149,7 +149,7 @@ relleno de tu fruta detrás (pestañas). Base del manual: `home`, `question`, `m
 `memories`, `countdown`, `distance`, `lists`, `games`, `love`, `stats`, `bell`. Extendidos en el
 mismo estilo: `more`, `person`, `couple`, `fruit`, `suitcase`, `widgets`, `signal`, `door`,
 `leave`, `chevron`, `back`, `plus`, `lock`, `send`, `spark`, `pin`, `alert`, `check`, `close`,
-`map`, `camera`, `photo`, `pencil`, `trash`, `download`, `eye`, `archive`, `calendar`, `clock`,
+`map`, `camera`, `photo`, `pencil`, `trash`, `download`, `share`, `eye`, `archive`, `calendar`, `clock`,
 `gift`, `settings`, `search`, `undo`, `type`, `sticker`, `envelope`, `chart`, `cloudOff`, `smile`. Si falta
 uno, se dibuja con estas reglas (referencia: Material Symbols Rounded peso 500), nunca se usa un
 emoji como ícono del sistema. Los emojis solo existen como **contenido** (moods, reacciones).
@@ -238,6 +238,7 @@ en el Catálogo de diseño (`/catalogo`).
 | `PermissionNote` | Estado de un permiso: activo, por pedir, bloqueado o solo-celular | `kind`: `notifications` · `location` (cada uno con sus textos) | — |
 | `Toggle`, `DateField`, `TimeField`, `CodeInput`, `InviteCode`, `AvatarPicker`, `SoftAskNote`, `Divider`, `FieldError` | Mismos contratos que antes, redibujados con estos tokens (Toggle encendido = tu fruta) | — | — |
 | `Sticker` | Sticker de stories: círculo de fruta con frase corta en display (manual §15) | `text`, `fruit` | — |
+| `ShareCard` | Tarjeta-imagen para compartir: lienzo vertical 1080×1350 siempre en **tema claro**, `Wordmark` + `Symbol`, etiqueta, número en display, línea y las dos frutas con nombre. Las medidas son del lienzo, no dp de pantalla (sale a 1080×1350 px). El hook `useShareCard` la captura con `captureRef` y la manda con `expo-sharing` | `data` (`streak`·`together`·`game`), `meName`, `partnerName`, `scale` (vista previa) | — |
 
 **Retirados** (no se usan más): `Paper`, `Tape`, `Polaroid`, `Stamp`, `Doodle`, `FoldedNote`,
 `Note` (post-it), `PageHeader`, `GridColumns`, `GridScore`, `Tally`, `SealOverlay`,

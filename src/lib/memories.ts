@@ -115,6 +115,38 @@ export function groupByMonth<T extends MemoryLike>(memories: T[]): MemoryMonthGr
   return groups;
 }
 
+export type TimelineRow<T> =
+  | { kind: 'month'; key: string; title: string; count: number; first: boolean }
+  | { kind: 'featured'; key: string; memory: T }
+  | { kind: 'grid'; key: string; memories: T[] };
+
+/**
+ * Aplana el diario en filas para una lista virtualizada: por mes, el título, la memoria más
+ * reciente grande y las demás en filas de 2. El año solo se dice cuando no es el actual.
+ */
+export function timelineRows<T extends MemoryLike & { id: string }>(
+  memories: T[],
+  currentYear: number | null,
+): TimelineRow<T>[] {
+  const rows: TimelineRow<T>[] = [];
+  groupByMonth(memories).forEach((group, index) => {
+    const [first, ...rest] = group.items;
+    rows.push({
+      kind: 'month',
+      key: `month-${group.key}`,
+      title: group.year === currentYear ? group.label.replace(/ \d{4}$/, '') : group.label,
+      count: group.items.length,
+      first: index === 0,
+    });
+    rows.push({ kind: 'featured', key: `featured-${first.id}`, memory: first });
+    for (let i = 0; i < rest.length; i += 2) {
+      const pair = rest.slice(i, i + 2);
+      rows.push({ kind: 'grid', key: `grid-${pair[0].id}`, memories: pair });
+    }
+  });
+  return rows;
+}
+
 /**
  * Memorias de este mismo día en años anteriores. Una del 29 de febrero se muestra el 28 de
  * febrero en los años que no son bisiestos. Orden: la más reciente (menos años) primero.

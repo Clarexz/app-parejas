@@ -103,7 +103,7 @@ export function useUpdateCouple() {
   const { couple } = useCouple();
   const invalidate = useInvalidateCoupleData();
   return useMutation({
-    mutationFn: (patch: { anniversary_date?: string | null; timezone?: string }) => {
+    mutationFn: (patch: { anniversary_date?: string | null }) => {
       if (!couple) throw new Error('not_authenticated');
       return updateCouple(couple.id, patch);
     },

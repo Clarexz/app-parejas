@@ -1062,12 +1062,24 @@ Fase 12 (pulido y v1.0.0).
 | 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
-| 12 Pulido y entrega | 🟡 Parte 1 (v0.12.0) | #18 | Nombre provisional, icono y textos. Aviso de versión nueva dentro de la app (D107, APK v0.12.3, PR #20 mergeado a `main`). Sigue después de la 12A. Sin las fases 10 y 11A. |
+| 12 Pulido y entrega | 🟡 Parte 2 (v0.12.5) | #18, #22 | Parte 1: nombre, icono y textos (v0.12.0); aviso de versión nueva (D107, v0.12.3). **Parte 2** (D112–D118): respuestas en audio, tarjeta compartible, bloqueo con huella, caché offline, reintentos, error boundary, FlashList y auditoría de RLS/RPC con prueba permanente y día de la pareja según la zona de cada quien. Servidor desplegado, restauración probada y registro cerrado (2026-11-11); v0.12.5 probada en los celulares y mergeada a `main` (2026-11-12). La **v1.0.0** se pospone: antes faltan más fases (10, 11A) y detalles por corregir.
 | 12A Rediseño "ahorita" | ✅ Cerrada (2026-11-03) | #19 | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. Servidor desplegado (`2e800d5`), PR mergeado a `main` a pedido del usuario. Falta probar el APK v0.12.2 en los dos celulares (§10.1). |
-| Ajustes post-12A (cambios menores) | ✅ Cerrada (2026-11-04) | #21 | Racha estilo TikTok (5 recuperaciones/mes, solo ayer), opción "Otra", teclado, Inicio con distancia/listas/lenguaje del amor/tiempo juntos, Preguntas + Juegos, memorias con visitas, Más → "Otros ajustes", "mesario", sin rebotes (D108–D111). Migración `20261110000000_streak_repairs_other_choice_memory_visits.sql`: **requiere deploy antes de instalar el APK** (notas en `docs/releases/v0.12.4.md`). Mergeada a `main` y APK **v0.12.4** lanzado a pedido del usuario, sin desplegar todavía. |
+| Ajustes post-12A (cambios menores) | ✅ Cerrada (2026-11-04) | #21 | Racha estilo TikTok (5 recuperaciones/mes, solo ayer), opción "Otra", teclado, Inicio con distancia/listas/lenguaje del amor/tiempo juntos, Preguntas + Juegos, memorias con visitas, Más → "Otros ajustes", "mesario", sin rebotes (D108–D111). Migración `20261110000000_streak_repairs_other_choice_memory_visits.sql`: **requiere deploy antes de instalar el APK** (notas en `docs/releases/v0.12.4.md`). Mergeada a `main` y APK **v0.12.4** lanzado a pedido del usuario; servidor desplegado (migración aplicada, confirmado el 2026-11-11). |
 
 ### 10.1 Verificaciones pendientes en el celular
 
+- **Fase 12 parte 2 (D112–D118, v0.12.5):** servidor desplegado el 2026-11-11
+  (`deploy.sh claude/sharp-pasteur-xo4lz6` en `10a0e7d`, respaldo previo
+  `pre-deploy-app-parejas-20261111-231847.dump`): se aplicaron `…000_audio_answers`,
+  `…001_security_hardening` y `…002_member_timezones` (16 migraciones registradas; la de v0.12.4 ya
+  estaba aplicada), bucket `answer-audio` creado, `stories-cleanup` sincronizada, `security_audit.sql`
+  OK y smoke test OK sin avisos. **Prueba de restauración ✅** (29 tablas, 3 usuarios, 13 migraciones;
+  solo errores esperados de pg_cron en la BD temporal). Studio no expuesto (404 en la raíz, 13000 solo
+  en 127.0.0.1); GoTrue con rate limits por defecto. **Registro cerrado** el 2026-11-11 (`DISABLE_SIGNUP=true`; el signup responde 422 `signup_disabled`; anotado en `CREDENCIALES.md`). El tercer usuario (2026-10-31, solo en otra pareja) se conserva.
+  `meta` usa 87 % de sus 128 MiB (subir `MEM_META` si crece). El clon del VPS quedó en la rama de la
+  fase: el siguiente deploy es de `main` cuando se mergee. APK **v0.12.5** probado en los dos celulares
+  sin errores y PR #22 mergeado a `main` el 2026-11-12. La v1.0.0 espera a las fases y detalles que
+  faltan.
 - **Ajustes post-12A (D108–D111, v0.12.4):** mergeados a `main` el 2026-11-04 a pedido del
   usuario y APK **v0.12.4** lanzado con `<!-- sin-aviso -->` (la app no lo anuncia). **Falta el
   deploy:** `./scripts/server/deploy.sh main` debe aplicar solo

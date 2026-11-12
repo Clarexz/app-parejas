@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ToastProvider } from '@/components';
 import { parseRelationshipStats } from '@/lib/stats';
 import { ThemeProvider } from '@/theme';
 
@@ -78,7 +79,9 @@ function wrap(node: React.ReactElement) {
         insets: { top: 0, left: 0, right: 0, bottom: 0 },
       }}
     >
-      <ThemeProvider>{node}</ThemeProvider>
+      <ThemeProvider>
+        <ToastProvider>{node}</ToastProvider>
+      </ThemeProvider>
     </SafeAreaProvider>,
   );
 }

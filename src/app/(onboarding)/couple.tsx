@@ -51,7 +51,8 @@ export default function OnboardingCoupleScreen() {
             </Text>
             <Text variant="body">{timeZoneLabel(timezone)}</Text>
             <Text variant="note" tone="muted">
-              La tomamos de este celular. Después pueden cambiarla en Más → Nuestra pareja.
+              La tomamos de este celular. Cada quien usa la suya; el día cambia cuando es medianoche
+              para los dos.
             </Text>
           </View>
         </View>

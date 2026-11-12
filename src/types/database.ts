@@ -51,6 +51,7 @@ export type Database = {
       };
       answers: {
         Row: {
+          audio_ms: number | null;
           audio_path: string | null;
           choice: number | null;
           couple_id: string;
@@ -65,6 +66,7 @@ export type Database = {
         };
         ComputedFields: 'answer_json';
         Insert: {
+          audio_ms?: number | null;
           audio_path?: string | null;
           choice?: number | null;
           couple_id: string;
@@ -77,6 +79,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          audio_ms?: number | null;
           audio_path?: string | null;
           choice?: number | null;
           couple_id?: string;
@@ -867,6 +870,7 @@ export type Database = {
           id: string;
           nickname: string | null;
           story_archive: boolean;
+          timezone: string | null;
         };
         ComputedFields: never;
         Insert: {
@@ -878,6 +882,7 @@ export type Database = {
           id: string;
           nickname?: string | null;
           story_archive?: boolean;
+          timezone?: string | null;
         };
         Update: {
           avatar_path?: string | null;
@@ -888,6 +893,7 @@ export type Database = {
           id?: string;
           nickname?: string | null;
           story_archive?: boolean;
+          timezone?: string | null;
         };
         Relationships: [];
       };
@@ -1260,6 +1266,9 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      answer_audio_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
+      answer_audio_path_readable: { Args: { p_name: string }; Returns: boolean };
+      answer_audio_path_writable: { Args: { p_name: string }; Returns: boolean };
       answer_game_item: {
         Args: { p_choice: number; p_question_id: string; p_round_id: string };
         Returns: Json;
@@ -1653,6 +1662,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      set_my_timezone: { Args: { p_timezone: string }; Returns: undefined };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };
@@ -1663,7 +1673,13 @@ export type Database = {
       story_path_writable: { Args: { p_name: string }; Returns: boolean };
       story_visible: { Args: { p_story_id: string }; Returns: boolean };
       submit_answer: {
-        Args: { p_choice?: number; p_question_id: string; p_text?: string };
+        Args: {
+          p_audio_ms?: number;
+          p_audio_path?: string;
+          p_choice?: number;
+          p_question_id: string;
+          p_text?: string;
+        };
         Returns: Json;
       };
       submit_drawing: { Args: { p_id: string; p_strokes: Json }; Returns: Json };

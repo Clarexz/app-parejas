@@ -87,7 +87,7 @@ export async function leaveCouple(): Promise<void> {
 
 export async function updateCouple(
   coupleId: string,
-  patch: { anniversary_date?: string | null; timezone?: string; photo_path?: string },
+  patch: { anniversary_date?: string | null; photo_path?: string },
 ): Promise<Couple> {
   const { data, error } = await supabase
     .from('couples')

@@ -1,6 +1,7 @@
 import { View } from 'react-native';
 
 import { Card, Text } from '@/components';
+import { ShareCardButton } from '@/features/share';
 import { formatLongDate } from '@/lib/dateParts';
 import type { HomeSummary } from '@/lib/home';
 import { useTheme } from '@/theme';
@@ -31,18 +32,26 @@ export function TimeTogetherCard({ summary, anniversary }: Props) {
 
   return (
     <Card style={{ padding: 20 }}>
-      <View
-        accessible
-        accessibilityLabel={`${label}: ${headline}, ${note}`}
-        style={{ gap: spacing.xxs }}
-      >
-        <Text variant="label" tone="muted">
-          {label}
-        </Text>
-        <Text variant="h3">{headline}</Text>
-        <Text variant="note" tone="muted">
-          {note}
-        </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+        <View
+          accessible
+          accessibilityLabel={`${label}: ${headline}, ${note}`}
+          style={{ flex: 1, gap: spacing.xxs }}
+        >
+          <Text variant="label" tone="muted">
+            {label}
+          </Text>
+          <Text variant="h3">{headline}</Text>
+          <Text variant="note" tone="muted">
+            {note}
+          </Text>
+        </View>
+        {summary.state === 'counting' ? (
+          <ShareCardButton
+            data={{ kind: 'together', days: summary.days, breakdown: summary.breakdown }}
+            accessibilityLabel="Compartir el tiempo juntos como imagen"
+          />
+        ) : null}
       </View>
     </Card>
   );

@@ -18,6 +18,7 @@ import { useCouple, useFruits } from '@/features/couple';
 import { useNames } from '@/features/games/components/useNames';
 import { useLoveLanguages } from '@/features/love-languages';
 import { LOVE_QUIZ } from '@/features/love-languages/quiz';
+import { ShareCardButton } from '@/features/share';
 import { useVisitStats, useVisits } from '@/features/visits';
 import { formatNumber } from '@/lib/dates';
 import { GAMES } from '@/lib/games';
@@ -137,6 +138,11 @@ function StreakSection({ s }: { s: RelationshipStats['streak'] }) {
           {bestStreakSentence(s.best)}
         </Text>
       </View>
+      {s.current > 0 ? (
+        <View style={{ alignItems: 'flex-start' }}>
+          <ShareCardButton kind="button" data={{ kind: 'streak', days: s.current }} />
+        </View>
+      ) : null}
     </Section>
   );
 }
