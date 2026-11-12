@@ -767,7 +767,7 @@
       "slug": "divertidas-apodo-infancia",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué apodo vergonzoso te pusieron de niño o niña?"
+      "text": "¿Qué apodo vergonzoso te pusieron en tu infancia?"
     },
     {
       "slug": "divertidas-anuncio-memorable",
@@ -1055,7 +1055,7 @@
       "slug": "divertidas-tianguis-regateo",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Eres bueno o buena para regatear en el tianguis? Cuéntame tu mejor negociación."
+      "text": "¿Qué tal regateas en el tianguis? Cuéntame tu mejor negociación."
     },
     {
       "slug": "divertidas-mal-chiste",
@@ -1121,7 +1121,7 @@
       "slug": "divertidas-leyenda-urbana",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál leyenda urbana te la creíste de niño o niña con toda seriedad?"
+      "text": "¿Cuál leyenda urbana te la creíste con toda seriedad en tu infancia?"
     },
     {
       "slug": "divertidas-silbar-aullar",
@@ -1241,7 +1241,7 @@
       "slug": "divertidas-mensaje-buenosdias",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cómo es tu mensaje de buenos días ideal?",
+      "text": "Tu mensaje de buenos días a las 7 de la mañana suele ser...",
       "options": [
         "Un meme",
         "Un audio con voz de sueño",
@@ -1709,7 +1709,7 @@
       "slug": "divertidas-silla-frente",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Te sientas a ver un partido. ¿Cómo eres de aficionado?",
+      "text": "Te sientas a ver un partido. ¿Cómo lo vives?",
       "options": [
         "Grito como si me oyeran",
         "Me emociono en silencio",
@@ -1745,7 +1745,7 @@
       "slug": "divertidas-fotos-viaje",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Llegas a un lugar bonito. ¿Qué haces primero?",
+      "text": "Llegas a un lugar bonito. ¿Cuál es tu primer impulso?",
       "options": [
         "Foto",
         "Respirar y mirar",

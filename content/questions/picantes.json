@@ -455,7 +455,7 @@
       "slug": "picantes-que-te-hace-sentir-deseado",
       "type": "open",
       "intensity": "picante",
-      "text": "¿Qué gesto mío te hace sentir realmente deseado o deseada?"
+      "text": "¿Qué gesto mío te hace sentir que de verdad te deseo?"
     },
     {
       "slug": "picantes-mejor-iniciativa",
@@ -503,7 +503,7 @@
       "slug": "picantes-mi-lado-travieso",
       "type": "open",
       "intensity": "picante",
-      "text": "¿Cuál es el lado travieso tuyo que solo yo conozco?"
+      "text": "¿Qué travesura juguetona te gustaría probar conmigo, solo si a los dos nos da risa?"
     },
     {
       "slug": "picantes-pista-para-despues",
@@ -821,7 +821,7 @@
       "slug": "picantes-espejo-de-confianza",
       "type": "open",
       "intensity": "picante",
-      "text": "¿Qué hace que te sientas lo bastante en confianza para ser tú mismo o misma conmigo?"
+      "text": "¿Qué hace que te sientas en confianza para ser tal cual eres conmigo?"
     },
     {
       "slug": "picantes-lo-que-mas-extranas-tocar",
@@ -857,7 +857,7 @@
       "slug": "picantes-pregunta-de-confianza",
       "type": "choice",
       "intensity": "picante",
-      "text": "¿Qué te hace sentir más en confianza para ser juguetón o juguetona?",
+      "text": "¿Qué te da confianza para soltarte y jugar?",
       "options": [
         "Que me respeten mis tiempos",
         "Que nos riamos de todo",
@@ -953,7 +953,7 @@
       "slug": "picantes-quien-sorprende",
       "type": "choice",
       "intensity": "picante",
-      "text": "En la sorpresa íntima, ¿quién crees que sería más creativo o creativa?",
+      "text": "En la sorpresa íntima, ¿a quién crees que se le ocurrirían las ideas más creativas?",
       "options": [
         "Yo",
         "Tú",

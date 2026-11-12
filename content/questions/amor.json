@@ -467,7 +467,7 @@
       "slug": "amor-primer-te-quiero",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cómo te sentiste la primera vez que dijimos \"te quiero\"?"
+      "text": "¿Qué detalle de la primera vez que dijimos \"te quiero\" recuerdas con más claridad, como un olor, un sonido o la ropa?"
     },
     {
       "slug": "amor-mi-voz-en-tu-cabeza",
@@ -587,12 +587,12 @@
       "slug": "amor-cuando-me-extranas-mas",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cuándo me extrañas más en el día?",
+      "text": "¿Qué recuerdo mío te llega primero cuando me extrañas?",
       "options": [
-        "Al despertar",
-        "A la hora de comer",
-        "Al salir de la chamba",
-        "Antes de dormir"
+        "Mi risa",
+        "Un abrazo",
+        "Una plática larga",
+        "Un momento tonto nuestro"
       ]
     },
     {
@@ -1303,10 +1303,10 @@
       "intensity": "profunda",
       "text": "Cuando uno anda mal, ¿qué rol sueles tomar?",
       "options": [
-        "El que escucha",
-        "El que resuelve",
-        "El que consiente",
-        "El que da espacio"
+        "Quien escucha",
+        "Quien resuelve",
+        "Quien consiente",
+        "Quien da espacio"
       ]
     },
     {

@@ -232,13 +232,13 @@
       "slug": "viajes-viaje-de-infancia",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál es tu primer recuerdo de un viaje de niño o niña?"
+      "text": "¿Cuál es tu primer recuerdo de un viaje en tu infancia?"
     },
     {
       "slug": "viajes-lugar-de-tu-familia",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿A qué lugar de vacaciones iba tu familia cuando eras chico o chica?"
+      "text": "¿A qué lugar iba tu familia de vacaciones durante tu infancia?"
     },
     {
       "slug": "viajes-pueblo-magico-sueno",
@@ -250,7 +250,7 @@
       "slug": "viajes-clima-ideal-de-viaje",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Con qué clima te imaginas nuestro viaje ideal?"
+      "text": "¿Qué plan B tendríamos si llueve todo el día en nuestro viaje?"
     },
     {
       "slug": "viajes-cosa-que-olvidas-siempre",
@@ -506,7 +506,7 @@
       "options": [
         "Al volante",
         "De copiloto con la música",
-        "Dormido o dormida atrás",
+        "Dormitando atrás",
         "Navegando y comiendo"
       ]
     },
@@ -603,7 +603,7 @@
         "Solo con mi pareja",
         "Con otra pareja amiga",
         "Con un grupo grande",
-        "Solo o sola un rato"
+        "Un rato por mi cuenta"
       ]
     },
     {
@@ -948,9 +948,9 @@
       "intensity": "profunda",
       "text": "Cuando termina un viaje juntos, me siento...",
       "options": [
-        "Agradecido o agradecida",
+        "Con gratitud",
         "Con ganas de más",
-        "Nostálgico o nostálgica",
+        "Con nostalgia",
         "Con flojera de volver"
       ]
     },

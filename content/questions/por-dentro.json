@@ -29,7 +29,7 @@
       "slug": "por-dentro-cara-de-enojo",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cómo se te nota que estás enojado o enojada aunque no lo digas?"
+      "text": "¿Cómo se te nota el enojo aunque no lo digas?"
     },
     {
       "slug": "por-dentro-lo-que-te-da-risa-nervios",
@@ -41,7 +41,7 @@
       "slug": "por-dentro-primer-signo-de-cansancio",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál es la primera señal de que ya estás agotado o agotada?"
+      "text": "¿Cuál es la primera señal de que ya te quedaste sin pila?"
     },
     {
       "slug": "por-dentro-tu-lugar-seguro",
@@ -71,7 +71,7 @@
       "slug": "por-dentro-frase-que-te-calma",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué frase te gusta que te digan cuando estás nervioso o nerviosa?"
+      "text": "¿Qué frase te gusta que te digan cuando te dan nervios?"
     },
     {
       "slug": "por-dentro-tu-ritual-de-estres",
@@ -83,7 +83,7 @@
       "slug": "por-dentro-cosa-que-te-emociona",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué cosa te emociona como niño o niña cuando se acerca?"
+      "text": "¿Qué cosa te emociona como si tuvieras cinco años cuando se acerca?"
     },
     {
       "slug": "por-dentro-gesto-de-incomodidad",
@@ -95,7 +95,7 @@
       "slug": "por-dentro-tiempo-a-solas",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué haces cuando por fin tienes la casa para ti solo o sola?"
+      "text": "¿Qué haces cuando por fin tienes la casa para ti?"
     },
     {
       "slug": "por-dentro-palabra-del-mes",
@@ -149,7 +149,7 @@
       "slug": "por-dentro-estres-dormir",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Cuando estás estresado o estresada, tu sueño es...",
+      "text": "Cuando estás bajo estrés, tu sueño es...",
       "options": [
         "Nulo, ni parpadeo",
         "Dormir de más",
@@ -163,7 +163,7 @@
       "intensity": "ligera",
       "text": "Ante una noticia inesperada, tu primera reacción suele ser...",
       "options": [
-        "Quedarme callado o callada",
+        "Quedarme en silencio",
         "Reír",
         "Llorar",
         "Hablar sin parar"
@@ -212,7 +212,7 @@
       "text": "Un lunes por la mañana te sientes...",
       "options": [
         "Con energía",
-        "Resignado o resignada",
+        "Con resignación",
         "Sin ganas",
         "Depende del café"
       ]
@@ -251,7 +251,7 @@
       "slug": "por-dentro-cuando-te-sentiste-pequeno",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo te has sentido más pequeño o pequeña de lo que eres?"
+      "text": "¿Cuándo has sentido que valías menos de lo que en realidad vales?"
     },
     {
       "slug": "por-dentro-logro-sin-celebrar",
@@ -329,7 +329,7 @@
       "slug": "por-dentro-momento-de-soledad",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo te sentiste más solo o sola estando rodeado de gente?"
+      "text": "¿Cuándo sentiste soledad aunque tenías gente alrededor?"
     },
     {
       "slug": "por-dentro-cuanto-te-cuesta-pedir",
@@ -347,7 +347,7 @@
       "slug": "por-dentro-miedo-a-perder",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué es lo que más te daría miedo perder y cómo lo cuidas?"
+      "text": "¿Qué hábito tuyo te ayuda a cuidar lo que más te importa para no perderlo?"
     },
     {
       "slug": "por-dentro-cuando-te-sentiste-visto",
@@ -371,7 +371,7 @@
       "slug": "por-dentro-lo-que-extranas-de-ti",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué parte de ti extrañas de cuando eras más ligero o ligera?"
+      "text": "¿Qué parte de ti extrañas de cuando todo se sentía más ligero?"
     },
     {
       "slug": "por-dentro-critica-que-dolio",
@@ -401,7 +401,7 @@
       "slug": "por-dentro-lo-que-te-hace-sentir-querido",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué hace que te sientas amado o amada de verdad, sin duda?"
+      "text": "¿Qué hace que sientas que te quieren de verdad, sin duda?"
     },
     {
       "slug": "por-dentro-lo-que-escondes-con-humor",
@@ -431,13 +431,13 @@
       "slug": "por-dentro-quien-eras-vs-quien-eres",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿En qué eres distinto o distinta de la persona que eras hace cinco años?"
+      "text": "¿En qué eres diferente a la persona que eras hace cinco años?"
     },
     {
       "slug": "por-dentro-una-tristeza-bonita",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué cosa te pone nostálgico o nostálgica de forma bonita?"
+      "text": "¿Qué cosa te da nostalgia de forma bonita?"
     },
     {
       "slug": "por-dentro-tu-parte-mas-cansada",
@@ -551,7 +551,7 @@
       "slug": "por-dentro-tu-peor-pensamiento",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué pensamiento te visita cuando estás cansado o cansada y quisieras callar?"
+      "text": "¿Qué pensamiento te visita cuando el cansancio te gana y quisieras callar?"
     },
     {
       "slug": "por-dentro-momento-de-alivio",
@@ -587,7 +587,7 @@
       "slug": "por-dentro-dolor-de-crecer",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué fue lo más difícil de volverte adulto o adulta?"
+      "text": "¿Qué fue lo más difícil de crecer?"
     },
     {
       "slug": "por-dentro-pesadumbre-del-pasado",
@@ -599,7 +599,7 @@
       "slug": "por-dentro-sentirse-incomprendido",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo te sentiste incomprendido o incomprendida por alguien cercano?"
+      "text": "¿Cuándo sentiste que alguien cercano no te entendía?"
     },
     {
       "slug": "por-dentro-lo-que-te-hace-vulnerable",
@@ -635,7 +635,7 @@
       "slug": "por-dentro-tu-mayor-presion",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué presión te pones tú solo o sola sin que nadie te la pida?"
+      "text": "¿Qué presión te pones sin que nadie te la pida?"
     },
     {
       "slug": "por-dentro-el-silencio-y-tu",
@@ -659,7 +659,7 @@
       "slug": "por-dentro-inseguridad-conmigo",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Hay algo en lo que te sientas inseguro o insegura conmigo? Cuéntamelo sin miedo."
+      "text": "¿Hay algo conmigo que te dé inseguridad? Cuéntamelo sin miedo."
     },
     {
       "slug": "por-dentro-que-te-hace-sentir-libre",
@@ -671,7 +671,7 @@
       "slug": "por-dentro-decepcion-propia",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿De qué te decepcionaste de ti mismo o misma y cómo lo cargas hoy?"
+      "text": "¿Qué cosa de ti te ha decepcionado y cómo la cargas hoy?"
     },
     {
       "slug": "por-dentro-emocion-dificil",
@@ -695,7 +695,7 @@
       "slug": "por-dentro-cuando-eres-duro-contigo",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿En qué eres más duro o dura contigo que con los demás?"
+      "text": "¿En qué eres más exigente contigo que con los demás?"
     },
     {
       "slug": "por-dentro-mensaje-para-tu-yo-nino",
@@ -707,7 +707,7 @@
       "slug": "por-dentro-cuando-te-sentiste-muy-querido",
       "type": "open",
       "intensity": "profunda",
-      "text": "Describe una vez en que te sentiste profundamente querido o querida."
+      "text": "Describe una vez en que sentiste que te querían profundamente."
     },
     {
       "slug": "por-dentro-tu-necesidad-silenciosa",
@@ -747,7 +747,7 @@
       "options": [
         "Me aíslo",
         "Me enojo con facilidad",
-        "Me pongo callado o callada",
+        "Me quedo en silencio",
         "Hablo más de lo normal"
       ]
     },
@@ -793,7 +793,7 @@
       "intensity": "profunda",
       "text": "Cuando lloras, prefieres...",
       "options": [
-        "Estar solo o sola",
+        "Estar a solas",
         "Que me abracen",
         "Que me distraigan",
         "Que me dejen desahogarme hablando"
@@ -805,7 +805,7 @@
       "intensity": "profunda",
       "text": "Entre estos miedos, ¿cuál te pesa más?",
       "options": [
-        "Quedarme solo o sola",
+        "Quedarme sin nadie",
         "Fracasar",
         "Perder a alguien",
         "No cumplir mis sueños"
@@ -831,7 +831,7 @@
       "options": [
         "Aquí estoy",
         "No tienes que arreglarlo hoy",
-        "Estoy orgulloso u orgullosa de ti",
+        "Me enorgullece quien eres",
         "Respira, vamos paso a paso"
       ]
     },
@@ -851,7 +851,7 @@
       "slug": "por-dentro-estres-expresado",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Cuando estás estresado o estresada, tu cuerpo te avisa con...",
+      "text": "Cuando estás bajo estrés, tu cuerpo te avisa con...",
       "options": [
         "Dolor de cabeza",
         "Tensión en los hombros",
@@ -865,7 +865,7 @@
       "intensity": "profunda",
       "text": "En un mal momento, lo mejor que puedo hacer por ti es...",
       "options": [
-        "Quedarme en llamada callado o callada",
+        "Quedarme en llamada sin decir nada",
         "Mandarte comida",
         "Hacerte reír",
         "Darte tu espacio sin desaparecer"
@@ -961,9 +961,9 @@
       "intensity": "profunda",
       "text": "Después de una discusión, me siento...",
       "options": [
-        "Culpable",
-        "Aliviado o aliviada",
-        "Triste",
+        "Con culpa",
+        "Con alivio",
+        "Con tristeza",
         "Con ganas de hacer las paces"
       ]
     },
@@ -995,11 +995,11 @@
       "slug": "por-dentro-cuando-te-sientes-orgulloso",
       "type": "choice",
       "intensity": "profunda",
-      "text": "El orgullo propio me llega más cuando...",
+      "text": "Me enorgullezco más de mí cuando...",
       "options": [
         "Logro algo difícil",
         "Ayudo a alguien",
-        "Soy honesto u honesta",
+        "Me abro sobre lo que siento",
         "Me animo a algo nuevo"
       ]
     },

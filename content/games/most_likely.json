@@ -709,7 +709,7 @@
     {
       "slug": "quien-hablar-rapido-nervioso",
       "intensity": "ligera",
-      "text": "¿Quién es más probable que hable de más cuando está nervioso?"
+      "text": "¿Quién es más probable que hable de más cuando le dan nervios?"
     },
     {
       "slug": "quien-gritar-susto",
@@ -844,7 +844,7 @@
     {
       "slug": "quien-llorar-a-solas",
       "intensity": "profunda",
-      "text": "¿Quién es más probable que llore a solas para que nadie lo note?"
+      "text": "¿Quién es más probable que llore a solas para que nadie se dé cuenta?"
     },
     {
       "slug": "quien-perdonar-rapido",
@@ -1114,7 +1114,7 @@
     {
       "slug": "quien-picante-ponerse-nervioso",
       "intensity": "picante",
-      "text": "¿Quién es más probable que se ponga nervioso antes de una cita especial?"
+      "text": "¿Quién es más probable que sienta nervios antes de una cita especial?"
     },
     {
       "slug": "quien-picante-apodo-secreto",

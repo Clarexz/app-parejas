@@ -539,7 +539,7 @@
       "slug": "a-distancia-que-te-hace-falta-hoy",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué extrañas hoy de estar juntos, algo bien chiquito?"
+      "text": "¿Qué objeto te hace sentir cerca de mí en los días que más me extrañas?"
     },
     {
       "slug": "a-distancia-selfie-del-dia",
@@ -959,7 +959,7 @@
       "slug": "a-distancia-momento-de-orgullo",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿De qué momento de nuestra relación a distancia te sientes más orgulloso o orgullosa?"
+      "text": "¿Qué momento de nuestra relación a distancia te enorgullece más?"
     },
     {
       "slug": "a-distancia-despedida-que-mas-dolio",
@@ -995,7 +995,7 @@
       "slug": "a-distancia-que-extranas-de-quien-eras",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué extrañas de tu vida de antes de la distancia y qué no cambiarías por nada?"
+      "text": "¿Qué hábito nuevo has agarrado en la distancia y quisieras conservar cuando estemos juntos?"
     },
     {
       "slug": "a-distancia-ritual-que-te-ancla",
@@ -1025,7 +1025,7 @@
       "slug": "a-distancia-que-te-asusta-del-reencuentro",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Hay algo que te ponga nervioso o nerviosa de volver a vivir cerca, y cómo lo cuidamos?"
+      "text": "¿Hay algo de volver a vivir cerca que te dé nervios, y cómo lo cuidamos?"
     },
     {
       "slug": "a-distancia-lo-que-cambiaria-contigo-cerca",
@@ -1085,7 +1085,7 @@
       "slug": "a-distancia-lo-que-te-hace-sentir-elegido",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué detalle mío a distancia te hizo sentir elegido o elegida?"
+      "text": "¿Qué detalle mío a distancia te hizo sentir que eras mi prioridad?"
     },
     {
       "slug": "a-distancia-el-dia-que-todo-cambie",
@@ -1145,7 +1145,7 @@
       "slug": "a-distancia-momentos-de-soledad",
       "type": "open",
       "intensity": "profunda",
-      "text": "Cuando te sientes solo o sola, ¿qué quieres que yo haga o no haga?"
+      "text": "Cuando sientes soledad, ¿qué quieres que yo haga o no haga?"
     },
     {
       "slug": "a-distancia-reencuentro-sin-expectativas",
@@ -1217,7 +1217,7 @@
       "slug": "a-distancia-cosas-que-no-te-pregunte",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué te gustaría que te preguntara más seguido cuando hablamos?"
+      "text": "¿Qué cosa de mi día a día a distancia te gustaría que te contara con más detalle?"
     },
     {
       "slug": "a-distancia-lo-que-me-has-ensenado-de-paciencia",
@@ -1319,7 +1319,7 @@
       "slug": "a-distancia-que-necesitas-para-sentirte-seguro",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué cosa concreta te ayuda a sentirte seguro o segura en la relación cuando estoy lejos?"
+      "text": "¿Qué cosa concreta te da tranquilidad en la relación cuando estoy lejos?"
     },
     {
       "slug": "a-distancia-lo-que-mas-pesa",
@@ -1366,14 +1366,14 @@
         "Acostumbrarnos a no estar juntos",
         "Que se enfríe la rutina",
         "Que alguien se canse",
-        "Ninguno, voy tranquilo o tranquila"
+        "Ninguno, voy con calma"
       ]
     },
     {
       "slug": "a-distancia-cuando-me-siento-solo",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Cuando me siento solo o sola, lo que más necesito es...",
+      "text": "Cuando siento soledad, lo que más necesito es...",
       "options": [
         "Una llamada",
         "Un mensaje largo",
@@ -1483,8 +1483,8 @@
       "intensity": "profunda",
       "text": "El día después de despedirnos necesito...",
       "options": [
-        "Estar acompañado o acompañada",
-        "Estar solo o sola un rato",
+        "Compañía",
+        "Un rato a solas",
         "Dormir mucho",
         "Que me mandes mensaje primero"
       ]
@@ -1495,8 +1495,8 @@
       "intensity": "profunda",
       "text": "Cuando platicamos de nuestro futuro, me siento...",
       "options": [
-        "Ilusionado o ilusionada",
-        "Tranquilo o tranquila",
+        "Con ilusión",
+        "Con calma",
         "Con ganas de planear ya",
         "Con un poco de nervios"
       ]
@@ -1520,7 +1520,7 @@
       "text": "Si algún día no puedo hablar contigo, prefiero que...",
       "options": [
         "Me dejes un mensaje cariñoso",
-        "Me esperes tranquilo o tranquila",
+        "Me esperes con calma",
         "Me preguntes cómo estoy después",
         "Me mandes un meme"
       ]

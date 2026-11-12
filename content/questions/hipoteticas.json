@@ -196,7 +196,7 @@
       "slug": "hipoteticas-volver-ninez",
       "type": "open",
       "intensity": "ligera",
-      "text": "Si pudieras ser niño o niña por un solo día completo, ¿qué harías?"
+      "text": "Si pudieras volver a tu infancia por un día completo, ¿qué harías?"
     },
     {
       "slug": "hipoteticas-casa-en-arbol",
@@ -358,7 +358,7 @@
       "slug": "hipoteticas-equipo-de-futbol",
       "type": "open",
       "intensity": "ligera",
-      "text": "Si fueras dueño o dueña de un equipo deportivo, ¿cómo lo llamarías?"
+      "text": "Si tuvieras un equipo deportivo, ¿cómo lo llamarías?"
     },
     {
       "slug": "hipoteticas-mundial-organizar",
@@ -448,7 +448,7 @@
       "slug": "hipoteticas-poder-mundo",
       "type": "open",
       "intensity": "ligera",
-      "text": "Si fueras presidente o presidenta por un día, ¿qué regla absurda pondrías?"
+      "text": "Si gobernaras por un día, ¿qué regla absurda pondrías?"
     },
     {
       "slug": "hipoteticas-casa-embrujada",
@@ -686,7 +686,7 @@
       "options": [
         "Calma total",
         "Emoción de viaje",
-        "Felicidad de niño",
+        "Felicidad de infancia",
         "Ternura sin motivo"
       ]
     },
@@ -1132,7 +1132,7 @@
       "slug": "hipoteticas-mensaje-futuro",
       "type": "open",
       "intensity": "profunda",
-      "text": "Si pudieras recibir un mensaje de ti mismo o misma dentro de diez años, ¿qué te gustaría que dijera?"
+      "text": "Si pudieras recibir un mensaje tuyo de dentro de diez años, ¿qué te gustaría que dijera?"
     },
     {
       "slug": "hipoteticas-vida-perfecta",
@@ -1240,7 +1240,7 @@
       "slug": "hipoteticas-renunciar-una",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Para estar tranquilo, ¿a cuál de estas cosas renunciarías?",
+      "text": "Para vivir en calma, ¿a cuál de estas cosas renunciarías?",
       "options": [
         "A la ambición",
         "A la comodidad",
@@ -1312,7 +1312,7 @@
       "slug": "hipoteticas-cuando-grande",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Si tu yo de niño o niña te viera hoy, ¿qué sentiría?",
+      "text": "Si tu yo de la infancia te viera hoy, ¿qué sentiría?",
       "options": [
         "Orgullo",
         "Sorpresa",
@@ -1350,7 +1350,7 @@
       "intensity": "profunda",
       "text": "Tu última comida tiene que ser con una persona. ¿Cómo la quieres?",
       "options": [
-        "En silencio acompañado",
+        "En silencio, juntos",
         "Entre risas",
         "Recordando cosas",
         "Planeando el futuro"

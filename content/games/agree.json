@@ -504,7 +504,7 @@
     {
       "slug": "acuerdo-pareja-mejor-amigo",
       "intensity": "profunda",
-      "text": "Tu pareja debería ser tu mejor amiga o amigo."
+      "text": "Tu pareja debería ser tu mejor amistad."
     },
     {
       "slug": "acuerdo-discutir-sano",
@@ -599,12 +599,12 @@
     {
       "slug": "acuerdo-secretos-pareja",
       "intensity": "profunda",
-      "text": "Está bien guardarse algunas cosas solo para uno mismo."
+      "text": "Está bien guardarse algunas cosas solo para sí."
     },
     {
       "slug": "acuerdo-exs-amistad",
       "intensity": "profunda",
-      "text": "Se puede ser amigo de una expareja."
+      "text": "Se puede tener una amistad con una expareja."
     },
     {
       "slug": "acuerdo-pasado-importa",

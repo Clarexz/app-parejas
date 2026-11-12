@@ -149,7 +149,7 @@
       "slug": "familia-comida-de-tu-casa",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué comida de tu casa te hace sentir niño o niña al primer bocado?"
+      "text": "¿Qué comida de tu casa te regresa a la infancia al primer bocado?"
     },
     {
       "slug": "familia-apodo-de-familia",
@@ -173,7 +173,7 @@
       "slug": "familia-tio-o-tia-favorita",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Quién es ese tío o tía que todos adoran y por qué?"
+      "text": "¿Quién es ese familiar que todos adoran y por qué?"
     },
     {
       "slug": "familia-cumple-de-infancia",
@@ -203,7 +203,7 @@
       "slug": "familia-regano-de-mama",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál fue el regaño más legendario que te hicieron de chico o chica?"
+      "text": "¿Cuál fue el regaño más legendario que te echaron en tu infancia?"
     },
     {
       "slug": "familia-juego-de-la-familia",
@@ -275,7 +275,7 @@
       "slug": "familia-vecinos-de-la-infancia",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cómo era tu calle o tu barrio cuando eras niño o niña?"
+      "text": "¿Cómo era tu calle o tu barrio en tu infancia?"
     },
     {
       "slug": "familia-tradicion-chiquita",
@@ -353,12 +353,12 @@
       "slug": "familia-rol-en-la-familia",
       "type": "choice",
       "intensity": "ligera",
-      "text": "En tu familia, tú eres...",
+      "text": "En tu familia, ¿qué papel tienes?",
       "options": [
-        "El que organiza",
-        "El que hace reír",
-        "El que ayuda a cocinar",
-        "El que escucha a todos"
+        "Quien organiza",
+        "Quien hace reír",
+        "Quien ayuda a cocinar",
+        "Quien escucha a todos"
       ]
     },
     {
@@ -689,7 +689,7 @@
       "slug": "familia-como-ser-buen-familiar",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué tipo de tío, tía, hermano o hermana quieres ser para la gente que quieres?"
+      "text": "¿Qué tipo de familiar quieres ser para la gente que quieres?"
     },
     {
       "slug": "familia-gente-que-cuidamos",
@@ -737,7 +737,7 @@
       "slug": "familia-tu-lugar-seguro-en-casa",
       "type": "open",
       "intensity": "profunda",
-      "text": "De niño o niña, ¿cuál era tu rincón seguro en casa?"
+      "text": "En tu infancia, ¿cuál era tu rincón seguro en casa?"
     },
     {
       "slug": "familia-cuando-te-sentiste-visto",

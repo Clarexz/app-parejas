@@ -257,7 +257,7 @@
       "slug": "recuerdos-foto-vieja-de-ti",
       "type": "open",
       "intensity": "ligera",
-      "text": "Si pudieras enseñarme una foto tuya de niño o niña, ¿cuál sería y qué estaba pasando?"
+      "text": "Si pudieras enseñarme una foto tuya de tu infancia, ¿cuál sería y qué estaba pasando?"
     },
     {
       "slug": "recuerdos-primera-mascota",
@@ -293,7 +293,7 @@
       "slug": "recuerdos-maestro-que-recuerdas",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué maestro o maestra recuerdas con cariño?"
+      "text": "¿A quién de tus docentes recuerdas con cariño?"
     },
     {
       "slug": "recuerdos-primer-viaje-juntos",
@@ -335,13 +335,13 @@
       "slug": "recuerdos-cuento-favorito",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué cuento o libro te leían de niño o niña?"
+      "text": "¿Qué cuento o libro te leían en tu infancia?"
     },
     {
       "slug": "recuerdos-la-primera-vez-que-cocinaste",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué fue lo primero que aprendiste a cocinar solo o sola?"
+      "text": "¿Qué fue lo primero que aprendiste a cocinar por tu cuenta?"
     },
     {
       "slug": "recuerdos-el-primer-mensaje-que-guarde",
@@ -365,7 +365,7 @@
       "slug": "recuerdos-primer-lugar-favorito",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál fue el primer lugar que sentimos como \"nuestro\"?"
+      "text": "¿Qué canción sonaba la primera vez que sentiste que esto iba en serio?"
     },
     {
       "slug": "recuerdos-travesura-con-primos",
@@ -401,7 +401,7 @@
       "slug": "recuerdos-miedo-de-nino",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿A qué le tenías miedo de niño o niña y todavía te da cosquillas?"
+      "text": "¿A qué le tenías miedo en tu infancia y todavía te da cosquillas?"
     },
     {
       "slug": "recuerdos-la-primera-cancion-que-me-mandaste",
@@ -425,7 +425,7 @@
       "slug": "recuerdos-cosa-que-coleccionabas",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué coleccionabas cuando eras chico o chica?"
+      "text": "¿Qué coleccionabas en tu infancia?"
     },
     {
       "slug": "recuerdos-la-casa-de-tu-infancia",
@@ -551,7 +551,7 @@
       "slug": "recuerdos-comida-que-no-comias",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué comida odiabas de niño o niña y ahora te encanta?"
+      "text": "¿Qué comida odiabas en tu infancia y ahora te encanta?"
     },
     {
       "slug": "recuerdos-fiesta-infantil",
@@ -569,7 +569,7 @@
       "slug": "recuerdos-cartoon-de-infancia",
       "type": "choice",
       "intensity": "ligera",
-      "text": "De niño o niña, mis mañanas eran de...",
+      "text": "En mi infancia, mis mañanas eran de...",
       "options": [
         "Caricaturas",
         "Cereal",
@@ -593,12 +593,12 @@
       "slug": "recuerdos-tipo-de-nino",
       "type": "choice",
       "intensity": "ligera",
-      "text": "En la escuela yo era el niño o la niña...",
+      "text": "En la escuela me conocían por...",
       "options": [
-        "Del relajo",
-        "Estudioso o estudiosa",
-        "Callado o callada",
-        "Del equipo de futbol"
+        "El relajo",
+        "Estudiar mucho",
+        "Ser de pocas palabras",
+        "El equipo de futbol"
       ]
     },
     {
@@ -665,7 +665,7 @@
       "slug": "recuerdos-navidad-de-infancia",
       "type": "choice",
       "intensity": "ligera",
-      "text": "En Navidad de niño o niña, lo mejor era...",
+      "text": "En las Navidades de mi infancia, lo mejor era...",
       "options": [
         "La cena",
         "Los regalos",
@@ -713,7 +713,7 @@
       "slug": "recuerdos-programa-de-tele",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Lo que veía en la tele de niño o niña era...",
+      "text": "Lo que veía en la tele en mi infancia era...",
       "options": [
         "Caricaturas",
         "Telenovelas",
@@ -725,7 +725,7 @@
       "slug": "recuerdos-mi-regalo-ideal-de-nino",
       "type": "choice",
       "intensity": "ligera",
-      "text": "El regalo que más pedía de niño o niña era...",
+      "text": "El regalo que más pedía en mi infancia era...",
       "options": [
         "Un juguete grande",
         "Videojuegos",
@@ -761,7 +761,7 @@
       "slug": "recuerdos-lo-que-me-hacia-feliz",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Cuando era niño o niña, me ponía feliz...",
+      "text": "En mi infancia, lo que más me hacía feliz era...",
       "options": [
         "Salir a jugar",
         "Que me llevaran a un paseo",
@@ -977,7 +977,7 @@
       "slug": "recuerdos-lo-que-agradeces-de-tu-nina",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué le agradeces hoy a tu yo de niño o niña?"
+      "text": "¿Qué le agradeces hoy a tu yo de la infancia?"
     },
     {
       "slug": "recuerdos-lo-que-le-diria-a-mi-yo-joven",
@@ -1049,7 +1049,7 @@
       "slug": "recuerdos-primer-momento-de-confianza",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo sentiste que podías ser tú mismo o misma conmigo?"
+      "text": "¿Cuándo sentiste que podías ser tal cual eres conmigo?"
     },
     {
       "slug": "recuerdos-lo-mas-bonito-que-has-oido",
@@ -1109,7 +1109,7 @@
       "slug": "recuerdos-momento-de-vulnerabilidad",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo te mostraste más vulnerable conmigo y cómo respondí?"
+      "text": "¿Qué fue lo primero que me contaste que casi no le habías dicho a nadie?"
     },
     {
       "slug": "recuerdos-tradicion-familiar-que-extranas",
@@ -1133,7 +1133,7 @@
       "slug": "recuerdos-lo-que-faltaba-en-tu-infancia",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué te hubiera gustado recibir más de niño o niña, como atención, palabras o tiempo?"
+      "text": "¿Qué te hubiera gustado recibir más en tu infancia, como atención, palabras o tiempo?"
     },
     {
       "slug": "recuerdos-reconocer-un-error",
@@ -1187,7 +1187,7 @@
       "slug": "recuerdos-casa-de-tus-suenos-infantil",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cómo era la casa de tus sueños de niño o niña?"
+      "text": "¿Cómo era la casa de tus sueños en tu infancia?"
     },
     {
       "slug": "recuerdos-persona-a-quien-le-debo",

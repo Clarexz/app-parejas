@@ -1012,7 +1012,7 @@
     {
       "slug": "prefieres-manejar-o-escoger-musica",
       "intensity": "ligera",
-      "text": "¿Prefieres ser el que maneja o el que escoge la música?",
+      "text": "¿Prefieres manejar o escoger la música?",
       "options": [
         "Manejar",
         "Escoger la música"
@@ -1147,10 +1147,10 @@
     {
       "slug": "prefieres-solo-sueno-o-acompanado-algo-regular",
       "intensity": "ligera",
-      "text": "¿Prefieres viajar solo a la ciudad de tus sueños o acompañado a un lugar regular?",
+      "text": "¿Prefieres viajar sin compañía a la ciudad de tus sueños o con compañía a un lugar regular?",
       "options": [
-        "Solo a mi sueño",
-        "Acompañado a algo regular"
+        "Sin compañía a mi sueño",
+        "Con compañía a algo regular"
       ]
     },
     {
@@ -1714,19 +1714,19 @@
     {
       "slug": "prefieres-exitoso-cansado-o-tiempo-libre",
       "intensity": "profunda",
-      "text": "¿Prefieres ser muy exitoso y estar siempre cansado o vivir sin lujos y con tiempo libre?",
+      "text": "¿Prefieres tener mucho éxito con poco descanso o vivir sin lujos y con tiempo libre?",
       "options": [
-        "Exitoso y cansado",
+        "Éxito y poco descanso",
         "Tiempo libre"
       ]
     },
     {
       "slug": "prefieres-perdonar-rapido-o-tardar-estar-seguro",
       "intensity": "profunda",
-      "text": "¿Prefieres perdonar rápido y volver a confiar o tardarte más y estar segurísimo?",
+      "text": "¿Prefieres perdonar rápido y volver a confiar o tardarte más y tener certeza total?",
       "options": [
         "Perdonar rápido",
-        "Tardar y estar seguro"
+        "Tardar y tener certeza"
       ]
     },
     {
@@ -1858,7 +1858,7 @@
     {
       "slug": "prefieres-publico-o-privado-2",
       "intensity": "profunda",
-      "text": "¿Prefieres que te digan que estás equivocado en público o en privado?",
+      "text": "¿Prefieres que te digan en público o en privado que te equivocaste?",
       "options": [
         "En público",
         "En privado"
@@ -2065,10 +2065,10 @@
     {
       "slug": "prefieres-reirme-siempre-o-sentirme-seguro",
       "intensity": "profunda",
-      "text": "¿Prefieres una pareja con quien reírte siempre o con quien sentirte seguro siempre?",
+      "text": "¿Prefieres una pareja con quien reírte siempre o con quien tengas seguridad total?",
       "options": [
         "Reírme siempre",
-        "Sentirme seguro"
+        "Tener seguridad"
       ]
     },
     {
@@ -2128,7 +2128,7 @@
     {
       "slug": "prefieres-cumplirlos-lejos-o-pendientes-cerca",
       "intensity": "profunda",
-      "text": "¿Prefieres que tus sueños se cumplan lejos de tu pareja o que se queden pendientes cerca de ella?",
+      "text": "¿Prefieres que tus sueños se cumplan lejos de tu pareja o que se queden pendientes cerca de tu pareja?",
       "options": [
         "Cumplirlos lejos",
         "Pendientes cerca"
@@ -2191,19 +2191,19 @@
     {
       "slug": "prefieres-llorar-ella-o-hacerla-reir",
       "intensity": "profunda",
-      "text": "¿Prefieres llorar frente a tu pareja o hacerla reír en tu peor día?",
+      "text": "¿Prefieres llorar frente a tu pareja o hacerle reír en tu peor día?",
       "options": [
-        "Llorar con ella",
-        "Hacerla reír"
+        "Llorar con mi pareja",
+        "Hacerle reír"
       ]
     },
     {
       "slug": "prefieres-callar-no-discutir-o-discutir-sincero",
       "intensity": "profunda",
-      "text": "¿Prefieres no volver a discutir y callar lo que sientes o discutir y ser sincero?",
+      "text": "¿Prefieres no volver a discutir y callar lo que sientes o discutir diciendo la verdad?",
       "options": [
         "Callar y no discutir",
-        "Discutir sincero"
+        "Discutir con la verdad"
       ]
     },
     {
@@ -2245,16 +2245,16 @@
     {
       "slug": "prefieres-mas-sabia-o-mas-feliz",
       "intensity": "profunda",
-      "text": "¿Prefieres ser la persona más sabia o la más feliz de tu familia?",
+      "text": "¿Qué prefieres para ti: ser quien más sabe de la vida o quien más disfruta de ella?",
       "options": [
-        "La más sabia",
-        "La más feliz"
+        "Quien más sabe",
+        "Quien más disfruta"
       ]
     },
     {
       "slug": "prefieres-cumpla-sin-o-cumplir-mios-cerca",
       "intensity": "profunda",
-      "text": "¿Prefieres que tu pareja cumpla todos sus sueños sin ti o cumplir los tuyos con ella cerca?",
+      "text": "¿Prefieres que tu pareja cumpla todos sus sueños sin ti o cumplir los tuyos con tu pareja cerca?",
       "options": [
         "Que los cumpla sin mí",
         "Cumplir los míos cerca"

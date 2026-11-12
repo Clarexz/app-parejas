@@ -190,7 +190,7 @@
       "slug": "valores-lujo-barato",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál es ese lujo chiquito que te haría sentir millonario o millonaria por un rato?"
+      "text": "¿Cuál es ese lujo chiquito que te hace sentir como si lo tuvieras todo por un rato?"
     },
     {
       "slug": "valores-cosa-que-no-prestas",
@@ -208,13 +208,13 @@
       "slug": "valores-mejor-consejo-recibido",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál es el mejor consejo que te han dado y quién te lo dio?"
+      "text": "¿Qué consejo te sonó absurdo en su momento y hoy sí entiendes?"
     },
     {
       "slug": "valores-orgullo-pequeno",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿De qué cosa chiquita de esta semana te sientes orgulloso u orgullosa?"
+      "text": "¿Qué cosa chiquita de esta semana te enorgullece?"
     },
     {
       "slug": "valores-valor-en-amistad",
@@ -304,7 +304,7 @@
       "slug": "valores-vecino-ideal",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué tipo de vecino o vecina quieres ser cuando vivamos en un lugar propio?"
+      "text": "¿Cómo quieres que seamos de vecinos cuando vivamos en un lugar propio?"
     },
     {
       "slug": "valores-chamba-que-importa",
@@ -380,8 +380,8 @@
       "options": [
         "Ser leal",
         "Ser paciente",
-        "Ser divertido o divertida",
-        "Ser trabajador o trabajadora"
+        "Tener buen humor",
+        "Echarle ganas"
       ]
     },
     {
@@ -412,7 +412,7 @@
       "slug": "valores-mentir-por-bien",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Si un amigo o amiga te pregunta qué opinas de su ropa fea, ¿qué haces?",
+      "text": "Si una amistad te pregunta qué opinas de su ropa fea, ¿qué haces?",
       "options": [
         "Digo la verdad",
         "Digo la verdad con delicadeza",
@@ -478,7 +478,7 @@
       "slug": "valores-lealtad-hasta-donde",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Hasta dónde llega tu lealtad a un amigo o amiga que se equivocó?"
+      "text": "¿Hasta dónde llega tu lealtad con una amistad que se equivocó?"
     },
     {
       "slug": "valores-justicia-vs-paz",
@@ -520,7 +520,7 @@
       "slug": "valores-sacrificio-bonito",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué estarías dispuesto o dispuesta a dejar por algo que de verdad importa?"
+      "text": "¿Qué dejarías atrás por algo que de verdad importa?"
     },
     {
       "slug": "valores-perdon-propio",
@@ -574,7 +574,7 @@
       "slug": "valores-promesa-a-ti",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué promesa te hiciste a ti mismo o misma y no has cumplido todavía?"
+      "text": "¿Qué promesa le harías hoy a tu yo del futuro?"
     },
     {
       "slug": "valores-mensaje-al-futuro",
@@ -610,7 +610,7 @@
       "slug": "valores-sentir-orgullo-de-ti",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿En qué momento de tu vida te sentiste más orgulloso u orgullosa de ti?"
+      "text": "¿Qué momento de tu vida es del que más te enorgulleces?"
     },
     {
       "slug": "valores-ser-ejemplo",
@@ -640,7 +640,7 @@
       "slug": "valores-gratitud-profunda",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Por quién estás agradecido o agradecida y nunca se lo has dicho completo?"
+      "text": "¿A quién le debes un gracias enorme que nunca le has dicho completo?"
     },
     {
       "slug": "valores-etapa-que-te-formo",
@@ -670,7 +670,7 @@
       "slug": "valores-lo-que-extranas-nino",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Qué parte de tu niñez quisieras recuperar como adulto o adulta?"
+      "text": "¿Qué parte de tu niñez quisieras recuperar en tu vida de hoy?"
     },
     {
       "slug": "valores-cuando-ayudaste",
@@ -758,7 +758,7 @@
       "options": [
         "Estar en paz",
         "Tener estabilidad económica",
-        "Ser querido o querida",
+        "Rodearme de cariño",
         "Dejar huella"
       ]
     },
@@ -1024,12 +1024,12 @@
       "slug": "valores-sentir-seguro",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Me siento seguro o segura en una relación cuando...",
+      "text": "Para confiar plenamente en una relación, necesito...",
       "options": [
-        "Hay claridad",
-        "Hay constancia",
-        "Hay cariño visible",
-        "Hay libertad"
+        "Claridad",
+        "Constancia",
+        "Cariño visible",
+        "Libertad"
       ]
     },
     {
@@ -1052,7 +1052,7 @@
       "options": [
         "Crecer profesionalmente",
         "Cuidar mi relación",
-        "Estar tranquilo o tranquila",
+        "Vivir con calma",
         "Divertirme más"
       ]
     },
@@ -1120,7 +1120,7 @@
       "slug": "valores-honestidad-regalo",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Un regalo que sí me hace sentir cuidado o cuidada es...",
+      "text": "Lo que más me hace sentir que me cuidan es...",
       "options": [
         "Que me cuenten la verdad",
         "Que recuerden lo que me gusta",

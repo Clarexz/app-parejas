@@ -311,7 +311,7 @@
       "slug": "futuro-comida-que-aprendamos",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Qué platillo te gustaría que aprendiéramos a cocinar para presumirlo?"
+      "text": "¿Qué reto de cocina nos pondrías para un sábado juntos?"
     },
     {
       "slug": "futuro-regalo-para-el-futuro",
@@ -385,10 +385,10 @@
       "intensity": "ligera",
       "text": "El día de la mudanza, ¿cuál sería tu papel?",
       "options": [
-        "El que empaca",
-        "El que carga cajas",
-        "El que organiza",
-        "El que pone la música"
+        "Quien empaca",
+        "Quien carga cajas",
+        "Quien organiza",
+        "Quien pone la música"
       ]
     },
     {
@@ -539,7 +539,7 @@
       "slug": "futuro-vida-ideal-en-diez-anos",
       "type": "open",
       "intensity": "profunda",
-      "text": "Describe tu vida ideal dentro de diez años, con todo y un martes normal."
+      "text": "¿Dónde te imaginas despertando dentro de diez años y con quién desayunas?"
     },
     {
       "slug": "futuro-lo-que-no-quieres-repetir",
