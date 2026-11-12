@@ -1759,7 +1759,10 @@ export type Database = {
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };
-      start_game_round: { Args: { p_game: string; p_spicy?: boolean }; Returns: Json };
+      start_game_round: {
+        Args: { p_game: string; p_size?: number; p_spicy?: boolean };
+        Returns: Json;
+      };
       stories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
       stories_cleanup_commit: { Args: { p_story_ids: string[] }; Returns: number };
       story_path_readable: { Args: { p_name: string }; Returns: boolean };

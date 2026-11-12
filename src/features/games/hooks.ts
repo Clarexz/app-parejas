@@ -138,14 +138,14 @@ export function useDrawing(id: string | null | undefined) {
 // Mutaciones: rondas
 // ---------------------------------------------------------------------------
 
-/** `mutateAsync({ game, spicy })` → la ronda (la abierta si ya existía). */
+/** `mutateAsync({ game, spicy, size? })` → la ronda (la abierta si ya existía). */
 export function useStartGameRound() {
   const { couple } = useCouple();
   const qc = useQueryClient();
   const coupleId = couple?.id ?? null;
   return useMutation({
-    mutationFn: (input: { game: GameId; spicy: boolean }): Promise<GameRound> =>
-      startGameRound(input.game, input.spicy),
+    mutationFn: (input: { game: GameId; spicy: boolean; size?: RoundSize }): Promise<GameRound> =>
+      startGameRound(input.game, input.spicy, input.size),
     onSuccess: (round) => {
       qc.setQueryData(gameKeys.round(coupleId, round.id), round);
       invalidateOverview(qc, coupleId);

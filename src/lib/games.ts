@@ -12,6 +12,16 @@ export type GameId = 'wyr' | 'nhie' | 'most_likely' | 'agree';
 
 export const GAME_IDS: readonly GameId[] = ['wyr', 'nhie', 'most_likely', 'agree'];
 
+/** Tamaños de ronda que acepta `start_game_round`. */
+export const ROUND_SIZES = [10, 15, 20] as const;
+export type RoundSize = (typeof ROUND_SIZES)[number];
+export const DEFAULT_ROUND_SIZE: RoundSize = 10;
+
+/** Un valor cualquiera (guardado en el celular, tamaño de una ronda) a un tamaño válido o null. */
+export function parseRoundSize(value: unknown): RoundSize | null {
+  return ROUND_SIZES.find((s) => s === value) ?? null;
+}
+
 export type GameInfo = { id: GameId; name: string; tagline: string; howTo: string };
 
 export const GAMES: Record<GameId, GameInfo> = {
