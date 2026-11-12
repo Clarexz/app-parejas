@@ -1,5 +1,6 @@
 import type { Stroke } from '@/lib/drawing';
 import {
+  DEFAULT_ROUND_SIZE,
   parseDrawing,
   parseGameOverview,
   parseGameRound,
@@ -9,6 +10,7 @@ import {
   type GameOverview,
   type GameRound,
   type GuessResult,
+  type RoundSize,
 } from '@/lib/games';
 import { supabase } from '@/lib/supabase';
 import type { Json } from '@/types/database';

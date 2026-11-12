@@ -22,6 +22,7 @@ import {
   itemMatches,
   matchHeadline,
   nextItem,
+  parseRoundSize,
   pointedAt,
   roundShareText,
   roundTurn,
@@ -33,6 +34,8 @@ import { useShareCard } from '@/features/share';
 import { useTheme } from '@/theme';
 
 import { useAnswerGameItem, useDeleteGameRound, useGameRound, useStartGameRound } from '../hooks';
+import { useRoundSize } from '../roundSize';
+import { RoundSizePicker } from './RoundSizePicker';
 import { RoundProgress } from './RoundProgress';
 import { useNames } from './useNames';
 import { BackBar, ErrorPage, LoadingPage, isGone, useGoBack } from './ui';
@@ -198,6 +201,8 @@ function Finished({ round }: { round: GameRound }) {
   const toast = useToast();
   const { meName, partnerName } = useNames();
   const again = useStartGameRound();
+  // Otra ronda del mismo tamaño que la que acaban de jugar, salvo que ya hayan elegido otro.
+  const [size, setSize] = useRoundSize(round.game, parseRoundSize(round.total) ?? undefined);
   const match = round.match;
 
   const cardShare = useShareCard();
@@ -224,7 +229,7 @@ function Finished({ round }: { round: GameRound }) {
   };
   const next = () =>
     again.mutate(
-      { game: round.game, spicy: round.spicy },
+      { game: round.game, spicy: round.spicy, size },
       {
         onSuccess: (r) => {
           haptic.light();
@@ -262,6 +267,7 @@ function Finished({ round }: { round: GameRound }) {
       </View>
 
       <View style={{ gap: spacing.md }}>
+        <RoundSizePicker value={size} onChange={setSize} />
         <Button title="Otra ronda" fullWidth onPress={next} loading={again.isPending} />
         <Button
           title="Compartir"

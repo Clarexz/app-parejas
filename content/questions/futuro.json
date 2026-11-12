@@ -407,12 +407,12 @@
       "slug": "futuro-mascota-de-casa",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Qué mascota tendríamos en casa?",
+      "text": "Si adoptáramos un animalito, ¿qué personalidad te gustaría que tuviera?",
       "options": [
-        "Perro",
-        "Gato",
-        "Los dos",
-        "Mejor una planta"
+        "Flojo y apapachador",
+        "Travieso y escandaloso",
+        "Independiente y elegante",
+        "Guardián y leal"
       ]
     },
     {
@@ -905,7 +905,7 @@
       "slug": "futuro-prioridad-proximos-anos",
       "type": "choice",
       "intensity": "profunda",
-      "text": "En los próximos años, ¿qué quieres priorizar?",
+      "text": "Para los siguientes años, ¿en qué quieres poner más energía?",
       "options": [
         "Mi carrera",
         "Nuestra relación",
@@ -1248,6 +1248,30 @@
       "type": "open",
       "intensity": "profunda",
       "text": "¿Qué te sorprendería de verdad que pasara en tu vida en los próximos cinco años?"
+    },
+    {
+      "slug": "futuro-lo-que-mas-temes-perder",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En el camino al futuro, lo que no quiero perder es...",
+      "options": [
+        "Mi libertad",
+        "Mi paz",
+        "Mi tiempo de calidad contigo",
+        "Mi curiosidad"
+      ]
+    },
+    {
+      "slug": "futuro-forma-de-decidir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para decidir algo grande como pareja, me funciona más...",
+      "options": [
+        "Una lista de pros y contras",
+        "Platicarlo caminando",
+        "Dormirlo un par de días",
+        "Seguir mi instinto"
+      ]
     }
   ]
 }

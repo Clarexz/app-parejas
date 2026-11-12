@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { useCouple } from '@/features/couple';
 import type { Stroke } from '@/lib/drawing';
-import type { Drawing, GameId, GameOverview, GameRound } from '@/lib/games';
+import type { Drawing, GameId, GameOverview, GameRound, RoundSize } from '@/lib/games';
 import { randomUuid } from '@/lib/ids';
 import { supabase } from '@/lib/supabase';
 

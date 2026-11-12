@@ -1212,6 +1212,18 @@
       "type": "open",
       "intensity": "profunda",
       "text": "Si pudieras revivir un solo día de tu vida, ¿cuál sería y qué cambiarías o no cambiarías?"
+    },
+    {
+      "slug": "recuerdos-primera-impresion-de-ti",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando te conocí, mi primera impresión fue...",
+      "options": [
+        "Qué amable",
+        "Qué bonita sonrisa",
+        "Qué interesante",
+        "Qué nervios"
+      ]
     }
   ]
 }

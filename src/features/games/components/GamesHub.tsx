@@ -36,6 +36,8 @@ import { spicyState } from '@/lib/questions';
 import { useTheme } from '@/theme';
 
 import { useGameOverview, useStartDrawing, useStartGameRound } from '../hooks';
+import { useRoundSize } from '../roundSize';
+import { RoundSizePicker } from './RoundSizePicker';
 import { useNames } from './useNames';
 
 type Target = GameId | 'drawing';
@@ -113,6 +115,7 @@ export function GamesSection() {
   const startDrawing = useStartDrawing();
   const [target, setTarget] = useState<Target | null>(null);
   const [open, setOpen] = useState(false);
+  const [size, setSize] = useRoundSize(target && target !== 'drawing' ? target : null);
 
   const spicyActive = spicyState(members, meId).active;
   const statsOf = (g: GameId) => overview?.games.find((s) => s.game === g);
@@ -129,7 +132,7 @@ export function GamesSection() {
 
   const play = (game: GameId, spicy: boolean) => {
     startRound.mutate(
-      { game, spicy },
+      { game, spicy, size },
       {
         onSuccess: (round) => {
           haptic.light();
@@ -384,6 +387,7 @@ export function GamesSection() {
             />
           ) : target ? (
             <>
+              <RoundSizePicker value={size} onChange={setSize} />
               <Button
                 title="Jugar"
                 fullWidth

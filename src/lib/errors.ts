@@ -68,6 +68,7 @@ const BY_CODE: Record<string, string> = {
   round_not_found: 'Esa ronda ya no está. Quizá la quitaron desde el otro celular.',
   round_finished: 'Esa ronda ya terminó. Entra a ver cómo les fue.',
   invalid_choice: 'No pudimos guardar tu respuesta. Elige una de las dos opciones.',
+  invalid_round_size: 'Las rondas son de 10, 15 o 20 preguntas. Elige una de esas.',
   item_not_in_round: 'Esa pregunta ya no está en la ronda. Actualiza e intenta otra vez.',
   drawing_not_found: 'Ese dibujo ya no está. Quizá lo quitaron desde el otro celular.',
   not_drawer: 'Solo quien dibuja puede hacer eso.',
