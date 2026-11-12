@@ -12,7 +12,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Son las once de la noche y te da un antojo, ¿de qué?",
-      "options": ["Tacos", "Algo dulce", "Cereal", "Fruta o galletas"]
+      "options": [
+        "Tacos",
+        "Algo dulce",
+        "Cereal",
+        "Fruta o galletas"
+      ]
     },
     {
       "slug": "conocernos-miedo-tonto",
@@ -31,7 +36,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué app abres más veces al día sin darte cuenta?",
-      "options": ["Mensajes", "Redes sociales", "Videos cortos", "Juegos"]
+      "options": [
+        "Mensajes",
+        "Redes sociales",
+        "Videos cortos",
+        "Juegos"
+      ]
     },
     {
       "slug": "conocernos-como-despiertas",
@@ -146,7 +156,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te relaja más?",
-      "options": ["La lluvia", "Una playlist", "Olor a café", "Una cobija pesada"]
+      "options": [
+        "La lluvia",
+        "Una playlist",
+        "Olor a café",
+        "Una cobija pesada"
+      ]
     },
     {
       "slug": "conocernos-dato-que-sorprende",
@@ -189,7 +204,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿A qué hora del día rindes más?",
-      "options": ["Mañana temprano", "Mediodía", "Tarde", "Madrugada"]
+      "options": [
+        "Mañana temprano",
+        "Mediodía",
+        "Tarde",
+        "Madrugada"
+      ]
     },
     {
       "slug": "conocernos-coleccion-sin-querer",
@@ -202,6 +222,402 @@
       "type": "open",
       "intensity": "profunda",
       "text": "¿Qué persona, lugar o cosa te hace sentir a salvo sin que haga falta decir nada?"
+    },
+    {
+      "slug": "conocernos-cual-apodo-mas-raro-han",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el apodo más raro que te han puesto y quién fue?"
+    },
+    {
+      "slug": "conocernos-cosa-haces-bien-pero-nadie",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa haces muy bien pero nadie te ha pedido que hagas?"
+    },
+    {
+      "slug": "conocernos-cual-primer-trabajo-aunque-haya",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu primer trabajo, aunque haya sido vender dulces en la escuela?"
+    },
+    {
+      "slug": "conocernos-cuentame-peor-corte-cabello-hicieron",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuéntame de la peor corte de cabello que te hicieron."
+    },
+    {
+      "slug": "conocernos-daba-mucha-pena-chiquito-ahora",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te daba mucha pena de chiquito y ahora ya ni te importa?"
+    },
+    {
+      "slug": "conocernos-personaje-caricatura-identificabas-ninez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Con qué personaje de caricatura te identificabas de niñez?"
+    },
+    {
+      "slug": "conocernos-cosa-hace-reir-aunque-no",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te hace reír aunque no sea tan chistosa?"
+    },
+    {
+      "slug": "conocernos-cual-historia-mas-ridicula-cuentas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la historia más ridícula que cuentas siempre en las reuniones?"
+    },
+    {
+      "slug": "conocernos-palabra-frase-repites-tanto-ya",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra o frase repites tanto que ya es tu sello?"
+    },
+    {
+      "slug": "conocernos-hicieran-meme-seria",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si te hicieran un meme, ¿de qué sería?"
+    },
+    {
+      "slug": "conocernos-cual-superpoder-cotidiano-ese-usas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu superpoder cotidiano, ese que usas sin darte cuenta?"
+    },
+    {
+      "slug": "conocernos-mas-impulsivo-comprado-alguna-vez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más impulsivo que has comprado alguna vez?"
+    },
+    {
+      "slug": "conocernos-sonido-dia-dia-da-paz",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sonido del día a día te da paz?"
+    },
+    {
+      "slug": "conocernos-sonido-da-escalofrios-coraje-inmediato",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sonido te da escalofríos o coraje de inmediato?"
+    },
+    {
+      "slug": "conocernos-cosa-da-pereza-aunque-sepas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te da pereza aunque sepas que te encantaría?"
+    },
+    {
+      "slug": "conocernos-como-celebrabas-cumpleanos-ninez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo celebrabas tu cumpleaños de niñez?"
+    },
+    {
+      "slug": "conocernos-primero-haces-llegar-casa-no",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que haces al llegar a una casa que no es la tuya?"
+    },
+    {
+      "slug": "conocernos-serie-libro-engancho-tanto-perdiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué serie o libro te enganchó tanto que perdiste horas de sueño?"
+    },
+    {
+      "slug": "conocernos-cual-zona-confort-total-ese",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu zona de confort total, ese plan que nunca falla?"
+    },
+    {
+      "slug": "conocernos-nunca-cansas-platicar-alguien",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿De qué nunca te cansas de platicar con alguien?"
+    },
+    {
+      "slug": "conocernos-demasiado-competitivo-competitiva-aunque-sea",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué eres demasiado competitivo o competitiva, aunque sea un juego tonto?"
+    },
+    {
+      "slug": "conocernos-tradicion-familiar-chiquita-sea-extranarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición familiar, por chiquita que sea, extrañarías si faltara?"
+    },
+    {
+      "slug": "conocernos-cosa-pone-buen-humor-importar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te pone de buen humor sin importar cómo vaya el día?"
+    },
+    {
+      "slug": "conocernos-cual-ha-sido-mejor-decision",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido tu mejor decisión impulsiva?"
+    },
+    {
+      "slug": "conocernos-mas-raro-comido-curiosidad-reto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más raro que te has comido por curiosidad o por reto?"
+    },
+    {
+      "slug": "conocernos-pudieras-aprender-idioma-mes-cual",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras aprender un idioma en un mes, ¿cuál sería?"
+    },
+    {
+      "slug": "conocernos-sabes-memoria-aunque-no-tenga",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te sabes de memoria aunque no tenga ninguna utilidad?"
+    },
+    {
+      "slug": "conocernos-cosa-hacias-ninez-hoy-da",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa hacías de niñez que hoy te da ternura recordar?"
+    },
+    {
+      "slug": "conocernos-pondrias-disfraz-no-importara-diran",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te pondrías de disfraz si no te importara el qué dirán?"
+    },
+    {
+      "slug": "conocernos-tan-bueno-buena-guardar-secretos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tan bueno o buena eres para guardar secretos, del 1 al 10, y por qué?"
+    },
+    {
+      "slug": "conocernos-hay-lista-pendientes-lleva-mas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pendiente de tu lista lleva más de un año sin moverse?"
+    },
+    {
+      "slug": "conocernos-cual-ultima-cosa-hizo-reir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la última cosa que te hizo reír tanto que lloraste?"
+    },
+    {
+      "slug": "conocernos-regalo-grande-chiquito-mas-disfrutado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué regalo, grande o chiquito, es el que más has disfrutado recibir?"
+    },
+    {
+      "slug": "conocernos-cuentame-vez-olvido-algo-importante",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuéntame una vez que se te olvidó algo importante y cómo lo resolviste."
+    },
+    {
+      "slug": "conocernos-como-llegas-lugar-donde-no",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres cuando llegas a un lugar donde no conoces a nadie?",
+      "options": [
+        "Busco con quién platicar",
+        "Me pego a mi acompañante",
+        "Me quedo en mi celular",
+        "Hago un recorrido de reconocimiento"
+      ]
+    },
+    {
+      "slug": "conocernos-grupo-amigos-papel-toca-casi",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un grupo de amigos, ¿qué papel te toca casi siempre?",
+      "options": [
+        "El que organiza",
+        "El que hace reír",
+        "El que escucha",
+        "El que se pierde en el chat"
+      ]
+    },
+    {
+      "slug": "conocernos-como-prefieres-pasar-cumpleanos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo prefieres pasar tu cumpleaños?",
+      "options": [
+        "Fiestón con todos",
+        "Cena con poca gente",
+        "Plan tranquilo en pareja",
+        "Que ni se note"
+      ]
+    },
+    {
+      "slug": "conocernos-como-reaccionas-sorprenden-fiesta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo reaccionas cuando te sorprenden con una fiesta?",
+      "options": [
+        "Me emociono",
+        "Me da pena",
+        "Me da miedo",
+        "Me hago el sorprendido"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-mayor-debilidad-super",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu mayor debilidad en el súper?",
+      "options": [
+        "Pan dulce",
+        "Botanas",
+        "Cosas que no estaban en la lista",
+        "Todo en oferta"
+      ]
+    },
+    {
+      "slug": "conocernos-como-mensajes-voz",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres con los mensajes de voz?",
+      "options": [
+        "Los amo",
+        "Los escucho a 2x",
+        "Prefiero texto",
+        "Los evito a toda costa"
+      ]
+    },
+    {
+      "slug": "conocernos-tan-puntual-realidad",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tan puntual eres en realidad?",
+      "options": [
+        "Llego antes",
+        "A tiempo justo",
+        "Diez minutos tarde",
+        "Hora mexicana oficial"
+      ]
+    },
+    {
+      "slug": "conocernos-como-cuarto-dia-normal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo es tu cuarto en un día normal?",
+      "options": [
+        "Impecable",
+        "Desorden organizado",
+        "Ropa en la silla",
+        "Ya ni se ve el piso"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-estilo-tomarte-fotos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu estilo para tomarte fotos?",
+      "options": [
+        "Selfie de siempre",
+        "Que alguien me la tome",
+        "Evito salir",
+        "Cara chistosa siempre"
+      ]
+    },
+    {
+      "slug": "conocernos-rapidez-decides-restaurante",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Con qué rapidez decides en un restaurante?",
+      "options": [
+        "Ya sabía qué pedir",
+        "Cinco minutos",
+        "Pregunto qué pidió el otro",
+        "Pido lo mismo de siempre"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-clima-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu clima ideal?",
+      "options": [
+        "Frío con cobija",
+        "Calor de playa",
+        "Fresco con lluvia",
+        "Primavera todo el año"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-tipo-risa-mas-comun",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu tipo de risa más común?",
+      "options": [
+        "Carcajada",
+        "Risa silenciosa",
+        "Risa contagiosa",
+        "Risa nerviosa"
+      ]
+    },
+    {
+      "slug": "conocernos-como-comportas-dinero-acabas-recibir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te comportas con el dinero que acabas de recibir?",
+      "options": [
+        "Lo cuido",
+        "Me doy un gusto",
+        "Pago deudas",
+        "Desaparece en dos días"
+      ]
+    },
+    {
+      "slug": "conocernos-prefieres-viajar-lugar-nuevo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para viajar a un lugar nuevo?",
+      "options": [
+        "Todo planeado",
+        "Itinerario flojo",
+        "Improvisar",
+        "Que el otro decida"
+      ]
+    },
+    {
+      "slug": "conocernos-noche-cualquiera-late-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una noche cualquiera, ¿qué te late más?",
+      "options": [
+        "Salir a cenar",
+        "Peli en casa",
+        "Videojuegos",
+        "Dormir temprano"
+      ]
+    },
+    {
+      "slug": "conocernos-como-enojas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres cuando te enojas?",
+      "options": [
+        "Me callo",
+        "Hablo de inmediato",
+        "Necesito caminar",
+        "Me da por reírme"
+      ]
     }
   ]
 }

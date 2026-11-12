@@ -126,14 +126,24 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tuvieras que ordenar, ¿qué pondrías primero?",
-      "options": ["Familia", "Pareja", "Carrera", "Salud"]
+      "options": [
+        "Familia",
+        "Pareja",
+        "Carrera",
+        "Salud"
+      ]
     },
     {
       "slug": "valores-calidad-a-admirar",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué cualidad valoras más en una persona?",
-      "options": ["Honestidad", "Sentido del humor", "Constancia", "Generosidad"]
+      "options": [
+        "Honestidad",
+        "Sentido del humor",
+        "Constancia",
+        "Generosidad"
+      ]
     },
     {
       "slug": "valores-decision-grande",
@@ -164,13 +174,263 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "A largo plazo, ¿qué prefieres?",
-      "options": ["Estabilidad", "Aventura", "Un poco de cada una"]
+      "options": [
+        "Estabilidad",
+        "Aventura",
+        "Un poco de cada una"
+      ]
     },
     {
       "slug": "valores-conflicto-estilo",
       "type": "open",
       "intensity": "profunda",
       "text": "Cuando discutimos, ¿qué te ayuda a sentir que seguimos del mismo lado?"
+    },
+    {
+      "slug": "valores-lujo-barato",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es ese lujo chiquito que te haría sentir millonario o millonaria por un rato?"
+    },
+    {
+      "slug": "valores-cosa-que-no-prestas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa tuya no le prestas a nadie, ni a mí?"
+    },
+    {
+      "slug": "valores-valor-de-tu-abuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de tu mamá, papá o abuela se te quedó como regla de vida?"
+    },
+    {
+      "slug": "valores-mejor-consejo-recibido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor consejo que te han dado y quién te lo dio?"
+    },
+    {
+      "slug": "valores-orgullo-pequeno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿De qué cosa chiquita de esta semana te sientes orgulloso u orgullosa?"
+    },
+    {
+      "slug": "valores-valor-en-amistad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo que más te importa en una amistad?"
+    },
+    {
+      "slug": "valores-cosa-que-te-hace-mejor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hábito sencillo te hace mejor persona cuando lo cumples?"
+    },
+    {
+      "slug": "valores-orden-o-caos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tan importante es para ti el orden en casa y qué desorden sí aguantas?"
+    },
+    {
+      "slug": "valores-puntualidad-opinion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué opinas de llegar tarde a propósito de la hora acordada, como pasa en las fiestas?"
+    },
+    {
+      "slug": "valores-mala-educacion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te parece de mala educación aunque mucha gente la haga?"
+    },
+    {
+      "slug": "valores-valor-de-la-palabra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres que haga yo cuando te prometo algo y ya no puedo cumplirlo?"
+    },
+    {
+      "slug": "valores-cosa-gratis-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo mejor que tiene la vida que no cuesta nada?"
+    },
+    {
+      "slug": "valores-mantra-personal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que ponerte una frase en la pared del cuarto, ¿cuál sería?"
+    },
+    {
+      "slug": "valores-tradicion-propia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición inventarías tú para que fuera nuestra?"
+    },
+    {
+      "slug": "valores-valor-de-la-familia-elegida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién de tus amistades ya sientes como familia y por qué?"
+    },
+    {
+      "slug": "valores-cosa-que-no-compras",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué cosas no te gusta gastar aunque tengas con qué?"
+    },
+    {
+      "slug": "valores-regalo-que-vale",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor regalo que has dado y qué te hizo sentir?"
+    },
+    {
+      "slug": "valores-admiras-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué valor mío te gustaría haber tenido desde antes?"
+    },
+    {
+      "slug": "valores-hora-de-honestidad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mentirita blanca consideras aceptable y cuál ya no?"
+    },
+    {
+      "slug": "valores-vecino-ideal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de vecino o vecina quieres ser cuando vivamos en un lugar propio?"
+    },
+    {
+      "slug": "valores-chamba-que-importa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué importa más en una chamba para ti, además del sueldo?"
+    },
+    {
+      "slug": "valores-domingo-valores",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para ti, un fin de semana bien aprovechado es...",
+      "options": [
+        "Descansar sin culpa",
+        "Salir a conocer algo nuevo",
+        "Ver a la familia",
+        "Ponerme al día con pendientes"
+      ]
+    },
+    {
+      "slug": "valores-que-te-ofende-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te molesta más en alguien más?",
+      "options": [
+        "Que mienta",
+        "Que sea impuntual",
+        "Que sea grosero",
+        "Que presuma"
+      ]
+    },
+    {
+      "slug": "valores-dinero-ahorro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando te cae dinero extra, ¿qué haces primero?",
+      "options": [
+        "Lo ahorro",
+        "Me doy un gusto",
+        "Pago deudas",
+        "Se lo gasto a alguien que quiero"
+      ]
+    },
+    {
+      "slug": "valores-tradicion-favorita-valor",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué festejo te importa más cuidar?",
+      "options": [
+        "Navidad",
+        "Día de Muertos",
+        "Cumpleaños",
+        "El que se invente en el momento"
+      ]
+    },
+    {
+      "slug": "valores-amigo-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una buena amistad es la que...",
+      "options": [
+        "Te dice la verdad",
+        "Te escucha sin juzgar",
+        "Siempre te hace reír",
+        "Llega cuando la necesitas"
+      ]
+    },
+    {
+      "slug": "valores-virtud-propia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál dirías que es tu mejor virtud?",
+      "options": [
+        "Ser leal",
+        "Ser paciente",
+        "Ser divertido o divertida",
+        "Ser trabajador o trabajadora"
+      ]
+    },
+    {
+      "slug": "valores-defecto-aceptable",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué defecto toleras más fácil en una persona?",
+      "options": [
+        "Despistada",
+        "Terca",
+        "Dramática",
+        "Cerrada con el celular"
+      ]
+    },
+    {
+      "slug": "valores-regla-de-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La regla de casa que más defenderías es...",
+      "options": [
+        "Se lava lo que se ensucia",
+        "Nadie se duerme enojado",
+        "Los domingos son de descanso",
+        "Se avisa antes de invitar gente"
+      ]
+    },
+    {
+      "slug": "valores-mentir-por-bien",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si un amigo o amiga te pregunta qué opinas de su ropa fea, ¿qué haces?",
+      "options": [
+        "Digo la verdad",
+        "Digo la verdad con delicadeza",
+        "Elogio lo que sí me gusta",
+        "Cambio de tema"
+      ]
+    },
+    {
+      "slug": "valores-honestidad-nivel",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres de una pareja?",
+      "options": [
+        "Honestidad brutal",
+        "Honestidad con tacto",
+        "Que me cuente solo lo importante",
+        "Que me sorprenda"
+      ]
     }
   ]
 }

@@ -6,7 +6,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Con qué sientes más cariño de mi parte?",
-      "options": ["Palabras bonitas", "Tiempo juntos", "Detalles o regalos", "Abrazos y contacto"]
+      "options": [
+        "Palabras bonitas",
+        "Tiempo juntos",
+        "Detalles o regalos",
+        "Abrazos y contacto"
+      ]
     },
     {
       "slug": "amor-lo-que-hago-sin-darme-cuenta",
@@ -61,7 +66,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Hablando de detalles, ¿qué disfrutas más?",
-      "options": ["Darlos", "Recibirlos", "Planearlos juntos", "Que sean espontáneos"]
+      "options": [
+        "Darlos",
+        "Recibirlos",
+        "Planearlos juntos",
+        "Que sean espontáneos"
+      ]
     },
     {
       "slug": "amor-lo-que-admiras",
@@ -104,7 +114,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu mejor momento para un beso?",
-      "options": ["Al despedirnos", "Por sorpresa", "Después de reírnos", "Antes de dormir"]
+      "options": [
+        "Al despedirnos",
+        "Por sorpresa",
+        "Después de reírnos",
+        "Antes de dormir"
+      ]
     },
     {
       "slug": "amor-sentirte-vulnerable",
@@ -129,7 +144,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En una relación, ¿cuánto tiempo a solas necesitas?",
-      "options": ["Mucho", "Un poco", "Depende del día", "Casi nada"]
+      "options": [
+        "Mucho",
+        "Un poco",
+        "Depende del día",
+        "Casi nada"
+      ]
     },
     {
       "slug": "amor-mejor-cumplido",
@@ -196,7 +216,504 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Un día para consentirte, ¿qué eliges?",
-      "options": ["Masaje", "Tu comida favorita", "Película con cobija", "Que me dejen dormir"]
+      "options": [
+        "Masaje",
+        "Tu comida favorita",
+        "Película con cobija",
+        "Que me dejen dormir"
+      ]
+    },
+    {
+      "slug": "amor-primer-mensaje-que-guardas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el primer mensaje mío que guardaste o te acuerdas de memoria?"
+    },
+    {
+      "slug": "amor-cancion-que-es-nuestra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción sientes que ya es de ustedes dos, aunque nunca la hayan elegido?"
+    },
+    {
+      "slug": "amor-cosa-que-te-hace-reir-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa mía te hace reír aunque yo no esté haciendo chiste?"
+    },
+    {
+      "slug": "amor-abrazo-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe el abrazo que más te gusta darme, con todo y dónde ponemos los brazos."
+    },
+    {
+      "slug": "amor-mi-cara-cuando",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cara pongo cuando estoy feliz que te encanta?"
+    },
+    {
+      "slug": "amor-lo-primero-que-me-contarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si te pasara algo padrísimo hoy, ¿a quién se lo cuentas primero?"
+    },
+    {
+      "slug": "amor-detalle-que-nunca-olvidas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el detalle mío que jamás se te va a olvidar?"
+    },
+    {
+      "slug": "amor-mensaje-de-buenos-dias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te gustaría que fuera mi mensaje de buenos días ideal?"
+    },
+    {
+      "slug": "amor-nombre-contacto-celular",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo tengo guardado tu nombre en mi celular y cómo crees que me tienes guardado tú?"
+    },
+    {
+      "slug": "amor-foto-de-nosotros",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu foto favorita de los dos y qué pasaba en ese momento?"
+    },
+    {
+      "slug": "amor-cosa-de-mi-que-copiaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase o costumbre mía se te pegó sin querer?"
+    },
+    {
+      "slug": "amor-huella-de-tu-cariño",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu cariño dejara una huella en mi casa, ¿dónde la encontraría?"
+    },
+    {
+      "slug": "amor-olor-que-te-recuerda-a-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te hace pensar en mí de inmediato?"
+    },
+    {
+      "slug": "amor-como-me-describes-a-tus-amigos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo me describirías en una sola frase a alguien que no me conoce?"
+    },
+    {
+      "slug": "amor-pequena-victoria-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la última pequeña victoria que celebramos y ni nos dimos cuenta?"
+    },
+    {
+      "slug": "amor-lo-mas-tierno-que-has-visto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más tierno que me has visto hacer?"
+    },
+    {
+      "slug": "amor-cosa-que-te-da-calma-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué de mí te da calma cuando todo anda patas arriba?"
+    },
+    {
+      "slug": "amor-manera-de-decir-te-quiero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Además de decirlo, ¿cómo me dices \"te quiero\" sin palabras?"
+    },
+    {
+      "slug": "amor-chiste-privado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es nuestro chiste interno que nadie más entendería?"
+    },
+    {
+      "slug": "amor-comida-que-me-cocinarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si quisieras consentirme con una comida, ¿qué me prepararías?"
+    },
+    {
+      "slug": "amor-abrazo-o-mano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Caminando juntos, ¿prefieres ir de la mano, abrazados o cada quien con su espacio?"
+    },
+    {
+      "slug": "amor-sorpresa-pequena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sorpresa pequeñita te alegraría el día esta semana?"
+    },
+    {
+      "slug": "amor-sonrisa-que-recuerdas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué momento reciente te sacó una sonrisa pensar en mí?"
+    },
+    {
+      "slug": "amor-palabra-que-me-describe",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Escoge una sola palabra que me describa cuando estoy contigo."
+    },
+    {
+      "slug": "amor-rutina-de-cariño",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mini rutina de cariño te gustaría que tuviéramos todos los días?"
+    },
+    {
+      "slug": "amor-te-quiero-en-publico",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gesto de cariño en público te hace sentir bonito sin pena?"
+    },
+    {
+      "slug": "amor-detalle-que-te-gustaria-dar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle te gustaría darme pero todavía no te animas?"
+    },
+    {
+      "slug": "amor-mensaje-de-voz-o-texto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Para decirte algo bonito, ¿qué te late más: nota de voz, mensaje o carta?"
+    },
+    {
+      "slug": "amor-lo-que-extrano-de-ti-cuando-te-abrazo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que notas cuando por fin nos abrazamos después de un tiempo?"
+    },
+    {
+      "slug": "amor-apodo-nuevo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un apodo cariñoso nuevo para mí y explica por qué."
+    },
+    {
+      "slug": "amor-cosa-boba-que-te-enamora",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa boba que hago te enamora más de lo que debería?"
+    },
+    {
+      "slug": "amor-escena-de-pelicula-nuestra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué escena de película o serie se parece a cómo nos queremos?"
+    },
+    {
+      "slug": "amor-dia-que-te-sentiste-escuchado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo sentiste que de verdad te escuché con toda la atención?"
+    },
+    {
+      "slug": "amor-animal-que-somos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fuéramos animales juntos, ¿cuáles seríamos y qué haríamos todo el día?"
+    },
+    {
+      "slug": "amor-motivo-para-abrazarte-ya",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa pasa en tu día que te dan ganas de que estuviera yo ahí para abrazarte?"
+    },
+    {
+      "slug": "amor-lo-que-aprendiste-de-mi-gusto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gusto mío no entendías al inicio y ahora hasta lo disfrutas?"
+    },
+    {
+      "slug": "amor-quien-da-mas-mimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién de los dos da más mimos y quién los pide más?"
+    },
+    {
+      "slug": "amor-noche-de-ternura",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe una noche perfecta de ternura, sin nada elaborado."
+    },
+    {
+      "slug": "amor-regalo-que-guardas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué regalo o recuerdito de mi parte guardas con más cariño?"
+    },
+    {
+      "slug": "amor-cuando-me-viste-diferente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo notaste que ya no eras la misma persona de antes de conocerme?"
+    },
+    {
+      "slug": "amor-primer-te-quiero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te sentiste la primera vez que dijimos \"te quiero\"?"
+    },
+    {
+      "slug": "amor-mi-voz-en-tu-cabeza",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase mía escuchas en tu cabeza cuando necesitas ánimo?"
+    },
+    {
+      "slug": "amor-mi-mejor-version-contigo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué versión divertida de ti sale solo cuando estás conmigo?"
+    },
+    {
+      "slug": "amor-cosa-que-extranas-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Hoy en la mañana, ¿qué cosa mía extrañaste sin avisar?"
+    },
+    {
+      "slug": "amor-plan-de-mimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dame un plan de mimos de cinco minutos para cuando alguno ande de malas."
+    },
+    {
+      "slug": "amor-palabra-de-cariño-en-otro-idioma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra de cariño en otro idioma o en una jerga te gustaría que usáramos?"
+    },
+    {
+      "slug": "amor-cuando-te-siento-cerca",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Me siento más querido cuando...",
+      "options": [
+        "Me escuchas con atención",
+        "Me das un abrazo largo",
+        "Me haces reír",
+        "Me ayudas con algo pendiente"
+      ]
+    },
+    {
+      "slug": "amor-tipo-de-mensaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál mensaje te llega más al corazón?",
+      "options": [
+        "Un \"pienso en ti\"",
+        "Una foto de lo que hago",
+        "Una nota de voz",
+        "Un meme que me recordó a ti"
+      ]
+    },
+    {
+      "slug": "amor-recibir-cariño-al-llegar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando nos vemos después de días, ¿qué quieres primero?",
+      "options": [
+        "Abrazo eterno",
+        "Comer algo rico",
+        "Platicar de todo",
+        "Dormir juntos"
+      ]
+    },
+    {
+      "slug": "amor-tipo-de-cita-cariñosa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para una cita cariñosa, ¿qué eliges?",
+      "options": [
+        "Picnic en el parque",
+        "Cena en casa",
+        "Paseo sin rumbo",
+        "Maratón de series"
+      ]
+    },
+    {
+      "slug": "amor-quien-dice-primero-perdon",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Después de una discusión boba, ¿quién suele decir primero \"perdón\"?",
+      "options": [
+        "Yo",
+        "Tú",
+        "Depende de la pelea",
+        "Nos reímos y ya"
+      ]
+    },
+    {
+      "slug": "amor-demostracion-favorita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué demostración de amor disfrutas más?",
+      "options": [
+        "Un detalle inesperado",
+        "Una frase sincera",
+        "Que me ayudes sin pedirlo",
+        "Un abrazo sorpresa"
+      ]
+    },
+    {
+      "slug": "amor-lugar-del-beso",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Dónde te gusta más que te dé un beso?",
+      "options": [
+        "En la frente",
+        "En la mejilla",
+        "En la mano",
+        "En los labios"
+      ]
+    },
+    {
+      "slug": "amor-cuando-me-extrañas-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuándo me extrañas más en el día?",
+      "options": [
+        "Al despertar",
+        "A la hora de comer",
+        "Al salir de la chamba",
+        "Antes de dormir"
+      ]
+    },
+    {
+      "slug": "amor-tipo-de-abrazo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de abrazo es tu favorito?",
+      "options": [
+        "Por la espalda",
+        "De frente y largo",
+        "De esos que te levantan",
+        "Con cobijita"
+      ]
+    },
+    {
+      "slug": "amor-nivel-de-cursi",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Del 1 al 10, ¿qué tan cursi eres conmigo?",
+      "options": [
+        "Del 1 al 3",
+        "Del 4 al 6",
+        "Del 7 al 9",
+        "Un 10 sin pena"
+      ]
+    },
+    {
+      "slug": "amor-musica-para-nosotros",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para ambientar una noche romántica, ¿qué música pones?",
+      "options": [
+        "Baladas de antes",
+        "Algo en inglés tranquilito",
+        "Cumbias románticas",
+        "Solo silencio y velas"
+      ]
+    },
+    {
+      "slug": "amor-quien-se-enamoro-primero",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Quién crees que se enamoró primero?",
+      "options": [
+        "Yo",
+        "Tú",
+        "Los dos al mismo tiempo",
+        "Nunca lo sabremos"
+      ]
+    },
+    {
+      "slug": "amor-pelicula-romantica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Noche de película romántica: ¿qué plan armamos?",
+      "options": [
+        "Clásico de lágrima",
+        "Comedia romántica",
+        "Animada de Disney",
+        "Peli de terror para abrazarnos"
+      ]
+    },
+    {
+      "slug": "amor-saludo-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gusta que te salude al verte?",
+      "options": [
+        "Con beso",
+        "Con abrazo",
+        "Con un grito de emoción",
+        "Con un apodo ridículo"
+      ]
+    },
+    {
+      "slug": "amor-mensaje-largo-o-corto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para expresar cariño por texto, ¿qué estilo te gusta?",
+      "options": [
+        "Párrafo largo",
+        "Una línea directa",
+        "Puros emojis",
+        "Audio de tres minutos"
+      ]
+    },
+    {
+      "slug": "amor-detalle-de-cumple",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El detalle ideal en tu cumpleaños es...",
+      "options": [
+        "Algo hecho a mano",
+        "Algo que necesitabas",
+        "Una experiencia juntos",
+        "Que me cuides todo el día"
+      ]
+    },
+    {
+      "slug": "amor-te-quiero-con",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Quererte se parece más a...",
+      "options": [
+        "Tomar café calientito",
+        "Una cobija suave",
+        "Una canción vieja",
+        "Un domingo sin prisa"
+      ]
+    },
+    {
+      "slug": "amor-frase-que-te-gusta-oir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué frase te gusta más escuchar?",
+      "options": [
+        "Estoy orgulloso de ti",
+        "Qué bueno que estás aquí",
+        "Te extrañé",
+        "Aquí estoy para lo que sea"
+      ]
     }
   ]
 }

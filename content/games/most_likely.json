@@ -250,6 +250,591 @@
       "slug": "quien-picante-masaje",
       "intensity": "picante",
       "text": "¿Quién es más probable que ofrezca un masaje sin que se lo pidan?"
+    },
+    {
+      "slug": "quien-olvidar-contrasena",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que olvide la contraseña de Netflix y le pida ayuda a la otra persona?"
+    },
+    {
+      "slug": "quien-cargador-sin-bateria",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se quede sin batería justo cuando más necesita el celular?"
+    },
+    {
+      "slug": "quien-pedir-lo-mismo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pida lo mismo de siempre en el restaurante aunque diga que va a probar algo nuevo?"
+    },
+    {
+      "slug": "quien-entrar-cuarto-olvidar",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que entre a un cuarto y olvide a qué iba?"
+    },
+    {
+      "slug": "quien-cancelar-plan-pereza",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cancele un plan a último minuto por pura flojera?"
+    },
+    {
+      "slug": "quien-ver-reels-horas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se pierda dos horas viendo videos cortos sin darse cuenta?"
+    },
+    {
+      "slug": "quien-spoilear-sin-querer",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que suelte un spoiler sin querer?"
+    },
+    {
+      "slug": "quien-comerse-botana",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se acabe la botana antes de que empiece la película?"
+    },
+    {
+      "slug": "quien-hablar-con-mascota",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le hable a su mascota como si fuera persona?"
+    },
+    {
+      "slug": "quien-robar-cobija",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se quede con toda la cobija en la noche?"
+    },
+    {
+      "slug": "quien-dejar-cajones-abiertos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que deje todos los cajones abiertos?"
+    },
+    {
+      "slug": "quien-llegar-primero-cine",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llegue al cine media hora antes?"
+    },
+    {
+      "slug": "quien-perder-vuelo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que casi pierda un vuelo por ir con calma?"
+    },
+    {
+      "slug": "quien-mensaje-equivocado",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que mande un mensaje al chat equivocado?"
+    },
+    {
+      "slug": "quien-reirse-chiste-propio",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se ría de su propio chiste antes de terminarlo?"
+    },
+    {
+      "slug": "quien-cocinar-sin-receta",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cocine sin receta y le salga increíble?"
+    },
+    {
+      "slug": "quien-quemar-agua",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se queme con algo que ya sabía que estaba caliente?"
+    },
+    {
+      "slug": "quien-decir-si-a-todo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que diga que sí a un plan sin revisar su agenda?"
+    },
+    {
+      "slug": "quien-jugar-perder-berrinche",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que haga berrinche cuando pierde en un videojuego?"
+    },
+    {
+      "slug": "quien-mandar-captura",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que mande una captura de pantalla al grupo de amigos sin permiso?"
+    },
+    {
+      "slug": "quien-cantar-mal-orgulloso",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cante horrible pero con muchísima seguridad?"
+    },
+    {
+      "slug": "quien-pelearse-con-gps",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se pelee con el GPS?"
+    },
+    {
+      "slug": "quien-pedir-direcciones",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se detenga a pedir direcciones en lugar de seguir el mapa?"
+    },
+    {
+      "slug": "quien-dormir-hasta-tarde",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que duerma hasta las doce un sábado?"
+    },
+    {
+      "slug": "quien-despertar-antes",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se despierte antes de la alarma?"
+    },
+    {
+      "slug": "quien-comprar-recuerdo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que compre un recuerdo carísimo en un viaje?"
+    },
+    {
+      "slug": "quien-memorizar-letra",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se sepa toda la letra de una canción vieja?"
+    },
+    {
+      "slug": "quien-bailar-cocinando",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que baile mientras cocina?"
+    },
+    {
+      "slug": "quien-tener-mil-pestanas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tenga cien pestañas abiertas en el navegador?"
+    },
+    {
+      "slug": "quien-guardar-capturas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tenga la galería llena de capturas que nunca ve?"
+    },
+    {
+      "slug": "quien-acumular-tuppers",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que acumule tuppers que nunca devuelve?"
+    },
+    {
+      "slug": "quien-pasar-hambre-pedir",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que diga que no tiene hambre y luego se coma la mitad de la comida del otro?"
+    },
+    {
+      "slug": "quien-usar-emojis-mal",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que use el emoji equivocado en un mensaje serio?"
+    },
+    {
+      "slug": "quien-dejar-visto",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que deje en visto un mensaje y se le olvide contestar?"
+    },
+    {
+      "slug": "quien-contestar-audio-largo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que mande un audio de cinco minutos para contar algo corto?"
+    },
+    {
+      "slug": "quien-mandar-sticker",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que conteste todo con un sticker?"
+    },
+    {
+      "slug": "quien-llamar-por-error",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que haga una videollamada por accidente?"
+    },
+    {
+      "slug": "quien-silenciar-microfono",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que hable un buen rato con el micrófono apagado en una videollamada?"
+    },
+    {
+      "slug": "quien-pelear-por-termostato",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que dispute por la temperatura del aire acondicionado?"
+    },
+    {
+      "slug": "quien-contar-chisme",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que sea el primero en enterarse del chisme familiar?"
+    },
+    {
+      "slug": "quien-hacer-playlist",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que arme una playlist para cada estado de ánimo?"
+    },
+    {
+      "slug": "quien-quedarse-sin-gasolina",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se quede sin gasolina por no pasar a cargar?"
+    },
+    {
+      "slug": "quien-estacionarse-mal",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que dé tres vueltas para estacionarse?"
+    },
+    {
+      "slug": "quien-decir-dato-curioso",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que suelte un dato curioso que nadie pidió?"
+    },
+    {
+      "slug": "quien-descubrir-serie-tarde",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se enganche con una serie cuando ya todo el mundo la vio?"
+    },
+    {
+      "slug": "quien-hacer-maraton",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que haga maratón de una serie en un solo fin de semana?"
+    },
+    {
+      "slug": "quien-traer-sudadera",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tenga siempre una sudadera por si hace frío?"
+    },
+    {
+      "slug": "quien-olvidar-paraguas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que olvide el paraguas el único día que llueve?"
+    },
+    {
+      "slug": "quien-mojarse-lluvia",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se moje por no querer cargar el paraguas?"
+    },
+    {
+      "slug": "quien-adoptar-planta",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se encariñe con una planta y le ponga nombre?"
+    },
+    {
+      "slug": "quien-matar-planta",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se le muera una planta por no regarla?"
+    },
+    {
+      "slug": "quien-hablar-con-asistente",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le dé las gracias al asistente de voz?"
+    },
+    {
+      "slug": "quien-llevar-snack-bolsa",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que traiga siempre algo de comer en la bolsa?"
+    },
+    {
+      "slug": "quien-perder-audifonos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pierda unos audífonos que acaba de comprar?"
+    },
+    {
+      "slug": "quien-cambiar-peinado",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se corte el pelo por impulso a medianoche?"
+    },
+    {
+      "slug": "quien-tomar-selfies",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tome selfies en cada lugar al que van?"
+    },
+    {
+      "slug": "quien-posar-fotos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se ponga serio en las fotos?"
+    },
+    {
+      "slug": "quien-dejar-propina-grande",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que deje propina de más por pena?"
+    },
+    {
+      "slug": "quien-regatear-tianguis",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que regatee en el tianguis hasta ganar?"
+    },
+    {
+      "slug": "quien-comprar-de-mas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que vaya por una cosa al súper y regrese con diez?"
+    },
+    {
+      "slug": "quien-llenar-carrito",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llene el carrito del súper de antojos?"
+    },
+    {
+      "slug": "quien-probar-comida-rara",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pruebe el platillo más extraño del menú?"
+    },
+    {
+      "slug": "quien-picar-mucho",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le ponga salsa hasta a los postres?"
+    },
+    {
+      "slug": "quien-pedir-sin-cebolla",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pida todo sin cebolla?"
+    },
+    {
+      "slug": "quien-tener-antojo-medianoche",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se despierte con antojo de tacos a medianoche?"
+    },
+    {
+      "slug": "quien-cocinar-de-mas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cocine para diez cuando solo van a comer dos?"
+    },
+    {
+      "slug": "quien-lavar-trastes-ultimo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que deje los trastes para el día siguiente?"
+    },
+    {
+      "slug": "quien-tender-cama",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tienda la cama todas las mañanas?"
+    },
+    {
+      "slug": "quien-doblar-ropa",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que doble la ropa con precisión de tienda departamental?"
+    },
+    {
+      "slug": "quien-ordenar-closet",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que ordene el clóset por colores?"
+    },
+    {
+      "slug": "quien-buscar-cosas-ya-en-mano",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que busque el celular mientras lo trae en la mano?"
+    },
+    {
+      "slug": "quien-dar-mal-regalo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que regale algo que en realidad quería para sí?"
+    },
+    {
+      "slug": "quien-guardar-secretos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que aguante meses sin soltar una sorpresa?"
+    },
+    {
+      "slug": "quien-mentir-mal",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que sea malísimo para mentir?"
+    },
+    {
+      "slug": "quien-ser-sonrojar",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se ponga rojo de la pena?"
+    },
+    {
+      "slug": "quien-ser-testigo-boda",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llore en la boda de alguien que apenas conoce?"
+    },
+    {
+      "slug": "quien-llorar-comerciales",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llore con un comercial?"
+    },
+    {
+      "slug": "quien-abrazar-extranos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se haga amigo de un perro en la calle?"
+    },
+    {
+      "slug": "quien-acariciar-gatos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se detenga a acariciar a cada gato que ve?"
+    },
+    {
+      "slug": "quien-caminar-sin-rumbo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que salga a caminar sin rumbo y regrese con una historia?"
+    },
+    {
+      "slug": "quien-hacer-ejercicio",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que empiece una rutina de ejercicio y la deje en tres días?"
+    },
+    {
+      "slug": "quien-inscribir-gimnasio",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que pague el gimnasio y no vaya?"
+    },
+    {
+      "slug": "quien-comprar-gadget",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que compre un gadget que usa una sola vez?"
+    },
+    {
+      "slug": "quien-leer-reseñas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que lea todas las reseñas antes de comprar cualquier cosa?"
+    },
+    {
+      "slug": "quien-decidir-rapido",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que decida en dos segundos qué pedir?"
+    },
+    {
+      "slug": "quien-tardar-elegir",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que tarde media hora en elegir qué ver?"
+    },
+    {
+      "slug": "quien-hacer-lista",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que haga una lista para todo?"
+    },
+    {
+      "slug": "quien-llegar-justo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que llegue a tiempo por un minuto?"
+    },
+    {
+      "slug": "quien-sacar-foto-comida",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le tome foto a la comida antes de probarla?"
+    },
+    {
+      "slug": "quien-decir-albures",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que suelte un albur en plena comida familiar?"
+    },
+    {
+      "slug": "quien-tararear-trabajo",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que vaya tarareando una canción sin darse cuenta?"
+    },
+    {
+      "slug": "quien-hablar-rapido-nervioso",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que hable de más cuando está nervioso?"
+    },
+    {
+      "slug": "quien-gritar-susto",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que grite más fuerte en una película de terror?"
+    },
+    {
+      "slug": "quien-taparse-ojos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se tape los ojos en las escenas de miedo?"
+    },
+    {
+      "slug": "quien-quedarse-dormido-cine",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se quede dormido en el cine?"
+    },
+    {
+      "slug": "quien-contar-historia-larga",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cuente una historia de veinte minutos para llegar a un chiste?"
+    },
+    {
+      "slug": "quien-repetir-chiste",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cuente el mismo chiste tres veces?"
+    },
+    {
+      "slug": "quien-sacar-tema-comida",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que hable de comida mientras todavía están comiendo?"
+    },
+    {
+      "slug": "quien-recordar-cumples",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se acuerde del cumpleaños de todos sus conocidos?"
+    },
+    {
+      "slug": "quien-organizar-posada",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que organice la posada con todo y piñata?"
+    },
+    {
+      "slug": "quien-armar-arbol",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que arme el árbol de Navidad desde noviembre?"
+    },
+    {
+      "slug": "quien-cantar-cumpleanos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que cante Las Mañanitas más fuerte que todos?"
+    },
+    {
+      "slug": "quien-echarse-un-clavado",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se aviente al mar sin pensarlo?"
+    },
+    {
+      "slug": "quien-tener-miedo-bichos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que grite por una cucaracha?"
+    },
+    {
+      "slug": "quien-tener-miedo-altura",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que no quiera asomarse desde un lugar alto?"
+    },
+    {
+      "slug": "quien-perderse-centro-comercial",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se pierda en el centro comercial?"
+    },
+    {
+      "slug": "quien-confundir-calles",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que confunda la dirección de su propia casa a la hora de dar indicaciones?"
+    },
+    {
+      "slug": "quien-contar-pasos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se ponga a contar cuántos pasos dio en el día?"
+    },
+    {
+      "slug": "quien-tomar-siesta",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se eche una siesta de \"cinco minutos\" que dura dos horas?"
+    },
+    {
+      "slug": "quien-dejar-luces-prendidas",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que deje todas las luces prendidas?"
+    },
+    {
+      "slug": "quien-apagar-luces",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que ande apagando las luces de todo el mundo?"
+    },
+    {
+      "slug": "quien-quejarse-calor",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que se queje del calor en cuanto sale el sol?"
+    },
+    {
+      "slug": "quien-quejarse-frio",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que diga que tiene frío con veintidós grados?"
+    },
+    {
+      "slug": "quien-saludar-vecinos",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que conozca a todos los vecinos del edificio?"
+    },
+    {
+      "slug": "quien-platicar-taxista",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le cuente su vida entera al conductor del taxi?"
+    },
+    {
+      "slug": "quien-ligar-mesero",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le caiga bien a todo el personal del restaurante?"
+    },
+    {
+      "slug": "quien-pedir-cancion-banda",
+      "intensity": "ligera",
+      "text": "¿Quién es más probable que le pida una canción al mariachi?"
     }
   ]
 }

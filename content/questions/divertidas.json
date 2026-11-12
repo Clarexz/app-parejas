@@ -216,6 +216,534 @@
       "type": "open",
       "intensity": "ligera",
       "text": "Si tuvieras que ser un superhéroe con un defecto muy tonto, ¿cuál sería el defecto?"
+    },
+    {
+      "slug": "divertidas-wifi-se-cae",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Se cae el internet en plena serie. ¿Cuál es tu primera reacción?",
+      "options": [
+        "Reinicio el módem con fe",
+        "Culpo al vecino",
+        "Aprovecho para platicar",
+        "Entro en pánico silencioso"
+      ]
+    },
+    {
+      "slug": "divertidas-ultimo-pedazo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Queda el último pedazo de pizza. ¿Qué haces?",
+      "options": [
+        "Lo parto a la mitad",
+        "Me lo como rápido",
+        "Lo ofrezco con cara de santo",
+        "Lo dejo y lo vigilo"
+      ]
+    },
+    {
+      "slug": "divertidas-foto-grupal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En una foto grupal, ¿cuál es tu papel?",
+      "options": [
+        "Salgo con los ojos cerrados",
+        "Pongo cara de seria sorpresa",
+        "Soy el o la que toma la foto",
+        "Siempre salgo al fondo"
+      ]
+    },
+    {
+      "slug": "divertidas-baile-boda",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Suena la canción de la boda a la que fueron. ¿Qué haces en la pista?",
+      "options": [
+        "Me aviento todos los pasos",
+        "Hago el mismo paso de lado a lado",
+        "Me escondo en la mesa",
+        "Jalo a todos a bailar"
+      ]
+    },
+    {
+      "slug": "divertidas-alarma-despertador",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Suena tu alarma en la mañana. ¿Qué pasa?",
+      "options": [
+        "Me levanto a la primera",
+        "Pospongo cinco veces",
+        "La apago y sigo dormido",
+        "Ya estaba despierto desde antes"
+      ]
+    },
+    {
+      "slug": "divertidas-perro-ladra",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un perro enorme te ladra en la calle. ¿Cómo reaccionas?",
+      "options": [
+        "Le hablo bonito",
+        "Cruzo de banqueta",
+        "Me escondo detrás de ti",
+        "Le ladro de regreso"
+      ]
+    },
+    {
+      "slug": "divertidas-helado-cono",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te comes un helado de cono?",
+      "options": [
+        "Con paciencia, sin que escurra",
+        "Mordisco directo",
+        "Se me derrite hasta el codo",
+        "Pido vasito, soy prudente"
+      ]
+    },
+    {
+      "slug": "divertidas-mensaje-visto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te dejan en visto. ¿Qué haces?",
+      "options": [
+        "Nada, sigo con mi vida",
+        "Mando un segundo mensaje",
+        "Reviso si estaba en línea",
+        "Hago un drama mental de diez minutos"
+      ]
+    },
+    {
+      "slug": "divertidas-karaoke-noche",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te pasan el micrófono en el karaoke. ¿Qué cantas?",
+      "options": [
+        "Una de banda a todo pulmón",
+        "Una balada para llorar",
+        "Un clásico de los noventa",
+        "Me hago el sordo y se lo paso"
+      ]
+    },
+    {
+      "slug": "divertidas-cumple-sorpresa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te organizan una fiesta sorpresa. ¿Cómo reaccionas?",
+      "options": [
+        "Lloro como niño",
+        "Pregunto quién habló",
+        "Finjo emoción hasta que se van",
+        "Me da risa nerviosa"
+      ]
+    },
+    {
+      "slug": "divertidas-plato-no-me-gusta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te sirven un plato que no te gusta en casa ajena. ¿Qué haces?",
+      "options": [
+        "Me lo como con valentía",
+        "Lo muevo por el plato",
+        "Digo que ya comí",
+        "Se lo paso discreto a alguien"
+      ]
+    },
+    {
+      "slug": "divertidas-trafico-cancion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Estás en el tráfico y suena tu canción. ¿Qué haces?",
+      "options": [
+        "Subo el volumen y canto",
+        "Canto en voz baja, con pena",
+        "Cambio a otra estación",
+        "Hago coreografía de volante"
+      ]
+    },
+    {
+      "slug": "divertidas-cuenta-restaurante",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llega la cuenta del restaurante. ¿Qué tipo de persona eres?",
+      "options": [
+        "Saco la calculadora",
+        "Digo \"yo invito\" sin dudar",
+        "Me hago el distraído",
+        "Pido que dividan todo exacto"
+      ]
+    },
+    {
+      "slug": "divertidas-taco-picante",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te dan un taco que pica horrible. ¿Cómo lo manejas?",
+      "options": [
+        "Sigo comiendo con lágrimas",
+        "Pido agua sin pena",
+        "Digo que está buenísimo mientras sudo",
+        "Lo cambio por uno sin salsa"
+      ]
+    },
+    {
+      "slug": "divertidas-risa-mal-momento",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te da risa en un momento muy serio. ¿Qué haces?",
+      "options": [
+        "Me muerdo la lengua",
+        "Me tapo la cara",
+        "Miro a otro lado",
+        "Me contagio y no paro"
+      ]
+    },
+    {
+      "slug": "divertidas-mosco-en-cuarto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Hay un mosquito zumbando en tu cuarto de noche. ¿Qué haces?",
+      "options": [
+        "Me levanto a cazarlo",
+        "Me tapo hasta la cabeza",
+        "Lo ignoro y dejo que gane",
+        "Le despierto a quien duerme conmigo"
+      ]
+    },
+    {
+      "slug": "divertidas-bañarse-musica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la regadera, ¿qué sueles hacer?",
+      "options": [
+        "Cantar de ópera",
+        "Pensar en conversaciones imaginarias",
+        "Ver el celular afuera",
+        "Quedarme en blanco de felicidad"
+      ]
+    },
+    {
+      "slug": "divertidas-lavar-trastes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Montaña de trastes sucios. ¿Cuál es tu estrategia?",
+      "options": [
+        "Los lavo apenas terminamos",
+        "Los remojo y mañana veo",
+        "Uso solo lo que haga falta",
+        "Pido pizza para no cocinar"
+      ]
+    },
+    {
+      "slug": "divertidas-cargador-celular",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu celular está al 3 por ciento. ¿Cuál es tu reacción?",
+      "options": [
+        "Busco cargador con desesperación",
+        "Ya vivía así",
+        "Pido prestado a un desconocido",
+        "Lo uso hasta que muera"
+      ]
+    },
+    {
+      "slug": "divertidas-emoji-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué emoji usas más sin darte cuenta?",
+      "options": [
+        "La carita llorando de risa",
+        "El corazón",
+        "El pulgar arriba",
+        "La carita pensativa"
+      ]
+    },
+    {
+      "slug": "divertidas-regalo-envolver",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Es hora de envolver un regalo. ¿Cómo te queda?",
+      "options": [
+        "Impecable, con moño",
+        "Lleno de cinta adhesiva",
+        "Bolsa de regalo y listo",
+        "Se lo doy sin envolver"
+      ]
+    },
+    {
+      "slug": "divertidas-boleto-cine",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llegas tarde a la película. ¿Qué haces?",
+      "options": [
+        "Me siento donde se pueda",
+        "Prefiero esperar la siguiente",
+        "Me tropiezo con todos",
+        "Entro con linterna de celular"
+      ]
+    },
+    {
+      "slug": "divertidas-manejar-mapa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Se les pierde el rumbo en carretera. ¿Quién va al volante del problema?",
+      "options": [
+        "Yo sé el camino, confía",
+        "Pregunto en la gasolinera",
+        "Sigo el GPS aunque me lleve al río",
+        "Pido que no peleemos"
+      ]
+    },
+    {
+      "slug": "divertidas-foto-comida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llega la comida al restaurante. ¿Qué pasa?",
+      "options": [
+        "Primero la foto",
+        "Primero el primer bocado",
+        "Comparto la foto y luego como",
+        "Me aguanto las ganas de comer"
+      ]
+    },
+    {
+      "slug": "divertidas-clima-lluvia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Empieza a llover sin paraguas. ¿Qué haces?",
+      "options": [
+        "Corro como en película",
+        "Me quedo bajo un techo",
+        "Camino tranquilo, ya me mojé",
+        "Pido un taxi con urgencia"
+      ]
+    },
+    {
+      "slug": "divertidas-sueño-raro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Soñaste algo rarísimo. ¿Qué haces con eso?",
+      "options": [
+        "Lo cuento al instante",
+        "Lo escribo para recordarlo",
+        "Lo olvido a los cinco minutos",
+        "Lo analizo en Google"
+      ]
+    },
+    {
+      "slug": "divertidas-cantina-botana",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te traen botana en la mesa. ¿Cómo la atacas?",
+      "options": [
+        "Voy por las mejores primero",
+        "Respeto el turno",
+        "Me la acabo antes de que lleguen",
+        "Pido otra ronda"
+      ]
+    },
+    {
+      "slug": "divertidas-espejo-baile",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Estás solo en casa con tu música favorita. ¿Qué haces?",
+      "options": [
+        "Un concierto completo",
+        "Bailo en la cocina",
+        "Limpio con ritmo",
+        "Me siento a escuchar"
+      ]
+    },
+    {
+      "slug": "divertidas-pelicula-llorar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una película te hace llorar. ¿Cómo lo manejas?",
+      "options": [
+        "Lloro libre y feliz",
+        "Lo disimulo con bostezos",
+        "Me hago el valiente hasta los créditos",
+        "Me río para no llorar"
+      ]
+    },
+    {
+      "slug": "divertidas-cuelgue-videollamada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En videollamada se congela tu cara en un gesto raro. ¿Qué haces?",
+      "options": [
+        "Me río yo primero",
+        "Hago captura de pantalla",
+        "Finjo que no pasó",
+        "Sigo hablando como si nada"
+      ]
+    },
+    {
+      "slug": "divertidas-tequila-tipo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la fiesta, ¿qué bebes cuando nadie decide?",
+      "options": [
+        "Una chela",
+        "Agua de jamaica",
+        "Un tequilita con limón",
+        "Refresco con hielo"
+      ]
+    },
+    {
+      "slug": "divertidas-cena-experimental",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Hoy cocinas algo que jamás has hecho. ¿Cómo sale?",
+      "options": [
+        "Perfecto, no sé cómo",
+        "Comestible, pero raro",
+        "Se quema sin remedio",
+        "Termina en pedido a domicilio"
+      ]
+    },
+    {
+      "slug": "divertidas-puerta-oculta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Encuentras una puerta secreta en tu casa. ¿Qué haces?",
+      "options": [
+        "La abro de inmediato",
+        "Llamo a alguien primero",
+        "La cierro y me voy",
+        "Le pongo un letrero"
+      ]
+    },
+    {
+      "slug": "divertidas-bailar-cumbia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Suena cumbia y todos bailan. ¿Dónde te ubicas?",
+      "options": [
+        "En el centro de la pista",
+        "En las orillas, sin pena",
+        "Al lado del DJ",
+        "En la mesa con el pastel"
+      ]
+    },
+    {
+      "slug": "divertidas-despensa-super",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Vas al súper solo por leche. ¿Con qué sales?",
+      "options": [
+        "Solo con leche",
+        "Con leche y un antojo",
+        "Con medio súper",
+        "Sin leche, olvidé a qué fui"
+      ]
+    },
+    {
+      "slug": "divertidas-pastel-ultimo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te toca elegir pedazo de pastel. ¿Qué pides?",
+      "options": [
+        "El de la orilla con betún",
+        "El del centro",
+        "El más grande",
+        "Dos chiquitos"
+      ]
+    },
+    {
+      "slug": "divertidas-mala-conexion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Vas a platicar por llamada y te escuchas con eco. ¿Qué haces?",
+      "options": [
+        "Cuelgo y vuelvo a marcar",
+        "Hablo despacito para ver",
+        "Subo el volumen y rezo",
+        "Cambio a mensajes"
+      ]
+    },
+    {
+      "slug": "divertidas-sacar-basura",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Es noche y hay que sacar la basura. ¿Cómo lo manejas?",
+      "options": [
+        "Voy por mi cuenta",
+        "Hago un volado",
+        "Finjo que duermo",
+        "Digo que lo hago y nunca pasa"
+      ]
+    },
+    {
+      "slug": "divertidas-foto-selfie",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Vas a tomarte una selfie. ¿Cuántas fotos haces antes de elegir?",
+      "options": [
+        "Una y lista",
+        "Diez",
+        "Veinte",
+        "Mejor se la pido a alguien"
+      ]
+    },
+    {
+      "slug": "divertidas-corte-de-pelo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un corte de pelo sale mal. ¿Qué haces?",
+      "options": [
+        "Me aguanto y sonrío",
+        "Uso gorra una semana",
+        "Me río hasta que crezca",
+        "Pido que me lo arreglen"
+      ]
+    },
+    {
+      "slug": "divertidas-globos-de-helio",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Respiras helio de un globo. ¿Qué dices con tu nueva voz?",
+      "options": [
+        "Una declaración de amor",
+        "Una amenaza muy seria",
+        "Un trabalenguas",
+        "Nada, lloro de risa"
+      ]
+    },
+    {
+      "slug": "divertidas-pan-dulce",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llegas a una panadería. ¿Qué pan dulce eliges?",
+      "options": [
+        "Concha",
+        "Oreja",
+        "Cuernito",
+        "Cualquiera con relleno"
+      ]
+    },
+    {
+      "slug": "divertidas-reparar-mueble",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Armar un mueble con instrucciones. ¿Qué te pasa?",
+      "options": [
+        "Sigo cada paso",
+        "Las ignoro y adivino",
+        "Me sobran tres tornillos",
+        "Pido ayuda a internet"
+      ]
+    },
+    {
+      "slug": "divertidas-llanto-cebolla",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cortas cebolla y lloras. ¿Qué haces?",
+      "options": [
+        "Aguanto con lágrimas",
+        "Me pongo lentes de natación",
+        "Se la dejo a alguien más",
+        "Corto rápido y salgo corriendo"
+      ]
     }
   ]
 }
