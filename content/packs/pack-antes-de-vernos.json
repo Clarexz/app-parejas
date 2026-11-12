@@ -197,7 +197,7 @@
       "slug": "pack-antes-de-vernos-genero-visita",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Si esta visita fuera una película, ¿de qué género sería?",
+      "text": "Imagina que nuestro reencuentro es una peli: ¿de qué género sale?",
       "options": [
         "Comedia romántica",
         "Aventura",

@@ -185,7 +185,7 @@
       "slug": "gustos-cual-primer-concierto-fuiste",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál fue el primer concierto al que fuiste?"
+      "text": "¿A qué concierto fuiste y valió cada peso de los boletos?"
     },
     {
       "slug": "gustos-cual-pelicula-favorita-llorar",
@@ -1073,6 +1073,186 @@
         "Café",
         "Digestivo",
         "Siesta"
+      ]
+    },
+    {
+      "slug": "gustos-cancion-ha-acompanado-momento-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué canción te ha acompañado en un momento difícil y por qué?"
+    },
+    {
+      "slug": "gustos-pelicula-serie-sentiste-hablo-directamente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué película o serie sentiste que habló directamente de ti?"
+    },
+    {
+      "slug": "gustos-libro-cambio-algo-forma-ver",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué libro cambió algo en tu forma de ver la vida?"
+    },
+    {
+      "slug": "gustos-sabor-platillo-regresa-recuerdo-no",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sabor o platillo te regresa a un recuerdo que no cuentas mucho?"
+    },
+    {
+      "slug": "gustos-obra-cancion-historia-ha-hecho",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué obra, canción o historia te ha hecho llorar sin que supieras por qué?"
+    },
+    {
+      "slug": "gustos-gusto-tuyo-ha-costado-defender",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gusto tuyo te ha costado defender frente a otras personas?"
+    },
+    {
+      "slug": "gustos-gustos-nuestros-crees-parecen-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gustos nuestros crees que se parecen más de lo que pensamos?"
+    },
+    {
+      "slug": "gustos-musica-hace-sentir-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué música te hace sentir más tú?"
+    },
+    {
+      "slug": "gustos-personaje-ficcion-ha-ensenado-algo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué personaje de ficción te ha enseñado algo de ti mismo o misma?"
+    },
+    {
+      "slug": "gustos-cancion-pelicula-gustaria-ambos-vieran",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué canción o película te gustaría que ambos vieran o escucharan por primera vez juntos?"
+    },
+    {
+      "slug": "gustos-hace-sentir-cancion-triste",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir una canción triste?",
+      "options": [
+        "Alivio",
+        "Nostalgia",
+        "Ganas de llorar",
+        "Ganas de llamar a alguien"
+      ]
+    },
+    {
+      "slug": "gustos-buscas-libro-pelicula",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué buscas en un libro o película?",
+      "options": [
+        "Escapar",
+        "Aprender",
+        "Emocionarme",
+        "Sentirme acompañado o acompañada"
+      ]
+    },
+    {
+      "slug": "gustos-cual-gusto-mas-define",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es el gusto que más te define?",
+      "options": [
+        "Mi música",
+        "Mi comida",
+        "Mis series o pelis",
+        "Mis lugares favoritos"
+      ]
+    },
+    {
+      "slug": "gustos-algo-gusta-mucho-haces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando algo te gusta mucho, ¿qué haces?",
+      "options": [
+        "Lo comparto",
+        "Lo guardo para mí",
+        "Lo repito sin parar",
+        "Investigo todo sobre eso"
+      ]
+    },
+    {
+      "slug": "gustos-hace-conectar-alguien",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te hace conectar con alguien?",
+      "options": [
+        "Gustos en común",
+        "Humor",
+        "Valores",
+        "Pasiones distintas"
+      ]
+    },
+    {
+      "slug": "gustos-prefieres-compartir-gustos-descubrir-otro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué prefieres? Compartir gustos o descubrir los del otro",
+      "options": [
+        "Compartirlos",
+        "Descubrir los del otro",
+        "Un poco de cada uno",
+        "Depende del día"
+      ]
+    },
+    {
+      "slug": "gustos-tan-facil-cambias-tus-gustos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué tan fácil cambias tus gustos con el tiempo?",
+      "options": [
+        "Cambian seguido",
+        "Cambian poco",
+        "Cambian por temporadas",
+        "Sigo con los de siempre"
+      ]
+    },
+    {
+      "slug": "gustos-obra-arte-cancion-libro-gustaria",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué obra de arte, canción o libro te gustaría regalarme?",
+      "options": [
+        "Una canción",
+        "Una película",
+        "Un libro",
+        "Un platillo que hagas tú"
+      ]
+    },
+    {
+      "slug": "gustos-cancion-tuya-favorita-dice-mucho",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Una canción tuya favorita dice mucho de ti. ¿Cuál es el tema?",
+      "options": [
+        "Amor",
+        "Libertad",
+        "Nostalgia",
+        "Alegría"
+      ]
+    },
+    {
+      "slug": "gustos-cual-mayor-placer-culposo-cultural",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu mayor placer culposo cultural?",
+      "options": [
+        "Telenovelas",
+        "Música cursi",
+        "Reality shows",
+        "Pelis de adolescentes"
       ]
     }
   ]

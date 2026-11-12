@@ -508,7 +508,7 @@
       "slug": "valores-valor-de-la-vulnerabilidad",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Te cuesta mostrarte vulnerable conmigo? ¿Qué te ayudaría?"
+      "text": "¿Qué te ayudaría a mostrarte vulnerable conmigo sin sentir que pierdes algo?"
     },
     {
       "slug": "valores-metas-compartidas",
@@ -652,7 +652,7 @@
       "slug": "valores-aprender-a-pedir",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Te cuesta pedir ayuda? ¿De dónde crees que viene eso?"
+      "text": "Cuéntame de una vez que te costó pedir ayuda y qué lo hacía difícil."
     },
     {
       "slug": "valores-dignidad-cotidiana",
@@ -712,7 +712,7 @@
       "slug": "valores-vida-simple-o-grande",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Prefieres una vida sencilla y tranquila o una de grandes sueños y riesgos? ¿Por qué?"
+      "text": "¿Prefieres una vida sencilla y tranquila o una de grandes sueños y riesgos?"
     },
     {
       "slug": "valores-herencia-emocional",

@@ -413,7 +413,7 @@
       "slug": "por-dentro-tu-forma-de-sufrir",
       "type": "open",
       "intensity": "profunda",
-      "text": "Cuando algo duele, ¿te encierras, hablas o te distraes? ¿Cómo lo vives?"
+      "text": "Cuando algo duele, cuéntame cómo lo vives: te encierras, hablas o te distraes."
     },
     {
       "slug": "por-dentro-lo-que-necesitas-oir",
@@ -425,7 +425,7 @@
       "slug": "por-dentro-miedo-de-ser-carga",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Alguna vez has sentido que eres una carga para los demás? ¿Qué lo disparó?"
+      "text": "Cuéntame de una vez que sentiste que eras una carga para los demás y qué lo disparó."
     },
     {
       "slug": "por-dentro-quien-eras-vs-quien-eres",
@@ -887,12 +887,12 @@
       "slug": "por-dentro-dar-vs-recibir",
       "type": "choice",
       "intensity": "profunda",
-      "text": "Dar cariño o recibirlo, ¿qué te cuesta más?",
+      "text": "En los días de mucho estrés, ¿qué te cuesta más: abrirte a recibir apoyo o seguir dando a los demás?",
       "options": [
-        "Darlo",
-        "Recibirlo",
-        "Ambos por igual",
-        "Ninguno, es fácil"
+        "Recibir apoyo",
+        "Seguir dando",
+        "Las dos por igual",
+        "Ninguna, me fluye"
       ]
     },
     {
