@@ -249,7 +249,7 @@
       "options": [
         "Salgo con los ojos cerrados",
         "Pongo cara de seria sorpresa",
-        "Soy el o la que toma la foto",
+        "Soy quien toma la foto",
         "Siempre salgo al fondo"
       ]
     },
@@ -273,8 +273,8 @@
       "options": [
         "Me levanto a la primera",
         "Pospongo cinco veces",
-        "La apago y sigo dormido",
-        "Ya estaba despierto desde antes"
+        "La apago y sigo en coma",
+        "Ya llevaba rato mirando el techo"
       ]
     },
     {
@@ -322,16 +322,16 @@
         "Una de banda a todo pulmón",
         "Una balada para llorar",
         "Un clásico de los noventa",
-        "Me hago el sordo y se lo paso"
+        "Finjo no oír y se lo paso"
       ]
     },
     {
       "slug": "divertidas-cumple-sorpresa",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Te organizan una fiesta sorpresa. ¿Cómo reaccionas?",
+      "text": "Abres la puerta y gritan ¡sorpresa! ¿Qué cara pones?",
       "options": [
-        "Lloro como niño",
+        "Lloro sin control",
         "Pregunto quién habló",
         "Finjo emoción hasta que se van",
         "Me da risa nerviosa"
@@ -369,7 +369,7 @@
       "options": [
         "Saco la calculadora",
         "Digo \"yo invito\" sin dudar",
-        "Me hago el distraído",
+        "Finjo demencia con el celular",
         "Pido que dividan todo exacto"
       ]
     },
@@ -410,7 +410,7 @@
       ]
     },
     {
-      "slug": "divertidas-bañarse-musica",
+      "slug": "divertidas-regadera-habitos",
       "type": "choice",
       "intensity": "ligera",
       "text": "En la regadera, ¿qué sueles hacer?",
@@ -518,7 +518,7 @@
       ]
     },
     {
-      "slug": "divertidas-sueño-raro",
+      "slug": "divertidas-sueno-raro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Soñaste algo rarísimo. ¿Qué haces con eso?",
@@ -561,7 +561,7 @@
       "options": [
         "Lloro libre y feliz",
         "Lo disimulo con bostezos",
-        "Me hago el valiente hasta los créditos",
+        "Aguanto firme hasta los créditos",
         "Me río para no llorar"
       ]
     },
@@ -743,6 +743,1074 @@
         "Me pongo lentes de natación",
         "Se la dejo a alguien más",
         "Corto rápido y salgo corriendo"
+      ]
+    },
+    {
+      "slug": "divertidas-cantante-secreto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción cantas a todo pulmón en el coche aunque desafines horrible?"
+    },
+    {
+      "slug": "divertidas-animal-espiritual",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que ser un animal de la CDMX o de tu ciudad, ¿cuál serías y por qué?"
+    },
+    {
+      "slug": "divertidas-excusa-clasica",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu excusa favorita para no salir de casa?"
+    },
+    {
+      "slug": "divertidas-apodo-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué apodo vergonzoso te pusieron de niño o niña?"
+    },
+    {
+      "slug": "divertidas-anuncio-memorable",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comercial o jingle de tu infancia todavía te sabes completo?"
+    },
+    {
+      "slug": "divertidas-baile-viral",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál baile viral intentaste aprender y te salió fatal?"
+    },
+    {
+      "slug": "divertidas-sonido-ringtone",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el tono de celular más vergonzoso que tuviste?"
+    },
+    {
+      "slug": "divertidas-nombre-grupo-chat",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nuestro chat tuviera nombre de grupo de WhatsApp tipo familia, ¿cómo se llamaría?"
+    },
+    {
+      "slug": "divertidas-disfraz-fracaso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu peor disfraz de Halloween o de fiesta?"
+    },
+    {
+      "slug": "divertidas-cocinar-desastre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el desastre en la cocina que todavía te da risa?"
+    },
+    {
+      "slug": "divertidas-olvidar-nombre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A quién le olvidaste el nombre justo cuando lo ibas a presentar?"
+    },
+    {
+      "slug": "divertidas-susto-ridiculo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa ridícula te ha asustado más de lo que admitirías?"
+    },
+    {
+      "slug": "divertidas-insulto-carino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un insulto cariñoso para mí que solo tú podrías decir."
+    },
+    {
+      "slug": "divertidas-meme-nuestro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué meme describe perfecto nuestra relación en este momento?"
+    },
+    {
+      "slug": "divertidas-telenovela-papel",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si hicieran la telenovela de nuestra vida, ¿quién haría tu papel y cuál sería tu frase más dramática?"
+    },
+    {
+      "slug": "divertidas-oso-peluche",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tienes algún peluche o cosa infantil que jamás regalarías?"
+    },
+    {
+      "slug": "divertidas-cumpleanos-peor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu cumpleaños más raro o accidentado?"
+    },
+    {
+      "slug": "divertidas-palabra-inventada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra inventaron tú o tu familia que solo ustedes entienden?"
+    },
+    {
+      "slug": "divertidas-camioneta-mudanza",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuviéramos que mudarnos en una camioneta de redilas, ¿qué serían las primeras tres cosas que perdemos?"
+    },
+    {
+      "slug": "divertidas-mesa-de-mercado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si abrieran un puesto del mercado a tu nombre, ¿qué venderías y cómo se llamaría?"
+    },
+    {
+      "slug": "divertidas-trabalenguas-fail",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra o frase siempre te sale mal al decirla en voz alta?"
+    },
+    {
+      "slug": "divertidas-selfie-peor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la peor selfie que conservas y por qué no la borras?"
+    },
+    {
+      "slug": "divertidas-cena-desastrosa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuéntame una cena o comida que salió mal y terminó en carcajada."
+    },
+    {
+      "slug": "divertidas-miedo-fantasma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Alguna vez te asustaste por algo que resultó ser totalmente normal?"
+    },
+    {
+      "slug": "divertidas-talento-inutil-fiesta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué truco de fiesta absurdo podrías hacer ahora mismo?"
+    },
+    {
+      "slug": "divertidas-sueno-vergonzoso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el sueño más raro o vergonzoso que recuerdas?"
+    },
+    {
+      "slug": "divertidas-pelea-tonta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la pelea más tonta que hemos tenido por algo sin importancia?"
+    },
+    {
+      "slug": "divertidas-huella-viral",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si algún día te hicieras viral por accidente, ¿por qué sería?"
+    },
+    {
+      "slug": "divertidas-cancion-vergonzosa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te gusta pero te da pena que salga en tu playlist?"
+    },
+    {
+      "slug": "divertidas-nombre-bebe",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa el peor nombre posible para un bebé que aun así sonaría adorable."
+    },
+    {
+      "slug": "divertidas-pedir-comida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu pedido de comida a domicilio más vergonzoso por lo exagerado?"
+    },
+    {
+      "slug": "divertidas-chisme-inofensivo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el chisme más inofensivo que te gusta contar?"
+    },
+    {
+      "slug": "divertidas-cumbia-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cumbia o canción de fiesta familiar te hace reír de inmediato?"
+    },
+    {
+      "slug": "divertidas-mal-consejo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el peor consejo que has recibido y seguiste?"
+    },
+    {
+      "slug": "divertidas-cosplay-sorpresa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que ir a una fiesta temática mañana, ¿de qué te disfrazarías en cinco minutos?"
+    },
+    {
+      "slug": "divertidas-mejor-timidez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te da más pena hacer en público aunque sea normal?"
+    },
+    {
+      "slug": "divertidas-caida-epica",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido tu tropiezo más espectacular frente a otras personas?"
+    },
+    {
+      "slug": "divertidas-hobby-viejito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hobby de persona mayor te gustaría empezar ya?"
+    },
+    {
+      "slug": "divertidas-apuesta-boba",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la apuesta más tonta que hiciste y perdiste?"
+    },
+    {
+      "slug": "divertidas-perfume-olor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te hace hacer cara de asco aunque a todos les guste?"
+    },
+    {
+      "slug": "divertidas-voz-de-robot",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nuestro GPS tuviera la voz de un personaje, ¿de cuál elegirías?"
+    },
+    {
+      "slug": "divertidas-postre-inventado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un postre con tres ingredientes que jamás se mezclarían, pero que tú comerías."
+    },
+    {
+      "slug": "divertidas-frase-de-abuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dicho o refrán de tu familia siempre suelta alguien a mitad de la comida?"
+    },
+    {
+      "slug": "divertidas-ropa-horrible",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué prenda tuviste que te encantaba y hoy ni de broma te pondrías?"
+    },
+    {
+      "slug": "divertidas-equipo-rival",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si compitiéramos en un concurso de televisión, ¿en qué prueba nos ganarían sin dudar?"
+    },
+    {
+      "slug": "divertidas-mensaje-equivocado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Alguna vez le mandaste un mensaje a la persona equivocada? Cuéntame."
+    },
+    {
+      "slug": "divertidas-manera-de-dormir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la postura más rara en la que has dormido?"
+    },
+    {
+      "slug": "divertidas-taxi-conversacion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más extraño que te ha dicho un taxista o conductor de app?"
+    },
+    {
+      "slug": "divertidas-maldicion-cotidiana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te sale mal siempre, como si tuvieras una maldición?"
+    },
+    {
+      "slug": "divertidas-poder-de-saludo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un saludo secreto que solo nosotros dos usaríamos en público."
+    },
+    {
+      "slug": "divertidas-cabeza-en-las-nubes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más despistado que has hecho en la vida?"
+    },
+    {
+      "slug": "divertidas-tianguis-regateo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Eres bueno o buena para regatear en el tianguis? Cuéntame tu mejor negociación."
+    },
+    {
+      "slug": "divertidas-mal-chiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el chiste malo que más te hace reír?"
+    },
+    {
+      "slug": "divertidas-cocina-ingrediente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el ingrediente que le pondrías a todo si pudieras?"
+    },
+    {
+      "slug": "divertidas-palabra-prohibida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que dejar de decir una muletilla, ¿cuál sería?"
+    },
+    {
+      "slug": "divertidas-nombre-de-banda",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si formáramos una banda, ¿cómo se llamaría y qué género tocaríamos?"
+    },
+    {
+      "slug": "divertidas-parque-atracciones",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juego mecánico jamás subirías y cuál subirías diez veces?"
+    },
+    {
+      "slug": "divertidas-hora-extraña",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más raro que has hecho a las tres de la mañana?"
+    },
+    {
+      "slug": "divertidas-carita-de-perro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cara pones cuando algo te da ternura y no quieres que se note?"
+    },
+    {
+      "slug": "divertidas-verano-calor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué haces de más cuando hace un calor insoportable?"
+    },
+    {
+      "slug": "divertidas-muebles-gusto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué objeto absurdo de tu casa tienes solo porque te da risa?"
+    },
+    {
+      "slug": "divertidas-superpoder-hogar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras un superpoder para las tareas del hogar, ¿cuál sería?"
+    },
+    {
+      "slug": "divertidas-leyenda-urbana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál leyenda urbana te la creíste de niño o niña con toda seriedad?"
+    },
+    {
+      "slug": "divertidas-silbar-aullar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sonido de animal imitas mejor?"
+    },
+    {
+      "slug": "divertidas-tiktok-vicio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de video no puedes dejar de ver aunque ya sea tardísimo?"
+    },
+    {
+      "slug": "divertidas-perder-algo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa pierdes con más frecuencia en la casa?"
+    },
+    {
+      "slug": "divertidas-casillero-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué objeto tonto guardas desde hace años sin razón?"
+    },
+    {
+      "slug": "divertidas-refresco-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál refresco o bebida fue tu perdición de niño?"
+    },
+    {
+      "slug": "divertidas-autoestima-fotos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ángulo tuyo consideras tu mejor lado y cuál es el desastre?"
+    },
+    {
+      "slug": "divertidas-hacerse-el-fuerte",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa haces para parecer más fuerte o más adulto de lo que eres?"
+    },
+    {
+      "slug": "divertidas-pedida-comida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pides en un restaurante cuando quieres que parezca que sabes de vinos o de comida elegante?"
+    },
+    {
+      "slug": "divertidas-maraton-serie",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la serie que te vio llorar o gritarle a la pantalla?"
+    },
+    {
+      "slug": "divertidas-mala-pronunciacion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra pronunciaste mal durante años sin saberlo?"
+    },
+    {
+      "slug": "divertidas-lugar-publico",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué lugar público te da más risa quedarte callado a observar a la gente?"
+    },
+    {
+      "slug": "divertidas-juguete-de-ayer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juguete de tu infancia aún sueñas con volver a tener?"
+    },
+    {
+      "slug": "divertidas-prueba-de-manejo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu momento más vergonzoso con un coche, bici o transporte?"
+    },
+    {
+      "slug": "divertidas-ensayo-discurso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que dar un discurso de agradecimiento por un premio absurdo, ¿cuál sería el premio?"
+    },
+    {
+      "slug": "divertidas-zapatos-comodos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la prenda o accesorio que usas a diario y jamás confesarías que es tu favorito?"
+    },
+    {
+      "slug": "divertidas-mini-maraton",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienen un fin de semana libre. ¿Qué plan eliges?",
+      "options": [
+        "Maratón de series",
+        "Salir sin rumbo",
+        "Cocinar algo complicado",
+        "Dormir todo el tiempo"
+      ]
+    },
+    {
+      "slug": "divertidas-mascota-sueno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si fueras una mascota, ¿cuál serías?",
+      "options": [
+        "Un gato que ignora a todos",
+        "Un perro feliz de verte",
+        "Un pez en su pecera",
+        "Una tortuga sin prisa"
+      ]
+    },
+    {
+      "slug": "divertidas-mensaje-buenosdias",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo es tu mensaje de buenos días ideal?",
+      "options": [
+        "Un meme",
+        "Un audio con voz de sueño",
+        "Un \"ya desperté\" seco",
+        "Una foto de mi desayuno"
+      ]
+    },
+    {
+      "slug": "divertidas-llamada-numero-desconocido",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te llama un número desconocido. ¿Qué haces?",
+      "options": [
+        "Contesto con voz de secretaria",
+        "Dejo que suene",
+        "Lo busco en internet",
+        "Mando mensaje preguntando quién es"
+      ]
+    },
+    {
+      "slug": "divertidas-conciertos-lugar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un concierto, ¿dónde te ubicas?",
+      "options": [
+        "Hasta adelante, en el slam",
+        "Más o menos en medio",
+        "Atrás con espacio para bailar",
+        "En la fila de los tacos"
+      ]
+    },
+    {
+      "slug": "divertidas-quemarse-sol",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Fuiste a la playa sin bloqueador. ¿Cómo quedas?",
+      "options": [
+        "Rojo camarón",
+        "Rojo con rayas",
+        "Perfectamente dorado",
+        "Ni me asomé al sol"
+      ]
+    },
+    {
+      "slug": "divertidas-sobremesa-duracion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La sobremesa con la familia dura...",
+      "options": [
+        "Veinte minutos",
+        "Dos horas",
+        "Hasta que se hace de noche",
+        "Hasta que alguien pone música"
+      ]
+    },
+    {
+      "slug": "divertidas-paquete-amazon",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te llega un paquete. ¿Cómo lo abres?",
+      "options": [
+        "Con tijeras y precisión",
+        "A mordidas",
+        "Lo dejo días sin abrir",
+        "Lo abro y tiro todo al instante"
+      ]
+    },
+    {
+      "slug": "divertidas-pasos-de-baile",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te piden bailar sin música. ¿Qué haces?",
+      "options": [
+        "Me invento un baile",
+        "Pido que primero me den ritmo",
+        "Hago el robot",
+        "Me río y me siento"
+      ]
+    },
+    {
+      "slug": "divertidas-antojo-noche",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Son las 11 de la noche y tienes antojo. ¿Qué haces?",
+      "options": [
+        "Pido a domicilio",
+        "Voy por tacos",
+        "Preparo lo que haya",
+        "Me aguanto hasta mañana"
+      ]
+    },
+    {
+      "slug": "divertidas-foto-vieja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Aparece una foto tuya de hace diez años. ¿Qué dices?",
+      "options": [
+        "Qué bonito recuerdo",
+        "Qué pelos tenía",
+        "Qué ropa tan terrible",
+        "La elimino al instante"
+      ]
+    },
+    {
+      "slug": "divertidas-silencio-incomodo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Hay un silencio incómodo en un elevador. ¿Qué haces?",
+      "options": [
+        "Hablo del clima",
+        "Reviso mi celular",
+        "Hago un chiste malo",
+        "Cuento los pisos"
+      ]
+    },
+    {
+      "slug": "divertidas-suerte-lotería",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Compras un boleto de lotería. ¿Qué haces mientras esperas el resultado?",
+      "options": [
+        "Imagino mi vida nueva",
+        "Hago la lista de compras",
+        "Digo que no ganaré",
+        "Lo olvido en el bolsillo"
+      ]
+    },
+    {
+      "slug": "divertidas-ruido-vecino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El vecino pone música a todo volumen a medianoche. ¿Qué haces?",
+      "options": [
+        "Toco su puerta",
+        "Subo mi música más fuerte",
+        "Me quejo en voz baja",
+        "Me uno a la fiesta"
+      ]
+    },
+    {
+      "slug": "divertidas-tarea-pospuesta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienes una tarea pendiente enorme. ¿Cuál es tu estilo?",
+      "options": [
+        "La hago de inmediato",
+        "La dejo para la última hora",
+        "La reparto en pedacitos",
+        "Espero que se resuelva sola"
+      ]
+    },
+    {
+      "slug": "divertidas-pelea-por-control",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Se pelean por el control de la tele. ¿Quién gana?",
+      "options": [
+        "Yo, por mérito",
+        "Tú, por insistencia",
+        "Lo decidimos con piedra, papel o tijera",
+        "Terminamos viendo otra cosa"
+      ]
+    },
+    {
+      "slug": "divertidas-cantar-feliz-cumple",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cantan Las Mañanitas. ¿Cuál es tu nivel de entusiasmo?",
+      "options": [
+        "Canto fuerte y desafinado",
+        "Aplaudo sin cantar",
+        "Grabo con el celular",
+        "Me escondo hasta el pastel"
+      ]
+    },
+    {
+      "slug": "divertidas-trago-amargo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tomas algo que sabe horrible. ¿Qué cara pones?",
+      "options": [
+        "Cara de asco total",
+        "Cara de nada, soy fuerte",
+        "Escupo disimuladamente",
+        "Pido otro igual"
+      ]
+    },
+    {
+      "slug": "divertidas-aeropuerto-espera",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu vuelo se retrasa tres horas. ¿Qué haces?",
+      "options": [
+        "Duermo en las sillas",
+        "Me voy a comer",
+        "Camino por todas las tiendas",
+        "Platico con quien esté cerca"
+      ]
+    },
+    {
+      "slug": "divertidas-foto-borrosa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La foto sale movida pero con buena cara. ¿Qué haces?",
+      "options": [
+        "La publico igual",
+        "Pido otra",
+        "La guardo para mí",
+        "La uso de sticker"
+      ]
+    },
+    {
+      "slug": "divertidas-fiesta-despedirse",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Quieres irte de la fiesta. ¿Cómo te despides?",
+      "options": [
+        "Me despido de todos",
+        "Me voy a la francesa",
+        "Aviso solo a ti",
+        "Me quedo hasta que apaguen la luz"
+      ]
+    },
+    {
+      "slug": "divertidas-zapatos-mojados",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Pisas un charco y se te mojan los zapatos. ¿Qué haces?",
+      "options": [
+        "Sigo caminando como si nada",
+        "Maldigo en voz baja",
+        "Me los quito apenas llego",
+        "Me río porque ya qué"
+      ]
+    },
+    {
+      "slug": "divertidas-supersticion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál superstición sigues aunque no creas en ellas?",
+      "options": [
+        "No pasar debajo de una escalera",
+        "Tocar madera",
+        "Evitar los martes 13",
+        "Ninguna, no creo en eso"
+      ]
+    },
+    {
+      "slug": "divertidas-canto-lluvia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cae un chubasco fuerte afuera. ¿Qué planes haces?",
+      "options": [
+        "Café y manta",
+        "Salir a mojarme",
+        "Dormir una siesta",
+        "Ver una película de miedo"
+      ]
+    },
+    {
+      "slug": "divertidas-mensajes-largos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando alguien te manda un párrafo gigante de texto, tú...",
+      "options": [
+        "Lo leo todo con calma",
+        "Leo solo el final",
+        "Contesto con un emoji",
+        "Le llamo por teléfono"
+      ]
+    },
+    {
+      "slug": "divertidas-juego-mesa-trampa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Juegan lotería o dominó. ¿Cuál es tu personalidad?",
+      "options": [
+        "Compito en serio",
+        "Hago trampa con cariño",
+        "Pierdo con dignidad",
+        "Platico más que juego"
+      ]
+    },
+    {
+      "slug": "divertidas-maleta-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Haces la maleta para un viaje de tres días. ¿Cómo te va?",
+      "options": [
+        "Llevo lo justo",
+        "Llevo ropa para dos semanas",
+        "La hago diez minutos antes",
+        "La hago tres días antes"
+      ]
+    },
+    {
+      "slug": "divertidas-domingo-flojera",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Domingo por la tarde y cero ganas de nada. ¿Qué haces?",
+      "options": [
+        "Siesta sin culpa",
+        "Reviso el celular horas",
+        "Cocino algo rico",
+        "Limpio para sentirme productivo"
+      ]
+    },
+    {
+      "slug": "divertidas-pizza-orilla",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué haces con la orilla de la pizza?",
+      "options": [
+        "Me la como con gusto",
+        "La dejo en el plato",
+        "La mojo en salsa",
+        "Se la paso a quien sí le guste"
+      ]
+    },
+    {
+      "slug": "divertidas-cumple-regalo-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El regalo perfecto para ti es...",
+      "options": [
+        "Algo que me haga reír",
+        "Algo útil",
+        "Algo hecho a mano",
+        "Comida, siempre comida"
+      ]
+    },
+    {
+      "slug": "divertidas-tendencia-ropa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu estilo para vestirte un lunes es...",
+      "options": [
+        "Cómodo total",
+        "Elegante sin esfuerzo",
+        "Lo primero que encuentre",
+        "El outfit que ya tenía planeado"
+      ]
+    },
+    {
+      "slug": "divertidas-fila-banco",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Estás en una fila eterna. ¿Qué haces?",
+      "options": [
+        "Escucho música",
+        "Platico con quien tengo cerca",
+        "Juego algo en el celular",
+        "Me quejo con quien se deje"
+      ]
+    },
+    {
+      "slug": "divertidas-gato-o-perro-risa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu mascota hace algo vergonzoso frente a visitas. ¿Qué haces?",
+      "options": [
+        "Me río con ellos",
+        "Finjo que no es mía",
+        "Pido perdón a todos",
+        "Lo grabo"
+      ]
+    },
+    {
+      "slug": "divertidas-palomitas-cine",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el cine, ¿cómo comes las palomitas?",
+      "options": [
+        "De una en una",
+        "A puños",
+        "Las comparto con culpa",
+        "Me las acabo antes del tráiler"
+      ]
+    },
+    {
+      "slug": "divertidas-helado-sabor",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Vas a pedir helado. ¿Qué sabor sale más seguido?",
+      "options": [
+        "Chocolate",
+        "Fresa",
+        "Vainilla",
+        "Uno rarísimo del menú"
+      ]
+    },
+    {
+      "slug": "divertidas-cuarentena-plan",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te quedas encerrado una semana en casa. ¿Qué haces?",
+      "options": [
+        "Aprendo algo nuevo",
+        "Veo series sin parar",
+        "Reorganizo todo",
+        "Me aburro y platico con las paredes"
+      ]
+    },
+    {
+      "slug": "divertidas-tienda-ropa-probar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el probador la ropa te queda...",
+      "options": [
+        "Perfecta, mágica",
+        "Rara y la compro igual",
+        "Con cara de bolsa",
+        "Mejor ni salgo del probador"
+      ]
+    },
+    {
+      "slug": "divertidas-refran-cumple",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando alguien cumple años y no sabes qué decir, tú...",
+      "options": [
+        "Mando un meme",
+        "Mando un audio cantado",
+        "Escribo un mensaje largo",
+        "Lo felicito hasta el día siguiente"
+      ]
+    },
+    {
+      "slug": "divertidas-cita-lluvia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienen una cita y se pone a llover. ¿Cuál es el plan B?",
+      "options": [
+        "Café y plática",
+        "Cine en lugar de parque",
+        "Comer tacos bajo techo",
+        "Bailar en la lluvia"
+      ]
+    },
+    {
+      "slug": "divertidas-ruido-noche",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Escuchas un ruido en la noche. ¿Qué haces?",
+      "options": [
+        "Voy a revisar",
+        "Despierto a quien duerme conmigo",
+        "Me tapo con las cobijas",
+        "Digo que fue el viento"
+      ]
+    },
+    {
+      "slug": "divertidas-cancion-de-fondo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cocinando, ¿qué suena de fondo?",
+      "options": [
+        "Música a todo volumen",
+        "Un pódcast",
+        "La tele",
+        "Silencio total"
+      ]
+    },
+    {
+      "slug": "divertidas-silla-frente",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te sientas a ver un partido. ¿Cómo eres de aficionado?",
+      "options": [
+        "Grito como si me oyeran",
+        "Me emociono en silencio",
+        "Comento todo",
+        "Me duermo en el segundo tiempo"
+      ]
+    },
+    {
+      "slug": "divertidas-mala-letra",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Alguien te pide leer tu letra a mano. ¿Qué pasa?",
+      "options": [
+        "La entiendo yo, ya basta",
+        "Se lee bonito",
+        "Parece jeroglífico",
+        "Uso el teclado y listo"
+      ]
+    },
+    {
+      "slug": "divertidas-bolsa-misteriosa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Abres tu bolsa o mochila. ¿Qué encuentras primero?",
+      "options": [
+        "Papeles viejos",
+        "Cables enredados",
+        "Chicles y dulces",
+        "El objeto que buscaba hace una semana"
+      ]
+    },
+    {
+      "slug": "divertidas-fotos-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llegas a un lugar bonito. ¿Qué haces primero?",
+      "options": [
+        "Foto",
+        "Respirar y mirar",
+        "Subirlo a historias",
+        "Buscar dónde comer"
+      ]
+    },
+    {
+      "slug": "divertidas-paraguas-olvido",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Olvidaste el paraguas y llueve. ¿Cuál es tu plan?",
+      "options": [
+        "Me aguanto bajo un techo",
+        "Compro uno carísimo",
+        "Me mojo y ya",
+        "Me cubro con la mochila"
+      ]
+    },
+    {
+      "slug": "divertidas-nombre-de-wifi",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo nombrarías el wifi de su casa juntos?",
+      "options": [
+        "Algo romántico",
+        "Algo gracioso",
+        "Algo misterioso",
+        "Lo dejo con el nombre del módem"
+      ]
+    },
+    {
+      "slug": "divertidas-dulce-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la dulcería de un mercado, ¿cuál escoges?",
+      "options": [
+        "Tamarindo con chile",
+        "Cocada",
+        "Palanqueta",
+        "Chocolate importado"
+      ]
+    },
+    {
+      "slug": "divertidas-pareja-ladron",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Alguien se roba tus papas fritas del plato. ¿Qué haces?",
+      "options": [
+        "Le robo las suyas de regreso",
+        "Lo miro con odio",
+        "Me río y lo dejo",
+        "Pido más a la cocina"
+      ]
+    },
+    {
+      "slug": "divertidas-barbacoa-domingo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Domingo de barbacoa en familia. ¿Qué tomas?",
+      "options": [
+        "Consomé hasta el fondo",
+        "Taco tras taco",
+        "Refresco bien frío",
+        "Salsa verde sin parar"
       ]
     }
   ]

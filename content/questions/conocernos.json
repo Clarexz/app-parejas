@@ -618,6 +618,1092 @@
         "Necesito caminar",
         "Me da por reírme"
       ]
+    },
+    {
+      "slug": "conocernos-cosa-compraste-sola-vez-terminaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa compraste \"una sola vez\" y terminaste usando todo el tiempo?"
+    },
+    {
+      "slug": "conocernos-cual-recuerdo-favorito-fiesta-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu recuerdo favorito de una fiesta de la escuela o del barrio?"
+    },
+    {
+      "slug": "conocernos-da-mejor-cocina-aunque-sea",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué se te da mejor en la cocina, aunque sea una sola cosa?"
+    },
+    {
+      "slug": "conocernos-quien-hacia-reir-mas-eras",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién te hacía reír más cuando eras niño o niña?"
+    },
+    {
+      "slug": "conocernos-cual-chisme-mas-inofensivo-encanta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el chisme más inofensivo que te encanta contar?"
+    },
+    {
+      "slug": "conocernos-tuvieras-presentarte-sola-anecdota-cual",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que presentarte con una sola anécdota, ¿cuál contarías?"
+    },
+    {
+      "slug": "conocernos-hace-sentir-como-casa-lugar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te hace sentir como en casa en un lugar nuevo?"
+    },
+    {
+      "slug": "conocernos-cual-mejor-plan-hecho-planearlo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor plan que has hecho sin planearlo?"
+    },
+    {
+      "slug": "conocernos-juego-mesa-cartas-da-bien",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juego de mesa o de cartas se te da bien?"
+    },
+    {
+      "slug": "conocernos-cual-ultimo-no-mames-genuino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el último \"no mames\" genuino que dijiste en voz alta y por qué?"
+    },
+    {
+      "slug": "conocernos-le-pondrias-cero-estrellas-vida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué le pondrías cero estrellas de tu vida diaria?"
+    },
+    {
+      "slug": "conocernos-podrias-hablar-horas-sueno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué podrías hablar horas sin que te dé sueño?"
+    },
+    {
+      "slug": "conocernos-recuerdo-secundaria-da-risa-pena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdo de la secundaria te da risa y pena a la vez?"
+    },
+    {
+      "slug": "conocernos-cual-ultimo-lugar-nuevo-fuiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el último lugar nuevo al que fuiste que te gustó?"
+    },
+    {
+      "slug": "conocernos-cosa-exageras-platicas-aunque-sepas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa exageras cuando platicas, aunque sepas que la exageras?"
+    },
+    {
+      "slug": "conocernos-gustaria-gente-supiera-ti-desde",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría que la gente supiera de ti desde que te conoce?"
+    },
+    {
+      "slug": "conocernos-cancion-pondrias-dieran-microfono-karaoke",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción pondrías si te dieran el micrófono en un karaoke?"
+    },
+    {
+      "slug": "conocernos-cosa-nunca-hecho-todos-creen",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa nunca has hecho y todos creen que sí?"
+    },
+    {
+      "slug": "conocernos-cual-mejor-tecnica-quitarte-mal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu mejor técnica para quitarte el mal humor?"
+    },
+    {
+      "slug": "conocernos-mas-espontaneo-hecho-alguien",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más espontáneo que has hecho por alguien?"
+    },
+    {
+      "slug": "conocernos-dato-curioso-familia-cuentas-siempre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dato curioso de tu familia cuentas siempre?"
+    },
+    {
+      "slug": "conocernos-cual-mejor-halago-han-dicho",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor halago que te han dicho?"
+    },
+    {
+      "slug": "conocernos-rutina-cuidado-personal-no-negociarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué rutina de cuidado personal no negociarías?"
+    },
+    {
+      "slug": "conocernos-da-verguenza-ajena-casi-inmediato",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te da vergüenza ajena casi de inmediato?"
+    },
+    {
+      "slug": "conocernos-cual-forma-favorita-perder-tiempo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu forma favorita de perder el tiempo?"
+    },
+    {
+      "slug": "conocernos-frase-mama-papa-abuela-sigues",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de tu mamá, papá o abuela sigues escuchando en tu cabeza?"
+    },
+    {
+      "slug": "conocernos-cual-regalo-mejor-sabido-elegir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el regalo que mejor has sabido elegir para alguien?"
+    },
+    {
+      "slug": "conocernos-tan-bien-duermes-camion-carro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tan bien duermes en un camión o en un carro, del 1 al 10?"
+    },
+    {
+      "slug": "conocernos-piensas-ves-espejo-manana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué piensas cuando te ves en el espejo por la mañana?"
+    },
+    {
+      "slug": "conocernos-cosa-cuesta-mucho-tirar-aunque",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te cuesta mucho tirar aunque ya no sirva?"
+    },
+    {
+      "slug": "conocernos-cual-pregunta-mas-han-hecho",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la pregunta que más te han hecho sobre ti?"
+    },
+    {
+      "slug": "conocernos-saca-sonrisa-ves-desconocido-haciendolo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te saca una sonrisa cuando ves a un desconocido haciéndolo?"
+    },
+    {
+      "slug": "conocernos-cosa-pequena-infancia-daria-todo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa pequeña de tu infancia daría todo por volver a vivir un día?"
+    },
+    {
+      "slug": "conocernos-como-manejas-mensaje-no-sabes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo manejas un mensaje que no sabes cómo contestar?",
+      "options": [
+        "Lo contesto al instante",
+        "Lo dejo para después",
+        "Pido opinión",
+        "Lo dejo en visto sin querer"
+      ]
+    },
+    {
+      "slug": "conocernos-tan-seguido-cambias-fondo-pantalla",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tan seguido cambias tu fondo de pantalla?",
+      "options": [
+        "Nunca",
+        "Cada mes",
+        "Según mi ánimo",
+        "Es una foto con alguien"
+      ]
+    },
+    {
+      "slug": "conocernos-como-despedidas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres para las despedidas?",
+      "options": [
+        "Larguísimas",
+        "Rápidas y sin drama",
+        "Me voy sin avisar",
+        "Nos despedimos cinco veces"
+      ]
+    },
+    {
+      "slug": "conocernos-pelicula-terror",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En una película de terror, ¿tú qué eres?",
+      "options": [
+        "El que se esconde",
+        "El que mira entre los dedos",
+        "El que se ríe",
+        "El que ya sabía quién era el villano"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-estilo-tomar-decision-grande",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu estilo para tomar una decisión grande?",
+      "options": [
+        "Lista de pros y contras",
+        "Me guío por el instinto",
+        "Pido muchas opiniones",
+        "Lo pienso hasta que se decide solo"
+      ]
+    },
+    {
+      "slug": "conocernos-tipo-musica-acompana-limpiar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de música te acompaña al limpiar?",
+      "options": [
+        "Pop",
+        "Reguetón",
+        "Rock",
+        "Lo que salga en la bocina"
+      ]
+    },
+    {
+      "slug": "conocernos-da-mas-risa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te da más risa?",
+      "options": [
+        "Chistes malos",
+        "Videos de animales",
+        "Memes",
+        "Tropiezos ajenos"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-nivel-organizacion-tus-pendientes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu nivel de organización con tus pendientes?",
+      "options": [
+        "Agenda al día",
+        "Notas sueltas",
+        "Todo en la cabeza",
+        "Lo hago todo al final"
+      ]
+    },
+    {
+      "slug": "conocernos-prefieres-como-regalo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres como regalo?",
+      "options": [
+        "Algo hecho a mano",
+        "Algo práctico",
+        "Una experiencia",
+        "Una sorpresa de último minuto"
+      ]
+    },
+    {
+      "slug": "conocernos-como-llevas-mascotas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te llevas con las mascotas?",
+      "options": [
+        "Soy fan total",
+        "Me caen bien de lejos",
+        "Prefiero verlas en fotos",
+        "Quiero una en casa ya"
+      ]
+    },
+    {
+      "slug": "conocernos-como-vives-dia-lluvia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo vives un día de lluvia?",
+      "options": [
+        "Café y cobija",
+        "Salgo a mojarme",
+        "Me da flojera todo",
+        "Cocino algo rico"
+      ]
+    },
+    {
+      "slug": "conocernos-como-frente-pelicula-triste",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres frente a una película triste?",
+      "options": [
+        "Lloro sin pena",
+        "Aguanto el llanto",
+        "Me burlo de mí mismo o misma",
+        "Pido que no me vean"
+      ]
+    },
+    {
+      "slug": "conocernos-regalan-dia-libre-como-usas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si te regalan un día libre, ¿cómo lo usas?",
+      "options": [
+        "Dormir hasta tarde",
+        "Hacer cosas que dejé pendientes",
+        "Salir sin rumbo",
+        "Ver a alguien querido"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-relacion-picante",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu relación con el picante?",
+      "options": [
+        "Todo con salsa",
+        "Medio picoso",
+        "Sin nada",
+        "Lo pido y luego me arrepiento"
+      ]
+    },
+    {
+      "slug": "conocernos-prefieres-quedarte-platicar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para quedarte a platicar?",
+      "options": [
+        "Mesa de restaurante",
+        "Sobremesa en casa",
+        "Llamada larga",
+        "Caminando por ahí"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-mejor-lado-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu mejor lado en un viaje?",
+      "options": [
+        "El que navega",
+        "El que investiga dónde comer",
+        "El que carga todo",
+        "El que anima a todos"
+      ]
+    },
+    {
+      "slug": "conocernos-como-manejas-fila-interminable",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo manejas la fila interminable?",
+      "options": [
+        "Paciencia total",
+        "Me distraigo con el celular",
+        "Me desespero",
+        "Platico con quien esté cerca"
+      ]
+    },
+    {
+      "slug": "conocernos-parte-historia-gustaria-alguien-conociera",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu historia te gustaría que alguien conociera con más cariño?"
+    },
+    {
+      "slug": "conocernos-cosa-cuesta-pedir-ayuda-crees",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa te cuesta pedir ayuda y por qué crees que es?"
+    },
+    {
+      "slug": "conocernos-momento-vida-sentiste-cambiaste-verdad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento de tu vida sentiste que cambiaste de verdad?"
+    },
+    {
+      "slug": "conocernos-parte-ti-escondido-miedo-no",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti has escondido por miedo a que no gustara?"
+    },
+    {
+      "slug": "conocernos-aprendiste-persona-ya-no-esta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendiste de una persona que ya no está en tu vida?"
+    },
+    {
+      "slug": "conocernos-gustaria-preguntaran-mas-seguido-casi",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que te preguntaran más seguido y casi nunca te preguntan?"
+    },
+    {
+      "slug": "conocernos-cual-verdad-sobre-ti-apenas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es una verdad sobre ti que apenas estás aprendiendo a aceptar?"
+    },
+    {
+      "slug": "conocernos-situacion-hace-sentir-pequeno-pequena",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué situación te hace sentir pequeño o pequeña, aunque sepas que no lo eres?"
+    },
+    {
+      "slug": "conocernos-sentiste-mas-orgullo-ti-aunque",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste más orgullo de ti, aunque nadie lo supiera?"
+    },
+    {
+      "slug": "conocernos-enseno-familia-sobre-carino-quieres",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseñó tu familia sobre el cariño que quieres repetir o cambiar?"
+    },
+    {
+      "slug": "conocernos-necesitas-escuchar-estas-pasando-semana",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas escuchar cuando estás pasando por una semana difícil?"
+    },
+    {
+      "slug": "conocernos-le-mas-miedo-perder-aparte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A qué le tienes más miedo de perder, aparte de personas?"
+    },
+    {
+      "slug": "conocernos-papel-solias-jugar-familia-ninez",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué papel solías jugar en tu familia de niñez y cuál juegas ahora?"
+    },
+    {
+      "slug": "conocernos-cual-cosa-habrias-querido-saber",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es una cosa que habrías querido saber a los dieciocho?"
+    },
+    {
+      "slug": "conocernos-dolor-pasado-siente-mas-ligero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué dolor del pasado se siente más ligero ahora que antes?"
+    },
+    {
+      "slug": "conocernos-parte-ti-solo-sale-sientes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti sólo sale cuando te sientes realmente cómodo o cómoda?"
+    },
+    {
+      "slug": "conocernos-decision-daria-miedo-tomar-pero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué decisión te daría miedo tomar, pero sabes que te haría bien?"
+    },
+    {
+      "slug": "conocernos-sientes-estas-traicionando-poquito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sientes que te estás traicionando un poquito?"
+    },
+    {
+      "slug": "conocernos-tan-facil-resulta-decir-necesito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tan fácil te resulta decir \"te necesito\" y a quién se lo has dicho?"
+    },
+    {
+      "slug": "conocernos-le-dirias-version-ti-empezo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le dirías a la versión de ti que empezó la prepa?"
+    },
+    {
+      "slug": "conocernos-mas-hace-falta-descansar-aunque",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te hace falta descansar, aunque duermas bien?"
+    },
+    {
+      "slug": "conocernos-cual-cumplido-mas-cuesta-creerte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es el cumplido que más te cuesta creerte?"
+    },
+    {
+      "slug": "conocernos-parte-caracter-viene-familia-bien",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu carácter te viene de tu familia, para bien o para mal?"
+    },
+    {
+      "slug": "conocernos-situacion-enseno-poner-limite",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué situación te enseñó a poner un límite?"
+    },
+    {
+      "slug": "conocernos-cual-conversacion-mas-dificil-tenido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál fue la conversación más difícil que has tenido y qué te dejó?"
+    },
+    {
+      "slug": "conocernos-mas-hace-sentir-paz-no",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te hace sentir en paz y no lo haces tan seguido como quisieras?"
+    },
+    {
+      "slug": "conocernos-momento-sentiste-alguien-creyo-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento sentiste que alguien creyó en ti antes que tú mismo o misma?"
+    },
+    {
+      "slug": "conocernos-parte-crecer-sigue-pareciendo-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de crecer te sigue pareciendo la más difícil?"
+    },
+    {
+      "slug": "conocernos-le-agradecerias-yo-hace-cinco",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le agradecerías a tu yo de hace cinco años?"
+    },
+    {
+      "slug": "conocernos-sueno-pospusiste-todavia-late",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño pospusiste y todavía te late?"
+    },
+    {
+      "slug": "conocernos-como-llevas-ropa-nueva",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te llevas con la ropa nueva?",
+      "options": [
+        "La estreno de inmediato",
+        "La guardo para ocasión",
+        "Le quito la etiqueta hasta mañana",
+        "Siempre se me olvida que la compré"
+      ]
+    },
+    {
+      "slug": "conocernos-como-pides-restaurante-todo-antoja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo pides en el restaurante cuando todo se te antoja?",
+      "options": [
+        "Pido lo más raro",
+        "Pido lo de siempre",
+        "Pido dos y comparto",
+        "Que el mesero decida"
+      ]
+    },
+    {
+      "slug": "conocernos-como-manejas-llamadas-no-esperabas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo manejas las llamadas que no esperabas?",
+      "options": [
+        "Contesto feliz",
+        "Contesto con miedo",
+        "Mando mensaje antes",
+        "No contesto números desconocidos"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-nivel-tolerancia-frio",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu nivel de tolerancia al frío?",
+      "options": [
+        "Me congelo con nada",
+        "Aguanto bien",
+        "Soy el del suéter siempre",
+        "Prefiero que haga frío que calor"
+      ]
+    },
+    {
+      "slug": "conocernos-playlist-ideal-viaje-carro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu playlist ideal para un viaje en carro es...",
+      "options": [
+        "Rolitas de antaño",
+        "Lo más nuevo",
+        "Un podcast",
+        "Silencio y ventana"
+      ]
+    },
+    {
+      "slug": "conocernos-cuanta-memoria-fechas-importantes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuánta memoria tienes para las fechas importantes?",
+      "options": [
+        "Nunca se me olvidan",
+        "Tengo recordatorio en el celular",
+        "Me acuerdo tarde",
+        "Depende del cariño que le tenga"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-personalidad-grupo-whatsapp",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu personalidad en un grupo de WhatsApp?",
+      "options": [
+        "Mando memes",
+        "Mando audios eternos",
+        "Leo y no contesto",
+        "Mando \"jajaja\" y ya"
+      ]
+    },
+    {
+      "slug": "conocernos-como-gusta-festejen-logro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gusta que te festejen un logro?",
+      "options": [
+        "Con abrazo y ya",
+        "Con cena especial",
+        "Con un detalle",
+        "Con mucha fiesta"
+      ]
+    },
+    {
+      "slug": "conocernos-como-algo-descompone-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres cuando algo se descompone en casa?",
+      "options": [
+        "Lo arreglo yo",
+        "Busco un tutorial",
+        "Llamo a alguien",
+        "Lo ignoro hasta que sea inevitable"
+      ]
+    },
+    {
+      "slug": "conocernos-prefieres-cumpleanos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para un cumpleaños?",
+      "options": [
+        "Pastel clásico",
+        "Pastel de helado",
+        "Pay",
+        "Tamales o algo salado"
+      ]
+    },
+    {
+      "slug": "conocernos-como-manejas-silencios-incomodos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo manejas los silencios incómodos?",
+      "options": [
+        "Los aguanto",
+        "Suelto un chiste",
+        "Cambio de tema",
+        "Los lleno con el celular"
+      ]
+    },
+    {
+      "slug": "conocernos-haces-dia-lluvia-planes-cancelados",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué haces con un día de lluvia y planes cancelados?",
+      "options": [
+        "Descanso feliz",
+        "Me da bajón",
+        "Busco otro plan",
+        "Me pongo al día con todo"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-lado-mas-sociable",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu lado más sociable?",
+      "options": [
+        "Conocer gente nueva",
+        "Platicar con mis amigos de siempre",
+        "Eventos grandes",
+        "Cuando somos solo dos"
+      ]
+    },
+    {
+      "slug": "conocernos-tan-bien-aguantas-hambre",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tan bien aguantas el hambre?",
+      "options": [
+        "Ni cinco minutos",
+        "Aguanto un rato",
+        "Me pongo de malas",
+        "Se me olvida comer"
+      ]
+    },
+    {
+      "slug": "conocernos-fueras-mueble-casa-cual-serias",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si fueras un mueble de la casa, ¿cuál serías?",
+      "options": [
+        "Un sillón enorme",
+        "Una lámpara",
+        "Un librero",
+        "Una cama"
+      ]
+    },
+    {
+      "slug": "conocernos-como-gusta-despierten",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gusta que te despierten?",
+      "options": [
+        "Con besos",
+        "Con música",
+        "Con café",
+        "Que ni me despierten"
+      ]
+    },
+    {
+      "slug": "conocernos-como-manejas-criticas-pequenas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo manejas las críticas pequeñas?",
+      "options": [
+        "Las acepto sin problema",
+        "Me las llevo a casa",
+        "Me pongo a la defensiva",
+        "Las platico con alguien"
+      ]
+    },
+    {
+      "slug": "conocernos-como-prefieres-apoyen-estas-mal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo prefieres que te apoyen cuando estás mal?",
+      "options": [
+        "Escuchándome",
+        "Dándome un plan",
+        "Distrayéndome",
+        "Dándome espacio"
+      ]
+    },
+    {
+      "slug": "conocernos-equivocas-como-reaccionas-primero",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando te equivocas, ¿cómo reaccionas primero?",
+      "options": [
+        "Pido perdón",
+        "Me justifico",
+        "Me castigo en silencio",
+        "Busco arreglarlo ya"
+      ]
+    },
+    {
+      "slug": "conocernos-como-reaccionas-ante-cambio-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo reaccionas ante el cambio grande?",
+      "options": [
+        "Me emociono",
+        "Me asusto",
+        "Necesito tiempo",
+        "Hago listas"
+      ]
+    },
+    {
+      "slug": "conocernos-cuesta-mas-mostrar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta más mostrar?",
+      "options": [
+        "Que estoy triste",
+        "Que estoy cansado o cansada",
+        "Que necesito cariño",
+        "Que tengo miedo"
+      ]
+    },
+    {
+      "slug": "conocernos-sientes-mas-dificil-soltar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué sientes más difícil de soltar?",
+      "options": [
+        "Rencores viejos",
+        "Planes que no salieron",
+        "Personas que se alejaron",
+        "Expectativas conmigo"
+      ]
+    },
+    {
+      "slug": "conocernos-algo-duele-haces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando algo te duele, ¿qué haces?",
+      "options": [
+        "Lo hablo de inmediato",
+        "Lo guardo un tiempo",
+        "Lo escribo o lo dibujo",
+        "Lo convierto en humor"
+      ]
+    },
+    {
+      "slug": "conocernos-da-mas-inseguridad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te da más inseguridad?",
+      "options": [
+        "Que me juzguen",
+        "Fallar",
+        "Quedarme atrás",
+        "Que me dejen de lado"
+      ]
+    },
+    {
+      "slug": "conocernos-valoras-mas-gente-cercana",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué valoras más de la gente cercana?",
+      "options": [
+        "Que sea honesta",
+        "Que sea leal",
+        "Que me haga reír",
+        "Que me entienda sin explicar"
+      ]
+    },
+    {
+      "slug": "conocernos-hace-confies-alguien",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué hace que confíes en alguien?",
+      "options": [
+        "Que cumpla lo que dice",
+        "Que sea constante",
+        "Que me escuche",
+        "Que sea auténtica o auténtico"
+      ]
+    },
+    {
+      "slug": "conocernos-cuesta-mas-perdonarte",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿De qué te cuesta más perdonarte?",
+      "options": [
+        "De lo que dije",
+        "De lo que no hice",
+        "De lo que dejé pasar",
+        "De cosas que ya ni recuerdo bien"
+      ]
+    },
+    {
+      "slug": "conocernos-necesitas-mas-estas-agotado-agotada",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas más cuando estás agotado o agotada?",
+      "options": [
+        "Silencio",
+        "Compañía",
+        "Comida rica",
+        "Dormir sin culpa"
+      ]
+    },
+    {
+      "slug": "conocernos-como-sueles-manejar-tristeza",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo sueles manejar la tristeza?",
+      "options": [
+        "Llorando un rato",
+        "Haciendo cosas",
+        "Hablando con alguien",
+        "Fingiendo que no pasa nada"
+      ]
+    },
+    {
+      "slug": "conocernos-alguien-dice-algo-hiriente-haces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si alguien te dice algo hiriente, ¿qué haces?",
+      "options": [
+        "Respondo en el momento",
+        "Lo pienso toda la noche",
+        "Lo olvido rápido",
+        "Se lo cuento a alguien"
+      ]
+    },
+    {
+      "slug": "conocernos-hace-sentir-mas-amado-amada",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir más amado o amada?",
+      "options": [
+        "Palabras",
+        "Tiempo juntos",
+        "Gestos pequeños",
+        "Abrazos"
+      ]
+    },
+    {
+      "slug": "conocernos-mas-marco-infancia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué fue lo que más te marcó de la infancia?",
+      "options": [
+        "Mi familia",
+        "Mis amigos",
+        "La escuela",
+        "Un lugar"
+      ]
+    },
+    {
+      "slug": "conocernos-cuesta-mas-empezar-algo-nuevo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta más al empezar algo nuevo?",
+      "options": [
+        "La pena",
+        "El miedo a fallar",
+        "La flojera",
+        "No saber por dónde"
+      ]
+    },
+    {
+      "slug": "conocernos-discusion-alguien-querido-buscas-primero",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En una discusión con alguien querido, ¿qué buscas primero?",
+      "options": [
+        "Tener razón",
+        "Resolverlo",
+        "Que me entiendan",
+        "Terminar rápido"
+      ]
+    },
+    {
+      "slug": "conocernos-hace-sientas-orgulloso-u-orgullosa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué hace que te sientas orgulloso u orgullosa de ti?",
+      "options": [
+        "Cumplir metas",
+        "Ayudar a alguien",
+        "Superar un miedo",
+        "Ser constante"
+      ]
+    },
+    {
+      "slug": "conocernos-cual-mayor-miedo-escondido",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu mayor miedo escondido?",
+      "options": [
+        "Fallar",
+        "Decepcionar",
+        "Estar solo o sola",
+        "Cambiar de más"
+      ]
+    },
+    {
+      "slug": "conocernos-como-comportas-sientes-inseguro-insegura",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo te comportas cuando te sientes inseguro o insegura?",
+      "options": [
+        "Me callo",
+        "Hablo de más",
+        "Bromeo",
+        "Me retiro"
+      ]
+    },
+    {
+      "slug": "conocernos-piden-favor-grande-haces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando te piden un favor grande, ¿qué haces?",
+      "options": [
+        "Digo que sí siempre",
+        "Lo pienso",
+        "Pregunto por qué",
+        "Me cuesta decir que no"
+      ]
+    },
+    {
+      "slug": "conocernos-da-mas-calma-todo-siente",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te da más calma cuando todo se siente demasiado?",
+      "options": [
+        "Salir a caminar",
+        "Escuchar música",
+        "Hablar con alguien",
+        "Meterme a la cama"
+      ]
+    },
+    {
+      "slug": "conocernos-mas-cuesta-dejar-ir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te cuesta dejar ir?",
+      "options": [
+        "Un recuerdo",
+        "Una costumbre",
+        "Una versión de mí",
+        "Una ilusión"
+      ]
+    },
+    {
+      "slug": "conocernos-valoras-mas-alguien-disculpa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué valoras más cuando alguien se disculpa?",
+      "options": [
+        "Que sea sincero",
+        "Que cambie",
+        "Que lo diga rápido",
+        "Que me dé espacio"
+      ]
+    },
+    {
+      "slug": "conocernos-sientes-mas-ganas-abrirte",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuándo sientes más ganas de abrirte?",
+      "options": [
+        "De noche",
+        "Después de reír",
+        "Caminando",
+        "Por mensaje"
+      ]
     }
   ]
 }

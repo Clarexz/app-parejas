@@ -723,6 +723,82 @@ const gamesBase = {
   members: [member(ME_ID), member(PARTNER_ID)],
 };
 
+// --- Banco de preguntas (Fase 10): temas, voto y preguntas propias -----------------------------
+
+const PACKS = [
+  [
+    'pack-primeras-veces',
+    'Primeras veces',
+    '🌱',
+    'ligera',
+    'Cómo se conocieron y qué sintieron.',
+    12,
+    12,
+    5,
+  ],
+  [
+    'pack-que-pasaria-si',
+    '¿Qué pasaría si…?',
+    '🪄',
+    'ligera',
+    'Escenarios locos para imaginar juntos.',
+    10,
+    3,
+    0,
+  ],
+  ['pack-sin-filtro', 'Sin filtro', '🌶️', 'picante', 'Solo para ustedes dos.', 10, 0, 0],
+].map(([slug, name, emoji, intensity, description, total, mine, both], i) => ({
+  slug,
+  name,
+  emoji,
+  description,
+  intensity,
+  position: i + 1,
+  total,
+  answered_by_me: mine,
+  answered_by_both: both,
+  next_question_id: mine >= total ? null : qid(100 + mine),
+}));
+
+const customQuestions = () => [
+  {
+    id: qid(300),
+    category: 'divertidas',
+    category_name: 'Divertidas',
+    category_emoji: '🎈',
+    type: 'choice',
+    text: '¿Qué plan armamos para el próximo fin de semana largo?',
+    options: ['Playa', 'Montaña', 'Quedarnos en casa'],
+    intensity: 'ligera',
+    created_by: ME_ID,
+    created_at: minutesAgo(90),
+    answered_by_me: true,
+    answered_by_partner: false,
+  },
+  {
+    id: qid(301),
+    category: 'conocernos',
+    category_name: 'Conocernos',
+    category_emoji: '🔎',
+    type: 'open',
+    text: '¿Qué apodo de tu infancia nunca me has contado?',
+    options: null,
+    intensity: 'ligera',
+    created_by: PARTNER_ID,
+    created_at: minutesAgo(60 * 30),
+    answered_by_me: false,
+    answered_by_partner: true,
+  },
+];
+
+const bankRest = (path, { route, json }) => {
+  if (path === '/rest/v1/rpc/get_packs') return json(route, PACKS);
+  if (path === '/rest/v1/rpc/get_custom_questions') return json(route, customQuestions());
+  if (path === '/rest/v1/rpc/set_question_feedback') return json(route, 1);
+  if (path === '/rest/v1/question_feedback') return json(route, { vote: -1 });
+  return undefined;
+};
+
 export const SCENARIOS = {
   // Cómo agregar widgets (Fase 5): pantalla con la pareja lista (prefijo `widgets-`).
   widgets: {
@@ -1490,6 +1566,30 @@ export const SCENARIOS = {
     members: [member(ME_ID), member(PARTNER_ID)],
     streak: () => streakWith(12, 23, [2, 3]),
     routes: ['/questions', '/category/conocernos', '/history'],
+  },
+  // Temas, agregar pregunta y voto 👎 (prefijo `temas-`).
+  banco_preguntas: {
+    prefix: 'temas',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    streak: () => streakWith(12, 23, []),
+    rest: bankRest,
+    routes: ['/questions', '/pack/pack-primeras-veces', '/add-question'],
+  },
+  // Un tema recién empezado, la pregunta con la fila de voto y un tema bloqueado (prefijo `tema2-`).
+  banco_pregunta_tema: {
+    prefix: 'tema2',
+    me: profiles.me,
+    partner: profiles.partner,
+    members: [member(ME_ID), member(PARTNER_ID)],
+    streak: () => streakWith(12, 23, []),
+    rest: bankRest,
+    routes: [
+      '/pack/pack-que-pasaria-si',
+      '/pack/pack-sin-filtro',
+      `/question?id=${qid(1)}&pack=pack-que-pasaria-si`,
+    ],
   },
   // Racha en cero, sin historial ni preguntas contestadas (prefijo `preguntas0-`).
   preguntas_cero: {

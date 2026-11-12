@@ -1,4 +1,1043 @@
 {
   "category": "por-dentro",
-  "questions": []
+  "questions": [
+    {
+      "slug": "por-dentro-emocion-de-hoy",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu día de hoy fuera una emoción, ¿cuál sería y por qué?"
+    },
+    {
+      "slug": "por-dentro-clima-interno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu ánimo fuera un clima, ¿qué clima hace hoy por dentro?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-calma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa chiquita te baja los nervios en dos minutos?"
+    },
+    {
+      "slug": "por-dentro-cancion-de-animo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción pones cuando necesitas levantarte el ánimo?"
+    },
+    {
+      "slug": "por-dentro-cara-de-enojo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se te nota que estás enojado o enojada aunque no lo digas?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-da-risa-nervios",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te da risa nerviosa que no deberías?"
+    },
+    {
+      "slug": "por-dentro-primer-signo-de-cansancio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la primera señal de que ya estás agotado o agotada?"
+    },
+    {
+      "slug": "por-dentro-tu-lugar-seguro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué rincón del mundo te hace sentir en paz apenas llegas?"
+    },
+    {
+      "slug": "por-dentro-hora-del-dia-animo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué hora del día te sientes más tú?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-da-pereza",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tarea te da tanta pereza que la dejas para el último momento?"
+    },
+    {
+      "slug": "por-dentro-comida-que-consuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida te abraza por dentro cuando estás triste?"
+    },
+    {
+      "slug": "por-dentro-frase-que-te-calma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase te gusta que te digan cuando estás nervioso o nerviosa?"
+    },
+    {
+      "slug": "por-dentro-tu-ritual-de-estres",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué haces cuando sientes que todo se te junta?"
+    },
+    {
+      "slug": "por-dentro-cosa-que-te-emociona",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa te emociona como niño o niña cuando se acerca?"
+    },
+    {
+      "slug": "por-dentro-gesto-de-incomodidad",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gesto haces sin darte cuenta cuando algo te incomoda?"
+    },
+    {
+      "slug": "por-dentro-tiempo-a-solas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué haces cuando por fin tienes la casa para ti solo o sola?"
+    },
+    {
+      "slug": "por-dentro-palabra-del-mes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que resumir tu mes en una palabra, ¿cuál sería?"
+    },
+    {
+      "slug": "por-dentro-sueno-reciente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo último raro que soñaste y qué crees que significó?"
+    },
+    {
+      "slug": "por-dentro-pequena-victoria",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pequeña victoria de esta semana te hizo sentir bien por dentro?"
+    },
+    {
+      "slug": "por-dentro-tu-modo-pausa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te das cuenta de que necesitas pausar todo y descansar?"
+    },
+    {
+      "slug": "por-dentro-sentir-en-el-cuerpo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Dónde sientes primero los nervios: estómago, hombros, manos o garganta?"
+    },
+    {
+      "slug": "por-dentro-cosa-que-te-pone-de-buenas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te pone de buen humor al instante, sin falta?"
+    },
+    {
+      "slug": "por-dentro-dia-que-abrazas-al-mundo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es un día que termina con ganas de abrazar al mundo?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-da-envidia-sana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te da envidia sana de las personas que admiras?"
+    },
+    {
+      "slug": "por-dentro-estres-dormir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando estás estresado o estresada, tu sueño es...",
+      "options": [
+        "Nulo, ni parpadeo",
+        "Dormir de más",
+        "Pesadillas locas",
+        "Normal, ¿cuál estrés?"
+      ]
+    },
+    {
+      "slug": "por-dentro-primer-instinto-nervios",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Ante una noticia inesperada, tu primera reacción suele ser...",
+      "options": [
+        "Quedarme callado o callada",
+        "Reír",
+        "Llorar",
+        "Hablar sin parar"
+      ]
+    },
+    {
+      "slug": "por-dentro-cuando-me-enojo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando algo te enoja, ¿qué haces?",
+      "options": [
+        "Respiro hondo",
+        "Salgo a caminar",
+        "Escribo mensajes que no envío",
+        "Me quedo en silencio"
+      ]
+    },
+    {
+      "slug": "por-dentro-tu-estado-por-defecto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu estado emocional por defecto es...",
+      "options": [
+        "Tranquilo",
+        "Ansioso",
+        "Alegre",
+        "Cansado"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-necesitas-en-malos-dias",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un mal día, ¿qué te ayuda más?",
+      "options": [
+        "Una película",
+        "Un abrazo",
+        "Comida rica",
+        "Silencio absoluto"
+      ]
+    },
+    {
+      "slug": "por-dentro-mood-lunes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un lunes por la mañana te sientes...",
+      "options": [
+        "Con energía",
+        "Resignado o resignada",
+        "Sin ganas",
+        "Depende del café"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-callas-del-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te pasó hoy que todavía no le has contado a nadie?"
+    },
+    {
+      "slug": "por-dentro-miedo-silencioso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es un miedo tuyo que nunca dices en voz alta?"
+    },
+    {
+      "slug": "por-dentro-lo-que-cargas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa estás cargando últimamente que quisieras soltar?"
+    },
+    {
+      "slug": "por-dentro-autoestima-espejo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de ti te cuesta ver con cariño en el espejo?"
+    },
+    {
+      "slug": "por-dentro-critica-interna",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te dice esa voz interna cuando cometes un error, y qué le contestarías?"
+    },
+    {
+      "slug": "por-dentro-cuando-te-sentiste-pequeno",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te has sentido más pequeño o pequeña de lo que eres?"
+    },
+    {
+      "slug": "por-dentro-logro-sin-celebrar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué logro tuyo se quedó sin celebrar y merecía fiesta?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-asusta-del-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te preocupa del futuro cuando estás a solas con tus pensamientos?"
+    },
+    {
+      "slug": "por-dentro-sentirse-suficiente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momentos sientes que no eres suficiente y qué te ayuda a salir de ahí?"
+    },
+    {
+      "slug": "por-dentro-cuando-lloraste-ultima",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo lloraste por última vez y qué lo provocó?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-cuesta-decir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase te cuesta decir en voz alta, como \"estoy mal\" o \"te necesito\"?"
+    },
+    {
+      "slug": "por-dentro-estres-del-trabajo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu semana te desgasta más sin que lo parezca?"
+    },
+    {
+      "slug": "por-dentro-presion-de-expectativas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué expectativa ajena sientes que te pesa y no pediste?"
+    },
+    {
+      "slug": "por-dentro-momento-de-ansiedad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo se siente en ti un momento de mucha ansiedad y qué te ayuda a pasarlo?"
+    },
+    {
+      "slug": "por-dentro-cuando-te-comparas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Con quién te comparas más sin querer y cómo te hace sentir?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-hizo-crecer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué dolor te hizo crecer más de lo que quisieras admitir?"
+    },
+    {
+      "slug": "por-dentro-inseguridad-oculta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué inseguridad tuya crees que nadie nota?"
+    },
+    {
+      "slug": "por-dentro-mejor-version-sentir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué emoción te gustaría sentir más seguido?"
+    },
+    {
+      "slug": "por-dentro-momento-de-soledad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te sentiste más solo o sola estando rodeado de gente?"
+    },
+    {
+      "slug": "por-dentro-cuanto-te-cuesta-pedir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta más pedirme cuando lo necesitas?"
+    },
+    {
+      "slug": "por-dentro-tu-lado-sensible",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa te toca el corazón aunque finjas que no?"
+    },
+    {
+      "slug": "por-dentro-miedo-a-perder",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te daría miedo perder y cómo lo cuidas?"
+    },
+    {
+      "slug": "por-dentro-cuando-te-sentiste-visto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que alguien de verdad te vio y entendió tal cual eres?"
+    },
+    {
+      "slug": "por-dentro-sensacion-de-cansancio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Más allá del sueño, ¿qué tipo de cansancio sientes últimamente?"
+    },
+    {
+      "slug": "por-dentro-carga-mental",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pendiente invisible no se te quita de la cabeza?"
+    },
+    {
+      "slug": "por-dentro-lo-que-extranas-de-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti extrañas de cuando eras más ligero o ligera?"
+    },
+    {
+      "slug": "por-dentro-critica-que-dolio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué comentario te dolió más y todavía te acuerdas?"
+    },
+    {
+      "slug": "por-dentro-momento-de-valentia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo hiciste algo con miedo y valió la pena?"
+    },
+    {
+      "slug": "por-dentro-lo-que-no-te-contaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué verdad sobre ti tardaste en aceptar?"
+    },
+    {
+      "slug": "por-dentro-pensamientos-nocturnos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué piensas cuando no puedes dormir?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-hace-sentir-querido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hace que te sientas amado o amada de verdad, sin duda?"
+    },
+    {
+      "slug": "por-dentro-lo-que-escondes-con-humor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo usas el humor para esconder algo que sientes?"
+    },
+    {
+      "slug": "por-dentro-tu-forma-de-sufrir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando algo duele, ¿te encierras, hablas o te distraes? ¿Cómo lo vives?"
+    },
+    {
+      "slug": "por-dentro-lo-que-necesitas-oir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase necesitarías escuchar hoy de mi parte?"
+    },
+    {
+      "slug": "por-dentro-miedo-de-ser-carga",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Alguna vez has sentido que eres una carga para los demás? ¿Qué lo disparó?"
+    },
+    {
+      "slug": "por-dentro-quien-eras-vs-quien-eres",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué eres distinto o distinta de la persona que eras hace cinco años?"
+    },
+    {
+      "slug": "por-dentro-una-tristeza-bonita",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa te pone nostálgico o nostálgica de forma bonita?"
+    },
+    {
+      "slug": "por-dentro-tu-parte-mas-cansada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tu cuerpo pudiera hablar hoy, ¿qué te diría?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-asusta-de-amar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te da vértigo de querer tanto a alguien?"
+    },
+    {
+      "slug": "por-dentro-verguenza-pasada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de vergüenza ya puedes contar sin que te pese?"
+    },
+    {
+      "slug": "por-dentro-lo-que-sientes-lejos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando estamos lejos, ¿cuál es la emoción que más te cuesta manejar?"
+    },
+    {
+      "slug": "por-dentro-cuando-estas-feliz-de-verdad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo es para ti la felicidad tranquila, esa que no necesita nada especial?"
+    },
+    {
+      "slug": "por-dentro-tu-dialogo-con-el-miedo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué haces cuando el miedo te dice que no puedes?"
+    },
+    {
+      "slug": "por-dentro-calma-que-buscas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas para sentir paz de verdad?"
+    },
+    {
+      "slug": "por-dentro-algo-que-guardas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo guardas con cuidado porque te hace sentir bien?"
+    },
+    {
+      "slug": "por-dentro-cambio-que-te-asusta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cambio de tu vida te da más nervios y más ilusión a la vez?"
+    },
+    {
+      "slug": "por-dentro-cuando-te-sientes-abrumado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando todo te abruma, ¿qué es lo primero que te gustaría que yo hiciera?"
+    },
+    {
+      "slug": "por-dentro-mensaje-que-no-mandaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué mensaje has escrito para alguien y nunca enviaste?"
+    },
+    {
+      "slug": "por-dentro-parte-de-ti-que-escondes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti sueles esconder en los lugares nuevos?"
+    },
+    {
+      "slug": "por-dentro-recuerdo-que-aun-duele",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo todavía te mueve algo por dentro cuando lo piensas?"
+    },
+    {
+      "slug": "por-dentro-cuando-eres-tu-mismo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Con quién eres completamente tú y qué tiene esa persona?"
+    },
+    {
+      "slug": "por-dentro-cosa-que-te-da-vergüenza-querer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa quieres en secreto y te da pena admitir?"
+    },
+    {
+      "slug": "por-dentro-sentir-que-fallaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que le fallaste a alguien que quieres, y cómo lo resolviste?"
+    },
+    {
+      "slug": "por-dentro-autocuidado-real",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te cuidas de verdad cuando estás mal, más allá de lo que se dice que hay que hacer?"
+    },
+    {
+      "slug": "por-dentro-miedo-al-fracaso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué fracaso te da más miedo y qué pasaría en realidad si llega?"
+    },
+    {
+      "slug": "por-dentro-tu-peor-pensamiento",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pensamiento te visita cuando estás cansado o cansada y quisieras callar?"
+    },
+    {
+      "slug": "por-dentro-momento-de-alivio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo fue la última vez que sentiste un alivio enorme?"
+    },
+    {
+      "slug": "por-dentro-cuando-no-sabes-que-sientes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué haces cuando sientes algo pero no sabes ponerle nombre?"
+    },
+    {
+      "slug": "por-dentro-pareja-y-tu-animo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te das cuenta de que mi cariño te ayuda cuando estás mal?"
+    },
+    {
+      "slug": "por-dentro-dia-de-bajon",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame cómo es un día de bajón tuyo, para reconocerlo desde lejos."
+    },
+    {
+      "slug": "por-dentro-parte-de-ti-que-quieres-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti quisieras tratar con más cariño?"
+    },
+    {
+      "slug": "por-dentro-dolor-de-crecer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué fue lo más difícil de volverte adulto o adulta?"
+    },
+    {
+      "slug": "por-dentro-pesadumbre-del-pasado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pasado te sigue persiguiendo de vez en cuando?"
+    },
+    {
+      "slug": "por-dentro-sentirse-incomprendido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te sentiste incomprendido o incomprendida por alguien cercano?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-hace-vulnerable",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué situación te hace sentir más vulnerable de lo que quisieras?"
+    },
+    {
+      "slug": "por-dentro-lo-que-nunca-dijiste-a-tu-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le hubieras querido decir a tu familia y no pudiste?"
+    },
+    {
+      "slug": "por-dentro-amor-propio-gesto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál sería un gesto de amor propio que sí podrías hacer esta semana?"
+    },
+    {
+      "slug": "por-dentro-cosa-que-te-quita-el-sueno",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa te quita el sueño aunque no parezca grave?"
+    },
+    {
+      "slug": "por-dentro-cuando-pides-perdon-a-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A qué parte de ti le debes una disculpa?"
+    },
+    {
+      "slug": "por-dentro-tu-mayor-presion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué presión te pones tú solo o sola sin que nadie te la pida?"
+    },
+    {
+      "slug": "por-dentro-el-silencio-y-tu",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando hay silencio total, ¿qué es lo primero que aparece en tu mente?"
+    },
+    {
+      "slug": "por-dentro-reaccion-a-criticas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo reaccionas por dentro cuando alguien te critica, aunque por fuera aparentes calma?"
+    },
+    {
+      "slug": "por-dentro-sentir-orgullo-por-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de ti sabes que tu yo de hace diez años admiraría?"
+    },
+    {
+      "slug": "por-dentro-inseguridad-conmigo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algo en lo que te sientas inseguro o insegura conmigo? Cuéntamelo sin miedo."
+    },
+    {
+      "slug": "por-dentro-que-te-hace-sentir-libre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir libre de verdad, sin ataduras ni deberes?"
+    },
+    {
+      "slug": "por-dentro-decepcion-propia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿De qué te decepcionaste de ti mismo o misma y cómo lo cargas hoy?"
+    },
+    {
+      "slug": "por-dentro-emocion-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué emoción te cuesta más sentir sin juzgarte?"
+    },
+    {
+      "slug": "por-dentro-agotamiento-emocional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que ya no tenías fuerzas emocionales y cómo volviste?"
+    },
+    {
+      "slug": "por-dentro-tus-lagrimas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosas te hacen llorar de risa, de emoción o de tristeza, y cuál te sorprende?"
+    },
+    {
+      "slug": "por-dentro-cuando-eres-duro-contigo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué eres más duro o dura contigo que con los demás?"
+    },
+    {
+      "slug": "por-dentro-mensaje-para-tu-yo-nino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le dirías a tu yo de ocho años que está pasando un mal rato?"
+    },
+    {
+      "slug": "por-dentro-cuando-te-sentiste-muy-querido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Describe una vez en que te sentiste profundamente querido o querida."
+    },
+    {
+      "slug": "por-dentro-tu-necesidad-silenciosa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas con frecuencia pero casi nunca lo dices?"
+    },
+    {
+      "slug": "por-dentro-cuando-extrañas-fuerte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando me extrañas fuerte, ¿qué pasa por dentro y qué te ayuda?"
+    },
+    {
+      "slug": "por-dentro-lo-que-te-da-paz-al-llegar-la-noche",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pensamiento te da paz al terminar el día?"
+    },
+    {
+      "slug": "por-dentro-tu-forma-de-pedir-cariño",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo pides cariño cuando no sabes cómo decirlo?"
+    },
+    {
+      "slug": "por-dentro-momento-de-paz-reciente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo fue la última vez que sentiste que todo estaba bien, aunque fuera un ratito?"
+    },
+    {
+      "slug": "por-dentro-reconocer-que-estas-mal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando estás mal, ¿cómo se nota más?",
+      "options": [
+        "Me aíslo",
+        "Me enojo con facilidad",
+        "Me pongo callado o callada",
+        "Hablo más de lo normal"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-calma-ansiedad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando sientes ansiedad, ¿qué te ayuda más?",
+      "options": [
+        "Respirar profundo",
+        "Moverme",
+        "Hablar con alguien",
+        "Distraerme con algo"
+      ]
+    },
+    {
+      "slug": "por-dentro-perdi-el-control",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando te sientes sin control, lo que más necesitas es...",
+      "options": [
+        "Tener un plan",
+        "Que alguien me escuche",
+        "Tiempo a solas",
+        "Hacer algo con las manos"
+      ]
+    },
+    {
+      "slug": "por-dentro-tu-autoestima-hoy",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Hoy tu autoestima está...",
+      "options": [
+        "Por las nubes",
+        "Estable",
+        "Más o menos",
+        "En construcción"
+      ]
+    },
+    {
+      "slug": "por-dentro-como-llora",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando lloras, prefieres...",
+      "options": [
+        "Estar solo o sola",
+        "Que me abracen",
+        "Que me distraigan",
+        "Que me dejen desahogarme hablando"
+      ]
+    },
+    {
+      "slug": "por-dentro-que-te-da-mas-miedo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Entre estos miedos, ¿cuál te pesa más?",
+      "options": [
+        "Quedarme solo o sola",
+        "Fracasar",
+        "Perder a alguien",
+        "No cumplir mis sueños"
+      ]
+    },
+    {
+      "slug": "por-dentro-quien-te-escucha-mejor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para desahogarte, prefieres...",
+      "options": [
+        "Escribir",
+        "Hablar",
+        "Caminar",
+        "Llorar sin explicar nada"
+      ]
+    },
+    {
+      "slug": "por-dentro-frase-que-necesitas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La frase que más me ayudaría oír en un mal día es...",
+      "options": [
+        "Aquí estoy",
+        "No tienes que arreglarlo hoy",
+        "Estoy orgulloso u orgullosa de ti",
+        "Respira, vamos paso a paso"
+      ]
+    },
+    {
+      "slug": "por-dentro-carga-emocional-origen",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La carga que más pesa en estos días viene de...",
+      "options": [
+        "El trabajo o la escuela",
+        "La familia",
+        "Mis propias expectativas",
+        "La distancia"
+      ]
+    },
+    {
+      "slug": "por-dentro-estres-expresado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando estás estresado o estresada, tu cuerpo te avisa con...",
+      "options": [
+        "Dolor de cabeza",
+        "Tensión en los hombros",
+        "Cansancio extremo",
+        "Panza que no se calma"
+      ]
+    },
+    {
+      "slug": "por-dentro-quieres-compania",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un mal momento, lo mejor que puedo hacer por ti es...",
+      "options": [
+        "Quedarme en llamada callado o callada",
+        "Mandarte comida",
+        "Hacerte reír",
+        "Darte tu espacio sin desaparecer"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-esconde-tu-sonrisa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando finges que estás bien, ¿qué escondes más?",
+      "options": [
+        "Cansancio",
+        "Tristeza",
+        "Enojo",
+        "Preocupación"
+      ]
+    },
+    {
+      "slug": "por-dentro-dar-vs-recibir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Dar cariño o recibirlo, ¿qué te cuesta más?",
+      "options": [
+        "Darlo",
+        "Recibirlo",
+        "Ambos por igual",
+        "Ninguno, es fácil"
+      ]
+    },
+    {
+      "slug": "por-dentro-tu-sensibilidad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Sobre tu sensibilidad, hoy sientes que...",
+      "options": [
+        "Me orgullece",
+        "La estoy aprendiendo a querer",
+        "Me pesa",
+        "Cambia según el día"
+      ]
+    },
+    {
+      "slug": "por-dentro-gusto-por-ti",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más me gusta de cómo soy por dentro es...",
+      "options": [
+        "Mi empatía",
+        "Mi fortaleza",
+        "Mi creatividad",
+        "Mi lealtad"
+      ]
+    },
+    {
+      "slug": "por-dentro-nostalgia-tipo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Mi nostalgia llega más con...",
+      "options": [
+        "Una canción",
+        "Un olor",
+        "Una foto",
+        "Un lugar"
+      ]
+    },
+    {
+      "slug": "por-dentro-confiar-en-ti",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Confío más en mí cuando...",
+      "options": [
+        "Lo planeé bien",
+        "Lo siento en la panza",
+        "Alguien me apoya",
+        "Ya lo hice antes"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-aprendiste-estresado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "De mis momentos de estrés he aprendido que necesito...",
+      "options": [
+        "Descansar antes",
+        "Pedir ayuda",
+        "Poner límites",
+        "Soltar el control"
+      ]
+    },
+    {
+      "slug": "por-dentro-despues-de-discutir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Después de una discusión, me siento...",
+      "options": [
+        "Culpable",
+        "Aliviado o aliviada",
+        "Triste",
+        "Con ganas de hacer las paces"
+      ]
+    },
+    {
+      "slug": "por-dentro-mejor-version-feliz",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Me siento más yo cuando estoy...",
+      "options": [
+        "En movimiento",
+        "Creando algo",
+        "Con mi gente",
+        "En silencio"
+      ]
+    },
+    {
+      "slug": "por-dentro-lo-que-quieres-sentir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En el fondo, lo que más quiero sentir en la vida es...",
+      "options": [
+        "Paz",
+        "Alegría",
+        "Seguridad",
+        "Emoción"
+      ]
+    },
+    {
+      "slug": "por-dentro-cuando-te-sientes-orgulloso",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El orgullo propio me llega más cuando...",
+      "options": [
+        "Logro algo difícil",
+        "Ayudo a alguien",
+        "Soy honesto u honesta",
+        "Me animo a algo nuevo"
+      ]
+    },
+    {
+      "slug": "por-dentro-miedo-a-hablar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más me frena a hablar de mis emociones es...",
+      "options": [
+        "Que me juzguen",
+        "Preocupar a alguien",
+        "No saber explicarlo",
+        "Que lo minimicen"
+      ]
+    },
+    {
+      "slug": "por-dentro-tu-aliado-emocional",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Mi mejor aliado cuando estoy mal es...",
+      "options": [
+        "La música",
+        "El sueño",
+        "La comida",
+        "Una persona en específico"
+      ]
+    },
+    {
+      "slug": "por-dentro-la-calma-despues",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando por fin se me pasa la tormenta, lo primero que siento es...",
+      "options": [
+        "Ganas de dormir",
+        "Ganas de platicar",
+        "Agradecimiento",
+        "Vacío raro"
+      ]
+    }
+  ]
 }

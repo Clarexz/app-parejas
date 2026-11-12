@@ -126,14 +126,24 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para ir de un punto a otro, ¿cómo prefieres moverte?",
-      "options": ["Avión", "Carretera", "Autobús o tren", "Caminando"]
+      "options": [
+        "Avión",
+        "Carretera",
+        "Autobús o tren",
+        "Caminando"
+      ]
     },
     {
       "slug": "viajes-hospedaje",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Dónde dormirías en un viaje soñado?",
-      "options": ["Hotel con alberca", "Cabaña en el bosque", "Casa en renta", "Tienda de campaña"]
+      "options": [
+        "Hotel con alberca",
+        "Cabaña en el bosque",
+        "Casa en renta",
+        "Tienda de campaña"
+      ]
     },
     {
       "slug": "viajes-clima-destino",
@@ -169,6 +179,852 @@
       "type": "open",
       "intensity": "ligera",
       "text": "Si hiciéramos juntos una ruta en carro, ¿qué dos paradas no podrían faltar?"
+    },
+    {
+      "slug": "viajes-primer-pin-del-mapa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras mover un solo pin en un mapa, ¿a dónde nos mandas esta semana?"
+    },
+    {
+      "slug": "viajes-snack-de-carretera",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el snack que no puede faltar en un viaje por carretera?"
+    },
+    {
+      "slug": "viajes-souvenir-ridiculo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el souvenir más ridículo que has comprado en un viaje?"
+    },
+    {
+      "slug": "viajes-ciudad-con-mucho-ambiente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ciudad de México o del mundo te late para perdernos una noche entera?"
+    },
+    {
+      "slug": "viajes-taquerias-de-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Llegamos a una ciudad nueva con hambre, ¿cómo escogemos dónde comer?"
+    },
+    {
+      "slug": "viajes-vuelo-o-camion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuéntame tu peor experiencia en un camión o vuelo y cómo la superaste."
+    },
+    {
+      "slug": "viajes-ventana-o-pasillo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "En el avión o camión, ¿ventana o pasillo, y qué haces en el trayecto?"
+    },
+    {
+      "slug": "viajes-foto-que-no-sacamos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué foto te gustaría sacarme en nuestro próximo viaje?"
+    },
+    {
+      "slug": "viajes-viaje-de-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu primer recuerdo de un viaje de niño o niña?"
+    },
+    {
+      "slug": "viajes-lugar-de-tu-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué lugar de vacaciones iba tu familia cuando eras chico o chica?"
+    },
+    {
+      "slug": "viajes-pueblo-magico-sueno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudiéramos pasar una semana en un pueblo mágico, ¿cuál te imaginas y qué haríamos ahí?"
+    },
+    {
+      "slug": "viajes-clima-ideal-de-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Con qué clima te imaginas nuestro viaje ideal?"
+    },
+    {
+      "slug": "viajes-cosa-que-olvidas-siempre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa siempre se te olvida meter en la maleta?"
+    },
+    {
+      "slug": "viajes-mejor-comida-del-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la mejor comida que has probado en un viaje?"
+    },
+    {
+      "slug": "viajes-canciones-de-la-ruta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Arma tres canciones para el soundtrack del próximo viaje juntos."
+    },
+    {
+      "slug": "viajes-viaje-en-tren",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te imaginarías un viaje en tren por algún lugar bonito?"
+    },
+    {
+      "slug": "viajes-aventura-en-la-playa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "En una playa, ¿qué sería lo primero que harías conmigo?"
+    },
+    {
+      "slug": "viajes-mercado-de-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si entramos a un mercado en un viaje, ¿qué te vas a querer llevar?"
+    },
+    {
+      "slug": "viajes-hostal-o-hotel",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Prefieres improvisar el hospedaje o llegar con todo reservado, y por qué?"
+    },
+    {
+      "slug": "viajes-el-viaje-mas-barato",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el plan de viaje más económico que se te ocurre y que se vea increíble?"
+    },
+    {
+      "slug": "viajes-lugar-con-vista",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mirador, azotea o cerro te gustaría que visitáramos juntos para ver el atardecer?"
+    },
+    {
+      "slug": "viajes-viaje-de-fin-de-semana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tenemos un fin de semana largo y un presupuesto chico, ¿qué hacemos?"
+    },
+    {
+      "slug": "viajes-lo-primero-al-llegar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando llegas a un lugar nuevo, ¿qué es lo primero que haces?"
+    },
+    {
+      "slug": "viajes-bote-o-avion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te daría más miedo hacer en un viaje, volar, navegar o manejar de noche?"
+    },
+    {
+      "slug": "viajes-dia-de-lluvia-en-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Se arruinó el plan por la lluvia en pleno viaje, ¿cómo lo salvamos?"
+    },
+    {
+      "slug": "viajes-nombre-de-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si le pusieras un nombre de película a nuestro próximo viaje, ¿cuál sería?"
+    },
+    {
+      "slug": "viajes-el-mejor-hospedaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe el mejor lugar donde has dormido de viaje."
+    },
+    {
+      "slug": "viajes-viaje-con-amigos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la anécdota más chistosa de un viaje con amigos o familia?"
+    },
+    {
+      "slug": "viajes-rol-en-el-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "En un viaje, ¿tú eres quien planea, quien navega o quien improvisa?"
+    },
+    {
+      "slug": "viajes-souvenir-para-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si me trajeras un souvenir de cualquier lugar, ¿cuál escogerías?"
+    },
+    {
+      "slug": "viajes-el-primer-sabor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sabor, platillo o bebida de un viaje no has podido olvidar?"
+    },
+    {
+      "slug": "viajes-despertar-en-el-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo sería tu mañana perfecta en un viaje, desde que abres los ojos?"
+    },
+    {
+      "slug": "viajes-lugar-que-no-conocia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué lugar cercano a tu casa nunca has visitado y te da curiosidad?"
+    },
+    {
+      "slug": "viajes-la-playlist-aeropuerto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué haces para entretenerte durante una espera larga en el aeropuerto o la central?"
+    },
+    {
+      "slug": "viajes-viaje-en-carretera-nocturno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Te has ido de viaje de noche, qué pasó y cómo lo recuerdas?"
+    },
+    {
+      "slug": "viajes-lugar-con-historia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué zona arqueológica o sitio histórico te gustaría visitar conmigo?"
+    },
+    {
+      "slug": "viajes-camping-o-cabana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Una noche en el campo, ¿qué cosas no pueden faltar para que estés a gusto?"
+    },
+    {
+      "slug": "viajes-viaje-de-pareja-ideal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dime tres cosas que tendría tu viaje de pareja ideal."
+    },
+    {
+      "slug": "viajes-viaje-que-cambio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué viaje te cambió de alguna forma y qué fue lo que se movió en ti?"
+    },
+    {
+      "slug": "viajes-lugar-en-que-te-sentiste-libre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué lugar te has sentido más tú, sin pendientes ni expectativas?"
+    },
+    {
+      "slug": "viajes-viajar-y-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que descubriríamos de nosotros viajando juntos por primera vez?"
+    },
+    {
+      "slug": "viajes-lo-que-nos-asusta-del-viaje",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te da miedo de viajar con alguien y cómo lo cuidamos juntos?"
+    },
+    {
+      "slug": "viajes-viaje-que-no-pudiste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué viaje soñabas hacer y no pudiste, y cómo te hizo sentir?"
+    },
+    {
+      "slug": "viajes-despedirse-de-un-lugar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te despides de un lugar que te encantó sabiendo que quizá no regreses?"
+    },
+    {
+      "slug": "viajes-viajar-con-calma",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseña viajar sin prisa que no aprendes en tu rutina?"
+    },
+    {
+      "slug": "viajes-viaje-compartido-prioridad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si nos tocara elegir entre un viaje largo cada año o varias escapadas, ¿qué elegirías y por qué?"
+    },
+    {
+      "slug": "viajes-recuerdos-que-no-se-fotografian",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo de un viaje no se pudo fotografiar y lo cuidas de otra manera?"
+    },
+    {
+      "slug": "viajes-vivir-fuera",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Te gustaría vivir una temporada en otro país o ciudad, y cómo sería con nosotros?"
+    },
+    {
+      "slug": "viajes-viaje-para-sanar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lugar te sirve para descansar la cabeza y por qué?"
+    },
+    {
+      "slug": "viajes-primer-viaje-solo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame sobre la primera vez que viajaste sin tu familia y qué sentiste."
+    },
+    {
+      "slug": "viajes-lo-que-quiero-que-conozcas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lugar importante de tu vida quisieras que yo conociera contigo y por qué?"
+    },
+    {
+      "slug": "viajes-tipo-de-escapada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para una escapada de fin de semana prefiero...",
+      "options": [
+        "Playa",
+        "Montaña",
+        "Ciudad",
+        "Pueblo con comida rica"
+      ]
+    },
+    {
+      "slug": "viajes-quien-maneja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un viaje en carro, mi lugar es...",
+      "options": [
+        "Al volante",
+        "De copiloto con la música",
+        "Dormido o dormida atrás",
+        "Navegando y comiendo"
+      ]
+    },
+    {
+      "slug": "viajes-alarma-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El día de salir de viaje me levanto...",
+      "options": [
+        "Una hora antes de lo necesario",
+        "Justo a tiempo",
+        "Corriendo con la maleta",
+        "Ya ni dormí"
+      ]
+    },
+    {
+      "slug": "viajes-maleta-tipo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi maleta de viaje suele ser...",
+      "options": [
+        "Mínima, pura mochila",
+        "Normal y ordenada",
+        "Enorme por si acaso",
+        "Un caos con cierre"
+      ]
+    },
+    {
+      "slug": "viajes-desayuno-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El desayuno ideal de viaje es...",
+      "options": [
+        "Hotel con buffet",
+        "Mercado local",
+        "Cafecito y pan en la calle",
+        "Lo que sea, con tal de empezar"
+      ]
+    },
+    {
+      "slug": "viajes-dormir-en-el-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para dormir de viaje prefiero...",
+      "options": [
+        "Un hotel bonito",
+        "Una cabaña",
+        "Casa de campaña",
+        "Casa de algún conocido"
+      ]
+    },
+    {
+      "slug": "viajes-actividad-estrella",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un viaje, mi actividad estrella es...",
+      "options": [
+        "Caminar sin rumbo",
+        "Comer",
+        "Museos",
+        "Aventura al aire libre"
+      ]
+    },
+    {
+      "slug": "viajes-souvenirs",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En los souvenirs soy...",
+      "options": [
+        "De puro imán",
+        "De postales",
+        "De ropa local",
+        "De no comprar nada"
+      ]
+    },
+    {
+      "slug": "viajes-presupuesto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para el presupuesto del viaje, yo soy...",
+      "options": [
+        "Del Excel",
+        "De improvisar",
+        "De gastar en comida",
+        "De \"ya veremos\""
+      ]
+    },
+    {
+      "slug": "viajes-compania-del-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para un viaje largo, prefiero ir...",
+      "options": [
+        "Solo con mi pareja",
+        "Con otra pareja amiga",
+        "Con un grupo grande",
+        "Solo o sola un rato"
+      ]
+    },
+    {
+      "slug": "viajes-musica-en-ruta",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para el camino, la música es...",
+      "options": [
+        "Playlist planeada",
+        "Radio y lo que salga",
+        "Podcast",
+        "Silencio con ventanas abiertas"
+      ]
+    },
+    {
+      "slug": "viajes-hora-de-llegar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Prefiero llegar a un lugar nuevo...",
+      "options": [
+        "Temprano en la mañana",
+        "Al atardecer",
+        "De noche",
+        "Cuando se pueda"
+      ]
+    },
+    {
+      "slug": "viajes-foto-o-vivir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un paisaje bonito, yo...",
+      "options": [
+        "Saco mil fotos",
+        "Saco una y ya",
+        "Pido que me tomes una",
+        "No saco ninguna"
+      ]
+    },
+    {
+      "slug": "viajes-destino-comida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para comer rico de viaje, voy por...",
+      "options": [
+        "Puestos callejeros",
+        "Restaurante recomendado",
+        "Lo que cocine alguien local",
+        "El antojo del momento"
+      ]
+    },
+    {
+      "slug": "viajes-clima-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi clima de viaje ideal es...",
+      "options": [
+        "Calorcito de playa",
+        "Frío con chamarra",
+        "Fresco y nublado",
+        "Lo que toque"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-sorpresa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si planeo un viaje sorpresa para ti, quiero que...",
+      "options": [
+        "Lo adivines hasta el aeropuerto",
+        "Sepas solo la fecha",
+        "Prepares la maleta sin saber",
+        "Me ayudes en secreto"
+      ]
+    },
+    {
+      "slug": "viajes-rol-de-fotografo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En los viajes, el fotógrafo oficial soy...",
+      "options": [
+        "Yo",
+        "Tú",
+        "Un desconocido amable",
+        "Nadie, nos vale"
+      ]
+    },
+    {
+      "slug": "viajes-pueblo-o-ciudad",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para un fin de semana, me late más...",
+      "options": [
+        "Un pueblo chiquito",
+        "Una ciudad grande",
+        "Un lugar con playa",
+        "Un campo sin señal"
+      ]
+    },
+    {
+      "slug": "viajes-tipo-de-tour",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para conocer un lugar, prefiero...",
+      "options": [
+        "Tour guiado",
+        "Mapa en mano",
+        "Preguntar a la gente",
+        "Perderme a propósito"
+      ]
+    },
+    {
+      "slug": "viajes-primera-parada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un viaje por carretera, la primera parada es para...",
+      "options": [
+        "Gasolina",
+        "Tacos",
+        "Baño",
+        "Foto del paisaje"
+      ]
+    },
+    {
+      "slug": "viajes-duracion-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi duración ideal de viaje es...",
+      "options": [
+        "Un fin de semana",
+        "Una semana",
+        "Dos semanas",
+        "Hasta que se acabe el dinero"
+      ]
+    },
+    {
+      "slug": "viajes-actividad-nocturna",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "De noche en un viaje, prefiero...",
+      "options": [
+        "Salir a cenar y platicar",
+        "Bailar",
+        "Ver estrellas",
+        "Dormir temprano para madrugar"
+      ]
+    },
+    {
+      "slug": "viajes-la-primera-mochila",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi mochila de viaje suele traer...",
+      "options": [
+        "Cargadores y snacks",
+        "Libro y audífonos",
+        "Ropa de más",
+        "De todo, menos lo importante"
+      ]
+    },
+    {
+      "slug": "viajes-plan-de-playa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la playa, mi plan es...",
+      "options": [
+        "Meterme al mar todo el día",
+        "Leer bajo la sombra",
+        "Jugar volibol o paleta",
+        "Comer en la palapa"
+      ]
+    },
+    {
+      "slug": "viajes-cuando-se-pierde-el-camino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si nos perdemos en un viaje, yo...",
+      "options": [
+        "Me río y exploro",
+        "Reviso el mapa",
+        "Pregunto a alguien",
+        "Me pongo de malas un ratito"
+      ]
+    },
+    {
+      "slug": "viajes-nivel-de-planeacion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando planeamos un viaje, quiero...",
+      "options": [
+        "Itinerario hora por hora",
+        "Una lista de pendientes",
+        "Solo el hospedaje",
+        "Nada, que sea sorpresa"
+      ]
+    },
+    {
+      "slug": "viajes-compras-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "De regreso, siempre traigo...",
+      "options": [
+        "Dulces típicos",
+        "Artesanías",
+        "Ropa",
+        "Recuerdos para todos"
+      ]
+    },
+    {
+      "slug": "viajes-mejor-compa-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El mejor compañero de viaje es quien...",
+      "options": [
+        "Se ríe de todo",
+        "Tiene buen sentido de orientación",
+        "Siempre trae snacks",
+        "Nunca se queja"
+      ]
+    },
+    {
+      "slug": "viajes-transporte-en-ciudad",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para moverme en una ciudad nueva, uso...",
+      "options": [
+        "Metro o transporte público",
+        "Taxi o app",
+        "Caminar",
+        "Bicicleta rentada"
+      ]
+    },
+    {
+      "slug": "viajes-ver-o-hacer",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En un viaje, prefiero...",
+      "options": [
+        "Ver muchos lugares",
+        "Quedarme en pocos",
+        "Repetir un favorito",
+        "Dejar espacio a lo que salga"
+      ]
+    },
+    {
+      "slug": "viajes-hotel-con-extras",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el hospedaje, lo que más aprecio es...",
+      "options": [
+        "Alberca",
+        "Buen desayuno",
+        "Vista bonita",
+        "Cama cómoda"
+      ]
+    },
+    {
+      "slug": "viajes-primer-dia-de-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi primer día de viaje suele ser...",
+      "options": [
+        "De pura emoción",
+        "De cansancio",
+        "De buscar comida",
+        "De recorrer todo"
+      ]
+    },
+    {
+      "slug": "viajes-que-buscas-al-viajar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que busco cuando viajo es...",
+      "options": [
+        "Descanso",
+        "Aventura",
+        "Conocer gente",
+        "Tiempo contigo"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-que-cambia-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Viajar juntos nos podría enseñar...",
+      "options": [
+        "A negociar",
+        "A improvisar",
+        "A cuidarnos",
+        "A reírnos de lo que salga mal"
+      ]
+    },
+    {
+      "slug": "viajes-cuando-se-cansa-uno",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando uno de los dos se cansa en un viaje, lo mejor es...",
+      "options": [
+        "Parar y descansar",
+        "Cambiar el plan",
+        "Pedir comida",
+        "Hablarlo sin culpa"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-y-dinero",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para viajar juntos, me gustaría que el dinero...",
+      "options": [
+        "Se divida a mitades",
+        "Lo veamos según cada quien",
+        "Tengamos una bolsa común",
+        "Lo hablemos antes"
+      ]
+    },
+    {
+      "slug": "viajes-lugar-para-vivir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudiéramos vivir en otro lugar un año, elegiría...",
+      "options": [
+        "Una ciudad grande",
+        "Un pueblo tranquilo",
+        "La playa",
+        "El extranjero"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-memorable",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un viaje se vuelve inolvidable por...",
+      "options": [
+        "El lugar",
+        "La compañía",
+        "Lo que descubrimos",
+        "Lo que sentimos"
+      ]
+    },
+    {
+      "slug": "viajes-despedida-del-viaje",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando termina un viaje juntos, me siento...",
+      "options": [
+        "Agradecido o agradecida",
+        "Con ganas de más",
+        "Nostálgico o nostálgica",
+        "Con flojera de volver"
+      ]
+    },
+    {
+      "slug": "viajes-viajar-por-amor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si el trabajo me dejara, viajaría...",
+      "options": [
+        "Una vez al mes",
+        "Una vez al año",
+        "Siempre que se pueda",
+        "Quedándome a vivir fuera"
+      ]
+    },
+    {
+      "slug": "viajes-lo-que-nos-une-en-viaje",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un viaje lo que más nos une es...",
+      "options": [
+        "Reírnos del caos",
+        "Descubrir juntos",
+        "Comer rico",
+        "Tener tiempo sin pendientes"
+      ]
+    },
+    {
+      "slug": "viajes-cuando-todo-sale-mal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si el viaje sale mal, lo que más me ayuda es...",
+      "options": [
+        "El humor",
+        "La calma",
+        "Un plan B",
+        "Un abrazo"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-y-recuerdo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "De un viaje quiero conservar...",
+      "options": [
+        "Las fotos",
+        "Los tickets y mapas",
+        "Las historias",
+        "La sensación"
+      ]
+    },
+    {
+      "slug": "viajes-viaje-con-futuro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para un viaje largo juntos, me imagino...",
+      "options": [
+        "Una luna de miel",
+        "Un viaje de aniversario",
+        "Una mudanza",
+        "Una aventura sin fecha de regreso"
+      ]
+    },
+    {
+      "slug": "viajes-transporte-para-ir-lejos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para ir lejos, mi transporte favorito es...",
+      "options": [
+        "Avión",
+        "Camión de lujo",
+        "Carro propio",
+        "Tren"
+      ]
     }
   ]
 }

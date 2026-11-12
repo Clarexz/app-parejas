@@ -250,6 +250,761 @@
       "slug": "acuerdo-picante-videollamada-romantica",
       "intensity": "picante",
       "text": "Una videollamada romántica puede ser tan especial como una cita en persona."
+    },
+    {
+      "slug": "acuerdo-tacos-desayuno",
+      "intensity": "ligera",
+      "text": "Los tacos son un desayuno perfectamente válido."
+    },
+    {
+      "slug": "acuerdo-agua-sabor",
+      "intensity": "ligera",
+      "text": "El agua de sabor le gana a cualquier refresco."
+    },
+    {
+      "slug": "acuerdo-cafe-con-leche",
+      "intensity": "ligera",
+      "text": "El café sin azúcar es el único café de verdad."
+    },
+    {
+      "slug": "acuerdo-chile-en-todo",
+      "intensity": "ligera",
+      "text": "Todo sabe mejor con un poco de chile."
+    },
+    {
+      "slug": "acuerdo-helado-invierno",
+      "intensity": "ligera",
+      "text": "El helado se disfruta más en invierno que en verano."
+    },
+    {
+      "slug": "acuerdo-cereal-cena",
+      "intensity": "ligera",
+      "text": "El cereal es una cena respetable."
+    },
+    {
+      "slug": "acuerdo-pan-dulce-noche",
+      "intensity": "ligera",
+      "text": "El pan dulce con leche es la mejor cena que existe."
+    },
+    {
+      "slug": "acuerdo-guacamole-extra",
+      "intensity": "ligera",
+      "text": "Cobrar extra por el guacamole debería ser ilegal."
+    },
+    {
+      "slug": "acuerdo-tortillas-hechas",
+      "intensity": "ligera",
+      "text": "Una tortilla recién hecha vale más que cualquier postre."
+    },
+    {
+      "slug": "acuerdo-sopa-calor",
+      "intensity": "ligera",
+      "text": "La sopa caliente se vale incluso en pleno verano."
+    },
+    {
+      "slug": "acuerdo-pizza-fria",
+      "intensity": "ligera",
+      "text": "La pizza fría del día siguiente sabe mejor."
+    },
+    {
+      "slug": "acuerdo-palomitas-sal",
+      "intensity": "ligera",
+      "text": "Las palomitas dulces son una traición al cine."
+    },
+    {
+      "slug": "acuerdo-cine-casa",
+      "intensity": "ligera",
+      "text": "Ver películas en casa es mejor que ir al cine."
+    },
+    {
+      "slug": "acuerdo-series-ruido",
+      "intensity": "ligera",
+      "text": "Es válido ver una serie solo para tener ruido de fondo."
+    },
+    {
+      "slug": "acuerdo-terror-compania",
+      "intensity": "ligera",
+      "text": "Las películas de terror son mejores si se ven con alguien al lado."
+    },
+    {
+      "slug": "acuerdo-canciones-viejas",
+      "intensity": "ligera",
+      "text": "La música de antes era mejor."
+    },
+    {
+      "slug": "acuerdo-karaoke-pena",
+      "intensity": "ligera",
+      "text": "Cantar en karaoke sin pena es una gran terapia."
+    },
+    {
+      "slug": "acuerdo-playlist-compartida",
+      "intensity": "ligera",
+      "text": "Una playlist compartida dice más que mil mensajes."
+    },
+    {
+      "slug": "acuerdo-madrugada-pensamientos",
+      "intensity": "ligera",
+      "text": "Las mejores ideas llegan a las tres de la mañana."
+    },
+    {
+      "slug": "acuerdo-siesta-sagrada",
+      "intensity": "ligera",
+      "text": "La siesta de la tarde debería ser obligatoria."
+    },
+    {
+      "slug": "acuerdo-cama-tendida",
+      "intensity": "ligera",
+      "text": "Tender la cama en la mañana sí cambia el día."
+    },
+    {
+      "slug": "acuerdo-regadera-cantar",
+      "intensity": "ligera",
+      "text": "La regadera es el mejor escenario para cantar."
+    },
+    {
+      "slug": "acuerdo-calcetines-cama",
+      "intensity": "ligera",
+      "text": "Dormir con calcetines es de lo más cómodo."
+    },
+    {
+      "slug": "acuerdo-ventilador-dormir",
+      "intensity": "ligera",
+      "text": "Sin ventilador o aire acondicionado no se puede dormir."
+    },
+    {
+      "slug": "acuerdo-lluvia-salir",
+      "intensity": "ligera",
+      "text": "Salir a caminar bajo la lluvia es de lo más bonito."
+    },
+    {
+      "slug": "acuerdo-playa-montana",
+      "intensity": "ligera",
+      "text": "Para descansar de verdad, mejor el mar que el bosque."
+    },
+    {
+      "slug": "acuerdo-ciudad-pueblo",
+      "intensity": "ligera",
+      "text": "Un pueblito tranquilo le gana a una ciudad enorme para una escapada."
+    },
+    {
+      "slug": "acuerdo-mapa-perderse",
+      "intensity": "ligera",
+      "text": "Perderse un poco en un viaje es parte de la gracia."
+    },
+    {
+      "slug": "acuerdo-maleta-ligera",
+      "intensity": "ligera",
+      "text": "Viajar con una sola mochila es mejor que con una maleta grande."
+    },
+    {
+      "slug": "acuerdo-avion-ventana",
+      "intensity": "ligera",
+      "text": "Siempre se debe pedir asiento de ventana."
+    },
+    {
+      "slug": "acuerdo-carretera-aire",
+      "intensity": "ligera",
+      "text": "Las mejores pláticas pasan en una carretera."
+    },
+    {
+      "slug": "acuerdo-fotos-impresas",
+      "intensity": "ligera",
+      "text": "Las fotos impresas tienen más valor que las que quedan en el celular."
+    },
+    {
+      "slug": "acuerdo-selfie-pareja",
+      "intensity": "ligera",
+      "text": "Tomarse una selfie por cada lugar nuevo es obligatorio."
+    },
+    {
+      "slug": "acuerdo-mascota-nombre",
+      "intensity": "ligera",
+      "text": "Los nombres graciosos son los mejores para las mascotas."
+    },
+    {
+      "slug": "acuerdo-perros-gatos",
+      "intensity": "ligera",
+      "text": "Los perros son mejores compañeros que los gatos."
+    },
+    {
+      "slug": "acuerdo-plantas-casa",
+      "intensity": "ligera",
+      "text": "Una casa con plantas se siente más cálida."
+    },
+    {
+      "slug": "acuerdo-cumple-sorpresa",
+      "intensity": "ligera",
+      "text": "Las fiestas sorpresa de cumpleaños son más pena que gusto."
+    },
+    {
+      "slug": "acuerdo-cumple-ignorar",
+      "intensity": "ligera",
+      "text": "Es válido querer pasar el cumpleaños sin celebrar."
+    },
+    {
+      "slug": "acuerdo-navidad-pavo",
+      "intensity": "ligera",
+      "text": "La cena de Navidad sin bacalao no es Navidad."
+    },
+    {
+      "slug": "acuerdo-dia-muertos",
+      "intensity": "ligera",
+      "text": "El Día de Muertos es la fiesta más bonita del año."
+    },
+    {
+      "slug": "acuerdo-posada-pinata",
+      "intensity": "ligera",
+      "text": "Una posada sin piñata no cuenta."
+    },
+    {
+      "slug": "acuerdo-tamales-dia",
+      "intensity": "ligera",
+      "text": "Los tamales de dulce le ganan a los de salsa."
+    },
+    {
+      "slug": "acuerdo-elote-esquite",
+      "intensity": "ligera",
+      "text": "Es mejor un elote en vaso que uno en mazorca."
+    },
+    {
+      "slug": "acuerdo-meme-lenguaje",
+      "intensity": "ligera",
+      "text": "Los memes son el idioma del amor moderno."
+    },
+    {
+      "slug": "acuerdo-emoji-sticker",
+      "intensity": "ligera",
+      "text": "Los stickers expresan mejor que las palabras."
+    },
+    {
+      "slug": "acuerdo-audio-escribir",
+      "intensity": "ligera",
+      "text": "Los audios son mejores que los mensajes de texto."
+    },
+    {
+      "slug": "acuerdo-leer-papel",
+      "intensity": "ligera",
+      "text": "Leer un libro en papel es mejor que en pantalla."
+    },
+    {
+      "slug": "acuerdo-bailar-cocina",
+      "intensity": "ligera",
+      "text": "Bailar en la cocina es romántico de verdad."
+    },
+    {
+      "slug": "acuerdo-madrugador-noctambulo",
+      "intensity": "ligera",
+      "text": "La gente nocturna la pasa mejor que la madrugadora."
+    },
+    {
+      "slug": "acuerdo-verdad-duele",
+      "intensity": "profunda",
+      "text": "Prefiero una verdad que duele a una mentira que consuela."
+    },
+    {
+      "slug": "acuerdo-pareja-mejor-amigo",
+      "intensity": "profunda",
+      "text": "Tu pareja debería ser tu mejor amiga o amigo."
+    },
+    {
+      "slug": "acuerdo-discutir-sano",
+      "intensity": "profunda",
+      "text": "Discutir de vez en cuando es señal de una relación sana."
+    },
+    {
+      "slug": "acuerdo-perdonar-infidelidad",
+      "intensity": "profunda",
+      "text": "Hay cosas que no se perdonan aunque haya amor."
+    },
+    {
+      "slug": "acuerdo-amor-suficiente",
+      "intensity": "profunda",
+      "text": "El amor solo no basta para que una relación funcione."
+    },
+    {
+      "slug": "acuerdo-primer-amor",
+      "intensity": "profunda",
+      "text": "El primer amor siempre deja huella."
+    },
+    {
+      "slug": "acuerdo-tiempo-sanar",
+      "intensity": "profunda",
+      "text": "El tiempo cura casi todo."
+    },
+    {
+      "slug": "acuerdo-terapia-todos",
+      "intensity": "profunda",
+      "text": "Todo el mundo debería ir a terapia al menos una vez."
+    },
+    {
+      "slug": "acuerdo-pedir-ayuda",
+      "intensity": "profunda",
+      "text": "Pedir ayuda es de las cosas más valientes que existen."
+    },
+    {
+      "slug": "acuerdo-llorar-bien",
+      "intensity": "profunda",
+      "text": "Llorar un buen rato es de las mejores formas de desahogarse."
+    },
+    {
+      "slug": "acuerdo-miedo-futuro",
+      "intensity": "profunda",
+      "text": "Pensar demasiado en el futuro arruina el presente."
+    },
+    {
+      "slug": "acuerdo-vivir-presente",
+      "intensity": "profunda",
+      "text": "Es mejor vivir al día que hacer planes a diez años."
+    },
+    {
+      "slug": "acuerdo-metas-juntos",
+      "intensity": "profunda",
+      "text": "Una pareja necesita metas en común para durar."
+    },
+    {
+      "slug": "acuerdo-suenos-separados",
+      "intensity": "profunda",
+      "text": "Cada quien debe perseguir su sueño aunque implique estar lejos."
+    },
+    {
+      "slug": "acuerdo-mudarse-por-amor",
+      "intensity": "profunda",
+      "text": "Mudarse de ciudad por amor vale la pena."
+    },
+    {
+      "slug": "acuerdo-distancia-prueba",
+      "intensity": "profunda",
+      "text": "La distancia es la mejor prueba de una relación."
+    },
+    {
+      "slug": "acuerdo-tiempo-calidad",
+      "intensity": "profunda",
+      "text": "Poco tiempo de calidad vale más que mucho tiempo sin atención."
+    },
+    {
+      "slug": "acuerdo-celos-normal",
+      "intensity": "profunda",
+      "text": "Sentir celos de vez en cuando es normal."
+    },
+    {
+      "slug": "acuerdo-confianza-ciega",
+      "intensity": "profunda",
+      "text": "Confiar ciegamente en alguien es una buena idea."
+    },
+    {
+      "slug": "acuerdo-privacidad-celular",
+      "intensity": "profunda",
+      "text": "En pareja no debería haber contraseñas secretas en el celular."
+    },
+    {
+      "slug": "acuerdo-secretos-pareja",
+      "intensity": "profunda",
+      "text": "Está bien guardarse algunas cosas solo para uno mismo."
+    },
+    {
+      "slug": "acuerdo-exs-amistad",
+      "intensity": "profunda",
+      "text": "Se puede ser amigo de una expareja."
+    },
+    {
+      "slug": "acuerdo-pasado-importa",
+      "intensity": "profunda",
+      "text": "El pasado de alguien importa menos que lo que quiere hacer ahora."
+    },
+    {
+      "slug": "acuerdo-cambiar-pareja",
+      "intensity": "profunda",
+      "text": "No se debe intentar cambiar a la otra persona."
+    },
+    {
+      "slug": "acuerdo-cambios-juntos",
+      "intensity": "profunda",
+      "text": "Las parejas crecen mejor cuando cambian al mismo ritmo."
+    },
+    {
+      "slug": "acuerdo-casarse-necesario",
+      "intensity": "profunda",
+      "text": "Casarse es un papel que no define el amor."
+    },
+    {
+      "slug": "acuerdo-vivir-juntos-antes",
+      "intensity": "profunda",
+      "text": "Antes de casarse conviene vivir juntos."
+    },
+    {
+      "slug": "acuerdo-hijos-decision",
+      "intensity": "profunda",
+      "text": "Tener hijos debería decidirse mucho antes de comprometerse."
+    },
+    {
+      "slug": "acuerdo-dinero-cuentas",
+      "intensity": "profunda",
+      "text": "Las parejas deberían compartir todas sus cuentas."
+    },
+    {
+      "slug": "acuerdo-dinero-paz",
+      "intensity": "profunda",
+      "text": "Hablar de deudas a tiempo salva muchas relaciones."
+    },
+    {
+      "slug": "acuerdo-familia-politica",
+      "intensity": "profunda",
+      "text": "La familia de la pareja también se elige un poco."
+    },
+    {
+      "slug": "acuerdo-suegros-opinion",
+      "intensity": "profunda",
+      "text": "La opinión de la familia importa en una relación."
+    },
+    {
+      "slug": "acuerdo-amigos-de-pareja-caer",
+      "intensity": "profunda",
+      "text": "Los amigos de tu pareja deberían caerte bien."
+    },
+    {
+      "slug": "acuerdo-tradiciones-familia",
+      "intensity": "profunda",
+      "text": "Cada pareja debería inventar sus propias tradiciones."
+    },
+    {
+      "slug": "acuerdo-fiestas-familiares",
+      "intensity": "profunda",
+      "text": "Es válido no pasar todas las fiestas con la familia de uno."
+    },
+    {
+      "slug": "acuerdo-orgullo-pedir-perdon",
+      "intensity": "profunda",
+      "text": "El orgullo es el peor enemigo de una pareja."
+    },
+    {
+      "slug": "acuerdo-disculpa-sincera",
+      "intensity": "profunda",
+      "text": "Una disculpa sincera vale más que mil regalos."
+    },
+    {
+      "slug": "acuerdo-perdon-rapido",
+      "intensity": "profunda",
+      "text": "Perdonar rápido es mejor que dejar que todo se enfríe."
+    },
+    {
+      "slug": "acuerdo-silencio-castigo",
+      "intensity": "profunda",
+      "text": "Dar la ley del hielo nunca arregla nada."
+    },
+    {
+      "slug": "acuerdo-gritar-aclara",
+      "intensity": "profunda",
+      "text": "Gritar a veces ayuda a que las cosas salgan."
+    },
+    {
+      "slug": "acuerdo-espacio-pleito",
+      "intensity": "profunda",
+      "text": "Tomarse un respiro en una discusión es una señal de madurez."
+    },
+    {
+      "slug": "acuerdo-decir-te-quiero",
+      "intensity": "profunda",
+      "text": "Decir \"te quiero\" muchas veces no le quita valor."
+    },
+    {
+      "slug": "acuerdo-amor-acciones",
+      "intensity": "profunda",
+      "text": "El amor se demuestra más con acciones que con palabras."
+    },
+    {
+      "slug": "acuerdo-detalles-diarios",
+      "intensity": "profunda",
+      "text": "Los detalles chiquitos a diario sostienen una relación."
+    },
+    {
+      "slug": "acuerdo-rutina-aburre",
+      "intensity": "profunda",
+      "text": "La rutina es el enemigo del amor."
+    },
+    {
+      "slug": "acuerdo-rutina-calma",
+      "intensity": "profunda",
+      "text": "Una buena rutina también es una forma de amor."
+    },
+    {
+      "slug": "acuerdo-sorpresas-mantener",
+      "intensity": "profunda",
+      "text": "Hay que sorprender a la pareja para que el amor no se apague."
+    },
+    {
+      "slug": "acuerdo-aburrirse-juntos",
+      "intensity": "profunda",
+      "text": "Poder aburrirse juntos sin incomodidad es buena señal."
+    },
+    {
+      "slug": "acuerdo-silencios-comodos",
+      "intensity": "profunda",
+      "text": "Compartir un silencio cómodo dice más que una conversación larga."
+    },
+    {
+      "slug": "acuerdo-extranar-sano",
+      "intensity": "profunda",
+      "text": "Extrañar demasiado también puede ser agotador."
+    },
+    {
+      "slug": "acuerdo-llamadas-obligadas",
+      "intensity": "profunda",
+      "text": "Hablar todos los días no debería sentirse como una obligación."
+    },
+    {
+      "slug": "acuerdo-reencuentro-expectativa",
+      "intensity": "profunda",
+      "text": "Esperar demasiado de un reencuentro puede arruinarlo."
+    },
+    {
+      "slug": "acuerdo-despedida-dolorosa",
+      "intensity": "profunda",
+      "text": "Las despedidas después de visitarse son lo más difícil de la distancia."
+    },
+    {
+      "slug": "acuerdo-terminar-lejos",
+      "intensity": "profunda",
+      "text": "Una relación a distancia necesita una fecha para dejar de serlo."
+    },
+    {
+      "slug": "acuerdo-tristeza-permiso",
+      "intensity": "profunda",
+      "text": "Está bien estar triste sin tener una razón clara."
+    },
+    {
+      "slug": "acuerdo-felicidad-metas",
+      "intensity": "profunda",
+      "text": "La felicidad depende más de las personas que de los logros."
+    },
+    {
+      "slug": "acuerdo-exito-medida",
+      "intensity": "profunda",
+      "text": "El éxito se mide en tiempo libre, no en dinero."
+    },
+    {
+      "slug": "acuerdo-trabajo-vida",
+      "intensity": "profunda",
+      "text": "El trabajo no debe ocupar el centro de la vida."
+    },
+    {
+      "slug": "acuerdo-sueno-trabajo",
+      "intensity": "profunda",
+      "text": "Hay que dedicarse a lo que uno ama aunque pague menos."
+    },
+    {
+      "slug": "acuerdo-miedo-cambio",
+      "intensity": "profunda",
+      "text": "El miedo al cambio nos pierde muchas oportunidades."
+    },
+    {
+      "slug": "acuerdo-errores-aprender",
+      "intensity": "profunda",
+      "text": "Los errores enseñan más que los aciertos."
+    },
+    {
+      "slug": "acuerdo-vulnerabilidad-fuerza",
+      "intensity": "profunda",
+      "text": "Mostrarse vulnerable es una forma de fortaleza."
+    },
+    {
+      "slug": "acuerdo-ser-uno-mismo",
+      "intensity": "profunda",
+      "text": "Con la pareja ideal uno puede ser exactamente quien es."
+    },
+    {
+      "slug": "acuerdo-cumplir-promesas",
+      "intensity": "profunda",
+      "text": "Una promesa rota duele más que una verdad incómoda."
+    },
+    {
+      "slug": "acuerdo-agradecer-diario",
+      "intensity": "profunda",
+      "text": "Agradecer a diario cambia la forma en que se vive una relación."
+    },
+    {
+      "slug": "acuerdo-envejecer-juntos",
+      "intensity": "profunda",
+      "text": "Imaginar cómo envejecerán juntos es una buena prueba de compatibilidad."
+    },
+    {
+      "slug": "acuerdo-final-feliz",
+      "intensity": "profunda",
+      "text": "Una relación puede terminar bien sin dejar de haber sido valiosa."
+    },
+    {
+      "slug": "acuerdo-recuerdos-valen",
+      "intensity": "profunda",
+      "text": "Los recuerdos compartidos son lo único que realmente se conserva."
+    },
+    {
+      "slug": "acuerdo-infancia-marca",
+      "intensity": "profunda",
+      "text": "Lo que vivimos de niños explica mucho de cómo amamos hoy."
+    },
+    {
+      "slug": "acuerdo-padres-ejemplo",
+      "intensity": "profunda",
+      "text": "Terminamos copiando a nuestros papás aunque no queramos."
+    },
+    {
+      "slug": "acuerdo-picante-coqueteo-diario",
+      "intensity": "picante",
+      "text": "Un poco de coqueteo a diario mantiene viva la química."
+    },
+    {
+      "slug": "acuerdo-picante-mensajes-noche",
+      "intensity": "picante",
+      "text": "Los mensajes atrevidos de la noche son los mejores de la distancia."
+    },
+    {
+      "slug": "acuerdo-picante-piropo-directo",
+      "intensity": "picante",
+      "text": "Un piropo directo a la hora de la comida emociona más que uno escondido."
+    },
+    {
+      "slug": "acuerdo-picante-deseo-hablar",
+      "intensity": "picante",
+      "text": "Hablar de lo que se desea sin pena es más sexy que cualquier sorpresa."
+    },
+    {
+      "slug": "acuerdo-picante-confianza-atrevido",
+      "intensity": "picante",
+      "text": "Se anima uno a más cuando hay confianza total."
+    },
+    {
+      "slug": "acuerdo-picante-pedir-permiso",
+      "intensity": "picante",
+      "text": "Preguntar \"¿te late?\" antes de intentar algo nuevo es de lo más atractivo."
+    },
+    {
+      "slug": "acuerdo-picante-no-sin-culpa",
+      "intensity": "picante",
+      "text": "Decir que no a una propuesta íntima nunca debería causar culpa."
+    },
+    {
+      "slug": "acuerdo-picante-besos-largos",
+      "intensity": "picante",
+      "text": "Los besos largos importan más que cualquier otra cosa."
+    },
+    {
+      "slug": "acuerdo-picante-abrazos-mimos",
+      "intensity": "picante",
+      "text": "Los abrazos largos son tan íntimos como cualquier otra cosa."
+    },
+    {
+      "slug": "acuerdo-picante-fantasias-compartir",
+      "intensity": "picante",
+      "text": "Compartir una fantasía fortalece la confianza."
+    },
+    {
+      "slug": "acuerdo-picante-sorpresa-intima",
+      "intensity": "picante",
+      "text": "Una escapada romántica de última hora es el mejor regalo."
+    },
+    {
+      "slug": "acuerdo-picante-ropa-bonita",
+      "intensity": "picante",
+      "text": "Vestirse bien solo para la otra persona en casa es súper romántico."
+    },
+    {
+      "slug": "acuerdo-picante-musica-ambiente",
+      "intensity": "picante",
+      "text": "La música correcta lo es todo en una noche especial."
+    },
+    {
+      "slug": "acuerdo-picante-luces-bajas",
+      "intensity": "picante",
+      "text": "Con luz tenue todo se vuelve más romántico."
+    },
+    {
+      "slug": "acuerdo-picante-cocinar-sensual",
+      "intensity": "picante",
+      "text": "Cocinar juntos puede ser lo más coqueto del día."
+    },
+    {
+      "slug": "acuerdo-picante-perfume-recuerdo",
+      "intensity": "picante",
+      "text": "El perfume de la otra persona dice más que una foto."
+    },
+    {
+      "slug": "acuerdo-picante-voz-llamada",
+      "intensity": "picante",
+      "text": "Una voz en la llamada puede emocionar más que un mensaje."
+    },
+    {
+      "slug": "acuerdo-picante-videollamada-juego",
+      "intensity": "picante",
+      "text": "Un juego coqueto por videollamada es un buen plan de viernes."
+    },
+    {
+      "slug": "acuerdo-picante-fotos-privadas",
+      "intensity": "picante",
+      "text": "Las fotos privadas deberían compartirse solo con total confianza."
+    },
+    {
+      "slug": "acuerdo-picante-celoso-broma",
+      "intensity": "picante",
+      "text": "Un poco de celos de broma hace más divertido el coqueteo."
+    },
+    {
+      "slug": "acuerdo-picante-dormir-abrazados",
+      "intensity": "picante",
+      "text": "Dormir abrazados cuenta como parte de la intimidad."
+    },
+    {
+      "slug": "acuerdo-picante-cuenta-regresiva",
+      "intensity": "picante",
+      "text": "Contar los días para verse también es parte del juego."
+    },
+    {
+      "slug": "acuerdo-picante-primera-noche-recuerdo",
+      "intensity": "picante",
+      "text": "La primera noche juntos es un recuerdo que siempre se queda."
+    },
+    {
+      "slug": "acuerdo-picante-reencuentro-ansia",
+      "intensity": "picante",
+      "text": "Después de mucho tiempo sin verse, no hay que apresurarse."
+    },
+    {
+      "slug": "acuerdo-picante-risa-intimidad",
+      "intensity": "picante",
+      "text": "Reírse juntos en un momento íntimo lo hace mejor."
+    },
+    {
+      "slug": "acuerdo-picante-probar-nuevo",
+      "intensity": "picante",
+      "text": "Probar algo nuevo juntos mejora cualquier relación."
+    },
+    {
+      "slug": "acuerdo-picante-sin-presion",
+      "intensity": "picante",
+      "text": "Lo mejor de lo íntimo es que no haya ninguna presión."
+    },
+    {
+      "slug": "acuerdo-picante-mirada-fija",
+      "intensity": "picante",
+      "text": "Una mirada fija de más de cinco segundos puede decirlo todo."
+    },
+    {
+      "slug": "acuerdo-amor-propio",
+      "intensity": "profunda",
+      "text": "Querer bien a otra persona empieza por quererse a uno mismo."
+    },
+    {
+      "slug": "acuerdo-miedo-compromiso",
+      "intensity": "profunda",
+      "text": "El miedo al compromiso casi siempre es miedo a perder la libertad."
+    },
+    {
+      "slug": "acuerdo-conocerse-siempre",
+      "intensity": "profunda",
+      "text": "Después de años juntos, todavía se puede descubrir algo nuevo de la otra persona."
+    },
+    {
+      "slug": "acuerdo-picante-palabras-bonitas",
+      "intensity": "picante",
+      "text": "Las palabras bonitas al oído seducen más que los regalos."
     }
   ]
 }

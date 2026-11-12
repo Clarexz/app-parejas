@@ -12,7 +12,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudiéramos vivir juntos mañana, ¿dónde sería?",
-      "options": ["Ciudad grande", "Pueblo tranquilo", "Cerca de la playa", "Donde haya chamba"]
+      "options": [
+        "Ciudad grande",
+        "Pueblo tranquilo",
+        "Cerca de la playa",
+        "Donde haya chamba"
+      ]
     },
     {
       "slug": "futuro-casa-de-sueno",
@@ -49,7 +54,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué mascota tendríamos?",
-      "options": ["Un perro", "Un gato", "Los dos", "Plantas, que ya es mucho"]
+      "options": [
+        "Un perro",
+        "Un gato",
+        "Los dos",
+        "Plantas, que ya es mucho"
+      ]
     },
     {
       "slug": "futuro-tradicion-de-fin-de-ano",
@@ -68,7 +78,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si juntáramos dinero para algo, ¿qué sería primero?",
-      "options": ["Un viaje", "Un lugar propio", "Un coche", "Un fondo de emergencias"]
+      "options": [
+        "Un viaje",
+        "Un lugar propio",
+        "Un coche",
+        "Un fondo de emergencias"
+      ]
     },
     {
       "slug": "futuro-miedo-del-futuro",
@@ -99,7 +114,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Viviendo juntos, ¿qué tarea elegirías?",
-      "options": ["Cocinar", "Lavar los trastes", "Ordenar", "Pagar las cuentas"]
+      "options": [
+        "Cocinar",
+        "Lavar los trastes",
+        "Ordenar",
+        "Pagar las cuentas"
+      ]
     },
     {
       "slug": "futuro-decisiones-grandes",
@@ -124,7 +144,12 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En nuestro futuro, ¿cómo sería un fin de semana típico?",
-      "options": ["Salir y conocer gente", "Quedarnos en casa", "Escapadas", "Una mezcla de todo"]
+      "options": [
+        "Salir y conocer gente",
+        "Quedarnos en casa",
+        "Escapadas",
+        "Una mezcla de todo"
+      ]
     },
     {
       "slug": "futuro-primer-objeto-del-hogar",
@@ -149,13 +174,1068 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En los próximos años, ¿qué quisieras priorizar como pareja?",
-      "options": ["Estabilidad económica", "Vivir juntos", "Crecer en lo profesional", "Viajar"]
+      "options": [
+        "Estabilidad económica",
+        "Vivir juntos",
+        "Crecer en lo profesional",
+        "Viajar"
+      ]
     },
     {
       "slug": "futuro-carta-para-diez-anos",
       "type": "open",
       "intensity": "ligera",
       "text": "Si escribiéramos una carta para abrirla en diez años, ¿qué le pondrías?"
+    },
+    {
+      "slug": "futuro-primer-viaje-de-pareja-largo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A dónde iríamos en nuestro primer viaje largo juntos, sin pensar en presupuesto?"
+    },
+    {
+      "slug": "futuro-casa-nombre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nuestra casa tuviera nombre, ¿cómo se llamaría?"
+    },
+    {
+      "slug": "futuro-cuarto-favorito-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cuarto de nuestra futura casa quieres que quede espectacular?"
+    },
+    {
+      "slug": "futuro-desayuno-del-domingo-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando vivamos juntos, ¿cómo se ve nuestro desayuno de domingo?"
+    },
+    {
+      "slug": "futuro-cosa-que-compraria-primero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nos ganáramos un dinerito inesperado, ¿qué es lo primero que le compras a la casa?"
+    },
+    {
+      "slug": "futuro-decoracion-sin-pena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa de decoración te gusta tanto que me vas a tener que convencer de ponerla?"
+    },
+    {
+      "slug": "futuro-plan-de-ano-nuevo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría hacer juntos esta noche de fin de año que viene?"
+    },
+    {
+      "slug": "futuro-lista-de-cosas-por-hacer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dime tres cosas que quieras tachar de una lista de pendientes juntos antes de que acabe el año."
+    },
+    {
+      "slug": "futuro-aprender-un-idioma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si aprendiéramos un idioma juntos, ¿cuál sería y para qué?"
+    },
+    {
+      "slug": "futuro-algo-que-quieres-probar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué actividad nueva te gustaría probar con nosotros este año?"
+    },
+    {
+      "slug": "futuro-restaurante-de-aniversario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué restaurante, real o imaginario, te gustaría que fuéramos en un aniversario importante?"
+    },
+    {
+      "slug": "futuro-sueno-de-viaje",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el viaje que más sueñas hacer algún día?"
+    },
+    {
+      "slug": "futuro-hobby-compartido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pasatiempo nuevo podríamos tener como pareja?"
+    },
+    {
+      "slug": "futuro-rutina-de-la-manana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se ve tu mañana ideal cuando estemos viviendo juntos?"
+    },
+    {
+      "slug": "futuro-juego-de-mesa-nuestro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si hiciéramos una noche fija de juegos, ¿qué juego o reto sería la tradición?"
+    },
+    {
+      "slug": "futuro-planta-o-animal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si adoptáramos algo en casa, ¿qué sería y cómo se llamaría?"
+    },
+    {
+      "slug": "futuro-cosa-que-extrano-vivir-lejos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que harías el día que dejemos de vivir a distancia?"
+    },
+    {
+      "slug": "futuro-pais-donde-vivir-un-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras vivir un año en otro país, ¿cuál escogerías y por qué?"
+    },
+    {
+      "slug": "futuro-ciudad-de-escapada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué ciudad de México te gustaría ir una escapada de fin de semana juntos?"
+    },
+    {
+      "slug": "futuro-nuestro-lugar-de-retiro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando seamos mayores, ¿en qué lugar te imaginas pasando las tardes?"
+    },
+    {
+      "slug": "futuro-comida-que-aprendamos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo te gustaría que aprendiéramos a cocinar para presumirlo?"
+    },
+    {
+      "slug": "futuro-regalo-para-el-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué le regalarías a nuestro yo de dentro de cinco años?"
+    },
+    {
+      "slug": "futuro-trabajo-de-ensueno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si el dinero no importara, ¿en qué te gustaría trabajar o crear?"
+    },
+    {
+      "slug": "futuro-tradicion-propia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa una tradición nuestra que podamos hacer cada año."
+    },
+    {
+      "slug": "futuro-un-lujo-chiquito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué lujo pequeño te gustaría que nunca nos faltara en casa?"
+    },
+    {
+      "slug": "futuro-concierto-sonado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué concierto o evento te gustaría que fuéramos juntos algún día?"
+    },
+    {
+      "slug": "futuro-meta-de-esta-semana",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué meta chiquita tienes esta semana y cómo te puedo echar porras?"
+    },
+    {
+      "slug": "futuro-foto-del-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo sería la foto perfecta de nosotros dentro de diez años?"
+    },
+    {
+      "slug": "futuro-vecindario-ideal",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es el barrio ideal para ti: tranquilo, con vida nocturna, con mercado, con parque?"
+    },
+    {
+      "slug": "futuro-transporte-de-vida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuando vivamos juntos, ¿cómo nos moveríamos: carro, bici, metro o a pie?"
+    },
+    {
+      "slug": "futuro-casa-o-depa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para vivir juntos, ¿qué prefieres?",
+      "options": [
+        "Departamento céntrico",
+        "Casa con jardín",
+        "Algo pequeño y acogedor",
+        "Una casita en las afueras"
+      ]
+    },
+    {
+      "slug": "futuro-mudanza-quien-empaca",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El día de la mudanza, ¿cuál sería tu papel?",
+      "options": [
+        "El que empaca",
+        "El que carga cajas",
+        "El que organiza",
+        "El que pone la música"
+      ]
+    },
+    {
+      "slug": "futuro-ciudad-o-pueblo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para el futuro, ¿qué ambiente te late más?",
+      "options": [
+        "Ciudad grande",
+        "Ciudad mediana",
+        "Pueblo tranquilo",
+        "Cerca del mar"
+      ]
+    },
+    {
+      "slug": "futuro-mascota-de-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué mascota tendríamos en casa?",
+      "options": [
+        "Perro",
+        "Gato",
+        "Los dos",
+        "Mejor una planta"
+      ]
+    },
+    {
+      "slug": "futuro-planes-de-sabado",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Sábado futuro: ¿qué hacemos?",
+      "options": [
+        "Mercado y cocinar",
+        "Dormir hasta tarde",
+        "Salir de excursión",
+        "Visitar a la familia"
+      ]
+    },
+    {
+      "slug": "futuro-tradicion-de-diciembre",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En nuestro diciembre, ¿qué tradición pondríamos primero?",
+      "options": [
+        "Posada con amigos",
+        "Cena tranquila",
+        "Viajar a algún lugar",
+        "Maratón de películas"
+      ]
+    },
+    {
+      "slug": "futuro-luna-de-miel",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si nos fuéramos de viaje especial, ¿qué elegirías?",
+      "options": [
+        "Playa",
+        "Ciudad europea",
+        "Pueblo mágico",
+        "Montaña y cabaña"
+      ]
+    },
+    {
+      "slug": "futuro-tareas-de-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Reparto de tareas en casa: ¿cuál te toca?",
+      "options": [
+        "Cocinar",
+        "Lavar trastes",
+        "Limpiar baños",
+        "Sacar la basura"
+      ]
+    },
+    {
+      "slug": "futuro-horario-de-vida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué horario es el tuyo en casa?",
+      "options": [
+        "Madrugador",
+        "Normal",
+        "Nocturno",
+        "Depende del día"
+      ]
+    },
+    {
+      "slug": "futuro-sueno-de-ahorro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si ahorráramos juntos para algo, ¿qué sería?",
+      "options": [
+        "Un viaje",
+        "Un coche",
+        "Una casa",
+        "Un proyecto propio"
+      ]
+    },
+    {
+      "slug": "futuro-jardin-o-balcon",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para nuestro futuro hogar?",
+      "options": [
+        "Un jardín grande",
+        "Un balcón con plantas",
+        "Una terraza para reunirnos",
+        "Una buena ventana con vista"
+      ]
+    },
+    {
+      "slug": "futuro-cumple-nuestro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para celebrar un aniversario futuro, tú prefieres...",
+      "options": [
+        "Una cena elegante",
+        "Un viaje espontáneo",
+        "Algo casero y bonito",
+        "Una sorpresa sin avisar"
+      ]
+    },
+    {
+      "slug": "futuro-sueno-chambero",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En lo laboral, ¿qué te gustaría más?",
+      "options": [
+        "Ser mi propio jefe",
+        "Un empleo estable",
+        "Algo creativo",
+        "Algo que ayude a la gente"
+      ]
+    },
+    {
+      "slug": "futuro-vejez-juntos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "De mayores, ¿qué nos imaginas haciendo?",
+      "options": [
+        "Viajando sin parar",
+        "Cuidando un huerto",
+        "Jugando dominó en el parque",
+        "Viendo novelas"
+      ]
+    },
+    {
+      "slug": "futuro-vida-ideal-en-diez-anos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Describe tu vida ideal dentro de diez años, con todo y un martes normal."
+    },
+    {
+      "slug": "futuro-lo-que-no-quieres-repetir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué patrón de tu familia o de tu pasado no quieres repetir en tu vida adulta?"
+    },
+    {
+      "slug": "futuro-sueno-que-abandonaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño dejaste a medias y te gustaría retomar?"
+    },
+    {
+      "slug": "futuro-miedo-a-no-lograrlo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te da más miedo no lograr en tu vida?"
+    },
+    {
+      "slug": "futuro-que-es-el-exito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Para ti, ¿qué significa que tu vida salió bien?"
+    },
+    {
+      "slug": "futuro-cuanto-nos-vemos-cambiar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuánto crees que vamos a cambiar cada quien en los próximos cinco años, y cómo cuidamos esto?"
+    },
+    {
+      "slug": "futuro-vivir-juntos-timeline",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que fuera el camino para por fin vivir juntos, paso a paso?"
+    },
+    {
+      "slug": "futuro-que-podemos-ceder",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cedes sin problema por estar juntos y qué no estás dispuesto a soltar?"
+    },
+    {
+      "slug": "futuro-lo-que-no-negocias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de tu vida futura no vas a negociar nunca?"
+    },
+    {
+      "slug": "futuro-mudarse-por-oportunidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si a uno de los dos le ofrecen una oportunidad increíble en otra ciudad, ¿cómo te gustaría que lo decidiéramos?"
+    },
+    {
+      "slug": "futuro-responsabilidad-emocional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué responsabilidad emocional quieres cuidar mejor al vivir con alguien?"
+    },
+    {
+      "slug": "futuro-lo-que-te-gustaria-lograr-conmigo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría lograr conmigo que solo no podrías?"
+    },
+    {
+      "slug": "futuro-una-decision-pendiente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué decisión importante tienes pendiente y cómo te gustaría pensarla conmigo?"
+    },
+    {
+      "slug": "futuro-lo-que-necesito-saber-del-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que tuviéramos claro como pareja en el próximo año?"
+    },
+    {
+      "slug": "futuro-espacio-propio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando vivamos juntos, ¿qué espacio o tiempo propio no quisieras perder?"
+    },
+    {
+      "slug": "futuro-apoyo-a-tus-metas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo sientes que apoyo tus metas y qué más podría hacer?"
+    },
+    {
+      "slug": "futuro-mi-sueno-te-asusta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algún sueño mío que, honestamente, te dé un poco de miedo?"
+    },
+    {
+      "slug": "futuro-dos-carreras",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tuviéramos dos carreras exigentes, ¿cómo te imaginas que nos cuidaríamos?"
+    },
+    {
+      "slug": "futuro-que-quieres-ensenar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría enseñar o transmitir a las personas que vengan después de nosotros?"
+    },
+    {
+      "slug": "futuro-vejez-soledad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando piensas en la vejez, ¿qué es lo que más te preocupa y qué te emociona?"
+    },
+    {
+      "slug": "futuro-que-significa-casa-propia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué significa para ti tener un lugar propio y cuánto lo necesitas?"
+    },
+    {
+      "slug": "futuro-sacrificio-vs-lujo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sacrificarías en el corto plazo por algo grande que viene después?"
+    },
+    {
+      "slug": "futuro-una-semana-de-la-vida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras diseñar una semana perfecta de nuestra vida futura, ¿cómo sería día por día?"
+    },
+    {
+      "slug": "futuro-aprender-a-cuidarnos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que nos cuidáramos cuando uno de los dos se enferme?"
+    },
+    {
+      "slug": "futuro-vida-con-sentido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te haría sentir que tu vida tiene sentido?"
+    },
+    {
+      "slug": "futuro-miedo-a-quedarnos-quietos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te da miedo de estancarte y cómo nos ayudamos a avanzar?"
+    },
+    {
+      "slug": "futuro-cuando-me-necesites",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué esperas que haga si algún día pierdes tu rumbo?"
+    },
+    {
+      "slug": "futuro-una-ciudad-que-no-conocemos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué ciudad que no conocemos todavía podríamos vernos viviendo?"
+    },
+    {
+      "slug": "futuro-sueno-compartido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál sueño crees que ya compartimos aunque no lo hayamos dicho en voz alta?"
+    },
+    {
+      "slug": "futuro-mi-yo-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo quieres que sea tu yo de dentro de diez años en lo personal?"
+    },
+    {
+      "slug": "futuro-aprender-de-errores-futuros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué error de pareja crees que podemos evitar si lo hablamos desde ahorita?"
+    },
+    {
+      "slug": "futuro-lo-que-me-asusta-del-compromiso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aspecto de comprometernos más a largo plazo te da nervios?"
+    },
+    {
+      "slug": "futuro-lo-que-esperas-de-un-hogar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué emociones quieres que sienta cualquiera que entre a nuestra casa?"
+    },
+    {
+      "slug": "futuro-vida-despues-de-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo crees que cambiará lo nuestro cuando ya no haya distancia?"
+    },
+    {
+      "slug": "futuro-lo-que-extranaras-de-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que extrañaremos de esta etapa a distancia, aunque suene raro?"
+    },
+    {
+      "slug": "futuro-un-plan-b",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si el plan A de nuestra vida no sale, ¿cuál sería tu plan B favorito?"
+    },
+    {
+      "slug": "futuro-que-quieres-aprender",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué habilidad de vida quieres dominar antes de los treinta?"
+    },
+    {
+      "slug": "futuro-lo-que-te-falta-por-vivir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué experiencia sientes que te falta vivir antes de asentarte?"
+    },
+    {
+      "slug": "futuro-dinero-no-importa-segun",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si no tuvieras que preocuparte por el dinero, ¿qué cambiaría de tu vida diaria?"
+    },
+    {
+      "slug": "futuro-compartir-la-vida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu vida te cuesta imaginar compartida?"
+    },
+    {
+      "slug": "futuro-legado-personal",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría haber dejado en las personas a tu alrededor?"
+    },
+    {
+      "slug": "futuro-bodas-y-papeles",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué piensas del compromiso formal, como casarse o vivir en pareja, y cómo lo imaginas?"
+    },
+    {
+      "slug": "futuro-lo-que-cambiaria-de-mi-vida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras cambiar una sola cosa de tu rutina actual para tu futuro, ¿cuál sería?"
+    },
+    {
+      "slug": "futuro-lo-que-nos-protege",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hábitos o acuerdos crees que nos protegerán de la rutina cuando estemos juntos?"
+    },
+    {
+      "slug": "futuro-sueno-que-te-da-verguenza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño te da pena contar porque suena muy grande o muy pequeño?"
+    },
+    {
+      "slug": "futuro-despedida-de-una-etapa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿De qué etapa de tu vida te cuesta despedirte?"
+    },
+    {
+      "slug": "futuro-un-dia-de-retiro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo sería para ti un día perfecto de descanso total en el futuro?"
+    },
+    {
+      "slug": "futuro-momentos-que-quieres-vivir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cinco momentos quisieras que vivamos juntos antes de cumplir cuarenta?"
+    },
+    {
+      "slug": "futuro-equipo-de-sueno",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si fuéramos un equipo con una misión, ¿cuál sería la nuestra?"
+    },
+    {
+      "slug": "futuro-aprendiendo-a-crecer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti quieres trabajar más en este año y cómo te acompaño?"
+    },
+    {
+      "slug": "futuro-visualiza-un-momento",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cierra los ojos e imagina un momento feliz dentro de cinco años. ¿Qué ves?"
+    },
+    {
+      "slug": "futuro-miedo-a-perderme-en-la-rutina",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo evitamos perdernos en la rutina cuando la vida se ponga pesada?"
+    },
+    {
+      "slug": "futuro-cosa-que-me-pedirias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué me pedirías para que el futuro sea más tranquilo para ti?"
+    },
+    {
+      "slug": "futuro-lo-que-quiero-cuidar-de-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti te gustaría que cuidara de por vida?"
+    },
+    {
+      "slug": "futuro-lo-que-aprendiste-de-esperar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te ha enseñado esta etapa de espera hasta estar juntos?"
+    },
+    {
+      "slug": "futuro-una-conversacion-pendiente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tema sobre el futuro te gustaría que habláramos pronto con calma?"
+    },
+    {
+      "slug": "futuro-un-hogar-emocional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas en una relación para sentirte en casa a largo plazo?"
+    },
+    {
+      "slug": "futuro-lo-que-nos-hace-unicos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que nos hace distintos a otras parejas que conoces?"
+    },
+    {
+      "slug": "futuro-el-lugar-del-descanso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Dónde te gustaría que estuviera nuestro refugio, ese lugar al que siempre podamos volver?"
+    },
+    {
+      "slug": "futuro-una-meta-secreta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu meta secreta para los próximos tres años?"
+    },
+    {
+      "slug": "futuro-lo-que-agradeceras-despues",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que agradeceremos dentro de unos años de lo que hicimos hoy?"
+    },
+    {
+      "slug": "futuro-prioridad-proximos-anos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En los próximos años, ¿qué quieres priorizar?",
+      "options": [
+        "Mi carrera",
+        "Nuestra relación",
+        "Mi bienestar",
+        "Dinero y estabilidad"
+      ]
+    },
+    {
+      "slug": "futuro-definicion-de-estabilidad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para ti, estabilidad es principalmente...",
+      "options": [
+        "Tener ahorros",
+        "Vivir en un lugar fijo",
+        "Tener paz mental",
+        "Saber que cuento con alguien"
+      ]
+    },
+    {
+      "slug": "futuro-compromiso-siguiente-paso",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El siguiente paso ideal para nosotros sería...",
+      "options": [
+        "Vivir en la misma ciudad",
+        "Un viaje largo juntos",
+        "Conocer mejor a nuestras familias",
+        "Un proyecto en común"
+      ]
+    },
+    {
+      "slug": "futuro-tiempo-para-cada-cosa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para vivir juntos, ¿cuánto tiempo crees que falta?",
+      "options": [
+        "Menos de un año",
+        "De uno a dos años",
+        "De dos a cinco años",
+        "Lo veremos con calma"
+      ]
+    },
+    {
+      "slug": "futuro-manejo-del-cambio",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Ante un cambio grande, tú eres de...",
+      "options": [
+        "Planear todo",
+        "Aventarme y ver",
+        "Pedir opiniones",
+        "Dar vueltas al asunto"
+      ]
+    },
+    {
+      "slug": "futuro-miedo-a-futuro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más me inquieta del futuro es...",
+      "options": [
+        "El dinero",
+        "La salud",
+        "Perder gente querida",
+        "No cumplir mis metas"
+      ]
+    },
+    {
+      "slug": "futuro-expectativa-de-vida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Una vida plena para mí es...",
+      "options": [
+        "Mucha aventura",
+        "Mucha paz",
+        "Mucha gente",
+        "Mucho tiempo en pareja"
+      ]
+    },
+    {
+      "slug": "futuro-equilibrio-trabajo-vida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Idealmente, mi chamba sería...",
+      "options": [
+        "Mi pasión",
+        "Un medio para vivir bien",
+        "Flexible y remota",
+        "Estable y con prestaciones"
+      ]
+    },
+    {
+      "slug": "futuro-dinero-y-sueno",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para cumplir un sueño grande, yo me animaría a...",
+      "options": [
+        "Ahorrar durante años",
+        "Mudarme",
+        "Cambiar de chamba",
+        "Pedir ayuda"
+      ]
+    },
+    {
+      "slug": "futuro-crecer-como-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para crecer como pareja, nos ayudaría más...",
+      "options": [
+        "Terapia o talleres",
+        "Viajar",
+        "Retos juntos",
+        "Charlas profundas frecuentes"
+      ]
+    },
+    {
+      "slug": "futuro-hogar-vibra",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El ambiente de nuestro hogar ideal sería...",
+      "options": [
+        "Acogedor y cálido",
+        "Moderno y limpio",
+        "Lleno de plantas",
+        "Colorido y caótico"
+      ]
+    },
+    {
+      "slug": "futuro-tiempo-con-amigos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Con amigos y familia, en el futuro quiero...",
+      "options": [
+        "Más tiempo con ellos",
+        "Lo mismo que ahora",
+        "Más tiempo de dos",
+        "Un equilibrio bien planeado"
+      ]
+    },
+    {
+      "slug": "futuro-quien-planea",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En nuestros planes futuros, ¿quién es el que planea?",
+      "options": [
+        "Yo",
+        "Tú",
+        "Los dos",
+        "Nadie, improvisamos"
+      ]
+    },
+    {
+      "slug": "futuro-sorpresas-vs-planes",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En la vida juntos, preferiría...",
+      "options": [
+        "Planear con anticipación",
+        "Improvisar",
+        "Mitad y mitad",
+        "Que el otro sorprenda"
+      ]
+    },
+    {
+      "slug": "futuro-valor-de-vida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En mi futuro, lo que no puede faltar es...",
+      "options": [
+        "Honestidad",
+        "Humor",
+        "Libertad",
+        "Familia"
+      ]
+    },
+    {
+      "slug": "futuro-sueno-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El sueño más grande de mi vida tiene que ver con...",
+      "options": [
+        "Viajar",
+        "Crear algo",
+        "Ayudar",
+        "Construir un hogar"
+      ]
+    },
+    {
+      "slug": "futuro-reparto-de-ahorros",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si nos sobrara dinero, ¿qué haríamos primero?",
+      "options": [
+        "Ahorrarlo",
+        "Viajar",
+        "Mejorar la casa",
+        "Invertir en nuestro proyecto"
+      ]
+    },
+    {
+      "slug": "futuro-atender-el-pasado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Antes de avanzar, ¿qué te importa cerrar?",
+      "options": [
+        "Un tema personal",
+        "Un tema de familia",
+        "Un pendiente de trabajo",
+        "Nada, ya puedo avanzar"
+      ]
+    },
+    {
+      "slug": "futuro-edad-de-asentarse",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿A qué edad te imaginas con la vida más asentada?",
+      "options": [
+        "Antes de los 30",
+        "A los 30",
+        "Después de los 35",
+        "No me importa la edad"
+      ]
+    },
+    {
+      "slug": "futuro-vida-social-futura",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En la vida diaria, te imaginas...",
+      "options": [
+        "Fiestas en casa",
+        "Pocas visitas, mucha paz",
+        "Cenas con amigos cercanos",
+        "Salir más que quedarnos"
+      ]
+    },
+    {
+      "slug": "futuro-conflicto-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si hubiera un desacuerdo grande sobre el futuro, ¿qué harías?",
+      "options": [
+        "Hablarlo sin prisa",
+        "Pedir tiempo para pensar",
+        "Buscar ayuda externa",
+        "Buscar un punto medio"
+      ]
+    },
+    {
+      "slug": "futuro-retiro-tipo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En nuestra vejez, ¿cómo te imaginas la rutina?",
+      "options": [
+        "Tranquila y de casa",
+        "Viajando mucho",
+        "Cerca de la familia",
+        "Con mil proyectos"
+      ]
+    },
+    {
+      "slug": "futuro-sentirse-listo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Sentir que ya puedo dar un paso grande significa...",
+      "options": [
+        "Tener claridad emocional",
+        "Tener estabilidad económica",
+        "Tener el apoyo de mi familia",
+        "Sentir que es el momento"
+      ]
+    },
+    {
+      "slug": "futuro-miedo-vs-emocion",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Ante el futuro juntos, siento más...",
+      "options": [
+        "Emoción",
+        "Nervios",
+        "Mucha ternura",
+        "Las tres cosas mezcladas"
+      ]
+    },
+    {
+      "slug": "futuro-inversion-de-tiempo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tuviéramos un día libre cada semana, lo usaría para...",
+      "options": [
+        "Mi crecimiento personal",
+        "Nosotros",
+        "Mi familia",
+        "Descansar"
+      ]
+    },
+    {
+      "slug": "futuro-tipo-de-cuidados",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En el futuro, para cuidarnos mejor quiero...",
+      "options": [
+        "Chequeos y salud",
+        "Ejercicio juntos",
+        "Más descanso",
+        "Terapia o acompañamiento"
+      ]
+    },
+    {
+      "slug": "futuro-abrazo-futuro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El día que por fin nos mudemos juntos, mi primera reacción será...",
+      "options": [
+        "Llorar de felicidad",
+        "Reír sin parar",
+        "Cocinar algo rico",
+        "Dormir doce horas"
+      ]
+    },
+    {
+      "slug": "futuro-apoyo-al-sueno",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si quiero cumplir una meta loca, lo que más me ayudaría de ti es...",
+      "options": [
+        "Que me escuches",
+        "Que me empujes",
+        "Que me acompañes",
+        "Que me recuerdes por qué empecé"
+      ]
     }
   ]
 }

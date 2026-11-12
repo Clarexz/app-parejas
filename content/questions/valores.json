@@ -431,6 +431,774 @@
         "Que me cuente solo lo importante",
         "Que me sorprenda"
       ]
+    },
+    {
+      "slug": "valores-valor-heredado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué valor te heredó tu familia que hoy agradeces y cuál prefieres hacer diferente?"
+    },
+    {
+      "slug": "valores-momento-de-integridad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame una vez que hiciste lo correcto aunque te costó."
+    },
+    {
+      "slug": "valores-arrepentimiento-valor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que no actuaste como la persona que quieres ser?"
+    },
+    {
+      "slug": "valores-que-no-vendes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que nunca venderías, aunque te ofrecieran muchísimo?"
+    },
+    {
+      "slug": "valores-vida-con-sentido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir que lo que haces tiene sentido?"
+    },
+    {
+      "slug": "valores-miedo-a-decepcionar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A quién te da más miedo decepcionar y por qué?"
+    },
+    {
+      "slug": "valores-amor-incondicional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué significa para ti querer a alguien sin condiciones, pero con límites?"
+    },
+    {
+      "slug": "valores-lealtad-hasta-donde",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hasta dónde llega tu lealtad a un amigo o amiga que se equivocó?"
+    },
+    {
+      "slug": "valores-justicia-vs-paz",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando hay un conflicto, ¿prefieres tener la razón o tener paz? Cuéntame un ejemplo."
+    },
+    {
+      "slug": "valores-cambio-de-opinion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Sobre qué cosa importante cambiaste de opinión con los años?"
+    },
+    {
+      "slug": "valores-vida-ideal-detalle",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Describe un martes cualquiera de tu vida ideal dentro de diez años."
+    },
+    {
+      "slug": "valores-lo-que-no-quieres-ser",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué tipo de persona jamás te quisieras convertir?"
+    },
+    {
+      "slug": "valores-valor-de-la-vulnerabilidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Te cuesta mostrarte vulnerable conmigo? ¿Qué te ayudaría?"
+    },
+    {
+      "slug": "valores-metas-compartidas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué meta tuya te gustaría que yo conociera mejor para apoyarte?"
+    },
+    {
+      "slug": "valores-sacrificio-bonito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué estarías dispuesto o dispuesta a dejar por algo que de verdad importa?"
+    },
+    {
+      "slug": "valores-perdon-propio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de tu pasado aún te cuesta perdonarte?"
+    },
+    {
+      "slug": "valores-tradicion-nueva",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tradición de tu familia no quisieras repetir en la nuestra?"
+    },
+    {
+      "slug": "valores-honestidad-conmigo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algo que a veces te callas conmigo por no incomodar? Cuéntame con confianza."
+    },
+    {
+      "slug": "valores-cuidar-a-padres",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te imaginas cuidando a tus papás cuando sean mayores?"
+    },
+    {
+      "slug": "valores-humildad-valor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento de tu vida la humildad te abrió una puerta?"
+    },
+    {
+      "slug": "valores-dinero-y-valores",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué creencia sobre el dinero heredaste sin darte cuenta?"
+    },
+    {
+      "slug": "valores-amistad-que-perdiste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendiste de una amistad que se fue enfriando?"
+    },
+    {
+      "slug": "valores-trabajo-y-pareja",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo quieres que nos apoyemos cuando uno tenga una etapa muy pesada de trabajo?"
+    },
+    {
+      "slug": "valores-promesa-a-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué promesa te hiciste a ti mismo o misma y no has cumplido todavía?"
+    },
+    {
+      "slug": "valores-mensaje-al-futuro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le diría tu versión de hoy a tu versión de dentro de cinco años?"
+    },
+    {
+      "slug": "valores-mejor-version",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa estás practicando para ser mejor pareja?"
+    },
+    {
+      "slug": "valores-limite-propio-cuidado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo sabes cuando necesitas poner un límite para cuidarte?"
+    },
+    {
+      "slug": "valores-cosa-que-no-dirias",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué opinión tuya crees que a mucha gente le sorprendería?"
+    },
+    {
+      "slug": "valores-tradicion-religion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lugar le das a la fe o a lo espiritual en tu vida, aunque sea a tu manera?"
+    },
+    {
+      "slug": "valores-sentir-orgullo-de-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento de tu vida te sentiste más orgulloso u orgullosa de ti?"
+    },
+    {
+      "slug": "valores-ser-ejemplo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si algún día tienen hijos o sobrinos que te observan, ¿qué te gustaría que aprendan de ti?"
+    },
+    {
+      "slug": "valores-equidad-en-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría que repartiéramos las tareas de la casa para que se sienta justo?"
+    },
+    {
+      "slug": "valores-vivir-lejos-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te importa más conservar de tu familia si algún día nos mudamos lejos?"
+    },
+    {
+      "slug": "valores-lo-que-no-negocias-amor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que no dejarías de recibir en una relación aunque todo lo demás estuviera bien?"
+    },
+    {
+      "slug": "valores-gratitud-profunda",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Por quién estás agradecido o agradecida y nunca se lo has dicho completo?"
+    },
+    {
+      "slug": "valores-etapa-que-te-formo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué etapa difícil te formó más de lo que pensabas?"
+    },
+    {
+      "slug": "valores-aprender-a-pedir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Te cuesta pedir ayuda? ¿De dónde crees que viene eso?"
+    },
+    {
+      "slug": "valores-dignidad-cotidiana",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué situación del día a día te hace sentir que te falta al respeto sin que nadie lo note?"
+    },
+    {
+      "slug": "valores-valor-de-descanso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué piensas del descanso: lo ves merecido o te da culpa?"
+    },
+    {
+      "slug": "valores-lo-que-extranas-nino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu niñez quisieras recuperar como adulto o adulta?"
+    },
+    {
+      "slug": "valores-cuando-ayudaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame de una vez que ayudaste a alguien sin que lo supiera."
+    },
+    {
+      "slug": "valores-compromiso-significado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué significa para ti comprometerse de verdad con alguien?"
+    },
+    {
+      "slug": "valores-diferencia-que-suma",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué somos distintos y crees que eso nos hace mejores?"
+    },
+    {
+      "slug": "valores-ruta-de-valores",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuáles son tus tres valores que más cuidas y cómo se nota en tu día?"
+    },
+    {
+      "slug": "valores-orgullo-vs-disculpa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hace difícil pedir perdón y qué te lo facilita?"
+    },
+    {
+      "slug": "valores-tiempo-de-calidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuánto tiempo a solas necesitas para sentirte tú, y cómo lo cuidamos a distancia?"
+    },
+    {
+      "slug": "valores-vida-simple-o-grande",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Prefieres una vida sencilla y tranquila o una de grandes sueños y riesgos? ¿Por qué?"
+    },
+    {
+      "slug": "valores-herencia-emocional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué quisieras dejar en las personas que quieres cuando ya no estés?"
+    },
+    {
+      "slug": "valores-crianza-recuerdo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de cómo te criaron quisieras llevar a tu propia familia?"
+    },
+    {
+      "slug": "valores-lo-que-mas-pesa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En una pareja, ¿qué pesa más para ti?",
+      "options": [
+        "Confianza",
+        "Admiración",
+        "Complicidad",
+        "Estabilidad"
+      ]
+    },
+    {
+      "slug": "valores-decision-dificil-estilo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando tienes que decidir algo difícil, ¿qué te guía más?",
+      "options": [
+        "La razón",
+        "Lo que siento",
+        "Lo que dirían mis papás",
+        "Lo que me dice mi pareja"
+      ]
+    },
+    {
+      "slug": "valores-exito-defino",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para ti, el éxito es...",
+      "options": [
+        "Estar en paz",
+        "Tener estabilidad económica",
+        "Ser querido o querida",
+        "Dejar huella"
+      ]
+    },
+    {
+      "slug": "valores-perdon-necesita",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para perdonar de verdad, necesito...",
+      "options": [
+        "Una disculpa sincera",
+        "Tiempo",
+        "Cambios que se vean",
+        "Entender qué pasó"
+      ]
+    },
+    {
+      "slug": "valores-miedo-valor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te asusta más perder?",
+      "options": [
+        "Mi libertad",
+        "Mi tranquilidad",
+        "Mis relaciones",
+        "Mi salud"
+      ]
+    },
+    {
+      "slug": "valores-sacrificio-prefiero",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un momento de crisis, ¿qué prefieres?",
+      "options": [
+        "Que nos apoyemos fuerte",
+        "Que cada quien resuelva y regrese",
+        "Que pidamos ayuda",
+        "Que nos distraigamos juntos"
+      ]
+    },
+    {
+      "slug": "valores-meta-de-vida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Dentro de diez años, quisiera que tuviéramos...",
+      "options": [
+        "Casa propia",
+        "Un lugar donde viajar siempre",
+        "Un negocio juntos",
+        "Mucha tranquilidad"
+      ]
+    },
+    {
+      "slug": "valores-pesa-mas-pasado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para conocer a alguien de verdad, importa más...",
+      "options": [
+        "Cómo trata a quien no le sirve",
+        "Cómo habla de su familia",
+        "Cómo reacciona al fracaso",
+        "Qué hace cuando nadie lo ve"
+      ]
+    },
+    {
+      "slug": "valores-trabajo-o-vida",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tuvieras que elegir una etapa de tu vida, ¿cuál sería?",
+      "options": [
+        "Echarle todo a la chamba",
+        "Equilibrio perfecto",
+        "Viajar y explorar",
+        "Estar con mi gente"
+      ]
+    },
+    {
+      "slug": "valores-lo-que-aporto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Siento que lo mejor que aporto a la relación es...",
+      "options": [
+        "Mi apoyo",
+        "Mi humor",
+        "Mi constancia",
+        "Mi manera de escuchar"
+      ]
+    },
+    {
+      "slug": "valores-cuidar-vs-solucionar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando alguien que quieres sufre, tu instinto es...",
+      "options": [
+        "Abrazarlo",
+        "Solucionarle el problema",
+        "Escucharlo",
+        "Hacerlo reír"
+      ]
+    },
+    {
+      "slug": "valores-lo-que-no-toleras",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué es más difícil de tolerar en una relación?",
+      "options": [
+        "La mentira",
+        "La indiferencia",
+        "El control",
+        "La falta de respeto"
+      ]
+    },
+    {
+      "slug": "valores-mi-ritmo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En la relación, mi ritmo ideal para avanzar en grandes pasos es...",
+      "options": [
+        "Con calma y planeación",
+        "Con emoción y dejando fluir",
+        "Con acuerdos claros",
+        "Depende de cuánto confíe"
+      ]
+    },
+    {
+      "slug": "valores-cosa-que-sacrificaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño o plan pospusiste por alguien más y cómo lo viviste?"
+    },
+    {
+      "slug": "valores-valor-que-me-aprendiste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué valor has descubierto en ti desde que estamos juntos?"
+    },
+    {
+      "slug": "valores-reglas-de-la-relacion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué acuerdo implícito de nuestra relación te gustaría que dijéramos en voz alta?"
+    },
+    {
+      "slug": "valores-cuando-dijiste-no",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo fue la última vez que dijiste que no a algo y estuvo bien?"
+    },
+    {
+      "slug": "valores-lo-que-te-define",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si alguien tuviera que describirte sin mencionar tu trabajo ni tu familia, ¿qué tendría que decir?"
+    },
+    {
+      "slug": "valores-convicciones-cambiantes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué convicción tuya podría cambiar si viviera algo muy distinto?"
+    },
+    {
+      "slug": "valores-valor-de-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué ha cambiado en lo que valoras desde que nos toca estar lejos a ratos?"
+    },
+    {
+      "slug": "valores-ayuda-que-no-pediste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué ayuda quisiste recibir alguna vez y nunca te atreviste a pedir?"
+    },
+    {
+      "slug": "valores-cuidar-lo-nuestro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de nuestra relación te gustaría proteger de la rutina?"
+    },
+    {
+      "slug": "valores-vejez-juntos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué costumbre te imaginas teniendo con tu pareja a los ochenta años?"
+    },
+    {
+      "slug": "valores-generosidad-medida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sientes que ya das demasiado y cuándo sientes que te falta dar?"
+    },
+    {
+      "slug": "valores-tanto-por-decir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras cambiar una cosa de cómo te comunicas, sería...",
+      "options": [
+        "Decir lo que siento más rápido",
+        "Callar menos",
+        "Escuchar más",
+        "Gritar menos"
+      ]
+    },
+    {
+      "slug": "valores-valor-gusto-vs-deber",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando choca lo que quiero con lo que debo, suelo...",
+      "options": [
+        "Cumplir primero",
+        "Hacer lo que quiero",
+        "Buscar un punto medio",
+        "Pedir consejo"
+      ]
+    },
+    {
+      "slug": "valores-cuanto-compartir",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué tanto de tu dinero te gustaría que fuera compartido?",
+      "options": [
+        "Todo",
+        "La mayoría",
+        "Solo gastos de pareja",
+        "Cada quien lo suyo"
+      ]
+    },
+    {
+      "slug": "valores-metas-juntos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La meta que más ilusión me daría cumplir juntos es...",
+      "options": [
+        "Viajar a otro país",
+        "Vivir juntos",
+        "Ahorrar para algo grande",
+        "Aprender algo nuevo"
+      ]
+    },
+    {
+      "slug": "valores-dignidad-en-conflicto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En una discusión, ¿qué es lo que no se vale?",
+      "options": [
+        "Gritar",
+        "Traer el pasado",
+        "Ignorar",
+        "Burlarse"
+      ]
+    },
+    {
+      "slug": "valores-ejemplo-padres",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "De mis papás aprendí sobre todo...",
+      "options": [
+        "A trabajar duro",
+        "A cuidar a la familia",
+        "A disfrutar",
+        "A guardarme las cosas"
+      ]
+    },
+    {
+      "slug": "valores-sentir-seguro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Me siento seguro o segura en una relación cuando...",
+      "options": [
+        "Hay claridad",
+        "Hay constancia",
+        "Hay cariño visible",
+        "Hay libertad"
+      ]
+    },
+    {
+      "slug": "valores-vida-lejos-de-casa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tuviera que mudarme por una oportunidad, lo más duro sería...",
+      "options": [
+        "Dejar a mi familia",
+        "Dejarte a ti",
+        "Empezar de cero",
+        "El costo de la vida"
+      ]
+    },
+    {
+      "slug": "valores-prioridad-hoy",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En esta etapa de la vida, mi prioridad es...",
+      "options": [
+        "Crecer profesionalmente",
+        "Cuidar mi relación",
+        "Estar tranquilo o tranquila",
+        "Divertirme más"
+      ]
+    },
+    {
+      "slug": "valores-lo-que-mas-agradeces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué agradeces más de la gente que te rodea?",
+      "options": [
+        "Que me apoyen",
+        "Que me hagan reír",
+        "Que sean honestos",
+        "Que me entiendan sin hablar"
+      ]
+    },
+    {
+      "slug": "valores-trato-ideal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El trato que más valoro en mi pareja es...",
+      "options": [
+        "Paciencia",
+        "Ternura",
+        "Honestidad",
+        "Iniciativa"
+      ]
+    },
+    {
+      "slug": "valores-ver-el-futuro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Al pensar en nuestro futuro, siento principalmente...",
+      "options": [
+        "Ilusión",
+        "Calma",
+        "Nervios",
+        "Curiosidad"
+      ]
+    },
+    {
+      "slug": "valores-cual-es-mayor-reto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más me cuesta de una relación a distancia es...",
+      "options": [
+        "Los horarios",
+        "La falta de contacto físico",
+        "Los malentendidos por mensaje",
+        "La incertidumbre"
+      ]
+    },
+    {
+      "slug": "valores-justo-o-feliz",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si hay que elegir, ¿qué prefieres?",
+      "options": [
+        "Tener razón",
+        "Estar en paz",
+        "Ceder por el bien común",
+        "Entender al otro primero"
+      ]
+    },
+    {
+      "slug": "valores-honestidad-regalo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un regalo que sí me hace sentir cuidado o cuidada es...",
+      "options": [
+        "Que me cuenten la verdad",
+        "Que recuerden lo que me gusta",
+        "Que me escuchen sin interrumpir",
+        "Que me incluyan en sus planes"
+      ]
+    },
+    {
+      "slug": "valores-respeto-pequeno",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El pequeño detalle que más respeto me demuestra es...",
+      "options": [
+        "Que pregunten antes",
+        "Que avisen si cambian planes",
+        "Que cumplan lo que dicen",
+        "Que me defiendan si no estoy"
+      ]
+    },
+    {
+      "slug": "valores-cuando-fallo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando fallo en algo importante, lo que más necesito es...",
+      "options": [
+        "Que me abracen",
+        "Que no me juzguen",
+        "Que me ayuden a arreglarlo",
+        "Que me dejen respirar"
+      ]
+    },
+    {
+      "slug": "valores-ser-cuidador",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En la relación, tiendo a ser quien...",
+      "options": [
+        "Cuida",
+        "Se deja cuidar",
+        "Planea",
+        "Anima"
+      ]
+    },
+    {
+      "slug": "valores-cosa-por-dar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si tuviera que regalarte algo muy valioso que no se compra, sería...",
+      "options": [
+        "Mi tiempo",
+        "Mi confianza",
+        "Mi paciencia",
+        "Mi compañía"
+      ]
+    },
+    {
+      "slug": "valores-camino-suenos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para cumplir un sueño, yo creo más en...",
+      "options": [
+        "La disciplina",
+        "La suerte",
+        "El apoyo de otros",
+        "La valentía"
+      ]
+    },
+    {
+      "slug": "valores-lo-que-todos-sacan",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando discutimos, lo que más quiero al final es...",
+      "options": [
+        "Un abrazo",
+        "Una disculpa",
+        "Un rato a solas",
+        "Una charla tranquila"
+      ]
     }
   ]
 }

@@ -114,35 +114,59 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Solo puedes comer una cosa el resto de tu vida:",
-      "options": ["Tacos", "Pizza", "Pasta", "Sushi"]
+      "options": [
+        "Tacos",
+        "Pizza",
+        "Pasta",
+        "Sushi"
+      ]
     },
     {
       "slug": "hipoteticas-pasado-o-futuro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Una máquina del tiempo con un solo viaje: ¿hacia dónde vas?",
-      "options": ["Al pasado", "Al futuro", "No me subo"]
+      "options": [
+        "Al pasado",
+        "Al futuro",
+        "No me subo"
+      ]
     },
     {
       "slug": "hipoteticas-clima-eterno",
       "type": "choice",
       "intensity": "ligera",
       "text": "Tienes que vivir con un solo clima para siempre:",
-      "options": ["Calor playero", "Frío con chamarra", "Primavera eterna", "Lluvia con café"]
+      "options": [
+        "Calor playero",
+        "Frío con chamarra",
+        "Primavera eterna",
+        "Lluvia con café"
+      ]
     },
     {
       "slug": "hipoteticas-volar-o-invisible",
       "type": "choice",
       "intensity": "ligera",
       "text": "Elige el superpoder:",
-      "options": ["Volar", "Ser invisible", "Detener el tiempo", "Hablar con animales"]
+      "options": [
+        "Volar",
+        "Ser invisible",
+        "Detener el tiempo",
+        "Hablar con animales"
+      ]
     },
     {
       "slug": "hipoteticas-vivir-donde",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para vivir tranquilos, ¿qué lugar escogerían?",
-      "options": ["Ciudad enorme", "Pueblo chico", "Cerca del mar", "En la montaña"]
+      "options": [
+        "Ciudad enorme",
+        "Pueblo chico",
+        "Cerca del mar",
+        "En la montaña"
+      ]
     },
     {
       "slug": "hipoteticas-saber-fecha-o-causa",
@@ -161,6 +185,738 @@
       "type": "open",
       "intensity": "ligera",
       "text": "Te avisan que mañana empiezan siete días de vacaciones pagadas. ¿Qué haces el primer día?"
+    },
+    {
+      "slug": "hipoteticas-animales-hablan",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si los animales de repente hablaran, ¿a cuál le harías la primera pregunta y cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-volver-ninez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras ser niño o niña por un solo día completo, ¿qué harías?"
+    },
+    {
+      "slug": "hipoteticas-casa-en-arbol",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Te regalan una casa en un lugar rarísimo, como un árbol o un faro. ¿Cuál escoges?"
+    },
+    {
+      "slug": "hipoteticas-trabajo-un-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras trabajar un año en lo que sea sin importar el sueldo, ¿qué elegirías?"
+    },
+    {
+      "slug": "hipoteticas-ciudad-sin-coches",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu ciudad prohibiera los coches, ¿cómo cambiaría tu día?"
+    },
+    {
+      "slug": "hipoteticas-robot-asistente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Te regalan un robot que hace una sola tarea de la casa. ¿Cuál le pides?"
+    },
+    {
+      "slug": "hipoteticas-dinero-sin-limite",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes un día con tarjeta sin límite para gastar solo en ti. ¿Qué haces?"
+    },
+    {
+      "slug": "hipoteticas-telepatia-pareja",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tú y yo pudiéramos comunicarnos con la mente, ¿qué sería lo primero que te mandaría?"
+    },
+    {
+      "slug": "hipoteticas-multiverso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si existiera un universo paralelo en el que tienes otra profesión, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-vacaciones-gratis",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Nos regalan un viaje todo pagado de una semana. ¿A dónde nos mandarías?"
+    },
+    {
+      "slug": "hipoteticas-manejo-nave",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras manejar cualquier vehículo del mundo por una hora, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-idioma-animales",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras hablar con un solo tipo de animal, ¿cuál escogerías?"
+    },
+    {
+      "slug": "hipoteticas-tiempo-pausa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras pausar el tiempo cinco minutos al día, ¿qué harías con ellos?"
+    },
+    {
+      "slug": "hipoteticas-tele-transportar-comida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras traer cualquier platillo al instante a donde estés, ¿cuál sería el primero?"
+    },
+    {
+      "slug": "hipoteticas-lugar-invisible",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fueras invisible un día, ¿qué lugar visitarías primero?"
+    },
+    {
+      "slug": "hipoteticas-ciudad-del-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Imagina que dentro de cincuenta años hay una ciudad flotante. ¿Qué sería lo primero que querrías ver?"
+    },
+    {
+      "slug": "hipoteticas-cumplir-un-deseo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Un genio te da un deseo pequeño y simple. ¿Qué pides?"
+    },
+    {
+      "slug": "hipoteticas-casa-de-ensueno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras diseñar un cuarto especial en nuestra casa, ¿cómo sería?"
+    },
+    {
+      "slug": "hipoteticas-apagon-total",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Hay un apagón general en toda la ciudad por un día. ¿Qué haríamos?"
+    },
+    {
+      "slug": "hipoteticas-sin-celular",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que vivir una semana sin celular, ¿qué es lo primero que extrañarías?"
+    },
+    {
+      "slug": "hipoteticas-clon-propio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras un clon para ir a trabajar por ti, ¿qué harías con tu tiempo libre?"
+    },
+    {
+      "slug": "hipoteticas-comida-ilimitada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes todos los antojos de una semana pagados. ¿Cuál es el primer antojo de la lista?"
+    },
+    {
+      "slug": "hipoteticas-animal-gigante",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras tener un animal gigante como mascota, ¿cuál sería y cómo se llamaría?"
+    },
+    {
+      "slug": "hipoteticas-parque-nuestro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nos regalaran un parque de diversiones, ¿qué atracción inventarías?"
+    },
+    {
+      "slug": "hipoteticas-mapa-mundi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras ir a tres países en un mismo viaje, ¿cuáles elegirías y en qué orden?"
+    },
+    {
+      "slug": "hipoteticas-cancion-propia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si un famoso compusiera una canción para ti, ¿quién te gustaría que fuera y de qué hablaría?"
+    },
+    {
+      "slug": "hipoteticas-aparecer-en-serie",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras salir de extra en una serie o película, ¿en cuál sería y qué escena?"
+    },
+    {
+      "slug": "hipoteticas-super-habilidad-cocina",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si cocinaras como un chef de talla mundial, ¿qué platillo sorprendería a todos?"
+    },
+    {
+      "slug": "hipoteticas-equipo-de-futbol",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fueras dueño o dueña de un equipo deportivo, ¿cómo lo llamarías?"
+    },
+    {
+      "slug": "hipoteticas-mundial-organizar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si organizáramos un Mundial de algo raro, ¿de qué sería?"
+    },
+    {
+      "slug": "hipoteticas-dia-en-la-luna",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Pasas un día en la Luna con gravedad baja. ¿Qué es lo primero que haces?"
+    },
+    {
+      "slug": "hipoteticas-radio-propia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras un programa de radio o pódcast sin límite, ¿de qué hablarías?"
+    },
+    {
+      "slug": "hipoteticas-maleta-ilimitada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes una maleta infinita para un viaje. ¿Qué es lo más raro que llevarías?"
+    },
+    {
+      "slug": "hipoteticas-bicicleta-voladora",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu bicicleta pudiera volar un solo día, ¿a dónde la llevarías?"
+    },
+    {
+      "slug": "hipoteticas-encontrar-tesoro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Encuentras un tesoro enterrado en el jardín de la abuela. ¿Qué haces primero?"
+    },
+    {
+      "slug": "hipoteticas-cumplir-tres-anos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras que revivir un cumpleaños de tu infancia, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-mercado-del-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dentro de veinte años abren una tienda de cosas que hoy no existen. ¿Qué te gustaría comprar?"
+    },
+    {
+      "slug": "hipoteticas-super-oido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras escuchar solo un sonido para siempre de fondo, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-semana-pareja",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudiéramos intercambiar vidas una semana, ¿qué sería lo primero que harías de mi rutina?"
+    },
+    {
+      "slug": "hipoteticas-nada-que-hacer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Tienes un día entero sin obligaciones y sin presupuesto. ¿Cómo lo armas?"
+    },
+    {
+      "slug": "hipoteticas-elegir-sabor",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si inventaras un sabor nuevo de papas o de helado, ¿cuál sería?"
+    },
+    {
+      "slug": "hipoteticas-reunion-deseada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras reunir una vez a todos tus amigos de cualquier época, ¿qué harían?"
+    },
+    {
+      "slug": "hipoteticas-vivir-ciudad-chica",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si nos mudáramos a un pueblito chiquito para siempre, ¿qué extrañarías de la ciudad?"
+    },
+    {
+      "slug": "hipoteticas-poder-mundo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fueras presidente o presidenta por un día, ¿qué regla absurda pondrías?"
+    },
+    {
+      "slug": "hipoteticas-casa-embrujada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Les ofrecen pasar una noche en una casa embrujada por dinero. ¿Aceptas?"
+    },
+    {
+      "slug": "hipoteticas-nombre-barco",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuviéramos un barco, ¿cómo lo llamaríamos?"
+    },
+    {
+      "slug": "hipoteticas-mascota-elegir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras tener una mascota mágica, ¿cuál escoges?",
+      "options": [
+        "Un dragón chiquito",
+        "Un gato que habla",
+        "Un perro que vuela",
+        "Un pulpo en la bañera"
+      ]
+    },
+    {
+      "slug": "hipoteticas-poder-hora",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si dominaras una habilidad de la noche a la mañana, ¿cuál escogerías?",
+      "options": [
+        "Tocar cualquier instrumento",
+        "Cocinar como chef",
+        "Bailar de todo",
+        "Dibujar lo que imagino"
+      ]
+    },
+    {
+      "slug": "hipoteticas-casa-ubicacion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Puedes tener la casa perfecta, pero solo en uno de estos lugares:",
+      "options": [
+        "Frente al mar",
+        "En la montaña",
+        "En un pueblo mágico",
+        "En pleno centro de la ciudad"
+      ]
+    },
+    {
+      "slug": "hipoteticas-comida-mundo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Pasan un mes en un país y solo puedes comer su comida. ¿Cuál eliges?",
+      "options": [
+        "Japón",
+        "Italia",
+        "México, claro",
+        "India"
+      ]
+    },
+    {
+      "slug": "hipoteticas-trabajo-futuro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el futuro, ¿qué trabajo te gustaría que existiera?",
+      "options": [
+        "Catador profesional de postres",
+        "Guía de viajes en el tiempo",
+        "Entrenador de robots",
+        "Dormilón oficial de colchones"
+      ]
+    },
+    {
+      "slug": "hipoteticas-transporte-nuevo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si inventaran un transporte nuevo, ¿cuál usarías?",
+      "options": [
+        "Tubos de teletransporte",
+        "Patines con motor",
+        "Globos aerostáticos urbanos",
+        "Una bici que vuela"
+      ]
+    },
+    {
+      "slug": "hipoteticas-ser-vecino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Con quién te gustaría que fuera tu vecino por un año?",
+      "options": [
+        "Un chef famoso",
+        "Un cantante",
+        "Un científico loco",
+        "Un perrito sin dueño"
+      ]
+    },
+    {
+      "slug": "hipoteticas-vida-nocturna",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si solo pudieras vivir de noche o de día para siempre, ¿cuál?",
+      "options": [
+        "Solo de noche",
+        "Solo de día",
+        "Amanecer y atardecer",
+        "Un día eterno gris"
+      ]
+    },
+    {
+      "slug": "hipoteticas-poder-cabeza",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué superpoder mental te gustaría más?",
+      "options": [
+        "Leer pensamientos",
+        "Mover cosas con la mente",
+        "Predecir el futuro",
+        "Controlar los sueños"
+      ]
+    },
+    {
+      "slug": "hipoteticas-tiempo-reloj",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si el tiempo se pudiera comprar, ¿qué comprarías con una hora extra al día?",
+      "options": [
+        "Dormir",
+        "Estar contigo",
+        "Viajar",
+        "Ver series"
+      ]
+    },
+    {
+      "slug": "hipoteticas-planeta-nuevo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Descubren un planeta nuevo. ¿Cuál sería su principal atractivo?",
+      "options": [
+        "Playas de cristal",
+        "Montañas flotantes",
+        "Ciudades de luz",
+        "Bosques que cantan"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-regalo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te dan un regalo que cambia cada año. ¿Qué te gustaría que fuera?",
+      "options": [
+        "Un viaje",
+        "Una experiencia",
+        "Un objeto único",
+        "Un año de comida gratis"
+      ]
+    },
+    {
+      "slug": "hipoteticas-clima-viaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Les dan un viaje al clima de tu elección por una semana:",
+      "options": [
+        "Calor playero",
+        "Frío de nieve",
+        "Primavera suave",
+        "Lluvia con cafecito"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-visita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Puedes conocer en persona a una figura histórica. ¿A quién eliges?",
+      "options": [
+        "Frida Kahlo",
+        "Leonardo da Vinci",
+        "Cleopatra",
+        "Nezahualcóyotl"
+      ]
+    },
+    {
+      "slug": "hipoteticas-mundo-animado",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te vuelves personaje de una caricatura por un día. ¿Qué mundo eliges?",
+      "options": [
+        "Pixar",
+        "Estudio Ghibli",
+        "Looney Tunes",
+        "Un anime de aventuras"
+      ]
+    },
+    {
+      "slug": "hipoteticas-herencia-sorpresa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te heredan algo inesperado de un pariente lejano. ¿Qué prefieres que sea?",
+      "options": [
+        "Un rancho",
+        "Un departamento en la playa",
+        "Una colección de discos",
+        "Una receta secreta"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-musica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Puedes ver en vivo a un artista del pasado:",
+      "options": [
+        "Selena",
+        "Michael Jackson",
+        "Juan Gabriel",
+        "Queen"
+      ]
+    },
+    {
+      "slug": "hipoteticas-juguete-gigante",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si un objeto gigante apareciera en tu calle, ¿cuál preferirías?",
+      "options": [
+        "Una piñata del tamaño de un edificio",
+        "Un oso de peluche",
+        "Un helado que no se derrite",
+        "Un balón que rebota"
+      ]
+    },
+    {
+      "slug": "hipoteticas-emocion-instantanea",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras apretar un botón para sentir algo siempre, ¿qué botón?",
+      "options": [
+        "Calma total",
+        "Emoción de viaje",
+        "Felicidad de niño",
+        "Ternura sin motivo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-memoria",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieras memoria perfecta, ¿para qué la usarías?",
+      "options": [
+        "Recordar todas nuestras citas",
+        "Estudiar sin esfuerzo",
+        "Aprender canciones al momento",
+        "Nunca olvidar dónde dejé las llaves"
+      ]
+    },
+    {
+      "slug": "hipoteticas-mundo-sin-uno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieras que borrar una cosa del mundo, ¿cuál sería?",
+      "options": [
+        "Los lunes",
+        "Los mosquitos",
+        "Las filas",
+        "Las alarmas"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-aparato",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras inventar un aparato, ¿cuál sería?",
+      "options": [
+        "Un traductor para mascotas",
+        "Un robot que lave trastes",
+        "Un control remoto del tiempo",
+        "Una cama que se tienda sola"
+      ]
+    },
+    {
+      "slug": "hipoteticas-vida-aislada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieran que aislarse del mundo un mes, ¿dónde lo harían?",
+      "options": [
+        "En una cabaña en el bosque",
+        "En una isla",
+        "En un departamento con internet",
+        "En un rancho con animales"
+      ]
+    },
+    {
+      "slug": "hipoteticas-nombre-mundial",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si te hicieras famoso por algo, ¿por qué te gustaría que fuera?",
+      "options": [
+        "Una receta",
+        "Una canción",
+        "Un baile",
+        "Un invento"
+      ]
+    },
+    {
+      "slug": "hipoteticas-pelicula-vida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tu vida fuera película, ¿de qué género sería?",
+      "options": [
+        "Comedia romántica",
+        "Aventura",
+        "Documental de naturaleza",
+        "Drama con música de fondo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-playlist",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienes que poner una sola canción para el resto de tu vida. ¿Cuál género eliges?",
+      "options": [
+        "Cumbia",
+        "Rock",
+        "Pop",
+        "Música clásica"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-pase",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te dan un pase gratis de por vida para entrar a...",
+      "options": [
+        "Cualquier concierto",
+        "Cualquier museo",
+        "Cualquier parque de diversiones",
+        "Cualquier restaurante"
+      ]
+    },
+    {
+      "slug": "hipoteticas-viaje-bote",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Les regalan un paseo en barco. ¿A dónde van?",
+      "options": [
+        "Islas del Caribe",
+        "Fiordos de Noruega",
+        "Canales de Xochimilco",
+        "Un río en la selva"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-lugar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras vivir en una ciudad ficticia, ¿cuál sería?",
+      "options": [
+        "Hogwarts",
+        "Ciudad Gótica",
+        "Springfield",
+        "Pueblo Paleta"
+      ]
+    },
+    {
+      "slug": "hipoteticas-llegada-extraterrestre",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Llegan extraterrestres amigables. ¿Cómo los recibes?",
+      "options": [
+        "Con tacos",
+        "Con una piñata",
+        "Con música de mariachi",
+        "Con una guía turística"
+      ]
+    },
+    {
+      "slug": "hipoteticas-aficion-inventada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Inventas un deporte nuevo. ¿Cómo se juega?",
+      "options": [
+        "Con una pelota gigante",
+        "Sobre el agua",
+        "Con patines y música",
+        "En un laberinto"
+      ]
+    },
+    {
+      "slug": "hipoteticas-hotel-eleccion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Te regalan una noche en un hotel muy raro. ¿Cuál escoges?",
+      "options": [
+        "Dentro de un árbol",
+        "Bajo el mar",
+        "En una cueva",
+        "En un globo"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-sueno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras controlar tus sueños una noche, ¿qué sueñas?",
+      "options": [
+        "Volar sobre la ciudad",
+        "Una aventura épica",
+        "Una cena con la persona amada",
+        "Un viaje a la infancia"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-suerte",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieras suerte infinita en una sola cosa, ¿cuál sería?",
+      "options": [
+        "En los juegos de azar",
+        "En el amor",
+        "En las rifas",
+        "En encontrar estacionamiento"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-ropa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tienes que usar la misma prenda toda la vida. ¿Cuál escoges?",
+      "options": [
+        "Una sudadera gigante",
+        "Una chamarra de mezclilla",
+        "Un vestido o traje elegante",
+        "Una playera de tu banda favorita"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-perfume",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si tuvieras un aroma que te siguiera a todos lados, ¿cuál sería?",
+      "options": [
+        "Café recién hecho",
+        "Pan de dulce",
+        "Tierra mojada",
+        "Mar"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-reunion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras volver a ver una cosa de tu niñez por un día, ¿cuál sería?",
+      "options": [
+        "Tu casa de entonces",
+        "Tu mascota",
+        "Tu escuela",
+        "Una fiesta de cumpleaños"
+      ]
+    },
+    {
+      "slug": "hipoteticas-super-trabajo-sueno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si ganaras un sueldo por hacer una sola cosa todo el día, ¿cuál sería?",
+      "options": [
+        "Probar comida",
+        "Viajar",
+        "Dormir en hoteles",
+        "Jugar videojuegos"
+      ]
     }
   ]
 }
