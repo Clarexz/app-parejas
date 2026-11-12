@@ -155,13 +155,18 @@ export default function QuestionsScreen() {
                               style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
+                                justifyContent: 'center',
                                 gap: spacing.sm,
                               }}
                             >
                               <Text variant="h3" accessibilityElementsHidden>
                                 {c.emoji}
                               </Text>
-                              <Text variant="ui" style={{ flex: 1 }} numberOfLines={2}>
+                              <Text
+                                variant="ui"
+                                style={{ flexShrink: 1, textAlign: 'center' }}
+                                numberOfLines={2}
+                              >
                                 {c.name}
                               </Text>
                               {locked ? (
