@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -22,6 +23,7 @@ function answeredLine(q: CustomQuestion, partnerName: string): string {
 export function CustomQuestionList() {
   const { spacing } = useTheme();
   const toast = useToast();
+  const router = useRouter();
   const { partner } = useCouple();
   const { questions, isLoading, isError, refetch } = useCustomQuestions();
   const retire = useRetireCustomQuestion();
@@ -36,7 +38,7 @@ export function CustomQuestionList() {
       await retire.mutateAsync(target.id);
       haptic.warning();
       setTarget(null);
-      toast.show({ message: 'Listo, ya no va a salir.', tone: 'info' });
+      toast.show({ message: 'Listo, la retiramos.', tone: 'info' });
     } catch (e) {
       setError(errorMessage(e));
     }
@@ -77,7 +79,13 @@ export function CustomQuestionList() {
             <Text variant="note" tone="muted">
               {answeredLine(q, partnerName)}
             </Text>
-            <View style={{ alignItems: 'flex-start' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+              <Button
+                title={q.answered_by_me ? 'Ver' : 'Contestar'}
+                variant="secondary"
+                size="sm"
+                onPress={() => router.push({ pathname: '/question', params: { id: q.id } })}
+              />
               <Button
                 title="Retirar"
                 variant="ghost"
@@ -95,7 +103,7 @@ export function CustomQuestionList() {
       <Sheet visible={!!target} onClose={() => setTarget(null)} title="¿Retirar esta pregunta?">
         <View style={{ gap: spacing.md }}>
           <Text variant="body">
-            Deja de salir en la pregunta del día. Las respuestas que ya hay se quedan.
+            Deja de aparecer en su categoría. Las respuestas que ya hay se quedan.
           </Text>
           {error ? <Notice tone="danger">{error}</Notice> : null}
           <Button

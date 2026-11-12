@@ -7,7 +7,7 @@
 --     pareja). Check: created_by no nulo implica couple_id no nulo.
 --   * question_visible: una pregunta con couple_id solo la ve esa pareja.
 --   * pick_daily_question: nunca elige packs ni juegos, ni preguntas con 👎 de
---     cualquier miembro actual; las propias de la pareja van primero.
+--     cualquier miembro actual, ni preguntas propias de una pareja (solo banco global).
 --   * get_category_questions: ordena por position (nulos al final) y slug.
 --   * question_feedback: voto 👍/👎 por persona y pregunta (solo se lee el propio;
 --     se escribe con set_question_feedback).
@@ -138,11 +138,11 @@ grant execute on function public.question_visible(public.questions) to authentic
 
 -- Elige (sin guardar) la siguiente pregunta diaria para la pareja:
 --   1) solo categorías kind = 'questions' (nunca packs ni juegos), tipos open/choice,
---      activas, picantes solo con picantes activas, globales o propias de la pareja;
+--      activas, picantes solo con picantes activas y solo del banco global
+--      (couple_id is null: las preguntas propias nunca salen como pregunta del día);
 --   2) sin las que cualquier miembro actual marcó 👎;
 --   3) que nunca se hayan asignado ni contestado en la pareja;
---   4) primero las propias de la pareja; luego la categoría usada hace más tiempo
---      (rotación), al azar dentro de ella.
+--   4) la categoría usada hace más tiempo (rotación), al azar dentro de ella.
 -- Si no queda ninguna sin usar, repite la asignada hace más tiempo (mismas reglas).
 -- Último recurso: si todo el banco tiene 👎, las permite (nunca null si hay banco).
 create or replace function public.pick_daily_question(p_couple_id uuid)
@@ -160,13 +160,13 @@ begin
   foreach v_allow_down in array array[false, true] loop
     -- Sin usar.
     with eligible as (
-      select q.id, q.category, (q.couple_id is not null) as own
+      select q.id, q.category
       from public.questions q
       join public.question_categories c on c.slug = q.category and c.kind = 'questions'
       where q.is_active
         and q.type in ('open', 'choice')
         and (q.intensity <> 'picante' or v_spicy)
-        and (q.couple_id is null or q.couple_id = p_couple_id)
+        and q.couple_id is null
         and (v_allow_down or not exists (
           select 1 from public.question_feedback f
           join public.couple_members cm on cm.user_id = f.user_id and cm.couple_id = p_couple_id
@@ -194,7 +194,7 @@ begin
     select u.id into v_question_id
     from unused u
     left join last_use lu on lu.category = u.category
-    order by u.own desc, lu.last_day asc nulls first, random()
+    order by lu.last_day asc nulls first, random()
     limit 1;
 
     -- Respaldo: la asignada hace más tiempo.
@@ -209,7 +209,7 @@ begin
       where q.is_active
         and q.type in ('open', 'choice')
         and (q.intensity <> 'picante' or v_spicy)
-        and (q.couple_id is null or q.couple_id = p_couple_id)
+        and q.couple_id is null
         and (v_allow_down or not exists (
           select 1 from public.question_feedback f
           join public.couple_members cm on cm.user_id = f.user_id and cm.couple_id = p_couple_id
@@ -225,7 +225,7 @@ begin
   return v_question_id;
 end;
 $$;
-comment on function public.pick_daily_question(uuid) is 'Elige (sin guardar) la siguiente pregunta diaria: solo categorías de preguntas, sin 👎, propias primero, rotando categorías y respetando picantes.';
+comment on function public.pick_daily_question(uuid) is 'Elige (sin guardar) la siguiente pregunta diaria: solo categorías de preguntas del banco global (nunca propias), sin 👎, rotando categorías y respetando picantes.';
 
 revoke all on function public.pick_daily_question(uuid) from public, anon, authenticated;
 
@@ -470,7 +470,7 @@ begin
   return v_id;
 end;
 $$;
-comment on function public.add_custom_question(text, text, text, jsonb, text) is 'Agrega una pregunta propia de mi pareja (entra a la pregunta del día antes que las del banco).';
+comment on function public.add_custom_question(text, text, text, jsonb, text) is 'Agrega una pregunta propia de mi pareja (solo la ven ustedes; no entra a la pregunta del día).';
 
 -- Cualquiera de los dos retira una pregunta propia de la pareja (las respuestas se conservan).
 create or replace function public.retire_custom_question(p_question_id uuid)

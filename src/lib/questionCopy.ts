@@ -115,6 +115,6 @@ export const PACK_DONE_TITLE = 'Terminaste el tema';
 export const PACK_DONE_BODY = 'Ya contestaste todas. Si a tu pareja le faltan, aquí las alcanzas.';
 
 export const ADD_QUESTION_NOTE =
-  'Las preguntas que agreguen entran a la pregunta del día antes que las demás.';
+  'Las preguntas que agreguen aparecen en su categoría para que las contesten cuando quieran.';
 export const ADD_QUESTION_SPICY_NOTE =
   'Las picantes se abren solo cuando los dos las activan en sus ajustes.';

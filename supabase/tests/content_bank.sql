@@ -439,16 +439,15 @@ select pg_temp.expect_error(format('select public.retire_custom_question(%L)', (
 select pg_temp.expect_error(format('select public.submit_answer(%L, %L)', (select id from t_ids where k = 'own1'), 'hola'), 'question_not_found');
 reset role;
 
--- =============================================================================
--- 6) Pregunta del día: solo preguntas, propias primero, sin 👎, respaldo.
--- =============================================================================
--- El banco elegible de P1: test-a-1, test-a-2 + sus propias activas. Se retiran las propias
--- extra (dejando own1 y own2) para controlar el escenario.
-update public.questions set is_active = false
-where couple_id = pg_temp.cid(pg_temp.u('A')) and id not in (select id from t_ids where k in ('own1', 'own2'));
-
+-- ===========================================================================
+-- 6) Pregunta del día: solo banco global de preguntas, sin 👎, nunca propias, respaldo.
+-- ===========================================================================
+-- Escenario: P1 y P2 tienen propias activas (sin usar) y el banco global elegible es a1, a2.
 -- test-ord es una categoría de preguntas: se apaga mientras se prueba la pregunta del día.
 update public.questions set is_active = false where category = 'test-ord';
+-- Se retiran las propias extra de P1 (dejando own1 y own2) para controlar el escenario.
+update public.questions set is_active = false
+where couple_id = pg_temp.cid(pg_temp.u('A')) and id not in (select id from t_ids where k in ('own1', 'own2'));
 
 do $$
 declare
@@ -458,82 +457,62 @@ declare
   a2 uuid := pg_temp.qid('test-a-2');
   own1 uuid := (select id from t_ids where k = 'own1');
   own2 uuid := (select id from t_ids where k = 'own2');
-  v uuid;
-  i integer;
 begin
-  -- Hay propias sin usar: siempre salen primero (y nunca packs, juegos ni la picante).
-  assert pg_temp.picks_in(p1, array[own1, own2], 60), 'las propias de la pareja van primero';
-  assert pg_temp.picks_cover(p1, array[own1, own2], 80), 'ambas propias salen (azar entre ellas)';
-  -- P2 no ve las propias de P1: solo globales de preguntas (a1, a2) y su propia.
-  assert pg_temp.picks_in(p2, array[a1, a2,
-    (select id from public.questions where couple_id = p2 and is_active)], 60),
-    'P2 no recibe propias ajenas, packs ni juegos';
+  assert (select count(*) from public.questions where couple_id = p1 and is_active) = 2, 'P1 tiene 2 propias activas';
+  assert (select count(*) from public.questions where couple_id = p2 and is_active) = 1, 'P2 tiene 1 propia activa';
 
-  -- Con las dos propias ya usadas salen las globales de preguntas.
-  insert into public.daily_questions (couple_id, day, question_id) values
-    (p1, pg_temp.today() - 6, own1), (p1, pg_temp.today() - 5, own2);
-  assert pg_temp.picks_in(p1, array[a1, a2], 60), 'sin propias nuevas: solo preguntas del banco (sin packs/juegos/picantes)';
-  assert pg_temp.picks_cover(p1, array[a1, a2], 80), 'ambas globales salen';
+  -- Las propias sin usar NO salen: solo a1/a2 (nunca packs, juegos, picantes ni propias).
+  assert pg_temp.picks_in(p1, array[a1, a2], 80), 'P1: solo banco global de preguntas';
+  assert pg_temp.picks_cover(p1, array[a1, a2], 80), 'P1: ambas globales salen';
+  assert pg_temp.picks_in(p2, array[a1, a2], 80), 'P2: solo banco global (ni la suya ni la de P1)';
+  assert pg_temp.picks_cover(p2, array[a1, a2], 80), 'P2: ambas globales salen';
 
-  -- 👎 de Ana a a1: ya no sale para ninguno de los dos.
+  -- 👎 de Ana a a1: ya no sale para ninguno de los dos; P2 no se afecta.
   insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('A'), a1, -1);
   assert pg_temp.picks_in(p1, array[a2], 40), '👎 de Ana excluye a a1';
-  -- P2 no se ve afectada por un 👎 de otra pareja.
-  update public.questions set is_active = false where couple_id = p2;
   assert pg_temp.picks_cover(p2, array[a1, a2], 80), 'el 👎 de P1 no afecta a P2';
-  update public.questions set is_active = true where couple_id = p2;
   -- 👍 no excluye.
   update public.question_feedback set vote = 1 where question_id = a1;
   assert pg_temp.picks_cover(p1, array[a1, a2], 80), '👍 no excluye';
-  -- 👎 de Beto a a2 y de Ana a a1: no queda nada sin 👎, se permiten (nunca null).
+  -- 👎 de Ana a a1 y de Beto a a2: no queda nada sin 👎, se permiten (nunca null, nunca propias).
   update public.question_feedback set vote = -1 where question_id = a1;
   insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('B'), a2, -1);
-  -- Las sin usar tienen 👎: se prefiere repetir una ya asignada (hoy-6) sin 👎 antes que una 👎.
-  assert pg_temp.picks_in(p1, array[own1], 40), 'sin usar con 👎 < repetir una sin 👎 (respaldo)';
-  -- Si además las propias se apagan, no queda nada sin 👎: se permiten (nunca null).
-  update public.questions set is_active = false where id in (own1, own2);
-  assert pg_temp.picks_in(p1, array[a1, a2], 40), 'si todo tiene 👎, se permite alguna (no null)';
-  update public.questions set is_active = true where id in (own1, own2);
+  assert pg_temp.picks_in(p1, array[a1, a2], 40), 'si todo tiene 👎, se permite alguna (no null, no propias)';
   delete from public.question_feedback;
 
-  -- Respaldo con todo usado: la asignada hace más tiempo, sin packs ni juegos.
+  -- Todo el banco usado (las propias también estuvieron asignadas): respaldo = la más vieja
+  -- del banco global; nunca una propia aunque sea más vieja.
   insert into public.daily_questions (couple_id, day, question_id) values
+    (p1, pg_temp.today() - 6, own1), (p1, pg_temp.today() - 5, own2),
     (p1, pg_temp.today() - 4, a1), (p1, pg_temp.today() - 3, a2);
-  assert pg_temp.picks_in(p1, array[own1], 20), 'respaldo: la de hace más tiempo (own1 hoy-6)';
-  -- Un 👎 de Beto a own1 la salta en el respaldo: la siguiente más vieja es own2 (hoy-5).
-  insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('B'), own1, -1);
-  assert pg_temp.picks_in(p1, array[own2], 20), 'respaldo sin las 👎';
-  insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('A'), own2, -1);
-  assert pg_temp.picks_in(p1, array[a1], 20), 'respaldo: la siguiente más vieja sin 👎 (a1)';
-  -- Con todas 👎 el último recurso las permite y vuelve a ser la más vieja.
-  insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('A'), a1, -1), (pg_temp.u('B'), a2, -1);
-  assert pg_temp.picks_in(p1, array[own1], 20), 'todo con 👎: último recurso, la más vieja';
+  assert pg_temp.picks_in(p1, array[a1], 30), 'respaldo: la global asignada hace más tiempo (a1), no una propia';
+  insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('B'), a1, -1);
+  assert pg_temp.picks_in(p1, array[a2], 30), 'respaldo sin las 👎';
+  insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('A'), a2, -1);
+  assert pg_temp.picks_in(p1, array[a1], 30), 'todo con 👎: último recurso, la más vieja global';
   delete from public.question_feedback;
 
   -- Un 👎 de alguien que ya no es miembro no cuenta.
   insert into public.question_feedback (user_id, question_id, vote) values (pg_temp.u('E'), a1, -1);
   delete from public.daily_questions where couple_id = p1;
-  update public.questions set is_active = false where id in (own1, own2);
   assert pg_temp.picks_cover(p1, array[a1, a2], 80), 'el 👎 de alguien ajeno a la pareja no excluye';
-  update public.questions set is_active = true where id in (own1, own2);
   delete from public.question_feedback;
 
-  -- Solo hay packs y juegos (sin preguntas elegibles): no hay pregunta del día.
-  update public.questions set is_active = false where id in (a1, a2, own1, own2);
-  assert public.pick_daily_question(p1) is null, 'con solo packs/juegos activos no se elige nada';
-  update public.questions set is_active = true where id in (a1, a2, own1, own2);
+  -- Sin preguntas globales elegibles (solo packs, juegos y propias): no hay pregunta del día.
+  update public.questions set is_active = false where id in (a1, a2);
+  assert public.pick_daily_question(p1) is null, 'con solo packs/juegos/propias no se elige nada';
+  update public.questions set is_active = true where id in (a1, a2);
 end $$;
 delete from public.daily_questions;
 
--- get_daily_question usa la misma regla (la propia de la pareja sale primero).
+-- get_daily_question usa la misma regla (nunca una propia).
 select pg_temp.as_user('A');
 do $$
 declare
   card jsonb := public.get_daily_question();
 begin
-  assert (card->'question'->>'id')::uuid in (
-    (select id from t_ids where k = 'own1'), (select id from t_ids where k = 'own2')),
-    'la pregunta del día es una propia';
+  assert (card->'question'->>'id')::uuid in (pg_temp.qid('test-a-1'), pg_temp.qid('test-a-2')),
+    'la pregunta del día es del banco global';
 end $$;
 reset role;
 delete from public.daily_questions;
@@ -696,11 +675,12 @@ begin
   assert (select count(*) from public.questions where id = own1) = 1, 'visible por estar contestada';
 end $$;
 reset role;
+update public.questions set is_active = false where category = 'test-ord';
 do $$
 declare
   p1 uuid := pg_temp.cid(pg_temp.u('A'));
 begin
-  assert pg_temp.picks_in(p1, array[(select id from t_ids where k = 'own2')], 40), 'la retirada no se elige; sigue la otra propia sin usar';
+  assert pg_temp.picks_in(p1, array[pg_temp.qid('test-a-1'), pg_temp.qid('test-a-2')], 40), 'la retirada no sale en la pregunta del día';
 end $$;
 
 -- =============================================================================
@@ -740,7 +720,7 @@ reset role;
 do $$
 begin
   -- pick no elige la propia picante sin picantes activas.
-  assert pg_temp.picks_in(pg_temp.cid(pg_temp.u('A')), array[(select id from t_ids where k = 'own2')], 40),
+  assert pg_temp.picks_in(pg_temp.cid(pg_temp.u('A')), array[pg_temp.qid('test-a-1'), pg_temp.qid('test-a-2')], 40),
     'sin picantes activas no se elige la picante propia';
 end $$;
 

@@ -29,12 +29,12 @@ jest.mock('@/features/couple', () => ({
   useToday: () => ({ today: '2026-11-12', timeZone: 'America/Mexico_City' }),
 }));
 
-function setup<T>(hook: () => T) {
+async function setup<T>(hook: () => T) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   const wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={client}>{children}</QueryClientProvider>
   );
-  return { client, ...renderHook(hook, { wrapper }) };
+  return { client, ...(await renderHook(hook, { wrapper })) };
 }
 
 const packRow = {
@@ -86,15 +86,18 @@ describe('banco de preguntas: hooks', () => {
     mockRpc.mockReturnValue(new Promise((r) => (resolve = r)));
     const { client, result } = await setup(() => useSetFeedback());
     client.setQueryData(questionKeys.feedback('c1', 'q1'), null);
-    act(() => {
+    await act(async () => {
       result.current.mutate({ questionId: 'q1', vote: -1 });
     });
-    await waitFor(() => expect(client.getQueryData(questionKeys.feedback('c1', 'q1'))).toBe(-1));
+    // Todavía sin respuesta del servidor, la fila ya muestra el 👎.
+    expect(client.getQueryData(questionKeys.feedback('c1', 'q1'))).toBe(-1);
     expect(mockRpc).toHaveBeenCalledWith('set_question_feedback', {
       p_question_id: 'q1',
       p_vote: -1,
     });
-    await act(async () => resolve({ data: -1, error: null }));
+    await act(async () => {
+      resolve({ data: -1, error: null });
+    });
   });
 
   it('useSetFeedback quita el voto mandando null', async () => {
