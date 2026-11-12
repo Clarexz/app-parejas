@@ -1059,7 +1059,7 @@ Fase 12 (pulido y v1.0.0).
 | 7 Memorias y mapa | ✅ Cerrada y desplegada | #11 | Memorias con 1–10 fotos, diario por mes, mapa con clusters (o "mapa de papel" sin key), "Un día como hoy" y push (D73–D77). Desplegada y probada antes de la Fase 12A. |
 | 8 Eventos, listas, distancia | ✅ Cerrada y desplegada | #12 | Cuentas regresivas con "la próxima vez que nos vemos", listas compartidas, distancia opt-in aproximada y widget Distancia (D78–D84). Desplegada y probada antes de la Fase 12A. |
 | 9 Juegos | ✅ Cerrada y desplegada | #15 | Cuatro juegos en rondas asíncronas, reto de dibujo, push y 200 ítems + 80 palabras (D87–D91). Desplegada y probada antes de la Fase 12A. |
-| 10 Banco de contenido | ✅ Cerrada y desplegada (v0.13.0) | #23 | 3,530 ítems (2,270 diarias en 14 categorías, 1,000+ de juegos, 8 temas con 221) + 212 palabras; temas como quiz, 👍/👎, "Agregar pregunta" (no van a la pregunta del día), `check-content` e `import-questions`, rondas de 10/15/20 y pestaña Preguntas compacta (D119–D125). Servidor desplegado (2026-11-12); falta probar el APK en los celulares. |
+| 10 Banco de contenido | ✅ Cerrada y desplegada (v0.13.0) | #23 | 3,530 ítems (2,270 diarias en 14 categorías, 1,000+ de juegos, 8 temas con 221) + 212 palabras; temas como quiz, 👍/👎, "Agregar pregunta" (no van a la pregunta del día), `check-content` e `import-questions`, rondas de 10/15/20 y pestaña Preguntas compacta (D119–D125). Servidor desplegado y PR mergeado a `main` a pedido del usuario (2026-11-12); falta probar el APK en los celulares. |
 | 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Siguiente fase (después de la 10). |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
 | 12 Pulido y entrega | 🟡 Parte 2 (v0.12.5) | #18, #22 | Parte 1: nombre, icono y textos (v0.12.0); aviso de versión nueva (D107, v0.12.3). **Parte 2** (D112–D118): respuestas en audio, tarjeta compartible, bloqueo con huella, caché offline, reintentos, error boundary, FlashList y auditoría de RLS/RPC con prueba permanente y día de la pareja según la zona de cada quien. Servidor desplegado, restauración probada y registro cerrado (2026-11-11); v0.12.5 probada en los celulares y mergeada a `main` (2026-11-12). La **v1.0.0** se pospone: antes faltan más fases (10, 11A) y detalles por corregir.
@@ -1074,8 +1074,10 @@ Fase 12 (pulido y v1.0.0).
   `…001_game_round_size` (18 migraciones registradas) y el seed (3,530 preguntas activas, 212
   palabras, 8 temas, 0 del seed desactivadas). `security_audit.sql` OK, `get_packs()` con 8 filas
   (Deseo sin siguiente por picantes apagadas) y smoke test OK sin avisos. Sin secretos nuevos.
-  El clon del VPS quedó en la rama de la fase: el siguiente deploy es de `main` cuando se mergee.
-  **Falta:** probar el APK **v0.13.0** con `docs/releases/v0.13.0.md`.
+  APK **v0.13.0** publicado y PR #23 mergeado a `main` el 2026-11-12 a pedido del usuario. El clon
+  del VPS quedó en la rama de la fase: el siguiente deploy es de `main`. **Falta:** probar el APK en
+  los dos celulares con `docs/releases/v0.13.0.md` (sobre todo el selector 10/15/20 y el resultado de
+  una ronda de 15, que solo tienen pruebas automáticas).
 - **Fuera de fase:** el usuario quiere corregir detalles de la tarjeta compartible (racha / tiempo
   juntos); queda pendiente hasta que diga qué.
 
