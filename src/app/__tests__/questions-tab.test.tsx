@@ -154,7 +154,7 @@ describe('Pestaña Preguntas', () => {
     mockPacks = [pack({})];
     await renderScreen();
     expect(screen.getByRole('header', { name: 'Temas' })).toBeTruthy();
-    expect(screen.getByText('3 de 12 contestadas por los dos')).toBeTruthy();
+    expect(screen.getByText('3 de 12')).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: /^Para conocernos/ }));
     expect(mockPush).toHaveBeenCalledWith({
       pathname: '/pack/[slug]',
@@ -165,7 +165,7 @@ describe('Pestaña Preguntas', () => {
   it('un tema picante sin picantes activas sale bloqueado y abre el aviso', async () => {
     mockPacks = [pack({ slug: 'pack-p', name: 'Solo ustedes', intensity: 'picante' })];
     await renderScreen();
-    expect(screen.getByText('Se abre cuando los dos quieran.')).toBeTruthy();
+    expect(screen.getByText('Con candado')).toBeTruthy();
     await fireEvent.press(screen.getByRole('button', { name: 'Solo ustedes, bloqueado' }));
     expect(mockPush).not.toHaveBeenCalled();
     expect(screen.getByText('Todavía con candado')).toBeTruthy();

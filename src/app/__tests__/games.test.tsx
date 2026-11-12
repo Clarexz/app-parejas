@@ -166,16 +166,16 @@ describe('Juegos', () => {
 
   it('al empezar una ronda ofrece 10, 15 y 20 (10 por defecto) y manda el elegido', async () => {
     await render(shell(<GamesScreen />));
-    fireEvent.press(screen.getByLabelText(/^Yo nunca\./));
+    await fireEvent.press(screen.getByLabelText(/^Yo nunca\./));
     expect(screen.getByRole('tab', { name: '10' })).toBeTruthy();
     expect(screen.getByRole('tab', { name: '20' })).toBeTruthy();
-    fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
     expect(mockStart).toHaveBeenLastCalledWith(
       { game: 'nhie', spicy: false, size: 10 },
       expect.any(Object),
     );
-    fireEvent.press(screen.getByRole('tab', { name: '15' }));
-    fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
+    await fireEvent.press(screen.getByRole('tab', { name: '15' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
     expect(mockStart).toHaveBeenLastCalledWith(
       { game: 'nhie', spicy: false, size: 15 },
       expect.any(Object),
@@ -203,7 +203,7 @@ describe('Juegos', () => {
     await render(shell(<GameScreen />));
     expect(screen.getByText('60%')).toBeTruthy();
     expect(screen.getByText('Coincidieron en 9 de 15.')).toBeTruthy();
-    fireEvent.press(screen.getByRole('button', { name: 'Otra ronda' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Otra ronda' }));
     expect(mockStart).toHaveBeenLastCalledWith(
       { game: 'wyr', spicy: false, size: 15 },
       expect.any(Object),

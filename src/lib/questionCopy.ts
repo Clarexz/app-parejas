@@ -109,6 +109,16 @@ export function packCardNote(
   return `${both} de ${total} contestadas por los dos`;
 }
 
+/** Nota corta para las tarjetas compactas de temas ("3 de 12"). */
+export function packCompactNote(
+  status: PackStatus,
+  progress: { total: number; answered_by_both: number },
+): string {
+  if (status === 'locked') return 'Con candado';
+  if (status === 'empty') return 'Pronto';
+  return `${progress.answered_by_both} de ${progress.total}`;
+}
+
 export const PACK_FINISHED_LINE = 'Ya contestaste todas.';
 export const PACK_NEXT_LABEL = 'Siguiente del tema';
 export const PACK_DONE_TITLE = 'Terminaste el tema';

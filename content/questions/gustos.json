@@ -448,8 +448,8 @@
       "slug": "gustos-pizza-pina",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Pizza con piña?",
-      "options": ["Sí, siempre", "A veces", "Jamás", "Pruebo, pero sin que me vean"]
+      "text": "¿Qué ingrediente en la pizza te parece intocable?",
+      "options": ["Piña", "Champiñones", "Anchoas", "Extra queso"]
     },
     {
       "slug": "gustos-domingo-comida-familia-pides",

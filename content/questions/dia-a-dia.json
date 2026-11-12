@@ -143,7 +143,7 @@
       "slug": "dia-a-dia-cual-tarea-domestica-mas-gusta",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál es la tarea doméstica que más te gusta hacer?"
+      "text": "¿Qué tarea de la casa hasta te relaja hacer?"
     },
     {
       "slug": "dia-a-dia-cual-tarea-casa-posponer-da",
@@ -496,7 +496,7 @@
       "slug": "dia-a-dia-cual-tarea-domestica-menos-favorita",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cuál es tu tarea doméstica menos favorita?",
+      "text": "¿Qué tarea de la casa es la que más flojera te da?",
       "options": ["Lavar trastes", "Planchar", "Barrer o trapear", "Sacar la basura"]
     },
     {

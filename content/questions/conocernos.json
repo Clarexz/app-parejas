@@ -1273,8 +1273,13 @@
       "slug": "conocernos-como-reaccionas-ante-cambio-grande",
       "type": "choice",
       "intensity": "profunda",
-      "text": "¿Cómo reaccionas ante el cambio grande?",
-      "options": ["Me emociono", "Me asusto", "Necesito tiempo", "Hago listas"]
+      "text": "Cuando cambia algo grande en tu vida, ¿qué haces primero?",
+      "options": [
+        "Me emociono y me muevo",
+        "Me asusto un poco",
+        "Necesito tiempo para digerirlo",
+        "Hago listas de todo"
+      ]
     },
     {
       "slug": "conocernos-cuesta-mas-mostrar",

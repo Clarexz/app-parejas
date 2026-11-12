@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Button, Card, EmptyState, Icon, LoadingSymbol, Screen, Sheet, Text } from '@/components';
 import { useCouple } from '@/features/couple';
@@ -16,16 +16,16 @@ import { ShareCardButton } from '@/features/share';
 import { StreakChip } from '@/features/questions/components/StreakChip';
 import { packProgress, packStatus } from '@/lib/packs';
 import {
-  ADD_QUESTION_NOTE,
   REPAIR_TODAY_NOTE,
   packCardNote,
+  packCompactNote,
   repairPrompt,
   repairView,
   repairsLeftLine,
 } from '@/lib/questionCopy';
 import { spicyState } from '@/lib/questions';
 import { streakHeadline } from '@/lib/questionsView';
-import { useTheme } from '@/theme';
+import { page, useTheme } from '@/theme';
 
 export default function QuestionsScreen() {
   const { spacing, colors } = useTheme();
@@ -125,45 +125,63 @@ export default function QuestionsScreen() {
                     Todavía no hay categorías. Jala hacia abajo para actualizar.
                   </Text>
                 ) : (
-                  categories.categories.map((c) => {
-                    const locked = c.intensity === 'picante' && !spicyActive;
-                    return (
-                      <Card
-                        key={c.slug}
-                        accessibilityLabel={
-                          locked ? `${c.name}, bloqueada` : `${c.name}. ${c.description}`
-                        }
-                        onPress={() =>
-                          locked
-                            ? setSpicySheet(true)
-                            : router.push({
-                                pathname: '/category/[slug]',
-                                params: { slug: c.slug },
-                              })
-                        }
-                      >
-                        <View
-                          style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
-                        >
-                          <Text variant="h2" accessibilityElementsHidden>
-                            {c.emoji}
-                          </Text>
-                          <View style={{ flex: 1, gap: spacing.xxs }}>
-                            <Text variant="h3">{c.name}</Text>
-                            <Text variant="note" tone="muted">
-                              {locked ? 'Se abre cuando los dos quieran.' : c.description}
-                            </Text>
-                          </View>
-                          <Icon
-                            name={locked ? 'lock' : 'chevron'}
-                            size={22}
-                            color={colors.inkMuted}
-                          />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      justifyContent: 'space-between',
+                      rowGap: spacing.md,
+                    }}
+                  >
+                    {categories.categories.map((c) => {
+                      const locked = c.intensity === 'picante' && !spicyActive;
+                      return (
+                        <View key={c.slug} style={{ width: '48.5%' }}>
+                          <Card
+                            accessibilityLabel={
+                              locked ? `${c.name}, bloqueada` : `${c.name}. ${c.description}`
+                            }
+                            onPress={() =>
+                              locked
+                                ? setSpicySheet(true)
+                                : router.push({
+                                    pathname: '/category/[slug]',
+                                    params: { slug: c.slug },
+                                  })
+                            }
+                            style={{ padding: spacing.md, minHeight: 64, justifyContent: 'center' }}
+                          >
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: spacing.sm,
+                              }}
+                            >
+                              <Text variant="h3" accessibilityElementsHidden>
+                                {c.emoji}
+                              </Text>
+                              <Text variant="ui" style={{ flex: 1 }} numberOfLines={2}>
+                                {c.name}
+                              </Text>
+                              {locked ? (
+                                <Icon name="lock" size={18} color={colors.inkMuted} />
+                              ) : null}
+                            </View>
+                          </Card>
                         </View>
-                      </Card>
-                    );
-                  })
+                      );
+                    })}
+                  </View>
                 )}
+                <View style={{ alignItems: 'flex-start' }}>
+                  <Button
+                    title="Agregar una pregunta"
+                    variant="secondary"
+                    icon="plus"
+                    onPress={() => router.push('/add-question')}
+                  />
+                </View>
               </View>
 
               <View style={{ gap: spacing.md }}>
@@ -183,64 +201,64 @@ export default function QuestionsScreen() {
                     Todavía no hay temas. Jala hacia abajo para actualizar.
                   </Text>
                 ) : (
-                  packs.packs.map((p) => {
-                    const status = packStatus(p, spicyActive);
-                    const locked = status === 'locked';
-                    const note = packCardNote(status, p);
-                    return (
-                      <Card
-                        key={p.slug}
-                        accessibilityLabel={
-                          locked ? `${p.name}, bloqueado` : `${p.name}. ${p.description}. ${note}`
-                        }
-                        onPress={() =>
-                          locked
-                            ? setSpicySheet(true)
-                            : router.push({ pathname: '/pack/[slug]', params: { slug: p.slug } })
-                        }
-                      >
-                        <View
-                          style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
-                        >
-                          <Text variant="h2" accessibilityElementsHidden>
-                            {p.emoji}
-                          </Text>
-                          <View style={{ flex: 1, gap: spacing.xs }}>
-                            <Text variant="h3">{p.name}</Text>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={{ marginHorizontal: -page.gutter }}
+                    contentContainerStyle={{ paddingHorizontal: page.gutter, gap: spacing.md }}
+                  >
+                    {packs.packs.map((p) => {
+                      const status = packStatus(p, spicyActive);
+                      const locked = status === 'locked';
+                      const note = packCardNote(status, p);
+                      return (
+                        <View key={p.slug} style={{ width: 168 }}>
+                          <Card
+                            accessibilityLabel={
+                              locked
+                                ? `${p.name}, bloqueado`
+                                : `${p.name}. ${p.description}. ${note}`
+                            }
+                            onPress={() =>
+                              locked
+                                ? setSpicySheet(true)
+                                : router.push({
+                                    pathname: '/pack/[slug]',
+                                    params: { slug: p.slug },
+                                  })
+                            }
+                            style={{ padding: spacing.md, gap: spacing.sm, minHeight: 132 }}
+                          >
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <Text variant="h2" accessibilityElementsHidden>
+                                {p.emoji}
+                              </Text>
+                              {locked ? (
+                                <Icon name="lock" size={18} color={colors.inkMuted} />
+                              ) : null}
+                            </View>
+                            <Text variant="ui" numberOfLines={2} style={{ flex: 1 }}>
+                              {p.name}
+                            </Text>
                             {locked || status === 'empty' ? null : (
                               <PackProgress value={packProgress(p)} />
                             )}
                             <Text variant="note" tone="muted">
-                              {note}
+                              {packCompactNote(status, p)}
                             </Text>
-                          </View>
-                          <Icon
-                            name={locked ? 'lock' : 'chevron'}
-                            size={22}
-                            color={colors.inkMuted}
-                          />
+                          </Card>
                         </View>
-                      </Card>
-                    );
-                  })
+                      );
+                    })}
+                  </ScrollView>
                 )}
               </View>
-
-              <Card
-                accessibilityLabel={`Agregar una pregunta. ${ADD_QUESTION_NOTE}`}
-                onPress={() => router.push('/add-question')}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-                  <Icon name="plus" size={24} />
-                  <View style={{ flex: 1, gap: spacing.xxs }}>
-                    <Text variant="h3">Agregar una pregunta</Text>
-                    <Text variant="note" tone="muted">
-                      {ADD_QUESTION_NOTE}
-                    </Text>
-                  </View>
-                  <Icon name="chevron" size={22} color={colors.inkMuted} />
-                </View>
-              </Card>
             </>
           )}
         </View>

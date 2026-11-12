@@ -1,6 +1,7 @@
 import type { QuestionCard, Streak } from '../questions';
 import {
   packCardNote,
+  packCompactNote,
   commentCountLabel,
   partnerFoldedLabel,
   questionErrorKind,
@@ -127,5 +128,10 @@ describe('questionCopy', () => {
     expect(packCardNote('finished', { total: 12, answered_by_both: 12 })).toBe(
       'Las 12 contestadas por los dos.',
     );
+  });
+
+  it('la nota corta de los temas', () => {
+    expect(packCompactNote('in_progress', { total: 12, answered_by_both: 3 })).toBe('3 de 12');
+    expect(packCompactNote('locked', { total: 12, answered_by_both: 0 })).toBe('Con candado');
   });
 });
