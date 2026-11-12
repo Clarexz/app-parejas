@@ -372,252 +372,147 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gustan los tacos?",
-      "options": [
-        "Al pastor",
-        "De carnitas",
-        "De guisado",
-        "De suadero"
-      ]
+      "options": ["Al pastor", "De carnitas", "De guisado", "De suadero"]
     },
     {
       "slug": "gustos-cual-salsa-vida",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es la salsa de tu vida?",
-      "options": [
-        "Verde cruda",
-        "Roja con chile de árbol",
-        "Macha",
-        "La de la casa"
-      ]
+      "options": ["Verde cruda", "Roja con chile de árbol", "Macha", "La de la casa"]
     },
     {
       "slug": "gustos-chilaquiles-rojos-verdes",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Chilaquiles rojos o verdes?",
-      "options": [
-        "Rojos",
-        "Verdes",
-        "Divorciados",
-        "Los dos, con huevo"
-      ]
+      "options": ["Rojos", "Verdes", "Divorciados", "Los dos, con huevo"]
     },
     {
       "slug": "gustos-como-prefieres-elote",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo prefieres tu elote?",
-      "options": [
-        "En vaso",
-        "En mazorca con mayonesa",
-        "Asado",
-        "Esquite con todo"
-      ]
+      "options": ["En vaso", "En mazorca con mayonesa", "Asado", "Esquite con todo"]
     },
     {
       "slug": "gustos-pan-dulce-llama-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué pan dulce te llama más?",
-      "options": [
-        "Concha",
-        "Oreja",
-        "Cuernito",
-        "Dona"
-      ]
+      "options": ["Concha", "Oreja", "Cuernito", "Dona"]
     },
     {
       "slug": "gustos-cual-torta-ideal",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu torta ideal?",
-      "options": [
-        "Cubana",
-        "Ahogada",
-        "Milanesa",
-        "De tamal"
-      ]
+      "options": ["Cubana", "Ahogada", "Milanesa", "De tamal"]
     },
     {
       "slug": "gustos-cual-bebida-comida",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu bebida para la comida?",
-      "options": [
-        "Agua de sabor",
-        "Refresco",
-        "Cerveza",
-        "Agua natural"
-      ]
+      "options": ["Agua de sabor", "Refresco", "Cerveza", "Agua natural"]
     },
     {
       "slug": "gustos-agua-fresca-eliges",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué agua fresca eliges?",
-      "options": [
-        "Horchata",
-        "Jamaica",
-        "Tamarindo",
-        "Limón con chía"
-      ]
+      "options": ["Horchata", "Jamaica", "Tamarindo", "Limón con chía"]
     },
     {
       "slug": "gustos-cual-helado-paleta-ideal",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu helado o paleta ideal?",
-      "options": [
-        "Limón",
-        "Chocolate",
-        "Fresa",
-        "Mango con chile"
-      ]
+      "options": ["Limón", "Chocolate", "Fresa", "Mango con chile"]
     },
     {
       "slug": "gustos-como-gustan-frijoles",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gustan los frijoles?",
-      "options": [
-        "De la olla",
-        "Refritos",
-        "Charros",
-        "Con arroz y ya"
-      ]
+      "options": ["De la olla", "Refritos", "Charros", "Con arroz y ya"]
     },
     {
       "slug": "gustos-cena-cae-mejor",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué cena te cae mejor?",
-      "options": [
-        "Quesadillas",
-        "Pozole",
-        "Sándwich",
-        "Cereal"
-      ]
+      "options": ["Quesadillas", "Pozole", "Sándwich", "Cereal"]
     },
     {
       "slug": "gustos-pizza-pina",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Pizza con piña?",
-      "options": [
-        "Sí, siempre",
-        "A veces",
-        "Jamás",
-        "Pruebo, pero sin que me vean"
-      ]
+      "options": ["Sí, siempre", "A veces", "Jamás", "Pruebo, pero sin que me vean"]
     },
     {
       "slug": "gustos-domingo-comida-familia-pides",
       "type": "choice",
       "intensity": "ligera",
       "text": "Domingo de comida en familia, ¿qué pides?",
-      "options": [
-        "Barbacoa",
-        "Mole",
-        "Carne asada",
-        "Pozole"
-      ]
+      "options": ["Barbacoa", "Mole", "Carne asada", "Pozole"]
     },
     {
       "slug": "gustos-sabor-refresco-soda-prefieres",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué sabor de refresco o de soda prefieres?",
-      "options": [
-        "Cola",
-        "Limón",
-        "Naranja",
-        "Toronja"
-      ]
+      "options": ["Cola", "Limón", "Naranja", "Toronja"]
     },
     {
       "slug": "gustos-cual-botana-pelicula",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu botana de película?",
-      "options": [
-        "Palomitas",
-        "Papas",
-        "Nachos",
-        "Gomitas"
-      ]
+      "options": ["Palomitas", "Papas", "Nachos", "Gomitas"]
     },
     {
       "slug": "gustos-antojo-dulce-llama-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué antojo dulce te llama más?",
-      "options": [
-        "Churros",
-        "Helado",
-        "Chocolate",
-        "Fruta con crema"
-      ]
+      "options": ["Churros", "Helado", "Chocolate", "Fruta con crema"]
     },
     {
       "slug": "gustos-mejor-desayuno",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué es mejor para el desayuno?",
-      "options": [
-        "Huevos al gusto",
-        "Hot cakes",
-        "Molletes",
-        "Fruta con yogurt"
-      ]
+      "options": ["Huevos al gusto", "Hot cakes", "Molletes", "Fruta con yogurt"]
     },
     {
       "slug": "gustos-tan-aventurero-aventurera-comida",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan aventurero o aventurera eres con la comida?",
-      "options": [
-        "Pruebo todo",
-        "Pruebo casi todo",
-        "Pido lo conocido",
-        "Soy de pocas cosas"
-      ]
+      "options": ["Pruebo todo", "Pruebo casi todo", "Pido lo conocido", "Soy de pocas cosas"]
     },
     {
       "slug": "gustos-sushi-tacos",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Sushi o tacos?",
-      "options": [
-        "Sushi",
-        "Tacos",
-        "Los dos, sin pensarlo",
-        "Ninguno, quiero pasta"
-      ]
+      "options": ["Sushi", "Tacos", "Los dos, sin pensarlo", "Ninguno, quiero pasta"]
     },
     {
       "slug": "gustos-prefieres-antojo-medianoche",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para un antojo de medianoche?",
-      "options": [
-        "Tacos de la esquina",
-        "Pan con algo",
-        "Maruchan",
-        "Algo de la alacena"
-      ]
+      "options": ["Tacos de la esquina", "Pan con algo", "Maruchan", "Algo de la alacena"]
     },
     {
       "slug": "gustos-cancion-hace-subir-volumen",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué música te hace subir el volumen?",
-      "options": [
-        "Rock en español",
-        "Pop actual",
-        "Regional mexicano",
-        "Reguetón"
-      ]
+      "options": ["Rock en español", "Pop actual", "Regional mexicano", "Reguetón"]
     },
     {
       "slug": "gustos-como-disfrutas-mas-musica",
@@ -636,24 +531,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu hora para escuchar música?",
-      "options": [
-        "Por la mañana",
-        "En la chamba o escuela",
-        "De noche",
-        "Siempre"
-      ]
+      "options": ["Por la mañana", "En la chamba o escuela", "De noche", "Siempre"]
     },
     {
       "slug": "gustos-prefieres-bailar",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para bailar?",
-      "options": [
-        "Salsa",
-        "Cumbia",
-        "Pop",
-        "Lo que sea con tal de bailar"
-      ]
+      "options": ["Salsa", "Cumbia", "Pop", "Lo que sea con tal de bailar"]
     },
     {
       "slug": "gustos-como-eliges-vas-escuchar",
@@ -672,24 +557,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo es tu relación con los conciertos?",
-      "options": [
-        "Los amo",
-        "Solo si son buenos",
-        "Mucha gente, mejor no",
-        "Voy por la foto"
-      ]
+      "options": ["Los amo", "Solo si son buenos", "Mucha gente, mejor no", "Voy por la foto"]
     },
     {
       "slug": "gustos-instrumento-quedarias",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Con qué instrumento te quedarías?",
-      "options": [
-        "Guitarra",
-        "Piano",
-        "Batería",
-        "Ninguno, solo cantar"
-      ]
+      "options": ["Guitarra", "Piano", "Batería", "Ninguno, solo cantar"]
     },
     {
       "slug": "gustos-voz-prefieres",
@@ -708,36 +583,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tipo de película te late más?",
-      "options": [
-        "Comedia",
-        "Drama",
-        "Acción",
-        "Terror"
-      ]
+      "options": ["Comedia", "Drama", "Acción", "Terror"]
     },
     {
       "slug": "gustos-mejor-hora-ver-peli",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuándo prefieres ver una peli?",
-      "options": [
-        "Tarde",
-        "Noche",
-        "Fin de semana lluvioso",
-        "Cuando no hay nada que hacer"
-      ]
+      "options": ["Tarde", "Noche", "Fin de semana lluvioso", "Cuando no hay nada que hacer"]
     },
     {
       "slug": "gustos-tanto-repites-serie",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tanto repites una serie?",
-      "options": [
-        "La repito mil veces",
-        "A veces",
-        "Casi nunca",
-        "Nunca, hay mucho que ver"
-      ]
+      "options": ["La repito mil veces", "A veces", "Casi nunca", "Nunca, hay mucho que ver"]
     },
     {
       "slug": "gustos-como-ves-series",
@@ -756,180 +616,105 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo eres con los spoilers?",
-      "options": [
-        "Los odio",
-        "Me da igual",
-        "Los busco yo",
-        "Pregunto cómo termina"
-      ]
+      "options": ["Los odio", "Me da igual", "Los busco yo", "Pregunto cómo termina"]
     },
     {
       "slug": "gustos-pelicula-mejor-ver-pareja",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué película es la mejor para ver en pareja?",
-      "options": [
-        "Romántica",
-        "Comedia",
-        "Suspenso",
-        "Animada"
-      ]
+      "options": ["Romántica", "Comedia", "Suspenso", "Animada"]
     },
     {
       "slug": "gustos-cine-compras-primero",
       "type": "choice",
       "intensity": "ligera",
       "text": "En el cine, ¿qué compras primero?",
-      "options": [
-        "Palomitas",
-        "Refresco",
-        "Dulces",
-        "Nada, ya cené"
-      ]
+      "options": ["Palomitas", "Refresco", "Dulces", "Nada, ya cené"]
     },
     {
       "slug": "gustos-formato-leer-libro",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿En qué formato prefieres leer un libro?",
-      "options": [
-        "Libro en papel",
-        "Audiolibro",
-        "Libro digital",
-        "Ninguno, mejor serie"
-      ]
+      "options": ["Libro en papel", "Audiolibro", "Libro digital", "Ninguno, mejor serie"]
     },
     {
       "slug": "gustos-genero-lectura-eliges",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué género de lectura eliges?",
-      "options": [
-        "Novela",
-        "Ciencia ficción",
-        "Cómics o manga",
-        "Autoayuda"
-      ]
+      "options": ["Novela", "Ciencia ficción", "Cómics o manga", "Autoayuda"]
     },
     {
       "slug": "gustos-lees-mas-dia",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué lees más en el día?",
-      "options": [
-        "Noticias",
-        "Redes sociales",
-        "Libros",
-        "Mensajes de WhatsApp"
-      ]
+      "options": ["Noticias", "Redes sociales", "Libros", "Mensajes de WhatsApp"]
     },
     {
       "slug": "gustos-como-eliges-ver",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo eliges qué ver?",
-      "options": [
-        "Por reseñas",
-        "Por el trailer",
-        "Por recomendación",
-        "Por el póster"
-      ]
+      "options": ["Por reseñas", "Por el trailer", "Por recomendación", "Por el póster"]
     },
     {
       "slug": "gustos-pelicula-disney-pixar-late-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué película de Disney o Pixar te late más?",
-      "options": [
-        "Clásicas de princesas",
-        "Pixar",
-        "Las más nuevas",
-        "Las de música"
-      ]
+      "options": ["Clásicas de princesas", "Pixar", "Las más nuevas", "Las de música"]
     },
     {
       "slug": "gustos-clasico-mexicano-da-nostalgia",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué clásico mexicano te da nostalgia?",
-      "options": [
-        "Chespirito",
-        "Telenovelas de antes",
-        "Cine de oro",
-        "Caricaturas de la tele"
-      ]
+      "options": ["Chespirito", "Telenovelas de antes", "Cine de oro", "Caricaturas de la tele"]
     },
     {
       "slug": "gustos-tipo-cultura-llama-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué plan cultural te llama más?",
-      "options": [
-        "Museos",
-        "Música en vivo",
-        "Teatro",
-        "Ferias y fiestas locales"
-      ]
+      "options": ["Museos", "Música en vivo", "Teatro", "Ferias y fiestas locales"]
     },
     {
       "slug": "gustos-como-ves-programas-reality",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo ves los programas de reality?",
-      "options": [
-        "Me encantan",
-        "Veo uno que otro",
-        "Me dan pena ajena",
-        "No los veo"
-      ]
+      "options": ["Me encantan", "Veo uno que otro", "Me dan pena ajena", "No los veo"]
     },
     {
       "slug": "gustos-late-mas-noche-juegos",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te late más para una noche de juegos?",
-      "options": [
-        "Videojuegos",
-        "Juegos de mesa",
-        "Cartas",
-        "Charadas"
-      ]
+      "options": ["Videojuegos", "Juegos de mesa", "Cartas", "Charadas"]
     },
     {
       "slug": "gustos-videojuego-eliges",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué videojuego eliges?",
-      "options": [
-        "Aventura",
-        "Carreras",
-        "Pelea",
-        "Algo relajado"
-      ]
+      "options": ["Aventura", "Carreras", "Pelea", "Algo relajado"]
     },
     {
       "slug": "gustos-prefieres-peli-miedo",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres en una peli de miedo?",
-      "options": [
-        "Fantasmas",
-        "Asesinos",
-        "Monstruos",
-        "Mejor no ver"
-      ]
+      "options": ["Fantasmas", "Asesinos", "Monstruos", "Mejor no ver"]
     },
     {
       "slug": "gustos-hace-reir-cine",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te hace reír en el cine?",
-      "options": [
-        "Comedia ligera",
-        "Humor negro",
-        "Comedia romántica",
-        "Comedia absurda"
-      ]
+      "options": ["Comedia ligera", "Humor negro", "Comedia romántica", "Comedia absurda"]
     },
     {
       "slug": "gustos-como-sigues-tus-artistas-favoritos",
@@ -948,132 +733,77 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué pasa con tus listas de reproducción?",
-      "options": [
-        "Las organizo",
-        "Las dejo crecer",
-        "Solo tengo una",
-        "Hago una nueva cada mes"
-      ]
+      "options": ["Las organizo", "Las dejo crecer", "Solo tengo una", "Hago una nueva cada mes"]
     },
     {
       "slug": "gustos-trend-redes-late-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué trend de redes te late más?",
-      "options": [
-        "Bailes",
-        "Recetas",
-        "Humor",
-        "Ninguno, no lo sigo"
-      ]
+      "options": ["Bailes", "Recetas", "Humor", "Ninguno, no lo sigo"]
     },
     {
       "slug": "gustos-prefieres-ver-deporte",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para ver deporte?",
-      "options": [
-        "Fútbol",
-        "Box o lucha",
-        "Fórmula 1",
-        "Cualquier cosa con botana"
-      ]
+      "options": ["Fútbol", "Box o lucha", "Fórmula 1", "Cualquier cosa con botana"]
     },
     {
       "slug": "gustos-equipo-banda-grupo-fan",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿De qué equipo, banda o grupo eres fan?",
-      "options": [
-        "De un equipo de fútbol",
-        "De una banda",
-        "De una serie",
-        "De muchas cosas"
-      ]
+      "options": ["De un equipo de fútbol", "De una banda", "De una serie", "De muchas cosas"]
     },
     {
       "slug": "gustos-final-de-una-pelicula",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué final le pides a una película?",
-      "options": [
-        "Película con final feliz",
-        "Final abierto",
-        "Final trágico",
-        "Que me sorprenda"
-      ]
+      "options": ["Película con final feliz", "Final abierto", "Final trágico", "Que me sorprenda"]
     },
     {
       "slug": "gustos-sientes-secuelas-tus-peliculas-favoritas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué sientes con las secuelas de tus películas favoritas?",
-      "options": [
-        "Emoción",
-        "Miedo de que arruinen todo",
-        "Curiosidad",
-        "Ya las vi todas"
-      ]
+      "options": ["Emoción", "Miedo de que arruinen todo", "Curiosidad", "Ya las vi todas"]
     },
     {
       "slug": "gustos-pides-primero-cafeteria",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué pides primero en una cafetería?",
-      "options": [
-        "Café americano",
-        "Latte",
-        "Frappé",
-        "Algo con chocolate"
-      ]
+      "options": ["Café americano", "Latte", "Frappé", "Algo con chocolate"]
     },
     {
       "slug": "gustos-merienda-prefieres",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para la merienda?",
-      "options": [
-        "Pan con café",
-        "Galletas",
-        "Fruta",
-        "Algo salado"
-      ]
+      "options": ["Pan con café", "Galletas", "Fruta", "Algo salado"]
     },
     {
       "slug": "gustos-pozole-eliges",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué pozole eliges?",
-      "options": [
-        "Rojo",
-        "Verde",
-        "Blanco",
-        "Cualquiera, todos"
-      ]
+      "options": ["Rojo", "Verde", "Blanco", "Cualquiera, todos"]
     },
     {
       "slug": "gustos-sabor-tamal-prefieres",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué sabor de tamal prefieres?",
-      "options": [
-        "Rajas con queso",
-        "Verde",
-        "Mole",
-        "Dulce"
-      ]
+      "options": ["Rajas con queso", "Verde", "Mole", "Dulce"]
     },
     {
       "slug": "gustos-prefieres-cerrar-comida",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para cerrar una comida?",
-      "options": [
-        "Postre",
-        "Café",
-        "Digestivo",
-        "Siesta"
-      ]
+      "options": ["Postre", "Café", "Digestivo", "Siesta"]
     },
     {
       "slug": "gustos-cancion-ha-acompanado-momento-dificil",
@@ -1140,36 +870,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te hace sentir una canción triste?",
-      "options": [
-        "Alivio",
-        "Nostalgia",
-        "Ganas de llorar",
-        "Ganas de llamar a alguien"
-      ]
+      "options": ["Alivio", "Nostalgia", "Ganas de llorar", "Ganas de llamar a alguien"]
     },
     {
       "slug": "gustos-buscas-libro-pelicula",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué buscas en un libro o película?",
-      "options": [
-        "Escapar",
-        "Aprender",
-        "Emocionarme",
-        "Sentirme acompañado o acompañada"
-      ]
+      "options": ["Escapar", "Aprender", "Emocionarme", "Sentirme acompañado o acompañada"]
     },
     {
       "slug": "gustos-cual-gusto-mas-define",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuál es el gusto que más te define?",
-      "options": [
-        "Mi música",
-        "Mi comida",
-        "Mis series o pelis",
-        "Mis lugares favoritos"
-      ]
+      "options": ["Mi música", "Mi comida", "Mis series o pelis", "Mis lugares favoritos"]
     },
     {
       "slug": "gustos-algo-gusta-mucho-haces",
@@ -1188,12 +903,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te hace conectar con alguien?",
-      "options": [
-        "Gustos en común",
-        "Humor",
-        "Valores",
-        "Pasiones distintas"
-      ]
+      "options": ["Gustos en común", "Humor", "Valores", "Pasiones distintas"]
     },
     {
       "slug": "gustos-prefieres-compartir-gustos-descubrir-otro",
@@ -1224,36 +934,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué obra de arte, canción o libro te gustaría regalarme?",
-      "options": [
-        "Una canción",
-        "Una película",
-        "Un libro",
-        "Un platillo que hagas tú"
-      ]
+      "options": ["Una canción", "Una película", "Un libro", "Un platillo que hagas tú"]
     },
     {
       "slug": "gustos-cancion-tuya-favorita-dice-mucho",
       "type": "choice",
       "intensity": "profunda",
       "text": "Una canción tuya favorita dice mucho de ti. ¿Cuál es el tema?",
-      "options": [
-        "Amor",
-        "Libertad",
-        "Nostalgia",
-        "Alegría"
-      ]
+      "options": ["Amor", "Libertad", "Nostalgia", "Alegría"]
     },
     {
       "slug": "gustos-cual-mayor-placer-culposo-cultural",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuál es tu mayor placer culposo cultural?",
-      "options": [
-        "Telenovelas",
-        "Música cursi",
-        "Reality shows",
-        "Pelis de adolescentes"
-      ]
+      "options": ["Telenovelas", "Música cursi", "Reality shows", "Pelis de adolescentes"]
     }
   ]
 }

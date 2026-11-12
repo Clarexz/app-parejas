@@ -20,6 +20,8 @@ import {
   parseGuessResult,
   pointedAt,
   roundMatch,
+  parseRoundSize,
+  ROUND_SIZES,
   roundShareText,
   roundTurn,
   type Drawing,
@@ -466,5 +468,35 @@ describe('textos para compartir', () => {
     expect(drawingShareText({ ...base, word: null, status: 'guessing' }, names)).toContain(
       'lo está adivinando',
     );
+  });
+});
+
+describe('rondas de 10, 15 o 20', () => {
+  it('solo acepta los tamaños del servidor', () => {
+    expect(ROUND_SIZES).toEqual([10, 15, 20]);
+    expect(parseRoundSize(15)).toBe(15);
+    expect(parseRoundSize(12)).toBeNull();
+    expect(parseRoundSize('10')).toBeNull();
+    expect(parseRoundSize(null)).toBeNull();
+  });
+
+  it('el % y el turno salen del tamaño real', () => {
+    const ids = Array.from({ length: 15 }, (_, i) => `q${i}`);
+    const answers = (v: number) => Object.fromEntries(ids.map((id) => [id, v]));
+    const r = round({
+      game: 'wyr',
+      status: 'finished',
+      total: 15,
+      items: ids.map((_, i) => item(i)),
+      mine: answers(0),
+      partner: { ...answers(0), q0: 1, q1: 1, q2: 1 },
+    });
+    expect(roundMatch({ ...r, items: ids.map((id, i) => ({ ...item(i), id })) })).toEqual({
+      matches: 12,
+      total: 15,
+      pct: 80,
+    });
+    expect(roundTurn({ status: 'playing', my_count: 14, total: 15 })).toBe('my_turn');
+    expect(roundTurn({ status: 'playing', my_count: 15, total: 15 })).toBe('waiting_partner');
   });
 });

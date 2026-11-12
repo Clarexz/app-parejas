@@ -360,36 +360,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo desayunas entre semana?",
-      "options": [
-        "Sentado con calma",
-        "En el camino",
-        "Solo café",
-        "No desayuno"
-      ]
+      "options": ["Sentado con calma", "En el camino", "Solo café", "No desayuno"]
     },
     {
       "slug": "dia-a-dia-veces-pospones-alarma-semana",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuántas veces pospones la alarma entre semana?",
-      "options": [
-        "Cero",
-        "Una",
-        "Tres",
-        "Hasta que me llaman"
-      ]
+      "options": ["Cero", "Una", "Tres", "Hasta que me llaman"]
     },
     {
       "slug": "dia-a-dia-como-banas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te bañas?",
-      "options": [
-        "De mañana",
-        "De noche",
-        "A veces los dos",
-        "Cuando se pueda"
-      ]
+      "options": ["De mañana", "De noche", "A veces los dos", "Cuando se pueda"]
     },
     {
       "slug": "dia-a-dia-como-eliges-ropa-dia",
@@ -408,24 +393,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te mueves por la ciudad?",
-      "options": [
-        "Carro",
-        "Transporte público",
-        "Bicicleta",
-        "Caminando"
-      ]
+      "options": ["Carro", "Transporte público", "Bicicleta", "Caminando"]
     },
     {
       "slug": "dia-a-dia-haces-trayecto",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué haces en el trayecto?",
-      "options": [
-        "Música",
-        "Podcasts",
-        "Redes sociales",
-        "Mirar por la ventana"
-      ]
+      "options": ["Música", "Podcasts", "Redes sociales", "Mirar por la ventana"]
     },
     {
       "slug": "dia-a-dia-como-comes-dia-chamba-escuela",
@@ -444,12 +419,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan ordenado u ordenada es tu escritorio?",
-      "options": [
-        "Impecable",
-        "Organizado a mi modo",
-        "Caótico",
-        "No tengo escritorio"
-      ]
+      "options": ["Impecable", "Organizado a mi modo", "Caótico", "No tengo escritorio"]
     },
     {
       "slug": "dia-a-dia-hora-revisas-celular-primera-vez",
@@ -480,24 +450,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo es tu relación con las reuniones o clases?",
-      "options": [
-        "Las disfruto",
-        "Las soporto",
-        "Me da sueño",
-        "Me escondo atrás"
-      ]
+      "options": ["Las disfruto", "Las soporto", "Me da sueño", "Me escondo atrás"]
     },
     {
       "slug": "dia-a-dia-como-tomas-cafe-dia",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuánto café o té tomas en tu día?",
-      "options": [
-        "Una taza",
-        "Dos o tres",
-        "Todo el día",
-        "Casi nunca"
-      ]
+      "options": ["Una taza", "Dos o tres", "Todo el día", "Casi nunca"]
     },
     {
       "slug": "dia-a-dia-haces-despues-llegar-casa",
@@ -516,60 +476,35 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gusta cenar?",
-      "options": [
-        "Temprano",
-        "Tarde",
-        "Algo rápido",
-        "Solo botanas"
-      ]
+      "options": ["Temprano", "Tarde", "Algo rápido", "Solo botanas"]
     },
     {
       "slug": "dia-a-dia-tan-ordenado-u-ordenada-closet",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan ordenado u ordenada es tu clóset?",
-      "options": [
-        "Perfecto",
-        "Por colores",
-        "Todo amontonado",
-        "Hay montañas de ropa"
-      ]
+      "options": ["Perfecto", "Por colores", "Todo amontonado", "Hay montañas de ropa"]
     },
     {
       "slug": "dia-a-dia-haces-limpieza-casa",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuándo haces la limpieza de la casa?",
-      "options": [
-        "Un día fijo",
-        "Cuando ya no aguanto",
-        "Un poco cada día",
-        "Cuando viene visita"
-      ]
+      "options": ["Un día fijo", "Cuando ya no aguanto", "Un poco cada día", "Cuando viene visita"]
     },
     {
       "slug": "dia-a-dia-cual-tarea-domestica-menos-favorita",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu tarea doméstica menos favorita?",
-      "options": [
-        "Lavar trastes",
-        "Planchar",
-        "Barrer o trapear",
-        "Sacar la basura"
-      ]
+      "options": ["Lavar trastes", "Planchar", "Barrer o trapear", "Sacar la basura"]
     },
     {
       "slug": "dia-a-dia-cual-tarea-domestica-favorita",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu tarea doméstica favorita?",
-      "options": [
-        "Cocinar",
-        "Lavar ropa",
-        "Ordenar",
-        "Ninguna, lo juro"
-      ]
+      "options": ["Cocinar", "Lavar ropa", "Ordenar", "Ninguna, lo juro"]
     },
     {
       "slug": "dia-a-dia-como-llevas-lavanderia",
@@ -588,48 +523,28 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo está tu refri casi siempre?",
-      "options": [
-        "Lleno",
-        "Casi vacío",
-        "Con cosas viejas",
-        "Solo con lo básico"
-      ]
+      "options": ["Lleno", "Casi vacío", "Con cosas viejas", "Solo con lo básico"]
     },
     {
       "slug": "dia-a-dia-tan-seguido-pides-comida-domicilio",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan seguido pides comida a domicilio?",
-      "options": [
-        "Nunca",
-        "Una vez por semana",
-        "Varias veces",
-        "Cada que puedo"
-      ]
+      "options": ["Nunca", "Una vez por semana", "Varias veces", "Cada que puedo"]
     },
     {
       "slug": "dia-a-dia-como-llevas-cocina",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te llevas con la cocina?",
-      "options": [
-        "Cocino lo básico",
-        "Me encanta",
-        "Hago cosas sencillas",
-        "Solo calentar"
-      ]
+      "options": ["Cocino lo básico", "Me encanta", "Hago cosas sencillas", "Solo calentar"]
     },
     {
       "slug": "dia-a-dia-cual-luz-favorita-casa",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu luz favorita en casa?",
-      "options": [
-        "Luz blanca",
-        "Luz cálida",
-        "Lámpara pequeña",
-        "Natural, siempre"
-      ]
+      "options": ["Luz blanca", "Luz cálida", "Lámpara pequeña", "Natural, siempre"]
     },
     {
       "slug": "dia-a-dia-como-manejas-celular-mesa",
@@ -648,12 +563,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo estás con las notificaciones?",
-      "options": [
-        "Apagadas",
-        "Algunas",
-        "Todas activas",
-        "Ya ni las miro"
-      ]
+      "options": ["Apagadas", "Algunas", "Todas activas", "Ya ni las miro"]
     },
     {
       "slug": "dia-a-dia-cual-relacion-celular-antes-dormir",
@@ -684,156 +594,91 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo es tu galería de fotos?",
-      "options": [
-        "Ordenada",
-        "Con mil capturas",
-        "Muchas selfies",
-        "Pura comida"
-      ]
+      "options": ["Ordenada", "Con mil capturas", "Muchas selfies", "Pura comida"]
     },
     {
       "slug": "dia-a-dia-cuantas-pestanas-abiertas-celular-compu",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuántas pestañas abiertas tienes en tu celular o compu ahorita?",
-      "options": [
-        "Menos de cinco",
-        "Entre cinco y veinte",
-        "Más de veinte",
-        "Ya perdí la cuenta"
-      ]
+      "options": ["Menos de cinco", "Entre cinco y veinte", "Más de veinte", "Ya perdí la cuenta"]
     },
     {
       "slug": "dia-a-dia-como-contestas-mensajes",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo contestas los mensajes?",
-      "options": [
-        "De inmediato",
-        "Cuando puedo",
-        "Cuando me acuerdo",
-        "Mejor llamo"
-      ]
+      "options": ["De inmediato", "Cuando puedo", "Cuando me acuerdo", "Mejor llamo"]
     },
     {
       "slug": "dia-a-dia-como-gusta-terminar-dia",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gusta terminar el día?",
-      "options": [
-        "Con lectura",
-        "Con una serie",
-        "Con una plática",
-        "Con silencio"
-      ]
+      "options": ["Con lectura", "Con una serie", "Con una plática", "Con silencio"]
     },
     {
       "slug": "dia-a-dia-como-duermes-hace-calor",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo duermes cuando hace calor?",
-      "options": [
-        "Con ventilador",
-        "Con ventana abierta",
-        "Sin cobija",
-        "Mal, la verdad"
-      ]
+      "options": ["Con ventilador", "Con ventana abierta", "Sin cobija", "Mal, la verdad"]
     },
     {
       "slug": "dia-a-dia-tan-seguido-acuestas-tarde",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan seguido te acuestas tarde?",
-      "options": [
-        "Casi nunca",
-        "Un par de veces",
-        "Muchas",
-        "Siempre"
-      ]
+      "options": ["Casi nunca", "Un par de veces", "Muchas", "Siempre"]
     },
     {
       "slug": "dia-a-dia-como-sientes-domingo-noche",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te sientes de domingo por la noche?",
-      "options": [
-        "En paz",
-        "Ansioso o ansiosa",
-        "Triste",
-        "Normal"
-      ]
+      "options": ["En paz", "Ansioso o ansiosa", "Triste", "Normal"]
     },
     {
       "slug": "dia-a-dia-plan-haces-sabado-manana",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué plan haces de sábado en la mañana?",
-      "options": [
-        "Dormir",
-        "Hacer ejercicio",
-        "Cosas de la casa",
-        "Desayunar fuera"
-      ]
+      "options": ["Dormir", "Hacer ejercicio", "Cosas de la casa", "Desayunar fuera"]
     },
     {
       "slug": "dia-a-dia-como-domingo-ideal",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo es tu domingo ideal?",
-      "options": [
-        "Quedarme en casa",
-        "Salir a comer",
-        "Ver a la familia",
-        "Descansar y ver series"
-      ]
+      "options": ["Quedarme en casa", "Salir a comer", "Ver a la familia", "Descansar y ver series"]
     },
     {
       "slug": "dia-a-dia-tan-estructurado-fin-semana",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan estructurado es tu fin de semana?",
-      "options": [
-        "Con horarios",
-        "Con ideas sueltas",
-        "Sin plan",
-        "Depende del cansancio"
-      ]
+      "options": ["Con horarios", "Con ideas sueltas", "Sin plan", "Depende del cansancio"]
     },
     {
       "slug": "dia-a-dia-como-gastas-primer-rato-libre",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿En qué gastas tu primer rato libre del día?",
-      "options": [
-        "Escribo mensajes",
-        "Voy al gimnasio",
-        "Cocino algo rico",
-        "Me tiro a descansar"
-      ]
+      "options": ["Escribo mensajes", "Voy al gimnasio", "Cocino algo rico", "Me tiro a descansar"]
     },
     {
       "slug": "dia-a-dia-cuanto-tiempo-pasas-pijama-dia",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuánto tiempo pasas en pijama al día?",
-      "options": [
-        "Muy poco",
-        "Lo normal",
-        "Casi todo el día",
-        "Hasta que alguien toca la puerta"
-      ]
+      "options": ["Muy poco", "Lo normal", "Casi todo el día", "Hasta que alguien toca la puerta"]
     },
     {
       "slug": "dia-a-dia-como-manejas-compras-super",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo manejas las compras del súper?",
-      "options": [
-        "Con lista",
-        "Sin lista",
-        "En línea",
-        "Cuando se acaba todo"
-      ]
+      "options": ["Con lista", "Sin lista", "En línea", "Cuando se acaba todo"]
     },
     {
       "slug": "dia-a-dia-como-relacion-agenda",
@@ -852,72 +697,42 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué haces cuando tienes diez minutos libres?",
-      "options": [
-        "Redes sociales",
-        "Un ratito de descanso",
-        "Algo útil",
-        "Platicar con alguien"
-      ]
+      "options": ["Redes sociales", "Un ratito de descanso", "Algo útil", "Platicar con alguien"]
     },
     {
       "slug": "dia-a-dia-como-ve-semana-tipica-ejercicio",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo se ve tu semana típica de ejercicio?",
-      "options": [
-        "Todos los días",
-        "Dos o tres veces",
-        "De vez en cuando",
-        "Camino al refri"
-      ]
+      "options": ["Todos los días", "Dos o tres veces", "De vez en cuando", "Camino al refri"]
     },
     {
       "slug": "dia-a-dia-parte-rutina-gustaria-cambiar",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué parte de tu rutina te gustaría cambiar?",
-      "options": [
-        "La mañana",
-        "La tarde",
-        "La noche",
-        "El fin de semana"
-      ]
+      "options": ["La mañana", "La tarde", "La noche", "El fin de semana"]
     },
     {
       "slug": "dia-a-dia-habito-gustaria-tener-aun-no",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué hábito te gustaría tener que aún no tienes?",
-      "options": [
-        "Hacer ejercicio",
-        "Dormir temprano",
-        "Comer mejor",
-        "Leer más"
-      ]
+      "options": ["Hacer ejercicio", "Dormir temprano", "Comer mejor", "Leer más"]
     },
     {
       "slug": "dia-a-dia-quita-mas-energia-dia",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te quita más energía en el día?",
-      "options": [
-        "La chamba o escuela",
-        "El transporte",
-        "El celular",
-        "Las reuniones"
-      ]
+      "options": ["La chamba o escuela", "El transporte", "El celular", "Las reuniones"]
     },
     {
       "slug": "dia-a-dia-parte-del-dia-no-puedes-mas",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿En qué parte del día sientes que ya no puedes más?",
-      "options": [
-        "En la mañana",
-        "En la tarde",
-        "En la noche",
-        "Nunca"
-      ]
+      "options": ["En la mañana", "En la tarde", "En la noche", "Nunca"]
     },
     {
       "slug": "dia-a-dia-parte-rutina-disfrutas-mas",
@@ -948,12 +763,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te gustaría hacer más en tu día a día?",
-      "options": [
-        "Descansar",
-        "Crear algo",
-        "Convivir",
-        "Moverme"
-      ]
+      "options": ["Descansar", "Crear algo", "Convivir", "Moverme"]
     },
     {
       "slug": "dia-a-dia-pesa-mas-tus-responsabilidades",
@@ -972,24 +782,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿En qué momento del día extrañas más a alguien?",
-      "options": [
-        "En la mañana",
-        "En la comida",
-        "En la tarde",
-        "Antes de dormir"
-      ]
+      "options": ["En la mañana", "En la comida", "En la tarde", "Antes de dormir"]
     },
     {
       "slug": "dia-a-dia-daria-mas-tiempo-libre",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te daría más tiempo libre?",
-      "options": [
-        "Dormir menos",
-        "Cocinar menos",
-        "Trabajar menos",
-        "Usar menos el celular"
-      ]
+      "options": ["Dormir menos", "Cocinar menos", "Trabajar menos", "Usar menos el celular"]
     },
     {
       "slug": "dia-a-dia-parte-rutina-cuidas-como-oro",
@@ -1008,60 +808,35 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué le falta a tus días entre semana?",
-      "options": [
-        "Descanso",
-        "Diversión",
-        "Calma",
-        "Gente"
-      ]
+      "options": ["Descanso", "Diversión", "Calma", "Gente"]
     },
     {
       "slug": "dia-a-dia-como-quieres-sea-rutina-dentro",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cómo quieres que sea tu rutina dentro de cinco años?",
-      "options": [
-        "Más tranquila",
-        "Más activa",
-        "Más compartida",
-        "Muy distinta"
-      ]
+      "options": ["Más tranquila", "Más activa", "Más compartida", "Muy distinta"]
     },
     {
       "slug": "dia-a-dia-habito-rutina-averguenza-admitir",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué hábito de tu rutina te avergüenza admitir?",
-      "options": [
-        "Revisar el celular de más",
-        "Dormir poco",
-        "Comer chatarra",
-        "Procrastinar"
-      ]
+      "options": ["Revisar el celular de más", "Dormir poco", "Comer chatarra", "Procrastinar"]
     },
     {
       "slug": "dia-a-dia-cosa-dia-dia-valoras-mas",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué cosa de tu día a día valoras más cuando falta?",
-      "options": [
-        "El descanso",
-        "La compañía",
-        "La comida casera",
-        "El silencio"
-      ]
+      "options": ["El descanso", "La compañía", "La comida casera", "El silencio"]
     },
     {
       "slug": "dia-a-dia-parte-casa-da-mas-calma",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué parte de tu casa te da más calma?",
-      "options": [
-        "Mi cama",
-        "La cocina",
-        "Una ventana",
-        "Mi rincón favorito"
-      ]
+      "options": ["Mi cama", "La cocina", "Una ventana", "Mi rincón favorito"]
     },
     {
       "slug": "dia-a-dia-hace-dia-normal-sienta-bien",
@@ -1074,6 +849,144 @@
         "Comer rico",
         "Sentirme productivo o productiva"
       ]
+    },
+    {
+      "slug": "dia-a-dia-parte-rutina-cambiarias-pudieras-crees",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu rutina cambiarías si pudieras y qué crees que pasaría?"
+    },
+    {
+      "slug": "dia-a-dia-como-sabes-estas-llegando-limite",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo sabes que estás llegando al límite de tu cansancio?"
+    },
+    {
+      "slug": "dia-a-dia-gustaria-fuera-diferente-tus-mananas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que fuera diferente en tus mañanas?"
+    },
+    {
+      "slug": "dia-a-dia-habito-tuyo-gustaria-yo-conociera",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hábito tuyo te gustaría que yo conociera mejor?"
+    },
+    {
+      "slug": "dia-a-dia-momento-dia-sientes-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento del día te sientes más tú?"
+    },
+    {
+      "slug": "dia-a-dia-necesitas-pase-dia-malo-mejore",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesitas que pase en un día malo para que mejore un poco?"
+    },
+    {
+      "slug": "dia-a-dia-tan-bien-cuidas-ti-rutina",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tan bien cuidas de ti en tu rutina diaria y qué te falta?"
+    },
+    {
+      "slug": "dia-a-dia-tanto-dia-depende-otras-personas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tanto de tu día depende de lo que otras personas esperan de ti?"
+    },
+    {
+      "slug": "dia-a-dia-parte-dia-hace-mas-pesada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte del día se te hace más pesada emocionalmente?"
+    },
+    {
+      "slug": "dia-a-dia-ritual-cierre-dia-hace-sentir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué ritual de cierre de día te hace sentir en paz?"
+    },
+    {
+      "slug": "dia-a-dia-ultima-vez-sentiste-calma-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo fue la última vez que te sentiste en calma un día cualquiera?"
+    },
+    {
+      "slug": "dia-a-dia-gustaria-hacer-diferente-tiempo-entre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría hacer diferente con tu tiempo entre semana?"
+    },
+    {
+      "slug": "dia-a-dia-le-agradeces-rutina-actual",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le agradeces a tu rutina actual?"
+    },
+    {
+      "slug": "dia-a-dia-rutina-infancia-extranas-daba",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué rutina de tu infancia extrañas y qué te daba?"
+    },
+    {
+      "slug": "dia-a-dia-rutina-compartida-gustaria-tuvieramos-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué rutina compartida te gustaría que tuviéramos en el día a día?"
+    },
+    {
+      "slug": "dia-a-dia-parte-rutina-sentiria-vacia-personas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de tu rutina se sentiría vacía sin las personas que quieres?"
+    },
+    {
+      "slug": "dia-a-dia-parte-nuestras-rutinas-distintas-cuesta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de nuestras rutinas distintas te cuesta más aceptar o te gusta más?"
+    },
+    {
+      "slug": "dia-a-dia-dia-semana-gustaria-durara-doble",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué día de tu semana te gustaría que durara el doble?"
+    },
+    {
+      "slug": "dia-a-dia-momento-dia-mas-extranas-tener",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento del día más extrañas tener a alguien cerca para platicar?"
+    },
+    {
+      "slug": "dia-a-dia-cual-pequena-costumbre-hace-sentir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es la pequeña costumbre que te hace sentir en casa, esté donde esté?"
+    },
+    {
+      "slug": "dia-a-dia-cuesta-soltar-termina-dia-chamba",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta soltar cuando termina tu día de chamba o escuela?"
+    },
+    {
+      "slug": "dia-a-dia-pasaria-dia-dia-pudieras-eliminar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pasaría con tu día a día si pudieras eliminar una sola obligación?"
+    },
+    {
+      "slug": "dia-a-dia-como-gustaria-sentirte-despertar-cada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo te gustaría sentirte al despertar cada mañana?"
     }
   ]
 }

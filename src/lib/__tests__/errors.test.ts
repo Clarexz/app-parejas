@@ -51,6 +51,10 @@ describe('errorMessage', () => {
     }
   });
 
+  it('traduce invalid_round_size', () => {
+    expect(errorMessage({ code: 'P0001', message: 'invalid_round_size' })).toMatch(/10, 15 o 20/);
+  });
+
   it('traduce las claves de las frutas', () => {
     expect(errorMessage({ code: 'P0001', message: 'fruit_taken' })).toBe(
       'Esa es la fruta de tu pareja.',
