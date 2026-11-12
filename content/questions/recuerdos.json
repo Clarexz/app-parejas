@@ -797,12 +797,12 @@
       "slug": "recuerdos-infancia-y-yo-adulto",
       "type": "choice",
       "intensity": "profunda",
-      "text": "De mi infancia, lo que más me marcó fue...",
+      "text": "Algo de mi infancia que se nota hasta hoy en mí es...",
       "options": [
-        "La familia",
-        "Los amigos",
-        "La escuela",
-        "Un lugar"
+        "Mi humor",
+        "Mi forma de querer",
+        "Mis miedos",
+        "Mis gustos"
       ]
     },
     {
@@ -1199,7 +1199,7 @@
       "slug": "recuerdos-primera-vez-que-me-sentiste-hogar",
       "type": "open",
       "intensity": "profunda",
-      "text": "¿Cuándo sentiste que yo era tu lugar seguro?"
+      "text": "¿En qué momento descubriste que a mi lado te sentías en casa?"
     },
     {
       "slug": "recuerdos-recuerdos-y-cancion",

@@ -490,7 +490,7 @@
       "slug": "viajes-tipo-de-escapada",
       "type": "choice",
       "intensity": "ligera",
-      "text": "Para una escapada de fin de semana prefiero...",
+      "text": "Si nos escapamos un fin de semana, ¿a qué tipo de lugar vamos?",
       "options": [
         "Playa",
         "Montaña",
