@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import type { Pack } from '@/lib/packs';
 import type { Streak } from '@/lib/questions';
 import { ThemeProvider } from '@/theme';
 
@@ -19,10 +20,7 @@ jest.mock('@/features/couple', () => ({
   useCouple: () => ({
     me: { id: 'u1', display_name: 'Ale', nickname: null },
     partner: { id: 'u2', display_name: 'Caleb', nickname: null },
-    members: [
-      { user_id: 'u1', spicy_opt_in: false },
-      { user_id: 'u2', spicy_opt_in: false },
-    ],
+    members: mockMembers,
   }),
   useToday: () => ({ today: '2026-11-04', timeZone: 'America/Mexico_City' }),
 }));
@@ -40,6 +38,26 @@ const baseStreak: Streak = {
   missing_days: ['2026-11-03'],
 };
 let mockStreak: Streak = baseStreak;
+let mockMembers = [
+  { user_id: 'u1', spicy_opt_in: false },
+  { user_id: 'u2', spicy_opt_in: false },
+];
+let mockPacks: Pack[] = [];
+let mockPacksState = { isLoading: false, isError: false };
+
+const pack = (over: Partial<Pack>): Pack => ({
+  slug: 'pack-a',
+  name: 'Para conocernos',
+  emoji: '🧩',
+  description: 'Preguntas para empezar.',
+  intensity: 'ligera',
+  position: 1,
+  total: 12,
+  answered_by_me: 4,
+  answered_by_both: 3,
+  next_question_id: 'q5',
+  ...over,
+});
 
 jest.mock('@/features/questions', () => ({
   DailyQuestionCard: () => null,
@@ -47,6 +65,14 @@ jest.mock('@/features/questions', () => ({
     streak: mockStreak,
     isLoading: false,
     isError: false,
+    isRefetching: false,
+    refetch: jest.fn(),
+  }),
+  PackProgress: () => null,
+  usePacks: () => ({
+    packs: mockPacks,
+    isLoading: mockPacksState.isLoading,
+    isError: mockPacksState.isError,
     isRefetching: false,
     refetch: jest.fn(),
   }),
@@ -84,6 +110,12 @@ describe('Pestaña Preguntas', () => {
   beforeEach(() => {
     mockPush.mockClear();
     mockStreak = baseStreak;
+    mockPacks = [];
+    mockPacksState = { isLoading: false, isError: false };
+    mockMembers = [
+      { user_id: 'u1', spicy_opt_in: false },
+      { user_id: 'u2', spicy_opt_in: false },
+    ];
   });
 
   it('tiene las secciones Preguntas y Juegos, sin el grupo viejo', async () => {
@@ -117,5 +149,52 @@ describe('Pestaña Preguntas', () => {
     mockStreak = { ...baseStreak, today_is_repair: true, repair_day: null, missing_days: [] };
     await renderScreen();
     expect(screen.getByText('Hoy recuperaron ayer; hoy no suma a la racha.')).toBeTruthy();
+  });
+  it('muestra los temas con su avance y los abre', async () => {
+    mockPacks = [pack({})];
+    await renderScreen();
+    expect(screen.getByRole('header', { name: 'Temas' })).toBeTruthy();
+    expect(screen.getByText('3 de 12 contestadas por los dos')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: /^Para conocernos/ }));
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: '/pack/[slug]',
+      params: { slug: 'pack-a' },
+    });
+  });
+
+  it('un tema picante sin picantes activas sale bloqueado y abre el aviso', async () => {
+    mockPacks = [pack({ slug: 'pack-p', name: 'Solo ustedes', intensity: 'picante' })];
+    await renderScreen();
+    expect(screen.getByText('Se abre cuando los dos quieran.')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Solo ustedes, bloqueado' }));
+    expect(mockPush).not.toHaveBeenCalled();
+    expect(screen.getByText('Todavía con candado')).toBeTruthy();
+  });
+
+  it('con las picantes activas el tema picante abre normal', async () => {
+    mockMembers = [
+      { user_id: 'u1', spicy_opt_in: true },
+      { user_id: 'u2', spicy_opt_in: true },
+    ];
+    mockPacks = [pack({ slug: 'pack-p', name: 'Solo ustedes', intensity: 'picante' })];
+    await renderScreen();
+    await fireEvent.press(screen.getByRole('button', { name: /^Solo ustedes\./ }));
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: '/pack/[slug]',
+      params: { slug: 'pack-p' },
+    });
+  });
+
+  it('si los temas fallan, lo dice sin tirar la pestaña', async () => {
+    mockPacksState = { isLoading: false, isError: true };
+    await renderScreen();
+    expect(screen.getByText(/No pudimos cargar los temas/)).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Categorías' })).toBeTruthy();
+  });
+
+  it('lleva a agregar una pregunta', async () => {
+    await renderScreen();
+    await fireEvent.press(screen.getByRole('button', { name: /^Agregar una pregunta/ }));
+    expect(mockPush).toHaveBeenCalledWith('/add-question');
   });
 });

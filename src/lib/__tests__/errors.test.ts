@@ -36,6 +36,21 @@ describe('errorMessage', () => {
     }
   });
 
+  it('traduce las claves del banco de preguntas (Fase 10)', () => {
+    expect(errorMessage({ code: 'P0001', message: 'duplicate_question' })).toBe(
+      'Esa pregunta ya existe.',
+    );
+    for (const key of [
+      'invalid_feedback',
+      'invalid_category',
+      'invalid_question',
+      'too_many_questions',
+      'spicy_not_active',
+    ]) {
+      expect(errorMessage({ code: 'P0001', message: key })).not.toMatch(/Algo no salió/);
+    }
+  });
+
   it('traduce las claves de las frutas', () => {
     expect(errorMessage({ code: 'P0001', message: 'fruit_taken' })).toBe(
       'Esa es la fruta de tu pareja.',
