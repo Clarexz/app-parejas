@@ -55,12 +55,20 @@ const BY_CODE: Record<string, string> = {
   item_not_found: 'Eso ya no está en la lista. Actualiza para ver lo más reciente.',
   invalid_order: 'La lista cambió mientras la movías. Ya la actualizamos; intenta otra vez.',
   invalid_location: 'No pudimos guardar tu ubicación. Intenta otra vez en un momento.',
+  // RPC de banco de preguntas (Fase 10)
+  invalid_feedback: 'No pudimos guardar tu voto. Intenta otra vez.',
+  invalid_category: 'Esa categoría no existe. Elige una de la lista.',
+  invalid_question:
+    'No pudimos guardar la pregunta. Revisa que tenga entre 10 y 220 letras y, si es de opciones, de 2 a 4 distintas.',
+  duplicate_question: 'Esa pregunta ya existe.',
+  too_many_questions: 'Ya agregaron muchas preguntas hoy. Sigan mañana.',
   // RPC de juegos (Fase 9)
   invalid_game: 'Ese juego no existe. Elige otro de la lista.',
   spicy_not_active: 'Las preguntas picantes aún no están activas para ustedes.',
   round_not_found: 'Esa ronda ya no está. Quizá la quitaron desde el otro celular.',
   round_finished: 'Esa ronda ya terminó. Entra a ver cómo les fue.',
   invalid_choice: 'No pudimos guardar tu respuesta. Elige una de las dos opciones.',
+  invalid_round_size: 'Las rondas son de 10, 15 o 20 preguntas. Elige una de esas.',
   item_not_in_round: 'Esa pregunta ya no está en la ronda. Actualiza e intenta otra vez.',
   drawing_not_found: 'Ese dibujo ya no está. Quizá lo quitaron desde el otro celular.',
   not_drawer: 'Solo quien dibuja puede hacer eso.',

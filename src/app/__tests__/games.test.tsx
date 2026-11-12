@@ -30,6 +30,10 @@ jest.mock('@/features/couple', () => ({
 }));
 
 const mockAnswer = jest.fn();
+const mockStart = jest.fn();
+jest.mock('@react-native-async-storage/async-storage', () =>
+  jest.requireActual('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
 const overview = {
   games: [
     {
@@ -54,6 +58,7 @@ const overview = {
   recent: [],
   drawings: { active: [], recent: [] },
 };
+let mockRound: unknown;
 const round = {
   id: 'r1',
   game: 'wyr',
@@ -78,6 +83,7 @@ const round = {
   partner: null,
   match: null,
 };
+mockRound = round;
 jest.mock('@/features/stories/components/DrawingPad', () => ({ DrawingPad: () => null }));
 jest.mock('@/features/stories/components/StoryFrame', () => ({ StrokesSvg: () => null }));
 jest.mock('@/lib/supabase', () => ({ supabase: {} }));
@@ -90,14 +96,14 @@ jest.mock('@/features/games/hooks', () => ({
     isRefetching: false,
   }),
   useGameRound: () => ({
-    round,
+    round: mockRound,
     isLoading: false,
     isError: false,
     error: null,
     refetch: jest.fn(),
     isRefetching: false,
   }),
-  useStartGameRound: () => ({ mutate: jest.fn(), isPending: false }),
+  useStartGameRound: () => ({ mutate: mockStart, isPending: false }),
   useStartDrawing: () => ({ mutate: jest.fn(), isPending: false }),
   useAnswerGameItem: () => ({ mutate: mockAnswer, isPending: false }),
   useDeleteGameRound: () => ({ mutate: jest.fn(), isPending: false }),
@@ -107,6 +113,8 @@ describe('Juegos', () => {
   beforeEach(() => {
     mockPush.mockClear();
     mockAnswer.mockClear();
+    mockStart.mockClear();
+    mockRound = round;
   });
 
   it('el hub muestra el turno pendiente y abre la ronda', async () => {
@@ -144,5 +152,61 @@ describe('Juegos', () => {
     expect(screen.getByText('4 de 10')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Pizza'));
     expect(mockAnswer).toHaveBeenCalledWith({ questionId: 'q1', choice: 1 }, expect.any(Object));
+  });
+  const shell = (ui: React.ReactElement) => (
+    <SafeAreaProvider
+      initialMetrics={{
+        frame: { x: 0, y: 0, width: 400, height: 800 },
+        insets: { top: 0, left: 0, right: 0, bottom: 0 },
+      }}
+    >
+      <ThemeProvider>{ui}</ThemeProvider>
+    </SafeAreaProvider>
+  );
+
+  it('al empezar una ronda ofrece 10, 15 y 20 (10 por defecto) y manda el elegido', async () => {
+    await render(shell(<GamesScreen />));
+    await fireEvent.press(screen.getByLabelText(/^Yo nunca\./));
+    expect(screen.getByRole('tab', { name: '10' })).toBeTruthy();
+    expect(screen.getByRole('tab', { name: '20' })).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
+    expect(mockStart).toHaveBeenLastCalledWith(
+      { game: 'nhie', spicy: false, size: 10 },
+      expect.any(Object),
+    );
+    await fireEvent.press(screen.getByRole('tab', { name: '15' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Jugar' }));
+    expect(mockStart).toHaveBeenLastCalledWith(
+      { game: 'nhie', spicy: false, size: 15 },
+      expect.any(Object),
+    );
+  });
+
+  it('el avance sale del tamaño real de la ronda', async () => {
+    mockRound = { ...round, total: 15, my_count: 3 };
+    await render(shell(<GameScreen />));
+    expect(screen.getByText('4 de 15')).toBeTruthy();
+  });
+
+  it('el resultado de una ronda de 15 usa el tamaño real y "Otra ronda" repite el tamaño', async () => {
+    mockRound = {
+      ...round,
+      status: 'finished',
+      finished_at: '2026-10-30T10:00:00Z',
+      total: 15,
+      my_count: 15,
+      partner_count: 15,
+      mine: { q1: 0 },
+      partner: { q1: 0 },
+      match: { matches: 9, total: 15, pct: 60 },
+    };
+    await render(shell(<GameScreen />));
+    expect(screen.getByText('60%')).toBeTruthy();
+    expect(screen.getByText('Coincidieron en 9 de 15.')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Otra ronda' }));
+    expect(mockStart).toHaveBeenLastCalledWith(
+      { game: 'wyr', spicy: false, size: 15 },
+      expect.any(Object),
+    );
   });
 });

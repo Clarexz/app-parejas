@@ -197,6 +197,1241 @@
       "intensity": "ligera",
       "text": "Un día para consentirte, ¿qué eliges?",
       "options": ["Masaje", "Tu comida favorita", "Película con cobija", "Que me dejen dormir"]
+    },
+    {
+      "slug": "amor-primer-mensaje-que-guardas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el primer mensaje mío que guardaste o te acuerdas de memoria?"
+    },
+    {
+      "slug": "amor-cancion-que-es-nuestra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción sientes que ya es de ustedes dos, aunque nunca la hayan elegido?"
+    },
+    {
+      "slug": "amor-cosa-que-te-hace-reir-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa mía te hace reír aunque yo no esté haciendo chiste?"
+    },
+    {
+      "slug": "amor-abrazo-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe el abrazo que más te gusta darme, con todo y dónde ponemos los brazos."
+    },
+    {
+      "slug": "amor-mi-cara-cuando",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cara pongo cuando estoy feliz que te encanta?"
+    },
+    {
+      "slug": "amor-lo-primero-que-me-contarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si te pasara algo padrísimo hoy, ¿a quién se lo cuentas primero?"
+    },
+    {
+      "slug": "amor-detalle-que-nunca-olvidas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el detalle mío que jamás se te va a olvidar?"
+    },
+    {
+      "slug": "amor-mensaje-de-buenos-dias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo te gustaría que fuera mi mensaje de buenos días ideal?"
+    },
+    {
+      "slug": "amor-nombre-contacto-celular",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo tengo guardado tu nombre en mi celular y cómo crees que me tienes guardado tú?"
+    },
+    {
+      "slug": "amor-foto-de-nosotros",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu foto favorita de los dos y qué pasaba en ese momento?"
+    },
+    {
+      "slug": "amor-cosa-de-mi-que-copiaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase o costumbre mía se te pegó sin querer?"
+    },
+    {
+      "slug": "amor-huella-de-tu-carino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tu cariño dejara una huella en mi casa, ¿dónde la encontraría?"
+    },
+    {
+      "slug": "amor-olor-que-te-recuerda-a-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te hace pensar en mí de inmediato?"
+    },
+    {
+      "slug": "amor-como-me-describes-a-tus-amigos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo me describirías en una sola frase a alguien que no me conoce?"
+    },
+    {
+      "slug": "amor-pequena-victoria-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la última pequeña victoria que celebramos y ni nos dimos cuenta?"
+    },
+    {
+      "slug": "amor-lo-mas-tierno-que-has-visto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo más tierno que me has visto hacer?"
+    },
+    {
+      "slug": "amor-cosa-que-te-da-calma-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué de mí te da calma cuando todo anda patas arriba?"
+    },
+    {
+      "slug": "amor-manera-de-decir-te-quiero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Además de decirlo, ¿cómo me dices \"te quiero\" sin palabras?"
+    },
+    {
+      "slug": "amor-chiste-privado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es nuestro chiste interno que nadie más entendería?"
+    },
+    {
+      "slug": "amor-comida-que-me-cocinarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si quisieras consentirme con una comida, ¿qué me prepararías?"
+    },
+    {
+      "slug": "amor-abrazo-o-mano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Caminando juntos, ¿prefieres ir de la mano, abrazados o cada quien con su espacio?"
+    },
+    {
+      "slug": "amor-sorpresa-pequena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué sorpresa pequeñita te alegraría el día esta semana?"
+    },
+    {
+      "slug": "amor-sonrisa-que-recuerdas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿En qué momento reciente te sacó una sonrisa pensar en mí?"
+    },
+    {
+      "slug": "amor-palabra-que-me-describe",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Escoge una sola palabra que me describa cuando estoy contigo."
+    },
+    {
+      "slug": "amor-rutina-de-carino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mini rutina de cariño te gustaría que tuviéramos todos los días?"
+    },
+    {
+      "slug": "amor-te-quiero-en-publico",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gesto de cariño en público te hace sentir bien, sin pena?"
+    },
+    {
+      "slug": "amor-detalle-que-te-gustaria-dar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle te gustaría darme pero todavía no te animas?"
+    },
+    {
+      "slug": "amor-mensaje-de-voz-o-texto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Para decirte algo bonito, ¿qué te late más: nota de voz, mensaje o carta?"
+    },
+    {
+      "slug": "amor-lo-que-extrano-de-ti-cuando-te-abrazo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que notas cuando por fin nos abrazamos después de un tiempo?"
+    },
+    {
+      "slug": "amor-apodo-nuevo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Inventa un apodo cariñoso nuevo para mí y explica por qué."
+    },
+    {
+      "slug": "amor-cosa-boba-que-te-enamora",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa boba que hago te enamora más de lo que debería?"
+    },
+    {
+      "slug": "amor-escena-de-pelicula-nuestra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué escena de película o serie se parece a cómo nos queremos?"
+    },
+    {
+      "slug": "amor-dia-que-te-sentiste-escuchado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo sentiste que de verdad te escuché con toda la atención?"
+    },
+    {
+      "slug": "amor-animal-que-somos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si fuéramos animales juntos, ¿cuáles seríamos y qué haríamos todo el día?"
+    },
+    {
+      "slug": "amor-motivo-para-abrazarte-ya",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa pasa en tu día que te dan ganas de que estuviera yo ahí para abrazarte?"
+    },
+    {
+      "slug": "amor-lo-que-aprendiste-de-mi-gusto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué gusto mío no entendías al inicio y ahora hasta lo disfrutas?"
+    },
+    {
+      "slug": "amor-quien-da-mas-mimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién de los dos da más mimos y quién los pide más?"
+    },
+    {
+      "slug": "amor-noche-de-ternura",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Describe una noche perfecta de ternura, sin nada elaborado."
+    },
+    {
+      "slug": "amor-regalo-que-guardas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué regalo o recuerdito de mi parte guardas con más cariño?"
+    },
+    {
+      "slug": "amor-cuando-me-viste-diferente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo notaste que ya no eras la misma persona de antes de conocerme?"
+    },
+    {
+      "slug": "amor-primer-te-quiero",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle de la primera vez que dijimos \"te quiero\" recuerdas con más claridad, como un olor, un sonido o la ropa?"
+    },
+    {
+      "slug": "amor-mi-voz-en-tu-cabeza",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase mía escuchas en tu cabeza cuando necesitas ánimo?"
+    },
+    {
+      "slug": "amor-mi-mejor-version-contigo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué versión divertida de ti sale solo cuando estás conmigo?"
+    },
+    {
+      "slug": "amor-cosa-que-extranas-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Hoy en la mañana, ¿qué cosa mía extrañaste sin avisar?"
+    },
+    {
+      "slug": "amor-plan-de-mimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dame un plan de mimos de cinco minutos para cuando alguno ande de malas."
+    },
+    {
+      "slug": "amor-palabra-de-carino-en-otro-idioma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué palabra de cariño en otro idioma o en una jerga te gustaría que usáramos?"
+    },
+    {
+      "slug": "amor-cuando-te-siento-cerca",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Siento que me quieres más cuando...",
+      "options": [
+        "Me escuchas con atención",
+        "Me das un abrazo largo",
+        "Me haces reír",
+        "Me ayudas con algo pendiente"
+      ]
+    },
+    {
+      "slug": "amor-tipo-de-mensaje",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál mensaje te llega más al corazón?",
+      "options": [
+        "Un \"pienso en ti\"",
+        "Una foto de lo que hago",
+        "Una nota de voz",
+        "Un meme que me recordó a ti"
+      ]
+    },
+    {
+      "slug": "amor-recibir-carino-al-llegar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando nos vemos después de días, ¿qué quieres primero?",
+      "options": ["Abrazo eterno", "Comer algo rico", "Platicar de todo", "Dormir juntos"]
+    },
+    {
+      "slug": "amor-tipo-de-cita-carinosa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para una cita cariñosa, ¿qué eliges?",
+      "options": ["Picnic en el parque", "Cena en casa", "Paseo sin rumbo", "Maratón de series"]
+    },
+    {
+      "slug": "amor-quien-dice-primero-perdon",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Después de una discusión boba, ¿quién suele decir primero \"perdón\"?",
+      "options": ["Yo", "Tú", "Depende de la pelea", "Nos reímos y ya"]
+    },
+    {
+      "slug": "amor-demostracion-favorita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué demostración de amor disfrutas más?",
+      "options": [
+        "Un detalle inesperado",
+        "Una frase sincera",
+        "Que me ayudes sin pedirlo",
+        "Un abrazo sorpresa"
+      ]
+    },
+    {
+      "slug": "amor-lugar-del-beso",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Dónde te gusta más que te dé un beso?",
+      "options": ["En la frente", "En la mejilla", "En la mano", "En los labios"]
+    },
+    {
+      "slug": "amor-cuando-me-extranas-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdo mío te llega primero cuando me extrañas?",
+      "options": ["Mi risa", "Un abrazo", "Una plática larga", "Un momento tonto nuestro"]
+    },
+    {
+      "slug": "amor-tipo-de-abrazo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de abrazo es tu favorito?",
+      "options": ["Por la espalda", "De frente y largo", "De esos que te levantan", "Con cobijita"]
+    },
+    {
+      "slug": "amor-nivel-de-cursi",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Del 1 al 10, ¿qué tan cursi eres conmigo?",
+      "options": ["Del 1 al 3", "Del 4 al 6", "Del 7 al 9", "Un 10 sin pena"]
+    },
+    {
+      "slug": "amor-musica-para-nosotros",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para ambientar una noche romántica, ¿qué música pones?",
+      "options": [
+        "Baladas de antes",
+        "Algo en inglés tranquilito",
+        "Cumbias románticas",
+        "Solo silencio y velas"
+      ]
+    },
+    {
+      "slug": "amor-quien-se-enamoro-primero",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Quién crees que se enamoró primero?",
+      "options": ["Yo", "Tú", "Los dos al mismo tiempo", "Nunca lo sabremos"]
+    },
+    {
+      "slug": "amor-pelicula-romantica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Noche de película romántica: ¿qué plan armamos?",
+      "options": [
+        "Clásico de lágrima",
+        "Comedia romántica",
+        "Animada de Disney",
+        "Peli de terror para abrazarnos"
+      ]
+    },
+    {
+      "slug": "amor-saludo-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gusta que te salude al verte?",
+      "options": ["Con beso", "Con abrazo", "Con un grito de emoción", "Con un apodo ridículo"]
+    },
+    {
+      "slug": "amor-mensaje-largo-o-corto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para expresar cariño por texto, ¿qué estilo te gusta?",
+      "options": ["Párrafo largo", "Una línea directa", "Puros emojis", "Audio de tres minutos"]
+    },
+    {
+      "slug": "amor-detalle-de-cumple",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El detalle ideal en tu cumpleaños es...",
+      "options": [
+        "Algo hecho a mano",
+        "Algo que necesitabas",
+        "Una experiencia juntos",
+        "Que me cuides todo el día"
+      ]
+    },
+    {
+      "slug": "amor-te-quiero-con",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Quererte se parece más a...",
+      "options": [
+        "Tomar café calientito",
+        "Una cobija suave",
+        "Una canción vieja",
+        "Un domingo sin prisa"
+      ]
+    },
+    {
+      "slug": "amor-frase-que-te-gusta-oir",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué frase te gusta más escuchar?",
+      "options": [
+        "Qué orgullo me das",
+        "Qué bueno que estás aquí",
+        "Te extrañé",
+        "Aquí estoy para lo que sea"
+      ]
+    },
+    {
+      "slug": "amor-cuando-aprendiste-a-quererte-asi",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo aprendiste a querer a alguien, y qué te enseñaron tu casa o tus primeras relaciones sobre eso?"
+    },
+    {
+      "slug": "amor-lo-que-necesitas-oir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase necesitas oír más seguido de mi parte, aunque te dé pena pedirla?"
+    },
+    {
+      "slug": "amor-cuando-te-senti-lejos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Platícame de un momento en que sentiste que nos alejamos y qué te habría ayudado."
+    },
+    {
+      "slug": "amor-lo-que-me-cuesta-pedir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta pedirme aunque sepas que te lo daría?"
+    },
+    {
+      "slug": "amor-amor-que-no-se-nota",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa haces por nosotros que casi nunca se nota y te gustaría que viera?"
+    },
+    {
+      "slug": "amor-lo-que-te-dio-miedo-decirme",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te dio miedo decirme al principio y ya me lo dijiste, o todavía no?"
+    },
+    {
+      "slug": "amor-que-te-hace-sentir-seguro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir seguridad en nuestra relación, de las cosas que sí puedo controlar?"
+    },
+    {
+      "slug": "amor-heridas-que-tocamos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algo que te lastimó en el pasado que quisieras que cuidara con más delicadeza?"
+    },
+    {
+      "slug": "amor-cuando-te-escuche-mal",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que no te escuché bien, y cómo habrías querido que respondiera?"
+    },
+    {
+      "slug": "amor-como-cambio-tu-idea-de-amor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo cambió tu idea del amor desde que estamos juntos?"
+    },
+    {
+      "slug": "amor-lo-que-das-sin-pedir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué das en la relación sin esperar nada a cambio y qué te gustaría recibir a veces?"
+    },
+    {
+      "slug": "amor-parte-de-ti-que-escondes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué parte de ti sigues escondiendo por miedo a que cambie lo que siento?"
+    },
+    {
+      "slug": "amor-momento-de-mas-ternura",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame el momento en que más ternura sentiste por mí y por qué te pegó tanto."
+    },
+    {
+      "slug": "amor-lo-que-necesitas-en-crisis",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando vives algo muy difícil, ¿qué necesitas de mí: espacio, compañía o soluciones?"
+    },
+    {
+      "slug": "amor-perdon-que-te-debo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algo por lo que sientes que debería pedirte perdón y no lo he hecho?"
+    },
+    {
+      "slug": "amor-lo-que-aprendiste-de-pelear",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué has aprendido de ti en nuestras peleas, aunque haya dolido?"
+    },
+    {
+      "slug": "amor-como-reparar-despues",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Después de una pelea fuerte, ¿qué necesitas para volver a sentirte en paz conmigo?"
+    },
+    {
+      "slug": "amor-frase-que-te-hiere",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tipo de frase o tono en una pelea te cierra por completo?"
+    },
+    {
+      "slug": "amor-cosa-que-callas-por-no-pelear",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te has callado por no querer pelear y que quizá sería mejor platicar?"
+    },
+    {
+      "slug": "amor-mejor-pelea-que-tuvimos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál fue la pelea que terminó acercándonos más y qué pasó?"
+    },
+    {
+      "slug": "amor-dos-formas-de-discutir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo describes la forma en que cada uno discute, sin juzgar a nadie?"
+    },
+    {
+      "slug": "amor-senal-de-pausa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué señal o palabra podríamos usar para pausar una discusión antes de que se ponga fea?"
+    },
+    {
+      "slug": "amor-lo-que-necesitas-para-contentarte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando te enojas, ¿cuánto tiempo y qué espacio necesitas antes de platicar?"
+    },
+    {
+      "slug": "amor-lo-que-te-hizo-sentir-vista",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento sentiste que te veía de verdad, tal como eres?"
+    },
+    {
+      "slug": "amor-lo-que-nos-sostiene",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "En lo difícil, ¿qué crees que nos ha sostenido como pareja?"
+    },
+    {
+      "slug": "amor-como-cuidamos-lo-nuestro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hacemos bien para cuidar lo que sentimos y qué se nos está olvidando?"
+    },
+    {
+      "slug": "amor-amor-vs-costumbre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo distingues entre quererme y estar conmigo por pura costumbre?"
+    },
+    {
+      "slug": "amor-lo-que-extranas-del-inicio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué extrañas de cómo era todo al principio y cómo podríamos traerlo de vuelta?"
+    },
+    {
+      "slug": "amor-lo-que-no-cambiaria-de-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué defecto mío ya aprendiste a querer?"
+    },
+    {
+      "slug": "amor-lo-que-te-da-miedo-perder",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te daría miedo perder de lo nuestro?"
+    },
+    {
+      "slug": "amor-lo-que-te-hace-dudar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hace dudar a veces de lo nuestro, aunque sea por un ratito?"
+    },
+    {
+      "slug": "amor-mi-forma-de-querer-te-cuesta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay algo en mi forma de querer que te cuesta entender?"
+    },
+    {
+      "slug": "amor-lo-que-te-gustaria-que-preguntara",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría que te preguntara más seguido?"
+    },
+    {
+      "slug": "amor-apoyo-en-un-suenio-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando estás intentando algo que te da miedo, ¿qué tipo de apoyo mío te sirve más?"
+    },
+    {
+      "slug": "amor-el-momento-de-mas-orgullo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es el momento en que más orgullo has sentido por mí, y alguna vez te lo dije?"
+    },
+    {
+      "slug": "amor-te-quiero-y-me-cuesta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que más te cuesta de quererme?"
+    },
+    {
+      "slug": "amor-lo-que-valoras-de-mi-honestidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Platícame una vez en que mi honestidad te dolió pero te sirvió."
+    },
+    {
+      "slug": "amor-tu-lado-que-solo-conozco-yo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lado tuyo crees que solo yo conozco?"
+    },
+    {
+      "slug": "amor-cuando-nos-dimos-cuenta",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento supiste que esto iba en serio?"
+    },
+    {
+      "slug": "amor-lo-que-quieres-dejar-ir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa del pasado quisieras soltar para querer más libre?"
+    },
+    {
+      "slug": "amor-como-me-cuidas-en-silencio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿De qué formas silenciosas sientes que te cuido y me gustaría que supieras que lo hago?"
+    },
+    {
+      "slug": "amor-lo-que-nos-enseno-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseñó la distancia sobre cómo queremos?"
+    },
+    {
+      "slug": "amor-necesidad-no-dicha",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué necesidad tienes ahorita en la relación que no has sabido cómo decir?"
+    },
+    {
+      "slug": "amor-lo-que-perdonaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa me perdonaste que te costó trabajo y cómo lo soltaste?"
+    },
+    {
+      "slug": "amor-imagina-sin-ti",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo cambiaría tu día a día si yo no existiera en él, y qué agradeces de que sí?"
+    },
+    {
+      "slug": "amor-dar-vs-recibir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta más: dar cariño o recibirlo, y por qué?"
+    },
+    {
+      "slug": "amor-algo-de-mi-que-aprendiste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa aprendiste de mí que te hizo mejor persona?"
+    },
+    {
+      "slug": "amor-el-dia-que-me-elegiste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras revivir un día de nuestro primer mes juntos, ¿cuál sería?"
+    },
+    {
+      "slug": "amor-cuando-te-senti-solo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Alguna vez sentiste soledad estando conmigo, y qué la provocó?"
+    },
+    {
+      "slug": "amor-como-celebrar-un-avance",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando uno de los dos logra algo importante, ¿cómo quisieras que lo celebremos?"
+    },
+    {
+      "slug": "amor-lo-que-aprendiste-del-amor-de-otros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendiste del amor viendo a gente a tu alrededor, para bien o para mal?"
+    },
+    {
+      "slug": "amor-expectativa-no-hablada",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué expectativa tienes de mí que quizá nunca he escuchado explícitamente?"
+    },
+    {
+      "slug": "amor-que-significa-cuidarnos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Para ti, ¿qué significa cuidarnos de verdad?"
+    },
+    {
+      "slug": "amor-lo-que-te-hace-sentir-prioridad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hace que te sientas prioridad en mi vida?"
+    },
+    {
+      "slug": "amor-un-limite-que-agradeces",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué límite que ha puesto uno de los dos terminó haciendo mejor la relación?"
+    },
+    {
+      "slug": "amor-quien-eres-cuando-te-quiero",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quién eres cuando estás completamente a gusto conmigo?"
+    },
+    {
+      "slug": "amor-gratitud-profunda",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Dime algo de cómo te quiero por lo que sientas una gratitud profunda."
+    },
+    {
+      "slug": "amor-un-secreto-bonito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es un secreto bonito sobre lo que sientes por mí que aún no te animas a contarme?"
+    },
+    {
+      "slug": "amor-momento-que-cambio-todo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento nuestro sientes que cambió algo importante entre ustedes?"
+    },
+    {
+      "slug": "amor-lo-que-nos-falta-practicar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué habilidad como pareja nos falta practicar más: escuchar, pedir, agradecer o reparar?"
+    },
+    {
+      "slug": "amor-mensaje-a-tu-yo-herido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le dirías a la parte de ti que todavía teme que la abandonen?"
+    },
+    {
+      "slug": "amor-cuando-me-sientes-mas-tuyo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sientes que más conectamos, de esas veces que no se olvidan?"
+    },
+    {
+      "slug": "amor-una-cosa-que-quisieras-saber",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras saber una cosa de lo que siento por ti sin preguntarla, ¿cuál sería?"
+    },
+    {
+      "slug": "amor-que-te-hace-sentir-cuidado-lejos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Estando lejos, ¿qué hace que sientas mi cuidado aunque no pueda estar?"
+    },
+    {
+      "slug": "amor-un-habito-a-soltar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hábito tuyo en la relación te gustaría soltar y cómo te ayudo?"
+    },
+    {
+      "slug": "amor-imagen-de-nuestro-amor-viejo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si nuestro amor fuera una persona mayor con historia, ¿qué cosas diría que sobrevivió?"
+    },
+    {
+      "slug": "amor-lo-que-estas-orgulloso-de-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué de ustedes como pareja te da más orgullo ahorita?"
+    },
+    {
+      "slug": "amor-una-promesa-chica",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué promesa pequeña pero real te gustaría que nos hiciéramos hoy?"
+    },
+    {
+      "slug": "amor-lo-que-nos-haria-mas-fuertes",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que nos haría una pareja más fuerte en el próximo año?"
+    },
+    {
+      "slug": "amor-lo-que-no-sabia-de-querer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa de querer a alguien no sabías hasta que me conociste?"
+    },
+    {
+      "slug": "amor-lo-que-me-tienes-que-decir",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si hoy tuviera que escuchar algo importante de ti sin interrupciones, ¿qué sería?"
+    },
+    {
+      "slug": "amor-gesto-que-reparo-todo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gesto mío te ha hecho olvidar de golpe un coraje?"
+    },
+    {
+      "slug": "amor-querer-con-defectos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo es para ti quererme sabiendo mis lados difíciles?"
+    },
+    {
+      "slug": "amor-lenguaje-del-amor-principal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu lenguaje del amor principal?",
+      "options": [
+        "Palabras de afirmación",
+        "Tiempo de calidad",
+        "Regalos y detalles",
+        "Actos de servicio"
+      ]
+    },
+    {
+      "slug": "amor-lenguaje-del-amor-segundo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Y como segundo lugar, ¿qué lenguaje del amor te llena?",
+      "options": ["Contacto físico", "Palabras bonitas", "Tiempo juntos", "Que me ayuden"]
+    },
+    {
+      "slug": "amor-lenguaje-que-me-das",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál crees que es el lenguaje del amor que yo uso más contigo?",
+      "options": ["Palabras", "Tiempo", "Detalles", "Servicio"]
+    },
+    {
+      "slug": "amor-despues-de-pelear",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Después de una pelea, ¿qué necesitas primero?",
+      "options": ["Un abrazo", "Hablar del tema", "Espacio un rato", "Una disculpa clara"]
+    },
+    {
+      "slug": "amor-estilo-en-conflicto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un conflicto, ¿cómo eres tú?",
+      "options": [
+        "Hablo todo en el momento",
+        "Me callo y proceso",
+        "Me voy a caminar",
+        "Busco resolver rápido"
+      ]
+    },
+    {
+      "slug": "amor-estilo-en-conflicto-yo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Y cómo crees que soy yo en un conflicto?",
+      "options": [
+        "Hablo todo en el momento",
+        "Me callo y proceso",
+        "Me voy a caminar",
+        "Busco resolver rápido"
+      ]
+    },
+    {
+      "slug": "amor-como-pedir-perdon",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué disculpa te llega más?",
+      "options": [
+        "Con palabras sinceras",
+        "Con un hecho que lo compense",
+        "Con tiempo y presencia",
+        "Con un detalle sin decir nada"
+      ]
+    },
+    {
+      "slug": "amor-tiempo-para-contentarse",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Después de enojarte, ¿cuánto tardas en poder platicar?",
+      "options": ["Menos de una hora", "Unas horas", "Hasta el día siguiente", "Depende del motivo"]
+    },
+    {
+      "slug": "amor-mayor-miedo-en-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te da más miedo en una relación?",
+      "options": [
+        "Perder la conexión",
+        "Que me dejen de querer",
+        "Que no me escuchen",
+        "Aburrirnos"
+      ]
+    },
+    {
+      "slug": "amor-que-necesitas-mas",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudieras pedir más de algo en la relación, sería...",
+      "options": [
+        "Más tiempo juntos",
+        "Más palabras de cariño",
+        "Más apoyo en lo diario",
+        "Más sorpresas"
+      ]
+    },
+    {
+      "slug": "amor-ritmo-de-cercania",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo es tu ritmo ideal de cercanía?",
+      "options": [
+        "Pegados casi siempre",
+        "Juntos y con espacio",
+        "Muy independientes",
+        "Depende de la semana"
+      ]
+    },
+    {
+      "slug": "amor-lo-que-mas-pesa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En el amor, ¿qué pesa más para ti?",
+      "options": ["Confianza", "Respeto", "Admiración", "Complicidad"]
+    },
+    {
+      "slug": "amor-roles-de-cuidado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando uno anda mal, ¿qué rol sueles tomar?",
+      "options": ["Quien escucha", "Quien resuelve", "Quien consiente", "Quien da espacio"]
+    },
+    {
+      "slug": "amor-seguridad-emocional",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te da más seguridad en la relación?",
+      "options": [
+        "Que me lo digas seguido",
+        "Que lo demuestres con hechos",
+        "Que me incluyas en tus planes",
+        "Que seamos constantes"
+      ]
+    },
+    {
+      "slug": "amor-hablar-de-sentimientos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Hablar de sentimientos para ti es...",
+      "options": ["Fácil y natural", "Algo que me cuesta", "Mejor por escrito", "Mejor en un paseo"]
+    },
+    {
+      "slug": "amor-mas-dificil-de-aceptar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo más difícil de aceptar en una pareja es...",
+      "options": [
+        "Que cambie de opinión",
+        "Que tenga mal humor",
+        "Que necesite mucho espacio",
+        "Que necesite mucha atención"
+      ]
+    },
+    {
+      "slug": "amor-senal-de-que-estoy-mal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo te das cuenta de que algo me pasa?",
+      "options": ["Me quedo en silencio", "Me pongo irritable", "Hago más chistes", "Me aíslo"]
+    },
+    {
+      "slug": "amor-amor-que-crece",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más hace crecer el amor es...",
+      "options": ["La paciencia", "La risa", "Los planes juntos", "Las conversaciones profundas"]
+    },
+    {
+      "slug": "amor-mayor-regalo-emocional",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El mayor regalo emocional para ti es...",
+      "options": [
+        "Que me crean",
+        "Que me abracen sin preguntar",
+        "Que me celebren",
+        "Que me acompañen sin juzgar"
+      ]
+    },
+    {
+      "slug": "amor-cuando-hay-duda",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si dudas de algo sobre nosotros, ¿qué haces?",
+      "options": [
+        "Te lo digo de inmediato",
+        "Lo pienso primero",
+        "Lo platico con alguien más",
+        "Me cuesta decirlo"
+      ]
+    },
+    {
+      "slug": "amor-definicion-de-hogar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para ti, ¿qué es \"sentirse en casa\" con alguien?",
+      "options": [
+        "Poder ser yo sin filtros",
+        "Reírnos de todo",
+        "Silencios cómodos",
+        "Cuidarnos sin pedirlo"
+      ]
+    },
+    {
+      "slug": "amor-prueba-del-tiempo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué crees que ayudará más a que duremos mucho?",
+      "options": [
+        "Comunicación sincera",
+        "Humor",
+        "Proyectos en común",
+        "Respeto a nuestros espacios"
+      ]
+    },
+    {
+      "slug": "amor-mayor-fortaleza",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La mayor fortaleza de nuestra relación es...",
+      "options": ["Cómo nos reímos", "Cómo nos apoyamos", "Cómo conversamos", "Cómo nos extrañamos"]
+    },
+    {
+      "slug": "amor-a-mejorar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más nos conviene mejorar como pareja es...",
+      "options": [
+        "Cómo pedimos",
+        "Cómo escuchamos",
+        "Cómo repartimos tareas",
+        "Cómo disfrutamos juntos"
+      ]
+    },
+    {
+      "slug": "amor-te-sientes-querido-cuando",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué hace que sientas más cuidado de mi parte?",
+      "options": [
+        "Que me acuerde de lo que dijiste",
+        "Que te pregunte cómo estás",
+        "Que llegue sin avisar",
+        "Que te defienda"
+      ]
+    },
+    {
+      "slug": "amor-gesto-de-reparacion",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un gesto que ayuda a reparar después de un mal momento es...",
+      "options": [
+        "Un mensaje honesto",
+        "Un abrazo largo",
+        "Hacer algo que le guste al otro",
+        "Una caminata en silencio"
+      ]
+    },
+    {
+      "slug": "amor-pedir-ayuda",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando necesitas ayuda, ¿qué sueles hacer?",
+      "options": [
+        "Pido directo",
+        "Espero que me lo noten",
+        "Hago indirectas",
+        "Lo resuelvo por mi cuenta"
+      ]
+    },
+    {
+      "slug": "amor-paso-del-tiempo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Con el tiempo, ¿qué esperas de nosotros?",
+      "options": [
+        "Que nos sigamos sorprendiendo",
+        "Que nos conozcamos más",
+        "Que seamos un equipo",
+        "Que no perdamos el juego"
+      ]
+    },
+    {
+      "slug": "amor-mayor-aprendizaje",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El mayor aprendizaje de querernos ha sido...",
+      "options": ["Ser paciente", "Hablar claro", "Ceder a veces", "Reírme de mí"]
+    },
+    {
+      "slug": "amor-mas-vulnerable",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Con quién eres más vulnerable?",
+      "options": [
+        "Solo contigo",
+        "Contigo y un par de personas",
+        "Con pocas personas",
+        "Todavía me cuesta con todos"
+      ]
+    },
+    {
+      "slug": "amor-tipo-de-compania",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En un mal día, la mejor compañía es...",
+      "options": [
+        "Alguien que me abrace",
+        "Alguien que me haga reír",
+        "Alguien que me escuche",
+        "Alguien que me deje en paz un rato"
+      ]
+    },
+    {
+      "slug": "amor-sorpresa-de-amor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La mejor forma de sorprenderme con amor sería...",
+      "options": [
+        "Un plan armado por ti",
+        "Una carta",
+        "Un viaje corto",
+        "Un detalle de lo que dije que quería"
+      ]
+    },
+    {
+      "slug": "amor-confianza-total",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para confiar del todo en alguien, necesito...",
+      "options": ["Verlo cumplir", "Que sea honesto aunque duela", "Que me respete", "Tiempo"]
+    },
+    {
+      "slug": "amor-proyecto-de-amor",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para fortalecer lo que sentimos, ¿qué proyecto nos late?",
+      "options": [
+        "Una tradición semanal",
+        "Un viaje",
+        "Aprender algo juntos",
+        "Un ahorro compartido"
+      ]
+    },
+    {
+      "slug": "amor-lo-que-mas-agradeces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más agradeces de nuestra relación es...",
+      "options": ["Tu libertad", "Tu paz", "Tu compañía", "Tus risas"]
     }
   ]
 }

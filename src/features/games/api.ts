@@ -1,5 +1,6 @@
 import type { Stroke } from '@/lib/drawing';
 import {
+  DEFAULT_ROUND_SIZE,
   parseDrawing,
   parseGameOverview,
   parseGameRound,
@@ -9,6 +10,7 @@ import {
   type GameOverview,
   type GameRound,
   type GuessResult,
+  type RoundSize,
 } from '@/lib/games';
 import { supabase } from '@/lib/supabase';
 import type { Json } from '@/types/database';
@@ -27,11 +29,16 @@ export async function fetchGameRound(roundId: string): Promise<GameRound> {
   return parseGameRound(data);
 }
 
-/** Si ya hay una ronda abierta de ese juego, devuelve esa. */
-export async function startGameRound(game: GameId, spicy: boolean): Promise<GameRound> {
+/** Si ya hay una ronda abierta de ese juego, devuelve esa (de cualquier tamaño). */
+export async function startGameRound(
+  game: GameId,
+  spicy: boolean,
+  size: RoundSize = DEFAULT_ROUND_SIZE,
+): Promise<GameRound> {
   const { data, error } = await supabase.rpc('start_game_round', {
     p_game: game,
     p_spicy: spicy,
+    p_size: size,
   });
   if (error) throw error;
   return parseGameRound(data);

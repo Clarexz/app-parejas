@@ -233,7 +233,7 @@ describe('generateSeedSql', () => {
     expect(sql.trimEnd().endsWith('commit;')).toBe(true);
     expect(sql).toContain('on conflict (slug) do update set');
     expect(sql).toContain('is_active = true;');
-    expect(sql).toContain('where created_by is null and slug not in (');
+    expect(sql).toContain('where created_by is null and couple_id is null and slug not in (');
     expect(sql).not.toMatch(/set[^;]*\bid =|created_by =/);
   });
 

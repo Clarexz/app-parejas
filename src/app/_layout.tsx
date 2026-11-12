@@ -113,6 +113,8 @@ function ThemedStack({ fontsReady }: { fontsReady: boolean }) {
             <Stack.Screen name="history" />
             <Stack.Screen name="widgets" />
             <Stack.Screen name="category/[slug]" />
+            <Stack.Screen name="pack/[slug]" />
+            <Stack.Screen name="add-question" />
             <Stack.Screen
               name="story/new"
               options={{ presentation: 'fullScreenModal', animation: 'fade' }}

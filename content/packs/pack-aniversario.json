@@ -1,0 +1,176 @@
+{
+  "pack": "pack-aniversario",
+  "questions": [
+    {
+      "slug": "pack-aniversario-recuerdo-primer-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu recuerdo favorito del día en que empezamos a ser pareja?"
+    },
+    {
+      "slug": "pack-aniversario-momento-del-ano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de este último año te gustaría volver a vivir con todo y detalles?"
+    },
+    {
+      "slug": "pack-aniversario-una-palabra",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si resumieras nuestro tiempo juntos en una sola palabra, ¿cuál sería?",
+      "options": ["Aventura", "Hogar", "Risas", "Aprendizaje"]
+    },
+    {
+      "slug": "pack-aniversario-nunca-iba-a-hacer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa creías que jamás ibas a hacer y terminaste haciendo conmigo?"
+    },
+    {
+      "slug": "pack-aniversario-reto-superado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál ha sido el reto más grande que hemos superado y qué aprendiste de él?"
+    },
+    {
+      "slug": "pack-aniversario-cancion-aniversario",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La canción de nuestro aniversario sería…",
+      "options": [
+        "Una romántica clásica",
+        "Una que nos hace bailar",
+        "Una nostálgica",
+        "Una que solo nosotros entendemos"
+      ]
+    },
+    {
+      "slug": "pack-aniversario-admiras-en-problemas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué admiras de cómo nos tratamos cuando hay problemas?"
+    },
+    {
+      "slug": "pack-aniversario-sorpresa-de-mi",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te sorprendió de mí cuando ya me conociste más?"
+    },
+    {
+      "slug": "pack-aniversario-detalle-que-enamora",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué cosa pequeña que hago te vuelve a enamorar sin que yo me dé cuenta?"
+    },
+    {
+      "slug": "pack-aniversario-plan-celebrar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Para celebrar, ¿qué plan te late más?",
+      "options": ["Cena especial", "Escapada", "Algo en casa, solos", "Reunir a los amigos"]
+    },
+    {
+      "slug": "pack-aniversario-como-has-cambiado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo has cambiado desde que estamos juntos y te gusta quién eres hoy?"
+    },
+    {
+      "slug": "pack-aniversario-carta-primer-dia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras escribirle una carta corta a nosotros del primer día, ¿qué le dirías?"
+    },
+    {
+      "slug": "pack-aniversario-leccion-de-amor",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lección de amor te ha enseñado esta relación?"
+    },
+    {
+      "slug": "pack-aniversario-superpoder-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Nuestro mayor superpoder como pareja es…",
+      "options": ["Reírnos de todo", "Platicar horas", "Perdonar rápido", "Apoyarnos en lo difícil"]
+    },
+    {
+      "slug": "pack-aniversario-lugar-mas-nuestro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "De todos los lugares que hemos compartido, ¿cuál es el más nuestro?"
+    },
+    {
+      "slug": "pack-aniversario-tradicion-aniversario",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tradición nueva te gustaría empezar para cada aniversario?"
+    },
+    {
+      "slug": "pack-aniversario-agradecimiento-pendiente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué quisieras agradecerme de este tiempo que quizá todavía no te he dicho?"
+    },
+    {
+      "slug": "pack-aniversario-promesa-proximo-ano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué promesa pequeña quieres que nos hagamos para el siguiente año?"
+    },
+    {
+      "slug": "pack-aniversario-capitulo-album",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si hiciéramos un álbum de nuestro tiempo juntos, ¿qué capítulo sería el más grande?",
+      "options": [
+        "Viajes y visitas",
+        "Videollamadas eternas",
+        "Comidas y antojos",
+        "Momentos difíciles superados"
+      ]
+    },
+    {
+      "slug": "pack-aniversario-sueno-compartido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño de los dos te emociona más ver cumplido?"
+    },
+    {
+      "slug": "pack-aniversario-lugar-seguro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste más que yo era tu lugar seguro?"
+    },
+    {
+      "slug": "pack-aniversario-dia-perfecto-regalo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras regalarme un día perfecto, ¿cómo lo armarías?"
+    },
+    {
+      "slug": "pack-aniversario-paso-del-tiempo",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo sientes que ha pasado el tiempo desde que somos pareja?",
+      "options": [
+        "Volando",
+        "A paso tranquilo",
+        "Parece que fue ayer",
+        "Como si llevamos toda la vida"
+      ]
+    },
+    {
+      "slug": "pack-aniversario-consejo-a-otros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Con lo que hemos vivido, ¿qué le dirías a una pareja que apenas empieza?"
+    },
+    {
+      "slug": "pack-aniversario-frase-lo-que-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Termina la frase: \"Lo que más me hace feliz de nosotros es…\""
+    }
+  ]
+}

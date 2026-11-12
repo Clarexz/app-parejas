@@ -1,0 +1,68 @@
+{
+  "packs": [
+    {
+      "slug": "pack-36-preguntas",
+      "name": "36 preguntas para enamorarse",
+      "emoji": "💞",
+      "intensity": "profunda",
+      "position": 1,
+      "description": "Nuestra versión del estudio de Arthur Aron: 36 preguntas en tres bloques que van subiendo de nivel."
+    },
+    {
+      "slug": "pack-antes-de-vernos",
+      "name": "Antes de vernos",
+      "emoji": "✈️",
+      "intensity": "ligera",
+      "position": 2,
+      "description": "Para los días antes de un reencuentro, cuando ya se cuentan las horas."
+    },
+    {
+      "slug": "pack-aniversario",
+      "name": "Aniversario",
+      "emoji": "🎂",
+      "intensity": "profunda",
+      "position": 3,
+      "description": "Para mirar hacia atrás y celebrar lo que llevan juntos."
+    },
+    {
+      "slug": "pack-navidad",
+      "name": "Navidad y fin de año",
+      "emoji": "🎄",
+      "intensity": "ligera",
+      "position": 4,
+      "description": "Posadas, tradiciones, regalos y propósitos de año nuevo."
+    },
+    {
+      "slug": "pack-vivir-juntos",
+      "name": "Antes de vivir juntos",
+      "emoji": "🔑",
+      "intensity": "profunda",
+      "position": 5,
+      "description": "Rutinas, espacios, quehaceres y todo lo que conviene platicar antes."
+    },
+    {
+      "slug": "pack-dinero",
+      "name": "Dinero",
+      "emoji": "💸",
+      "intensity": "profunda",
+      "position": 6,
+      "description": "Ahorro, gastos, deudas y sueños con número."
+    },
+    {
+      "slug": "pack-hijos",
+      "name": "Hijos y familia",
+      "emoji": "🍼",
+      "intensity": "profunda",
+      "position": 7,
+      "description": "Si quieren hijos, cómo los imaginan y qué familia quieren ser."
+    },
+    {
+      "slug": "pack-deseo",
+      "name": "Deseo",
+      "emoji": "🌶️",
+      "intensity": "picante",
+      "position": 8,
+      "description": "Solo si los dos activaron las picantes. Fantasías, química y confianza."
+    }
+  ]
+}

@@ -2,13 +2,25 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import type { Pack } from '@/lib/packs';
 import type { AnswerInfo, QuestionCard, Streak } from '@/lib/questions';
 import { ThemeProvider } from '@/theme';
 
 import { QuestionView } from '../QuestionView';
 
 const mockMutateAsync = jest.fn();
+const mockSetFeedback = jest.fn();
+const mockReplace = jest.fn();
+let mockVote: 1 | -1 | null = null;
+let mockPacks: Pack[] = [];
+let mockPacksFetching = false;
+jest.mock('expo-router', () => ({
+  useRouter: () => ({ push: jest.fn(), replace: mockReplace, back: jest.fn() }),
+}));
 jest.mock('../../hooks', () => ({
+  useMyFeedback: () => ({ vote: mockVote }),
+  useSetFeedback: () => ({ mutate: mockSetFeedback, isPending: false }),
+  usePacks: () => ({ packs: mockPacks, isFetching: mockPacksFetching }),
   useSubmitAnswer: () => ({ mutateAsync: mockMutateAsync, isPending: false }),
   useDeleteAnswer: () => ({ mutateAsync: jest.fn(), isPending: false }),
   useAnswerAudioUrl: () => ({ url: null, isError: false }),
@@ -76,7 +88,7 @@ const base: QuestionCard = {
   comment_count: 0,
 };
 
-const renderView = (card: QuestionCard) =>
+const renderView = (card: QuestionCard, pack?: string) =>
   render(
     <SafeAreaProvider
       initialMetrics={{
@@ -85,13 +97,20 @@ const renderView = (card: QuestionCard) =>
       }}
     >
       <ThemeProvider>
-        <QuestionView card={card} />
+        <QuestionView card={card} pack={pack} />
       </ThemeProvider>
     </SafeAreaProvider>,
   );
 
 describe('QuestionView', () => {
-  beforeEach(() => mockMutateAsync.mockClear());
+  beforeEach(() => {
+    mockMutateAsync.mockClear();
+    mockSetFeedback.mockClear();
+    mockReplace.mockClear();
+    mockVote = null;
+    mockPacks = [];
+    mockPacksFetching = false;
+  });
 
   it('sin contestar oculta la respuesta de tu pareja y no deja comentar', async () => {
     await renderView({ ...base, partner_answered: true, partner: answer('u2', 'A Oaxaca') });
@@ -220,6 +239,87 @@ describe('QuestionView', () => {
       expect(mockMutateAsync).toHaveBeenCalledWith(
         expect.objectContaining({ text: 'con sol', choice: 1 }),
       );
+    });
+  });
+  describe('voto 👍/👎', () => {
+    it('ofrece votar y manda el voto al tocar', async () => {
+      await renderView(base);
+      expect(screen.getByText('¿Qué tal esta pregunta?')).toBeTruthy();
+      await fireEvent.press(screen.getByRole('button', { name: '👍 Me gustó' }));
+      expect(mockSetFeedback).toHaveBeenCalledWith(
+        { questionId: 'q1', vote: 1 },
+        expect.any(Object),
+      );
+    });
+
+    it('tocar el voto que ya tengo lo quita', async () => {
+      mockVote = 1;
+      await renderView(base);
+      await fireEvent.press(screen.getByRole('button', { name: '👍 Me gustó' }));
+      expect(mockSetFeedback).toHaveBeenCalledWith(
+        { questionId: 'q1', vote: null },
+        expect.any(Object),
+      );
+    });
+
+    it('el 👎 explica qué pasa', async () => {
+      await renderView(base);
+      expect(screen.queryByText('No les volverá a salir como pregunta del día.')).toBeNull();
+      mockVote = -1;
+      await renderView(base);
+      expect(screen.getByText('No les volverá a salir como pregunta del día.')).toBeTruthy();
+    });
+  });
+
+  describe('desde un tema', () => {
+    const answered = { ...base, day: null, mine: answer('u1', 'Playa') };
+    const pack = (next: string | null): Pack => ({
+      slug: 'pack-a',
+      name: 'Tema',
+      emoji: '✨',
+      description: '',
+      intensity: 'ligera',
+      position: 1,
+      total: 5,
+      answered_by_me: 2,
+      answered_by_both: 1,
+      next_question_id: next,
+    });
+
+    it('sin el param pack no ofrece nada del tema', async () => {
+      mockPacks = [pack('q2')];
+      await renderView(answered);
+      expect(screen.queryByRole('button', { name: 'Siguiente del tema' })).toBeNull();
+    });
+
+    it('ofrece la siguiente del tema y la abre', async () => {
+      mockPacks = [pack('q2')];
+      await renderView(answered, 'pack-a');
+      await fireEvent.press(screen.getByRole('button', { name: 'Siguiente del tema' }));
+      expect(mockReplace).toHaveBeenCalledWith({
+        pathname: '/question',
+        params: { id: 'q2', pack: 'pack-a' },
+      });
+    });
+
+    it('si ya no queda ninguna, dice que terminaron el tema', async () => {
+      mockPacks = [pack(null)];
+      await renderView(answered, 'pack-a');
+      expect(screen.getByText('Terminaste el tema')).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Siguiente del tema' })).toBeNull();
+    });
+
+    it('con datos viejos (la misma pregunta como siguiente) espera', async () => {
+      mockPacks = [pack('q1')];
+      await renderView(answered, 'pack-a');
+      expect(screen.queryByRole('button', { name: 'Siguiente del tema' })).toBeNull();
+      expect(screen.queryByText('Terminaste el tema')).toBeNull();
+    });
+
+    it('sin contestar todavía no la ofrece', async () => {
+      mockPacks = [pack('q2')];
+      await renderView(base, 'pack-a');
+      expect(screen.queryByRole('button', { name: 'Siguiente del tema' })).toBeNull();
     });
   });
 });

@@ -10,6 +10,9 @@ import { useEffect, useRef } from 'react';
 import { useSession } from '@/features/auth';
 import { useCouple, useToday } from '@/features/couple';
 import type { AudioDraft } from '@/lib/audio';
+import type { CustomQuestion, CustomQuestionInput } from '@/lib/customQuestions';
+import type { FeedbackVote } from '@/lib/feedback';
+import type { Pack } from '@/lib/packs';
 import {
   applyReaction,
   justCompleted,
@@ -24,19 +27,25 @@ import { supabase } from '@/lib/supabase';
 
 import {
   addComment,
+  addCustomQuestion,
   answerAudioUrl,
   deleteAnswer,
   deleteComment,
   fetchCategories,
   fetchCategoryQuestions,
   fetchComments,
+  fetchCustomQuestions,
   fetchDailyQuestion,
   fetchHistory,
+  fetchMyFeedback,
+  fetchPacks,
   fetchQuestion,
   fetchStreak,
   HISTORY_PAGE_SIZE,
   reactToComment,
+  retireCustomQuestion,
   sendNudge,
+  setQuestionFeedback,
   setSpicyOptIn,
   submitAnswer,
   type Comment,
@@ -61,12 +70,18 @@ export const questionKeys = {
   commentsAll: (coupleId: string | null) => ['comments', coupleId] as const,
   comments: (coupleId: string | null, questionId: string | null) =>
     ['comments', coupleId, questionId] as const,
+  packs: (coupleId: string | null) => ['packs', coupleId] as const,
+  feedback: (coupleId: string | null, questionId: string | null) =>
+    ['question-feedback', coupleId, questionId] as const,
+  custom: (coupleId: string | null) => ['custom-questions', coupleId] as const,
 };
 
 const NO_COMMENTS: Comment[] = [];
 const NO_ITEMS: HistoryItem[] = [];
 const NO_CATEGORIES: QuestionCategory[] = [];
 const NO_CATEGORY_QUESTIONS: CategoryQuestion[] = [];
+const NO_PACKS: Pack[] = [];
+const NO_CUSTOM: CustomQuestion[] = [];
 
 /** Tras mi propio submit/delete se ignoran los avisos de Realtime de la pareja por este tiempo. */
 const OWN_MUTATION_QUIET_MS = 3000;
@@ -103,6 +118,8 @@ function invalidateCards(qc: QueryClient, coupleId: string | null) {
     questionKeys.streak(coupleId),
     questionKeys.historyAll(coupleId),
     questionKeys.categoryQuestionsAll(coupleId),
+    questionKeys.packs(coupleId),
+    questionKeys.custom(coupleId),
   ]) {
     void qc.invalidateQueries({ queryKey });
   }
@@ -206,6 +223,46 @@ export function useCategoryQuestions(slug: string | null | undefined) {
   return { questions: query.data ?? NO_CATEGORY_QUESTIONS, ...viewState(query, coupleId) };
 }
 
+/** Temas (packs) con mi avance; `next_question_id` es la siguiente que no he contestado. */
+export function usePacks() {
+  const { couple } = useCouple();
+  const coupleId = couple?.id ?? null;
+  const query = useQuery({
+    queryKey: questionKeys.packs(coupleId),
+    queryFn: fetchPacks,
+    enabled: !!coupleId,
+  });
+  return {
+    packs: query.data ?? NO_PACKS,
+    isFetching: query.isFetching,
+    ...viewState(query, coupleId),
+  };
+}
+
+/** Mi voto (👍/👎) de una pregunta. */
+export function useMyFeedback(questionId: string | null | undefined) {
+  const { couple } = useCouple();
+  const coupleId = couple?.id ?? null;
+  const query = useQuery({
+    queryKey: questionKeys.feedback(coupleId, questionId ?? null),
+    queryFn: () => fetchMyFeedback(questionId as string),
+    enabled: !!coupleId && !!questionId,
+  });
+  return { vote: query.data ?? null, ...viewState(query, coupleId) };
+}
+
+/** Preguntas propias de la pareja, las más nuevas primero. */
+export function useCustomQuestions() {
+  const { couple } = useCouple();
+  const coupleId = couple?.id ?? null;
+  const query = useQuery({
+    queryKey: questionKeys.custom(coupleId),
+    queryFn: fetchCustomQuestions,
+    enabled: !!coupleId,
+  });
+  return { questions: query.data ?? NO_CUSTOM, ...viewState(query, coupleId) };
+}
+
 /** Historial paginado (30 por página); `search` y `category` vacíos = sin filtro. */
 export function useHistory({
   search = '',
@@ -278,6 +335,8 @@ export function useSubmitAnswer() {
       void qc.invalidateQueries({ queryKey: questionKeys.streak(coupleId) });
       void qc.invalidateQueries({ queryKey: questionKeys.historyAll(coupleId) });
       void qc.invalidateQueries({ queryKey: questionKeys.categoryQuestionsAll(coupleId) });
+      void qc.invalidateQueries({ queryKey: questionKeys.packs(coupleId) });
+      void qc.invalidateQueries({ queryKey: questionKeys.custom(coupleId) });
     },
   });
 }
@@ -377,6 +436,61 @@ export function useReactToComment() {
     },
     onSettled: (_data, _error, input) => {
       void qc.invalidateQueries({ queryKey: questionKeys.comments(coupleId, input.questionId) });
+    },
+  });
+}
+
+/** Vota 👍/👎 (null quita el voto); la fila se actualiza al instante y vuelve atrás si falla. */
+export function useSetFeedback() {
+  const { couple } = useCouple();
+  const qc = useQueryClient();
+  const coupleId = couple?.id ?? null;
+  return useMutation({
+    mutationFn: (input: { questionId: string; vote: FeedbackVote }) =>
+      setQuestionFeedback(input.questionId, input.vote),
+    onMutate: async (input) => {
+      const key = questionKeys.feedback(coupleId, input.questionId);
+      await qc.cancelQueries({ queryKey: key });
+      const previous = qc.getQueryData<FeedbackVote>(key);
+      qc.setQueryData<FeedbackVote>(key, input.vote);
+      return { previous, key };
+    },
+    onError: (_error, _input, context) => {
+      if (context) qc.setQueryData(context.key, context.previous ?? null);
+    },
+    onSettled: (_data, _error, input) => {
+      void qc.invalidateQueries({ queryKey: questionKeys.feedback(coupleId, input.questionId) });
+    },
+  });
+}
+
+/** Agrega una pregunta propia; ya viene validada (`validateCustomQuestion`). */
+export function useAddCustomQuestion() {
+  const { couple } = useCouple();
+  const qc = useQueryClient();
+  const coupleId = couple?.id ?? null;
+  return useMutation({
+    mutationFn: (input: CustomQuestionInput) => addCustomQuestion(input),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: questionKeys.custom(coupleId) });
+      void qc.invalidateQueries({ queryKey: questionKeys.categories() });
+      void qc.invalidateQueries({ queryKey: questionKeys.categoryQuestionsAll(coupleId) });
+    },
+  });
+}
+
+/** Retira una pregunta propia (las respuestas se conservan). */
+export function useRetireCustomQuestion() {
+  const { couple } = useCouple();
+  const qc = useQueryClient();
+  const coupleId = couple?.id ?? null;
+  return useMutation({
+    mutationFn: (questionId: string) => retireCustomQuestion(questionId),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: questionKeys.custom(coupleId) });
+      void qc.invalidateQueries({ queryKey: questionKeys.categories() });
+      void qc.invalidateQueries({ queryKey: questionKeys.categoryQuestionsAll(coupleId) });
+      void qc.invalidateQueries({ queryKey: questionKeys.dailyAll(coupleId) });
     },
   });
 }

@@ -1,0 +1,253 @@
+{
+  "pack": "pack-36-preguntas",
+  "questions": [
+    {
+      "slug": "pack-36-preguntas-cena-invitado",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras invitar a cenar a cualquier persona del mundo, viva o no, ¿a quién sentarías a la mesa?"
+    },
+    {
+      "slug": "pack-36-preguntas-fama",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Te gustaría tener fama, de la que te reconocen en la calle?",
+      "options": [
+        "Sí, cuanto más mejor",
+        "Un poquito, solo en lo mío",
+        "Ni de chiste",
+        "Solo por un día"
+      ]
+    },
+    {
+      "slug": "pack-36-preguntas-ensayo-llamada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Antes de hacer una llamada importante, ¿cómo te preparas?",
+      "options": [
+        "Ensayo palabra por palabra",
+        "Solo me sé la idea",
+        "Improviso total",
+        "Mejor mando audio"
+      ]
+    },
+    {
+      "slug": "pack-36-preguntas-dia-perfecto",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu día perfecto de principio a fin, ¿cuál de estas cosas sería el centro?",
+      "options": ["Comida rica", "Una aventura afuera", "Cero planes y cobija", "Gente querida"]
+    },
+    {
+      "slug": "pack-36-preguntas-cantar-ultima-vez",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la última vez que cantaste, aunque fuera bajito, y qué canción era?"
+    },
+    {
+      "slug": "pack-36-preguntas-llegar-a-noventa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si llegaras a los 90 conservando una sola cosa en su mejor versión, ¿cuál elegirías?",
+      "options": ["Cuerpo de 30", "Mente de 30", "Mi sentido del humor", "Mi memoria"]
+    },
+    {
+      "slug": "pack-36-preguntas-corazonada-futuro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tienes alguna corazonada rara sobre tu futuro que nunca le has contado a nadie?"
+    },
+    {
+      "slug": "pack-36-preguntas-tres-cosas-en-comun",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Dime tres cosas que creas que tenemos en común y que casi nadie notaría."
+    },
+    {
+      "slug": "pack-36-preguntas-agradecer-vida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo que más agradeces de tu vida hoy?"
+    },
+    {
+      "slug": "pack-36-preguntas-crianza-cambiar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué le moverías a la forma en que te criaron, si pudieras?"
+    },
+    {
+      "slug": "pack-36-preguntas-historia-cuatro-minutos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si tuvieras cuatro minutos para contar tu historia de vida, ¿qué partes no podrían faltar?"
+    },
+    {
+      "slug": "pack-36-preguntas-despertar-talento",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mañana despiertas con un talento nuevo de regalo. ¿Cuál escogerías?",
+      "options": [
+        "Tocar cualquier instrumento",
+        "Hablar todos los idiomas",
+        "Cocinar como chef",
+        "Dibujar lo que imagino"
+      ]
+    },
+    {
+      "slug": "pack-36-preguntas-bola-de-cristal",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si una bola de cristal te dijera la verdad sobre ti, tu vida o tu futuro, ¿qué le preguntarías?"
+    },
+    {
+      "slug": "pack-36-preguntas-sueno-pospuesto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sueño llevas años pospuesto y qué te ha frenado?"
+    },
+    {
+      "slug": "pack-36-preguntas-mayor-logro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál sientes que ha sido tu mayor logro hasta ahora?"
+    },
+    {
+      "slug": "pack-36-preguntas-valor-amistad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En una amistad, ¿qué es lo que más valoras?",
+      "options": [
+        "Que me escuchen sin juzgar",
+        "Que me hagan reír",
+        "Que estén cuando los necesito",
+        "Que me digan la verdad"
+      ]
+    },
+    {
+      "slug": "pack-36-preguntas-recuerdo-tesoro",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es el recuerdo que más atesoras y por qué?"
+    },
+    {
+      "slug": "pack-36-preguntas-recuerdo-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo difícil te gustaría poder ver con menos peso?"
+    },
+    {
+      "slug": "pack-36-preguntas-ultimo-ano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si solo te quedara un año de vida, ¿qué es lo primero que cambiarías?"
+    },
+    {
+      "slug": "pack-36-preguntas-amistad-de-verdad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué hace que alguien pase de conocido a una amistad de verdad?"
+    },
+    {
+      "slug": "pack-36-preguntas-lugar-del-carino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lugar ocupan el amor y el cariño en tu vida de todos los días?"
+    },
+    {
+      "slug": "pack-36-preguntas-cinco-cosas-buenas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Dime cinco cosas buenas que ya ves en mí."
+    },
+    {
+      "slug": "pack-36-preguntas-casa-de-infancia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cómo era el ambiente en la casa donde creciste?",
+      "options": [
+        "Calientito y ruidoso",
+        "Tranquilo y silencioso",
+        "Cada quien en lo suyo",
+        "Una telenovela"
+      ]
+    },
+    {
+      "slug": "pack-36-preguntas-familiar-cercano",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Con quién de tu familia sientes la relación más cercana y qué la hace especial?"
+    },
+    {
+      "slug": "pack-36-preguntas-tres-frases-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Di tres frases que empiecen con \"Nosotros…\" y que describan lo que somos juntos."
+    },
+    {
+      "slug": "pack-36-preguntas-compartir-contigo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Termina la frase: \"Hay algo que me encantaría compartir contigo y es…\""
+    },
+    {
+      "slug": "pack-36-preguntas-que-no-se",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué crees que todavía no sé de ti y cambiaría cómo te conozco?"
+    },
+    {
+      "slug": "pack-36-preguntas-gusta-de-mi",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Dime algo que te gusta de mí y que normalmente no le dirías a alguien que acabas de conocer."
+    },
+    {
+      "slug": "pack-36-preguntas-momento-vergonzoso",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame uno de tus momentos más vergonzosos, de esos que todavía te dan risa."
+    },
+    {
+      "slug": "pack-36-preguntas-llorar-ultima-vez",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo fue la última vez que lloraste, a solas o frente a alguien?"
+    },
+    {
+      "slug": "pack-36-preguntas-gusto-desde-inicio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué fue lo que te gustó de mí desde el principio y todavía te gusta?"
+    },
+    {
+      "slug": "pack-36-preguntas-tema-muy-serio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tema te parece demasiado serio para hacer chistes?"
+    },
+    {
+      "slug": "pack-36-preguntas-decir-esta-noche",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si esta noche pudieras decirle algo a alguien que quieres y todavía no lo has hecho, ¿qué sería?"
+    },
+    {
+      "slug": "pack-36-preguntas-casa-incendio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tu casa se incendiara y todos estuvieran a salvo, ¿qué objeto rescatarías y por qué?"
+    },
+    {
+      "slug": "pack-36-preguntas-perdida-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué pérdida de alguien cercano te ha costado más trabajo y cómo la llevaste?"
+    },
+    {
+      "slug": "pack-36-preguntas-problema-y-apoyo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuéntame un problema que traigas ahorita y dime cómo quisieras que te acompañe."
+    }
+  ]
+}

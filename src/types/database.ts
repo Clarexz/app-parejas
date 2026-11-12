@@ -956,15 +956,50 @@ export type Database = {
         };
         Relationships: [];
       };
+      question_feedback: {
+        Row: {
+          created_at: string;
+          question_id: string;
+          updated_at: string;
+          user_id: string;
+          vote: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          question_id: string;
+          updated_at?: string;
+          user_id: string;
+          vote: number;
+        };
+        Update: {
+          created_at?: string;
+          question_id?: string;
+          updated_at?: string;
+          user_id?: string;
+          vote?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'question_feedback_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       questions: {
         Row: {
           category: string;
+          couple_id: string | null;
           created_at: string;
           created_by: string | null;
           id: string;
           intensity: string;
           is_active: boolean;
           options: Json | null;
+          position: number | null;
           slug: string;
           text: string;
           type: string;
@@ -974,24 +1009,28 @@ export type Database = {
         ComputedFields: 'question_json' | 'question_visible';
         Insert: {
           category: string;
+          couple_id?: string | null;
           created_at?: string;
           created_by?: string | null;
           id?: string;
           intensity: string;
           is_active?: boolean;
           options?: Json | null;
+          position?: number | null;
           slug: string;
           text: string;
           type: string;
         };
         Update: {
           category?: string;
+          couple_id?: string | null;
           created_at?: string;
           created_by?: string | null;
           id?: string;
           intensity?: string;
           is_active?: boolean;
           options?: Json | null;
+          position?: number | null;
           slug?: string;
           text?: string;
           type?: string;
@@ -1003,6 +1042,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'question_categories';
             referencedColumns: ['slug'];
+          },
+          {
+            foreignKeyName: 'questions_couple_id_fkey';
+            columns: ['couple_id'];
+            isOneToOne: false;
+            referencedRelation: 'couples';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -1244,6 +1290,16 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      add_custom_question: {
+        Args: {
+          p_category: string;
+          p_intensity?: string;
+          p_options?: Json;
+          p_text: string;
+          p_type: string;
+        };
+        Returns: string;
+      };
       add_list_item: {
         Args: { p_list_id: string; p_text: string };
         Returns: {
@@ -1400,6 +1456,23 @@ export type Database = {
           type: string;
         }[];
       };
+      get_custom_questions: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          answered_by_me: boolean;
+          answered_by_partner: boolean;
+          category: string;
+          category_emoji: string;
+          category_name: string;
+          created_at: string;
+          created_by: string;
+          id: string;
+          intensity: string;
+          options: Json;
+          text: string;
+          type: string;
+        }[];
+      };
       get_daily_question: { Args: { p_day?: string }; Returns: Json };
       get_drawing: { Args: { p_id: string }; Returns: Json };
       get_game_overview: { Args: Record<PropertyKey, never>; Returns: Json };
@@ -1409,6 +1482,21 @@ export type Database = {
         Returns: Json[];
       };
       get_love_languages: { Args: Record<PropertyKey, never>; Returns: Json };
+      get_packs: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          answered_by_both: number;
+          answered_by_me: number;
+          description: string;
+          emoji: string;
+          intensity: string;
+          name: string;
+          next_question_id: string;
+          position: number;
+          slug: string;
+          total: number;
+        }[];
+      };
       get_question_with_answers: { Args: { p_question_id: string }; Returns: Json };
       get_relationship_stats: { Args: Record<PropertyKey, never>; Returns: Json };
       get_streak: { Args: Record<PropertyKey, never>; Returns: Json };
@@ -1506,6 +1594,7 @@ export type Database = {
       };
       require_couple: { Args: Record<PropertyKey, never>; Returns: string };
       reroll_drawing_word: { Args: { p_id: string }; Returns: Json };
+      retire_custom_question: { Args: { p_question_id: string }; Returns: undefined };
       save_event: {
         Args: {
           p_date: string;
@@ -1663,10 +1752,14 @@ export type Database = {
         };
       };
       set_my_timezone: { Args: { p_timezone: string }; Returns: undefined };
+      set_question_feedback: { Args: { p_question_id: string; p_vote: number }; Returns: number };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };
-      start_game_round: { Args: { p_game: string; p_spicy?: boolean }; Returns: Json };
+      start_game_round: {
+        Args: { p_game: string; p_size?: number; p_spicy?: boolean };
+        Returns: Json;
+      };
       stories_cleanup_batch: { Args: { p_limit?: number }; Returns: Json };
       stories_cleanup_commit: { Args: { p_story_ids: string[] }; Returns: number };
       story_path_readable: { Args: { p_name: string }; Returns: boolean };

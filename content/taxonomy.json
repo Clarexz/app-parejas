@@ -1,0 +1,177 @@
+{
+  "$comment": "Metas de la Fase 10 (D119). check-content.ts compara lo que hay contra estas metas por celda (categoría × intensidad × tipo). Son metas, no límites.",
+  "daily": {
+    "min_total": 2000,
+    "categories": {
+      "conocernos": {
+        "ligera": {
+          "open": 84,
+          "choice": 56
+        },
+        "profunda": {
+          "open": 36,
+          "choice": 24
+        }
+      },
+      "recuerdos": {
+        "ligera": {
+          "open": 75,
+          "choice": 25
+        },
+        "profunda": {
+          "open": 45,
+          "choice": 15
+        }
+      },
+      "a-distancia": {
+        "ligera": {
+          "open": 68,
+          "choice": 32
+        },
+        "profunda": {
+          "open": 82,
+          "choice": 38
+        }
+      },
+      "amor": {
+        "ligera": {
+          "open": 56,
+          "choice": 24
+        },
+        "profunda": {
+          "open": 84,
+          "choice": 36
+        }
+      },
+      "futuro": {
+        "ligera": {
+          "open": 41,
+          "choice": 19
+        },
+        "profunda": {
+          "open": 69,
+          "choice": 31
+        }
+      },
+      "divertidas": {
+        "ligera": {
+          "open": 100,
+          "choice": 100
+        }
+      },
+      "hipoteticas": {
+        "ligera": {
+          "open": 60,
+          "choice": 60
+        },
+        "profunda": {
+          "open": 20,
+          "choice": 20
+        }
+      },
+      "gustos": {
+        "ligera": {
+          "open": 60,
+          "choice": 60
+        },
+        "profunda": {
+          "open": 10,
+          "choice": 10
+        }
+      },
+      "dia-a-dia": {
+        "ligera": {
+          "open": 57,
+          "choice": 43
+        },
+        "profunda": {
+          "open": 23,
+          "choice": 17
+        }
+      },
+      "valores": {
+        "ligera": {
+          "open": 27,
+          "choice": 13
+        },
+        "profunda": {
+          "open": 73,
+          "choice": 37
+        }
+      },
+      "por-dentro": {
+        "ligera": {
+          "open": 24,
+          "choice": 6
+        },
+        "profunda": {
+          "open": 86,
+          "choice": 24
+        }
+      },
+      "viajes": {
+        "ligera": {
+          "open": 52,
+          "choice": 38
+        },
+        "profunda": {
+          "open": 18,
+          "choice": 12
+        }
+      },
+      "familia": {
+        "ligera": {
+          "open": 37,
+          "choice": 13
+        },
+        "profunda": {
+          "open": 58,
+          "choice": 22
+        }
+      },
+      "picantes": {
+        "picante": {
+          "open": 100,
+          "choice": 50
+        }
+      }
+    }
+  },
+  "games": {
+    "min_total": 1000,
+    "items": {
+      "wyr": {
+        "ligera": 160,
+        "profunda": 80,
+        "picante": 60
+      },
+      "nhie": {
+        "ligera": 140,
+        "profunda": 60,
+        "picante": 50
+      },
+      "most_likely": {
+        "ligera": 150,
+        "profunda": 50,
+        "picante": 50
+      },
+      "agree": {
+        "ligera": 80,
+        "profunda": 80,
+        "picante": 40
+      }
+    },
+    "drawing_words": 200
+  },
+  "packs": {
+    "pack-36-preguntas": 36,
+    "pack-antes-de-vernos": 25,
+    "pack-aniversario": 25,
+    "pack-navidad": 25,
+    "pack-vivir-juntos": 30,
+    "pack-dinero": 25,
+    "pack-hijos": 25,
+    "pack-deseo": 30
+  },
+  "min_total": 3000
+}

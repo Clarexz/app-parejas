@@ -1,4 +1,5 @@
 /** Textos y decisiones de presentación de las preguntas (funciones puras, es-MX). */
+import type { PackStatus } from '@/lib/packs';
 import { OTHER_CHOICE, type QuestionCard, type Streak } from '@/lib/questions';
 
 export function pluralDays(n: number): string {
@@ -86,3 +87,44 @@ export function streakView(streak: Streak): StreakView {
     ? { kind: 'streak', current: streak.current, missing }
     : { kind: 'start', missing };
 }
+
+// ---------------------------------------------------------------------------
+// Temas (packs), voto y preguntas propias
+// ---------------------------------------------------------------------------
+
+export const FEEDBACK_TITLE = '¿Qué tal esta pregunta?';
+export const FEEDBACK_UP_LABEL = '👍 Me gustó';
+export const FEEDBACK_DOWN_LABEL = '👎 Mejor no';
+export const FEEDBACK_DOWN_NOTE = 'No les volverá a salir como pregunta del día.';
+
+/** Nota de una tarjeta de tema en la pestaña. */
+export function packCardNote(
+  status: PackStatus,
+  progress: { total: number; answered_by_both: number },
+): string {
+  if (status === 'locked') return 'Se abre cuando los dos quieran.';
+  if (status === 'empty') return 'Pronto habrá preguntas aquí.';
+  const { total, answered_by_both: both } = progress;
+  if (both >= total) return `Las ${total} contestadas por los dos.`;
+  return `${both} de ${total} contestadas por los dos`;
+}
+
+/** Nota corta para las tarjetas compactas de temas ("3 de 12"). */
+export function packCompactNote(
+  status: PackStatus,
+  progress: { total: number; answered_by_both: number },
+): string {
+  if (status === 'locked') return 'Con candado';
+  if (status === 'empty') return 'Pronto';
+  return `${progress.answered_by_both} de ${progress.total}`;
+}
+
+export const PACK_FINISHED_LINE = 'Ya contestaste todas.';
+export const PACK_NEXT_LABEL = 'Siguiente del tema';
+export const PACK_DONE_TITLE = 'Terminaste el tema';
+export const PACK_DONE_BODY = 'Ya contestaste todas. Si a tu pareja le faltan, aquí las alcanzas.';
+
+export const ADD_QUESTION_NOTE =
+  'Las preguntas que agreguen aparecen en su categoría para que las contesten cuando quieran.';
+export const ADD_QUESTION_SPICY_NOTE =
+  'Las picantes se abren solo cuando los dos las activan en sus ajustes.';

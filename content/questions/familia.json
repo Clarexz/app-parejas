@@ -139,6 +139,759 @@
       "type": "open",
       "intensity": "profunda",
       "text": "¿Qué pareja de tu familia o de tu entorno te ha enseñado cómo sí querer?"
+    },
+    {
+      "slug": "familia-comida-de-tu-casa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida de tu casa te regresa a la infancia al primer bocado?"
+    },
+    {
+      "slug": "familia-apodo-de-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué apodo te pusieron en tu familia y quién lo inventó?"
+    },
+    {
+      "slug": "familia-abuela-frases",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de tu abuela o abuelo te sabes de memoria?"
+    },
+    {
+      "slug": "familia-foto-de-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la foto familiar más graciosa que existe de ti?"
+    },
+    {
+      "slug": "familia-tio-o-tia-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién es ese familiar que todos adoran y por qué?"
+    },
+    {
+      "slug": "familia-cumple-de-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu fiesta de cumpleaños de niñez: piñata, pastel, payasos, o algo distinto?"
+    },
+    {
+      "slug": "familia-cena-de-nochebuena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "En tu casa, ¿quién se encarga de que la Nochebuena salga bien y cómo lo logra?"
+    },
+    {
+      "slug": "familia-posada-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué recuerdo tienes de las posadas de tu infancia?"
+    },
+    {
+      "slug": "familia-dia-de-muertos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo celebran el Día de Muertos en tu familia, o cómo te gustaría hacerlo?"
+    },
+    {
+      "slug": "familia-regano-de-mama",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el regaño más legendario que te echaron en tu infancia?"
+    },
+    {
+      "slug": "familia-juego-de-la-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juego de mesa o de cartas no puede faltar en una reunión de tu familia?"
+    },
+    {
+      "slug": "familia-musica-de-casa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción ponían en tu casa cuando limpiaban o cocinaban?"
+    },
+    {
+      "slug": "familia-mejor-vacacion-familiar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu mejor vacación en familia?"
+    },
+    {
+      "slug": "familia-vacacion-desastre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué paseo familiar salió completamente mal y hoy da risa?"
+    },
+    {
+      "slug": "familia-lo-que-hace-tu-mama",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es esa costumbre de tu casa que a ti te parecía normal y luego descubriste que no lo era?"
+    },
+    {
+      "slug": "familia-olor-de-la-cocina",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué huele la cocina de tu casa un domingo?"
+    },
+    {
+      "slug": "familia-grupo-de-whatsapp",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo es el grupo de WhatsApp de tu familia: cuál es el mensaje que nunca falta?"
+    },
+    {
+      "slug": "familia-mejor-parte-reunion",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo mejor de juntarte con tu familia y qué es lo más cansado?"
+    },
+    {
+      "slug": "familia-comida-prohibida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo familiar te quedaba mal cuando intentabas hacerlo tú?"
+    },
+    {
+      "slug": "familia-mascota-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tuviste mascota de niñez? Cuéntame cómo era."
+    },
+    {
+      "slug": "familia-herencia-pequena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué objeto de tu familia te gustaría heredar algún día?"
+    },
+    {
+      "slug": "familia-vecinos-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu calle o tu barrio en tu infancia?"
+    },
+    {
+      "slug": "familia-tradicion-chiquita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición chiquita de tu familia te da ternura?"
+    },
+    {
+      "slug": "familia-familiar-chistoso",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién es la persona más chistosa de tu familia y con qué te hace reír?"
+    },
+    {
+      "slug": "familia-dia-de-la-madre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se celebran en tu casa los días de la madre y del padre?"
+    },
+    {
+      "slug": "familia-receta-secreta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Hay alguna receta que se guarda como secreto de familia?"
+    },
+    {
+      "slug": "familia-platillo-que-no-sabes-hacer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo de tu familia quisieras que nos enseñaran a los dos?"
+    },
+    {
+      "slug": "familia-compartir-con-mi-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría que mi familia supiera de ti antes de conocerte en persona?"
+    },
+    {
+      "slug": "familia-domingo-en-familia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Un domingo en tu familia es principalmente...",
+      "options": ["Comer rico", "Ver futbol", "Platicar en la sobremesa", "Descansar cada quien"]
+    },
+    {
+      "slug": "familia-celebracion-favorita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué celebración familiar disfrutas más?",
+      "options": ["Navidad", "Cumpleaños", "Año Nuevo", "Día de Muertos"]
+    },
+    {
+      "slug": "familia-lugar-de-la-mesa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la mesa familiar, ¿dónde te sientas?",
+      "options": [
+        "Cerca de la cocina",
+        "En la cabecera",
+        "Con los primos",
+        "Lo más lejos posible del tío"
+      ]
+    },
+    {
+      "slug": "familia-rol-en-la-familia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu familia, ¿qué papel tienes?",
+      "options": [
+        "Quien organiza",
+        "Quien hace reír",
+        "Quien ayuda a cocinar",
+        "Quien escucha a todos"
+      ]
+    },
+    {
+      "slug": "familia-llamadas-a-casa",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cada cuánto hablas con tu familia?",
+      "options": [
+        "Todos los días",
+        "Varias veces a la semana",
+        "Una vez por semana",
+        "Cuando hace falta"
+      ]
+    },
+    {
+      "slug": "familia-comida-de-tu-abuela",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La comida de tu abuela que más extrañas es...",
+      "options": ["Los guisados", "Los dulces", "Las tortillas recién hechas", "El caldo"]
+    },
+    {
+      "slug": "familia-fiesta-grande",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Una fiesta familiar tiene que tener...",
+      "options": ["Música alta", "Pastel", "Mucha comida", "Baile"]
+    },
+    {
+      "slug": "familia-tradicion-navidena",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Nochebuena es sinónimo de...",
+      "options": ["Tamales", "Pavo o bacalao", "Ponche", "Regalos a medianoche"]
+    },
+    {
+      "slug": "familia-hermano-o-unico",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Si pudieras elegir, tu familia sería...",
+      "options": ["Muy grande", "Mediana", "Chiquita", "Como la tengo"]
+    },
+    {
+      "slug": "familia-carino-familiar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En tu casa el cariño se demostraba con...",
+      "options": ["Comida", "Abrazos", "Regalos", "Consejos"]
+    },
+    {
+      "slug": "familia-lo-que-te-dio-tu-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo mejor que te dio tu familia, que no se compra con dinero?"
+    },
+    {
+      "slug": "familia-lo-que-te-falto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hubiera gustado recibir más de tu familia mientras crecías?"
+    },
+    {
+      "slug": "familia-heridas-de-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te dolió de tu infancia y todavía te acompaña, aunque ya sea chiquito?"
+    },
+    {
+      "slug": "familia-como-se-hablaba-de-emociones",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo se hablaba de emociones en tu casa: abiertamente, a escondidas o casi nunca?"
+    },
+    {
+      "slug": "familia-como-peleaban-en-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo veías pelear a los adultos de tu casa y qué aprendiste de eso?"
+    },
+    {
+      "slug": "familia-como-se-pedia-perdon",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "En tu familia, ¿cómo se pedía perdón, si es que se pedía?"
+    },
+    {
+      "slug": "familia-lo-que-cargas-de-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué responsabilidad o rol cargaste en tu familia sin que nadie te lo pidiera?"
+    },
+    {
+      "slug": "familia-lo-que-aprendiste-de-tus-papas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendiste de las personas que te criaron, para bien y para mal?"
+    },
+    {
+      "slug": "familia-una-persona-clave",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quién de tu familia fue clave en quién eres hoy y qué hizo?"
+    },
+    {
+      "slug": "familia-distancia-familiar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay alguien de tu familia con quien te gustaría tener otra relación?"
+    },
+    {
+      "slug": "familia-lo-que-te-cuesta-decirles",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te cuesta decirle a tu familia sobre tu vida actual?"
+    },
+    {
+      "slug": "familia-la-parte-que-no-entienden",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué de ti o de tu vida sientes que tu familia no termina de entender?"
+    },
+    {
+      "slug": "familia-el-dia-que-te-sentiste-orgullo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que tu familia estuvo realmente orgullosa de ti?"
+    },
+    {
+      "slug": "familia-cuando-te-defendieron",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo te defendió alguien de tu familia y qué sentiste?"
+    },
+    {
+      "slug": "familia-como-se-celebraban-logros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo se celebraban los logros en tu casa: con abrazo, regalo o poco ruido?"
+    },
+    {
+      "slug": "familia-tema-tabu",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tema era casi un tabú en tu casa y por qué crees que era así?"
+    },
+    {
+      "slug": "familia-lo-que-cambiaste-de-tu-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué has hecho distinto a lo que viste en tu casa y te enorgullece?"
+    },
+    {
+      "slug": "familia-herencia-emocional",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tu familia te dejara una herencia emocional, ¿qué serían tus tesoros y tus pesos?"
+    },
+    {
+      "slug": "familia-la-casa-de-tus-abuelos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Describe la casa de tus abuelos como si me llevaras de la mano por ella."
+    },
+    {
+      "slug": "familia-historia-de-tus-abuelos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué historia de cómo se conocieron tus abuelos o tus papás te gusta contar?"
+    },
+    {
+      "slug": "familia-apellido-y-origen",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sabes del origen de tu apellido o de tu familia y qué te gustaría descubrir?"
+    },
+    {
+      "slug": "familia-migracion-en-la-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si alguien de tu familia se fue a vivir lejos, ¿cómo marcó eso a todos?"
+    },
+    {
+      "slug": "familia-lo-que-extranas-de-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué extrañas de tu casa de infancia que nada ha podido reemplazar?"
+    },
+    {
+      "slug": "familia-perder-a-alguien",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quién de tu familia ya no está y qué te gustaría que supieras de esa persona?"
+    },
+    {
+      "slug": "familia-como-lloran-en-tu-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo se vive el duelo o la tristeza en tu familia?"
+    },
+    {
+      "slug": "familia-mi-familia-y-la-tuya",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué diferencias notas entre cómo es tu familia y la mía, y qué te gusta de cada una?"
+    },
+    {
+      "slug": "familia-entrar-a-mi-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te daría nervios o curiosidad de pasar un fin de semana con mi familia?"
+    },
+    {
+      "slug": "familia-lo-que-te-gusta-de-mi-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gusta o te llama la atención de mi familia hasta ahora?"
+    },
+    {
+      "slug": "familia-lo-que-no-quieres-heredar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué costumbre de tu familia quieres cuidar de no heredar en nuestra relación?"
+    },
+    {
+      "slug": "familia-lo-que-quieres-heredar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué costumbre de tu familia quieres que tengamos nosotros?"
+    },
+    {
+      "slug": "familia-familia-que-queremos-ser",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras describir la familia que queremos ser con tres palabras, ¿cuáles serían?"
+    },
+    {
+      "slug": "familia-hogar-con-reglas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué reglas no escritas tendría nuestra casa para que todos nos sintamos bien?"
+    },
+    {
+      "slug": "familia-una-casa-con-risas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué haríamos para que en nuestra casa siempre haya risa?"
+    },
+    {
+      "slug": "familia-lo-que-no-faltaria",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo que nunca debería faltar en la familia que formemos?"
+    },
+    {
+      "slug": "familia-manera-de-resolver",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo nos gustaría resolver los problemas que surjan en nuestra familia?"
+    },
+    {
+      "slug": "familia-tradiciones-nuevas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tradiciones nuevas quisieras crear nosotros, que nadie nos las haya heredado?"
+    },
+    {
+      "slug": "familia-mezcla-de-costumbres",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si juntáramos las costumbres de tu familia y las de la mía, ¿qué mezcla sería la mejor?"
+    },
+    {
+      "slug": "familia-navidad-donde",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Para fechas importantes, ¿cómo nos gustaría repartirnos entre nuestras familias?"
+    },
+    {
+      "slug": "familia-limites-con-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo crees que debemos poner límites con la familia, con cariño y firmeza?"
+    },
+    {
+      "slug": "familia-lo-que-necesitas-de-mi-con-tu-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Cuando tu familia es complicada, ¿cómo quisieras que te acompañe?"
+    },
+    {
+      "slug": "familia-que-significa-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Para ti, ¿qué significa que un lugar sea casa?"
+    },
+    {
+      "slug": "familia-un-valor-de-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué valor de tu familia sientes como parte de ti sin que nadie lo haya enseñado con palabras?"
+    },
+    {
+      "slug": "familia-como-ser-buen-familiar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tipo de familiar quieres ser para la gente que quieres?"
+    },
+    {
+      "slug": "familia-gente-que-cuidamos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A quién de tu círculo cercano te gustaría que cuidáramos mejor entre los dos?"
+    },
+    {
+      "slug": "familia-lo-que-te-hizo-sentir-parte",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hizo sentir parte de una familia, aunque no hayan sido de sangre?"
+    },
+    {
+      "slug": "familia-familia-elegida",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quiénes son tu familia elegida y qué hacen que los hace tan importantes?"
+    },
+    {
+      "slug": "familia-hogar-en-la-distancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo podemos hacer sentir hogar a la distancia, aunque no estemos en la misma casa?"
+    },
+    {
+      "slug": "familia-lo-que-quieres-que-sepan-de-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué quisieras que tus papás supieran de lo que es nuestra relación hoy?"
+    },
+    {
+      "slug": "familia-un-agradecimiento-pendiente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A quién de tu familia le debes un gracias que no has dicho?"
+    },
+    {
+      "slug": "familia-lo-que-mas-heredaste-de-tu-mama",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué rasgo, para bien o para mal, heredaste de alguien de tu familia?"
+    },
+    {
+      "slug": "familia-tu-lugar-seguro-en-casa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "En tu infancia, ¿cuál era tu rincón seguro en casa?"
+    },
+    {
+      "slug": "familia-cuando-te-sentiste-visto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quién en tu familia te hizo sentir verdaderamente visto, y qué hizo?"
+    },
+    {
+      "slug": "familia-un-secreto-de-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hay una historia de tu familia que casi nadie cuenta y te gustaría entender mejor?"
+    },
+    {
+      "slug": "familia-estilo-de-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El estilo de tu familia de origen era...",
+      "options": [
+        "Muy unido",
+        "Cada quien en lo suyo",
+        "Unido pero ruidoso",
+        "Unido solo en fiestas"
+      ]
+    },
+    {
+      "slug": "familia-comunicacion-en-casa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En tu casa, los problemas se...",
+      "options": ["Hablaban de frente", "Se evitaban", "Se resolvían con humor", "Se dejaban pasar"]
+    },
+    {
+      "slug": "familia-mostrar-carino",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En tu familia, el cariño se mostraba...",
+      "options": ["Con palabras", "Con comida", "Con ayuda concreta", "Casi no se mostraba"]
+    },
+    {
+      "slug": "familia-relacion-con-padres",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Hoy, tu relación con tu familia es...",
+      "options": ["Muy cercana", "Buena pero con distancia", "Complicada", "Estoy construyéndola"]
+    },
+    {
+      "slug": "familia-expectativas-familiares",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Las expectativas de tu familia sobre ti eran...",
+      "options": ["Muy altas", "Razonables", "Casi inexistentes", "Distintas a mis sueños"]
+    },
+    {
+      "slug": "familia-apoyo-de-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando necesitas apoyo, tu familia suele...",
+      "options": [
+        "Estar ahí de inmediato",
+        "Opinar mucho",
+        "Escuchar en silencio",
+        "Cuesta pedirles"
+      ]
+    },
+    {
+      "slug": "familia-tradicion-que-cuidar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La tradición familiar que más te gustaría conservar es...",
+      "options": [
+        "Las comidas juntos",
+        "Las fiestas de diciembre",
+        "Las visitas semanales",
+        "Los cuentos de los abuelos"
+      ]
+    },
+    {
+      "slug": "familia-familia-futura",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "La familia que formemos sería...",
+      "options": ["Muy casera", "Aventurera", "Tranquila", "Con puertas abiertas"]
+    },
+    {
+      "slug": "familia-mayor-miedo-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Mi mayor miedo sobre mi familia es...",
+      "options": ["Perderles", "Decepcionarles", "Que no me entiendan", "Que se alejen"]
+    },
+    {
+      "slug": "familia-lo-que-mas-agradeces-de-casa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más agradeces de cómo te criaron es...",
+      "options": ["La libertad", "La disciplina", "El amor", "Los valores"]
+    },
+    {
+      "slug": "familia-quien-te-parecio",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿A quién de tu familia te pareces más en carácter?",
+      "options": ["A mi mamá", "A mi papá", "A un abuelo", "A nadie, soy distinto"]
+    },
+    {
+      "slug": "familia-hogar-ideal",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Mi hogar ideal sería...",
+      "options": [
+        "Siempre lleno de gente",
+        "Un refugio de dos",
+        "Con familia cerca",
+        "Un espacio creativo"
+      ]
+    },
+    {
+      "slug": "familia-visitas-familiares",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "En nuestra vida juntos, las visitas de la familia serían...",
+      "options": ["Frecuentes", "De vez en cuando", "En fechas especiales", "Cuando haya ganas"]
+    },
+    {
+      "slug": "familia-herencia-de-valores",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El valor que más quiero que haya en nuestra casa es...",
+      "options": ["Respeto", "Alegría", "Honestidad", "Apoyo"]
+    },
+    {
+      "slug": "familia-fiesta-de-nosotros",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando nuestras familias se conozcan, quiero que sea...",
+      "options": [
+        "Una comida tranquila",
+        "Una fiesta grande",
+        "Un café casual",
+        "Una videollamada divertida"
+      ]
+    },
+    {
+      "slug": "familia-momento-de-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El momento más difícil de platicar con la familia es...",
+      "options": ["Hablar de dinero", "Hablar de pareja", "Hablar de salud", "Hablar del futuro"]
+    },
+    {
+      "slug": "familia-dolor-y-cuidado",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando alguien de la familia está mal, tu reacción es...",
+      "options": ["Estar presente", "Hacer algo práctico", "Llamar seguido", "Dar espacio"]
+    },
+    {
+      "slug": "familia-tipo-de-hogar",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Crecer en una familia así me enseñó a...",
+      "options": ["Ser independiente", "Ser cuidadoso", "Ser cariñoso", "Ser fuerte"]
+    },
+    {
+      "slug": "familia-familia-y-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando mi familia y mi pareja se contraponen, me gustaría...",
+      "options": [
+        "Hablar con ambas partes",
+        "Hablarlo primero contigo",
+        "Dar tiempo a todos",
+        "Buscar un punto medio"
+      ]
+    },
+    {
+      "slug": "familia-recuerdo-de-casa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un recuerdo cálido de mi casa es...",
+      "options": ["Alguien cocinando", "Una noche de juegos", "Un abrazo", "Una canción"]
+    },
+    {
+      "slug": "familia-tradicion-de-pareja",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Una tradición de pareja que quiero que tengamos con nuestras familias es...",
+      "options": [
+        "Una comida mensual",
+        "Un viaje juntos",
+        "Videollamadas de grupo",
+        "Una carta de año nuevo"
+      ]
     }
   ]
 }

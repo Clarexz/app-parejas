@@ -171,6 +171,909 @@
       "type": "open",
       "intensity": "ligera",
       "text": "¿Cuál fue nuestro momento más torpe o vergonzoso que hoy te da risa?"
+    },
+    {
+      "slug": "recuerdos-primer-cel",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu primer celular y qué era lo que más usabas en él?"
+    },
+    {
+      "slug": "recuerdos-caricatura-de-las-mananas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué caricatura veías antes de ir a la escuela?"
+    },
+    {
+      "slug": "recuerdos-comida-de-la-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comías en el recreo de la primaria?"
+    },
+    {
+      "slug": "recuerdos-primer-concierto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer concierto o evento masivo al que fuiste?"
+    },
+    {
+      "slug": "recuerdos-apodo-de-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Tuviste algún apodo en la escuela y cómo te lo ganaste?"
+    },
+    {
+      "slug": "recuerdos-regalo-de-navidad-inolvidable",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué regalo de Navidad o Día de Reyes te hizo brincar de emoción?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-que-me-vi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Dónde estabas parada o parado la primera vez que nos vimos?"
+    },
+    {
+      "slug": "recuerdos-primera-cita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "De nuestra primera cita, ¿qué detalle se te quedó grabado?"
+    },
+    {
+      "slug": "recuerdos-lo-que-no-te-dije",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué pensaste de mí en ese momento y nunca me dijiste?"
+    },
+    {
+      "slug": "recuerdos-primer-regalo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que te regalé y qué hiciste con él?"
+    },
+    {
+      "slug": "recuerdos-primera-pelea-tonta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue nuestra primera discusión tonta y cómo la arreglamos?"
+    },
+    {
+      "slug": "recuerdos-foto-vieja-de-ti",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pudieras enseñarme una foto tuya de tu infancia, ¿cuál sería y qué estaba pasando?"
+    },
+    {
+      "slug": "recuerdos-primera-mascota",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo se llamaba tu primera mascota, o la que hubieras querido tener?"
+    },
+    {
+      "slug": "recuerdos-el-juguete-que-amabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué juguete amabas tanto que lo cuidabas como un tesoro?"
+    },
+    {
+      "slug": "recuerdos-primer-trabajo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu primer trabajo o chamba y qué aprendiste?"
+    },
+    {
+      "slug": "recuerdos-merienda-con-abuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué merendabas en casa de tus abuelos o de quien te cuidaba?"
+    },
+    {
+      "slug": "recuerdos-materia-que-odiabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué materia se te hacía imposible en la escuela y por qué?"
+    },
+    {
+      "slug": "recuerdos-maestro-que-recuerdas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A quién de tus docentes recuerdas con cariño?"
+    },
+    {
+      "slug": "recuerdos-primer-viaje-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo mejor de nuestro primer viaje o salida larga juntos?"
+    },
+    {
+      "slug": "recuerdos-chiste-interno",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es nuestro chiste interno más viejo y de dónde salió?"
+    },
+    {
+      "slug": "recuerdos-cancion-de-verano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te recuerda a un verano en particular?"
+    },
+    {
+      "slug": "recuerdos-olor-de-la-escuela",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué olor te lleva directo a tu salón de clases?"
+    },
+    {
+      "slug": "recuerdos-primer-ruido-que-reconoci",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ruido de tu infancia puedes reconocer en un segundo?"
+    },
+    {
+      "slug": "recuerdos-disfraz-de-halloween",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿De qué te disfrazaste que todavía lo recuerdas con risa?"
+    },
+    {
+      "slug": "recuerdos-cuento-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cuento o libro te leían en tu infancia?"
+    },
+    {
+      "slug": "recuerdos-la-primera-vez-que-cocinaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que aprendiste a cocinar por tu cuenta?"
+    },
+    {
+      "slug": "recuerdos-el-primer-mensaje-que-guarde",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué mensaje mío conservas desde el principio?"
+    },
+    {
+      "slug": "recuerdos-el-dia-que-nos-conocimos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ropa traías el día que nos conocimos? A ver si coincidimos."
+    },
+    {
+      "slug": "recuerdos-lo-primero-que-me-hiciste-reir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fue lo primero que hice que te hizo reír de verdad?"
+    },
+    {
+      "slug": "recuerdos-primer-lugar-favorito",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción sonaba la primera vez que sentiste que esto iba en serio?"
+    },
+    {
+      "slug": "recuerdos-travesura-con-primos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué travesura hacías con tus primos o hermanos?"
+    },
+    {
+      "slug": "recuerdos-primera-fiesta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo fue tu primera fiesta de adolescente?"
+    },
+    {
+      "slug": "recuerdos-ropa-que-ya-no-usarias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué moda de tu adolescencia te da risa ahora?"
+    },
+    {
+      "slug": "recuerdos-mejor-cumple",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál ha sido tu mejor cumpleaños hasta hoy y qué lo hizo especial?"
+    },
+    {
+      "slug": "recuerdos-desayuno-con-abuelos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué desayuno de fin de semana de tu infancia extrañas?"
+    },
+    {
+      "slug": "recuerdos-miedo-de-nino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué le tenías miedo en tu infancia y todavía te da cosquillas?"
+    },
+    {
+      "slug": "recuerdos-la-primera-cancion-que-me-mandaste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la primera canción que me mandaste y por qué esa?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-te-extrano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo fue la primera vez que escribimos \"te extraño\" y cómo se sintió?"
+    },
+    {
+      "slug": "recuerdos-nuestra-primera-foto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "De nuestra primera foto juntos, ¿qué recuerdas del momento?"
+    },
+    {
+      "slug": "recuerdos-cosa-que-coleccionabas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué coleccionabas en tu infancia?"
+    },
+    {
+      "slug": "recuerdos-la-casa-de-tu-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Descríbeme la casa donde creciste, empezando por la puerta."
+    },
+    {
+      "slug": "recuerdos-el-sabor-de-la-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dulce o golosina de la tiendita de tu escuela extrañas?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-baile",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Hemos bailado alguna vez juntos y qué recuerdas?"
+    },
+    {
+      "slug": "recuerdos-paseo-de-domingo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué paseo familiar de domingo recuerdas con más cariño?"
+    },
+    {
+      "slug": "recuerdos-el-momento-de-risa-tonta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué momento de risa tonta con tus amigos de la infancia recuerdas?"
+    },
+    {
+      "slug": "recuerdos-primer-ex-sin-morbo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué aprendiste de tu primer enamoramiento, sin entrar en detalles?"
+    },
+    {
+      "slug": "recuerdos-primer-tatuaje-o-corte",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer cambio de look que te hiciste y qué tal te salió?"
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-aniversario",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo recuerdas nuestro primer mes, o primer aniversario, y qué hicimos?"
+    },
+    {
+      "slug": "recuerdos-lo-que-nunca-olvidas-de-hoy-hace-un-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué hacíamos hace un año por estas fechas?"
+    },
+    {
+      "slug": "recuerdos-primer-cafe-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Dónde fue la primera vez que tomamos algo juntos?"
+    },
+    {
+      "slug": "recuerdos-momento-de-pelicula",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué momento nuestro sentiste como escena de película?"
+    },
+    {
+      "slug": "recuerdos-el-apodo-que-te-puse",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue el primer apodo cariñoso que nos pusimos y cómo salió?"
+    },
+    {
+      "slug": "recuerdos-travesura-de-adolescente",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu travesura de adolescente más inocente?"
+    },
+    {
+      "slug": "recuerdos-la-platica-que-no-olvido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue nuestra primera plática larga y de qué hablamos?"
+    },
+    {
+      "slug": "recuerdos-tu-primer-recuerdo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu recuerdo más antiguo?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-en-el-mar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo fue la primera vez que viste el mar o un lugar que te dejó sin palabras?"
+    },
+    {
+      "slug": "recuerdos-vecino-de-tu-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Quién fue tu vecino, vecina o amistad de la cuadra más memorable?"
+    },
+    {
+      "slug": "recuerdos-los-juegos-de-patio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué jugabas en el patio de la escuela o en la calle?"
+    },
+    {
+      "slug": "recuerdos-la-vez-que-me-sorprendiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuándo me sorprendiste por primera vez con un detalle?"
+    },
+    {
+      "slug": "recuerdos-primera-playlist",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canciones tenía tu primera playlist?"
+    },
+    {
+      "slug": "recuerdos-comida-que-no-comias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida odiabas en tu infancia y ahora te encanta?"
+    },
+    {
+      "slug": "recuerdos-fiesta-infantil",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cómo era tu fiesta de cumpleaños de niñez, con piñata y todo?"
+    },
+    {
+      "slug": "recuerdos-que-te-gusto-primero-de-mi-voz",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te llamó la atención de mi forma de ser desde el inicio?"
+    },
+    {
+      "slug": "recuerdos-cartoon-de-infancia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En mi infancia, mis mañanas eran de...",
+      "options": [
+        "Caricaturas",
+        "Cereal",
+        "Prisas para llegar a la escuela",
+        "Dormir hasta el último minuto"
+      ]
+    },
+    {
+      "slug": "recuerdos-lugar-de-vacaciones",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mis vacaciones de la infancia eran en...",
+      "options": ["La playa", "El pueblo de mis abuelos", "La casa", "Un parque de diversiones"]
+    },
+    {
+      "slug": "recuerdos-tipo-de-nino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En la escuela me conocían por...",
+      "options": ["El relajo", "Estudiar mucho", "Ser de pocas palabras", "El equipo de futbol"]
+    },
+    {
+      "slug": "recuerdos-dulce-de-infancia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El dulce que más extraño de niñez es...",
+      "options": ["Los mazapanes", "Las paletas payaso", "Los pulparindos", "Las gomitas"]
+    },
+    {
+      "slug": "recuerdos-musica-de-adolescente",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La música de mi adolescencia era...",
+      "options": ["Pop", "Rock", "Reguetón", "Lo que sonara en el radio"]
+    },
+    {
+      "slug": "recuerdos-primer-regalo-que-me-diste",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Lo que más me gusta recordar de nuestro inicio es...",
+      "options": ["Los mensajes largos", "Las salidas", "Las miradas", "Las risas"]
+    },
+    {
+      "slug": "recuerdos-quien-dio-el-primer-paso",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El que dio el primer paso en lo nuestro fue...",
+      "options": ["Tú", "Yo", "Los dos al mismo tiempo", "Nuestros amigos"]
+    },
+    {
+      "slug": "recuerdos-primer-te-quiero-forma",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El primer \"te quiero\" fue...",
+      "options": ["En persona", "Por mensaje", "Por llamada", "Con una carta o nota"]
+    },
+    {
+      "slug": "recuerdos-navidad-de-infancia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En las Navidades de mi infancia, lo mejor era...",
+      "options": ["La cena", "Los regalos", "La posada", "Estar con toda la familia"]
+    },
+    {
+      "slug": "recuerdos-mi-lugar-de-juegos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi lugar favorito para jugar era...",
+      "options": ["La calle", "El patio", "Mi cuarto", "La casa de mis primos"]
+    },
+    {
+      "slug": "recuerdos-nuestro-recuerdo-favorito",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi recuerdo favorito con tu familia o amistades es de...",
+      "options": ["Una comida", "Una fiesta", "Un paseo", "Una plática tranquila"]
+    },
+    {
+      "slug": "recuerdos-forma-de-conocernos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Nos conocimos gracias a...",
+      "options": ["Amigos en común", "Redes", "La escuela o el trabajo", "Un viaje o evento"]
+    },
+    {
+      "slug": "recuerdos-programa-de-tele",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Lo que veía en la tele en mi infancia era...",
+      "options": ["Caricaturas", "Telenovelas", "Programas de concursos", "Películas"]
+    },
+    {
+      "slug": "recuerdos-mi-regalo-ideal-de-nino",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El regalo que más pedía en mi infancia era...",
+      "options": ["Un juguete grande", "Videojuegos", "Una bicicleta", "Libros o juegos de mesa"]
+    },
+    {
+      "slug": "recuerdos-mejor-memoria",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El mejor recuerdo se siente más como...",
+      "options": ["Una película", "Una canción", "Un olor", "Una sensación"]
+    },
+    {
+      "slug": "recuerdos-escuela-favorita",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Mi etapa de escuela favorita fue...",
+      "options": ["Primaria", "Secundaria", "Prepa", "Universidad"]
+    },
+    {
+      "slug": "recuerdos-lo-que-me-hacia-feliz",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En mi infancia, lo que más me hacía feliz era...",
+      "options": [
+        "Salir a jugar",
+        "Que me llevaran a un paseo",
+        "Comer algo rico",
+        "Ver a mis abuelos"
+      ]
+    },
+    {
+      "slug": "recuerdos-primera-vez-mia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "De nuestras primeras veces, la más especial fue...",
+      "options": [
+        "Viajar juntos",
+        "Presentarnos con la familia",
+        "Dormir abrazados",
+        "Decirnos \"te quiero\""
+      ]
+    },
+    {
+      "slug": "recuerdos-nuestro-primer-sitio",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Nuestro lugar de primeras salidas era...",
+      "options": ["Una cafetería", "El cine", "Un parque", "Mi casa o la tuya"]
+    },
+    {
+      "slug": "recuerdos-infancia-y-yo-adulto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Algo de mi infancia que se nota hasta hoy en mí es...",
+      "options": ["Mi humor", "Mi forma de querer", "Mis miedos", "Mis gustos"]
+    },
+    {
+      "slug": "recuerdos-recuerdo-que-pesa",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Hay recuerdos que me hacen sentir...",
+      "options": ["Calma", "Nostalgia", "Gratitud", "Un nudo en la garganta"]
+    },
+    {
+      "slug": "recuerdos-cuando-aprendi-algo-grande",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Aprendí algo grande de la vida por...",
+      "options": ["Un error mío", "Un consejo familiar", "Una pérdida", "Una amistad"]
+    },
+    {
+      "slug": "recuerdos-cuando-supe-que-queria-esto",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Supe que lo nuestro iba en serio cuando...",
+      "options": [
+        "Te presenté a mi familia",
+        "Te extrañé de verdad",
+        "Me imaginé el futuro contigo",
+        "Me dio miedo perderte"
+      ]
+    },
+    {
+      "slug": "recuerdos-memoria-con-familia",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El recuerdo familiar que más cuido es...",
+      "options": ["Una comida", "Un viaje", "Una conversación", "Un olor o canción"]
+    },
+    {
+      "slug": "recuerdos-el-dia-mas-feliz",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "El día más feliz de mi vida estuvo lleno de...",
+      "options": ["Gente querida", "Un logro", "Un lugar bonito", "Una sorpresa"]
+    },
+    {
+      "slug": "recuerdos-lo-que-cambie",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más cambió en mí desde mi adolescencia es...",
+      "options": ["Mi forma de pensar", "Mi forma de querer", "Mi seguridad", "Mis prioridades"]
+    },
+    {
+      "slug": "recuerdos-recuerdo-que-me-define",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Un recuerdo que me define tiene que ver con...",
+      "options": ["Mi familia", "Un reto", "Un logro", "Una amistad"]
+    },
+    {
+      "slug": "recuerdos-primer-golpe-de-realidad",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Mi primer golpe de realidad fue...",
+      "options": ["Mi primer trabajo", "Una desilusión", "Un cambio de casa", "Una pérdida"]
+    },
+    {
+      "slug": "recuerdos-lo-que-me-dio-miedo-de-ti",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Al inicio de lo nuestro, lo que más me dio nervios fue...",
+      "options": [
+        "Que no me correspondieras",
+        "Mostrarte quién soy",
+        "Arruinarlo",
+        "Que se acabara rápido"
+      ]
+    },
+    {
+      "slug": "recuerdos-etapa-que-volveria",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Si pudiera volver a una etapa, sería...",
+      "options": [
+        "La infancia",
+        "La adolescencia",
+        "Nuestros primeros meses",
+        "Un día cualquiera de ayer"
+      ]
+    },
+    {
+      "slug": "recuerdos-momento-que-nos-unio",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más nos unió fue...",
+      "options": [
+        "Una crisis que superamos",
+        "Un viaje",
+        "Una plática profunda",
+        "Un tiempo difícil"
+      ]
+    },
+    {
+      "slug": "recuerdos-los-que-ya-no-estan",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando recuerdo a alguien que ya no está, siento...",
+      "options": ["Gratitud", "Tristeza", "Ternura", "Ganas de contárselo todo"]
+    },
+    {
+      "slug": "recuerdos-me-recuerdas-a",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Lo que más me recuerda a mi hogar de la infancia es...",
+      "options": ["Un olor", "Una comida", "Un sonido", "Una persona"]
+    },
+    {
+      "slug": "recuerdos-que-te-dijo-un-adulto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué frase te dijo un adulto en tu infancia que todavía recuerdas, para bien o para mal?"
+    },
+    {
+      "slug": "recuerdos-etapa-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál fue la etapa más difícil de tu vida y qué te ayudó a salir de ahí?"
+    },
+    {
+      "slug": "recuerdos-lo-que-agradeces-de-tu-nina",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué le agradeces hoy a tu yo de la infancia?"
+    },
+    {
+      "slug": "recuerdos-lo-que-le-diria-a-mi-yo-joven",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras darle un abrazo y un consejo a tu yo de quince años, ¿qué le dirías?"
+    },
+    {
+      "slug": "recuerdos-lo-que-aprendi-de-mis-papas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué aprendiste de tus papás, o de quienes te criaron, que quieres conservar?"
+    },
+    {
+      "slug": "recuerdos-lo-que-quiero-hacer-distinto",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te gustaría hacer distinto a como lo vivió tu familia?"
+    },
+    {
+      "slug": "recuerdos-recuerdo-que-me-da-paz",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo te da más paz cuando lo piensas?"
+    },
+    {
+      "slug": "recuerdos-momento-de-orgullo-familiar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de tu vida te hizo sentir más orgullo de tu familia o de ti?"
+    },
+    {
+      "slug": "recuerdos-lo-mas-valiente-que-hice",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué es lo más valiente que has hecho y cómo lo recuerdas?"
+    },
+    {
+      "slug": "recuerdos-amigo-que-marco",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué amistad de tu vida te marcó y qué te dejó?"
+    },
+    {
+      "slug": "recuerdos-el-dia-que-todo-cambio",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Hubo un día que dividió tu vida en antes y después? Cuéntame, si quieres."
+    },
+    {
+      "slug": "recuerdos-lo-que-no-sabia-de-mi",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué descubriste de ti en algún momento que no esperabas?"
+    },
+    {
+      "slug": "recuerdos-decision-que-tomaria-igual",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué decisión de tu vida tomarías exactamente igual otra vez?"
+    },
+    {
+      "slug": "recuerdos-momento-de-perdon",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Alguna vez te perdonaste algo del pasado y cómo lo lograste?"
+    },
+    {
+      "slug": "recuerdos-primer-momento-de-confianza",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo sentiste que podías ser tal cual eres conmigo?"
+    },
+    {
+      "slug": "recuerdos-lo-mas-bonito-que-has-oido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuál es lo más bonito que alguien te ha dicho y quién fue?"
+    },
+    {
+      "slug": "recuerdos-el-lugar-que-te-formo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué lugar de tu infancia te formó más y por qué?"
+    },
+    {
+      "slug": "recuerdos-lo-que-me-dolio-y-me-hizo-crecer",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué experiencia te dolió pero te hizo crecer?"
+    },
+    {
+      "slug": "recuerdos-promesa-que-cumpliste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué promesa que te hiciste de joven ya cumpliste?"
+    },
+    {
+      "slug": "recuerdos-sueno-de-nino",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué querías ser de grande y qué tanto se parece a lo que eres hoy?"
+    },
+    {
+      "slug": "recuerdos-lo-que-nos-ha-cambiado",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué crees que nos hemos cambiado el uno al otro desde que nos conocimos?"
+    },
+    {
+      "slug": "recuerdos-lo-que-sentiste-al-conocer-a-mi-familia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sentiste al conocer a mi familia o amistades por primera vez?"
+    },
+    {
+      "slug": "recuerdos-el-dia-que-supe",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo supiste que querías construir algo conmigo?"
+    },
+    {
+      "slug": "recuerdos-conversacion-que-nos-acerco",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué conversación profunda nos acercó más y por qué?"
+    },
+    {
+      "slug": "recuerdos-momento-de-vulnerabilidad",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué fue lo primero que me contaste que casi no le habías dicho a nadie?"
+    },
+    {
+      "slug": "recuerdos-tradicion-familiar-que-extranas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué tradición familiar extrañas y cuál te gustaría que fuera nuestra?"
+    },
+    {
+      "slug": "recuerdos-recuerdo-que-te-hace-llorar-bonito",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué recuerdo te hace llorar bonito?"
+    },
+    {
+      "slug": "recuerdos-lo-que-me-ensenaron-las-despedidas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te enseñó la última despedida importante de tu vida?"
+    },
+    {
+      "slug": "recuerdos-lo-que-faltaba-en-tu-infancia",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué te hubiera gustado recibir más en tu infancia, como atención, palabras o tiempo?"
+    },
+    {
+      "slug": "recuerdos-reconocer-un-error",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué error de tu pasado hoy ves con ternura?"
+    },
+    {
+      "slug": "recuerdos-lo-que-quisiera-recordar-siempre",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de nuestra historia quisieras recordar siempre con detalle?"
+    },
+    {
+      "slug": "recuerdos-olor-que-te-lleva-a-un-recuerdo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué olor te regresa de golpe a un recuerdo importante y cuál es?"
+    },
+    {
+      "slug": "recuerdos-persona-que-te-cuido",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Quién te cuidó mejor en tu infancia y qué hacía?"
+    },
+    {
+      "slug": "recuerdos-el-reto-que-vencimos",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué reto superamos juntos que ya recuerdas con orgullo?"
+    },
+    {
+      "slug": "recuerdos-cuando-lloraste-de-risa",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cuándo has llorado de risa con alguien que quieres y qué pasó?"
+    },
+    {
+      "slug": "recuerdos-lo-que-heredaste",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué rasgo o costumbre heredaste de tu familia y te gusta?"
+    },
+    {
+      "slug": "recuerdos-momento-que-agradeces-de-nosotros",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué momento de nuestra historia agradeces más en este instante?"
+    },
+    {
+      "slug": "recuerdos-casa-de-tus-suenos-infantil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Cómo era la casa de tus sueños en tu infancia?"
+    },
+    {
+      "slug": "recuerdos-persona-a-quien-le-debo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿A quién le debes mucho de lo que eres hoy y qué le dirías?"
+    },
+    {
+      "slug": "recuerdos-primera-vez-que-me-sentiste-hogar",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿En qué momento descubriste que a mi lado te sentías en casa?"
+    },
+    {
+      "slug": "recuerdos-recuerdos-y-cancion",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si tu vida tuviera un soundtrack, ¿qué canción sonaría en tu recuerdo más importante?"
+    },
+    {
+      "slug": "recuerdos-lo-que-pasaria-si",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "Si pudieras revivir un solo día de tu vida, ¿cuál sería y qué cambiarías o no cambiarías?"
+    },
+    {
+      "slug": "recuerdos-primera-impresion-de-ti",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Cuando te conocí, mi primera impresión fue...",
+      "options": ["Qué amable", "Qué bonita sonrisa", "Qué interesante", "Qué nervios"]
     }
   ]
 }

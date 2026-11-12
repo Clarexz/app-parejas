@@ -1,0 +1,191 @@
+{
+  "pack": "pack-navidad",
+  "questions": [
+    {
+      "slug": "pack-navidad-rol-posada",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En una posada, ¿cuál es tu papel?",
+      "options": [
+        "Romper la piñata",
+        "Cuidar el ponche",
+        "Cantar a todo pulmón",
+        "Irme temprano sin que se note"
+      ]
+    },
+    {
+      "slug": "pack-navidad-recuerdo-infancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu recuerdo navideño favorito de la infancia?"
+    },
+    {
+      "slug": "pack-navidad-cena-nochebuena",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La cena de Nochebuena que no puede faltar es…",
+      "options": ["Pavo", "Bacalao", "Pierna al horno", "Romeritos"]
+    },
+    {
+      "slug": "pack-navidad-ponche",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El ponche de frutas, ¿cómo lo tomas?",
+      "options": ["Con piquete", "Sin piquete", "Solo las frutas", "Mejor un atole"]
+    },
+    {
+      "slug": "pack-navidad-tradicion-familiar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la tradición de tu familia que más te gusta de diciembre?"
+    },
+    {
+      "slug": "pack-navidad-arbol",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Tu árbol de Navidad ideal es…",
+      "options": ["Natural", "Artificial", "Nada más el nacimiento", "Ninguno, pura luz y ya"]
+    },
+    {
+      "slug": "pack-navidad-mejor-regalo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor regalo que te han dado en Navidad?"
+    },
+    {
+      "slug": "pack-navidad-detalle-de-mi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué detalle te haría feliz recibir de mí este año, aunque no costara nada?"
+    },
+    {
+      "slug": "pack-navidad-intercambio",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el intercambio navideño, tú eres de los que…",
+      "options": [
+        "Regalan lo que les gustaría recibir",
+        "Compran en el último minuto",
+        "Planean desde octubre",
+        "Se quedan sin idea hasta el día"
+      ]
+    },
+    {
+      "slug": "pack-navidad-dulce-aguinaldo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Del aguinaldo de la piñata, ¿qué te comes primero?",
+      "options": ["Cacahuates", "Mandarina", "Caña", "Tejocote"]
+    },
+    {
+      "slug": "pack-navidad-navidad-a-distancia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Si pasamos Navidad separados, ¿cómo la haríamos especial a distancia?"
+    },
+    {
+      "slug": "pack-navidad-cancion-navidena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción navideña te sabes completita?"
+    },
+    {
+      "slug": "pack-navidad-recalentado",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "El recalentado del día 25 es…",
+      "options": [
+        "Mejor que la cena",
+        "Igual de bueno",
+        "Prefiero lo fresco",
+        "Mi parte favorita del año"
+      ]
+    },
+    {
+      "slug": "pack-navidad-proposito-fallido",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué propósito de año nuevo dices siempre y nunca cumples?"
+    },
+    {
+      "slug": "pack-navidad-fin-de-ano",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Para recibir el año nuevo, tú eres de…",
+      "options": [
+        "Doce uvas en mano",
+        "Maleta lista para viajar",
+        "Dormirme antes de las doce",
+        "Fiesta hasta el amanecer"
+      ]
+    },
+    {
+      "slug": "pack-navidad-tres-deseos-uvas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Con las doce uvas de medianoche, ¿qué tres deseos pedirías?"
+    },
+    {
+      "slug": "pack-navidad-mejor-momento-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue tu mejor momento del año que está por terminar?"
+    },
+    {
+      "slug": "pack-navidad-dejar-atras",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué te gustaría dejar atrás este año?"
+    },
+    {
+      "slug": "pack-navidad-deseo-para-nosotros",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué quieres que pase con nosotros el año que viene?"
+    },
+    {
+      "slug": "pack-navidad-peli-navidena",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "La película navideña que no puede faltar es…",
+      "options": [
+        "Mi pobre angelito",
+        "El Grinch",
+        "Una de romance con nieve",
+        "Ninguna, mejor otra cosa"
+      ]
+    },
+    {
+      "slug": "pack-navidad-santa-o-reyes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Quién te traía los regalos de niño?",
+      "options": ["Santa Claus", "Los Reyes Magos", "Los dos", "El Niño Dios"]
+    },
+    {
+      "slug": "pack-navidad-regalo-raro",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el regalo más raro que has recibido?"
+    },
+    {
+      "slug": "pack-navidad-tradicion-nuestra",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué tradición te gustaría que tuviéramos solo nosotros dos?"
+    },
+    {
+      "slug": "pack-navidad-desastre-familiar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "Cuéntame el peor desastre que has visto en una cena familiar."
+    },
+    {
+      "slug": "pack-navidad-resumen-del-ano",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "Este año para ti fue…",
+      "options": ["Una montaña rusa", "Tranquilo", "Puro aprendizaje", "Un maratón"]
+    }
+  ]
+}

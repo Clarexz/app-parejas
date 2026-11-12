@@ -1,0 +1,954 @@
+{
+  "category": "gustos",
+  "questions": [
+    {
+      "slug": "gustos-taco-pedirias-solo-pudieras-comer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué taco pedirías si solo pudieras comer uno por el resto de tu vida?"
+    },
+    {
+      "slug": "gustos-cual-salsa-favorita-tan-picosa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu salsa favorita y qué tan picosa la quieres?"
+    },
+    {
+      "slug": "gustos-platillo-casa-nadie-hace-igual",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo de tu casa nadie hace igual que ahí?"
+    },
+    {
+      "slug": "gustos-cual-mejor-desayuno-comido-fuera",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el mejor desayuno que has comido fuera de casa?"
+    },
+    {
+      "slug": "gustos-cosa-nunca-ha-gustado-comer",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa nunca te ha gustado comer, por más que lo intenten convencerte?"
+    },
+    {
+      "slug": "gustos-cual-antojo-mercado-puesto-calle",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el antojo de mercado o de puesto de la calle que más disfrutas?"
+    },
+    {
+      "slug": "gustos-acompana-buen-cafe-ti",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Con qué se acompaña un buen café para ti?"
+    },
+    {
+      "slug": "gustos-primero-pides-taqueria",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué es lo primero que pides en una taquería?"
+    },
+    {
+      "slug": "gustos-cual-torta-favorita-lleva",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu torta favorita y qué lleva?"
+    },
+    {
+      "slug": "gustos-dulce-mexicano-infancia-sigues-buscando",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué dulce mexicano de tu infancia sigues buscando?"
+    },
+    {
+      "slug": "gustos-cual-bebida-favorita-acompanar-comida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu bebida favorita para acompañar la comida?"
+    },
+    {
+      "slug": "gustos-receta-sabes-hacer-memoria-siempre",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué receta sabes hacer de memoria y siempre te sale rica?"
+    },
+    {
+      "slug": "gustos-platillo-gustaria-yo-cocinara-alguna",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué platillo te gustaría que yo te cocinara alguna vez?"
+    },
+    {
+      "slug": "gustos-cual-pizza-ideal-todo-sus",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu pizza ideal, con todo y sus ingredientes controversiales?"
+    },
+    {
+      "slug": "gustos-botana-no-puede-faltar-tarde",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué botana no puede faltar en una tarde de película?"
+    },
+    {
+      "slug": "gustos-ingrediente-le-pones-todo-aunque",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué ingrediente le pones a todo, aunque no combine?"
+    },
+    {
+      "slug": "gustos-restaurante-recomendarias-ojos-cerrados",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué restaurante recomendarías con los ojos cerrados?"
+    },
+    {
+      "slug": "gustos-fruta-gusta-chile-limon-nada",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué fruta te gusta con chile y limón o sin nada?"
+    },
+    {
+      "slug": "gustos-cual-mejor-recuerdo-alrededor-mesa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu mejor recuerdo alrededor de una mesa?"
+    },
+    {
+      "slug": "gustos-cual-canal-cocina-comida-mas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el canal de cocina o de comida que más disfrutas ver?"
+    },
+    {
+      "slug": "gustos-cual-ultima-cancion-no-podias",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la última canción que no podías dejar de poner?"
+    },
+    {
+      "slug": "gustos-cancion-sabes-completa-aunque-no",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te sabes completa aunque no te guste tanto?"
+    },
+    {
+      "slug": "gustos-cual-disco-escucharias-entero-principio",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el disco que escucharías entero de principio a fin?"
+    },
+    {
+      "slug": "gustos-artista-querido-ver-concierto-todavia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué artista has querido ver en concierto y todavía no?"
+    },
+    {
+      "slug": "gustos-cancion-pone-bailar-aunque-estes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te pone a bailar aunque no haya nadie en casa?"
+    },
+    {
+      "slug": "gustos-rola-recuerda-secundaria-prepa",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué rola te recuerda a tu secundaria o a tu prepa?"
+    },
+    {
+      "slug": "gustos-cual-esa-cancion-da-pena",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es esa canción que te da pena que te guste?"
+    },
+    {
+      "slug": "gustos-cancion-gustaria-sonara-nuestra-boda",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción te gustaría que sonara en nuestra boda, o en un día muy especial?"
+    },
+    {
+      "slug": "gustos-cancion-nos-describe-dos-este",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué canción nos describe a los dos en este momento?"
+    },
+    {
+      "slug": "gustos-genero-musical-nunca-podrias-escuchar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué género musical nunca podrías escuchar por mucho tiempo?"
+    },
+    {
+      "slug": "gustos-cual-primer-concierto-fuiste",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿A qué concierto fuiste y valió cada peso de los boletos?"
+    },
+    {
+      "slug": "gustos-cual-pelicula-favorita-llorar",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu película favorita para llorar y por qué?"
+    },
+    {
+      "slug": "gustos-cual-peli-terror-mas-asusto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la peli de terror que más te asustó, o que ni te has atrevido a ver?"
+    },
+    {
+      "slug": "gustos-pelicula-animacion-hace-sentir-nino",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué película de animación te hace volver a la infancia?"
+    },
+    {
+      "slug": "gustos-cual-pelicula-mas-extrana-gusto",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la película más extraña que te gustó mucho?"
+    },
+    {
+      "slug": "gustos-peli-nos-falta-ver-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué peli nos falta ver juntos que ya quieres que veamos?"
+    },
+    {
+      "slug": "gustos-serie-gustaria-vieramos-principio-fin",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué serie te gustaría que viéramos de principio a fin?"
+    },
+    {
+      "slug": "gustos-cual-serie-abandonaste-todavia-cae",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es la serie que abandonaste y todavía te cae mal?"
+    },
+    {
+      "slug": "gustos-serie-gustaria-existiera",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué serie te gustaría que existiera?"
+    },
+    {
+      "slug": "gustos-personaje-ficcion-cae-mejor-muchas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué personaje de ficción te cae mejor que muchas personas de verdad?"
+    },
+    {
+      "slug": "gustos-villano-parece-mejor-escrito-todos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué villano te parece el mejor escrito de todos?"
+    },
+    {
+      "slug": "gustos-telenovela-telenovela-marco-familia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué telenovela, sí, telenovela, marcó a tu familia?"
+    },
+    {
+      "slug": "gustos-libro-releerias-cada-ano",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué libro releerías cada año?"
+    },
+    {
+      "slug": "gustos-libro-regalarias-ti-mismo-misma",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué libro te regalarías?"
+    },
+    {
+      "slug": "gustos-cual-ultimo-libro-dejo-pensando",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es el último libro que te dejó pensando?"
+    },
+    {
+      "slug": "gustos-cuento-fabula-historia-infantil-sabes",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cuento, fábula o historia infantil te sabes de memoria?"
+    },
+    {
+      "slug": "gustos-escena-pelicula-serie-sabes-casi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué escena de una película o serie te sabes casi completa?"
+    },
+    {
+      "slug": "gustos-meme-video-viral-hace-reir",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué meme o video viral te hace reír todavía?"
+    },
+    {
+      "slug": "gustos-influencer-youtuber-creador-sigues-desde",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué influencer, youtuber o creador sigues desde hace años?"
+    },
+    {
+      "slug": "gustos-cual-moda-mas-exagerada-toco",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál fue la moda más exagerada que te tocó vivir?"
+    },
+    {
+      "slug": "gustos-caricatura-mananas-sabado-era-favorita",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué caricatura de las mañanas de sábado era tu favorita?"
+    },
+    {
+      "slug": "gustos-videojuego-marco-aunque-ya-casi",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué videojuego te marcó, aunque ya casi nadie lo recuerde?"
+    },
+    {
+      "slug": "gustos-cosa-cultura-pop-mexicana-da",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cosa de la cultura pop mexicana te da orgullo?"
+    },
+    {
+      "slug": "gustos-frase-pelicula-serie-usas-vida",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué frase de película o de serie usas en tu vida diaria?"
+    },
+    {
+      "slug": "gustos-personaje-ficcion-seria-mejor-amigo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué personaje de ficción sería tu mejor amistad?"
+    },
+    {
+      "slug": "gustos-documental-video-saco-ahora-algo",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué documental o video te sacó un \"ahora sé algo nuevo\"?"
+    },
+    {
+      "slug": "gustos-cual-podcast-canal-favorito-estas",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu podcast o canal favorito para cuando estás en camino?"
+    },
+    {
+      "slug": "gustos-cantante-tiene-voz-mas-gusta",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué cantante tiene la voz que más te gusta escuchar?"
+    },
+    {
+      "slug": "gustos-soundtrack-pelicula-serie-escuchas-fuera",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué soundtrack de película o de serie escuchas fuera de la pantalla?"
+    },
+    {
+      "slug": "gustos-festival-evento-gustaria-fueramos-juntos",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué festival o evento te gustaría que fuéramos juntos?"
+    },
+    {
+      "slug": "gustos-comida-callejera-ciudad-visitaste-todavia",
+      "type": "open",
+      "intensity": "ligera",
+      "text": "¿Qué comida callejera de una ciudad que visitaste todavía recuerdas?"
+    },
+    {
+      "slug": "gustos-como-gustan-tacos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gustan los tacos?",
+      "options": ["Al pastor", "De carnitas", "De guisado", "De suadero"]
+    },
+    {
+      "slug": "gustos-cual-salsa-vida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es la salsa de tu vida?",
+      "options": ["Verde cruda", "Roja con chile de árbol", "Macha", "La de la casa"]
+    },
+    {
+      "slug": "gustos-chilaquiles-rojos-verdes",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Chilaquiles rojos o verdes?",
+      "options": ["Rojos", "Verdes", "Divorciados", "Los dos, con huevo"]
+    },
+    {
+      "slug": "gustos-como-prefieres-elote",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo prefieres tu elote?",
+      "options": ["En vaso", "En mazorca con mayonesa", "Asado", "Esquite con todo"]
+    },
+    {
+      "slug": "gustos-pan-dulce-llama-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué pan dulce te llama más?",
+      "options": ["Concha", "Oreja", "Cuernito", "Dona"]
+    },
+    {
+      "slug": "gustos-cual-torta-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu torta ideal?",
+      "options": ["Cubana", "Ahogada", "Milanesa", "De tamal"]
+    },
+    {
+      "slug": "gustos-cual-bebida-comida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu bebida para la comida?",
+      "options": ["Agua de sabor", "Refresco", "Cerveza", "Agua natural"]
+    },
+    {
+      "slug": "gustos-agua-fresca-eliges",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué agua fresca eliges?",
+      "options": ["Horchata", "Jamaica", "Tamarindo", "Limón con chía"]
+    },
+    {
+      "slug": "gustos-cual-helado-paleta-ideal",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu helado o paleta ideal?",
+      "options": ["Limón", "Chocolate", "Fresa", "Mango con chile"]
+    },
+    {
+      "slug": "gustos-como-gustan-frijoles",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo te gustan los frijoles?",
+      "options": ["De la olla", "Refritos", "Charros", "Con arroz y ya"]
+    },
+    {
+      "slug": "gustos-cena-cae-mejor",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué cena te cae mejor?",
+      "options": ["Quesadillas", "Pozole", "Sándwich", "Cereal"]
+    },
+    {
+      "slug": "gustos-pizza-pina",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué ingrediente en la pizza te parece intocable?",
+      "options": ["Piña", "Champiñones", "Anchoas", "Extra queso"]
+    },
+    {
+      "slug": "gustos-domingo-comida-familia-pides",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué postre no puede faltar en una comida familiar?",
+      "options": ["Arroz con leche", "Pastel de tres leches", "Flan", "Gelatina de colores"]
+    },
+    {
+      "slug": "gustos-sabor-refresco-soda-prefieres",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué sabor de refresco o de soda prefieres?",
+      "options": ["Cola", "Limón", "Naranja", "Toronja"]
+    },
+    {
+      "slug": "gustos-cual-botana-pelicula",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu botana de película?",
+      "options": ["Palomitas", "Papas", "Nachos", "Gomitas"]
+    },
+    {
+      "slug": "gustos-antojo-dulce-llama-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué antojo dulce te llama más?",
+      "options": ["Churros", "Helado", "Chocolate", "Fruta con crema"]
+    },
+    {
+      "slug": "gustos-mejor-desayuno",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué es mejor para el desayuno?",
+      "options": ["Huevos al gusto", "Hot cakes", "Molletes", "Fruta con yogurt"]
+    },
+    {
+      "slug": "gustos-tan-aventurero-aventurera-comida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tan atrevido es tu paladar con la comida?",
+      "options": ["Pruebo todo", "Pruebo casi todo", "Pido lo conocido", "Soy de pocas cosas"]
+    },
+    {
+      "slug": "gustos-sushi-tacos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Sushi o tacos?",
+      "options": ["Sushi", "Tacos", "Los dos, sin pensarlo", "Ninguno, quiero pasta"]
+    },
+    {
+      "slug": "gustos-prefieres-antojo-medianoche",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para un antojo de medianoche?",
+      "options": ["Tacos de la esquina", "Pan con algo", "Maruchan", "Algo de la alacena"]
+    },
+    {
+      "slug": "gustos-cancion-hace-subir-volumen",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué música te hace subir el volumen?",
+      "options": ["Rock en español", "Pop actual", "Regional mexicano", "Reguetón"]
+    },
+    {
+      "slug": "gustos-como-disfrutas-mas-musica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo disfrutas más la música?",
+      "options": [
+        "En audífonos",
+        "En la bocina de la casa",
+        "En concierto",
+        "Con el carro a todo volumen"
+      ]
+    },
+    {
+      "slug": "gustos-cual-hora-escuchar-musica",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuál es tu hora para escuchar música?",
+      "options": ["Por la mañana", "En la chamba o escuela", "De noche", "Siempre"]
+    },
+    {
+      "slug": "gustos-prefieres-bailar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para bailar?",
+      "options": ["Salsa", "Cumbia", "Pop", "Lo que sea con tal de bailar"]
+    },
+    {
+      "slug": "gustos-como-eliges-vas-escuchar",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eliges lo que vas a escuchar?",
+      "options": [
+        "Playlist de siempre",
+        "Lo que sale",
+        "Descubro algo nuevo",
+        "Pongo mi cancionero viejo"
+      ]
+    },
+    {
+      "slug": "gustos-como-relacion-conciertos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo es tu relación con los conciertos?",
+      "options": ["Los amo", "Solo si son buenos", "Mucha gente, mejor no", "Voy por la foto"]
+    },
+    {
+      "slug": "gustos-instrumento-quedarias",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Con qué instrumento te quedarías?",
+      "options": ["Guitarra", "Piano", "Batería", "Ninguno, solo cantar"]
+    },
+    {
+      "slug": "gustos-voz-prefieres",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de voz prefieres para escuchar cantar?",
+      "options": [
+        "Ronca y profunda",
+        "Suave y aguda",
+        "Cantante de ópera",
+        "La que desentona con ganas"
+      ]
+    },
+    {
+      "slug": "gustos-tipo-pelicula-late-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tipo de película te late más?",
+      "options": ["Comedia", "Drama", "Acción", "Terror"]
+    },
+    {
+      "slug": "gustos-mejor-hora-ver-peli",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cuándo prefieres ver una peli?",
+      "options": ["Tarde", "Noche", "Fin de semana lluvioso", "Cuando no hay nada que hacer"]
+    },
+    {
+      "slug": "gustos-tanto-repites-serie",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué tanto repites una serie?",
+      "options": ["La repito mil veces", "A veces", "Casi nunca", "Nunca, hay mucho que ver"]
+    },
+    {
+      "slug": "gustos-como-ves-series",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo ves series?",
+      "options": [
+        "Un capítulo al día",
+        "Un par por noche",
+        "Maratón entero",
+        "Mientras hago otra cosa"
+      ]
+    },
+    {
+      "slug": "gustos-como-spoilers",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eres con los spoilers?",
+      "options": ["Los odio", "Me da igual", "Los busco yo", "Pregunto cómo termina"]
+    },
+    {
+      "slug": "gustos-pelicula-mejor-ver-pareja",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué película es la mejor para ver en pareja?",
+      "options": ["Romántica", "Comedia", "Suspenso", "Animada"]
+    },
+    {
+      "slug": "gustos-cine-compras-primero",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "En el cine, ¿qué compras primero?",
+      "options": ["Palomitas", "Refresco", "Dulces", "Nada, ya cené"]
+    },
+    {
+      "slug": "gustos-formato-leer-libro",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿En qué formato prefieres leer un libro?",
+      "options": ["Libro en papel", "Audiolibro", "Libro digital", "Ninguno, mejor serie"]
+    },
+    {
+      "slug": "gustos-genero-lectura-eliges",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué género de lectura eliges?",
+      "options": ["Novela", "Ciencia ficción", "Cómics o manga", "Autoayuda"]
+    },
+    {
+      "slug": "gustos-lees-mas-dia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué lees más en el día?",
+      "options": ["Noticias", "Redes sociales", "Libros", "Mensajes de WhatsApp"]
+    },
+    {
+      "slug": "gustos-como-eliges-ver",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo eliges qué ver?",
+      "options": ["Por reseñas", "Por el trailer", "Por recomendación", "Por el póster"]
+    },
+    {
+      "slug": "gustos-pelicula-disney-pixar-late-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué película de Disney o Pixar te late más?",
+      "options": ["Clásicas de princesas", "Pixar", "Las más nuevas", "Las de música"]
+    },
+    {
+      "slug": "gustos-clasico-mexicano-da-nostalgia",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué clásico mexicano te da nostalgia?",
+      "options": ["Chespirito", "Telenovelas de antes", "Cine de oro", "Caricaturas de la tele"]
+    },
+    {
+      "slug": "gustos-tipo-cultura-llama-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué plan cultural te llama más?",
+      "options": ["Museos", "Música en vivo", "Teatro", "Ferias y fiestas locales"]
+    },
+    {
+      "slug": "gustos-como-ves-programas-reality",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo ves los programas de reality?",
+      "options": ["Me encantan", "Veo uno que otro", "Me dan pena ajena", "No los veo"]
+    },
+    {
+      "slug": "gustos-late-mas-noche-juegos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te late más para una noche de juegos?",
+      "options": ["Videojuegos", "Juegos de mesa", "Cartas", "Charadas"]
+    },
+    {
+      "slug": "gustos-videojuego-eliges",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué videojuego eliges?",
+      "options": ["Aventura", "Carreras", "Pelea", "Algo relajado"]
+    },
+    {
+      "slug": "gustos-prefieres-peli-miedo",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres en una peli de miedo?",
+      "options": ["Fantasmas", "Asesinos", "Monstruos", "Mejor no ver"]
+    },
+    {
+      "slug": "gustos-hace-reir-cine",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué te hace reír en el cine?",
+      "options": ["Comedia ligera", "Humor negro", "Comedia romántica", "Comedia absurda"]
+    },
+    {
+      "slug": "gustos-como-sigues-tus-artistas-favoritos",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Cómo sigues a tus artistas favoritos?",
+      "options": [
+        "Escucho su música",
+        "Veo sus entrevistas",
+        "Sigo sus redes",
+        "Solo escucho sus éxitos"
+      ]
+    },
+    {
+      "slug": "gustos-pasa-tus-listas-reproduccion",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué pasa con tus listas de reproducción?",
+      "options": ["Las organizo", "Las dejo crecer", "Solo tengo una", "Hago una nueva cada mes"]
+    },
+    {
+      "slug": "gustos-trend-redes-late-mas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué trend de redes te late más?",
+      "options": ["Bailes", "Recetas", "Humor", "Ninguno, no lo sigo"]
+    },
+    {
+      "slug": "gustos-prefieres-ver-deporte",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para ver deporte?",
+      "options": ["Fútbol", "Box o lucha", "Fórmula 1", "Cualquier cosa con botana"]
+    },
+    {
+      "slug": "gustos-equipo-banda-grupo-fan",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿De qué equipo, banda o grupo eres fan?",
+      "options": ["De un equipo de fútbol", "De una banda", "De una serie", "De muchas cosas"]
+    },
+    {
+      "slug": "gustos-final-de-una-pelicula",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué final le pides a una película?",
+      "options": ["Película con final feliz", "Final abierto", "Final trágico", "Que me sorprenda"]
+    },
+    {
+      "slug": "gustos-sientes-secuelas-tus-peliculas-favoritas",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué sientes con las secuelas de tus películas favoritas?",
+      "options": ["Emoción", "Miedo de que arruinen todo", "Curiosidad", "Ya las vi todas"]
+    },
+    {
+      "slug": "gustos-pides-primero-cafeteria",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué pides primero en una cafetería?",
+      "options": ["Café americano", "Latte", "Frappé", "Algo con chocolate"]
+    },
+    {
+      "slug": "gustos-merienda-prefieres",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para la merienda?",
+      "options": ["Pan con café", "Galletas", "Fruta", "Algo salado"]
+    },
+    {
+      "slug": "gustos-pozole-eliges",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué pozole eliges?",
+      "options": ["Rojo", "Verde", "Blanco", "Cualquiera, todos"]
+    },
+    {
+      "slug": "gustos-sabor-tamal-prefieres",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué sabor de tamal prefieres?",
+      "options": ["Rajas con queso", "Verde", "Mole", "Dulce"]
+    },
+    {
+      "slug": "gustos-prefieres-cerrar-comida",
+      "type": "choice",
+      "intensity": "ligera",
+      "text": "¿Qué prefieres para cerrar una comida?",
+      "options": ["Postre", "Café", "Digestivo", "Siesta"]
+    },
+    {
+      "slug": "gustos-cancion-ha-acompanado-momento-dificil",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué canción te ha acompañado en un momento difícil y por qué?"
+    },
+    {
+      "slug": "gustos-pelicula-serie-sentiste-hablo-directamente",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué película o serie sentiste que habló directamente de ti?"
+    },
+    {
+      "slug": "gustos-libro-cambio-algo-forma-ver",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué libro cambió algo en tu forma de ver la vida?"
+    },
+    {
+      "slug": "gustos-sabor-platillo-regresa-recuerdo-no",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué sabor o platillo te regresa a un recuerdo que no cuentas mucho?"
+    },
+    {
+      "slug": "gustos-obra-cancion-historia-ha-hecho",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué obra, canción o historia te ha hecho llorar sin que supieras por qué?"
+    },
+    {
+      "slug": "gustos-gusto-tuyo-ha-costado-defender",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gusto tuyo te ha costado defender frente a otras personas?"
+    },
+    {
+      "slug": "gustos-gustos-nuestros-crees-parecen-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué gustos nuestros crees que se parecen más de lo que pensamos?"
+    },
+    {
+      "slug": "gustos-musica-hace-sentir-mas",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué música te hace sentir más tú?"
+    },
+    {
+      "slug": "gustos-personaje-ficcion-ha-ensenado-algo",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué personaje de ficción te ha enseñado algo sobre ti?"
+    },
+    {
+      "slug": "gustos-cancion-pelicula-gustaria-ambos-vieran",
+      "type": "open",
+      "intensity": "profunda",
+      "text": "¿Qué canción o película te gustaría que ambos vieran o escucharan por primera vez juntos?"
+    },
+    {
+      "slug": "gustos-hace-sentir-cancion-triste",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te hace sentir una canción triste?",
+      "options": ["Alivio", "Nostalgia", "Ganas de llorar", "Ganas de llamar a alguien"]
+    },
+    {
+      "slug": "gustos-buscas-libro-pelicula",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué buscas en un libro o película?",
+      "options": ["Escapar", "Aprender", "Emocionarme", "Sentir compañía"]
+    },
+    {
+      "slug": "gustos-cual-gusto-mas-define",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es el gusto que más te define?",
+      "options": ["Mi música", "Mi comida", "Mis series o pelis", "Mis lugares favoritos"]
+    },
+    {
+      "slug": "gustos-algo-gusta-mucho-haces",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Cuando algo te gusta mucho, ¿qué haces?",
+      "options": [
+        "Lo comparto",
+        "Lo guardo para mí",
+        "Lo repito sin parar",
+        "Investigo todo sobre eso"
+      ]
+    },
+    {
+      "slug": "gustos-hace-conectar-alguien",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué te hace conectar con alguien?",
+      "options": ["Gustos en común", "Humor", "Valores", "Pasiones distintas"]
+    },
+    {
+      "slug": "gustos-prefieres-compartir-gustos-descubrir-otro",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Prefieres compartir tus gustos o descubrir los de la otra persona?",
+      "options": [
+        "Compartirlos",
+        "Descubrir los del otro",
+        "Un poco de cada uno",
+        "Depende del día"
+      ]
+    },
+    {
+      "slug": "gustos-tan-facil-cambias-tus-gustos",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué tan fácil cambias tus gustos con el tiempo?",
+      "options": [
+        "Cambian seguido",
+        "Cambian poco",
+        "Cambian por temporadas",
+        "Sigo con los de siempre"
+      ]
+    },
+    {
+      "slug": "gustos-obra-arte-cancion-libro-gustaria",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Qué obra de arte, canción o libro te gustaría regalarme?",
+      "options": ["Una canción", "Una película", "Un libro", "Un platillo que hagas tú"]
+    },
+    {
+      "slug": "gustos-cancion-tuya-favorita-dice-mucho",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "Una canción tuya favorita dice mucho de ti. ¿Cuál es el tema?",
+      "options": ["Amor", "Libertad", "Nostalgia", "Alegría"]
+    },
+    {
+      "slug": "gustos-cual-mayor-placer-culposo-cultural",
+      "type": "choice",
+      "intensity": "profunda",
+      "text": "¿Cuál es tu mayor placer culposo cultural?",
+      "options": ["Telenovelas", "Música cursi", "Reality shows", "Pelis de adolescentes"]
+    }
+  ]
+}

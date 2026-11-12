@@ -1,0 +1,201 @@
+{
+  "pack": "pack-deseo",
+  "questions": [
+    {
+      "slug": "pack-deseo-primera-atraccion",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué fue lo primero que te atrajo de mí físicamente?"
+    },
+    {
+      "slug": "pack-deseo-beso-largo",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Cuándo es mejor un beso largo?",
+      "options": ["Al despertar", "En la cocina", "Antes de dormir", "En el lugar menos esperado"]
+    },
+    {
+      "slug": "pack-deseo-provoca-sin-saber",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué cosa que hago te provoca sin que yo me dé cuenta?"
+    },
+    {
+      "slug": "pack-deseo-estilo-seduccion",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Tu estilo de seducción ideal es…",
+      "options": ["Miradas", "Mensajes picosos", "Detalles románticos", "Cero sutileza"]
+    },
+    {
+      "slug": "pack-deseo-mensaje-travieso",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué mensaje mío te hace sonreír con picardía?"
+    },
+    {
+      "slug": "pack-deseo-videollamada-clima",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "En una videollamada, ¿qué ambiente prefieres?",
+      "options": ["Romántico", "Juguetón", "Atrevido, pero con permiso", "Solo platicar"]
+    },
+    {
+      "slug": "pack-deseo-lugar-romantico",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué lugar fuera de casa sería un escenario romántico y atrevido para ti?"
+    },
+    {
+      "slug": "pack-deseo-musica-momento",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Para poner el ambiente, ¿qué música eliges?",
+      "options": ["Boleros", "Reggaetón suave", "R&B", "Puro silencio"]
+    },
+    {
+      "slug": "pack-deseo-ropa-distrae",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Con qué ropa mía te cuesta más trabajo concentrarte?"
+    },
+    {
+      "slug": "pack-deseo-con-calma",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué te gustaría que hiciéramos con calma que normalmente hacemos con prisa?"
+    },
+    {
+      "slug": "pack-deseo-hablar-gustos",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Para platicar lo que nos gusta, ¿qué es lo tuyo?",
+      "options": ["Hablar claro", "Mejor mostrarlo", "Con humor", "Con notitas"]
+    },
+    {
+      "slug": "pack-deseo-fantasia-suave",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué fantasía suave te gustaría explorar, solo si los dos estamos de acuerdo?"
+    },
+    {
+      "slug": "pack-deseo-zona-favorita",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Dónde te gusta más que te acaricie?"
+    },
+    {
+      "slug": "pack-deseo-despues-dia-pesado",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Después de un día pesado, ¿qué te recarga?",
+      "options": ["Un masaje", "Un abrazo largo", "Besos lentos", "Cariñitos y serie"]
+    },
+    {
+      "slug": "pack-deseo-cortejo-nuevo",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Cómo te gustaría que te cortejara de nuevo?"
+    },
+    {
+      "slug": "pack-deseo-frase-al-oido",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué frase dicha al oído te derrite?"
+    },
+    {
+      "slug": "pack-deseo-luces",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Cuál es la luz ideal?",
+      "options": ["Velas", "Penumbra", "La luz de la ciudad por la ventana", "Todo a oscuras"]
+    },
+    {
+      "slug": "pack-deseo-ganas-a-distancia",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Cómo manejas las ganas de mí cuando estamos lejos?"
+    },
+    {
+      "slug": "pack-deseo-decir-que-no",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Cómo prefieres que te diga cuando algo no me late en la intimidad?"
+    },
+    {
+      "slug": "pack-deseo-iniciativa",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Quién da el primer paso?",
+      "options": ["Yo", "Tú", "Turnos", "Quien tenga más ganas"]
+    },
+    {
+      "slug": "pack-deseo-recuerdo-intimo",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué recuerdo íntimo nuestro guardas con más cariño?"
+    },
+    {
+      "slug": "pack-deseo-juego-con-confianza",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué juego juguetón te daría risa probar conmigo, con toda la confianza?"
+    },
+    {
+      "slug": "pack-deseo-cita-atrevida",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "¿Cuál sería tu cita atrevida ideal?",
+      "options": [
+        "Bailar pegaditos",
+        "Spa en casa",
+        "Escapada sorpresa",
+        "Cena y regresar temprano"
+      ]
+    },
+    {
+      "slug": "pack-deseo-hacerte-sentir",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué puedo hacer para que sientas lo mucho que te deseo?"
+    },
+    {
+      "slug": "pack-deseo-curiosidad-con-pena",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Qué cosa nueva te da curiosidad pero te da pena pedirme?"
+    },
+    {
+      "slug": "pack-deseo-ingrediente-quimica",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "El mejor ingrediente de nuestra química es…",
+      "options": ["La risa", "La mirada", "El humor", "La confianza"]
+    },
+    {
+      "slug": "pack-deseo-sueno-picaro",
+      "type": "open",
+      "intensity": "picante",
+      "text": "¿Has tenido algún sueño pícaro conmigo que quieras contarme?"
+    },
+    {
+      "slug": "pack-deseo-proximo-reencuentro",
+      "type": "open",
+      "intensity": "picante",
+      "text": "En el próximo reencuentro, ¿qué te gustaría hacer con muchísima calma?"
+    },
+    {
+      "slug": "pack-deseo-despues-de-todo",
+      "type": "choice",
+      "intensity": "picante",
+      "text": "Después de un momento a solas, ¿qué sigue?",
+      "options": ["Platicar", "Dormir abrazados", "Pedir comida", "Otra ronda de besos"]
+    },
+    {
+      "slug": "pack-deseo-libre-contigo",
+      "type": "open",
+      "intensity": "picante",
+      "text": "Termina la frase: \"Contigo me siento libre de…\""
+    }
+  ]
+}
