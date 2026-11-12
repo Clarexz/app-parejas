@@ -36,12 +36,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu día perfecto de principio a fin, ¿cuál de estas cosas sería el centro?",
-      "options": [
-        "Comida rica",
-        "Una aventura afuera",
-        "Cero planes y cobija",
-        "Gente querida"
-      ]
+      "options": ["Comida rica", "Una aventura afuera", "Cero planes y cobija", "Gente querida"]
     },
     {
       "slug": "pack-36-preguntas-cantar-ultima-vez",
@@ -54,12 +49,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si llegaras a los 90 conservando una sola cosa en su mejor versión, ¿cuál elegirías?",
-      "options": [
-        "Cuerpo de 30",
-        "Mente de 30",
-        "Mi sentido del humor",
-        "Mi memoria"
-      ]
+      "options": ["Cuerpo de 30", "Mente de 30", "Mi sentido del humor", "Mi memoria"]
     },
     {
       "slug": "pack-36-preguntas-corazonada-futuro",

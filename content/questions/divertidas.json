@@ -582,12 +582,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En la fiesta, ¿qué bebes cuando nadie decide?",
-      "options": [
-        "Una chela",
-        "Agua de jamaica",
-        "Un tequilita con limón",
-        "Refresco con hielo"
-      ]
+      "options": ["Una chela", "Agua de jamaica", "Un tequilita con limón", "Refresco con hielo"]
     },
     {
       "slug": "divertidas-cena-experimental",
@@ -642,12 +637,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Te toca elegir pedazo de pastel. ¿Qué pides?",
-      "options": [
-        "El de la orilla con betún",
-        "El del centro",
-        "El más grande",
-        "Dos chiquitos"
-      ]
+      "options": ["El de la orilla con betún", "El del centro", "El más grande", "Dos chiquitos"]
     },
     {
       "slug": "divertidas-mala-conexion",
@@ -678,12 +668,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Vas a tomarte una selfie. ¿Cuántas fotos haces antes de elegir?",
-      "options": [
-        "Una y lista",
-        "Diez",
-        "Veinte",
-        "Mejor se la pido a alguien"
-      ]
+      "options": ["Una y lista", "Diez", "Veinte", "Mejor se la pido a alguien"]
     },
     {
       "slug": "divertidas-corte-de-pelo",
@@ -714,12 +699,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Llegas a una panadería. ¿Qué pan dulce eliges?",
-      "options": [
-        "Concha",
-        "Oreja",
-        "Cuernito",
-        "Cualquiera con relleno"
-      ]
+      "options": ["Concha", "Oreja", "Cuernito", "Cualquiera con relleno"]
     },
     {
       "slug": "divertidas-reparar-mueble",
@@ -1278,12 +1258,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Fuiste a la playa sin bloqueador. ¿Cómo quedas?",
-      "options": [
-        "Rojo camarón",
-        "Rojo con rayas",
-        "Perfectamente dorado",
-        "Ni me asomé al sol"
-      ]
+      "options": ["Rojo camarón", "Rojo con rayas", "Perfectamente dorado", "Ni me asomé al sol"]
     },
     {
       "slug": "divertidas-sobremesa-duracion",
@@ -1350,12 +1325,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Hay un silencio incómodo en un elevador. ¿Qué haces?",
-      "options": [
-        "Hablo del clima",
-        "Reviso mi celular",
-        "Hago un chiste malo",
-        "Cuento los pisos"
-      ]
+      "options": ["Hablo del clima", "Reviso mi celular", "Hago un chiste malo", "Cuento los pisos"]
     },
     {
       "slug": "divertidas-suerte-loteria",
@@ -1446,12 +1416,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "La foto sale movida pero con buena cara. ¿Qué haces?",
-      "options": [
-        "La publico igual",
-        "Pido otra",
-        "La guardo para mí",
-        "La uso de sticker"
-      ]
+      "options": ["La publico igual", "Pido otra", "La guardo para mí", "La uso de sticker"]
     },
     {
       "slug": "divertidas-fiesta-despedirse",
@@ -1602,12 +1567,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu mascota hace algo vergonzoso frente a visitas. ¿Qué haces?",
-      "options": [
-        "Me río con ellos",
-        "Finjo que no es mía",
-        "Pido perdón a todos",
-        "Lo grabo"
-      ]
+      "options": ["Me río con ellos", "Finjo que no es mía", "Pido perdón a todos", "Lo grabo"]
     },
     {
       "slug": "divertidas-palomitas-cine",
@@ -1626,12 +1586,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Vas a pedir helado. ¿Qué sabor sale más seguido?",
-      "options": [
-        "Chocolate",
-        "Fresa",
-        "Vainilla",
-        "Uno rarísimo del menú"
-      ]
+      "options": ["Chocolate", "Fresa", "Vainilla", "Uno rarísimo del menú"]
     },
     {
       "slug": "divertidas-cuarentena-plan",
@@ -1698,12 +1653,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Cocinando, ¿qué suena de fondo?",
-      "options": [
-        "Música a todo volumen",
-        "Un pódcast",
-        "La tele",
-        "Silencio total"
-      ]
+      "options": ["Música a todo volumen", "Un pódcast", "La tele", "Silencio total"]
     },
     {
       "slug": "divertidas-silla-frente",
@@ -1746,12 +1696,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Llegas a un lugar bonito. ¿Cuál es tu primer impulso?",
-      "options": [
-        "Foto",
-        "Respirar y mirar",
-        "Subirlo a historias",
-        "Buscar dónde comer"
-      ]
+      "options": ["Foto", "Respirar y mirar", "Subirlo a historias", "Buscar dónde comer"]
     },
     {
       "slug": "divertidas-paraguas-olvido",
@@ -1782,12 +1727,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En la dulcería de un mercado, ¿cuál escoges?",
-      "options": [
-        "Tamarindo con chile",
-        "Cocada",
-        "Palanqueta",
-        "Chocolate importado"
-      ]
+      "options": ["Tamarindo con chile", "Cocada", "Palanqueta", "Chocolate importado"]
     },
     {
       "slug": "divertidas-pareja-ladron",

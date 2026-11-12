@@ -12,12 +12,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Son las once de la noche y te da un antojo, ¿de qué?",
-      "options": [
-        "Tacos",
-        "Algo dulce",
-        "Cereal",
-        "Fruta o galletas"
-      ]
+      "options": ["Tacos", "Algo dulce", "Cereal", "Fruta o galletas"]
     },
     {
       "slug": "conocernos-miedo-tonto",
@@ -36,12 +31,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué app abres más veces al día sin darte cuenta?",
-      "options": [
-        "Mensajes",
-        "Redes sociales",
-        "Videos cortos",
-        "Juegos"
-      ]
+      "options": ["Mensajes", "Redes sociales", "Videos cortos", "Juegos"]
     },
     {
       "slug": "conocernos-como-despiertas",
@@ -156,12 +146,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te relaja más?",
-      "options": [
-        "La lluvia",
-        "Una playlist",
-        "Olor a café",
-        "Una cobija pesada"
-      ]
+      "options": ["La lluvia", "Una playlist", "Olor a café", "Una cobija pesada"]
     },
     {
       "slug": "conocernos-dato-que-sorprende",
@@ -204,12 +189,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿A qué hora del día rindes más?",
-      "options": [
-        "Mañana temprano",
-        "Mediodía",
-        "Tarde",
-        "Madrugada"
-      ]
+      "options": ["Mañana temprano", "Mediodía", "Tarde", "Madrugada"]
     },
     {
       "slug": "conocernos-coleccion-sin-querer",
@@ -468,60 +448,35 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo reaccionas cuando te sorprenden con una fiesta?",
-      "options": [
-        "Me emociono",
-        "Me da pena",
-        "Me da miedo",
-        "Finjo sorpresa"
-      ]
+      "options": ["Me emociono", "Me da pena", "Me da miedo", "Finjo sorpresa"]
     },
     {
       "slug": "conocernos-cual-mayor-debilidad-super",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu mayor debilidad en el súper?",
-      "options": [
-        "Pan dulce",
-        "Botanas",
-        "Cosas que no estaban en la lista",
-        "Todo en oferta"
-      ]
+      "options": ["Pan dulce", "Botanas", "Cosas que no estaban en la lista", "Todo en oferta"]
     },
     {
       "slug": "conocernos-como-mensajes-voz",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo eres con los mensajes de voz?",
-      "options": [
-        "Los amo",
-        "Los escucho a 2x",
-        "Prefiero texto",
-        "Los evito a toda costa"
-      ]
+      "options": ["Los amo", "Los escucho a 2x", "Prefiero texto", "Los evito a toda costa"]
     },
     {
       "slug": "conocernos-tan-puntual-realidad",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan puntual eres en realidad?",
-      "options": [
-        "Llego antes",
-        "A tiempo justo",
-        "Diez minutos tarde",
-        "Hora mexicana oficial"
-      ]
+      "options": ["Llego antes", "A tiempo justo", "Diez minutos tarde", "Hora mexicana oficial"]
     },
     {
       "slug": "conocernos-como-cuarto-dia-normal",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo es tu cuarto en un día normal?",
-      "options": [
-        "Impecable",
-        "Desorden organizado",
-        "Ropa en la silla",
-        "Ya ni se ve el piso"
-      ]
+      "options": ["Impecable", "Desorden organizado", "Ropa en la silla", "Ya ni se ve el piso"]
     },
     {
       "slug": "conocernos-cual-estilo-tomarte-fotos",
@@ -552,72 +507,42 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué clima te pone de mal humor sin remedio?",
-      "options": [
-        "Calor pegajoso",
-        "Frío helado",
-        "Lluvia sin parar",
-        "Viento que despeina"
-      ]
+      "options": ["Calor pegajoso", "Frío helado", "Lluvia sin parar", "Viento que despeina"]
     },
     {
       "slug": "conocernos-cual-tipo-risa-mas-comun",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu tipo de risa más común?",
-      "options": [
-        "Carcajada",
-        "Risa silenciosa",
-        "Risa contagiosa",
-        "Risa nerviosa"
-      ]
+      "options": ["Carcajada", "Risa silenciosa", "Risa contagiosa", "Risa nerviosa"]
     },
     {
       "slug": "conocernos-como-comportas-dinero-acabas-recibir",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te comportas con el dinero que acabas de recibir?",
-      "options": [
-        "Lo cuido",
-        "Me doy un gusto",
-        "Pago deudas",
-        "Desaparece en dos días"
-      ]
+      "options": ["Lo cuido", "Me doy un gusto", "Pago deudas", "Desaparece en dos días"]
     },
     {
       "slug": "conocernos-prefieres-viajar-lugar-nuevo",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para viajar a un lugar nuevo?",
-      "options": [
-        "Todo planeado",
-        "Itinerario flojo",
-        "Improvisar",
-        "Que el otro decida"
-      ]
+      "options": ["Todo planeado", "Itinerario flojo", "Improvisar", "Que el otro decida"]
     },
     {
       "slug": "conocernos-noche-cualquiera-late-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "Una noche cualquiera, ¿qué te late más?",
-      "options": [
-        "Salir a cenar",
-        "Peli en casa",
-        "Videojuegos",
-        "Dormir temprano"
-      ]
+      "options": ["Salir a cenar", "Peli en casa", "Videojuegos", "Dormir temprano"]
     },
     {
       "slug": "conocernos-como-enojas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo eres cuando te enojas?",
-      "options": [
-        "Me callo",
-        "Hablo de inmediato",
-        "Necesito caminar",
-        "Me da por reírme"
-      ]
+      "options": ["Me callo", "Hablo de inmediato", "Necesito caminar", "Me da por reírme"]
     },
     {
       "slug": "conocernos-cosa-compraste-sola-vez-terminaste",
@@ -677,7 +602,7 @@
       "slug": "conocernos-cual-ultimo-no-mames-genuino",
       "type": "open",
       "intensity": "ligera",
-      "text": "¿Cuál fue el último \"no mames\" genuino que dijiste en voz alta y por qué?"
+      "text": "¿Cuál fue la última cosa que te hizo decir \"¡no inventes!\" en voz alta y por qué?"
     },
     {
       "slug": "conocernos-le-pondrias-cero-estrellas-vida",
@@ -834,12 +759,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan seguido cambias tu fondo de pantalla?",
-      "options": [
-        "Nunca",
-        "Cada mes",
-        "Según mi ánimo",
-        "Es una foto con alguien"
-      ]
+      "options": ["Nunca", "Cada mes", "Según mi ánimo", "Es una foto con alguien"]
     },
     {
       "slug": "conocernos-como-despedidas",
@@ -882,36 +802,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tipo de música te acompaña al limpiar?",
-      "options": [
-        "Pop",
-        "Reguetón",
-        "Rock",
-        "Lo que salga en la bocina"
-      ]
+      "options": ["Pop", "Reguetón", "Rock", "Lo que salga en la bocina"]
     },
     {
       "slug": "conocernos-da-mas-risa",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿De qué te ríes siempre, aunque a nadie más le dé gracia?",
-      "options": [
-        "Chistes malos",
-        "Videos de animales",
-        "Memes",
-        "Tropiezos ajenos"
-      ]
+      "options": ["Chistes malos", "Videos de animales", "Memes", "Tropiezos ajenos"]
     },
     {
       "slug": "conocernos-cual-nivel-organizacion-tus-pendientes",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu nivel de organización con tus pendientes?",
-      "options": [
-        "Agenda al día",
-        "Notas sueltas",
-        "Todo en la cabeza",
-        "Lo hago todo al final"
-      ]
+      "options": ["Agenda al día", "Notas sueltas", "Todo en la cabeza", "Lo hago todo al final"]
     },
     {
       "slug": "conocernos-prefieres-como-regalo",
@@ -942,12 +847,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo vives un día de lluvia?",
-      "options": [
-        "Café y cobija",
-        "Salgo a mojarme",
-        "Me da flojera todo",
-        "Cocino algo rico"
-      ]
+      "options": ["Café y cobija", "Salgo a mojarme", "Me da flojera todo", "Cocino algo rico"]
     },
     {
       "slug": "conocernos-como-frente-pelicula-triste",
@@ -978,24 +878,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu relación con el picante?",
-      "options": [
-        "Todo con salsa",
-        "Medio picoso",
-        "Sin nada",
-        "Lo pido y luego me arrepiento"
-      ]
+      "options": ["Todo con salsa", "Medio picoso", "Sin nada", "Lo pido y luego me arrepiento"]
     },
     {
       "slug": "conocernos-prefieres-quedarte-platicar",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué prefieres para quedarte a platicar?",
-      "options": [
-        "Mesa de restaurante",
-        "Sobremesa en casa",
-        "Llamada larga",
-        "Caminando por ahí"
-      ]
+      "options": ["Mesa de restaurante", "Sobremesa en casa", "Llamada larga", "Caminando por ahí"]
     },
     {
       "slug": "conocernos-cual-mejor-lado-viaje",
@@ -1254,12 +1144,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu playlist ideal para un viaje en carro es...",
-      "options": [
-        "Rolitas de antaño",
-        "Lo más nuevo",
-        "Un podcast",
-        "Silencio y ventana"
-      ]
+      "options": ["Rolitas de antaño", "Lo más nuevo", "Un podcast", "Silencio y ventana"]
     },
     {
       "slug": "conocernos-cuanta-memoria-fechas-importantes",
@@ -1290,12 +1175,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gusta que te festejen un logro?",
-      "options": [
-        "Con abrazo y ya",
-        "Con cena especial",
-        "Con un detalle",
-        "Con mucha fiesta"
-      ]
+      "options": ["Con abrazo y ya", "Con cena especial", "Con un detalle", "Con mucha fiesta"]
     },
     {
       "slug": "conocernos-como-algo-descompone-casa",
@@ -1314,36 +1194,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué pastel pides para tu cumpleaños?",
-      "options": [
-        "Pastel clásico",
-        "Pastel de helado",
-        "Pay",
-        "Tamales o algo salado"
-      ]
+      "options": ["Pastel clásico", "Pastel de helado", "Pay", "Tamales o algo salado"]
     },
     {
       "slug": "conocernos-como-manejas-silencios-incomodos",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo manejas los silencios incómodos?",
-      "options": [
-        "Los aguanto",
-        "Suelto un chiste",
-        "Cambio de tema",
-        "Los lleno con el celular"
-      ]
+      "options": ["Los aguanto", "Suelto un chiste", "Cambio de tema", "Los lleno con el celular"]
     },
     {
       "slug": "conocernos-haces-dia-lluvia-planes-cancelados",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué haces con un día de lluvia y planes cancelados?",
-      "options": [
-        "Descanso feliz",
-        "Me da bajón",
-        "Busco otro plan",
-        "Me pongo al día con todo"
-      ]
+      "options": ["Descanso feliz", "Me da bajón", "Busco otro plan", "Me pongo al día con todo"]
     },
     {
       "slug": "conocernos-cual-lado-mas-sociable",
@@ -1362,36 +1227,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tan bien aguantas el hambre?",
-      "options": [
-        "Ni cinco minutos",
-        "Aguanto un rato",
-        "Me pongo de malas",
-        "Se me olvida comer"
-      ]
+      "options": ["Ni cinco minutos", "Aguanto un rato", "Me pongo de malas", "Se me olvida comer"]
     },
     {
       "slug": "conocernos-fueras-mueble-casa-cual-serias",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si fueras un mueble de la casa, ¿cuál serías?",
-      "options": [
-        "Un sillón enorme",
-        "Una lámpara",
-        "Un librero",
-        "Una cama"
-      ]
+      "options": ["Un sillón enorme", "Una lámpara", "Un librero", "Una cama"]
     },
     {
       "slug": "conocernos-como-gusta-despierten",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gusta que te despierten?",
-      "options": [
-        "Con besos",
-        "Con música",
-        "Con café",
-        "Que ni me despierten"
-      ]
+      "options": ["Con besos", "Con música", "Con café", "Que ni me despierten"]
     },
     {
       "slug": "conocernos-como-manejas-criticas-pequenas",
@@ -1410,24 +1260,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cómo prefieres que te apoyen cuando estás mal?",
-      "options": [
-        "Escuchándome",
-        "Dándome un plan",
-        "Distrayéndome",
-        "Dándome espacio"
-      ]
+      "options": ["Escuchándome", "Dándome un plan", "Distrayéndome", "Dándome espacio"]
     },
     {
       "slug": "conocernos-equivocas-como-reaccionas-primero",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando te equivocas, ¿cómo reaccionas primero?",
-      "options": [
-        "Pido perdón",
-        "Me justifico",
-        "Me castigo en silencio",
-        "Busco arreglarlo ya"
-      ]
+      "options": ["Pido perdón", "Me justifico", "Me castigo en silencio", "Busco arreglarlo ya"]
     },
     {
       "slug": "conocernos-como-reaccionas-ante-cambio-grande",
@@ -1446,12 +1286,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te cuesta más mostrar?",
-      "options": [
-        "Tristeza",
-        "Cansancio",
-        "Que necesito cariño",
-        "Miedo"
-      ]
+      "options": ["Tristeza", "Cansancio", "Que necesito cariño", "Miedo"]
     },
     {
       "slug": "conocernos-sientes-mas-dificil-soltar",
@@ -1482,12 +1317,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te da más inseguridad?",
-      "options": [
-        "Que me juzguen",
-        "Fallar",
-        "Quedarme atrás",
-        "Que me dejen de lado"
-      ]
+      "options": ["Que me juzguen", "Fallar", "Quedarme atrás", "Que me dejen de lado"]
     },
     {
       "slug": "conocernos-valoras-mas-gente-cercana",
@@ -1530,12 +1360,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué necesitas más cuando el cansancio te rebasa?",
-      "options": [
-        "Silencio",
-        "Compañía",
-        "Comida rica",
-        "Dormir sin culpa"
-      ]
+      "options": ["Silencio", "Compañía", "Comida rica", "Dormir sin culpa"]
     },
     {
       "slug": "conocernos-como-sueles-manejar-tristeza",
@@ -1566,120 +1391,70 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te hace sentir que te quieren más?",
-      "options": [
-        "Palabras",
-        "Tiempo juntos",
-        "Gestos pequeños",
-        "Abrazos"
-      ]
+      "options": ["Palabras", "Tiempo juntos", "Gestos pequeños", "Abrazos"]
     },
     {
       "slug": "conocernos-mas-marco-infancia",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué fue lo que más te marcó de la infancia?",
-      "options": [
-        "Mi familia",
-        "Mis amigos",
-        "La escuela",
-        "Un lugar"
-      ]
+      "options": ["Mi familia", "Mis amigos", "La escuela", "Un lugar"]
     },
     {
       "slug": "conocernos-cuesta-mas-empezar-algo-nuevo",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te cuesta más al empezar algo nuevo?",
-      "options": [
-        "La pena",
-        "El miedo a fallar",
-        "La flojera",
-        "No saber por dónde"
-      ]
+      "options": ["La pena", "El miedo a fallar", "La flojera", "No saber por dónde"]
     },
     {
       "slug": "conocernos-discusion-alguien-querido-buscas-primero",
       "type": "choice",
       "intensity": "profunda",
       "text": "En una discusión con alguien querido, ¿qué buscas primero?",
-      "options": [
-        "Tener razón",
-        "Resolverlo",
-        "Que me entiendan",
-        "Terminar rápido"
-      ]
+      "options": ["Tener razón", "Resolverlo", "Que me entiendan", "Terminar rápido"]
     },
     {
       "slug": "conocernos-hace-sientas-orgulloso-u-orgullosa",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué hace que te enorgullezcas de ti?",
-      "options": [
-        "Cumplir metas",
-        "Ayudar a alguien",
-        "Superar un miedo",
-        "Ser constante"
-      ]
+      "options": ["Cumplir metas", "Ayudar a alguien", "Superar un miedo", "Ser constante"]
     },
     {
       "slug": "conocernos-cual-mayor-miedo-escondido",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuál es tu mayor miedo escondido?",
-      "options": [
-        "Fallar",
-        "Decepcionar",
-        "La soledad",
-        "Cambiar de más"
-      ]
+      "options": ["Fallar", "Decepcionar", "La soledad", "Cambiar de más"]
     },
     {
       "slug": "conocernos-como-comportas-sientes-inseguro-insegura",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cómo te comportas cuando te da inseguridad?",
-      "options": [
-        "Me callo",
-        "Hablo de más",
-        "Bromeo",
-        "Me retiro"
-      ]
+      "options": ["Me callo", "Hablo de más", "Bromeo", "Me retiro"]
     },
     {
       "slug": "conocernos-piden-favor-grande-haces",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando te piden un favor grande, ¿qué haces?",
-      "options": [
-        "Digo que sí siempre",
-        "Lo pienso",
-        "Pregunto por qué",
-        "Me cuesta decir que no"
-      ]
+      "options": ["Digo que sí siempre", "Lo pienso", "Pregunto por qué", "Me cuesta decir que no"]
     },
     {
       "slug": "conocernos-da-mas-calma-todo-siente",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te da más calma cuando todo se siente demasiado?",
-      "options": [
-        "Salir a caminar",
-        "Escuchar música",
-        "Hablar con alguien",
-        "Meterme a la cama"
-      ]
+      "options": ["Salir a caminar", "Escuchar música", "Hablar con alguien", "Meterme a la cama"]
     },
     {
       "slug": "conocernos-mas-cuesta-dejar-ir",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué es lo que más te cuesta dejar ir?",
-      "options": [
-        "Un recuerdo",
-        "Una costumbre",
-        "Una versión de mí",
-        "Una ilusión"
-      ]
+      "options": ["Un recuerdo", "Una costumbre", "Una versión de mí", "Una ilusión"]
     },
     {
       "slug": "conocernos-valoras-mas-alguien-disculpa",
@@ -1687,7 +1462,7 @@
       "intensity": "profunda",
       "text": "¿Qué valoras más cuando alguien se disculpa?",
       "options": [
-        "Que sea sincero",
+        "Que lo sienta de verdad",
         "Que cambie",
         "Que lo diga rápido",
         "Que me dé espacio"
@@ -1698,12 +1473,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuándo sientes más ganas de abrirte?",
-      "options": [
-        "De noche",
-        "Después de reír",
-        "Caminando",
-        "Por mensaje"
-      ]
+      "options": ["De noche", "Después de reír", "Caminando", "Por mensaje"]
     }
   ]
 }

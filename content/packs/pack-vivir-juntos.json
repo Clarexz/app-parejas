@@ -18,12 +18,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Tu relación con el orden en casa es…",
-      "options": [
-        "Todo en su lugar",
-        "Desorden organizado",
-        "Caos creativo",
-        "Ya lo recojo mañana"
-      ]
+      "options": ["Todo en su lugar", "Desorden organizado", "Caos creativo", "Ya lo recojo mañana"]
     },
     {
       "slug": "pack-vivir-juntos-quehacer-odiado",
@@ -36,12 +31,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para repartir las tareas de la casa, ¿qué crees que funcionaría mejor?",
-      "options": [
-        "Lista por días",
-        "Cada quien lo que le gusta",
-        "Turnarnos",
-        "Rolar cada semana"
-      ]
+      "options": ["Lista por días", "Cada quien lo que le gusta", "Turnarnos", "Rolar cada semana"]
     },
     {
       "slug": "pack-vivir-juntos-espacio-propio",
@@ -78,12 +68,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Con el termostato en casa, tú eres de…",
-      "options": [
-        "Frío polar",
-        "Ventilador y ya",
-        "Calorcito soportable",
-        "Me adapto a todo"
-      ]
+      "options": ["Frío polar", "Ventilador y ya", "Calorcito soportable", "Me adapto a todo"]
     },
     {
       "slug": "pack-vivir-juntos-quien-cocina",
@@ -234,12 +219,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Un domingo en casa, ¿qué ambiente prefieres?",
-      "options": [
-        "Serie y cobija",
-        "Limpieza general",
-        "Cocina larga",
-        "Cada quien en lo suyo"
-      ]
+      "options": ["Serie y cobija", "Limpieza general", "Cocina larga", "Cada quien en lo suyo"]
     },
     {
       "slug": "pack-vivir-juntos-regla-nuestra",

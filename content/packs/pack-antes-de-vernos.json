@@ -114,12 +114,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "La noche antes de verme, ¿qué tal duermes?",
-      "options": [
-        "Como bebé",
-        "Casi nada",
-        "Me desvelo pensando en ti",
-        "Me desvelo viendo series"
-      ]
+      "options": ["Como bebé", "Casi nada", "Me desvelo pensando en ti", "Me desvelo viendo series"]
     },
     {
       "slug": "pack-antes-de-vernos-mejor-ultima-visita",
@@ -168,12 +163,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Noche en casa durante la visita, ¿qué toca?",
-      "options": [
-        "Maratón de serie",
-        "Película y palomitas",
-        "Documentales raros",
-        "Lo que salga"
-      ]
+      "options": ["Maratón de serie", "Película y palomitas", "Documentales raros", "Lo que salga"]
     },
     {
       "slug": "pack-antes-de-vernos-tres-pendientes",
@@ -198,12 +188,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Imagina que nuestro reencuentro es una peli: ¿de qué género sale?",
-      "options": [
-        "Comedia romántica",
-        "Aventura",
-        "Drama de lágrimas",
-        "Musical"
-      ]
+      "options": ["Comedia romántica", "Aventura", "Drama de lágrimas", "Musical"]
     }
   ]
 }

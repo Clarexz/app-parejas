@@ -18,12 +18,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te gusta más recibir de mí durante el día?",
-      "options": [
-        "Nota de voz",
-        "Foto de lo que hago",
-        "Mensaje larguísimo",
-        "Un meme random"
-      ]
+      "options": ["Nota de voz", "Foto de lo que hago", "Mensaje larguísimo", "Un meme random"]
     },
     {
       "slug": "a-distancia-primeros-cinco-minutos",
@@ -174,12 +169,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué cocinamos juntos en la próxima videollamada?",
-      "options": [
-        "Tacos",
-        "Pasta",
-        "Un postre",
-        "Un desayuno grande"
-      ]
+      "options": ["Tacos", "Pasta", "Un postre", "Un desayuno grande"]
     },
     {
       "slug": "a-distancia-foto-del-dia",
@@ -564,12 +554,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para una videollamada, ¿cuál es tu escenario?",
-      "options": [
-        "En la cama",
-        "En el sillón",
-        "En la cocina",
-        "Caminando por ahí"
-      ]
+      "options": ["En la cama", "En el sillón", "En la cocina", "Caminando por ahí"]
     },
     {
       "slug": "a-distancia-buenas-noches-preferido",
@@ -624,12 +609,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para un paquete sorpresa, ¿qué elegirías?",
-      "options": [
-        "Algo para comer",
-        "Algo para ponerme",
-        "Una carta a mano",
-        "Algo que huela a ti"
-      ]
+      "options": ["Algo para comer", "Algo para ponerme", "Una carta a mano", "Algo que huela a ti"]
     },
     {
       "slug": "a-distancia-extranar-de-ti",
@@ -684,12 +664,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para sentirnos cerca, ¿qué prefieres recibir?",
-      "options": [
-        "Fotos al azar",
-        "Videos cortitos",
-        "Audios",
-        "Selfies con cara de sueño"
-      ]
+      "options": ["Fotos al azar", "Videos cortitos", "Audios", "Selfies con cara de sueño"]
     },
     {
       "slug": "a-distancia-reencuentro-tipo",
@@ -708,12 +683,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para ver algo \"juntos\" a la distancia, ¿qué elegimos?",
-      "options": [
-        "Una serie larga",
-        "Una película",
-        "Un reality bobo",
-        "Videos de internet"
-      ]
+      "options": ["Una serie larga", "Una película", "Un reality bobo", "Videos de internet"]
     },
     {
       "slug": "a-distancia-tipo-de-detalle-sorpresa",
@@ -732,36 +702,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "El mejor momento para hablar es...",
-      "options": [
-        "En la mañana",
-        "A medio día",
-        "Por la tarde",
-        "Antes de dormir"
-      ]
+      "options": ["En la mañana", "A medio día", "Por la tarde", "Antes de dormir"]
     },
     {
       "slug": "a-distancia-cuando-estas-de-malas",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si traes mal humor, ¿qué necesito hacer?",
-      "options": [
-        "Darte espacio",
-        "Hacerte reír",
-        "Escucharte",
-        "Mandarte comida"
-      ]
+      "options": ["Darte espacio", "Hacerte reír", "Escucharte", "Mandarte comida"]
     },
     {
       "slug": "a-distancia-cuenta-regresiva-forma",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para llevar la cuenta de los días que faltan, uso...",
-      "options": [
-        "Una app",
-        "El calendario de papel",
-        "Mi memoria",
-        "Tu recordatorio diario"
-      ]
+      "options": ["Una app", "El calendario de papel", "Mi memoria", "Tu recordatorio diario"]
     },
     {
       "slug": "a-distancia-despedida-ideal",
@@ -780,24 +735,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Para platicar a diario, prefiero...",
-      "options": [
-        "WhatsApp",
-        "Videollamada",
-        "Notas de voz",
-        "Mensajes en otra app"
-      ]
+      "options": ["WhatsApp", "Videollamada", "Notas de voz", "Mensajes en otra app"]
     },
     {
       "slug": "a-distancia-apodo-del-reencuentro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando llego a verte, me gusta que me recibas con...",
-      "options": [
-        "Un cartel",
-        "Un abrazo sorpresa",
-        "Mi comida favorita",
-        "Una playlist"
-      ]
+      "options": ["Un cartel", "Un abrazo sorpresa", "Mi comida favorita", "Una playlist"]
     },
     {
       "slug": "a-distancia-celular-bateria",
@@ -840,12 +785,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando me visites, ¿qué te asegurarías de traer?",
-      "options": [
-        "Mi cobija favorita",
-        "Un regalo envuelto",
-        "Comida de mi casa",
-        "Puras ganas"
-      ]
+      "options": ["Mi cobija favorita", "Un regalo envuelto", "Comida de mi casa", "Puras ganas"]
     },
     {
       "slug": "a-distancia-musica-compartida",
@@ -1350,12 +1290,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para hablar de algo difícil prefiero...",
-      "options": [
-        "Videollamada",
-        "Audio largo",
-        "Mensaje escrito con calma",
-        "Esperar a vernos"
-      ]
+      "options": ["Videollamada", "Audio largo", "Mensaje escrito con calma", "Esperar a vernos"]
     },
     {
       "slug": "a-distancia-que-me-da-miedo",
@@ -1434,24 +1369,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo principal que me ha enseñado la distancia es...",
-      "options": [
-        "Paciencia",
-        "Comunicar mejor",
-        "Valorar los detalles",
-        "Confiar"
-      ]
+      "options": ["Paciencia", "Comunicar mejor", "Valorar los detalles", "Confiar"]
     },
     {
       "slug": "a-distancia-forma-de-demostrar",
       "type": "choice",
       "intensity": "profunda",
       "text": "Para demostrarte cariño desde lejos, mi mejor forma es...",
-      "options": [
-        "Palabras",
-        "Detalles",
-        "Tiempo",
-        "Sorpresas"
-      ]
+      "options": ["Palabras", "Detalles", "Tiempo", "Sorpresas"]
     },
     {
       "slug": "a-distancia-cuando-llega-la-visita",
@@ -1482,24 +1407,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El día después de despedirnos necesito...",
-      "options": [
-        "Compañía",
-        "Un rato a solas",
-        "Dormir mucho",
-        "Que me mandes mensaje primero"
-      ]
+      "options": ["Compañía", "Un rato a solas", "Dormir mucho", "Que me mandes mensaje primero"]
     },
     {
       "slug": "a-distancia-hablar-de-futuro",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando platicamos de nuestro futuro, me siento...",
-      "options": [
-        "Con ilusión",
-        "Con calma",
-        "Con ganas de planear ya",
-        "Con un poco de nervios"
-      ]
+      "options": ["Con ilusión", "Con calma", "Con ganas de planear ya", "Con un poco de nervios"]
     },
     {
       "slug": "a-distancia-apoyo-a-distancia",
@@ -1578,24 +1493,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más te agradezco de esta etapa es...",
-      "options": [
-        "Tu paciencia",
-        "Tu esfuerzo por llamar",
-        "Tus detalles",
-        "Que nunca te rindes"
-      ]
+      "options": ["Tu paciencia", "Tu esfuerzo por llamar", "Tus detalles", "Que nunca te rindes"]
     },
     {
       "slug": "a-distancia-con-quien-hablo-de-ti",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando extraño de más, platico con...",
-      "options": [
-        "Una amistad cercana",
-        "Mi familia",
-        "Nadie, me aguanto",
-        "Contigo, claro"
-      ]
+      "options": ["Una amistad cercana", "Mi familia", "Nadie, me aguanto", "Contigo, claro"]
     },
     {
       "slug": "a-distancia-decision-grande",
@@ -1626,12 +1531,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "De esta distancia, lo que más extraño de mi vida de antes es...",
-      "options": [
-        "La espontaneidad",
-        "Salir sin avisar",
-        "El tiempo libre",
-        "Nada, así estoy bien"
-      ]
+      "options": ["La espontaneidad", "Salir sin avisar", "El tiempo libre", "Nada, así estoy bien"]
     },
     {
       "slug": "a-distancia-ritmo-de-planes",
@@ -1710,12 +1610,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Del contacto físico, lo que más extraño es...",
-      "options": [
-        "El abrazo",
-        "Tomarte de la mano",
-        "Dormir cerca",
-        "Un beso de buenos días"
-      ]
+      "options": ["El abrazo", "Tomarte de la mano", "Dormir cerca", "Un beso de buenos días"]
     },
     {
       "slug": "a-distancia-en-que-creo",
@@ -1734,24 +1629,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que me ancla a ti en un día pesado es...",
-      "options": [
-        "Tu voz",
-        "Tu foto",
-        "Un recuerdo",
-        "Una canción"
-      ]
+      "options": ["Tu voz", "Tu foto", "Un recuerdo", "Una canción"]
     },
     {
       "slug": "a-distancia-lo-que-me-gustaria-pedirte",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudiera pedirte algo desde lejos, sería...",
-      "options": [
-        "Más llamadas largas",
-        "Más audios",
-        "Más sorpresas",
-        "Más planes de futuro"
-      ]
+      "options": ["Más llamadas largas", "Más audios", "Más sorpresas", "Más planes de futuro"]
     }
   ]
 }

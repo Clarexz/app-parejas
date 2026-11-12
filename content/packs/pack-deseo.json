@@ -12,12 +12,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "¿Cuándo es mejor un beso largo?",
-      "options": [
-        "Al despertar",
-        "En la cocina",
-        "Antes de dormir",
-        "En el lugar menos esperado"
-      ]
+      "options": ["Al despertar", "En la cocina", "Antes de dormir", "En el lugar menos esperado"]
     },
     {
       "slug": "pack-deseo-provoca-sin-saber",
@@ -30,12 +25,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Tu estilo de seducción ideal es…",
-      "options": [
-        "Miradas",
-        "Mensajes picosos",
-        "Detalles románticos",
-        "Cero sutileza"
-      ]
+      "options": ["Miradas", "Mensajes picosos", "Detalles románticos", "Cero sutileza"]
     },
     {
       "slug": "pack-deseo-mensaje-travieso",
@@ -48,12 +38,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "En una videollamada, ¿qué ambiente prefieres?",
-      "options": [
-        "Romántico",
-        "Juguetón",
-        "Atrevido, pero con permiso",
-        "Solo platicar"
-      ]
+      "options": ["Romántico", "Juguetón", "Atrevido, pero con permiso", "Solo platicar"]
     },
     {
       "slug": "pack-deseo-lugar-romantico",
@@ -66,12 +51,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para poner el ambiente, ¿qué música eliges?",
-      "options": [
-        "Boleros",
-        "Reggaetón suave",
-        "R&B",
-        "Puro silencio"
-      ]
+      "options": ["Boleros", "Reggaetón suave", "R&B", "Puro silencio"]
     },
     {
       "slug": "pack-deseo-ropa-distrae",
@@ -90,12 +70,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para platicar lo que nos gusta, ¿qué es lo tuyo?",
-      "options": [
-        "Hablar claro",
-        "Mejor mostrarlo",
-        "Con humor",
-        "Con notitas"
-      ]
+      "options": ["Hablar claro", "Mejor mostrarlo", "Con humor", "Con notitas"]
     },
     {
       "slug": "pack-deseo-fantasia-suave",
@@ -114,12 +89,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Después de un día pesado, ¿qué te recarga?",
-      "options": [
-        "Un masaje",
-        "Un abrazo largo",
-        "Besos lentos",
-        "Cariñitos y serie"
-      ]
+      "options": ["Un masaje", "Un abrazo largo", "Besos lentos", "Cariñitos y serie"]
     },
     {
       "slug": "pack-deseo-cortejo-nuevo",
@@ -138,12 +108,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "¿Cuál es la luz ideal?",
-      "options": [
-        "Velas",
-        "Penumbra",
-        "La luz de la ciudad por la ventana",
-        "Todo a oscuras"
-      ]
+      "options": ["Velas", "Penumbra", "La luz de la ciudad por la ventana", "Todo a oscuras"]
     },
     {
       "slug": "pack-deseo-ganas-a-distancia",
@@ -162,12 +127,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "¿Quién da el primer paso?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Turnos",
-        "Quien tenga más ganas"
-      ]
+      "options": ["Yo", "Tú", "Turnos", "Quien tenga más ganas"]
     },
     {
       "slug": "pack-deseo-recuerdo-intimo",
@@ -210,12 +170,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "El mejor ingrediente de nuestra química es…",
-      "options": [
-        "La risa",
-        "La mirada",
-        "El humor",
-        "La confianza"
-      ]
+      "options": ["La risa", "La mirada", "El humor", "La confianza"]
     },
     {
       "slug": "pack-deseo-sueno-picaro",
@@ -234,12 +189,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Después de un momento a solas, ¿qué sigue?",
-      "options": [
-        "Platicar",
-        "Dormir abrazados",
-        "Pedir comida",
-        "Otra ronda de besos"
-      ]
+      "options": ["Platicar", "Dormir abrazados", "Pedir comida", "Otra ronda de besos"]
     },
     {
       "slug": "pack-deseo-libre-contigo",

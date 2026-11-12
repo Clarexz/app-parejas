@@ -36,12 +36,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál era tu juego favorito de niñez?",
-      "options": [
-        "Las escondidas",
-        "Videojuegos",
-        "Muñecos o carritos",
-        "Inventar historias"
-      ]
+      "options": ["Las escondidas", "Videojuegos", "Muñecos o carritos", "Inventar historias"]
     },
     {
       "slug": "recuerdos-vacaciones-de-nino",
@@ -138,24 +133,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué recuerdo nuestro se parece más a una película?",
-      "options": [
-        "Una comedia",
-        "Un romance",
-        "Una aventura",
-        "Un documental de cosas random"
-      ]
+      "options": ["Una comedia", "Un romance", "Una aventura", "Un documental de cosas random"]
     },
     {
       "slug": "recuerdos-sabados-de-ninez",
       "type": "choice",
       "intensity": "ligera",
       "text": "En tu niñez, ¿qué hacías los sábados por la mañana?",
-      "options": [
-        "Ver caricaturas",
-        "Jugar en la calle",
-        "Ayudar en casa",
-        "Seguir dormido"
-      ]
+      "options": ["Ver caricaturas", "Jugar en la calle", "Ayudar en casa", "Seguir dormido"]
     },
     {
       "slug": "recuerdos-platillo-irrepetible",
@@ -582,180 +567,105 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Mis vacaciones de la infancia eran en...",
-      "options": [
-        "La playa",
-        "El pueblo de mis abuelos",
-        "La casa",
-        "Un parque de diversiones"
-      ]
+      "options": ["La playa", "El pueblo de mis abuelos", "La casa", "Un parque de diversiones"]
     },
     {
       "slug": "recuerdos-tipo-de-nino",
       "type": "choice",
       "intensity": "ligera",
       "text": "En la escuela me conocían por...",
-      "options": [
-        "El relajo",
-        "Estudiar mucho",
-        "Ser de pocas palabras",
-        "El equipo de futbol"
-      ]
+      "options": ["El relajo", "Estudiar mucho", "Ser de pocas palabras", "El equipo de futbol"]
     },
     {
       "slug": "recuerdos-dulce-de-infancia",
       "type": "choice",
       "intensity": "ligera",
       "text": "El dulce que más extraño de niñez es...",
-      "options": [
-        "Los mazapanes",
-        "Las paletas payaso",
-        "Los pulparindos",
-        "Las gomitas"
-      ]
+      "options": ["Los mazapanes", "Las paletas payaso", "Los pulparindos", "Las gomitas"]
     },
     {
       "slug": "recuerdos-musica-de-adolescente",
       "type": "choice",
       "intensity": "ligera",
       "text": "La música de mi adolescencia era...",
-      "options": [
-        "Pop",
-        "Rock",
-        "Reguetón",
-        "Lo que sonara en el radio"
-      ]
+      "options": ["Pop", "Rock", "Reguetón", "Lo que sonara en el radio"]
     },
     {
       "slug": "recuerdos-primer-regalo-que-me-diste",
       "type": "choice",
       "intensity": "ligera",
       "text": "Lo que más me gusta recordar de nuestro inicio es...",
-      "options": [
-        "Los mensajes largos",
-        "Las salidas",
-        "Las miradas",
-        "Las risas"
-      ]
+      "options": ["Los mensajes largos", "Las salidas", "Las miradas", "Las risas"]
     },
     {
       "slug": "recuerdos-quien-dio-el-primer-paso",
       "type": "choice",
       "intensity": "ligera",
       "text": "El que dio el primer paso en lo nuestro fue...",
-      "options": [
-        "Tú",
-        "Yo",
-        "Los dos al mismo tiempo",
-        "Nuestros amigos"
-      ]
+      "options": ["Tú", "Yo", "Los dos al mismo tiempo", "Nuestros amigos"]
     },
     {
       "slug": "recuerdos-primer-te-quiero-forma",
       "type": "choice",
       "intensity": "ligera",
       "text": "El primer \"te quiero\" fue...",
-      "options": [
-        "En persona",
-        "Por mensaje",
-        "Por llamada",
-        "Con una carta o nota"
-      ]
+      "options": ["En persona", "Por mensaje", "Por llamada", "Con una carta o nota"]
     },
     {
       "slug": "recuerdos-navidad-de-infancia",
       "type": "choice",
       "intensity": "ligera",
       "text": "En las Navidades de mi infancia, lo mejor era...",
-      "options": [
-        "La cena",
-        "Los regalos",
-        "La posada",
-        "Estar con toda la familia"
-      ]
+      "options": ["La cena", "Los regalos", "La posada", "Estar con toda la familia"]
     },
     {
       "slug": "recuerdos-mi-lugar-de-juegos",
       "type": "choice",
       "intensity": "ligera",
       "text": "Mi lugar favorito para jugar era...",
-      "options": [
-        "La calle",
-        "El patio",
-        "Mi cuarto",
-        "La casa de mis primos"
-      ]
+      "options": ["La calle", "El patio", "Mi cuarto", "La casa de mis primos"]
     },
     {
       "slug": "recuerdos-nuestro-recuerdo-favorito",
       "type": "choice",
       "intensity": "ligera",
       "text": "Mi recuerdo favorito con tu familia o amistades es de...",
-      "options": [
-        "Una comida",
-        "Una fiesta",
-        "Un paseo",
-        "Una plática tranquila"
-      ]
+      "options": ["Una comida", "Una fiesta", "Un paseo", "Una plática tranquila"]
     },
     {
       "slug": "recuerdos-forma-de-conocernos",
       "type": "choice",
       "intensity": "ligera",
       "text": "Nos conocimos gracias a...",
-      "options": [
-        "Amigos en común",
-        "Redes",
-        "La escuela o el trabajo",
-        "Un viaje o evento"
-      ]
+      "options": ["Amigos en común", "Redes", "La escuela o el trabajo", "Un viaje o evento"]
     },
     {
       "slug": "recuerdos-programa-de-tele",
       "type": "choice",
       "intensity": "ligera",
       "text": "Lo que veía en la tele en mi infancia era...",
-      "options": [
-        "Caricaturas",
-        "Telenovelas",
-        "Programas de concursos",
-        "Películas"
-      ]
+      "options": ["Caricaturas", "Telenovelas", "Programas de concursos", "Películas"]
     },
     {
       "slug": "recuerdos-mi-regalo-ideal-de-nino",
       "type": "choice",
       "intensity": "ligera",
       "text": "El regalo que más pedía en mi infancia era...",
-      "options": [
-        "Un juguete grande",
-        "Videojuegos",
-        "Una bicicleta",
-        "Libros o juegos de mesa"
-      ]
+      "options": ["Un juguete grande", "Videojuegos", "Una bicicleta", "Libros o juegos de mesa"]
     },
     {
       "slug": "recuerdos-mejor-memoria",
       "type": "choice",
       "intensity": "ligera",
       "text": "El mejor recuerdo se siente más como...",
-      "options": [
-        "Una película",
-        "Una canción",
-        "Un olor",
-        "Una sensación"
-      ]
+      "options": ["Una película", "Una canción", "Un olor", "Una sensación"]
     },
     {
       "slug": "recuerdos-escuela-favorita",
       "type": "choice",
       "intensity": "ligera",
       "text": "Mi etapa de escuela favorita fue...",
-      "options": [
-        "Primaria",
-        "Secundaria",
-        "Prepa",
-        "Universidad"
-      ]
+      "options": ["Primaria", "Secundaria", "Prepa", "Universidad"]
     },
     {
       "slug": "recuerdos-lo-que-me-hacia-feliz",
@@ -786,48 +696,28 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Nuestro lugar de primeras salidas era...",
-      "options": [
-        "Una cafetería",
-        "El cine",
-        "Un parque",
-        "Mi casa o la tuya"
-      ]
+      "options": ["Una cafetería", "El cine", "Un parque", "Mi casa o la tuya"]
     },
     {
       "slug": "recuerdos-infancia-y-yo-adulto",
       "type": "choice",
       "intensity": "profunda",
       "text": "Algo de mi infancia que se nota hasta hoy en mí es...",
-      "options": [
-        "Mi humor",
-        "Mi forma de querer",
-        "Mis miedos",
-        "Mis gustos"
-      ]
+      "options": ["Mi humor", "Mi forma de querer", "Mis miedos", "Mis gustos"]
     },
     {
       "slug": "recuerdos-recuerdo-que-pesa",
       "type": "choice",
       "intensity": "profunda",
       "text": "Hay recuerdos que me hacen sentir...",
-      "options": [
-        "Calma",
-        "Nostalgia",
-        "Gratitud",
-        "Un nudo en la garganta"
-      ]
+      "options": ["Calma", "Nostalgia", "Gratitud", "Un nudo en la garganta"]
     },
     {
       "slug": "recuerdos-cuando-aprendi-algo-grande",
       "type": "choice",
       "intensity": "profunda",
       "text": "Aprendí algo grande de la vida por...",
-      "options": [
-        "Un error mío",
-        "Un consejo familiar",
-        "Una pérdida",
-        "Una amistad"
-      ]
+      "options": ["Un error mío", "Un consejo familiar", "Una pérdida", "Una amistad"]
     },
     {
       "slug": "recuerdos-cuando-supe-que-queria-esto",
@@ -846,60 +736,35 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El recuerdo familiar que más cuido es...",
-      "options": [
-        "Una comida",
-        "Un viaje",
-        "Una conversación",
-        "Un olor o canción"
-      ]
+      "options": ["Una comida", "Un viaje", "Una conversación", "Un olor o canción"]
     },
     {
       "slug": "recuerdos-el-dia-mas-feliz",
       "type": "choice",
       "intensity": "profunda",
       "text": "El día más feliz de mi vida estuvo lleno de...",
-      "options": [
-        "Gente querida",
-        "Un logro",
-        "Un lugar bonito",
-        "Una sorpresa"
-      ]
+      "options": ["Gente querida", "Un logro", "Un lugar bonito", "Una sorpresa"]
     },
     {
       "slug": "recuerdos-lo-que-cambie",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más cambió en mí desde mi adolescencia es...",
-      "options": [
-        "Mi forma de pensar",
-        "Mi forma de querer",
-        "Mi seguridad",
-        "Mis prioridades"
-      ]
+      "options": ["Mi forma de pensar", "Mi forma de querer", "Mi seguridad", "Mis prioridades"]
     },
     {
       "slug": "recuerdos-recuerdo-que-me-define",
       "type": "choice",
       "intensity": "profunda",
       "text": "Un recuerdo que me define tiene que ver con...",
-      "options": [
-        "Mi familia",
-        "Un reto",
-        "Un logro",
-        "Una amistad"
-      ]
+      "options": ["Mi familia", "Un reto", "Un logro", "Una amistad"]
     },
     {
       "slug": "recuerdos-primer-golpe-de-realidad",
       "type": "choice",
       "intensity": "profunda",
       "text": "Mi primer golpe de realidad fue...",
-      "options": [
-        "Mi primer trabajo",
-        "Una desilusión",
-        "Un cambio de casa",
-        "Una pérdida"
-      ]
+      "options": ["Mi primer trabajo", "Una desilusión", "Un cambio de casa", "Una pérdida"]
     },
     {
       "slug": "recuerdos-lo-que-me-dio-miedo-de-ti",
@@ -942,24 +807,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando recuerdo a alguien que ya no está, siento...",
-      "options": [
-        "Gratitud",
-        "Tristeza",
-        "Ternura",
-        "Ganas de contárselo todo"
-      ]
+      "options": ["Gratitud", "Tristeza", "Ternura", "Ganas de contárselo todo"]
     },
     {
       "slug": "recuerdos-me-recuerdas-a",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más me recuerda a mi hogar de la infancia es...",
-      "options": [
-        "Un olor",
-        "Una comida",
-        "Un sonido",
-        "Una persona"
-      ]
+      "options": ["Un olor", "Una comida", "Un sonido", "Una persona"]
     },
     {
       "slug": "recuerdos-que-te-dijo-un-adulto",
@@ -1218,12 +1073,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando te conocí, mi primera impresión fue...",
-      "options": [
-        "Qué amable",
-        "Qué bonita sonrisa",
-        "Qué interesante",
-        "Qué nervios"
-      ]
+      "options": ["Qué amable", "Qué bonita sonrisa", "Qué interesante", "Qué nervios"]
     }
   ]
 }

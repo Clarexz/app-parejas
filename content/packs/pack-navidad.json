@@ -24,24 +24,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "La cena de Nochebuena que no puede faltar es…",
-      "options": [
-        "Pavo",
-        "Bacalao",
-        "Pierna al horno",
-        "Romeritos"
-      ]
+      "options": ["Pavo", "Bacalao", "Pierna al horno", "Romeritos"]
     },
     {
       "slug": "pack-navidad-ponche",
       "type": "choice",
       "intensity": "ligera",
       "text": "El ponche de frutas, ¿cómo lo tomas?",
-      "options": [
-        "Con piquete",
-        "Sin piquete",
-        "Solo las frutas",
-        "Mejor un atole"
-      ]
+      "options": ["Con piquete", "Sin piquete", "Solo las frutas", "Mejor un atole"]
     },
     {
       "slug": "pack-navidad-tradicion-familiar",
@@ -54,12 +44,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu árbol de Navidad ideal es…",
-      "options": [
-        "Natural",
-        "Artificial",
-        "Nada más el nacimiento",
-        "Ninguno, pura luz y ya"
-      ]
+      "options": ["Natural", "Artificial", "Nada más el nacimiento", "Ninguno, pura luz y ya"]
     },
     {
       "slug": "pack-navidad-mejor-regalo",
@@ -90,12 +75,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Del aguinaldo de la piñata, ¿qué te comes primero?",
-      "options": [
-        "Cacahuates",
-        "Mandarina",
-        "Caña",
-        "Tejocote"
-      ]
+      "options": ["Cacahuates", "Mandarina", "Caña", "Tejocote"]
     },
     {
       "slug": "pack-navidad-navidad-a-distancia",
@@ -180,12 +160,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Quién te traía los regalos de niño?",
-      "options": [
-        "Santa Claus",
-        "Los Reyes Magos",
-        "Los dos",
-        "El Niño Dios"
-      ]
+      "options": ["Santa Claus", "Los Reyes Magos", "Los dos", "El Niño Dios"]
     },
     {
       "slug": "pack-navidad-regalo-raro",
@@ -210,12 +185,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Este año para ti fue…",
-      "options": [
-        "Una montaña rusa",
-        "Tranquilo",
-        "Puro aprendizaje",
-        "Un maratón"
-      ]
+      "options": ["Una montaña rusa", "Tranquilo", "Puro aprendizaje", "Un maratón"]
     }
   ]
 }

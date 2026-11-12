@@ -126,24 +126,14 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para una noche íntima, ¿qué ambiente te prende más?",
-      "options": [
-        "Luz de velas",
-        "Música suave",
-        "Lluvia afuera",
-        "Cuarto en penumbra"
-      ]
+      "options": ["Luz de velas", "Música suave", "Lluvia afuera", "Cuarto en penumbra"]
     },
     {
       "slug": "picantes-beso-favorito",
       "type": "choice",
       "intensity": "picante",
       "text": "¿Qué tipo de beso te derrite más?",
-      "options": [
-        "Lento y suave",
-        "En el cuello",
-        "Inesperado",
-        "Mordidita juguetona"
-      ]
+      "options": ["Lento y suave", "En el cuello", "Inesperado", "Mordidita juguetona"]
     },
     {
       "slug": "picantes-ritmo-del-momento",
@@ -186,12 +176,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para sentirte cómodo o cómoda con el coqueteo, ¿cómo te gusta que llegue?",
-      "options": [
-        "Yo propongo",
-        "Tú propones",
-        "Lo vamos sintiendo",
-        "Con una pista juguetona"
-      ]
+      "options": ["Yo propongo", "Tú propones", "Lo vamos sintiendo", "Con una pista juguetona"]
     },
     {
       "slug": "picantes-pedir-lo-que-quieres",
@@ -528,84 +513,49 @@
       "type": "choice",
       "intensity": "picante",
       "text": "¿Dónde te gusta que te besen primero?",
-      "options": [
-        "En el cuello",
-        "En la frente",
-        "En las manos",
-        "En los labios"
-      ]
+      "options": ["En el cuello", "En la frente", "En las manos", "En los labios"]
     },
     {
       "slug": "picantes-tono-de-voz",
       "type": "choice",
       "intensity": "picante",
       "text": "Cuando coqueteas por mensaje de voz, ¿cómo suenas?",
-      "options": [
-        "Susurrando",
-        "Con risa",
-        "Bajito y lento",
-        "Con picardía descarada"
-      ]
+      "options": ["Susurrando", "Con risa", "Bajito y lento", "Con picardía descarada"]
     },
     {
       "slug": "picantes-esperar-o-lanzarse",
       "type": "choice",
       "intensity": "picante",
       "text": "En el coqueteo, ¿cómo prefieres avanzar?",
-      "options": [
-        "Despacito",
-        "De golpe",
-        "Con juegos",
-        "Mirándonos mucho"
-      ]
+      "options": ["Despacito", "De golpe", "Con juegos", "Mirándonos mucho"]
     },
     {
       "slug": "picantes-fuego-o-ternura",
       "type": "choice",
       "intensity": "picante",
       "text": "En un momento íntimo, ¿qué buscas más?",
-      "options": [
-        "Ternura",
-        "Fuego",
-        "Un poco de ambos",
-        "Depende del día"
-      ]
+      "options": ["Ternura", "Fuego", "Un poco de ambos", "Depende del día"]
     },
     {
       "slug": "picantes-luz-del-cuarto",
       "type": "choice",
       "intensity": "picante",
       "text": "Para un momento íntimo, prefieres la luz...",
-      "options": [
-        "Apagada",
-        "Tenue",
-        "De velas",
-        "Natural de la mañana"
-      ]
+      "options": ["Apagada", "Tenue", "De velas", "Natural de la mañana"]
     },
     {
       "slug": "picantes-musica-de-fondo",
       "type": "choice",
       "intensity": "picante",
       "text": "La música de fondo ideal para nosotros sería...",
-      "options": [
-        "Boleros",
-        "R&B suave",
-        "Música electrónica lenta",
-        "Silencio absoluto"
-      ]
+      "options": ["Boleros", "R&B suave", "Música electrónica lenta", "Silencio absoluto"]
     },
     {
       "slug": "picantes-foto-coqueta",
       "type": "choice",
       "intensity": "picante",
       "text": "Para una foto coqueta, tú prefieres...",
-      "options": [
-        "Mirada insinuante",
-        "Sonrisa pícara",
-        "Algo misterioso",
-        "Solo un guiño"
-      ]
+      "options": ["Mirada insinuante", "Sonrisa pícara", "Algo misterioso", "Solo un guiño"]
     },
     {
       "slug": "picantes-juego-previo-llamada",
@@ -636,24 +586,14 @@
       "type": "choice",
       "intensity": "picante",
       "text": "El beso de despedida que más extrañas es...",
-      "options": [
-        "En la puerta",
-        "En la cara",
-        "Largo y silencioso",
-        "Rápido y con sonrisa"
-      ]
+      "options": ["En la puerta", "En la cara", "Largo y silencioso", "Rápido y con sonrisa"]
     },
     {
       "slug": "picantes-quien-propone",
       "type": "choice",
       "intensity": "picante",
       "text": "Para planear una noche especial, ¿quién se encarga?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Los dos juntos",
-        "Al azar con un volado"
-      ]
+      "options": ["Yo", "Tú", "Los dos juntos", "Al azar con un volado"]
     },
     {
       "slug": "picantes-reencuentro-ideal-x",
@@ -672,24 +612,14 @@
       "type": "choice",
       "intensity": "picante",
       "text": "El aroma que más me prende es...",
-      "options": [
-        "Perfume",
-        "Piel recién bañada",
-        "Café por la mañana",
-        "Ropa recién lavada"
-      ]
+      "options": ["Perfume", "Piel recién bañada", "Café por la mañana", "Ropa recién lavada"]
     },
     {
       "slug": "picantes-tipo-de-caricia",
       "type": "choice",
       "intensity": "picante",
       "text": "La caricia que más me derrite es...",
-      "options": [
-        "En el cabello",
-        "En la espalda",
-        "En la mano",
-        "En la cara"
-      ]
+      "options": ["En el cabello", "En la espalda", "En la mano", "En la cara"]
     },
     {
       "slug": "picantes-broma-traviesa",
@@ -882,36 +812,21 @@
       "type": "choice",
       "intensity": "picante",
       "text": "El sonido tuyo que más me derrite es...",
-      "options": [
-        "Tu risa",
-        "Tu respiración",
-        "Tu voz bajita",
-        "Tu forma de decir mi nombre"
-      ]
+      "options": ["Tu risa", "Tu respiración", "Tu voz bajita", "Tu forma de decir mi nombre"]
     },
     {
       "slug": "picantes-hora-de-picardia",
       "type": "choice",
       "intensity": "picante",
       "text": "¿Cuándo prefieres que nos pongamos traviesos?",
-      "options": [
-        "Por la mañana",
-        "Por la tarde",
-        "Por la noche",
-        "De madrugada"
-      ]
+      "options": ["Por la mañana", "Por la tarde", "Por la noche", "De madrugada"]
     },
     {
       "slug": "picantes-lo-que-mas-prende-x",
       "type": "choice",
       "intensity": "picante",
       "text": "Lo que más me prende de ti es...",
-      "options": [
-        "Tu mirada",
-        "Tu sonrisa",
-        "Tu voz",
-        "Tu seguridad"
-      ]
+      "options": ["Tu mirada", "Tu sonrisa", "Tu voz", "Tu seguridad"]
     },
     {
       "slug": "picantes-tipo-de-cita-intima",
@@ -930,12 +845,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Mi forma favorita de iniciar un coqueteo es...",
-      "options": [
-        "Con un meme",
-        "Con un cumplido",
-        "Con una indirecta",
-        "Con una foto"
-      ]
+      "options": ["Con un meme", "Con un cumplido", "Con una indirecta", "Con una foto"]
     },
     {
       "slug": "picantes-juego-que-amas",
@@ -954,12 +864,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "En la sorpresa íntima, ¿a quién crees que se le ocurrirían las ideas más creativas?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Los dos",
-        "Quien se tome el tiempo de planearla"
-      ]
+      "options": ["Yo", "Tú", "Los dos", "Quien se tome el tiempo de planearla"]
     },
     {
       "slug": "picantes-estilo-de-reencuentro",
@@ -978,24 +883,14 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para ambientar el cuarto, prefiero...",
-      "options": [
-        "Fresco y cobijas",
-        "Calientito",
-        "Con ventilador",
-        "Con ventana abierta"
-      ]
+      "options": ["Fresco y cobijas", "Calientito", "Con ventilador", "Con ventana abierta"]
     },
     {
       "slug": "picantes-cuando-me-miras",
       "type": "choice",
       "intensity": "picante",
       "text": "Cuando me miras con ganas, ¿qué sientes?",
-      "options": [
-        "Mariposas",
-        "Calor",
-        "Nervios bonitos",
-        "Ganas de reír"
-      ]
+      "options": ["Mariposas", "Calor", "Nervios bonitos", "Ganas de reír"]
     },
     {
       "slug": "picantes-tipo-de-susurro",
@@ -1014,48 +909,28 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para animar el ambiente me gusta que...",
-      "options": [
-        "Tú me inviten",
-        "Yo invite",
-        "Nos pongamos de acuerdo",
-        "Pase sin planearlo"
-      ]
+      "options": ["Tú me invites", "Yo invite", "Nos pongamos de acuerdo", "Pase sin planearlo"]
     },
     {
       "slug": "picantes-espacio-intimo",
       "type": "choice",
       "intensity": "picante",
       "text": "El lugar ideal para estar a solas es...",
-      "options": [
-        "Mi casa",
-        "Tu casa",
-        "Un hotel",
-        "Un lugar de viaje"
-      ]
+      "options": ["Mi casa", "Tu casa", "Un hotel", "Un lugar de viaje"]
     },
     {
       "slug": "picantes-postre-previo",
       "type": "choice",
       "intensity": "picante",
       "text": "Antes de un momento íntimo, un antojo perfecto sería...",
-      "options": [
-        "Chocolate",
-        "Fresas",
-        "Helado",
-        "Un café"
-      ]
+      "options": ["Chocolate", "Fresas", "Helado", "Un café"]
     },
     {
       "slug": "picantes-despues-del-momento",
       "type": "choice",
       "intensity": "picante",
       "text": "Después de un momento íntimo, lo que más disfruto es...",
-      "options": [
-        "Abrazarnos en silencio",
-        "Platicar de todo",
-        "Pedir comida",
-        "Dormirnos juntos"
-      ]
+      "options": ["Abrazarnos en silencio", "Platicar de todo", "Pedir comida", "Dormirnos juntos"]
     },
     {
       "slug": "picantes-roce-en-publico",
@@ -1074,12 +949,7 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Para romper la rutina, me emociona más...",
-      "options": [
-        "Una noche temática",
-        "Un lugar nuevo",
-        "Un juego",
-        "Un viaje sorpresa"
-      ]
+      "options": ["Una noche temática", "Un lugar nuevo", "Un juego", "Un viaje sorpresa"]
     },
     {
       "slug": "picantes-tipo-de-mensaje-x",
@@ -1098,72 +968,42 @@
       "type": "choice",
       "intensity": "picante",
       "text": "La mirada que más me conquista es...",
-      "options": [
-        "La de sorpresa",
-        "La de ternura",
-        "La de picardía",
-        "La de calma"
-      ]
+      "options": ["La de sorpresa", "La de ternura", "La de picardía", "La de calma"]
     },
     {
       "slug": "picantes-conversacion-intima",
       "type": "choice",
       "intensity": "picante",
       "text": "Para platicar sobre nuestros deseos, prefiero...",
-      "options": [
-        "Con la luz apagada",
-        "Caminando",
-        "En videollamada",
-        "Por escrito"
-      ]
+      "options": ["Con la luz apagada", "Caminando", "En videollamada", "Por escrito"]
     },
     {
       "slug": "picantes-llegada-casa",
       "type": "choice",
       "intensity": "picante",
-      "text": "Al llegar a casa de ti, esperaría...",
-      "options": [
-        "Música suave",
-        "Una cena",
-        "Un abrazo largo",
-        "Una nota coqueta"
-      ]
+      "text": "Al llegar a tu casa, esperaría...",
+      "options": ["Música suave", "Una cena", "Un abrazo largo", "Una nota coqueta"]
     },
     {
       "slug": "picantes-tipo-de-dedicatoria",
       "type": "choice",
       "intensity": "picante",
       "text": "Si me dedicaras una canción coqueta, sería...",
-      "options": [
-        "Un bolero",
-        "Un reguetón suave",
-        "Una balada",
-        "Un pop alegre"
-      ]
+      "options": ["Un bolero", "Un reguetón suave", "Una balada", "Un pop alegre"]
     },
     {
       "slug": "picantes-abrazo-que-prende",
       "type": "choice",
       "intensity": "picante",
       "text": "El abrazo que más me prende es...",
-      "options": [
-        "Por detrás",
-        "De frente y largo",
-        "Con cobija",
-        "De sorpresa"
-      ]
+      "options": ["Por detrás", "De frente y largo", "Con cobija", "De sorpresa"]
     },
     {
       "slug": "picantes-frase-con-picardia",
       "type": "choice",
       "intensity": "picante",
       "text": "Para decirme que me deseas, prefieres...",
-      "options": [
-        "Con una mirada",
-        "Con un mensaje",
-        "Con un gesto",
-        "Con palabras directas"
-      ]
+      "options": ["Con una mirada", "Con un mensaje", "Con un gesto", "Con palabras directas"]
     },
     {
       "slug": "picantes-ritual-previo",
@@ -1182,24 +1022,14 @@
       "type": "choice",
       "intensity": "picante",
       "text": "Lo que más disfruto después de un día largo contigo es...",
-      "options": [
-        "Un masaje",
-        "Un baño juntos",
-        "Una película abrazados",
-        "Una charla suave"
-      ]
+      "options": ["Un masaje", "Un baño juntos", "Una película abrazados", "Una charla suave"]
     },
     {
       "slug": "picantes-juego-final",
       "type": "choice",
       "intensity": "picante",
       "text": "Si termináramos esta ronda con un reto, preferiría...",
-      "options": [
-        "Un beso virtual",
-        "Una frase atrevida",
-        "Un baile",
-        "Una promesa de próxima vez"
-      ]
+      "options": ["Un beso virtual", "Una frase atrevida", "Un baile", "Una promesa de próxima vez"]
     }
   ]
 }

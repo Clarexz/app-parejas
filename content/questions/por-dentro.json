@@ -150,24 +150,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando estás bajo estrés, tu sueño es...",
-      "options": [
-        "Nulo, ni parpadeo",
-        "Dormir de más",
-        "Pesadillas locas",
-        "Normal, ¿cuál estrés?"
-      ]
+      "options": ["Nulo, ni parpadeo", "Dormir de más", "Pesadillas locas", "Normal, ¿cuál estrés?"]
     },
     {
       "slug": "por-dentro-primer-instinto-nervios",
       "type": "choice",
       "intensity": "ligera",
       "text": "Ante una noticia inesperada, tu primera reacción suele ser...",
-      "options": [
-        "Quedarme en silencio",
-        "Reír",
-        "Llorar",
-        "Hablar sin parar"
-      ]
+      "options": ["Quedarme en silencio", "Reír", "Llorar", "Hablar sin parar"]
     },
     {
       "slug": "por-dentro-cuando-me-enojo",
@@ -186,36 +176,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu estado emocional por defecto es...",
-      "options": [
-        "Tranquilo",
-        "Ansioso",
-        "Alegre",
-        "Cansado"
-      ]
+      "options": ["Tranquilo", "Ansioso", "Alegre", "Cansado"]
     },
     {
       "slug": "por-dentro-lo-que-necesitas-en-malos-dias",
       "type": "choice",
       "intensity": "ligera",
       "text": "En un mal día, ¿qué te ayuda más?",
-      "options": [
-        "Una película",
-        "Un abrazo",
-        "Comida rica",
-        "Silencio absoluto"
-      ]
+      "options": ["Una película", "Un abrazo", "Comida rica", "Silencio absoluto"]
     },
     {
       "slug": "por-dentro-mood-lunes",
       "type": "choice",
       "intensity": "ligera",
       "text": "Un lunes por la mañana te sientes...",
-      "options": [
-        "Con energía",
-        "Con resignación",
-        "Sin ganas",
-        "Depende del café"
-      ]
+      "options": ["Con energía", "Con resignación", "Sin ganas", "Depende del café"]
     },
     {
       "slug": "por-dentro-lo-que-callas-del-dia",
@@ -756,12 +731,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando sientes ansiedad, ¿qué te ayuda más?",
-      "options": [
-        "Respirar profundo",
-        "Moverme",
-        "Hablar con alguien",
-        "Distraerme con algo"
-      ]
+      "options": ["Respirar profundo", "Moverme", "Hablar con alguien", "Distraerme con algo"]
     },
     {
       "slug": "por-dentro-perdi-el-control",
@@ -780,12 +750,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Hoy tu autoestima está...",
-      "options": [
-        "Por las nubes",
-        "Estable",
-        "Más o menos",
-        "En construcción"
-      ]
+      "options": ["Por las nubes", "Estable", "Más o menos", "En construcción"]
     },
     {
       "slug": "por-dentro-como-llora",
@@ -804,24 +769,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Entre estos miedos, ¿cuál te pesa más?",
-      "options": [
-        "Quedarme sin nadie",
-        "Fracasar",
-        "Perder a alguien",
-        "No cumplir mis sueños"
-      ]
+      "options": ["Quedarme sin nadie", "Fracasar", "Perder a alguien", "No cumplir mis sueños"]
     },
     {
       "slug": "por-dentro-quien-te-escucha-mejor",
       "type": "choice",
       "intensity": "profunda",
       "text": "Para desahogarte, prefieres...",
-      "options": [
-        "Escribir",
-        "Hablar",
-        "Caminar",
-        "Llorar sin explicar nada"
-      ]
+      "options": ["Escribir", "Hablar", "Caminar", "Llorar sin explicar nada"]
     },
     {
       "slug": "por-dentro-frase-que-necesitas",
@@ -876,120 +831,70 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando finges que estás bien, ¿qué escondes más?",
-      "options": [
-        "Cansancio",
-        "Tristeza",
-        "Enojo",
-        "Preocupación"
-      ]
+      "options": ["Cansancio", "Tristeza", "Enojo", "Preocupación"]
     },
     {
       "slug": "por-dentro-dar-vs-recibir",
       "type": "choice",
       "intensity": "profunda",
       "text": "En los días de mucho estrés, ¿qué te cuesta más: abrirte a recibir apoyo o seguir dando a los demás?",
-      "options": [
-        "Recibir apoyo",
-        "Seguir dando",
-        "Las dos por igual",
-        "Ninguna, me fluye"
-      ]
+      "options": ["Recibir apoyo", "Seguir dando", "Las dos por igual", "Ninguna, me fluye"]
     },
     {
       "slug": "por-dentro-tu-sensibilidad",
       "type": "choice",
       "intensity": "profunda",
       "text": "Sobre tu sensibilidad, hoy sientes que...",
-      "options": [
-        "Me orgullece",
-        "La estoy aprendiendo a querer",
-        "Me pesa",
-        "Cambia según el día"
-      ]
+      "options": ["Me orgullece", "La estoy aprendiendo a querer", "Me pesa", "Cambia según el día"]
     },
     {
       "slug": "por-dentro-gusto-por-ti",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más me gusta de cómo soy por dentro es...",
-      "options": [
-        "Mi empatía",
-        "Mi fortaleza",
-        "Mi creatividad",
-        "Mi lealtad"
-      ]
+      "options": ["Mi empatía", "Mi fortaleza", "Mi creatividad", "Mi lealtad"]
     },
     {
       "slug": "por-dentro-nostalgia-tipo",
       "type": "choice",
       "intensity": "profunda",
       "text": "Mi nostalgia llega más con...",
-      "options": [
-        "Una canción",
-        "Un olor",
-        "Una foto",
-        "Un lugar"
-      ]
+      "options": ["Una canción", "Un olor", "Una foto", "Un lugar"]
     },
     {
       "slug": "por-dentro-confiar-en-ti",
       "type": "choice",
       "intensity": "profunda",
       "text": "Confío más en mí cuando...",
-      "options": [
-        "Lo planeé bien",
-        "Lo siento en la panza",
-        "Alguien me apoya",
-        "Ya lo hice antes"
-      ]
+      "options": ["Lo planeé bien", "Lo siento en la panza", "Alguien me apoya", "Ya lo hice antes"]
     },
     {
       "slug": "por-dentro-lo-que-aprendiste-estresado",
       "type": "choice",
       "intensity": "profunda",
       "text": "De mis momentos de estrés he aprendido que necesito...",
-      "options": [
-        "Descansar antes",
-        "Pedir ayuda",
-        "Poner límites",
-        "Soltar el control"
-      ]
+      "options": ["Descansar antes", "Pedir ayuda", "Poner límites", "Soltar el control"]
     },
     {
       "slug": "por-dentro-despues-de-discutir",
       "type": "choice",
       "intensity": "profunda",
       "text": "Después de una discusión, me siento...",
-      "options": [
-        "Con culpa",
-        "Con alivio",
-        "Con tristeza",
-        "Con ganas de hacer las paces"
-      ]
+      "options": ["Con culpa", "Con alivio", "Con tristeza", "Con ganas de hacer las paces"]
     },
     {
       "slug": "por-dentro-mejor-version-feliz",
       "type": "choice",
       "intensity": "profunda",
       "text": "Me siento más yo cuando estoy...",
-      "options": [
-        "En movimiento",
-        "Creando algo",
-        "Con mi gente",
-        "En silencio"
-      ]
+      "options": ["En movimiento", "Creando algo", "Con mi gente", "En silencio"]
     },
     {
       "slug": "por-dentro-lo-que-quieres-sentir",
       "type": "choice",
       "intensity": "profunda",
       "text": "En el fondo, lo que más quiero sentir en la vida es...",
-      "options": [
-        "Paz",
-        "Alegría",
-        "Seguridad",
-        "Emoción"
-      ]
+      "options": ["Paz", "Alegría", "Seguridad", "Emoción"]
     },
     {
       "slug": "por-dentro-cuando-te-sientes-orgulloso",
@@ -1020,24 +925,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Mi mejor aliado cuando estoy mal es...",
-      "options": [
-        "La música",
-        "El sueño",
-        "La comida",
-        "Una persona en específico"
-      ]
+      "options": ["La música", "El sueño", "La comida", "Una persona en específico"]
     },
     {
       "slug": "por-dentro-la-calma-despues",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando por fin se me pasa la tormenta, lo primero que siento es...",
-      "options": [
-        "Ganas de dormir",
-        "Ganas de platicar",
-        "Agradecimiento",
-        "Vacío raro"
-      ]
+      "options": ["Ganas de dormir", "Ganas de platicar", "Agradecimiento", "Vacío raro"]
     }
   ]
 }

@@ -114,59 +114,35 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Solo puedes comer una cosa el resto de tu vida:",
-      "options": [
-        "Tacos",
-        "Pizza",
-        "Pasta",
-        "Sushi"
-      ]
+      "options": ["Tacos", "Pizza", "Pasta", "Sushi"]
     },
     {
       "slug": "hipoteticas-pasado-o-futuro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Una máquina del tiempo con un solo viaje: ¿hacia dónde vas?",
-      "options": [
-        "Al pasado",
-        "Al futuro",
-        "No me subo"
-      ]
+      "options": ["Al pasado", "Al futuro", "No me subo"]
     },
     {
       "slug": "hipoteticas-clima-eterno",
       "type": "choice",
       "intensity": "ligera",
       "text": "Tienes que vivir con un solo clima para siempre:",
-      "options": [
-        "Calor playero",
-        "Frío con chamarra",
-        "Primavera eterna",
-        "Lluvia con café"
-      ]
+      "options": ["Calor playero", "Frío con chamarra", "Primavera eterna", "Lluvia con café"]
     },
     {
       "slug": "hipoteticas-volar-o-invisible",
       "type": "choice",
       "intensity": "ligera",
       "text": "Elige el superpoder:",
-      "options": [
-        "Volar",
-        "Ser invisible",
-        "Detener el tiempo",
-        "Hablar con animales"
-      ]
+      "options": ["Volar", "Ser invisible", "Detener el tiempo", "Hablar con animales"]
     },
     {
       "slug": "hipoteticas-vivir-donde",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para vivir tranquilos, ¿qué lugar escogerían?",
-      "options": [
-        "Ciudad enorme",
-        "Pueblo chico",
-        "Cerca del mar",
-        "En la montaña"
-      ]
+      "options": ["Ciudad enorme", "Pueblo chico", "Cerca del mar", "En la montaña"]
     },
     {
       "slug": "hipoteticas-saber-fecha-o-causa",
@@ -503,12 +479,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Pasan un mes en un país y solo puedes comer su comida. ¿Cuál eliges?",
-      "options": [
-        "Japón",
-        "Italia",
-        "México, claro",
-        "India"
-      ]
+      "options": ["Japón", "Italia", "México, claro", "India"]
     },
     {
       "slug": "hipoteticas-trabajo-futuro",
@@ -539,24 +510,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Con quién te gustaría que fuera tu vecino por un año?",
-      "options": [
-        "Un chef famoso",
-        "Un cantante",
-        "Un científico loco",
-        "Un perrito sin dueño"
-      ]
+      "options": ["Un chef famoso", "Un cantante", "Un científico loco", "Un perrito sin dueño"]
     },
     {
       "slug": "hipoteticas-vida-nocturna",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si solo pudieras vivir de noche o de día para siempre, ¿cuál?",
-      "options": [
-        "Solo de noche",
-        "Solo de día",
-        "Amanecer y atardecer",
-        "Un día eterno gris"
-      ]
+      "options": ["Solo de noche", "Solo de día", "Amanecer y atardecer", "Un día eterno gris"]
     },
     {
       "slug": "hipoteticas-poder-cabeza",
@@ -575,12 +536,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si el tiempo se pudiera comprar, ¿qué comprarías con una hora extra al día?",
-      "options": [
-        "Dormir",
-        "Estar contigo",
-        "Viajar",
-        "Ver series"
-      ]
+      "options": ["Dormir", "Estar contigo", "Viajar", "Ver series"]
     },
     {
       "slug": "hipoteticas-planeta-nuevo",
@@ -599,48 +555,28 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Te dan un regalo que cambia cada año. ¿Qué te gustaría que fuera?",
-      "options": [
-        "Un viaje",
-        "Una experiencia",
-        "Un objeto único",
-        "Un año de comida gratis"
-      ]
+      "options": ["Un viaje", "Una experiencia", "Un objeto único", "Un año de comida gratis"]
     },
     {
       "slug": "hipoteticas-clima-viaje",
       "type": "choice",
       "intensity": "ligera",
       "text": "Les dan un viaje al clima de tu elección por una semana:",
-      "options": [
-        "Calor playero",
-        "Frío de nieve",
-        "Primavera suave",
-        "Lluvia con cafecito"
-      ]
+      "options": ["Calor playero", "Frío de nieve", "Primavera suave", "Lluvia con cafecito"]
     },
     {
       "slug": "hipoteticas-super-visita",
       "type": "choice",
       "intensity": "ligera",
       "text": "Puedes conocer en persona a una figura histórica. ¿A quién eliges?",
-      "options": [
-        "Frida Kahlo",
-        "Leonardo da Vinci",
-        "Cleopatra",
-        "Nezahualcóyotl"
-      ]
+      "options": ["Frida Kahlo", "Leonardo da Vinci", "Cleopatra", "Nezahualcóyotl"]
     },
     {
       "slug": "hipoteticas-mundo-animado",
       "type": "choice",
       "intensity": "ligera",
       "text": "Te vuelves personaje de una caricatura por un día. ¿Qué mundo eliges?",
-      "options": [
-        "Pixar",
-        "Estudio Ghibli",
-        "Looney Tunes",
-        "Un anime de aventuras"
-      ]
+      "options": ["Pixar", "Estudio Ghibli", "Looney Tunes", "Un anime de aventuras"]
     },
     {
       "slug": "hipoteticas-herencia-sorpresa",
@@ -659,12 +595,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Puedes ver en vivo a un artista del pasado:",
-      "options": [
-        "Selena",
-        "Michael Jackson",
-        "Juan Gabriel",
-        "Queen"
-      ]
+      "options": ["Selena", "Michael Jackson", "Juan Gabriel", "Queen"]
     },
     {
       "slug": "hipoteticas-juguete-gigante",
@@ -683,12 +614,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudieras apretar un botón para sentir algo siempre, ¿qué botón?",
-      "options": [
-        "Calma total",
-        "Emoción de viaje",
-        "Felicidad de infancia",
-        "Ternura sin motivo"
-      ]
+      "options": ["Calma total", "Emoción de viaje", "Felicidad de infancia", "Ternura sin motivo"]
     },
     {
       "slug": "hipoteticas-super-memoria",
@@ -707,12 +633,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si tuvieras que borrar una cosa del mundo, ¿cuál sería?",
-      "options": [
-        "Los lunes",
-        "Los mosquitos",
-        "Las filas",
-        "Las alarmas"
-      ]
+      "options": ["Los lunes", "Los mosquitos", "Las filas", "Las alarmas"]
     },
     {
       "slug": "hipoteticas-super-aparato",
@@ -743,12 +664,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si te hicieras famoso por algo, ¿por qué te gustaría que fuera?",
-      "options": [
-        "Una receta",
-        "Una canción",
-        "Un baile",
-        "Un invento"
-      ]
+      "options": ["Una receta", "Una canción", "Un baile", "Un invento"]
     },
     {
       "slug": "hipoteticas-pelicula-vida",
@@ -767,12 +683,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Tienes que poner una sola canción para el resto de tu vida. ¿Cuál género eliges?",
-      "options": [
-        "Cumbia",
-        "Rock",
-        "Pop",
-        "Música clásica"
-      ]
+      "options": ["Cumbia", "Rock", "Pop", "Música clásica"]
     },
     {
       "slug": "hipoteticas-super-pase",
@@ -803,24 +714,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudieras vivir en una ciudad ficticia, ¿cuál sería?",
-      "options": [
-        "Hogwarts",
-        "Ciudad Gótica",
-        "Springfield",
-        "Pueblo Paleta"
-      ]
+      "options": ["Hogwarts", "Ciudad Gótica", "Springfield", "Pueblo Paleta"]
     },
     {
       "slug": "hipoteticas-llegada-extraterrestre",
       "type": "choice",
       "intensity": "ligera",
       "text": "Llegan extraterrestres amigables. ¿Cómo los recibes?",
-      "options": [
-        "Con tacos",
-        "Con una piñata",
-        "Con música de mariachi",
-        "Con una guía turística"
-      ]
+      "options": ["Con tacos", "Con una piñata", "Con música de mariachi", "Con una guía turística"]
     },
     {
       "slug": "hipoteticas-aficion-inventada",
@@ -839,12 +740,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Te regalan una noche en un hotel muy raro. ¿Cuál escoges?",
-      "options": [
-        "Dentro de un árbol",
-        "Bajo el mar",
-        "En una cueva",
-        "En un globo"
-      ]
+      "options": ["Dentro de un árbol", "Bajo el mar", "En una cueva", "En un globo"]
     },
     {
       "slug": "hipoteticas-super-sueno",
@@ -887,36 +783,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si tuvieras un aroma que te siguiera a todos lados, ¿cuál sería?",
-      "options": [
-        "Café recién hecho",
-        "Pan de dulce",
-        "Tierra mojada",
-        "Mar"
-      ]
+      "options": ["Café recién hecho", "Pan de dulce", "Tierra mojada", "Mar"]
     },
     {
       "slug": "hipoteticas-super-reunion",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudieras volver a ver una cosa de tu niñez por un día, ¿cuál sería?",
-      "options": [
-        "Tu casa de entonces",
-        "Tu mascota",
-        "Tu escuela",
-        "Una fiesta de cumpleaños"
-      ]
+      "options": ["Tu casa de entonces", "Tu mascota", "Tu escuela", "Una fiesta de cumpleaños"]
     },
     {
       "slug": "hipoteticas-super-trabajo-sueno",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si ganaras un sueldo por hacer una sola cosa todo el día, ¿cuál sería?",
-      "options": [
-        "Probar comida",
-        "Viajar",
-        "Dormir en hoteles",
-        "Jugar videojuegos"
-      ]
+      "options": ["Probar comida", "Viajar", "Dormir en hoteles", "Jugar videojuegos"]
     },
     {
       "slug": "hipoteticas-microondas-superpoder",
@@ -959,24 +840,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Una semana donde todo es gratis. ¿Qué haces más?",
-      "options": [
-        "Comer fuera",
-        "Viajar",
-        "Comprar ropa",
-        "Ir a conciertos"
-      ]
+      "options": ["Comer fuera", "Viajar", "Comprar ropa", "Ir a conciertos"]
     },
     {
       "slug": "hipoteticas-amigo-imaginario",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudieras tener un amigo imaginario por un día, ¿cómo sería?",
-      "options": [
-        "Un dinosaurio",
-        "Un hada",
-        "Un robot",
-        "Un conejo gigante"
-      ]
+      "options": ["Un dinosaurio", "Un hada", "Un robot", "Un conejo gigante"]
     },
     {
       "slug": "hipoteticas-avion-privado",
@@ -1043,36 +914,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si todo lo que tocas se convierte en algo, ¿qué quisieras que fuera?",
-      "options": [
-        "Comida deliciosa",
-        "Flores",
-        "Dinero",
-        "Música"
-      ]
+      "options": ["Comida deliciosa", "Flores", "Dinero", "Música"]
     },
     {
       "slug": "hipoteticas-super-celular",
       "type": "choice",
       "intensity": "ligera",
       "text": "Tu celular puede hacer una función imposible. ¿Cuál escoges?",
-      "options": [
-        "Traducir animales",
-        "Imprimir comida",
-        "Cargarse con luz",
-        "Teletransportarte"
-      ]
+      "options": ["Traducir animales", "Imprimir comida", "Cargarse con luz", "Teletransportarte"]
     },
     {
       "slug": "hipoteticas-cuento-de-hadas",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si fueras personaje de un cuento clásico, ¿cuál serías?",
-      "options": [
-        "El héroe",
-        "La criatura mágica",
-        "El villano simpático",
-        "El narrador"
-      ]
+      "options": ["El héroe", "La criatura mágica", "El villano simpático", "El narrador"]
     },
     {
       "slug": "hipoteticas-dia-al-reves",
@@ -1091,36 +947,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si todo lo que ves tuviera un solo color por un día, ¿cuál?",
-      "options": [
-        "Amarillo",
-        "Azul",
-        "Verde",
-        "Rosa mexicano"
-      ]
+      "options": ["Amarillo", "Azul", "Verde", "Rosa mexicano"]
     },
     {
       "slug": "hipoteticas-tren-aventura",
       "type": "choice",
       "intensity": "ligera",
       "text": "Un tren mágico te lleva a donde quieras. ¿Qué vagón eliges?",
-      "options": [
-        "El comedor",
-        "El de dormir",
-        "El de música",
-        "La cabina del maquinista"
-      ]
+      "options": ["El comedor", "El de dormir", "El de música", "La cabina del maquinista"]
     },
     {
       "slug": "hipoteticas-super-desierto",
       "type": "choice",
       "intensity": "ligera",
       "text": "Estás en el desierto con una sola cosa útil. ¿Cuál escoges?",
-      "options": [
-        "Un sombrero enorme",
-        "Una cantimplora infinita",
-        "Un camello",
-        "Un GPS"
-      ]
+      "options": ["Un sombrero enorme", "Una cantimplora infinita", "Un camello", "Un GPS"]
     },
     {
       "slug": "hipoteticas-volver-a-elegir",
@@ -1241,24 +1082,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para vivir en calma, ¿a cuál de estas cosas renunciarías?",
-      "options": [
-        "A la ambición",
-        "A la comodidad",
-        "A la fama",
-        "A la rutina"
-      ]
+      "options": ["A la ambición", "A la comodidad", "A la fama", "A la rutina"]
     },
     {
       "slug": "hipoteticas-reencuentro-ideal",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras reencontrarte con algo perdido, ¿qué elegirías?",
-      "options": [
-        "Una amistad",
-        "Un lugar",
-        "Un objeto",
-        "Una versión de ti"
-      ]
+      "options": ["Una amistad", "Un lugar", "Un objeto", "Una versión de ti"]
     },
     {
       "slug": "hipoteticas-decision-dificil",
@@ -1277,24 +1108,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras dejar una sola carta al mundo, ¿para qué sería?",
-      "options": [
-        "Dar gracias",
-        "Pedir perdón",
-        "Compartir un consejo",
-        "Contar un secreto"
-      ]
+      "options": ["Dar gracias", "Pedir perdón", "Compartir un consejo", "Contar un secreto"]
     },
     {
       "slug": "hipoteticas-quitar-peso",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras quitarte un peso de encima hoy, ¿cuál sería?",
-      "options": [
-        "Una preocupación de dinero",
-        "Una culpa",
-        "Un miedo",
-        "Una expectativa ajena"
-      ]
+      "options": ["Una preocupación de dinero", "Una culpa", "Un miedo", "Una expectativa ajena"]
     },
     {
       "slug": "hipoteticas-saber-verdad",
@@ -1313,48 +1134,28 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tu yo de la infancia te viera hoy, ¿qué sentiría?",
-      "options": [
-        "Orgullo",
-        "Sorpresa",
-        "Curiosidad",
-        "Ganas de abrazarme"
-      ]
+      "options": ["Orgullo", "Sorpresa", "Curiosidad", "Ganas de abrazarme"]
     },
     {
       "slug": "hipoteticas-hogar-mas-importante",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué necesitas para sentir un lugar como hogar?",
-      "options": [
-        "Personas que quiero",
-        "Mi cama y mis cosas",
-        "Mi rutina",
-        "Un olor familiar"
-      ]
+      "options": ["Personas que quiero", "Mi cama y mis cosas", "Mi rutina", "Un olor familiar"]
     },
     {
       "slug": "hipoteticas-dar-todo",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras darle un regalo para siempre a alguien que amas, ¿cuál sería?",
-      "options": [
-        "Salud",
-        "Tiempo",
-        "Seguridad",
-        "Alegría"
-      ]
+      "options": ["Salud", "Tiempo", "Seguridad", "Alegría"]
     },
     {
       "slug": "hipoteticas-ultima-comida",
       "type": "choice",
       "intensity": "profunda",
       "text": "Tu última comida tiene que ser con una persona. ¿Cómo la quieres?",
-      "options": [
-        "En silencio, juntos",
-        "Entre risas",
-        "Recordando cosas",
-        "Planeando el futuro"
-      ]
+      "options": ["En silencio, juntos", "Entre risas", "Recordando cosas", "Planeando el futuro"]
     },
     {
       "slug": "hipoteticas-revivir-sentimiento",
@@ -1373,12 +1174,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras empezar de nuevo en otra parte, ¿qué te importaría más?",
-      "options": [
-        "La gente",
-        "El clima",
-        "La oportunidad de trabajo",
-        "La tranquilidad"
-      ]
+      "options": ["La gente", "El clima", "La oportunidad de trabajo", "La tranquilidad"]
     },
     {
       "slug": "hipoteticas-oportunidad-unica",
@@ -1397,24 +1193,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras tener valentía total por un día, ¿qué harías?",
-      "options": [
-        "Decir lo que callo",
-        "Cambiar de rumbo",
-        "Pedir perdón",
-        "Declararme otra vez"
-      ]
+      "options": ["Decir lo que callo", "Cambiar de rumbo", "Pedir perdón", "Declararme otra vez"]
     },
     {
       "slug": "hipoteticas-primer-paso",
       "type": "choice",
       "intensity": "profunda",
       "text": "Para empezar un cambio grande, ¿qué necesitas?",
-      "options": [
-        "Apoyo de alguien",
-        "Un plan claro",
-        "Una señal",
-        "Un empujón"
-      ]
+      "options": ["Apoyo de alguien", "Un plan claro", "Una señal", "Un empujón"]
     },
     {
       "slug": "hipoteticas-mundo-mejor",
@@ -1433,12 +1219,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si vivieras muchísimos años, ¿qué te importaría conservar?",
-      "options": [
-        "Mis amistades",
-        "Mi curiosidad",
-        "Mi salud",
-        "Mis recuerdos"
-      ]
+      "options": ["Mis amistades", "Mi curiosidad", "Mi salud", "Mis recuerdos"]
     }
   ]
 }

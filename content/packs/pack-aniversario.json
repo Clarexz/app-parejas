@@ -18,12 +18,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si resumieras nuestro tiempo juntos en una sola palabra, ¿cuál sería?",
-      "options": [
-        "Aventura",
-        "Hogar",
-        "Risas",
-        "Aprendizaje"
-      ]
+      "options": ["Aventura", "Hogar", "Risas", "Aprendizaje"]
     },
     {
       "slug": "pack-aniversario-nunca-iba-a-hacer",
@@ -72,12 +67,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para celebrar, ¿qué plan te late más?",
-      "options": [
-        "Cena especial",
-        "Escapada",
-        "Algo en casa, solos",
-        "Reunir a los amigos"
-      ]
+      "options": ["Cena especial", "Escapada", "Algo en casa, solos", "Reunir a los amigos"]
     },
     {
       "slug": "pack-aniversario-como-has-cambiado",
@@ -102,12 +92,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Nuestro mayor superpoder como pareja es…",
-      "options": [
-        "Reírnos de todo",
-        "Platicar horas",
-        "Perdonar rápido",
-        "Apoyarnos en lo difícil"
-      ]
+      "options": ["Reírnos de todo", "Platicar horas", "Perdonar rápido", "Apoyarnos en lo difícil"]
     },
     {
       "slug": "pack-aniversario-lugar-mas-nuestro",

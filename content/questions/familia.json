@@ -114,12 +114,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si algún día cuidáramos a alguien pequeño, ¿qué valor pondrías primero?",
-      "options": [
-        "Respeto",
-        "Curiosidad",
-        "Alegría",
-        "Responsabilidad"
-      ]
+      "options": ["Respeto", "Curiosidad", "Alegría", "Responsabilidad"]
     },
     {
       "slug": "familia-fiesta-grande-o-chica",
@@ -318,24 +313,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Un domingo en tu familia es principalmente...",
-      "options": [
-        "Comer rico",
-        "Ver futbol",
-        "Platicar en la sobremesa",
-        "Descansar cada quien"
-      ]
+      "options": ["Comer rico", "Ver futbol", "Platicar en la sobremesa", "Descansar cada quien"]
     },
     {
       "slug": "familia-celebracion-favorita",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué celebración familiar disfrutas más?",
-      "options": [
-        "Navidad",
-        "Cumpleaños",
-        "Año Nuevo",
-        "Día de Muertos"
-      ]
+      "options": ["Navidad", "Cumpleaños", "Año Nuevo", "Día de Muertos"]
     },
     {
       "slug": "familia-lugar-de-la-mesa",
@@ -378,60 +363,35 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "La comida de tu abuela que más extrañas es...",
-      "options": [
-        "Los guisados",
-        "Los dulces",
-        "Las tortillas recién hechas",
-        "El caldo"
-      ]
+      "options": ["Los guisados", "Los dulces", "Las tortillas recién hechas", "El caldo"]
     },
     {
       "slug": "familia-fiesta-grande",
       "type": "choice",
       "intensity": "ligera",
       "text": "Una fiesta familiar tiene que tener...",
-      "options": [
-        "Música alta",
-        "Pastel",
-        "Mucha comida",
-        "Baile"
-      ]
+      "options": ["Música alta", "Pastel", "Mucha comida", "Baile"]
     },
     {
       "slug": "familia-tradicion-navidena",
       "type": "choice",
       "intensity": "ligera",
       "text": "Nochebuena es sinónimo de...",
-      "options": [
-        "Tamales",
-        "Pavo o bacalao",
-        "Ponche",
-        "Regalos a medianoche"
-      ]
+      "options": ["Tamales", "Pavo o bacalao", "Ponche", "Regalos a medianoche"]
     },
     {
       "slug": "familia-hermano-o-unico",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudieras elegir, tu familia sería...",
-      "options": [
-        "Muy grande",
-        "Mediana",
-        "Chiquita",
-        "Como la tengo"
-      ]
+      "options": ["Muy grande", "Mediana", "Chiquita", "Como la tengo"]
     },
     {
       "slug": "familia-carino-familiar",
       "type": "choice",
       "intensity": "ligera",
       "text": "En tu casa el cariño se demostraba con...",
-      "options": [
-        "Comida",
-        "Abrazos",
-        "Regalos",
-        "Consejos"
-      ]
+      "options": ["Comida", "Abrazos", "Regalos", "Consejos"]
     },
     {
       "slug": "familia-lo-que-te-dio-tu-familia",
@@ -768,48 +728,28 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En tu casa, los problemas se...",
-      "options": [
-        "Hablaban de frente",
-        "Se evitaban",
-        "Se resolvían con humor",
-        "Se dejaban pasar"
-      ]
+      "options": ["Hablaban de frente", "Se evitaban", "Se resolvían con humor", "Se dejaban pasar"]
     },
     {
       "slug": "familia-mostrar-carino",
       "type": "choice",
       "intensity": "profunda",
       "text": "En tu familia, el cariño se mostraba...",
-      "options": [
-        "Con palabras",
-        "Con comida",
-        "Con ayuda concreta",
-        "Casi no se mostraba"
-      ]
+      "options": ["Con palabras", "Con comida", "Con ayuda concreta", "Casi no se mostraba"]
     },
     {
       "slug": "familia-relacion-con-padres",
       "type": "choice",
       "intensity": "profunda",
       "text": "Hoy, tu relación con tu familia es...",
-      "options": [
-        "Muy cercana",
-        "Buena pero con distancia",
-        "Complicada",
-        "Estoy construyéndola"
-      ]
+      "options": ["Muy cercana", "Buena pero con distancia", "Complicada", "Estoy construyéndola"]
     },
     {
       "slug": "familia-expectativas-familiares",
       "type": "choice",
       "intensity": "profunda",
       "text": "Las expectativas de tu familia sobre ti eran...",
-      "options": [
-        "Muy altas",
-        "Razonables",
-        "Casi inexistentes",
-        "Distintas a mis sueños"
-      ]
+      "options": ["Muy altas", "Razonables", "Casi inexistentes", "Distintas a mis sueños"]
     },
     {
       "slug": "familia-apoyo-de-familia",
@@ -840,48 +780,28 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "La familia que formemos sería...",
-      "options": [
-        "Muy casera",
-        "Aventurera",
-        "Tranquila",
-        "Con puertas abiertas"
-      ]
+      "options": ["Muy casera", "Aventurera", "Tranquila", "Con puertas abiertas"]
     },
     {
       "slug": "familia-mayor-miedo-familia",
       "type": "choice",
       "intensity": "profunda",
       "text": "Mi mayor miedo sobre mi familia es...",
-      "options": [
-        "Perderles",
-        "Decepcionarles",
-        "Que no me entiendan",
-        "Que se alejen"
-      ]
+      "options": ["Perderles", "Decepcionarles", "Que no me entiendan", "Que se alejen"]
     },
     {
       "slug": "familia-lo-que-mas-agradeces-de-casa",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más agradeces de cómo te criaron es...",
-      "options": [
-        "La libertad",
-        "La disciplina",
-        "El amor",
-        "Los valores"
-      ]
+      "options": ["La libertad", "La disciplina", "El amor", "Los valores"]
     },
     {
       "slug": "familia-quien-te-parecio",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿A quién de tu familia te pareces más en carácter?",
-      "options": [
-        "A mi mamá",
-        "A mi papá",
-        "A un abuelo",
-        "A nadie, soy distinto"
-      ]
+      "options": ["A mi mamá", "A mi papá", "A un abuelo", "A nadie, soy distinto"]
     },
     {
       "slug": "familia-hogar-ideal",
@@ -900,24 +820,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En nuestra vida juntos, las visitas de la familia serían...",
-      "options": [
-        "Frecuentes",
-        "De vez en cuando",
-        "En fechas especiales",
-        "Cuando haya ganas"
-      ]
+      "options": ["Frecuentes", "De vez en cuando", "En fechas especiales", "Cuando haya ganas"]
     },
     {
       "slug": "familia-herencia-de-valores",
       "type": "choice",
       "intensity": "profunda",
       "text": "El valor que más quiero que haya en nuestra casa es...",
-      "options": [
-        "Respeto",
-        "Alegría",
-        "Honestidad",
-        "Apoyo"
-      ]
+      "options": ["Respeto", "Alegría", "Honestidad", "Apoyo"]
     },
     {
       "slug": "familia-fiesta-de-nosotros",
@@ -936,36 +846,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El momento más difícil de platicar con la familia es...",
-      "options": [
-        "Hablar de dinero",
-        "Hablar de pareja",
-        "Hablar de salud",
-        "Hablar del futuro"
-      ]
+      "options": ["Hablar de dinero", "Hablar de pareja", "Hablar de salud", "Hablar del futuro"]
     },
     {
       "slug": "familia-dolor-y-cuidado",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando alguien de la familia está mal, tu reacción es...",
-      "options": [
-        "Estar presente",
-        "Hacer algo práctico",
-        "Llamar seguido",
-        "Dar espacio"
-      ]
+      "options": ["Estar presente", "Hacer algo práctico", "Llamar seguido", "Dar espacio"]
     },
     {
       "slug": "familia-tipo-de-hogar",
       "type": "choice",
       "intensity": "profunda",
       "text": "Crecer en una familia así me enseñó a...",
-      "options": [
-        "Ser independiente",
-        "Ser cuidadoso",
-        "Ser cariñoso",
-        "Ser fuerte"
-      ]
+      "options": ["Ser independiente", "Ser cuidadoso", "Ser cariñoso", "Ser fuerte"]
     },
     {
       "slug": "familia-familia-y-pareja",
@@ -984,12 +879,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Un recuerdo cálido de mi casa es...",
-      "options": [
-        "Alguien cocinando",
-        "Una noche de juegos",
-        "Un abrazo",
-        "Una canción"
-      ]
+      "options": ["Alguien cocinando", "Una noche de juegos", "Un abrazo", "Una canción"]
     },
     {
       "slug": "familia-tradicion-de-pareja",

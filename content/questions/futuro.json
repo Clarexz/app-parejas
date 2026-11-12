@@ -12,12 +12,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si pudiéramos vivir juntos mañana, ¿dónde sería?",
-      "options": [
-        "Ciudad grande",
-        "Pueblo tranquilo",
-        "Cerca de la playa",
-        "Donde haya chamba"
-      ]
+      "options": ["Ciudad grande", "Pueblo tranquilo", "Cerca de la playa", "Donde haya chamba"]
     },
     {
       "slug": "futuro-casa-de-sueno",
@@ -54,12 +49,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué mascota tendríamos?",
-      "options": [
-        "Un perro",
-        "Un gato",
-        "Los dos",
-        "Plantas, que ya es mucho"
-      ]
+      "options": ["Un perro", "Un gato", "Los dos", "Plantas, que ya es mucho"]
     },
     {
       "slug": "futuro-tradicion-de-fin-de-ano",
@@ -78,12 +68,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si juntáramos dinero para algo, ¿qué sería primero?",
-      "options": [
-        "Un viaje",
-        "Un lugar propio",
-        "Un coche",
-        "Un fondo de emergencias"
-      ]
+      "options": ["Un viaje", "Un lugar propio", "Un coche", "Un fondo de emergencias"]
     },
     {
       "slug": "futuro-miedo-del-futuro",
@@ -114,12 +99,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Viviendo juntos, ¿qué tarea elegirías?",
-      "options": [
-        "Cocinar",
-        "Lavar los trastes",
-        "Ordenar",
-        "Pagar las cuentas"
-      ]
+      "options": ["Cocinar", "Lavar los trastes", "Ordenar", "Pagar las cuentas"]
     },
     {
       "slug": "futuro-decisiones-grandes",
@@ -144,12 +124,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En nuestro futuro, ¿cómo sería un fin de semana típico?",
-      "options": [
-        "Salir y conocer gente",
-        "Quedarnos en casa",
-        "Escapadas",
-        "Una mezcla de todo"
-      ]
+      "options": ["Salir y conocer gente", "Quedarnos en casa", "Escapadas", "Una mezcla de todo"]
     },
     {
       "slug": "futuro-primer-objeto-del-hogar",
@@ -174,12 +149,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En los próximos años, ¿qué quisieras priorizar como pareja?",
-      "options": [
-        "Estabilidad económica",
-        "Vivir juntos",
-        "Crecer en lo profesional",
-        "Viajar"
-      ]
+      "options": ["Estabilidad económica", "Vivir juntos", "Crecer en lo profesional", "Viajar"]
     },
     {
       "slug": "futuro-carta-para-diez-anos",
@@ -384,24 +354,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "El día de la mudanza, ¿cuál sería tu papel?",
-      "options": [
-        "Quien empaca",
-        "Quien carga cajas",
-        "Quien organiza",
-        "Quien pone la música"
-      ]
+      "options": ["Quien empaca", "Quien carga cajas", "Quien organiza", "Quien pone la música"]
     },
     {
       "slug": "futuro-ciudad-o-pueblo",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para el futuro, ¿qué ambiente te late más?",
-      "options": [
-        "Ciudad grande",
-        "Ciudad mediana",
-        "Pueblo tranquilo",
-        "Cerca del mar"
-      ]
+      "options": ["Ciudad grande", "Ciudad mediana", "Pueblo tranquilo", "Cerca del mar"]
     },
     {
       "slug": "futuro-mascota-de-casa",
@@ -444,48 +404,28 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Si nos fuéramos de viaje especial, ¿qué elegirías?",
-      "options": [
-        "Playa",
-        "Ciudad europea",
-        "Pueblo mágico",
-        "Montaña y cabaña"
-      ]
+      "options": ["Playa", "Ciudad europea", "Pueblo mágico", "Montaña y cabaña"]
     },
     {
       "slug": "futuro-tareas-de-casa",
       "type": "choice",
       "intensity": "ligera",
       "text": "Reparto de tareas en casa: ¿cuál te toca?",
-      "options": [
-        "Cocinar",
-        "Lavar trastes",
-        "Limpiar baños",
-        "Sacar la basura"
-      ]
+      "options": ["Cocinar", "Lavar trastes", "Limpiar baños", "Sacar la basura"]
     },
     {
       "slug": "futuro-horario-de-vida",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué horario es el tuyo en casa?",
-      "options": [
-        "Madrugador",
-        "Normal",
-        "Nocturno",
-        "Depende del día"
-      ]
+      "options": ["Madrugador", "Normal", "Nocturno", "Depende del día"]
     },
     {
       "slug": "futuro-sueno-de-ahorro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Si ahorráramos juntos para algo, ¿qué sería?",
-      "options": [
-        "Un viaje",
-        "Un coche",
-        "Una casa",
-        "Un proyecto propio"
-      ]
+      "options": ["Un viaje", "Un coche", "Una casa", "Un proyecto propio"]
     },
     {
       "slug": "futuro-jardin-o-balcon",
@@ -906,12 +846,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para los siguientes años, ¿en qué quieres poner más energía?",
-      "options": [
-        "Mi carrera",
-        "Nuestra relación",
-        "Mi bienestar",
-        "Dinero y estabilidad"
-      ]
+      "options": ["Mi carrera", "Nuestra relación", "Mi bienestar", "Dinero y estabilidad"]
     },
     {
       "slug": "futuro-definicion-de-estabilidad",
@@ -954,36 +889,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Ante un cambio grande, tú eres de...",
-      "options": [
-        "Planear todo",
-        "Aventarme y ver",
-        "Pedir opiniones",
-        "Dar vueltas al asunto"
-      ]
+      "options": ["Planear todo", "Aventarme y ver", "Pedir opiniones", "Dar vueltas al asunto"]
     },
     {
       "slug": "futuro-miedo-a-futuro",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más me inquieta del futuro es...",
-      "options": [
-        "El dinero",
-        "La salud",
-        "Perder gente querida",
-        "No cumplir mis metas"
-      ]
+      "options": ["El dinero", "La salud", "Perder gente querida", "No cumplir mis metas"]
     },
     {
       "slug": "futuro-expectativa-de-vida",
       "type": "choice",
       "intensity": "profunda",
       "text": "Una vida plena para mí es...",
-      "options": [
-        "Mucha aventura",
-        "Mucha paz",
-        "Mucha gente",
-        "Mucho tiempo en pareja"
-      ]
+      "options": ["Mucha aventura", "Mucha paz", "Mucha gente", "Mucho tiempo en pareja"]
     },
     {
       "slug": "futuro-equilibrio-trabajo-vida",
@@ -1002,36 +922,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para cumplir un sueño grande, yo me animaría a...",
-      "options": [
-        "Ahorrar durante años",
-        "Mudarme",
-        "Cambiar de chamba",
-        "Pedir ayuda"
-      ]
+      "options": ["Ahorrar durante años", "Mudarme", "Cambiar de chamba", "Pedir ayuda"]
     },
     {
       "slug": "futuro-crecer-como-pareja",
       "type": "choice",
       "intensity": "profunda",
       "text": "Para crecer como pareja, nos ayudaría más...",
-      "options": [
-        "Terapia o talleres",
-        "Viajar",
-        "Retos juntos",
-        "Charlas profundas frecuentes"
-      ]
+      "options": ["Terapia o talleres", "Viajar", "Retos juntos", "Charlas profundas frecuentes"]
     },
     {
       "slug": "futuro-hogar-vibra",
       "type": "choice",
       "intensity": "profunda",
       "text": "El ambiente de nuestro hogar ideal sería...",
-      "options": [
-        "Acogedor y cálido",
-        "Moderno y limpio",
-        "Lleno de plantas",
-        "Colorido y caótico"
-      ]
+      "options": ["Acogedor y cálido", "Moderno y limpio", "Lleno de plantas", "Colorido y caótico"]
     },
     {
       "slug": "futuro-tiempo-con-amigos",
@@ -1050,12 +955,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En nuestros planes futuros, ¿quién es el que planea?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Los dos",
-        "Nadie, improvisamos"
-      ]
+      "options": ["Yo", "Tú", "Los dos", "Nadie, improvisamos"]
     },
     {
       "slug": "futuro-sorpresas-vs-planes",
@@ -1074,36 +974,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En mi futuro, lo que no puede faltar es...",
-      "options": [
-        "Honestidad",
-        "Humor",
-        "Libertad",
-        "Familia"
-      ]
+      "options": ["Honestidad", "Humor", "Libertad", "Familia"]
     },
     {
       "slug": "futuro-sueno-grande",
       "type": "choice",
       "intensity": "profunda",
       "text": "El sueño más grande de mi vida tiene que ver con...",
-      "options": [
-        "Viajar",
-        "Crear algo",
-        "Ayudar",
-        "Construir un hogar"
-      ]
+      "options": ["Viajar", "Crear algo", "Ayudar", "Construir un hogar"]
     },
     {
       "slug": "futuro-reparto-de-ahorros",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si nos sobrara dinero, ¿qué haríamos primero?",
-      "options": [
-        "Ahorrarlo",
-        "Viajar",
-        "Mejorar la casa",
-        "Invertir en nuestro proyecto"
-      ]
+      "options": ["Ahorrarlo", "Viajar", "Mejorar la casa", "Invertir en nuestro proyecto"]
     },
     {
       "slug": "futuro-atender-el-pasado",
@@ -1122,12 +1007,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿A qué edad te imaginas con la vida más asentada?",
-      "options": [
-        "Antes de los 30",
-        "A los 30",
-        "Después de los 35",
-        "No me importa la edad"
-      ]
+      "options": ["Antes de los 30", "A los 30", "Después de los 35", "No me importa la edad"]
     },
     {
       "slug": "futuro-vida-social-futura",
@@ -1182,24 +1062,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Ante el futuro juntos, siento más...",
-      "options": [
-        "Emoción",
-        "Nervios",
-        "Mucha ternura",
-        "Las tres cosas mezcladas"
-      ]
+      "options": ["Emoción", "Nervios", "Mucha ternura", "Las tres cosas mezcladas"]
     },
     {
       "slug": "futuro-inversion-de-tiempo",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tuviéramos un día libre cada semana, lo usaría para...",
-      "options": [
-        "Mi crecimiento personal",
-        "Nosotros",
-        "Mi familia",
-        "Descansar"
-      ]
+      "options": ["Mi crecimiento personal", "Nosotros", "Mi familia", "Descansar"]
     },
     {
       "slug": "futuro-tipo-de-cuidados",
@@ -1218,12 +1088,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El día que por fin nos mudemos juntos, mi primera reacción será...",
-      "options": [
-        "Llorar de felicidad",
-        "Reír sin parar",
-        "Cocinar algo rico",
-        "Dormir doce horas"
-      ]
+      "options": ["Llorar de felicidad", "Reír sin parar", "Cocinar algo rico", "Dormir doce horas"]
     },
     {
       "slug": "futuro-apoyo-al-sueno",
@@ -1254,12 +1119,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En el camino al futuro, lo que no quiero perder es...",
-      "options": [
-        "Mi libertad",
-        "Mi paz",
-        "Mi tiempo de calidad contigo",
-        "Mi curiosidad"
-      ]
+      "options": ["Mi libertad", "Mi paz", "Mi tiempo de calidad contigo", "Mi curiosidad"]
     },
     {
       "slug": "futuro-forma-de-decidir",

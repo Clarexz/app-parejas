@@ -6,12 +6,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Pensando en el futuro, ¿qué piensas de tener hijos?",
-      "options": [
-        "Sí quiero",
-        "No quiero",
-        "Estoy en duda",
-        "Depende de cómo vaya todo"
-      ]
+      "options": ["Sí quiero", "No quiero", "Estoy en duda", "Depende de cómo vaya todo"]
     },
     {
       "slug": "pack-hijos-domingo-con-ninos",
@@ -24,36 +19,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si llegara el momento, ¿cuándo te gustaría empezar?",
-      "options": [
-        "Antes de los 30",
-        "Entre los 30 y 35",
-        "Después de los 35",
-        "No tengo fecha"
-      ]
+      "options": ["Antes de los 30", "Entre los 30 y 35", "Después de los 35", "No tengo fecha"]
     },
     {
       "slug": "pack-hijos-cuantos-hijos",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuántos hijos imaginas?",
-      "options": [
-        "Uno",
-        "Dos",
-        "Tres o más",
-        "Aún no lo sé"
-      ]
+      "options": ["Uno", "Dos", "Tres o más", "Aún no lo sé"]
     },
     {
       "slug": "pack-hijos-primero-que-viene",
       "type": "choice",
       "intensity": "profunda",
       "text": "Perro, gato o hijos: ¿qué te gustaría que fuera primero?",
-      "options": [
-        "Perro",
-        "Gato",
-        "Hijos",
-        "Un tiempo solo nosotros"
-      ]
+      "options": ["Perro", "Gato", "Hijos", "Un tiempo solo nosotros"]
     },
     {
       "slug": "pack-hijos-primera-ensenanza",
@@ -168,12 +148,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Dónde te gustaría que creciera nuestra familia?",
-      "options": [
-        "En la ciudad",
-        "En un pueblo",
-        "Cerca de la playa",
-        "Donde estén los abuelos"
-      ]
+      "options": ["En la ciudad", "En un pueblo", "Cerca de la playa", "Donde estén los abuelos"]
     },
     {
       "slug": "pack-hijos-sentirnos-listos",

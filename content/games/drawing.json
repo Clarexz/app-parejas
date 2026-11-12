@@ -4,70 +4,49 @@
     {
       "slug": "dibujo-pinata",
       "word": "Piñata",
-      "alternates": [
-        "pinatas"
-      ],
+      "alternates": ["pinatas"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-elote",
       "word": "Elote",
-      "alternates": [
-        "esquite",
-        "mazorca",
-        "elote con mayonesa"
-      ],
+      "alternates": ["esquite", "mazorca", "elote con mayonesa"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-loteria",
       "word": "Lotería",
-      "alternates": [
-        "loteria mexicana"
-      ],
+      "alternates": ["loteria mexicana"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-alebrije",
       "word": "Alebrije",
-      "alternates": [
-        "alebrijes"
-      ],
+      "alternates": ["alebrijes"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-trajinera",
       "word": "Trajinera",
-      "alternates": [
-        "trajineras",
-        "barco de xochimilco"
-      ],
+      "alternates": ["trajineras", "barco de xochimilco"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-videollamada",
       "word": "Videollamada",
-      "alternates": [
-        "llamada de video",
-        "videochat"
-      ],
+      "alternates": ["llamada de video", "videochat"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-maleta",
       "word": "Maleta",
-      "alternates": [
-        "valija",
-        "equipaje"
-      ],
+      "alternates": ["valija", "equipaje"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-aeropuerto",
       "word": "Aeropuerto",
-      "alternates": [
-        "terminal aerea"
-      ],
+      "alternates": ["terminal aerea"],
       "intensity": "ligera"
     },
     {
@@ -85,142 +64,103 @@
     {
       "slug": "dibujo-corazon",
       "word": "Corazón",
-      "alternates": [
-        "corazones"
-      ],
+      "alternates": ["corazones"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-beso",
       "word": "Beso",
-      "alternates": [
-        "besito"
-      ],
+      "alternates": ["besito"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-abrazo",
       "word": "Abrazo",
-      "alternates": [
-        "abrazar"
-      ],
+      "alternates": ["abrazar"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-taco",
       "word": "Taco",
-      "alternates": [
-        "tacos",
-        "taco al pastor"
-      ],
+      "alternates": ["tacos", "taco al pastor"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-tamal",
       "word": "Tamal",
-      "alternates": [
-        "tamales"
-      ],
+      "alternates": ["tamales"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-churro",
       "word": "Churro",
-      "alternates": [
-        "churros"
-      ],
+      "alternates": ["churros"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-sombrero",
       "word": "Sombrero",
-      "alternates": [
-        "sombrero de charro"
-      ],
+      "alternates": ["sombrero de charro"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-guitarra",
       "word": "Guitarra",
-      "alternates": [
-        "guitarra acustica"
-      ],
+      "alternates": ["guitarra acustica"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-mariachi",
       "word": "Mariachi",
-      "alternates": [
-        "mariachis"
-      ],
+      "alternates": ["mariachis"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-nopal",
       "word": "Nopal",
-      "alternates": [
-        "nopales"
-      ],
+      "alternates": ["nopales"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-cactus",
       "word": "Cactus",
-      "alternates": [
-        "cacto"
-      ],
+      "alternates": ["cacto"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-perro",
       "word": "Perro",
-      "alternates": [
-        "perrito",
-        "can"
-      ],
+      "alternates": ["perrito", "can"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-gato",
       "word": "Gato",
-      "alternates": [
-        "gatito",
-        "minino"
-      ],
+      "alternates": ["gatito", "minino"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-casa",
       "word": "Casa",
-      "alternates": [
-        "hogar"
-      ],
+      "alternates": ["hogar"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-carro",
       "word": "Carro",
-      "alternates": [
-        "coche",
-        "auto",
-        "automovil"
-      ],
+      "alternates": ["coche", "auto", "automovil"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-avion",
       "word": "Avión",
-      "alternates": [
-        "aeroplano"
-      ],
+      "alternates": ["aeroplano"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-bicicleta",
       "word": "Bicicleta",
-      "alternates": [
-        "bici"
-      ],
+      "alternates": ["bici"],
       "intensity": "ligera"
     },
     {
@@ -232,475 +172,325 @@
     {
       "slug": "dibujo-montana",
       "word": "Montaña",
-      "alternates": [
-        "monte",
-        "cerro"
-      ],
+      "alternates": ["monte", "cerro"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-arbol",
       "word": "Árbol",
-      "alternates": [
-        "arbolito"
-      ],
+      "alternates": ["arbolito"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-flor",
       "word": "Flor",
-      "alternates": [
-        "flores",
-        "florecita"
-      ],
+      "alternates": ["flores", "florecita"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-ramo",
       "word": "Ramo de flores",
-      "alternates": [
-        "ramo"
-      ],
+      "alternates": ["ramo"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-pastel",
       "word": "Pastel",
-      "alternates": [
-        "pastel de cumpleanos",
-        "tarta"
-      ],
+      "alternates": ["pastel de cumpleanos", "tarta"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-helado",
       "word": "Helado",
-      "alternates": [
-        "nieve",
-        "cono de helado"
-      ],
+      "alternates": ["nieve", "cono de helado"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-cafe",
       "word": "Café",
-      "alternates": [
-        "taza de cafe",
-        "cafecito"
-      ],
+      "alternates": ["taza de cafe", "cafecito"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-pizza",
       "word": "Pizza",
-      "alternates": [
-        "rebanada de pizza"
-      ],
+      "alternates": ["rebanada de pizza"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-anillo",
       "word": "Anillo",
-      "alternates": [
-        "anillo de compromiso",
-        "sortija"
-      ],
+      "alternates": ["anillo de compromiso", "sortija"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-regalo",
       "word": "Regalo",
-      "alternates": [
-        "obsequio",
-        "caja de regalo"
-      ],
+      "alternates": ["obsequio", "caja de regalo"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-globo",
       "word": "Globo",
-      "alternates": [
-        "globos"
-      ],
+      "alternates": ["globos"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-cama",
       "word": "Cama",
-      "alternates": [
-        "cama con almohada"
-      ],
+      "alternates": ["cama con almohada"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-celular",
       "word": "Celular",
-      "alternates": [
-        "telefono",
-        "movil",
-        "smartphone"
-      ],
+      "alternates": ["telefono", "movil", "smartphone"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-reloj",
       "word": "Reloj",
-      "alternates": [
-        "reloj de pared"
-      ],
+      "alternates": ["reloj de pared"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-llave",
       "word": "Llave",
-      "alternates": [
-        "llaves"
-      ],
+      "alternates": ["llaves"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-paraguas",
       "word": "Paraguas",
-      "alternates": [
-        "sombrilla"
-      ],
+      "alternates": ["sombrilla"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-lluvia",
       "word": "Lluvia",
-      "alternates": [
-        "lluvioso",
-        "llover"
-      ],
+      "alternates": ["lluvioso", "llover"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-estrella",
       "word": "Estrella",
-      "alternates": [
-        "estrellas"
-      ],
+      "alternates": ["estrellas"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-arcoiris",
       "word": "Arcoíris",
-      "alternates": [
-        "arco iris"
-      ],
+      "alternates": ["arco iris"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-calaverita",
       "word": "Calavera",
-      "alternates": [
-        "calaverita",
-        "catrina"
-      ],
+      "alternates": ["calaverita", "catrina"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-papalote",
       "word": "Papalote",
-      "alternates": [
-        "cometa",
-        "barrilete"
-      ],
+      "alternates": ["cometa", "barrilete"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-hamaca",
       "word": "Hamaca",
-      "alternates": [
-        "hamaca de playa"
-      ],
+      "alternates": ["hamaca de playa"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-camara",
       "word": "Cámara",
-      "alternates": [
-        "camara de fotos",
-        "camara fotografica"
-      ],
+      "alternates": ["camara de fotos", "camara fotografica"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-libro",
       "word": "Libro",
-      "alternates": [
-        "libros"
-      ],
+      "alternates": ["libros"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-cobija",
       "word": "Cobija",
-      "alternates": [
-        "manta",
-        "cobertor",
-        "frazada"
-      ],
+      "alternates": ["manta", "cobertor", "frazada"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-carta",
       "word": "Carta",
-      "alternates": [
-        "sobre de carta",
-        "carta de amor"
-      ],
+      "alternates": ["sobre de carta", "carta de amor"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-tren",
       "word": "Tren",
-      "alternates": [
-        "ferrocarril"
-      ],
+      "alternates": ["ferrocarril"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-abrazo-de-lejos",
       "word": "Abrazo a distancia",
-      "alternates": [
-        "abrazo virtual",
-        "abrazo por videollamada"
-      ],
+      "alternates": ["abrazo virtual", "abrazo por videollamada"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-reencuentro",
       "word": "Reencuentro",
-      "alternates": [
-        "reunion",
-        "reencontrarse"
-      ],
+      "alternates": ["reunion", "reencontrarse"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-bailar-juntos",
       "word": "Bailando en pareja",
-      "alternates": [
-        "pareja bailando",
-        "bailar juntos"
-      ],
+      "alternates": ["pareja bailando", "bailar juntos"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-picnic",
       "word": "Picnic",
-      "alternates": [
-        "pic nic",
-        "comida campestre"
-      ],
+      "alternates": ["pic nic", "comida campestre"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cena-velas",
       "word": "Cena a la luz de las velas",
-      "alternates": [
-        "cena romantica",
-        "cena con velas"
-      ],
+      "alternates": ["cena romantica", "cena con velas"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-dia-de-muertos",
       "word": "Altar de Día de Muertos",
-      "alternates": [
-        "ofrenda",
-        "altar de muertos"
-      ],
+      "alternates": ["ofrenda", "altar de muertos"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-fogata",
       "word": "Fogata",
-      "alternates": [
-        "campamento con fogata",
-        "hoguera"
-      ],
+      "alternates": ["campamento con fogata", "hoguera"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-tormenta",
       "word": "Tormenta eléctrica",
-      "alternates": [
-        "tormenta",
-        "rayo"
-      ],
+      "alternates": ["tormenta", "rayo"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-atardecer",
       "word": "Atardecer en la playa",
-      "alternates": [
-        "puesta de sol",
-        "atardecer"
-      ],
+      "alternates": ["puesta de sol", "atardecer"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-boda",
       "word": "Boda",
-      "alternates": [
-        "casamiento",
-        "matrimonio"
-      ],
+      "alternates": ["casamiento", "matrimonio"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-mudanza",
       "word": "Mudanza",
-      "alternates": [
-        "cajas de mudanza",
-        "mudarse"
-      ],
+      "alternates": ["cajas de mudanza", "mudarse"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-despedida-aeropuerto",
       "word": "Despedida en el aeropuerto",
-      "alternates": [
-        "despedida",
-        "decir adios"
-      ],
+      "alternates": ["despedida", "decir adios"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cumpleanos-sorpresa",
       "word": "Fiesta sorpresa",
-      "alternates": [
-        "fiesta de sorpresa",
-        "cumpleanos sorpresa"
-      ],
+      "alternates": ["fiesta de sorpresa", "cumpleanos sorpresa"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-terremoto",
       "word": "Sismo",
-      "alternates": [
-        "terremoto",
-        "temblor"
-      ],
+      "alternates": ["terremoto", "temblor"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-lucha-libre",
       "word": "Lucha libre",
-      "alternates": [
-        "luchador",
-        "luchador enmascarado"
-      ],
+      "alternates": ["luchador", "luchador enmascarado"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-xochimilco",
       "word": "Paseo en trajinera",
-      "alternates": [
-        "paseo en lancha",
-        "paseo en barco"
-      ],
+      "alternates": ["paseo en lancha", "paseo en barco"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cine",
       "word": "Ir al cine",
-      "alternates": [
-        "cine",
-        "pelicula en el cine"
-      ],
+      "alternates": ["cine", "pelicula en el cine"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-selfie",
       "word": "Selfie en pareja",
-      "alternates": [
-        "selfie",
-        "autorretrato"
-      ],
+      "alternates": ["selfie", "autorretrato"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cocinar-juntos",
       "word": "Cocinando juntos",
-      "alternates": [
-        "cocinar en pareja",
-        "pareja cocinando"
-      ],
+      "alternates": ["cocinar en pareja", "pareja cocinando"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-domingo-pijama",
       "word": "Domingo en pijama",
-      "alternates": [
-        "dia de pijama",
-        "flojear en pijama"
-      ],
+      "alternates": ["dia de pijama", "flojear en pijama"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-pelea-almohadas",
       "word": "Guerra de almohadas",
-      "alternates": [
-        "pelea de almohadas",
-        "almohadazo"
-      ],
+      "alternates": ["pelea de almohadas", "almohadazo"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-zona-horaria",
       "word": "Zonas horarias",
-      "alternates": [
-        "diferencia de horario",
-        "husos horarios"
-      ],
+      "alternates": ["diferencia de horario", "husos horarios"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-carta-de-lejos",
       "word": "Carta por correo",
-      "alternates": [
-        "correo postal",
-        "mandar una carta"
-      ],
+      "alternates": ["correo postal", "mandar una carta"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-volcan",
       "word": "Volcán",
-      "alternates": [
-        "volcan en erupcion",
-        "popocatepetl"
-      ],
+      "alternates": ["volcan en erupcion", "popocatepetl"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-tianguis",
       "word": "Tianguis",
-      "alternates": [
-        "mercado",
-        "mercado sobre ruedas"
-      ],
+      "alternates": ["mercado", "mercado sobre ruedas"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-pan",
       "word": "Pan",
-      "alternates": [
-        "bolillo",
-        "telera"
-      ],
+      "alternates": ["bolillo", "telera"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-huevo",
       "word": "Huevo",
-      "alternates": [
-        "huevo frito"
-      ],
+      "alternates": ["huevo frito"],
       "intensity": "ligera"
     },
     {
@@ -712,17 +502,13 @@
     {
       "slug": "dibujo-platano",
       "word": "Plátano",
-      "alternates": [
-        "banana"
-      ],
+      "alternates": ["banana"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-sandia",
       "word": "Sandía",
-      "alternates": [
-        "rebanada de sandía"
-      ],
+      "alternates": ["rebanada de sandía"],
       "intensity": "ligera"
     },
     {
@@ -740,25 +526,19 @@
     {
       "slug": "dibujo-chile",
       "word": "Chile",
-      "alternates": [
-        "chile jalapeño"
-      ],
+      "alternates": ["chile jalapeño"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-tortilla",
       "word": "Tortilla",
-      "alternates": [
-        "tortillas"
-      ],
+      "alternates": ["tortillas"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-torta",
       "word": "Torta",
-      "alternates": [
-        "sándwich"
-      ],
+      "alternates": ["sándwich"],
       "intensity": "ligera"
     },
     {
@@ -770,17 +550,13 @@
     {
       "slug": "dibujo-paleta",
       "word": "Paleta",
-      "alternates": [
-        "paleta de hielo"
-      ],
+      "alternates": ["paleta de hielo"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-palomitas",
       "word": "Palomitas",
-      "alternates": [
-        "palomitas de maíz"
-      ],
+      "alternates": ["palomitas de maíz"],
       "intensity": "ligera"
     },
     {
@@ -810,25 +586,19 @@
     {
       "slug": "dibujo-lampara",
       "word": "Lámpara",
-      "alternates": [
-        "foco"
-      ],
+      "alternates": ["foco"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-sofa",
       "word": "Sofá",
-      "alternates": [
-        "sillón"
-      ],
+      "alternates": ["sillón"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-television",
       "word": "Televisión",
-      "alternates": [
-        "tele"
-      ],
+      "alternates": ["tele"],
       "intensity": "ligera"
     },
     {
@@ -858,17 +628,13 @@
     {
       "slug": "dibujo-zapato",
       "word": "Zapato",
-      "alternates": [
-        "tenis"
-      ],
+      "alternates": ["tenis"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-calcetin",
       "word": "Calcetín",
-      "alternates": [
-        "calcetines"
-      ],
+      "alternates": ["calcetines"],
       "intensity": "ligera"
     },
     {
@@ -880,17 +646,13 @@
     {
       "slug": "dibujo-camisa",
       "word": "Camisa",
-      "alternates": [
-        "playera"
-      ],
+      "alternates": ["playera"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-lentes",
       "word": "Lentes",
-      "alternates": [
-        "anteojos"
-      ],
+      "alternates": ["anteojos"],
       "intensity": "ligera"
     },
     {
@@ -926,9 +688,7 @@
     {
       "slug": "dibujo-pelota",
       "word": "Pelota",
-      "alternates": [
-        "balón"
-      ],
+      "alternates": ["balón"],
       "intensity": "ligera"
     },
     {
@@ -958,17 +718,13 @@
     {
       "slug": "dibujo-pez",
       "word": "Pez",
-      "alternates": [
-        "pescado"
-      ],
+      "alternates": ["pescado"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-pajaro",
       "word": "Pájaro",
-      "alternates": [
-        "ave"
-      ],
+      "alternates": ["ave"],
       "intensity": "ligera"
     },
     {
@@ -992,18 +748,13 @@
     {
       "slug": "dibujo-gallina",
       "word": "Gallina",
-      "alternates": [
-        "pollo"
-      ],
+      "alternates": ["pollo"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-cerdo",
       "word": "Cerdo",
-      "alternates": [
-        "puerco",
-        "marrano"
-      ],
+      "alternates": ["puerco", "marrano"],
       "intensity": "ligera"
     },
     {
@@ -1015,9 +766,7 @@
     {
       "slug": "dibujo-serpiente",
       "word": "Serpiente",
-      "alternates": [
-        "víbora"
-      ],
+      "alternates": ["víbora"],
       "intensity": "ligera"
     },
     {
@@ -1041,17 +790,13 @@
     {
       "slug": "dibujo-fuego",
       "word": "Fuego",
-      "alternates": [
-        "llama"
-      ],
+      "alternates": ["llama"],
       "intensity": "ligera"
     },
     {
       "slug": "dibujo-casita",
       "word": "Casita",
-      "alternates": [
-        "cabaña"
-      ],
+      "alternates": ["cabaña"],
       "intensity": "ligera"
     },
     {
@@ -1063,9 +808,7 @@
     {
       "slug": "dibujo-barco",
       "word": "Barco",
-      "alternates": [
-        "bote"
-      ],
+      "alternates": ["bote"],
       "intensity": "ligera"
     },
     {
@@ -1077,9 +820,7 @@
     {
       "slug": "dibujo-moto",
       "word": "Moto",
-      "alternates": [
-        "motocicleta"
-      ],
+      "alternates": ["motocicleta"],
       "intensity": "ligera"
     },
     {
@@ -1139,27 +880,19 @@
     {
       "slug": "dibujo-cumpleanos",
       "word": "Cumpleaños",
-      "alternates": [
-        "fiesta de cumpleaños"
-      ],
+      "alternates": ["fiesta de cumpleaños"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-navidad",
       "word": "Navidad",
-      "alternates": [
-        "árbol de navidad",
-        "pino navideño"
-      ],
+      "alternates": ["árbol de navidad", "pino navideño"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cempasuchil",
       "word": "Cempasúchil",
-      "alternates": [
-        "flor de cempasúchil",
-        "flor de muerto"
-      ],
+      "alternates": ["flor de cempasúchil", "flor de muerto"],
       "intensity": "profunda"
     },
     {
@@ -1171,26 +904,19 @@
     {
       "slug": "dibujo-posada",
       "word": "Posada",
-      "alternates": [
-        "pedir posada"
-      ],
+      "alternates": ["pedir posada"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-reyes-magos",
       "word": "Reyes Magos",
-      "alternates": [
-        "Día de Reyes",
-        "rosca de reyes"
-      ],
+      "alternates": ["Día de Reyes", "rosca de reyes"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-chilango",
       "word": "Chilango",
-      "alternates": [
-        "chilanga"
-      ],
+      "alternates": ["chilanga"],
       "intensity": "profunda"
     },
     {
@@ -1202,18 +928,13 @@
     {
       "slug": "dibujo-angel-de-la-independencia",
       "word": "Ángel de la Independencia",
-      "alternates": [
-        "el Ángel"
-      ],
+      "alternates": ["el Ángel"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-piramide",
       "word": "Pirámide",
-      "alternates": [
-        "pirámide de Teotihuacán",
-        "pirámide maya"
-      ],
+      "alternates": ["pirámide de Teotihuacán", "pirámide maya"],
       "intensity": "profunda"
     },
     {
@@ -1225,9 +946,7 @@
     {
       "slug": "dibujo-taqueria",
       "word": "Taquería",
-      "alternates": [
-        "puesto de tacos"
-      ],
+      "alternates": ["puesto de tacos"],
       "intensity": "profunda"
     },
     {
@@ -1239,17 +958,13 @@
     {
       "slug": "dibujo-microbus",
       "word": "Microbús",
-      "alternates": [
-        "camión urbano"
-      ],
+      "alternates": ["camión urbano"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-mariachi-tocando",
       "word": "Mariachi tocando",
-      "alternates": [
-        "mariachi cantando"
-      ],
+      "alternates": ["mariachi cantando"],
       "intensity": "profunda"
     },
     {
@@ -1279,9 +994,7 @@
     {
       "slug": "dibujo-molcajete",
       "word": "Molcajete",
-      "alternates": [
-        "molcajete con salsa"
-      ],
+      "alternates": ["molcajete con salsa"],
       "intensity": "profunda"
     },
     {
@@ -1293,9 +1006,7 @@
     {
       "slug": "dibujo-olla-de-barro",
       "word": "Olla de barro",
-      "alternates": [
-        "jarro de barro"
-      ],
+      "alternates": ["jarro de barro"],
       "intensity": "profunda"
     },
     {
@@ -1331,9 +1042,7 @@
     {
       "slug": "dibujo-fila-en-el-aeropuerto",
       "word": "Fila en el aeropuerto",
-      "alternates": [
-        "fila de migración"
-      ],
+      "alternates": ["fila de migración"],
       "intensity": "profunda"
     },
     {
@@ -1363,17 +1072,13 @@
     {
       "slug": "dibujo-globo-aerostatico",
       "word": "Globo aerostático",
-      "alternates": [
-        "globo de aire caliente"
-      ],
+      "alternates": ["globo de aire caliente"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-auroras-boreales",
       "word": "Auroras boreales",
-      "alternates": [
-        "aurora boreal"
-      ],
+      "alternates": ["aurora boreal"],
       "intensity": "profunda"
     },
     {
@@ -1421,9 +1126,7 @@
     {
       "slug": "dibujo-invierno",
       "word": "Invierno",
-      "alternates": [
-        "nevada"
-      ],
+      "alternates": ["nevada"],
       "intensity": "profunda"
     },
     {
@@ -1435,17 +1138,13 @@
     {
       "slug": "dibujo-hoguera-con-malvaviscos",
       "word": "Hoguera con malvaviscos",
-      "alternates": [
-        "malvaviscos"
-      ],
+      "alternates": ["malvaviscos"],
       "intensity": "profunda"
     },
     {
       "slug": "dibujo-cine-en-casa",
       "word": "Cine en casa",
-      "alternates": [
-        "noche de películas"
-      ],
+      "alternates": ["noche de películas"],
       "intensity": "profunda"
     },
     {
@@ -1457,10 +1156,7 @@
     {
       "slug": "dibujo-mano-con-mano",
       "word": "Mano con mano",
-      "alternates": [
-        "tomados de la mano",
-        "agarrados de la mano"
-      ],
+      "alternates": ["tomados de la mano", "agarrados de la mano"],
       "intensity": "profunda"
     },
     {
@@ -1484,9 +1180,7 @@
     {
       "slug": "dibujo-foto-familiar",
       "word": "Foto familiar",
-      "alternates": [
-        "retrato familiar"
-      ],
+      "alternates": ["retrato familiar"],
       "intensity": "profunda"
     },
     {
@@ -1498,9 +1192,7 @@
     {
       "slug": "dibujo-bailar-bajo-la-lluvia",
       "word": "Bailar bajo la lluvia",
-      "alternates": [
-        "bailando bajo la lluvia"
-      ],
+      "alternates": ["bailando bajo la lluvia"],
       "intensity": "profunda"
     },
     {
@@ -1512,9 +1204,7 @@
     {
       "slug": "dibujo-maraton-de-series",
       "word": "Maratón de series",
-      "alternates": [
-        "maratón de serie"
-      ],
+      "alternates": ["maratón de serie"],
       "intensity": "profunda"
     },
     {
@@ -1562,9 +1252,7 @@
     {
       "slug": "dibujo-fiesta-de-xv-anos",
       "word": "Fiesta de XV años",
-      "alternates": [
-        "quinceañera"
-      ],
+      "alternates": ["quinceañera"],
       "intensity": "profunda"
     },
     {

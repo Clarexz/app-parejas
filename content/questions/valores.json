@@ -126,24 +126,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tuvieras que ordenar, ¿qué pondrías primero?",
-      "options": [
-        "Familia",
-        "Pareja",
-        "Carrera",
-        "Salud"
-      ]
+      "options": ["Familia", "Pareja", "Carrera", "Salud"]
     },
     {
       "slug": "valores-calidad-a-admirar",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué cualidad valoras más en una persona?",
-      "options": [
-        "Honestidad",
-        "Sentido del humor",
-        "Constancia",
-        "Generosidad"
-      ]
+      "options": ["Honestidad", "Sentido del humor", "Constancia", "Generosidad"]
     },
     {
       "slug": "valores-decision-grande",
@@ -174,11 +164,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "A largo plazo, ¿qué prefieres?",
-      "options": [
-        "Estabilidad",
-        "Aventura",
-        "Un poco de cada una"
-      ]
+      "options": ["Estabilidad", "Aventura", "Un poco de cada una"]
     },
     {
       "slug": "valores-conflicto-estilo",
@@ -329,36 +315,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué te molesta más en alguien más?",
-      "options": [
-        "Que mienta",
-        "Que sea impuntual",
-        "Que sea grosero",
-        "Que presuma"
-      ]
+      "options": ["Que mienta", "Que sea impuntual", "Que sea grosero", "Que presuma"]
     },
     {
       "slug": "valores-dinero-ahorro",
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando te cae dinero extra, ¿qué haces primero?",
-      "options": [
-        "Lo ahorro",
-        "Me doy un gusto",
-        "Pago deudas",
-        "Se lo gasto a alguien que quiero"
-      ]
+      "options": ["Lo ahorro", "Me doy un gusto", "Pago deudas", "Se lo gasto a alguien que quiero"]
     },
     {
       "slug": "valores-tradicion-favorita-valor",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué festejo te importa más cuidar?",
-      "options": [
-        "Navidad",
-        "Día de Muertos",
-        "Cumpleaños",
-        "El que se invente en el momento"
-      ]
+      "options": ["Navidad", "Día de Muertos", "Cumpleaños", "El que se invente en el momento"]
     },
     {
       "slug": "valores-amigo-ideal",
@@ -377,24 +348,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál dirías que es tu mejor virtud?",
-      "options": [
-        "Ser leal",
-        "Ser paciente",
-        "Tener buen humor",
-        "Echarle ganas"
-      ]
+      "options": ["Ser leal", "Ser paciente", "Tener buen humor", "Echarle ganas"]
     },
     {
       "slug": "valores-defecto-aceptable",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué defecto toleras más fácil en una persona?",
-      "options": [
-        "Despistada",
-        "Terca",
-        "Dramática",
-        "Cerrada con el celular"
-      ]
+      "options": ["Despistada", "Terca", "Dramática", "Cerrada con el celular"]
     },
     {
       "slug": "valores-regla-de-casa",
@@ -731,12 +692,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En una pareja, ¿qué pesa más para ti?",
-      "options": [
-        "Confianza",
-        "Admiración",
-        "Complicidad",
-        "Estabilidad"
-      ]
+      "options": ["Confianza", "Admiración", "Complicidad", "Estabilidad"]
     },
     {
       "slug": "valores-decision-dificil-estilo",
@@ -767,24 +723,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para perdonar de verdad, necesito...",
-      "options": [
-        "Una disculpa sincera",
-        "Tiempo",
-        "Cambios que se vean",
-        "Entender qué pasó"
-      ]
+      "options": ["Una disculpa sincera", "Tiempo", "Cambios que se vean", "Entender qué pasó"]
     },
     {
       "slug": "valores-miedo-valor",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué te asusta más perder?",
-      "options": [
-        "Mi libertad",
-        "Mi tranquilidad",
-        "Mis relaciones",
-        "Mi salud"
-      ]
+      "options": ["Mi libertad", "Mi tranquilidad", "Mis relaciones", "Mi salud"]
     },
     {
       "slug": "valores-sacrificio-prefiero",
@@ -839,36 +785,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Siento que lo mejor que aporto a la relación es...",
-      "options": [
-        "Mi apoyo",
-        "Mi humor",
-        "Mi constancia",
-        "Mi manera de escuchar"
-      ]
+      "options": ["Mi apoyo", "Mi humor", "Mi constancia", "Mi manera de escuchar"]
     },
     {
       "slug": "valores-cuidar-vs-solucionar",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando alguien que quieres sufre, tu instinto es...",
-      "options": [
-        "Abrazarlo",
-        "Solucionarle el problema",
-        "Escucharlo",
-        "Hacerlo reír"
-      ]
+      "options": ["Abrazarlo", "Solucionarle el problema", "Escucharlo", "Hacerlo reír"]
     },
     {
       "slug": "valores-lo-que-no-toleras",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué es más difícil de tolerar en una relación?",
-      "options": [
-        "La mentira",
-        "La indiferencia",
-        "El control",
-        "La falta de respeto"
-      ]
+      "options": ["La mentira", "La indiferencia", "El control", "La falta de respeto"]
     },
     {
       "slug": "valores-mi-ritmo",
@@ -953,12 +884,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Si pudieras cambiar una cosa de cómo te comunicas, sería...",
-      "options": [
-        "Decir lo que siento más rápido",
-        "Callar menos",
-        "Escuchar más",
-        "Gritar menos"
-      ]
+      "options": ["Decir lo que siento más rápido", "Callar menos", "Escuchar más", "Gritar menos"]
     },
     {
       "slug": "valores-valor-gusto-vs-deber",
@@ -977,12 +903,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Qué tanto de tu dinero te gustaría que fuera compartido?",
-      "options": [
-        "Todo",
-        "La mayoría",
-        "Solo gastos de pareja",
-        "Cada quien lo suyo"
-      ]
+      "options": ["Todo", "La mayoría", "Solo gastos de pareja", "Cada quien lo suyo"]
     },
     {
       "slug": "valores-metas-juntos",
@@ -1001,12 +922,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En una discusión, ¿qué es lo que no se vale?",
-      "options": [
-        "Gritar",
-        "Traer el pasado",
-        "Ignorar",
-        "Burlarse"
-      ]
+      "options": ["Gritar", "Traer el pasado", "Ignorar", "Burlarse"]
     },
     {
       "slug": "valores-ejemplo-padres",
@@ -1025,24 +941,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para confiar plenamente en una relación, necesito...",
-      "options": [
-        "Claridad",
-        "Constancia",
-        "Cariño visible",
-        "Libertad"
-      ]
+      "options": ["Claridad", "Constancia", "Cariño visible", "Libertad"]
     },
     {
       "slug": "valores-vida-lejos-de-casa",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tuviera que mudarme por una oportunidad, lo más duro sería...",
-      "options": [
-        "Dejar a mi familia",
-        "Dejarte a ti",
-        "Empezar de cero",
-        "El costo de la vida"
-      ]
+      "options": ["Dejar a mi familia", "Dejarte a ti", "Empezar de cero", "El costo de la vida"]
     },
     {
       "slug": "valores-prioridad-hoy",
@@ -1073,24 +979,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El trato que más valoro en mi pareja es...",
-      "options": [
-        "Paciencia",
-        "Ternura",
-        "Honestidad",
-        "Iniciativa"
-      ]
+      "options": ["Paciencia", "Ternura", "Honestidad", "Iniciativa"]
     },
     {
       "slug": "valores-ver-el-futuro",
       "type": "choice",
       "intensity": "profunda",
       "text": "Al pensar en nuestro futuro, siento principalmente...",
-      "options": [
-        "Ilusión",
-        "Calma",
-        "Nervios",
-        "Curiosidad"
-      ]
+      "options": ["Ilusión", "Calma", "Nervios", "Curiosidad"]
     },
     {
       "slug": "valores-cual-es-mayor-reto",
@@ -1157,48 +1053,28 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En la relación, tiendo a ser quien...",
-      "options": [
-        "Cuida",
-        "Se deja cuidar",
-        "Planea",
-        "Anima"
-      ]
+      "options": ["Cuida", "Se deja cuidar", "Planea", "Anima"]
     },
     {
       "slug": "valores-cosa-por-dar",
       "type": "choice",
       "intensity": "profunda",
       "text": "Si tuviera que regalarte algo muy valioso que no se compra, sería...",
-      "options": [
-        "Mi tiempo",
-        "Mi confianza",
-        "Mi paciencia",
-        "Mi compañía"
-      ]
+      "options": ["Mi tiempo", "Mi confianza", "Mi paciencia", "Mi compañía"]
     },
     {
       "slug": "valores-camino-suenos",
       "type": "choice",
       "intensity": "profunda",
       "text": "Para cumplir un sueño, yo creo más en...",
-      "options": [
-        "La disciplina",
-        "La suerte",
-        "El apoyo de otros",
-        "La valentía"
-      ]
+      "options": ["La disciplina", "La suerte", "El apoyo de otros", "La valentía"]
     },
     {
       "slug": "valores-lo-que-todos-sacan",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando discutimos, lo que más quiero al final es...",
-      "options": [
-        "Un abrazo",
-        "Una disculpa",
-        "Un rato a solas",
-        "Una charla tranquila"
-      ]
+      "options": ["Un abrazo", "Una disculpa", "Un rato a solas", "Una charla tranquila"]
     }
   ]
 }

@@ -24,12 +24,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Con el dinero, ¿eres más de…?",
-      "options": [
-        "Ahorrar",
-        "Disfrutar",
-        "Mitad y mitad",
-        "Depende del mes"
-      ]
+      "options": ["Ahorrar", "Disfrutar", "Mitad y mitad", "Depende del mes"]
     },
     {
       "slug": "pack-dinero-mejor-compra",
@@ -48,12 +43,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Te caen del cielo veinte mil pesos. ¿Qué haces con ellos?",
-      "options": [
-        "Los ahorro",
-        "Me voy de viaje",
-        "Pago deudas",
-        "Me doy un antojo caro"
-      ]
+      "options": ["Los ahorro", "Me voy de viaje", "Pago deudas", "Me doy un antojo caro"]
     },
     {
       "slug": "pack-dinero-ensenanza-casa",
@@ -72,12 +62,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Hablar de dinero en pareja se siente…",
-      "options": [
-        "Sin problema",
-        "Un poco incómodo",
-        "Con pena",
-        "Mejor lo evito"
-      ]
+      "options": ["Sin problema", "Un poco incómodo", "Con pena", "Mejor lo evito"]
     },
     {
       "slug": "pack-dinero-gasto-inversion",
@@ -90,12 +75,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Tu relación con las tarjetas de crédito es…",
-      "options": [
-        "Las uso con cuidado",
-        "Las uso mucho",
-        "Las evito",
-        "Mi talón de Aquiles"
-      ]
+      "options": ["Las uso con cuidado", "Las uso mucho", "Las evito", "Mi talón de Aquiles"]
     },
     {
       "slug": "pack-dinero-vale-pagar-mas",

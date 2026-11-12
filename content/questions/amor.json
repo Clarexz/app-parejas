@@ -6,12 +6,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Con qué sientes más cariño de mi parte?",
-      "options": [
-        "Palabras bonitas",
-        "Tiempo juntos",
-        "Detalles o regalos",
-        "Abrazos y contacto"
-      ]
+      "options": ["Palabras bonitas", "Tiempo juntos", "Detalles o regalos", "Abrazos y contacto"]
     },
     {
       "slug": "amor-lo-que-hago-sin-darme-cuenta",
@@ -66,12 +61,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Hablando de detalles, ¿qué disfrutas más?",
-      "options": [
-        "Darlos",
-        "Recibirlos",
-        "Planearlos juntos",
-        "Que sean espontáneos"
-      ]
+      "options": ["Darlos", "Recibirlos", "Planearlos juntos", "Que sean espontáneos"]
     },
     {
       "slug": "amor-lo-que-admiras",
@@ -114,12 +104,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cuál es tu mejor momento para un beso?",
-      "options": [
-        "Al despedirnos",
-        "Por sorpresa",
-        "Después de reírnos",
-        "Antes de dormir"
-      ]
+      "options": ["Al despedirnos", "Por sorpresa", "Después de reírnos", "Antes de dormir"]
     },
     {
       "slug": "amor-sentirte-vulnerable",
@@ -144,12 +129,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "En una relación, ¿cuánto tiempo a solas necesitas?",
-      "options": [
-        "Mucho",
-        "Un poco",
-        "Depende del día",
-        "Casi nada"
-      ]
+      "options": ["Mucho", "Un poco", "Depende del día", "Casi nada"]
     },
     {
       "slug": "amor-mejor-cumplido",
@@ -216,12 +196,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Un día para consentirte, ¿qué eliges?",
-      "options": [
-        "Masaje",
-        "Tu comida favorita",
-        "Película con cobija",
-        "Que me dejen dormir"
-      ]
+      "options": ["Masaje", "Tu comida favorita", "Película con cobija", "Que me dejen dormir"]
     },
     {
       "slug": "amor-primer-mensaje-que-guardas",
@@ -528,36 +503,21 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "Cuando nos vemos después de días, ¿qué quieres primero?",
-      "options": [
-        "Abrazo eterno",
-        "Comer algo rico",
-        "Platicar de todo",
-        "Dormir juntos"
-      ]
+      "options": ["Abrazo eterno", "Comer algo rico", "Platicar de todo", "Dormir juntos"]
     },
     {
       "slug": "amor-tipo-de-cita-carinosa",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para una cita cariñosa, ¿qué eliges?",
-      "options": [
-        "Picnic en el parque",
-        "Cena en casa",
-        "Paseo sin rumbo",
-        "Maratón de series"
-      ]
+      "options": ["Picnic en el parque", "Cena en casa", "Paseo sin rumbo", "Maratón de series"]
     },
     {
       "slug": "amor-quien-dice-primero-perdon",
       "type": "choice",
       "intensity": "ligera",
       "text": "Después de una discusión boba, ¿quién suele decir primero \"perdón\"?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Depende de la pelea",
-        "Nos reímos y ya"
-      ]
+      "options": ["Yo", "Tú", "Depende de la pelea", "Nos reímos y ya"]
     },
     {
       "slug": "amor-demostracion-favorita",
@@ -576,48 +536,28 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Dónde te gusta más que te dé un beso?",
-      "options": [
-        "En la frente",
-        "En la mejilla",
-        "En la mano",
-        "En los labios"
-      ]
+      "options": ["En la frente", "En la mejilla", "En la mano", "En los labios"]
     },
     {
       "slug": "amor-cuando-me-extranas-mas",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué recuerdo mío te llega primero cuando me extrañas?",
-      "options": [
-        "Mi risa",
-        "Un abrazo",
-        "Una plática larga",
-        "Un momento tonto nuestro"
-      ]
+      "options": ["Mi risa", "Un abrazo", "Una plática larga", "Un momento tonto nuestro"]
     },
     {
       "slug": "amor-tipo-de-abrazo",
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Qué tipo de abrazo es tu favorito?",
-      "options": [
-        "Por la espalda",
-        "De frente y largo",
-        "De esos que te levantan",
-        "Con cobijita"
-      ]
+      "options": ["Por la espalda", "De frente y largo", "De esos que te levantan", "Con cobijita"]
     },
     {
       "slug": "amor-nivel-de-cursi",
       "type": "choice",
       "intensity": "ligera",
       "text": "Del 1 al 10, ¿qué tan cursi eres conmigo?",
-      "options": [
-        "Del 1 al 3",
-        "Del 4 al 6",
-        "Del 7 al 9",
-        "Un 10 sin pena"
-      ]
+      "options": ["Del 1 al 3", "Del 4 al 6", "Del 7 al 9", "Un 10 sin pena"]
     },
     {
       "slug": "amor-musica-para-nosotros",
@@ -636,12 +576,7 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Quién crees que se enamoró primero?",
-      "options": [
-        "Yo",
-        "Tú",
-        "Los dos al mismo tiempo",
-        "Nunca lo sabremos"
-      ]
+      "options": ["Yo", "Tú", "Los dos al mismo tiempo", "Nunca lo sabremos"]
     },
     {
       "slug": "amor-pelicula-romantica",
@@ -660,24 +595,14 @@
       "type": "choice",
       "intensity": "ligera",
       "text": "¿Cómo te gusta que te salude al verte?",
-      "options": [
-        "Con beso",
-        "Con abrazo",
-        "Con un grito de emoción",
-        "Con un apodo ridículo"
-      ]
+      "options": ["Con beso", "Con abrazo", "Con un grito de emoción", "Con un apodo ridículo"]
     },
     {
       "slug": "amor-mensaje-largo-o-corto",
       "type": "choice",
       "intensity": "ligera",
       "text": "Para expresar cariño por texto, ¿qué estilo te gusta?",
-      "options": [
-        "Párrafo largo",
-        "Una línea directa",
-        "Puros emojis",
-        "Audio de tres minutos"
-      ]
+      "options": ["Párrafo largo", "Una línea directa", "Puros emojis", "Audio de tres minutos"]
     },
     {
       "slug": "amor-detalle-de-cumple",
@@ -1170,36 +1095,21 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Y como segundo lugar, ¿qué lenguaje del amor te llena?",
-      "options": [
-        "Contacto físico",
-        "Palabras bonitas",
-        "Tiempo juntos",
-        "Que me ayuden"
-      ]
+      "options": ["Contacto físico", "Palabras bonitas", "Tiempo juntos", "Que me ayuden"]
     },
     {
       "slug": "amor-lenguaje-que-me-das",
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cuál crees que es el lenguaje del amor que yo uso más contigo?",
-      "options": [
-        "Palabras",
-        "Tiempo",
-        "Detalles",
-        "Servicio"
-      ]
+      "options": ["Palabras", "Tiempo", "Detalles", "Servicio"]
     },
     {
       "slug": "amor-despues-de-pelear",
       "type": "choice",
       "intensity": "profunda",
       "text": "Después de una pelea, ¿qué necesitas primero?",
-      "options": [
-        "Un abrazo",
-        "Hablar del tema",
-        "Espacio un rato",
-        "Una disculpa clara"
-      ]
+      "options": ["Un abrazo", "Hablar del tema", "Espacio un rato", "Una disculpa clara"]
     },
     {
       "slug": "amor-estilo-en-conflicto",
@@ -1242,12 +1152,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Después de enojarte, ¿cuánto tardas en poder platicar?",
-      "options": [
-        "Menos de una hora",
-        "Unas horas",
-        "Hasta el día siguiente",
-        "Depende del motivo"
-      ]
+      "options": ["Menos de una hora", "Unas horas", "Hasta el día siguiente", "Depende del motivo"]
     },
     {
       "slug": "amor-mayor-miedo-en-pareja",
@@ -1290,24 +1195,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "En el amor, ¿qué pesa más para ti?",
-      "options": [
-        "Confianza",
-        "Respeto",
-        "Admiración",
-        "Complicidad"
-      ]
+      "options": ["Confianza", "Respeto", "Admiración", "Complicidad"]
     },
     {
       "slug": "amor-roles-de-cuidado",
       "type": "choice",
       "intensity": "profunda",
       "text": "Cuando uno anda mal, ¿qué rol sueles tomar?",
-      "options": [
-        "Quien escucha",
-        "Quien resuelve",
-        "Quien consiente",
-        "Quien da espacio"
-      ]
+      "options": ["Quien escucha", "Quien resuelve", "Quien consiente", "Quien da espacio"]
     },
     {
       "slug": "amor-seguridad-emocional",
@@ -1326,12 +1221,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Hablar de sentimientos para ti es...",
-      "options": [
-        "Fácil y natural",
-        "Algo que me cuesta",
-        "Mejor por escrito",
-        "Mejor en un paseo"
-      ]
+      "options": ["Fácil y natural", "Algo que me cuesta", "Mejor por escrito", "Mejor en un paseo"]
     },
     {
       "slug": "amor-mas-dificil-de-aceptar",
@@ -1350,24 +1240,14 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "¿Cómo te das cuenta de que algo me pasa?",
-      "options": [
-        "Me quedo en silencio",
-        "Me pongo irritable",
-        "Hago más chistes",
-        "Me aíslo"
-      ]
+      "options": ["Me quedo en silencio", "Me pongo irritable", "Hago más chistes", "Me aíslo"]
     },
     {
       "slug": "amor-amor-que-crece",
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más hace crecer el amor es...",
-      "options": [
-        "La paciencia",
-        "La risa",
-        "Los planes juntos",
-        "Las conversaciones profundas"
-      ]
+      "options": ["La paciencia", "La risa", "Los planes juntos", "Las conversaciones profundas"]
     },
     {
       "slug": "amor-mayor-regalo-emocional",
@@ -1422,12 +1302,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "La mayor fortaleza de nuestra relación es...",
-      "options": [
-        "Cómo nos reímos",
-        "Cómo nos apoyamos",
-        "Cómo conversamos",
-        "Cómo nos extrañamos"
-      ]
+      "options": ["Cómo nos reímos", "Cómo nos apoyamos", "Cómo conversamos", "Cómo nos extrañamos"]
     },
     {
       "slug": "amor-a-mejorar",
@@ -1494,12 +1369,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "El mayor aprendizaje de querernos ha sido...",
-      "options": [
-        "Ser paciente",
-        "Hablar claro",
-        "Ceder a veces",
-        "Reírme de mí"
-      ]
+      "options": ["Ser paciente", "Hablar claro", "Ceder a veces", "Reírme de mí"]
     },
     {
       "slug": "amor-mas-vulnerable",
@@ -1542,12 +1412,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Para confiar del todo en alguien, necesito...",
-      "options": [
-        "Verlo cumplir",
-        "Que sea honesto aunque duela",
-        "Que me respete",
-        "Tiempo"
-      ]
+      "options": ["Verlo cumplir", "Que sea honesto aunque duela", "Que me respete", "Tiempo"]
     },
     {
       "slug": "amor-proyecto-de-amor",
@@ -1566,12 +1431,7 @@
       "type": "choice",
       "intensity": "profunda",
       "text": "Lo que más agradeces de nuestra relación es...",
-      "options": [
-        "Tu libertad",
-        "Tu paz",
-        "Tu compañía",
-        "Tus risas"
-      ]
+      "options": ["Tu libertad", "Tu paz", "Tu compañía", "Tus risas"]
     }
   ]
 }
