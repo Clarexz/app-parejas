@@ -32,7 +32,7 @@ jest.mock('@/features/couple', () => ({
 const mockAnswer = jest.fn();
 const mockStart = jest.fn();
 jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+  jest.requireActual('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
 const overview = {
   games: [
