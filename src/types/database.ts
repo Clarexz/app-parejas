@@ -1752,10 +1752,7 @@ export type Database = {
         };
       };
       set_my_timezone: { Args: { p_timezone: string }; Returns: undefined };
-      set_question_feedback: {
-        Args: { p_question_id: string; p_vote: number };
-        Returns: number;
-      };
+      set_question_feedback: { Args: { p_question_id: string; p_vote: number }; Returns: number };
       set_spicy_opt_in: { Args: { p_enabled: boolean }; Returns: boolean };
       set_story_archive: { Args: { p_enabled: boolean }; Returns: undefined };
       start_drawing: { Args: Record<PropertyKey, never>; Returns: Json };

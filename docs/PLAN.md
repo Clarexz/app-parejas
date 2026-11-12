@@ -1059,14 +1059,20 @@ Fase 12 (pulido y v1.0.0).
 | 7 Memorias y mapa | ✅ Cerrada y desplegada | #11 | Memorias con 1–10 fotos, diario por mes, mapa con clusters (o "mapa de papel" sin key), "Un día como hoy" y push (D73–D77). Desplegada y probada antes de la Fase 12A. |
 | 8 Eventos, listas, distancia | ✅ Cerrada y desplegada | #12 | Cuentas regresivas con "la próxima vez que nos vemos", listas compartidas, distancia opt-in aproximada y widget Distancia (D78–D84). Desplegada y probada antes de la Fase 12A. |
 | 9 Juegos | ✅ Cerrada y desplegada | #15 | Cuatro juegos en rondas asíncronas, reto de dibujo, push y 200 ítems + 80 palabras (D87–D91). Desplegada y probada antes de la Fase 12A. |
-| 10 Banco de contenido | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
-| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Se hace después de la 12. |
+| 10 Banco de contenido | 🟡 Cerrando (v0.13.0) | | 3,530 ítems (2,270 diarias en 14 categorías, 1,000+ de juegos, 8 temas con 221) + 212 palabras; temas como quiz, 👍/👎, "Agregar pregunta" (no van a la pregunta del día), `check-content` e `import-questions`, rondas de 10/15/20 y pestaña Preguntas compacta (D119–D125). Falta deploy del servidor y probar el APK. |
+| 11A Extras (pienso en ti, cápsula, cupones, ruleta) | ⏸️ Pospuesta (D86) | | Siguiente fase (después de la 10). |
 | 11B Extras (lenguajes del amor, visitas, estadísticas) | ✅ Cerrada y desplegada | #17 | Test de lenguajes del amor, calendario de visitas y estadísticas; push `love_language` y `visit` (D92–D96). Desplegada y probada antes de la Fase 12A. |
 | 12 Pulido y entrega | 🟡 Parte 2 (v0.12.5) | #18, #22 | Parte 1: nombre, icono y textos (v0.12.0); aviso de versión nueva (D107, v0.12.3). **Parte 2** (D112–D118): respuestas en audio, tarjeta compartible, bloqueo con huella, caché offline, reintentos, error boundary, FlashList y auditoría de RLS/RPC con prueba permanente y día de la pareja según la zona de cada quien. Servidor desplegado, restauración probada y registro cerrado (2026-11-11); v0.12.5 probada en los celulares y mergeada a `main` (2026-11-12). La **v1.0.0** se pospone: antes faltan más fases (10, 11A) y detalles por corregir.
 | 12A Rediseño "ahorita" | ✅ Cerrada (2026-11-03) | #19 | Nombre "ahorita", frutas por persona (`set_fruit`), DISENO v2, tema y componentes nuevos (sin Bitácora), todas las pantallas rediseñadas en claro y oscuro, 6 widgets 1×1 con vidrio + Racha (snapshot v4), ícono/splash/avisos con la fruta, fondos de story con las 7 frutas y copy con la voz del manual (D97–D106). Spike de widgets v0.12.1; APK v0.12.2. Servidor desplegado (`2e800d5`), PR mergeado a `main` a pedido del usuario. Falta probar el APK v0.12.2 en los dos celulares (§10.1). |
 | Ajustes post-12A (cambios menores) | ✅ Cerrada (2026-11-04) | #21 | Racha estilo TikTok (5 recuperaciones/mes, solo ayer), opción "Otra", teclado, Inicio con distancia/listas/lenguaje del amor/tiempo juntos, Preguntas + Juegos, memorias con visitas, Más → "Otros ajustes", "mesario", sin rebotes (D108–D111). Migración `20261110000000_streak_repairs_other_choice_memory_visits.sql`: **requiere deploy antes de instalar el APK** (notas en `docs/releases/v0.12.4.md`). Mergeada a `main` y APK **v0.12.4** lanzado a pedido del usuario; servidor desplegado (migración aplicada, confirmado el 2026-11-11). |
 
 ### 10.1 Verificaciones pendientes en el celular
+
+- **Fase 10 (D119–D125, v0.13.0):** requiere deploy (`20261112000000_content_bank.sql`,
+  `20261112000001_game_round_size.sql` y el seed de 3,530 ítems con `apply-seed.sh`). Luego quitar
+  `<!-- sin-aviso -->` del release y probar con `docs/releases/v0.13.0.md`.
+- **Fuera de fase:** el usuario quiere corregir detalles de la tarjeta compartible (racha / tiempo
+  juntos); queda pendiente hasta que diga qué.
 
 - **Fase 12 parte 2 (D112–D118, v0.12.5):** servidor desplegado el 2026-11-11
   (`deploy.sh claude/sharp-pasteur-xo4lz6` en `10a0e7d`, respaldo previo
