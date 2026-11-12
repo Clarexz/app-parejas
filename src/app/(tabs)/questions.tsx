@@ -5,10 +5,24 @@ import { View } from 'react-native';
 import { Button, Card, EmptyState, Icon, LoadingSymbol, Screen, Sheet, Text } from '@/components';
 import { useCouple } from '@/features/couple';
 import { GamesSection, useGameOverview } from '@/features/games';
-import { DailyQuestionCard, useCategories, useStreak } from '@/features/questions';
+import {
+  DailyQuestionCard,
+  PackProgress,
+  useCategories,
+  usePacks,
+  useStreak,
+} from '@/features/questions';
 import { ShareCardButton } from '@/features/share';
 import { StreakChip } from '@/features/questions/components/StreakChip';
-import { REPAIR_TODAY_NOTE, repairPrompt, repairView, repairsLeftLine } from '@/lib/questionCopy';
+import { packProgress, packStatus } from '@/lib/packs';
+import {
+  ADD_QUESTION_NOTE,
+  REPAIR_TODAY_NOTE,
+  packCardNote,
+  repairPrompt,
+  repairView,
+  repairsLeftLine,
+} from '@/lib/questionCopy';
 import { spicyState } from '@/lib/questions';
 import { streakHeadline } from '@/lib/questionsView';
 import { useTheme } from '@/theme';
@@ -19,6 +33,7 @@ export default function QuestionsScreen() {
   const { members, me } = useCouple();
   const streak = useStreak();
   const categories = useCategories();
+  const packs = usePacks();
   const games = useGameOverview();
   const [spicySheet, setSpicySheet] = useState(false);
 
@@ -26,6 +41,7 @@ export default function QuestionsScreen() {
   const refetchAll = () => {
     void streak.refetch();
     void categories.refetch();
+    void packs.refetch();
     void games.refetch();
   };
   const loading = streak.isLoading || categories.isLoading;
@@ -35,7 +51,9 @@ export default function QuestionsScreen() {
   return (
     <Screen
       scroll
-      refreshing={streak.isRefetching || categories.isRefetching || games.isRefetching}
+      refreshing={
+        streak.isRefetching || categories.isRefetching || packs.isRefetching || games.isRefetching
+      }
       onRefresh={refetchAll}
     >
       <View style={{ gap: spacing.xxl }}>
@@ -147,6 +165,82 @@ export default function QuestionsScreen() {
                   })
                 )}
               </View>
+
+              <View style={{ gap: spacing.md }}>
+                <Text variant="h3" accessibilityRole="header">
+                  Temas
+                </Text>
+                {packs.isLoading ? (
+                  <View style={{ alignItems: 'center', paddingVertical: spacing.lg }}>
+                    <LoadingSymbol size={32} accessibilityLabel="Cargando los temas" />
+                  </View>
+                ) : packs.isError ? (
+                  <Text variant="body" tone="muted">
+                    No pudimos cargar los temas. Jala hacia abajo para intentar otra vez.
+                  </Text>
+                ) : packs.packs.length === 0 ? (
+                  <Text variant="body" tone="muted">
+                    Todavía no hay temas. Jala hacia abajo para actualizar.
+                  </Text>
+                ) : (
+                  packs.packs.map((p) => {
+                    const status = packStatus(p, spicyActive);
+                    const locked = status === 'locked';
+                    const note = packCardNote(status, p);
+                    return (
+                      <Card
+                        key={p.slug}
+                        accessibilityLabel={
+                          locked ? `${p.name}, bloqueado` : `${p.name}. ${p.description}. ${note}`
+                        }
+                        onPress={() =>
+                          locked
+                            ? setSpicySheet(true)
+                            : router.push({ pathname: '/pack/[slug]', params: { slug: p.slug } })
+                        }
+                      >
+                        <View
+                          style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
+                        >
+                          <Text variant="h2" accessibilityElementsHidden>
+                            {p.emoji}
+                          </Text>
+                          <View style={{ flex: 1, gap: spacing.xs }}>
+                            <Text variant="h3">{p.name}</Text>
+                            {locked || status === 'empty' ? null : (
+                              <PackProgress value={packProgress(p)} />
+                            )}
+                            <Text variant="note" tone="muted">
+                              {note}
+                            </Text>
+                          </View>
+                          <Icon
+                            name={locked ? 'lock' : 'chevron'}
+                            size={22}
+                            color={colors.inkMuted}
+                          />
+                        </View>
+                      </Card>
+                    );
+                  })
+                )}
+              </View>
+
+              <Card
+                accessibilityLabel={`Agregar una pregunta. ${ADD_QUESTION_NOTE}`}
+                onPress={() => router.push('/add-question')}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+                  <Icon name="plus" size={24} />
+                  <View style={{ flex: 1, gap: spacing.xxs }}>
+                    <Text variant="h3">Agregar una pregunta</Text>
+                    <Text variant="note" tone="muted">
+                      {ADD_QUESTION_NOTE}
+                    </Text>
+                  </View>
+                  <Icon name="chevron" size={22} color={colors.inkMuted} />
+                </View>
+              </Card>
             </>
           )}
         </View>

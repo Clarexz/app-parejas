@@ -41,6 +41,8 @@ import { useDeleteAnswer, useSendNudge, useStreak, useSubmitAnswer } from '../ho
 import { AnswerAudio } from './AnswerAudio';
 import { AUDIO_RECORDING_SUPPORTED, AudioRecorderField } from './AudioRecorderField';
 import { CommentComposer, CommentList } from './CommentThread';
+import { PackNext } from './PackNext';
+import { QuestionFeedback } from './QuestionFeedback';
 import { StreakChip } from './StreakChip';
 import { usePairFruits } from './usePairFruits';
 
@@ -186,8 +188,11 @@ function AnswerForm({ question, initial, submitting, submitLabel, onSubmit, onCa
   );
 }
 
-/** Contenido de la pantalla de una pregunta (DISENO §8): contestar, ver a tu pareja y comentar. */
-export function QuestionView({ card }: { card: QuestionCard }) {
+/**
+ * Contenido de la pantalla de una pregunta (DISENO §8): contestar, ver a tu pareja y comentar.
+ * `pack` (slug del tema) activa "Siguiente del tema" una vez contestada.
+ */
+export function QuestionView({ card, pack }: { card: QuestionCard; pack?: string }) {
   const { spacing } = useTheme();
   const toast = useToast();
   const { me, partner } = useCouple();
@@ -350,6 +355,11 @@ export function QuestionView({ card }: { card: QuestionCard }) {
             </View>
           </View>
         ) : null}
+
+        {/* Si vienes de un tema: lo que sigue */}
+        {pack && mine && !showForm ? <PackNext pack={pack} questionId={question.id} /> : null}
+
+        <QuestionFeedback questionId={question.id} />
 
         {/* Comentarios: solo cuando ya contestaste */}
         {mine ? (

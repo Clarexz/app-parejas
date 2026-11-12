@@ -55,6 +55,13 @@ const BY_CODE: Record<string, string> = {
   item_not_found: 'Eso ya no está en la lista. Actualiza para ver lo más reciente.',
   invalid_order: 'La lista cambió mientras la movías. Ya la actualizamos; intenta otra vez.',
   invalid_location: 'No pudimos guardar tu ubicación. Intenta otra vez en un momento.',
+  // RPC de banco de preguntas (Fase 10)
+  invalid_feedback: 'No pudimos guardar tu voto. Intenta otra vez.',
+  invalid_category: 'Esa categoría no existe. Elige una de la lista.',
+  invalid_question:
+    'No pudimos guardar la pregunta. Revisa que tenga entre 10 y 220 letras y, si es de opciones, de 2 a 4 distintas.',
+  duplicate_question: 'Esa pregunta ya existe.',
+  too_many_questions: 'Ya agregaron muchas preguntas hoy. Sigan mañana.',
   // RPC de juegos (Fase 9)
   invalid_game: 'Ese juego no existe. Elige otro de la lista.',
   spicy_not_active: 'Las preguntas picantes aún no están activas para ustedes.',

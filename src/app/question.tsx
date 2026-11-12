@@ -16,7 +16,7 @@ type Source = {
   refetch: () => unknown;
 };
 
-function QuestionPage({ source }: { source: Source }) {
+function QuestionPage({ source, pack }: { source: Source; pack?: string }) {
   const { spacing } = useTheme();
   const router = useRouter();
   const { card, isLoading, isError, error, refetch } = source;
@@ -45,7 +45,7 @@ function QuestionPage({ source }: { source: Source }) {
         </Pressable>
         <View style={{ flex: 1 }}>
           {card ? (
-            <QuestionView card={card} />
+            <QuestionView key={card.question.id} card={card} pack={pack} />
           ) : isLoading ? (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               <LoadingSymbol accessibilityLabel="Cargando la pregunta" />
@@ -77,16 +77,19 @@ function QuestionPage({ source }: { source: Source }) {
   );
 }
 
-function ById({ id }: { id: string }) {
-  return <QuestionPage source={useQuestion(id)} />;
+function ById({ id, pack }: { id: string; pack?: string }) {
+  return <QuestionPage source={useQuestion(id)} pack={pack} />;
 }
 
 function ByDay({ day }: { day?: string }) {
   return <QuestionPage source={useDailyQuestion(day)} />;
 }
 
-/** Pregunta: `?id=<uuid>` (cualquiera), `?day=YYYY-MM-DD` (del día) o sin params (hoy). */
+/**
+ * Pregunta: `?id=<uuid>` (cualquiera), `?day=YYYY-MM-DD` (del día) o sin params (hoy).
+ * `&pack=<slug>` (con `id`) viene de un tema: al contestar ofrece la siguiente del tema.
+ */
 export default function QuestionScreen() {
-  const { id, day } = useLocalSearchParams<{ id?: string; day?: string }>();
-  return id ? <ById id={id} /> : <ByDay day={day} />;
+  const { id, day, pack } = useLocalSearchParams<{ id?: string; day?: string; pack?: string }>();
+  return id ? <ById id={id} pack={pack} /> : <ByDay day={day} />;
 }

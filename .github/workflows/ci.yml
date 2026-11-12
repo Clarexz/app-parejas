@@ -30,6 +30,8 @@ jobs:
       - run: npm run format:check
       - name: Seed de preguntas al día
         run: node scripts/build-seed.ts --check
+      - name: Calidad del contenido (esquema, casi-duplicados, estilo)
+        run: node scripts/check-content.ts
       - name: Bundle de Android (expo export)
         run: npx expo export -p android --output-dir dist-android
         env:

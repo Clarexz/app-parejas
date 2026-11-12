@@ -1,7 +1,14 @@
 import * as FileSystem from 'expo-file-system';
 
 import { AUDIO_BUCKET, audioAnswerPath, normalizeAudioMs, type AudioDraft } from '@/lib/audio';
+import {
+  parseCustomQuestion,
+  type CustomQuestion,
+  type CustomQuestionInput,
+} from '@/lib/customQuestions';
+import { parseFeedbackVote, type FeedbackVote } from '@/lib/feedback';
 import { randomUuid } from '@/lib/ids';
+import { parsePack, type Pack } from '@/lib/packs';
 import {
   parseCategoryQuestion,
   parseHistoryItem,
@@ -196,4 +203,60 @@ export async function setSpicyOptIn(enabled: boolean): Promise<boolean> {
   const { data, error } = await supabase.rpc('set_spicy_opt_in', { p_enabled: enabled });
   if (error) throw error;
   return data;
+}
+
+/** Temas (packs) con mi avance y la siguiente pregunta sin contestar. */
+export async function fetchPacks(): Promise<Pack[]> {
+  const { data, error } = await supabase.rpc('get_packs');
+  if (error) throw error;
+  return data.map(parsePack);
+}
+
+/** Mi voto de una pregunta (RLS solo deja ver el mío). */
+export async function fetchMyFeedback(questionId: string): Promise<FeedbackVote> {
+  const { data, error } = await supabase
+    .from('question_feedback')
+    .select('vote')
+    .eq('question_id', questionId)
+    .maybeSingle();
+  if (error) throw error;
+  return parseFeedbackVote(data?.vote);
+}
+
+/** Pone, cambia o quita (null) mi voto. */
+export async function setQuestionFeedback(
+  questionId: string,
+  vote: FeedbackVote,
+): Promise<FeedbackVote> {
+  const { data, error } = await supabase.rpc('set_question_feedback', {
+    p_question_id: questionId,
+    // La RPC borra el voto con null; el tipo generado no lo admite porque el argumento no tiene default.
+    p_vote: vote as number,
+  });
+  if (error) throw error;
+  return parseFeedbackVote(data);
+}
+
+export async function fetchCustomQuestions(): Promise<CustomQuestion[]> {
+  const { data, error } = await supabase.rpc('get_custom_questions');
+  if (error) throw error;
+  return data.map(parseCustomQuestion);
+}
+
+/** Devuelve el id de la pregunta creada. */
+export async function addCustomQuestion(input: CustomQuestionInput): Promise<string> {
+  const { data, error } = await supabase.rpc('add_custom_question', {
+    p_category: input.category,
+    p_type: input.type,
+    p_text: input.text,
+    p_options: input.options ?? undefined,
+    p_intensity: input.intensity,
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function retireCustomQuestion(questionId: string): Promise<void> {
+  const { error } = await supabase.rpc('retire_custom_question', { p_question_id: questionId });
+  if (error) throw error;
 }
