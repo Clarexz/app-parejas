@@ -368,10 +368,10 @@
       ]
     },
     {
-      "slug": "dia-a-dia-cuantas-veces-posponen-alarma-tus",
+      "slug": "dia-a-dia-veces-pospones-alarma-semana",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cuántas veces posponen tu alarma tus hijos imaginarios?",
+      "text": "¿Cuántas veces pospones la alarma entre semana?",
       "options": [
         "Cero",
         "Una",
@@ -491,7 +491,7 @@
       "slug": "dia-a-dia-como-tomas-cafe-dia",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cómo tomas café o té en tu día?",
+      "text": "¿Cuánto café o té tomas en tu día?",
       "options": [
         "Una taza",
         "Dos o tres",
@@ -577,10 +577,10 @@
       "intensity": "ligera",
       "text": "¿Cómo te llevas con la lavandería?",
       "options": [
-        "Todo a tiempo",
+        "Todo al día",
         "Una pila enorme",
         "Lavo lo que necesito",
-        "Me pongo mi segunda opción"
+        "Rezo para que alcance la ropa"
       ]
     },
     {
@@ -659,7 +659,7 @@
       "slug": "dia-a-dia-cual-relacion-celular-antes-dormir",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cuál es tu relación con el celular antes de dormir?",
+      "text": "¿Qué haces con el celular antes de dormir?",
       "options": [
         "Lo dejo lejos",
         "Lo reviso un rato",
@@ -803,7 +803,7 @@
       "slug": "dia-a-dia-como-gastas-primer-rato-libre",
       "type": "choice",
       "intensity": "ligera",
-      "text": "¿Cómo gastas el primer rato libre del día?",
+      "text": "¿En qué gastas tu primer rato libre del día?",
       "options": [
         "Escribo mensajes",
         "Voy al gimnasio",
@@ -908,10 +908,10 @@
       ]
     },
     {
-      "slug": "dia-a-dia-sientes-rindes-mas",
+      "slug": "dia-a-dia-parte-del-dia-no-puedes-mas",
       "type": "choice",
       "intensity": "profunda",
-      "text": "¿Cuándo sientes que te rindes más?",
+      "text": "¿En qué parte del día sientes que ya no puedes más?",
       "options": [
         "En la mañana",
         "En la tarde",
